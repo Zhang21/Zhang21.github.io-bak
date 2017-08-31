@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang21.github.io/"/>
-  <updated>2017-08-31T12:07:53.171Z</updated>
+  <updated>2017-08-31T12:10:30.443Z</updated>
   <id>https://zhang21.github.io/</id>
   
   <author>
@@ -16,28 +16,30 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>testing-tag</title>
     <link href="https://zhang21.github.io/2017/08/31/Test-tag/"/>
     <id>https://zhang21.github.io/2017/08/31/Test-tag/</id>
-    <published>2017-08-31T07:46:00.329Z</published>
-    <updated>2017-08-31T12:07:53.171Z</updated>
+    <published>2017-08-31T06:35:27.000Z</published>
+    <updated>2017-08-31T12:10:30.443Z</updated>
     
-    <content type="html"><![CDATA[<p>title: testing-tag<br>date: 2017-08-31 14:35:27<br>update:<br>tags: Tesging<br>categories: Test</p>
-<hr>
-<blockquote>
+    <content type="html"><![CDATA[<blockquote>
 <p>Just a testing-tag page</p>
 </blockquote>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;title: testing-tag&lt;br&gt;date: 2017-08-31 14:35:27&lt;br&gt;update:&lt;br&gt;tags: Tesging&lt;br&gt;categories: Test&lt;/p&gt;
-&lt;hr&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Just a testing-t
+      &lt;blockquote&gt;
+&lt;p&gt;Just a testing-tag page&lt;/p&gt;
+&lt;/blockquote&gt;
+
     
     </summary>
     
+      <category term="Test" scheme="https://zhang21.github.io/categories/Test/"/>
+    
+    
+      <category term="Tesging" scheme="https://zhang21.github.io/tags/Tesging/"/>
     
   </entry>
   
