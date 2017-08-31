@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang21.github.io/"/>
-  <updated>2017-08-31T07:49:16.767Z</updated>
+  <updated>2017-08-31T12:07:53.171Z</updated>
   <id>https://zhang21.github.io/</id>
   
   <author>
@@ -16,30 +16,28 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>testing-tag</title>
+    <title></title>
     <link href="https://zhang21.github.io/2017/08/31/Test-tag/"/>
     <id>https://zhang21.github.io/2017/08/31/Test-tag/</id>
     <published>2017-08-31T07:46:00.329Z</published>
-    <updated>2017-08-31T07:49:16.767Z</updated>
+    <updated>2017-08-31T12:07:53.171Z</updated>
     
-    <content type="html"><![CDATA[<blockquote>
+    <content type="html"><![CDATA[<p>title: testing-tag<br>date: 2017-08-31 14:35:27<br>update:<br>tags: Tesging<br>categories: Test</p>
+<hr>
+<blockquote>
 <p>Just a testing-tag page</p>
 </blockquote>
 ]]></content>
     
     <summary type="html">
     
-      &lt;blockquote&gt;
-&lt;p&gt;Just a testing-tag page&lt;/p&gt;
-&lt;/blockquote&gt;
-
+      &lt;p&gt;title: testing-tag&lt;br&gt;date: 2017-08-31 14:35:27&lt;br&gt;update:&lt;br&gt;tags: Tesging&lt;br&gt;categories: Test&lt;/p&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Just a testing-t
     
     </summary>
     
-    
-      <category term="Another tag" scheme="https://zhang21.github.io/tags/Another-tag/"/>
-    
-      <category term="Tesging" scheme="https://zhang21.github.io/tags/Tesging/"/>
     
   </entry>
   
@@ -48,23 +46,28 @@
     <link href="https://zhang21.github.io/2017/08/30/Test-My-Site/"/>
     <id>https://zhang21.github.io/2017/08/30/Test-My-Site/</id>
     <published>2017-08-30T08:02:43.000Z</published>
-    <updated>2017-08-31T07:49:11.959Z</updated>
+    <updated>2017-08-31T12:07:49.955Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Zhang21-test"><a href="#Zhang21-test" class="headerlink" title="Zhang21-test"></a>Zhang21-test</h2><p>$$\sideset{^1_2}{^3_4}A$$</p>
+    <content type="html"><![CDATA[<blockquote>
+<p>$$\sideset{^1_2}{^3_4}A$$</p>
 <p>$E=mc^2$</p>
+</blockquote>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;Zhang21-test&quot;&gt;&lt;a href=&quot;#Zhang21-test&quot; class=&quot;headerlink&quot; title=&quot;Zhang21-test&quot;&gt;&lt;/a&gt;Zhang21-test&lt;/h2&gt;&lt;p&gt;$$\sideset{^1_2}{^3_4}A$$&lt;/p&gt;
+      &lt;blockquote&gt;
+&lt;p&gt;$$\sideset{^1_2}{^3_4}A$$&lt;/p&gt;
+&lt;p&gt;$E=mc^2$&lt;/p&gt;
+&lt;/blockquote&gt;
 
     
     </summary>
     
+      <category term="Test" scheme="https://zhang21.github.io/categories/Test/"/>
+    
     
       <category term="Testing" scheme="https://zhang21.github.io/tags/Testing/"/>
-    
-      <category term="Another tag" scheme="https://zhang21.github.io/tags/Another-tag/"/>
     
   </entry>
   
