@@ -5,12 +5,12 @@
 > [Hexo官方文档](https://hexo.io/zh-cn/docs/index.html)
 > [NexT使用文档](http://theme-next.iissnan.com/getting-started.html)
 > [GitHub:hexo-theme-next](https://github.com/iissnan/hexo-theme-next)
-> [FaontAwsome图标](http://fontawesome.dashgame.com/)
+> [FaontAwsome图标](http://fontawesome.dashgame.com/)<br/>
 > [知乎专栏:利用GitHub+Hexo搭建个人网站](https://zhuanlan.zhihu.com/p/26625249)
 
 
 <br/>
-#### 关于
+####关于
 ***About [Hexo](https://hexo.io/zh-cn/)***
 > Hexo是一个快速、简介且高效的博客框架，由Node.js提供支持。
 > Hexo使用Markdown解析文章，在几秒内，即可利用靓丽的主题生成静态网页。
@@ -18,14 +18,14 @@
 
 <br/>
 ***About [GitHub](https://zh.wikipedia.org/wiki/GitHub)***
-> GitHub是一个通过git进行版本控制的源代码托管服务。
-> 安装Git后做一个SSH无秘钥认证，把公钥放在GitHub上，避免每次推送代码需要输入账号密码。
-> ```
-> git config --global user.name "GitHub-username"
-> git config --global user.email "GitHub-Email"
-> ssh-keygen -t rsa -C "GitHub-Email"
-> ```
-> 生成秘钥之后把公钥写入GitHub SSH Keys中。
+>GitHub是一个通过git进行版本控制的源代码托管服务。
+>安装Git后做一个SSH无秘钥认证，把公钥放在GitHub上，避免每次推送代码需要输入账号密码。
+>```
+>git config --global user.name "GitHub-username"
+>git config --global user.email "GitHub-Email"
+>ssh-keygen -t rsa -C "GitHub-Email"
+>```
+>生成秘钥之后把公钥写入GitHub SSH Keys中。
 
 <br/>
 ***About [Node.js](https://zh.wikipedia.org/wiki/Node.js)***
@@ -33,7 +33,6 @@
 > Node.js会包含环境变量和npm的安装。
 
 <br/>
-___
 #### 安装NexT主题
 > [NexT-github](https://github.com/iissnan/hexo-theme-next)
 > ```
@@ -63,7 +62,7 @@ ___
 > *其他menu都是一样的方法*
 
 ![](/images/menu.png "NexT-menu")
-
+![](/images/sidabar.png)
 <br/>
 **有关添加背景图片**
 将背景图片放置于 **blog/themes/next/source/images/bg.jpg**，建议图片都放置于此
