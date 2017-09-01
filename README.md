@@ -12,14 +12,14 @@
 <br/>
 #### 关于
 
-***About [Hexo](https://hexo.io/zh-cn/)***
+*** About [Hexo](https://hexo.io/zh-cn/) ***
 
 > Hexo是一个快速、简介且高效的博客框架，由Node.js提供支持。
 > Hexo使用Markdown解析文章，在几秒内，即可利用靓丽的主题生成静态网页。
 > 安装Hexo前需先装Node.js和Git，安装和配置详见各官方文档。
 
 <br/>
-***About [GitHub](https://zh.wikipedia.org/wiki/GitHub)***
+*** About [GitHub](https://zh.wikipedia.org/wiki/GitHub) ***
 
 >GitHub是一个通过git进行版本控制的源代码托管服务。
 >安装Git后做一个SSH无秘钥认证，把公钥放在GitHub上，避免每次推送代码需要输入账号密码。
@@ -32,7 +32,7 @@ ssh-keygen -t rsa -C "GitHub-Email"
 >生成秘钥之后把公钥写入GitHub SSH Keys中。
 
 <br/>
-***About [Node.js](https://zh.wikipedia.org/wiki/Node.js)***
+*** About [Node.js](https://zh.wikipedia.org/wiki/Node.js) ***
 
 > Node.js是一个能够在服务器端运行JavaScript的开放源代码、跨平台JavaScript运行环境。
 > Node.js会包含环境变量和npm的安装。
@@ -69,7 +69,6 @@ ssh-keygen -t rsa -C "GitHub-Email"
 > *其他menu都是一样的方法*
 
 ![](/images/menu.png "NexT-menu")
-![](/images/sidebar.png)
 
 <br/>
 **有关添加背景图片**
@@ -92,6 +91,7 @@ ssh-keygen -t rsa -C "GitHub-Email"
 参见 canvas 这个属性
 ```
 
+![](/images/sidebar.png)
 <br/>
 **有关加头像**
 
