@@ -112,8 +112,9 @@ social:
   GitHub: https://github.com/xxx || github
   Weibo: https://weibo.com/xxx || weibo
 ```
-关于国外的这些软件的图标在FontAwsome中都已经存在，但国内的某些应用(如微信、知乎、微博、  豆瓣等还需要在FontAwsome的 "标志" 上看看存在与否，以及图标对应的名称是什么。
-*支持的图标参考 [FontAwsome官网](http://fontawesome.dashgame.com/)*
+关于国外的这些软件的图标在FontAwsome中都已经存在，但国内的某些应用(如微信、知乎、微博、  豆瓣等还需要在FontAwsome的 "标志" 上看看存在与否，以及图标对应的名称是什么。<br>
+当然你也可以随意指定FontAwsome上外部链接的标志
+*支持的图标参考 [FontAwsome官网](http://fontawesome.dashgame.com/) *
 
 <br/>
 **有关插入网易云音乐链接**
