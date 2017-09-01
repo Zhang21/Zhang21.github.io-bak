@@ -1,16 +1,16 @@
-利用 Github :couple: Hexo 制作个人博客
+﻿利用 Github :couple: Hexo 制作个人博客
 ---
 #### 参考文档
 
-> [Hexo官方文档](https://hexo.io/zh-cn/docs/index.html)
-> [NexT使用文档](http://theme-next.iissnan.com/getting-started.html)
-> [GitHub:hexo-theme-next](https://github.com/iissnan/hexo-theme-next)
+> [Hexo官方文档](https://hexo.io/zh-cn/docs/index.html)<br/>
+> [NexT使用文档](http://theme-next.iissnan.com/getting-started.html)<br/>
+> [GitHub:hexo-theme-next](https://github.com/iissnan/hexo-theme-next)<br/>
 > [FaontAwsome图标](http://fontawesome.dashgame.com/)<br/>
 > [知乎专栏:利用GitHub+Hexo搭建个人网站](https://zhuanlan.zhihu.com/p/26625249)
 
 
 <br/>
-####关于
+#### 关于
 ***About [Hexo](https://hexo.io/zh-cn/)***
 > Hexo是一个快速、简介且高效的博客框架，由Node.js提供支持。
 > Hexo使用Markdown解析文章，在几秒内，即可利用靓丽的主题生成静态网页。
@@ -62,9 +62,11 @@
 > *其他menu都是一样的方法*
 
 ![](/images/menu.png "NexT-menu")
-![](/images/sidabar.png)
+![](/images/sidebar.png)
+
 <br/>
 **有关添加背景图片**
+
 将背景图片放置于 **blog/themes/next/source/images/bg.jpg**，建议图片都放置于此
 修改 **blog/themes/next/source/css/_custom/custom.styl**，在首部添加：
 ```
@@ -77,6 +79,7 @@
 
 <br/>
 **有关动态效果**
+
 在主题配置文件 _config.yml 中：
 ```
 参见 canvas 这个属性
@@ -84,6 +87,7 @@
 
 <br/>
 **有关加头像**
+
 在NexT主题配置文件 _config.yml中:
 ```
 avatar: /images/touxiang.png    #建议放在images目录下
@@ -93,6 +97,7 @@ avatar: /images/touxiang.png    #建议放在images目录下
 
 <br>
 **有关外部链接的标志**
+
 在NexT主题配置文件 _config.yml中:
 ```
 social:
@@ -105,6 +110,7 @@ social:
 
 <br/>
 **有关插入网易云音乐链接**
+
 选择一首歌，生成对应的 HTML 代码，注意是否自动播放，并将代码添加到:   /blog/themes/next/layout/_macro/sidabar.swig文件中
 `{% include '../_custom/sidebar.swig' %}代码上面`
 ![](/images/163music1.png)
@@ -112,15 +118,18 @@ social:
 
 <br/>
 **有关MathJax支持**
+
 修改主题配置 _config.yml 文件:
 `参考MathJax选项`
 
 <br/>
 **有关添加统计**
+
 我个人使用了推荐的 *不蒜子统计*
 
 <br/>
 **有关评论系统**
+
 我使用推荐的 *Disqus*
 
 
