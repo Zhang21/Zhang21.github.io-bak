@@ -152,21 +152,29 @@
     <link href="https://zhang21.github.io/2017/08/30/Test-My-Site/"/>
     <id>https://zhang21.github.io/2017/08/30/Test-My-Site/</id>
     <published>2017-08-30T08:02:43.000Z</published>
-    <updated>2017-09-01T09:49:30.716Z</updated>
+    <updated>2017-09-05T03:54:12.234Z</updated>
     
-    <content type="html"><![CDATA[<blockquote>
-<p>$$\sideset{^1_2}{^3_4}A$$</p>
-<p>$E=mc^2$</p>
+    <content type="html"><![CDATA[<ul>
+<li style="list-style: none"><input type="checkbox"> Monday</li>
+<li style="list-style: none"><input type="checkbox"> Tuesday</li>
+<li style="list-style: none"><input type="checkbox"> Wednesday</li>
+<li style="list-style: none"><input type="checkbox"> Thursday</li>
+<li style="list-style: none"><input type="checkbox"> Friday</li>
+<li style="list-style: none"><input type="checkbox"> Saturday</li>
+<li style="list-style: none"><input type="checkbox"> Sunday</li>
+</ul>
+<p><br></p>
+<blockquote>
+<p>$$\sideset{^1_2}{^3_4}A$$<br>$E=mc^2$</p>
 </blockquote>
 ]]></content>
     
     <summary type="html">
     
-      &lt;blockquote&gt;
-&lt;p&gt;$$\sideset{^1_2}{^3_4}A$$&lt;/p&gt;
-&lt;p&gt;$E=mc^2$&lt;/p&gt;
-&lt;/blockquote&gt;
-
+      &lt;ul&gt;
+&lt;li style=&quot;list-style: none&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; Monday&lt;/li&gt;
+&lt;li style=&quot;list-style: none&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; Tuesday&lt;/li&gt;
+&lt;li 
     
     </summary>
     
