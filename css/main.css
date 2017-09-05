@@ -1801,9 +1801,6 @@ pre .javascript .function {
 }
 .links-of-author {
   margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 .links-of-author a {
   display: inline-block;
@@ -1821,7 +1818,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #4e9fff;
+  background: #bb6cff;
 }
 .links-of-blogroll {
   font-size: 13px;

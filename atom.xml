@@ -31,6 +31,10 @@
     
     </summary>
     
+      <category term="Literature" scheme="https://zhang21.github.io/categories/Literature/"/>
+    
+    
+      <category term="王小波" scheme="https://zhang21.github.io/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/"/>
     
   </entry>
   
@@ -62,6 +66,10 @@
     
     </summary>
     
+      <category term="Literature" scheme="https://zhang21.github.io/categories/Literature/"/>
+    
+    
+      <category term="马尔克斯" scheme="https://zhang21.github.io/tags/%E9%A9%AC%E5%B0%94%E5%85%8B%E6%96%AF/"/>
     
   </entry>
   
@@ -70,10 +78,11 @@
     <link href="https://zhang21.github.io/2017/09/01/Markdown%E8%AF%AD%E6%B3%95/"/>
     <id>https://zhang21.github.io/2017/09/01/Markdown语法/</id>
     <published>2017-09-01T10:16:38.000Z</published>
-    <updated>2017-09-05T10:30:05.134Z</updated>
+    <updated>2017-09-05T10:34:43.048Z</updated>
     
     <content type="html"><![CDATA[<h2 id="关于Markdown"><a href="#关于Markdown" class="headerlink" title="关于Markdown"></a>关于Markdown</h2><p>Markdown 是一种轻量级标记语言。它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML(或者HTML)文档”。</p>
 <h3 id="参考文件"><a href="#参考文件" class="headerlink" title="参考文件"></a>参考文件</h3><p><strong><a href="https://zh.wikipedia.org/wiki/Markdown" target="_blank" rel="external">Markdown-wiki</a></strong><br><strong><a href="https://daringfireball.net/projects/markdown/" target="_blank" rel="external">Markdown官网</a></strong><br><strong><a href="https://markdown-zh.readthedocs.io/en/latest/" target="_blank" rel="external">Markdown中文文档</a></strong><br><strong><a href="http://itmyhome.com/markdown/article/extension/strikethrougn.html" target="_blank" rel="external">Markdown语法</a></strong></p>
+<a id="more"></a>
 <p><br></p>
 <h2 id="Markdown语法"><a href="#Markdown语法" class="headerlink" title="Markdown语法"></a>Markdown语法</h2><h3 id="段落与换行"><a href="#段落与换行" class="headerlink" title="段落与换行"></a>段落与换行</h3><ul>
 <li>段落的前后必须是空行<br>空行是指行内什么都没有，或者只有空白符（空格或制表符）<br>相邻两行文本，如果中间没有空行，会显示在一行中（换行符被转换为空格）</li>
@@ -256,7 +265,8 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;关于Markdown&quot;&gt;&lt;a href=&quot;#关于Markdown&quot; class=&quot;headerlink&quot; title=&quot;关于Markdown&quot;&gt;&lt;/a&gt;关于Markdown&lt;/h2&gt;&lt;p&gt;Markdown 是一种轻量级标记语言。它允许人们“使用易读易写的纯文本格式
+      &lt;h2 id=&quot;关于Markdown&quot;&gt;&lt;a href=&quot;#关于Markdown&quot; class=&quot;headerlink&quot; title=&quot;关于Markdown&quot;&gt;&lt;/a&gt;关于Markdown&lt;/h2&gt;&lt;p&gt;Markdown 是一种轻量级标记语言。它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML(或者HTML)文档”。&lt;/p&gt;
+&lt;h3 id=&quot;参考文件&quot;&gt;&lt;a href=&quot;#参考文件&quot; class=&quot;headerlink&quot; title=&quot;参考文件&quot;&gt;&lt;/a&gt;参考文件&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/Markdown&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Markdown-wiki&lt;/a&gt;&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;&lt;a href=&quot;https://daringfireball.net/projects/markdown/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Markdown官网&lt;/a&gt;&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;&lt;a href=&quot;https://markdown-zh.readthedocs.io/en/latest/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Markdown中文文档&lt;/a&gt;&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;&lt;a href=&quot;http://itmyhome.com/markdown/article/extension/strikethrougn.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Markdown语法&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
     
     </summary>
     
@@ -309,6 +319,10 @@
     
     </summary>
     
+      <category term="Databases" scheme="https://zhang21.github.io/categories/Databases/"/>
+    
+    
+      <category term="Nginx" scheme="https://zhang21.github.io/tags/Nginx/"/>
     
   </entry>
   
@@ -344,6 +358,10 @@
     
     </summary>
     
+      <category term="Test" scheme="https://zhang21.github.io/categories/Test/"/>
+    
+    
+      <category term="Testing" scheme="https://zhang21.github.io/tags/Testing/"/>
     
   </entry>
   
