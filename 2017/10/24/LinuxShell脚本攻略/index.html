@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Shell," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="小试牛刀简介1234567891011#bash(Bourne Again Shell)，shell环境使得用户能与操作系统的内核进行交互操作#!/bin/bash#date#descriptioncmd1; cmd2cmd3#sh /path/xx.sh#Bash还有一个历史记录文件 ~/.bash_history">
+<meta name="keywords" content="Shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LinuxShell脚本攻略">
+<meta property="og:url" content="https://zhang21.github.io/2017/10/24/LinuxShell脚本攻略/index.html">
+<meta property="og:site_name" content="Zhang21">
+<meta property="og:description" content="小试牛刀简介1234567891011#bash(Bourne Again Shell)，shell环境使得用户能与操作系统的内核进行交互操作#!/bin/bash#date#descriptioncmd1; cmd2cmd3#sh /path/xx.sh#Bash还有一个历史记录文件 ~/.bash_history">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-24T10:31:42.594Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LinuxShell脚本攻略">
+<meta name="twitter:description" content="小试牛刀简介1234567891011#bash(Bourne Again Shell)，shell环境使得用户能与操作系统的内核进行交互操作#!/bin/bash#date#descriptioncmd1; cmd2cmd3#sh /path/xx.sh#Bash还有一个历史记录文件 ~/.bash_history">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang21.github.io/2017/10/24/LinuxShell脚本攻略/"/>
+
+
+
+
+
+  <title>LinuxShell脚本攻略 | Zhang21</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zhang21</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Like the word melancholy</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2017/10/24/LinuxShell脚本攻略/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang21">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhang21">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LinuxShell脚本攻略</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-24T18:16:38+08:00">
+                2017-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/24/LinuxShell脚本攻略/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/10/24/LinuxShell脚本攻略/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="小试牛刀"><a href="#小试牛刀" class="headerlink" title="小试牛刀"></a>小试牛刀</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#bash(Bourne Again Shell)，shell环境使得用户能与操作系统的内核进行交互操作</span></div><div class="line"></div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="comment">#date</span></div><div class="line"><span class="comment">#description</span></div><div class="line"></div><div class="line">cmd1; cmd2</div><div class="line">cmd3</div><div class="line"></div><div class="line"><span class="comment">#sh /path/xx.sh</span></div><div class="line"><span class="comment">#Bash还有一个历史记录文件 ~/.bash_history</span></div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><br></p>
+<h2 id="终端打印"><a href="#终端打印" class="headerlink" title="终端打印"></a>终端打印</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">#终端作为交互式工具，用户可以通过它与shell环境进行交互</div><div class="line"></div><div class="line">echo &apos;$var&apos;</div><div class="line">echo $var</div><div class="line">echo -e &quot;1\t2\t3&quot;</div><div class="line">echo -e &apos;\e[1;31m Red color \e[0m&apos;    #彩色</div><div class="line"></div><div class="line">echo &#123;1..10&#125;		#输出1到10</div><div class="line">echo &#123;A..H&#125;		#for i in &#123;a..z&#125;</div><div class="line"></div><div class="line">cat &lt;&lt; EOF</div><div class="line">11</div><div class="line">22</div><div class="line">33</div><div class="line">EOF</div><div class="line"></div><div class="line"># \转义字符</div><div class="line">printf &quot;%-5s %-10s $-4.2f\n&quot; 001 Zhang 56.789</div><div class="line">#格式替代符%s %d %c %f, -左对齐</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="玩转变量和环境变量"><a href="#玩转变量和环境变量" class="headerlink" title="玩转变量和环境变量"></a>玩转变量和环境变量</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#Bash中，每一个变量默认值值都是字符串形式</span></div><div class="line"><span class="comment">#环境变量和自定义变量</span></div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="variable">$SHELL</span></div><div class="line"><span class="built_in">echo</span> <span class="variable">$UID</span></div><div class="line"></div><div class="line">var=value	<span class="comment">#这是赋值</span></div><div class="line"><span class="comment">#var = value这是相等操作</span></div><div class="line"><span class="built_in">echo</span> <span class="variable">$var</span></div><div class="line"><span class="built_in">echo</span> <span class="variable">$&#123;var&#125;</span></div><div class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#var&#125;</span>	<span class="comment">#字符数</span></div><div class="line"></div><div class="line"><span class="comment">#export用来设置环境变量，此后，任何shell中的程序都会继承环境变量</span></div><div class="line">ZHANG=Gentleman</div><div class="line"><span class="built_in">export</span> ZHANG</div><div class="line"></div><div class="line">PATH=<span class="string">"<span class="variable">$PATH</span>:/home/zhang/bin"</span></div><div class="line"><span class="built_in">export</span> <span class="variable">$PATH</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="通过shell进行数学运算"><a href="#通过shell进行数学运算" class="headerlink" title="通过shell进行数学运算"></a>通过shell进行数学运算</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#let, expr, bc, [], (())</span></div><div class="line"><span class="comment">#要注意默认是字符串类型哦</span></div><div class="line"></div><div class="line">n1=1;n2=2</div><div class="line"><span class="built_in">let</span> sum=n1+n2</div><div class="line"><span class="built_in">let</span> n1++;<span class="built_in">let</span> n2-=1</div><div class="line"></div><div class="line">sum=$[ n1 + n2 ]</div><div class="line">sum2=$(( sum + 3 ))</div><div class="line"></div><div class="line">sum=`expr 3 + 4`</div><div class="line"></div><div class="line"><span class="comment">#浮点计算 bc</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"8 * 1.1"</span> | bc</div><div class="line"></div><div class="line"><span class="comment">#设置小数点精度</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"scale=2; 3/8"</span> | bc</div><div class="line"></div><div class="line"><span class="comment">#进制转换</span></div><div class="line">num=100</div><div class="line"><span class="built_in">echo</span> <span class="string">"obase=2; <span class="variable">$num</span>"</span> | bc</div><div class="line"></div><div class="line">num=1100100</div><div class="line"><span class="built_in">echo</span> <span class="string">"obase=10; ibase=2; <span class="variable">$num</span>"</span> | bc</div><div class="line"></div><div class="line"><span class="comment">#平方和平方根</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"sqrt(100)"</span> | bc</div><div class="line"><span class="built_in">echo</span> <span class="string">"10^2"</span> | bc</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="文件描述符合重定向"><a href="#文件描述符合重定向" class="headerlink" title="文件描述符合重定向"></a>文件描述符合重定向</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#最常用的文件描述符是 stdin(0), stdout(1), stderr(2); 通过内容过滤将输出重定向到文件</span></div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"This is a sample text 1"</span> &gt; temp.txt	<span class="comment">#覆盖</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"This is sample text 2"</span> &gt;&gt; temp.txt	<span class="comment">#追加</span></div><div class="line"></div><div class="line">ls + &gt;stdout.txt 2&gt;stderr.txt</div><div class="line">cmd 2&gt;&amp;1 /dev/null  == com &amp;&gt; /dev/null		<span class="comment">#null设备也被称为黑洞</span></div><div class="line"></div><div class="line"><span class="comment">#当一个command发生错误并退回时，它会返回一个非0的状态码</span></div><div class="line"><span class="built_in">echo</span> $?</div><div class="line"></div><div class="line"><span class="comment">#tee命令，一方面可将数据重定向到文件，另一方面还可提供一份重定向数据的副本作为后续命令的stdin</span></div><div class="line"><span class="comment">#tee默认覆盖文件，-a选项追加</span></div><div class="line">cat temp.txt | tee tee.txt | cat -n</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="数组和关联数组"><a href="#数组和关联数组" class="headerlink" title="数组和关联数组"></a>数组和关联数组</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#数组借助索引将多个独立的数据存储为一个集合</span></div><div class="line"><span class="comment">#普通数组只能使用整数作为数组索引，而关联数组可以使用字符串作为数组索引</span></div><div class="line"><span class="comment">#还可将数组定义成一组索引-值(index-value)</span></div><div class="line"></div><div class="line">arr=(1 two 3 four 5)</div><div class="line"><span class="built_in">echo</span> <span class="variable">$&#123;arr[0]&#125;</span></div><div class="line">arr[0]=One</div><div class="line"></div><div class="line">index=3</div><div class="line"><span class="built_in">echo</span> $&#123;arr[<span class="variable">$index</span>]		<span class="comment">#arr[3]</span></div><div class="line"><span class="built_in">echo</span> <span class="variable">$&#123;arr[*]&#125;</span></div><div class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#arr[*]&#125;</span>		<span class="comment">#arr-length</span></div><div class="line"></div><div class="line"><span class="comment">#关联数组可用任意文本作为数组索引</span></div><div class="line"><span class="built_in">declare</span> -A ass_arr</div><div class="line">ass_arr=([index1]=val1 [index2]=val2 ...)	<span class="comment">#内嵌索引-值</span></div><div class="line">ass_arr[index3]=val3	<span class="comment">#独立索引-值</span></div><div class="line"><span class="built_in">echo</span> <span class="variable">$&#123;!ass_arr[*]&#125;</span>		<span class="comment">#列出数组索引</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#alias作用是暂时的，关闭终端后别名就失效；</span></div><div class="line"><span class="comment">#为使别名一直保持，可将其写入 ~/.bashrc，因为每一个新的shell都会执行~/.bashrc中的命令</span></div><div class="line"><span class="comment">#新设置的别名将取代已有别名</span></div><div class="line"></div><div class="line"><span class="built_in">alias</span> vi=vim; <span class="built_in">unalias</span> vi</div><div class="line"><span class="built_in">echo</span> <span class="string">"alias ll='ls -l --color=auto'"</span> &gt;&gt; ~/.bashrc</div><div class="line"></div><div class="line"><span class="comment">#\对别名命令进行转义，执行原本的命令。避免攻击者利用别名将某些特权命令替换成别有用心的命令</span></div><div class="line">\vi test.sh</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="获取、设置日期和延时"><a href="#获取、设置日期和延时" class="headerlink" title="获取、设置日期和延时"></a>获取、设置日期和延时</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#很多应用程序需要以不同的格式打印日期，设置日期和时间，以及根据日期和时间执行操作;</div><div class="line">#延时通常用于在程序执行过程中提供一段等待时间;</div><div class="line">#在Unix-like系统中，日期被存储为一个整数，其大小为世界标准时间1970年1月1日0时0分0秒起所流逝的秒数；</div><div class="line">#这种计时方式被称之为 纪元时或Unix时间；</div><div class="line">#通过纪元时间，可知道两个日期之间相隔了多少秒</div><div class="line">#编写以循环方式运行的监视脚本时，设置时间间隔是必不可少的</div><div class="line"></div><div class="line">date +%s</div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">start=$(date +%s)</div><div class="line">commands</div><div class="line">sleep 1</div><div class="line">end=$(date +%s)</div><div class="line">diff=$((end - start))</div><div class="line">echo &quot;$diff seconds&quot;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="调试脚本"><a href="#调试脚本" class="headerlink" title="调试脚本"></a>调试脚本</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#调试功能能在出现一些异常情况时生成运行信息</div><div class="line"></div><div class="line">#!/bin/bash -xv</div><div class="line">sh -x</div><div class="line">sh -n</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="函数和参数"><a href="#函数和参数" class="headerlink" title="函数和参数"></a>函数和参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function fname()</div><div class="line">&#123;</div><div class="line">statements</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">fname()</div><div class="line">&#123;</div><div class="line">echo $1, $2		#访问第参数1和参数2,$n第n个参数</div><div class="line">echo &quot;$@&quot;		#以列表的形式一次性打印所有参数</div><div class="line">echo &quot;$*&quot;		#类似于$@，但参数被作为单个实体</div><div class="line">return 0		#f返回值</div><div class="line">&#125;</div><div class="line">fname 1 22 333	#返回上面定义的变量</div><div class="line"></div><div class="line"></div><div class="line">#递归函数，能够调用自身，不断地生成新的进程，最终会造成xx</div><div class="line">#导出函数，使用export导出，这样函数作用域就可以扩展到子进程</div><div class="line">export -f fname</div><div class="line">#读取命令返回值</div><div class="line">echo $?</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="读取命令序列输出"><a href="#读取命令序列输出" class="headerlink" title="读取命令序列输出"></a>读取命令序列输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#输入通常是stdin，输出stderr或stdout,这些命令称为 过滤器(filter)。我们使用 管道(pipe) 来连接每一个过滤器</div><div class="line">cmd1 | cmd2 | cmd3</div><div class="line"></div><div class="line">#子shell，子shell生成独立的进程，不会对当前shell有任何影响，所做改变仅限于子shell内</div><div class="line">zhang=$(ls | cat -n)</div><div class="line">#反引用</div><div class="line">zhang=`ls | cat -n`</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="读取字符"><a href="#读取字符" class="headerlink" title="读取字符"></a>读取字符</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#read是一个重要的从标准输入中读取文本的命令</div><div class="line">#可以使用read以交互的形式来读取用户的输入</div><div class="line"></div><div class="line">read -n 5 zhang		#读取字符数</div><div class="line">echo $zhang</div><div class="line"></div><div class="line">read -s passwd		#不回显</div><div class="line">echo $passwd</div><div class="line"></div><div class="line">read -t 5 zhang		#超时时间</div><div class="line">echo $zhang</div><div class="line"></div><div class="line">read -p zhang		#显示提示信息</div><div class="line">echo $zhang</div><div class="line"></div><div class="line">read -d &quot;:&quot; zhang		#定界符结束输入</div><div class="line">123：</div><div class="line">echo $zhang</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="字段分隔符和迭代器"><a href="#字段分隔符和迭代器" class="headerlink" title="字段分隔符和迭代器"></a>字段分隔符和迭代器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">#内部字段分隔符(Internal Field Separator, IFS)是shell中的一个重要概念</div><div class="line">#IFS的默认值为空白字符(换行符、制表符、空格)</div><div class="line">awk -F: &apos;&#123;print $1,$3&#125;&apos; /etc/passwd		#IFS=&quot;:&quot;</div><div class="line"></div><div class="line">#对一些列值进行迭代，循环非常有用</div><div class="line">for i in &#123;1..10&#125;</div><div class="line">do</div><div class="line">cmd</div><div class="line">done</div><div class="line"></div><div class="line">while condition</div><div class="line">do</div><div class="line">cmd</div><div class="line">done</div><div class="line"></div><div class="line">until condition</div><div class="line">do</div><div class="line">cmd</div><div class="line">done</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="比较与测试"><a href="#比较与测试" class="headerlink" title="比较与测试"></a>比较与测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">#程序中的流程控制是由比较和测试语句来处理的</div><div class="line">if condition1 || condition2</div><div class="line">then</div><div class="line">	cmd1</div><div class="line">elif condition3 &amp;&amp; condition4</div><div class="line">then</div><div class="line">	cmd2</div><div class="line">else</div><div class="line">	cmd3</div><div class="line">fi</div><div class="line"></div><div class="line">#算术比较</div><div class="line">if [ $num -ge 10 -a $num -lt 20 ]</div><div class="line"></div><div class="line">-eq</div><div class="line">-gt</div><div class="line">-ge</div><div class="line">-lt</div><div class="line">-le</div><div class="line">-a</div><div class="line">-o</div><div class="line"></div><div class="line">#文件系统相关</div><div class="line">if [ -f $file1 -o -x $file2]</div><div class="line"></div><div class="line">-x</div><div class="line">-w</div><div class="line">-r</div><div class="line">-f</div><div class="line">-d</div><div class="line">-e</div><div class="line">-b		#block</div><div class="line">-l</div><div class="line"></div><div class="line">#字符串比较</div><div class="line">[[ $str1 = $str2]]</div><div class="line"></div><div class="line">=		#=号旁有空格--是比较关系；=号旁没空格，是赋值语句</div><div class="line">!=</div><div class="line">&gt;</div><div class="line">&lt;</div><div class="line">-z		#空字符</div><div class="line">-n		#非空字符</div><div class="line"></div><div class="line">#使用test命令来执行条件检测</div><div class="line">if [ $num -eq 0 ]  -- if test $num -eq 0</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h1 id="命令之乐"><a href="#命令之乐" class="headerlink" title="命令之乐"></a>命令之乐</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Shell/" rel="tag"># Shell</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/13/song/" rel="next" title="歌词摘抄">
+                <i class="fa fa-chevron-left"></i> 歌词摘抄
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/touxiang.jpg"
+              alt="Zhang21" />
+          
+            <p class="site-author-name" itemprop="name">Zhang21</p>
+            <p class="site-description motion-element" itemprop="description">I like for you to be still</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f13278e94ecb" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-circle-o"></i>简书</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Zhang21" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:elite_zhang21@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/Zhang21_" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+<br>
+<!--�����������������ⲿ����,auto=1��ʾ�Զ�����-->
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=411315632&auto=0&height=66"></iframe>
+
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#小试牛刀"><span class="nav-number">1.</span> <span class="nav-text">小试牛刀</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#终端打印"><span class="nav-number">1.2.</span> <span class="nav-text">终端打印</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#玩转变量和环境变量"><span class="nav-number">1.3.</span> <span class="nav-text">玩转变量和环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过shell进行数学运算"><span class="nav-number">1.4.</span> <span class="nav-text">通过shell进行数学运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件描述符合重定向"><span class="nav-number">1.5.</span> <span class="nav-text">文件描述符合重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组和关联数组"><span class="nav-number">1.6.</span> <span class="nav-text">数组和关联数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#别名"><span class="nav-number">1.7.</span> <span class="nav-text">别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取、设置日期和延时"><span class="nav-number">1.8.</span> <span class="nav-text">获取、设置日期和延时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调试脚本"><span class="nav-number">1.9.</span> <span class="nav-text">调试脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数和参数"><span class="nav-number">1.10.</span> <span class="nav-text">函数和参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取命令序列输出"><span class="nav-number">1.11.</span> <span class="nav-text">读取命令序列输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取字符"><span class="nav-number">1.12.</span> <span class="nav-text">读取字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段分隔符和迭代器"><span class="nav-number">1.13.</span> <span class="nav-text">字段分隔符和迭代器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较与测试"><span class="nav-number">1.14.</span> <span class="nav-text">比较与测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令之乐"><span class="nav-number">2.</span> <span class="nav-text">命令之乐</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang21</span>
+
+<!--字数统计-->
+  <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> 字数: 7.0k</span>
+</div>
+
+
+  
+</div>
+
+
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Zhang21.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://zhang21.github.io/2017/10/24/LinuxShell脚本攻略/';
+          this.page.identifier = '2017/10/24/LinuxShell脚本攻略/';
+          this.page.title = 'LinuxShell脚本攻略';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Zhang21.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
