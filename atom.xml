@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang21.github.io/"/>
-  <updated>2017-10-31T08:32:21.305Z</updated>
+  <updated>2017-11-03T07:13:55.236Z</updated>
   <id>https://zhang21.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://zhang21.github.io/2017/10/24/LinuxShell%E8%84%9A%E6%9C%AC%E6%94%BB%E7%95%A5/"/>
     <id>https://zhang21.github.io/2017/10/24/LinuxShell脚本攻略/</id>
     <published>2017-10-24T10:16:38.000Z</published>
-    <updated>2017-10-31T08:32:21.305Z</updated>
+    <updated>2017-11-03T07:13:55.236Z</updated>
     
     <content type="html"><![CDATA[<h1 id="小试牛刀"><a href="#小试牛刀" class="headerlink" title="小试牛刀"></a>小试牛刀</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#bash(Bourne Again Shell)，shell环境使得用户能与操作系统的内核进行交互操作</span></div><div class="line"></div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="comment">#date</span></div><div class="line"><span class="comment">#description</span></div><div class="line"></div><div class="line">cmd1; cmd2</div><div class="line">cmd3</div><div class="line"></div><div class="line"><span class="comment">#sh /path/xx.sh</span></div><div class="line"><span class="comment">#Bash还有一个历史记录文件 ~/.bash_history</span></div></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -115,7 +115,210 @@
 <h2 id="统计文件的行数、单词数、字符数"><a href="#统计文件的行数、单词数、字符数" class="headerlink" title="统计文件的行数、单词数、字符数"></a>统计文件的行数、单词数、字符数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#wc(word count)，是一个统计工具</div><div class="line">wc -l file1	#统计行数</div><div class="line">wc -w file1	#统计单词数</div><div class="line">wc -c file	#统计字符数</div><div class="line">wc -L file	#打印最长行长度</div><div class="line">wc file1	#行、单词、字符数</div></pre></td></tr></table></figure>
 <p><br></p>
 <h2 id="目录树"><a href="#目录树" class="headerlink" title="目录树"></a>目录树</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#tree命令是以图形化的树状结构打印文件和目录,在Linux发行版中默认未安装</div><div class="line">yum install -y tree</div><div class="line">tree /home/zhang</div><div class="line">tree /home/zhang -P &quot;*.sh&quot;	#只标记出.sh文件</div><div class="line">tree /home/zhang -I &quot;*.sh&quot;	#标记出除.sh文件外所有文件</div><div class="line">tree /home/zhang -h	#显示大小</div><div class="line"></div><div class="line">tree /home/zhang -H http://localhost -o tree.html	#以html形式输出目录树</div></pre></td></tr></table></figure>
-]]></content>
+<p><br><br><br></p>
+<h1 id="让文本飞"><a href="#让文本飞" class="headerlink" title="让文本飞"></a>让文本飞</h1><h2 id="简介-3"><a href="#简介-3" class="headerlink" title="简介"></a>简介</h2><p>shell脚本可以将<code>sed</code>, <code>awk</code>, <code>grep</code>, <code>cut</code>等这类优美的工具组合在一起，用于解决文本处理相关问题。</p>
+<p><br></p>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>正则表达式是一种用于文本匹配的形式小巧、具有高度针对性的编程语言。只依靠通配符技术，能够匹配的文本范围相当有限。<br></p>
+<p><strong>正则表达式基本组成</strong></p>
+<table>
+<thead>
+<tr>
+<th>正则表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^</td>
+<td>行起始标记</td>
+</tr>
+<tr>
+<td>$</td>
+<td>行尾标记</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配任意一个字符</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>匹配包含在[]中的任意一个字符</td>
+</tr>
+<tr>
+<td>[^]</td>
+<td>匹配出[^]之外任意一个字符</td>
+</tr>
+<tr>
+<td>[-]</td>
+<td>匹配[]中范围内的任意一个字符</td>
+</tr>
+<tr>
+<td>？</td>
+<td>重复0或1次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>重复&gt;=1次</td>
+</tr>
+<tr>
+<td>*</td>
+<td>重复&gt;=0次</td>
+</tr>
+<tr>
+<td>()</td>
+<td>创建一个用于匹配的子串</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>重复n次</td>
+</tr>
+<tr>
+<td>{n, }</td>
+<td>重复&gt;=n次</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>重复n到m次</td>
+</tr>
+<tr>
+<td>\</td>
+<td>转义字符</td>
+</tr>
+<tr>
+<td>竖线l</td>
+<td>匹配竖线l两边任意一项</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><strong>POSIX字符类</strong></p>
+<p>POSIX字符类(POSIX character class),是一个形如[:…:]的特殊元序列，它用于匹配特定的字符范围。<br></p>
+<table>
+<thead>
+<tr>
+<th>正则表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[:alnum:]</td>
+<td>字母与数字字符</td>
+</tr>
+<tr>
+<td>[:alpha:]</td>
+<td>字母字符</td>
+</tr>
+<tr>
+<td>[:blank:]</td>
+<td>空格与制表符</td>
+</tr>
+<tr>
+<td>[:digit:]</td>
+<td>数字字符</td>
+</tr>
+<tr>
+<td>[:lower:]</td>
+<td>小写字母</td>
+</tr>
+<tr>
+<td>[:upper:]</td>
+<td>大写字母</td>
+</tr>
+<tr>
+<td>[:punct:]</td>
+<td>标点符号</td>
+</tr>
+<tr>
+<td>[:space:]</td>
+<td>所有空白字符</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><strong>元字符</strong></p>
+<p>元字符(meta character)，是一种Perl风格的正则表达式，只有一部分文本处理工具支持它。<br></p>
+<table>
+<thead>
+<tr>
+<th>正则表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\b</td>
+<td>单词边界</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>非单词边界</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>单个数字字符</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>单个非数字字符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>单个单词字符(数字，字母和_)</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>单个非单词字符</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>单个空白字符</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>单个非空白字符</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行符</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#匹配一个ipv4地址</div><div class="line">[0-9]&#123;1,3&#125;\.[0-9]&#123;1,3&#125;\.[0-9]&#123;1,3&#125;\.[0-9]&#123;1,3&#125;</div><div class="line"></div><div class="line">#匹配一个邮箱地址</div><div class="line">[\w]+@[\w]\.com</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="用grep在文件中搜索文本"><a href="#用grep在文件中搜索文本" class="headerlink" title="用grep在文件中搜索文本"></a>用grep在文件中搜索文本</h2><p><code>grep</code>命令是Unix中用于文本搜索的工具，它能够接受正则表达式和通配符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">grep &quot;匹配文本/通配符&quot; file1 file2... --color=auto	#重点标记匹配</div><div class="line">grep -E &quot;正则表达式&quot; file</div><div class="line">egrep &quot;正则&quot; file</div><div class="line"></div><div class="line">grep -v	#反向匹配</div><div class="line">grep -c	#统计匹配行数</div><div class="line">grep -n	#打印出匹配的行号</div><div class="line">grep -o	#唯一匹配</div><div class="line">grep -l	&quot;匹配&quot; file1 file2	#返回匹配的文件名</div><div class="line">grep -R	#递归匹配</div><div class="line">grep -i	#忽略大小写</div><div class="line">grep -e &quot;匹配1&quot; -e &quot;匹配2&quot;	#匹配多个样式</div><div class="line">grep -f match.txt file1	#从match.txt文件读取匹配</div><div class="line">grep &quot;匹配&quot; --include=*.&#123;sh,txt&#125; --exclude=*.log --exclude-dir=/home/user -r /home	#包括或排除文件</div><div class="line">-A/-B n	#输出匹配 之后/之前 n行</div><div class="line">-c n	#输出匹配 前后 n行</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="用cut按列切分文件"><a href="#用cut按列切分文件" class="headerlink" title="用cut按列切分文件"></a>用cut按列切分文件</h2><p><code>cut</code>是一个将文本按列进行切分的小工具，它也可以指定每列定界符。在cut的术语中，每列都是一个字段。<br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#制表符&apos;\t&apos; 是cut默认的定界符</div><div class="line">cut -d&apos; &apos; -f1 1.txt	#-d指定分隔符，-f打印第几个字段</div><div class="line">cut -f1,2,3	#打印1,2，3列</div><div class="line">-c字符；	-b字节；</div><div class="line">cut -c 1-5 1.txt	#打印1-5字符</div><div class="line">cut -c -2 1.txt	#打印前2个字符</div><div class="line">cut -c 3-	#打印第3个字符到行尾</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="统计特定文件词频"><a href="#统计特定文件词频" class="headerlink" title="统计特定文件词频"></a>统计特定文件词频</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#单词解析可以用 关联数组,正则表达式配合sed,awk,grep等工具来完成</div><div class="line">#关联数组中，将单词作为数组索引，单词次数作为数组值</div><div class="line">egrep -o &quot;\b[:alpha:]+\b&quot;	#匹配单词</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="sed入门"><a href="#sed入门" class="headerlink" title="sed入门"></a>sed入门</h2><p><code>sed</code>是stream editor(流编辑器)的缩写，它是文本处理中非常重要的工具。能够完美地配合正则表达式使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">#sed - stream editor for filtering and transforming text</div><div class="line">#字符/在sed中最为定界符使用</div><div class="line"></div><div class="line">#替换</div><div class="line">#sed &apos;s/匹配样式/替代字符串/&apos;</div><div class="line">sed &apos;s/pattern/repalce/&apos; file	#替换</div><div class="line">sed -i &apos;s/pattern/repalce/&apos; file	#将替换应用于file</div><div class="line"></div><div class="line">echo &quot;1.txt&quot; &gt; 1.txt &amp;&amp; sed &apos;s/txt/haha&apos; 1.txt	#在输出中用haha替换txt</div><div class="line">sed -i &apos;s/txt/haha/&apos; 1.txt	#将1.txt文件中的txt用haha替换掉</div><div class="line">#-i选项替换原文件</div><div class="line"></div><div class="line">echo &quot;hahaha&quot; | sed &apos;s/ha/HA/g&apos;	#全部替换</div><div class="line">echo &quot;hahaha&quot;	| sed &apos;s/ha/HA/2g&apos;	#指定位置替换，从第2处开替换全局</div><div class="line"></div><div class="line">#移除匹配样式的行</div><div class="line">sed &apos;/pattern/d</div><div class="line">sed &apos;/^$/d&apos;	##移除空白行</div><div class="line"></div><div class="line">#在sed中用&amp;标记已匹配字符串</div><div class="line">echo &quot;A wonderful goal&quot; | sed &apos;s/\w\+/[&amp;]/g&apos;	#\w\+匹配每一个单词</div><div class="line"></div><div class="line">#子串匹配标记\1,\2...</div><div class="line">echo &quot;1st 2nd 3rd&quot; | sed &apos;s/\(\w\+\) \(\w\+\) \(\w\+\)/\2 \1 \3/&apos;</div><div class="line">2nd 1st 3rd</div><div class="line">#将\2和\1交换次序，(),+等在sed中要转义，否则要报错</div><div class="line"></div><div class="line">#组合多个表达式</div><div class="line">sed &apos;expression1; expression2; ...</div><div class="line">echo &quot;aabbcc&quot; | sed &apos;s/a/A/; s/b/B/; s/c/C/g&apos;</div><div class="line">AaBbCC</div><div class="line"></div><div class="line">#双引号 &quot; &quot; 内的特殊符号（如$等），可以保有原本的特性</div><div class="line">#单引号 &apos; &apos; 内的特殊字符则仅为一般字符（纯文本）</div><div class="line">#引用</div><div class="line">text=hello</div><div class="line">echo &apos;hello world&apos; | sed &quot;s/$text/HELLO/&quot;</div><div class="line">HELLO world</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="awk入门"><a href="#awk入门" class="headerlink" title="awk入门"></a>awk入门</h2><p><code>awk</code>被设计用于数据流，它可以对列和行进行操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">#awk ‘begin&#123;print &quot;start&quot;&#125; pattern &#123;command&#125; end&#123;print &quot;end&quot;&#125;’ file</div><div class="line">awk &apos;&#123;sum += $1&#125;; &#123;print sum&#125;&apos;</div><div class="line">#awk脚本由:begin块、end块和能使用模式(pattern)匹配的通用语句块 组成</div><div class="line">#3个部分都是可选的</div><div class="line">#awk也可以从stdin中读取内容</div><div class="line">cat /etc/passwd | awk -F: &apos;&#123;print $1&#125;&apos;	#-F指定界定符</div><div class="line"></div><div class="line">#awk中的特殊变量</div><div class="line">#NR：记录数量(number of records)，对应于当前行号</div><div class="line">#NF：字段数量(number of fields)，对应于当前行的字段数</div><div class="line">#$0：执行过程中当前行的文本内容</div><div class="line">#$1,$2...$NF：第1个/2个.../最后一个 字段的内容</div><div class="line">echo -e &quot;L1 1\nL2 22\nL3 333&quot; | awk &apos;&#123;print NR NF $0 $1 $2&#125;&apos;</div><div class="line"># NR NF $0    $1  $2 $NF=最后一个=$2</div><div class="line">  1  2  L1 1  L1  1  1</div><div class="line">  2  2  L2 2  L2  2  2</div><div class="line">  3  2  L3 3  L3  3  3</div><div class="line"></div><div class="line">#将外部变量传递给awk</div><div class="line">#-v选项可将外部值传递给awk</div><div class="line">#  -v var=val  --assign=var=val</div><div class="line">var=&apos;12345&apos;</div><div class="line">echo | awk -v v1=$var &apos;&#123;print v1&#125;&apos;</div><div class="line">#多个变量</div><div class="line">var1=111; var2=222</div><div class="line">echo | awk &apos;&#123;print v1,v2&#125;&apos; v1=$var1 v2=$var2</div><div class="line">#变量来自文件而非标准输入</div><div class="line">awk &apos;&#123;print v1,v2&#125;&apos; v1=$var1 v2=$var2 file</div><div class="line"></div><div class="line">#用样式对awk进行过滤处理</div><div class="line">awk &apos;NR &lt; 3,NR==4&apos; 1.txt	#行号&lt;5的行</div><div class="line">awk &apos;/linux/&apos; 1.txt	#匹配带有linux的行（可用re）</div><div class="line">awk &apos;!/linux/&apos; 1.txt #!匹配不带linux的行</div><div class="line"></div><div class="line">#设置定界符</div><div class="line">awk -F: &apos;&#123;print $1&#125;&apos; /etc/passwd</div><div class="line">awk &apos;&#123;FS=&quot;:&quot;&#125; &#123;print $1&#125;&apos; /etc/passwd</div><div class="line">awk &apos;&#123;FS=&quot;:&quot;; print $1&#125;&apos; /etc/passwd</div><div class="line"></div><div class="line">#从awk中读取命令输出，用getline读取行</div><div class="line">echo | awk &apos;&#123;&quot;grep root /etc/passwd&quot; | getlin out; print out&#125;&apos;</div><div class="line">root:x:0:0:root:/root:/bin/bash</div><div class="line"></div><div class="line">#在awk中使用循环</div><div class="line">awk &apos;&#123;for(i=1;i&lt;4;i++) &#123;print $i&#125;&#125;&apos; 2.txt	#输出第1,2,3列</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="对文件中的行、单词、字符进行迭代"><a href="#对文件中的行、单词、字符进行迭代" class="headerlink" title="对文件中的行、单词、字符进行迭代"></a>对文件中的行、单词、字符进行迭代</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">#迭代文件中的每一行</div><div class="line">echo -e &quot;1\n22\n333&quot; | while read line;do echo $line;done</div><div class="line">grep &quot;bash&quot; /etc/passwd | while read line;do echo $line;done</div><div class="line">#1</div><div class="line">#22</div><div class="line">#333</div><div class="line"></div><div class="line">#迭代一行中的每一个单词</div><div class="line">echo &quot;1 22 333&quot; | while read line;do for word in $line;do echo $word;done;done</div><div class="line">#1</div><div class="line">#22</div><div class="line">#333</div><div class="line"></div><div class="line">#迭代一个单词中的每一个字符</div><div class="line">echo &quot;abc&quot; | while read line;</div><div class="line">do</div><div class="line">	for word in $line;</div><div class="line">	do</div><div class="line">    	for((i=0;i&lt;$&#123;#word&#125;;i++));</div><div class="line">		do</div><div class="line">        	echo $&#123;word:i:1&#125;;</div><div class="line">		done;</div><div class="line">	done;</div><div class="line">done</div><div class="line">#写成一行</div><div class="line">echo &quot;abc&quot; | while read line; do for word in $line; do for((i=0;i&lt;$&#123;#word&#125;;i++)); do echo $&#123;word:i:1&#125;; done; done; done</div><div class="line">#a</div><div class="line">#b</div><div class="line">#c</div><div class="line">#$&#123;#word&#125;返回变量word的长度</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="按列合并文件"><a href="#按列合并文件" class="headerlink" title="按列合并文件"></a>按列合并文件</h2><p>可以使用<code>paste</code>命令实现列拼接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#paste - merge(整合) lines of files</div><div class="line">echo -e  &quot;1\n2\n3&quot; &gt; 1.txt &amp;&amp; echo -e &quot;Line1\nLine2\nLine3&quot; &gt; 2.txt</div><div class="line">paste 1.txt 2.txt</div><div class="line">1	Line1</div><div class="line">2	Line2</div><div class="line">3	Line3</div><div class="line">#默认定界符是制表符，用-d指定</div><div class="line">paste 1.txt 2.txt -d&apos;,&apos;</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="打印文件或行中的第n个单词或n列"><a href="#打印文件或行中的第n个单词或n列" class="headerlink" title="打印文件或行中的第n个单词或n列"></a>打印文件或行中的第n个单词或n列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">awk -F&apos;:&apos; &apos;&#123;print $1,$3&#125;&apos; file1</div><div class="line">cut -d&apos;:&apos; -f 1,3 file1</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="打印不同行或样式之间的文本"><a href="#打印不同行或样式之间的文本" class="headerlink" title="打印不同行或样式之间的文本"></a>打印不同行或样式之间的文本</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">awk &apos;NR==1,NR==10&apos; /etc/passwd</div><div class="line">awk &apos;NR==1,NR==10&apos; /etc/passwd | awk -F&quot;:&quot; &apos;&#123;print $1,$NF&#125;&apos; #打印特定行内的特定列</div><div class="line"></div><div class="line">awk &apos;/start_pattern/, /end_pattern/&apos; file	#打印start到end之间的内容,可使用re</div><div class="line">awk &apos;/root/, /zhang/&apos; /etc/passwd	#打印root到zhang之间内容</div><div class="line">awk &apos;/^ro.?t&apos;/, /bash$/&apos; /etc/pass</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="以逆序形式打印行"><a href="#以逆序形式打印行" class="headerlink" title="以逆序形式打印行"></a>以逆序形式打印行</h2><p>可以使用<code>awk</code>, <code>tac</code>完成。tac就是反过来的cat。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#tac - 反转显示文件中的行，行内的内容无法用tac反向排列</div><div class="line">tac 1.txt</div><div class="line">awk &apos;&#123;lifo[NR]=$0; lno=NR&#125; END&#123; for(;lno&gt;-1;lno--) &#123;print lifo[lno]&#125;;&#125;&apos; 1.txt</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="解析文本中的电子邮件和URL"><a href="#解析文本中的电子邮件和URL" class="headerlink" title="解析文本中的电子邮件和URL"></a>解析文本中的电子邮件和URL</h2><p>从给定的文件中解析出所需要的文本是我们从事文本处理时的一项任务。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#egrep</div><div class="line"></div><div class="line">#匹配一个邮箱地址</div><div class="line">egrep -o &apos;[a-zA-Z0-9.]+@[0-9a-zA-Z.]+\.[a-zA-Z]&#123;2,4&#125;&apos; emails.txt</div><div class="line"></div><div class="line">#匹配一个URL地址</div><div class="line">egrep -o &quot;http://[a-zA-Z0-9.]+\.[a-zA-Z]&#123;2,3&#125;&quot; urls.txt</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="打印某个样式之前-之后n行"><a href="#打印某个样式之前-之后n行" class="headerlink" title="打印某个样式之前/之后n行"></a>打印某个样式之前/之后n行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">grep &quot;zhang&quot; /etc/passwd -A 5	#Ater</div><div class="line">grep &quot;zhang&quot; /etc/passwd -B 5	#Before</div><div class="line">grep &quot;zhang&quot; /etc/passwd -B 5	#前后五行都打印</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="在文件中移除包含某个单词的句子"><a href="#在文件中移除包含某个单词的句子" class="headerlink" title="在文件中移除包含某个单词的句子"></a>在文件中移除包含某个单词的句子</h2><p>只要能写出正确的正则表达式(Regular Expression)，那就手到擒来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed &apos;s/[^.]*handsome boy[^.]*\.//g&apos; file.txt	#句子以.结束</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="文本切片与参数操作"><a href="#文本切片与参数操作" class="headerlink" title="文本切片与参数操作"></a>文本切片与参数操作</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#替换变量内容中的部分文字</div><div class="line">var=&quot;One two three&quot;</div><div class="line">echo $&#123;var/t/T&#125;	#只替换了一个</div><div class="line">#One Two three</div><div class="line"></div><div class="line">#指定字符串起始位置和长度</div><div class="line">#$&#123;变量:开始部分:长度&#125;</div><div class="line">$&#123;vari:start:length&#125;</div><div class="line">echo &#123;var:0:2&#125;	#On</div><div class="line">echo &#123;var:1:6&#125;	#ne two</div><div class="line"></div><div class="line">#起始字符的索引是0,将最后一个字符索引记为-1</div><div class="line">echo $&#123;var:(-1)&#125;	#e</div><div class="line">echo $&#123;var:(-3):3&#125;	#ree</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h1 id="一团乱麻？没这回事"><a href="#一团乱麻？没这回事" class="headerlink" title="一团乱麻？没这回事"></a>一团乱麻？没这回事</h1>]]></content>
     
     <summary type="html">
     
@@ -161,14 +364,15 @@
     <link href="https://zhang21.github.io/2017/09/04/%E5%B7%A5%E4%BD%9C%E4%B8%8E%E4%BA%BA%E7%94%9F/"/>
     <id>https://zhang21.github.io/2017/09/04/工作与人生/</id>
     <published>2017-09-04T05:57:36.000Z</published>
-    <updated>2017-09-04T05:59:23.044Z</updated>
+    <updated>2017-11-03T01:54:52.321Z</updated>
     
-    <content type="html"><![CDATA[<p>我现在已经活到了人生的中途，拿一日来比喻人的一生，现在正是中午。人在童年时从朦胧中醒来．需要一些时间来克服清晨的软弱，然后就要投入工作；在正午时分，他的精力最为充沛，但已隐隐感到疲惫；到了黄昏时节，就要总结一日的工作，准备沉入永恒的休息。按我这种说法，工作是人一生的主题。这个想法不是人人都能同意的。我知道在中国，农村的人把生儿育女看作是一生的主题。把儿女养大，自己就死掉，给他们空出地方来——这是很流行的想法。在城市里则另有一种想法，但不知是不是很流行：它把取得社会地位看作一生的主题。站在北京八宝山的骨灰墙前，可以体会到这种想法。我在那里看到一位已故的大叔墓上写着：副系主任、支部副书记、副教授、某某教研室副主任，等等。假如能把这些“副”字去掉个把，对这位大叔当然更好一些，但这些“副”字最能证明有这样一种想法。顺便说一句，我到美国的公墓里看过，发现他们的墓碑上只写两件事：一是生卒年月。二是某年至某年服兵役；这就是说，他们以为人的一生只有这两件事值得记述：这位上帝的子民曾经来到尘世，以及这位公民曾去为国尽忠，写别的都是多余的，我觉得这种想法比较质朴……恐怕在一份青年刊物上写这些墓前的景物是太过伤感，还是及早回到正题上来罢。<br><a id="more"></a><br>我想要把自己对人生的看法推荐给青年朋友们：人从工作中可以得到乐趣，这是一种巨大的好处。相比之下，从金钱、权力、生育子女方面可以得到的快乐，总要受到制约。举例来说，现在把生育作为生活的主题，首先是不合时宜；其次，人在生育力方面比兔子大为不如，更不要说和黄花鱼相比较；在这方面很难取得无穷无尽的成就。我对权力没有兴趣，对钱有一些兴趣，但也不愿为它去受罪——做我想做的事(这件事对我来说，就是写小说)，并且把它做好，这就是我的目标。我想，和我志趣相投的人总不会是一个都没有。<br>根据我的经验，人在年轻时，最头疼的一件事就是决定自己这一生要做什么。在这方面，我倒没有什么具体的建议：干什么都可以，但最好不要写小说，这是和我抢饭碗。当然，假如你执意要写，我也没理由反对。总而言之，干什么都是好的；但要干出个样子来，这才是人的价值和尊严所在。人在工作时，不单要用到手、腿和腰，还要用脑子和自己的心胸。我总觉得国人对这后一方面不够重视，这样就会把工作看成是受罪。失掉了快乐最主要的源泉，对生活的态度也会因之变得灰暗……<br>人活在世上，不但有身体，还有头脑和心胸——对此请勿从解剖学上理解。人脑是怎样的一种东西，科学还不能说清楚。心胸是怎么回事就更难说清。对我自己来说，心胸是我在生活中想要达到的最低目标。某件事有悖于我的心胸，我就认为它不值得一做；某个人有悖于我的心胸，我就觉得他不值得一交；某种生活有悖于我的心胸，我就会以为它不值得一过。罗素先生曾言，对人来说，不加检点的生活，确实不值得一过。我同意他的意见：不加检点的生活，属于不能接受的生活之一种。人必须过他可以接受的生活，这恰恰是他改变一切的动力。人有了心胸，就可以用它来改变自己的生活。<br>中国人喜欢接受这样的想法：只要能活着就是好的，活成什么样子无所谓。从一些电影的名字就可以看出来：《活着》、《找乐》……我对这种想法是断然地不赞成。因为抱有这种想法的人就可能活成任何一种糟糕的样子，从而使生活本身失去意义。高尚、清洁、充满乐趣的生活是好的，人们很容易得到共识。卑下、肮脏、贫乏的生活是不好的，这也能得到共识。但只有这两条远远不够。我以写作为生，我知道某种文章好，也知道某种文章坏。仅知道这两条尚不足以开始写作。还有更加重要的一条，那就是：某种样子的文章对我来说不可取，绝不能让它从我笔下写出来，冠以我的名字登在报刊上。以小喻大，这也是我对生活的态度。</p>
+    <content type="html"><![CDATA[<p>  我现在已经活到了人生的中途，拿一日来比喻人的一生，现在正是中午。人在童年时从朦胧中醒来．需要一些时间来克服清晨的软弱，然后就要投入工作；在正午时分，他的精力最为充沛，但已隐隐感到疲惫；到了黄昏时节，就要总结一日的工作，准备沉入永恒的休息。按我这种说法，工作是人一生的主题。这个想法不是人人都能同意的。我知道在中国，农村的人把生儿育女看作是一生的主题。把儿女养大，自己就死掉，给他们空出地方来——这是很流行的想法。在城市里则另有一种想法，但不知是不是很流行：它把取得社会地位看作一生的主题。站在北京八宝山的骨灰墙前，可以体会到这种想法。我在那里看到一位已故的大叔墓上写着：副系主任、支部副书记、副教授、某某教研室副主任，等等。假如能把这些“副”字去掉个把，对这位大叔当然更好一些，但这些“副”字最能证明有这样一种想法。顺便说一句，我到美国的公墓里看过，发现他们的墓碑上只写两件事：一是生卒年月。二是某年至某年服兵役；这就是说，他们以为人的一生只有这两件事值得记述：这位上帝的子民曾经来到尘世，以及这位公民曾去为国尽忠，写别的都是多余的，我觉得这种想法比较质朴……恐怕在一份青年刊物上写这些墓前的景物是太过伤感，还是及早回到正题上来罢。<br><a id="more"></a></p>
+<p>  我想要把自己对人生的看法推荐给青年朋友们：人从工作中可以得到乐趣，这是一种巨大的好处。相比之下，从金钱、权力、生育子女方面可以得到的快乐，总要受到制约。举例来说，现在把生育作为生活的主题，首先是不合时宜；其次，人在生育力方面比兔子大为不如，更不要说和黄花鱼相比较；在这方面很难取得无穷无尽的成就。我对权力没有兴趣，对钱有一些兴趣，但也不愿为它去受罪——做我想做的事(这件事对我来说，就是写小说)，并且把它做好，这就是我的目标。我想，和我志趣相投的人总不会是一个都没有。<br><br><br>  根据我的经验，人在年轻时，最头疼的一件事就是决定自己这一生要做什么。在这方面，我倒没有什么具体的建议：干什么都可以，但最好不要写小说，这是和我抢饭碗。当然，假如你执意要写，我也没理由反对。总而言之，干什么都是好的；但要干出个样子来，这才是人的价值和尊严所在。人在工作时，不单要用到手、腿和腰，还要用脑子和自己的心胸。我总觉得国人对这后一方面不够重视，这样就会把工作看成是受罪。失掉了快乐最主要的源泉，对生活的态度也会因之变得灰暗……<br><br><br>  人活在世上，不但有身体，还有头脑和心胸——对此请勿从解剖学上理解。人脑是怎样的一种东西，科学还不能说清楚。心胸是怎么回事就更难说清。对我自己来说，心胸是我在生活中想要达到的最低目标。某件事有悖于我的心胸，我就认为它不值得一做；某个人有悖于我的心胸，我就觉得他不值得一交；某种生活有悖于我的心胸，我就会以为它不值得一过。罗素先生曾言，对人来说，不加检点的生活，确实不值得一过。我同意他的意见：不加检点的生活，属于不能接受的生活之一种。人必须过他可以接受的生活，这恰恰是他改变一切的动力。人有了心胸，就可以用它来改变自己的生活。<br><br><br>  中国人喜欢接受这样的想法：只要能活着就是好的，活成什么样子无所谓。从一些电影的名字就可以看出来：《活着》、《找乐》……我对这种想法是断然地不赞成。因为抱有这种想法的人就可能活成任何一种糟糕的样子，从而使生活本身失去意义。高尚、清洁、充满乐趣的生活是好的，人们很容易得到共识。卑下、肮脏、贫乏的生活是不好的，这也能得到共识。但只有这两条远远不够。我以写作为生，我知道某种文章好，也知道某种文章坏。仅知道这两条尚不足以开始写作。还有更加重要的一条，那就是：某种样子的文章对我来说不可取，绝不能让它从我笔下写出来，冠以我的名字登在报刊上。以小喻大，这也是我对生活的态度。</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;我现在已经活到了人生的中途，拿一日来比喻人的一生，现在正是中午。人在童年时从朦胧中醒来．需要一些时间来克服清晨的软弱，然后就要投入工作；在正午时分，他的精力最为充沛，但已隐隐感到疲惫；到了黄昏时节，就要总结一日的工作，准备沉入永恒的休息。按我这种说法，工作是人一生的主题。这个想法不是人人都能同意的。我知道在中国，农村的人把生儿育女看作是一生的主题。把儿女养大，自己就死掉，给他们空出地方来——这是很流行的想法。在城市里则另有一种想法，但不知是不是很流行：它把取得社会地位看作一生的主题。站在北京八宝山的骨灰墙前，可以体会到这种想法。我在那里看到一位已故的大叔墓上写着：副系主任、支部副书记、副教授、某某教研室副主任，等等。假如能把这些“副”字去掉个把，对这位大叔当然更好一些，但这些“副”字最能证明有这样一种想法。顺便说一句，我到美国的公墓里看过，发现他们的墓碑上只写两件事：一是生卒年月。二是某年至某年服兵役；这就是说，他们以为人的一生只有这两件事值得记述：这位上帝的子民曾经来到尘世，以及这位公民曾去为国尽忠，写别的都是多余的，我觉得这种想法比较质朴……恐怕在一份青年刊物上写这些墓前的景物是太过伤感，还是及早回到正题上来罢。&lt;br&gt;
+      &lt;p&gt;  我现在已经活到了人生的中途，拿一日来比喻人的一生，现在正是中午。人在童年时从朦胧中醒来．需要一些时间来克服清晨的软弱，然后就要投入工作；在正午时分，他的精力最为充沛，但已隐隐感到疲惫；到了黄昏时节，就要总结一日的工作，准备沉入永恒的休息。按我这种说法，工作是人一生的主题。这个想法不是人人都能同意的。我知道在中国，农村的人把生儿育女看作是一生的主题。把儿女养大，自己就死掉，给他们空出地方来——这是很流行的想法。在城市里则另有一种想法，但不知是不是很流行：它把取得社会地位看作一生的主题。站在北京八宝山的骨灰墙前，可以体会到这种想法。我在那里看到一位已故的大叔墓上写着：副系主任、支部副书记、副教授、某某教研室副主任，等等。假如能把这些“副”字去掉个把，对这位大叔当然更好一些，但这些“副”字最能证明有这样一种想法。顺便说一句，我到美国的公墓里看过，发现他们的墓碑上只写两件事：一是生卒年月。二是某年至某年服兵役；这就是说，他们以为人的一生只有这两件事值得记述：这位上帝的子民曾经来到尘世，以及这位公民曾去为国尽忠，写别的都是多余的，我觉得这种想法比较质朴……恐怕在一份青年刊物上写这些墓前的景物是太过伤感，还是及早回到正题上来罢。&lt;br&gt;
     
     </summary>
     
