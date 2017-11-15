@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang21.github.io/"/>
-  <updated>2017-11-15T10:09:36.574Z</updated>
+  <updated>2017-11-15T10:11:02.737Z</updated>
   <id>https://zhang21.github.io/</id>
   
   <author>
@@ -20,11 +20,11 @@
     <link href="https://zhang21.github.io/2017/11/14/Zabbix/"/>
     <id>https://zhang21.github.io/2017/11/14/Zabbix/</id>
     <published>2017-11-14T02:18:09.000Z</published>
-    <updated>2017-11-15T10:09:36.574Z</updated>
+    <updated>2017-11-15T10:11:02.737Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Zabbix简介"><a href="#Zabbix简介" class="headerlink" title="Zabbix简介"></a>Zabbix简介</h1><p><a href="https://www.zabbix.com/" target="_blank" rel="external">Zabbix官方网站</a><br><a href="https://www.zabbix.com/documentation/3.4/zh/manual/" target="_blank" rel="external">Zabbix中文文档</a></p>
 <p>本文系统环境是CentOS7x86_64, Zabbix 3.0。</p>
-<p>Zabbix （音同 zæbix），是由 Alexei Vladishev 开发的一种网络监视、管理系统，基于 Server-Client 架构。Zabbix 的授权是属于 GPLv2。<br>Zabbix可用于监视各种网络服务、服务器和网络机器等状态。是一个基于WEB界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案。<br>Zabbix也可经由SNMP、TCP、ICMP、SSH等对目标进行监视。</p>
+<p>Zabbix （音同 zæbix），是由 Alexei Vladishev 开发的一种网络监视、管理系统，基于 Server-Client 架构。Zabbix 的授权是属于 GPLv2。<br>Zabbix可用于监视各种网络服务、服务器和网络机器等状态。是一个基于WEB界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案。<br>Zabbix也可经由SNMP、TCP、ICMP、SSH等对目标进行监视。<br><a id="more"></a></p>
 <p><br></p>
 <h2 id="Zabbix的系统构成"><a href="#Zabbix的系统构成" class="headerlink" title="Zabbix的系统构成"></a>Zabbix的系统构成</h2><p>Zabbix系统由以下各独立模块组成：</p>
 <ul>
@@ -325,7 +325,9 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Zabbix简介&quot;&gt;&lt;a href=&quot;#Zabbix简介&quot; class=&quot;headerlink&quot; title=&quot;Zabbix简介&quot;&gt;&lt;/a&gt;Zabbix简介&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://www.zabbix.com/&quot; target=&quot;_bla
+      &lt;h1 id=&quot;Zabbix简介&quot;&gt;&lt;a href=&quot;#Zabbix简介&quot; class=&quot;headerlink&quot; title=&quot;Zabbix简介&quot;&gt;&lt;/a&gt;Zabbix简介&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://www.zabbix.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Zabbix官方网站&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://www.zabbix.com/documentation/3.4/zh/manual/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Zabbix中文文档&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;本文系统环境是CentOS7x86_64, Zabbix 3.0。&lt;/p&gt;
+&lt;p&gt;Zabbix （音同 zæbix），是由 Alexei Vladishev 开发的一种网络监视、管理系统，基于 Server-Client 架构。Zabbix 的授权是属于 GPLv2。&lt;br&gt;Zabbix可用于监视各种网络服务、服务器和网络机器等状态。是一个基于WEB界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案。&lt;br&gt;Zabbix也可经由SNMP、TCP、ICMP、SSH等对目标进行监视。&lt;br&gt;
     
     </summary>
     
