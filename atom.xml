@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang21.github.io/"/>
-  <updated>2017-11-15T10:18:21.994Z</updated>
+  <updated>2017-11-16T03:45:06.951Z</updated>
   <id>https://zhang21.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://zhang21.github.io/2017/11/14/Zabbix/"/>
     <id>https://zhang21.github.io/2017/11/14/Zabbix/</id>
     <published>2017-11-14T02:18:09.000Z</published>
-    <updated>2017-11-15T10:18:21.994Z</updated>
+    <updated>2017-11-16T03:45:06.951Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Zabbix简介"><a href="#Zabbix简介" class="headerlink" title="Zabbix简介"></a>Zabbix简介</h1><p><a href="https://www.zabbix.com/" target="_blank" rel="external">Zabbix官方网站</a><br><a href="https://www.zabbix.com/documentation/3.4/zh/manual/" target="_blank" rel="external">Zabbix中文文档</a></p>
 <p>本文系统环境是CentOS7x86_64, Zabbix 3.0。</p>
@@ -312,6 +312,7 @@
 <p><br><br>可以通过<strong>配置(Configuration)</strong>菜单下的<strong>主机(Item)</strong>，找到需要配置<strong>监控项(Item)</strong>的主机，然后创建监控项。<br>主机默认是没有定义任何监控项的。</p>
 <p>填写对应的监控名称、类型、键值、主机接口、信息类型等等信息。<br><img src="/images/create-item.png" alt="添加监控项"></p>
 <p><br><br>可在<strong>监控(Monitoring)</strong>菜单中<strong>最新数据(Latest data)</strong>查看之前定义的监控项和获得的值。<br>还可选择以<strong>图形(Graph)</strong>或<strong>值</strong>来查看监控项的相关信息。<br><img src="/images/upload.png" alt="upload监控信息"></p>
+<p>同样也还以在Zabbix-Server端获得数据信息：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#zabbix_get -s $ip -k $value</span></div><div class="line">zabbix_get -s 192.168.1.9 -k system.cpu.load</div></pre></td></tr></table></figure></p>
 <p><br></p>
 <h2 id="新建触发器"><a href="#新建触发器" class="headerlink" title="新建触发器"></a>新建触发器</h2><p>监控项只用于手机数据。如果要自动评估收到的数据，我们则需要定义触发器(trigger)。<br>触发器包含了一个表达式，这个表达式定义了数据的可接受的阈值级别。</p>
 <p>如果收到的数据超过了定义好的级别，触发器将被<strong>触发</strong>，或者进入<strong>异常状态</strong>(problem)。<br>从而引起我们的注意，让我们知道有问题发生。如果数据再次恢复到合理范围，触发器将会转到<strong>正常状态</strong>(OK)。</p>
