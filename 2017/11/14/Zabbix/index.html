@@ -116,7 +116,7 @@
 <meta property="og:image" content="https://zhang21.github.io/images/create-action.png">
 <meta property="og:image" content="https://zhang21.github.io/images/create-template.png">
 <meta property="og:image" content="https://zhang21.github.io/images/mass-update.png">
-<meta property="og:updated_time" content="2017-11-22T09:43:08.682Z">
+<meta property="og:updated_time" content="2017-11-23T07:43:02.868Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zabbix">
 <meta name="twitter:description" content="Zabbix简介Zabbix官方网站Zabbix中文文档 本文系统环境是CentOS7x86_64, Zabbix 3.4。 Zabbix （音同 zæbix），是由 Alexei Vladishev 开发的一种网络监视、管理系统，基于 Server-Client 架构。Zabbix 的授权是属于 GPLv2。Zabbix可用于监视各种网络服务、服务器和网络机器等状态。是一个基于WEB界面的提供分">
@@ -1131,7 +1131,26 @@
 <p>要确认事件，用户必须至少要有对相应触发器的读取权限。</p>
 <p><br><br>在Dashboard下，在出现的问题里，点击确认，进入确认事件。<br>也可在监控-问题下查看问题详细信息。</p>
 <p><br><br><br></p>
-<h1 id="配置导出-导入-Configuration-export-import"><a href="#配置导出-导入-Configuration-export-import" class="headerlink" title="配置导出/导入(Configuration export/import)"></a>配置导出/导入(Configuration export/import)</h1>
+<h1 id="配置导出-导入-Configuration-export-import"><a href="#配置导出-导入-Configuration-export-import" class="headerlink" title="配置导出/导入(Configuration export/import)"></a>配置导出/导入(Configuration export/import)</h1><p>zabbix导入/导出功能，使得可以在一个zabbix系统与另一个zabbix系统之间交换各种配置实体。<br>类似于数据库的导入导出。即也可以对zabbix做备份。</p>
+<p>可导出/导入的对象有：主机组； 模板； 主机； 拓扑； 图片； 聚合图形； 值映射。</p>
+<p>数据也可导出：</p>
+<ul>
+<li>XML - 在前端</li>
+<li>XML or JSON - 在zabbix API</li>
+</ul>
+<p>导出的详细信息：</p>
+<ul>
+<li>所有支持的元素都导出到一个文件中；</li>
+<li>不导出从连链接模板继承的主机和模板实体；</li>
+<li>由低级别发现创建的实体依赖于他们的任何实体不会导出。</li>
+</ul>
+<p>导入详细信息：</p>
+<ul>
+<li>第一次遇到错误停止导入；</li>
+<li>导入支持XML和JSON文件；</li>
+<li>使用“删除缺失”选项导入主机/模板时，导入的XML文件中不存在主机/模板宏也将被删除。</li>
+</ul>
+
       
     </div>
     
@@ -1375,7 +1394,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 36.6k</span>
+  <span class="post-count"> 字数: 37.0k</span>
 </div>
 
 

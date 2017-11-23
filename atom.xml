@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang21.github.io/"/>
-  <updated>2017-11-22T09:43:08.682Z</updated>
+  <updated>2017-11-23T07:43:02.868Z</updated>
   <id>https://zhang21.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://zhang21.github.io/2017/11/14/Zabbix/"/>
     <id>https://zhang21.github.io/2017/11/14/Zabbix/</id>
     <published>2017-11-14T02:18:09.000Z</published>
-    <updated>2017-11-22T09:43:08.682Z</updated>
+    <updated>2017-11-23T07:43:02.868Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Zabbix简介"><a href="#Zabbix简介" class="headerlink" title="Zabbix简介"></a>Zabbix简介</h1><p><a href="https://www.zabbix.com/" target="_blank" rel="external">Zabbix官方网站</a><br><a href="https://www.zabbix.com/documentation/3.4/zh/manual/" target="_blank" rel="external">Zabbix中文文档</a></p>
 <p>本文系统环境是CentOS7x86_64, Zabbix 3.4。</p>
@@ -765,7 +765,26 @@
 <p>要确认事件，用户必须至少要有对相应触发器的读取权限。</p>
 <p><br><br>在Dashboard下，在出现的问题里，点击确认，进入确认事件。<br>也可在监控-问题下查看问题详细信息。</p>
 <p><br><br><br></p>
-<h1 id="配置导出-导入-Configuration-export-import"><a href="#配置导出-导入-Configuration-export-import" class="headerlink" title="配置导出/导入(Configuration export/import)"></a>配置导出/导入(Configuration export/import)</h1>]]></content>
+<h1 id="配置导出-导入-Configuration-export-import"><a href="#配置导出-导入-Configuration-export-import" class="headerlink" title="配置导出/导入(Configuration export/import)"></a>配置导出/导入(Configuration export/import)</h1><p>zabbix导入/导出功能，使得可以在一个zabbix系统与另一个zabbix系统之间交换各种配置实体。<br>类似于数据库的导入导出。即也可以对zabbix做备份。</p>
+<p>可导出/导入的对象有：主机组； 模板； 主机； 拓扑； 图片； 聚合图形； 值映射。</p>
+<p>数据也可导出：</p>
+<ul>
+<li>XML - 在前端</li>
+<li>XML or JSON - 在zabbix API</li>
+</ul>
+<p>导出的详细信息：</p>
+<ul>
+<li>所有支持的元素都导出到一个文件中；</li>
+<li>不导出从连链接模板继承的主机和模板实体；</li>
+<li>由低级别发现创建的实体依赖于他们的任何实体不会导出。</li>
+</ul>
+<p>导入详细信息：</p>
+<ul>
+<li>第一次遇到错误停止导入；</li>
+<li>导入支持XML和JSON文件；</li>
+<li>使用“删除缺失”选项导入主机/模板时，导入的XML文件中不存在主机/模板宏也将被删除。</li>
+</ul>
+]]></content>
     
     <summary type="html">
     
@@ -827,7 +846,7 @@
     <link href="https://zhang21.github.io/2017/10/24/LinuxShell%E8%84%9A%E6%9C%AC%E6%94%BB%E7%95%A5/"/>
     <id>https://zhang21.github.io/2017/10/24/LinuxShell脚本攻略/</id>
     <published>2017-10-24T10:16:38.000Z</published>
-    <updated>2017-11-13T05:27:18.847Z</updated>
+    <updated>2017-11-23T04:05:30.711Z</updated>
     
     <content type="html"><![CDATA[<h1 id="小试牛刀"><a href="#小试牛刀" class="headerlink" title="小试牛刀"></a>小试牛刀</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#bash(Bourne Again Shell)，shell环境使得用户能与操作系统的内核进行交互操作</span></div><div class="line"></div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="comment">#date</span></div><div class="line"><span class="comment">#description</span></div><div class="line"></div><div class="line">cmd1; cmd2</div><div class="line">cmd3</div><div class="line"></div><div class="line"><span class="comment">#sh /path/xx.sh</span></div><div class="line"><span class="comment">#Bash还有一个历史记录文件 ~/.bash_history</span></div></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -1250,7 +1269,12 @@
 <p>了解及使用各种端口分析工具。</p>
 <p>lsof - list open files<br><code>lsof</code>列出系统中开放端口以及运行在端口上的服务的详细信息;</p>
 <p>netstat查看开放端口与服务<br><code>netstat</code> - 显示网络连接，路由表，接口状态，伪装连接，网络链路信息和组播成员组;</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#lsof的每一项都对应着一个打开了特定端口的服务</span></div><div class="line">lsof -i</div><div class="line"></div><div class="line"><span class="comment">#查看开放端口和服务</span></div><div class="line">netstat -nltp</div></pre></td></tr></table></figure>
+<p>iftop - display bandwidth usage on an interface by host<br><code>iftop</code> - 展示带宽使用情况；</p>
+<p>ifstat - handy utility to read network interface statistics<br><code>ifstat</code> - 展示某时刻网络状态；</p>
+<p> nload - displays the current network usage<br><code>nload</code> - 可查看系统总带宽；</p>
+<p>nethogs - Net top tool grouping bandwidth per process<br><code>nethogs</code>- 可查看每个进程流量情况；</p>
+<p>ethtool - query or control network driver and hardware settings<br><code>ethtool</code> - 检查网卡支持的带宽</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#lsof的每一项都对应着一个打开了特定端口的服务</span></div><div class="line">lsof -i</div><div class="line"></div><div class="line"><span class="comment">#查看开放端口和服务</span></div><div class="line">netstat -nltp</div><div class="line"></div><div class="line"><span class="comment">#查看网络实时状态</span></div><div class="line">iftop</div><div class="line"></div><div class="line"><span class="comment">#查看当前网络状态</span></div><div class="line">ifstat</div><div class="line"></div><div class="line"><span class="comment">#查看系统带宽</span></div><div class="line">nload</div><div class="line"></div><div class="line"><span class="comment">#查看进程流量</span></div><div class="line">nethogs</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h1 id="当个好管家"><a href="#当个好管家" class="headerlink" title="当个好管家"></a>当个好管家</h1><h2 id="简介-5"><a href="#简介-5" class="headerlink" title="简介"></a>简介</h2><p>操作系统(Operation System,OS)，是由一系列用于不同目的、服务于不同任务的系统软件组成。<br>日志记录(logging)和监视是很重要的，能帮助我们从大量数据中收集信息。</p>
 <p>监视系统活动的各种命令，日志技术及其使用方法。</p>
