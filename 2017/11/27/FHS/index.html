@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="FHS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="FHS介绍FHS(Filesystem Hierarchy Standard)，文件系统层次化标准：http://www.pathname.com/fhs FHS主要目的是希望让用户了解安装文件通常放置的目录。所以希望软件开发商、系统制定者以及维护系统的用户，都能够遵循FHS的标准。 FHS-compliant system：    - 可分享的(shareable) 不可分享的(unsharea">
+<meta name="keywords" content="FHS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Filesystem Hierarchy Standard">
+<meta property="og:url" content="https://zhang21.github.io/2017/11/27/FHS/index.html">
+<meta property="og:site_name" content="风继续吹">
+<meta property="og:description" content="FHS介绍FHS(Filesystem Hierarchy Standard)，文件系统层次化标准：http://www.pathname.com/fhs FHS主要目的是希望让用户了解安装文件通常放置的目录。所以希望软件开发商、系统制定者以及维护系统的用户，都能够遵循FHS的标准。 FHS-compliant system：    - 可分享的(shareable) 不可分享的(unsharea">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-01T10:23:48.450Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Filesystem Hierarchy Standard">
+<meta name="twitter:description" content="FHS介绍FHS(Filesystem Hierarchy Standard)，文件系统层次化标准：http://www.pathname.com/fhs FHS主要目的是希望让用户了解安装文件通常放置的目录。所以希望软件开发商、系统制定者以及维护系统的用户，都能够遵循FHS的标准。 FHS-compliant system：    - 可分享的(shareable) 不可分享的(unsharea">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang21.github.io/2017/11/27/FHS/"/>
+
+
+
+
+
+  <title>Filesystem Hierarchy Standard | 风继续吹</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风继续吹</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Yesterday, you said tomorrow!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2017/11/27/FHS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang21">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风继续吹">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Filesystem Hierarchy Standard</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-27T16:42:33+08:00">
+                2017-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/27/FHS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/11/27/FHS/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="FHS介绍"><a href="#FHS介绍" class="headerlink" title="FHS介绍"></a>FHS介绍</h1><p>FHS(Filesystem Hierarchy Standard)，文件系统层次化标准：<a href="http://www.pathname.com/fhs" target="_blank" rel="external">http://www.pathname.com/fhs</a></p>
+<p><br><br>FHS主要目的是希望让用户了解安装文件通常放置的目录。所以希望软件开发商、系统制定者以及维护系统的用户，都能够遵循FHS的标准。</p>
+<p><strong>FHS-compliant system：</strong></p>
+<table>
+<thead>
+<tr>
+<th>-</th>
+<th>可分享的(shareable)</th>
+<th>不可分享的(unshareable)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不变的(static)</td>
+<td>/usr <br> /opt</td>
+<td>/etc <br> /boot</td>
+</tr>
+<tr>
+<td>可变的(variable)</td>
+<td>/var/mail <br> /var/spool/news</td>
+<td>/var/run <br> /var/lock</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<ul>
+<li>shareable： 可分享给其他系统(主机)挂载使用；</li>
+<li>unshareable： 不适合分享给其他主机；</li>
+<li>static： 有些数据基本是不会变化的；</li>
+<li>variable： 进程变更的数据。</li>
+</ul>
+<p><br><br>FHS针对目录树架构仅定义出三层目录下应该放置什么数据，这三个目录下所应该放置的目录也都有特定规定。</p>
+<ul>
+<li><code>/</code>： The root filesystem, 与开机系统有关；</li>
+<li><code>/usr</code>: The /usr hierarchy, Unix software resource；</li>
+<li><code>/var</code>: The /var hierarchy, 与系统运行过程有关。</li>
+</ul>
+<p><br><br><br></p>
+<h1 id="The-Root-Filesystem"><a href="#The-Root-Filesystem" class="headerlink" title="The Root Filesystem"></a>The Root Filesystem</h1><p><strong>根目录(/)</strong>是系统最重要的一个目录。不但所有目录都是由根目录衍生出来，同时根目录还与<strong>系统的启动、还原、修复</strong>等操作相关。<br>若系统出现问题，根目录必须要包含能够修复文件系统的程序才行。<br>破坏根文件系统上的数据的错误比破坏其他任何分区都要严重！</p>
+<p>为了平衡这些考虑，建议尽可能保持根分区小。<br>应用程序不应再根目录中创建特殊文件或子目录！</p>
+<p><br><br>The following dirs or symbolic-links, are required in /</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/bin</code></td>
+<td>必要的二进制命令</td>
+</tr>
+<tr>
+<td><code>/boot</code></td>
+<td>boot-loader的静态文件</td>
+</tr>
+<tr>
+<td><code>/dev</code></td>
+<td>设备文件</td>
+</tr>
+<tr>
+<td><code>/etc</code></td>
+<td>主机特定的系统配置文件</td>
+</tr>
+<tr>
+<td><code>/lib</code></td>
+<td>基本的共享库(shared libraries)和内核模块(kernel modules)</td>
+</tr>
+<tr>
+<td><code>/media</code></td>
+<td>可移除媒体的挂载点</td>
+</tr>
+<tr>
+<td><code>/mnt</code></td>
+<td>临时挂载文件系统的挂载点</td>
+</tr>
+<tr>
+<td><code>/opt</code></td>
+<td>第三方软件包放置目录</td>
+</tr>
+<tr>
+<td><code>/sbin</code></td>
+<td>必要的系统二进制命令</td>
+</tr>
+<tr>
+<td><code>/srv</code></td>
+<td>系统提供的服务数据</td>
+</tr>
+<tr>
+<td><code>/tmp</code></td>
+<td>临时文件</td>
+</tr>
+<tr>
+<td><code>/usr</code></td>
+<td>/usr层次结构</td>
+</tr>
+<tr>
+<td><code>/var</code></td>
+<td>/var层次结构</td>
+</tr>
+</tbody>
+</table>
+<p><br><br>除了上面列出必须存在的目录，下面这些目录很也很重要。</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/lost+found</code></td>
+<td>在ext文件系统里，当文件系统发生错误时，将一些遗失的片段放置到此目录下</td>
+</tr>
+<tr>
+<td><code>/home</code></td>
+<td>用户家目录</td>
+</tr>
+<tr>
+<td><code>/root</code></td>
+<td>root用户家目录</td>
+</tr>
+<tr>
+<td><code>/proc</code></td>
+<td>虚拟文件系统，放置的数据都在内存当中，不占磁盘空间</td>
+</tr>
+<tr>
+<td><code>/sys</code></td>
+<td>虚拟文件系统，记录内核相关信息，不占磁盘空间</td>
+</tr>
+</tbody>
+</table>
+<p><br><br>另外需要注意的是，因为根目录与开机有关，开机过程中仅有根目录被挂载。其他分区则是在开机完成后才会持续进行挂载。<br>因此，根目录下与开机过程有关的目录就不能放到不同的分区中去。</p>
+<p>如：</p>
+<ul>
+<li><code>/etc</code></li>
+<li><code>/bin</code></li>
+<li><code>/sbin</code></li>
+<li><code>/dev</code></li>
+<li><code>/lib</code></li>
+</ul>
+<p><br></p>
+<h2 id="bin"><a href="#bin" class="headerlink" title="/bin"></a>/bin</h2><p><code>/bin</code>, 基本用户二进制命令文件，供所有用户（系统管理员和用户）使用。</p>
+<p><code>/bin</code>下不能有子目录(subdirectory)。</p>
+<p><br><br>The following commands or symbolic-links to commands, are required in /bin</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cat</code></td>
+<td>将文件连接到stdout的实用程序(Utility)</td>
+</tr>
+<tr>
+<td><code>chgrp</code></td>
+<td>更改文件所有权</td>
+</tr>
+<tr>
+<td><code>chmod</code></td>
+<td>更改文件访问权限</td>
+</tr>
+<tr>
+<td><code>chown</code></td>
+<td>更改文件所有者和和组</td>
+</tr>
+<tr>
+<td><code>cp</code></td>
+<td>复制文件和目录</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>打印或设置系统数据和时间</td>
+</tr>
+<tr>
+<td><code>dd</code></td>
+<td>转换和复制文件</td>
+</tr>
+<tr>
+<td><code>df</code></td>
+<td>磁盘使用情况</td>
+</tr>
+<tr>
+<td><code>dmesg</code></td>
+<td>打印或控制kernel消息缓冲区</td>
+</tr>
+<tr>
+<td><code>echo</code></td>
+<td>显示一行文本</td>
+</tr>
+<tr>
+<td><code>false</code></td>
+<td>do nothing, 不成功</td>
+</tr>
+<tr>
+<td><code>true</code></td>
+<td>do nothing, 成功</td>
+</tr>
+<tr>
+<td><code>hostname</code></td>
+<td>系统主机名</td>
+</tr>
+<tr>
+<td><code>kill</code></td>
+<td>发送信号到进程</td>
+</tr>
+<tr>
+<td><code>ln</code></td>
+<td>在文件之间创建链接</td>
+</tr>
+<tr>
+<td><code>login</code></td>
+<td>在系统上开始会话</td>
+</tr>
+<tr>
+<td><code>ls</code></td>
+<td>列出目录内容</td>
+</tr>
+<tr>
+<td><code>mkdir</code></td>
+<td>创建目录</td>
+</tr>
+<tr>
+<td><code>mknod</code></td>
+<td>创建block或character特殊文件</td>
+</tr>
+<tr>
+<td><code>more</code></td>
+<td>文本翻页</td>
+</tr>
+<tr>
+<td><code>mount</code></td>
+<td>挂载文件系统</td>
+</tr>
+<tr>
+<td><code>umount</code></td>
+<td>解挂文件系统</td>
+</tr>
+<tr>
+<td><code>mv</code></td>
+<td>move/rename文件</td>
+</tr>
+<tr>
+<td><code>ps</code></td>
+<td>报告进程状态</td>
+</tr>
+<tr>
+<td><code>pwd</code></td>
+<td>打印当前工作目录</td>
+</tr>
+<tr>
+<td><code>rm</code></td>
+<td>remove文件或目录</td>
+</tr>
+<tr>
+<td><code>sed</code></td>
+<td>sed流编辑器</td>
+</tr>
+<tr>
+<td><code>sh</code></td>
+<td>Bourne command shell</td>
+</tr>
+<tr>
+<td><code>stty</code></td>
+<td>更改或打印终端设置</td>
+</tr>
+<tr>
+<td><code>su</code></td>
+<td>change uid</td>
+</tr>
+<tr>
+<td><code>sync</code></td>
+<td>刷新文件系统缓冲区</td>
+</tr>
+<tr>
+<td><code>uname</code></td>
+<td>打印系统信息</td>
+</tr>
+</tbody>
+</table>
+<p><br><br>The following programs or symbolic-links to programs, must be in /bin if the corresponding-system is installed:</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>csh</code></td>
+<td>The C shell(可选)</td>
+</tr>
+<tr>
+<td><code>ed</code></td>
+<td>编辑器(可选)</td>
+</tr>
+<tr>
+<td><code>tar</code></td>
+<td>tar归档(可选)</td>
+</tr>
+<tr>
+<td><code>cpio</code></td>
+<td>cpio归档(可选)</td>
+</tr>
+<tr>
+<td><code>gzip</code></td>
+<td>GNU压缩工具(可选)</td>
+</tr>
+<tr>
+<td><code>gunzip</code></td>
+<td>GNU解压缩工具(可选)</td>
+</tr>
+<tr>
+<td><code>netstat</code></td>
+<td>网络统计(可选)</td>
+</tr>
+<tr>
+<td><code>ping</code></td>
+<td>ICMP网络测试(可选)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="boot"><a href="#boot" class="headerlink" title="/boot"></a>/boot</h2><p><code>/boot</code> :static file of the boot-loader</p>
+<p>该目录包含引导过程所需所有内容，处理引导是不需要的配置文件和映射安装文件外。<br>因此，/boot储存kernel开始执行用户模式之前使用的数据。</p>
+<p><strong><br>操作系统kernel必须位于 / or /boot</strong></p>
+<p><br></p>
+<h2 id="dev"><a href="#dev" class="headerlink" title="/dev"></a>/dev</h2><p><code>/dev</code> :device files</p>
+<p><code>/dev</code> 目录是特殊或设备文件的位置。</p>
+<p><br></p>
+<h2 id="etc"><a href="#etc" class="headerlink" title="/etc"></a>/etc</h2><p><code>/etc</code> :host-specific system configuration</p>
+<p>配置文件是用来控制程序操作的本地静态文件，不能是可执行的二进制文件。</p>
+<p><br><br>The following files or symbolic-links to files, must be in /etc if the corresponding-subsystem is installed.</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>csh.login</td>
+<td>C shell登录的系统范围初始化文件</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>exports</td>
+<td>NFS文件系统访问控制列表</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>fstab</td>
+<td>文件系统静态信息</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>ftpusers</td>
+<td>FTP守护进程用户访问控制列表</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>gateways</td>
+<td>路由网关文件</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>gettydefs</td>
+<td>getty终端设置</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>group</td>
+<td>用户组文件</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>passwd</td>
+<td>密码文件</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>host.conf</td>
+<td>解析器配置文件</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>hosts</td>
+<td>主机域名的静态信息</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>hosts.allow</td>
+<td>Tcp-wrapper的主机访问文件</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>hosts.deny</td>
+<td>Tcp-wrapper的主机禁止文件</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>hosts.equiv</td>
+<td>rlogin, rsh, rcp的可信主机列表</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>hosts.lpd</td>
+<td>lpd的可信主机列表</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>inetd.conf</td>
+<td>inetd配置文件</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>inittab</td>
+<td>init配置文件</td>
+<td>inittab is no longer used when using systemd</td>
+</tr>
+<tr>
+<td>id.so.conf</td>
+<td>搜索共享库的额外目录</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>issue</td>
+<td>预登录消息和</td>
+<td>CentOS Linux 7(core) kernel \r on an \m</td>
+</tr>
+<tr>
+<td>motd</td>
+<td>登录后信息</td>
+<td>Welcome to $host</td>
+</tr>
+<tr>
+<td>mtab</td>
+<td>文件系统动态信息</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>mtools.conf</td>
+<td>mtools配置文件</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>networks</td>
+<td>网络名称的静态信息</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>printcap</td>
+<td>lpd打印机功能数据库</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>profile</td>
+<td>sh shell login的系统范围初始化文件</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>protocols</td>
+<td>IP协议列表</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>resolv.conf</td>
+<td>域名服务器解析文件</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>rpc</td>
+<td>RPC协议列表</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>securetty</td>
+<td>root登录的TTY访问控制</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>shells</td>
+<td>有效登录shell的路径名</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>syslog.conf</td>
+<td>syslogd配置文件</td>
+<td>Optional</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="etc-opt"><a href="#etc-opt" class="headerlink" title="/etc/opt"></a>/etc/opt</h2><p>/etc/opt :/opt的配置文件</p>
+<p>第三方应用程序软件的特定主机配置文件，必须安装在/etc/opt/<subdir> 中。</subdir></p>
+<p><br></p>
+<h2 id="etc-xml"><a href="#etc-xml" class="headerlink" title="/etc/xml"></a>/etc/xml</h2><p><code>/etc/xml</code> :XML的配置文件</p>
+<p>这里安装和定义XML系统的高级参数同通用配置文件。</p>
+<p><br></p>
+<h2 id="home-Optional"><a href="#home-Optional" class="headerlink" title="/home (Optional)"></a>/home (Optional)</h2><p><code>/home</code> :用户主目录</p>
+<p><code>/home</code>是一个相当标准的概念，但它显然是一个特定于站点的文件系统。设置会因主机而异。<br>因此，任何程序都不应该依赖这个目录。</p>
+<p><br></p>
+<h2 id="lib"><a href="#lib" class="headerlink" title="/lib"></a>/lib</h2><p><code>/lib</code> :基本的共享库和内核模块</p>
+<p><code>/lib</code>目录中包含引导系统和运行在根文件系统的命令，即<code>/bin</code>和<code>/sbin</code>中的命令。</p>
+<p><br><br>至少需要包含以下文件(链接)：</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>libc.so.*</code></td>
+<td>动态链接C库</td>
+</tr>
+<tr>
+<td><code>ld*</code></td>
+<td>执行时间 链接器/加载器</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="lib-Optional"><a href="#lib-Optional" class="headerlink" title="/lib (Optional)"></a>/lib<qual> (Optional)</qual></h2><p><code>/lib&lt;qual&gt;</code> : 不同格式的基本共享函数库<br>如：64位的<code>/lib64</code>; 32位的<code>/lib32</code>。</p>
+<p>用来存放与/lib不同格式的二进制函数库，如支持64位的/lib64函数库等。</p>
+<p><br></p>
+<h2 id="media"><a href="#media" class="headerlink" title="/media"></a>/media</h2><p><code>/media</code> :可移除媒体的挂载点</p>
+<p>此目录包含的子目录，可作为各移动介质(USB,cdrom,floppy…)的挂载点。</p>
+<p>尽管在 /mnt 中使用子目录作为挂载点已经很常见了，但与直接使用/mnt作为临时挂载点的传统相去甚远。</p>
+<p><br></p>
+<h2 id="mnt"><a href="#mnt" class="headerlink" title="/mnt"></a>/mnt</h2><p><code>/mnt</code> :临时挂载文件系统的挂载点</p>
+<p><br></p>
+<h2 id="opt"><a href="#opt" class="headerlink" title="/opt"></a>/opt</h2><p><code>/opt</code> :为第三方软件包保留的目录</p>
+<p>要安装在<code>/opt</code>中的软件包必须将其静态文件放置在单独的<code>/opt/&lt;packge&gt;</code>目录树种。</p>
+<p>目录/opt/bin, /opt/doc, /opt/include, /opt/info, /opt/lib, /opt/man 是保留给本地系统管理员使用。<br>如果第三方软件包含Unix手册，而手册必须放置于/opt/<package>/share/man/，必须使用与/usr/share/man相同的子结构。</package></p>
+<p><br></p>
+<h2 id="root-Optional"><a href="#root-Optional" class="headerlink" title="/root (Optional)"></a>/root (Optional)</h2><p><code>/root</code> :root用户的主目录</p>
+<p><br></p>
+<h2 id="sbin"><a href="#sbin" class="headerlink" title="/sbin"></a>/sbin</h2><p><code>/sbin</code> :系统二进制文件</p>
+<p>系统管理的实用程序(命令)，存储在<code>/sbin, /usr/sbin, /usr/local/sbin</code>中。<br><code>/sbin</code>包含<strong>启动，恢复，修复</strong>系统，以及<code>/bin</code>中二进制文件所必须的二进制文件。<br>本地安装的系统管理程序应放置在<code>/usr/local/sbin</code>中。</p>
+<p><br><br>The following commands or symbolic-links to commands are required in /sbin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">shutdown		#关闭系统</div></pre></td></tr></table></figure></p>
+<p><br><br>The following files or symbolic-links to files，must be in /sbin if the corresponding subsystem is installed</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fastboot</code></td>
+<td>重启系统而不检查磁盘</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>fasthalt</code></td>
+<td>停止系统而不检查磁盘</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>fdisk</code></td>
+<td>分区表操作器</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>fsck</code></td>
+<td>文件系统检查和修理工具</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>fsck.*</code></td>
+<td>针对特定文件系统检查和修复</td>
+<td>Optional<br>eg：fsck.ext3</td>
+</tr>
+<tr>
+<td><code>getty</code></td>
+<td>getty程序</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>half</code></td>
+<td>停止系统</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>ifconfig</code></td>
+<td>配置网络接口</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>init</code></td>
+<td>初始化进程</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>mkfs</code></td>
+<td>创建文件系统</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>mkfs.*</code></td>
+<td>创建特定文件系统</td>
+<td>OPtional<br>eg: mkfs.ext4</td>
+</tr>
+<tr>
+<td><code>mkswap</code></td>
+<td>设置swap分区</td>
+<td>OPtional</td>
+</tr>
+<tr>
+<td><code>reboot</code></td>
+<td>重启系统</td>
+<td>OPtional</td>
+</tr>
+<tr>
+<td><code>route</code></td>
+<td>IP路由表实用程序</td>
+<td>OPtional</td>
+</tr>
+<tr>
+<td><code>swapon</code></td>
+<td>启用分页和交换</td>
+<td>OPtional</td>
+</tr>
+<tr>
+<td><code>swapoff</code></td>
+<td>Disable paging and swapping</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>update</code></td>
+<td>守护进程定期刷新文件系统缓冲区</td>
+<td>Optional</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="srv"><a href="#srv" class="headerlink" title="/srv"></a>/srv</h2><p><code>/srv</code> :系统提供的服务(service)的数据</p>
+<p><br></p>
+<h2 id="tmp"><a href="#tmp" class="headerlink" title="/tmp"></a>/tmp</h2><p><code>/tmp</code> :临时文件</p>
+<p><code>/tmp</code>目录为临时需要文件的程序提供。<br>程序不能再程序的调用之间保留/tmp中的任何文件或目录。<br>尽管/tmp中数据可能会以某种特定方式删除，但建议在系统启动时删除/tmp中所有文件。</p>
+<p><br><br><br></p>
+<h1 id="The-usr-Hierarchy"><a href="#The-usr-Hierarchy" class="headerlink" title="The /usr Hierarchy"></a>The /usr Hierarchy</h1><p><code>/usr</code> 里面放置的数据是可分享与不可变动的。<br>这就意味着可在各种符合FHS的主机之间共享，但不能写入。<br>大型软件包不应在/usr层次结构下使用直接子目录。</p>
+<p><br><br>The following dirs of symbolic-links to dirs are required in /usr</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/usr/bin</code></td>
+<td>大多数用户命令</td>
+</tr>
+<tr>
+<td><code>/usr/include</code></td>
+<td>C程序包含的头文件</td>
+</tr>
+<tr>
+<td><code>/usr/lib</code></td>
+<td>库文件</td>
+</tr>
+<tr>
+<td><code>/usr/local</code></td>
+<td>本地层次结构</td>
+</tr>
+<tr>
+<td><code>/usr/sbin</code></td>
+<td>非重要的系统二进制文件</td>
+</tr>
+<tr>
+<td><code>/usr/share</code></td>
+<td>独立于架构的数据</td>
+</tr>
+</tbody>
+</table>
+<p>其他选项：</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/usr/lib&lt;qual&gt;</code></td>
+<td>可选格式库</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>/usr/src</code></td>
+<td>源代码</td>
+<td>OPtional</td>
+</tr>
+<tr>
+<td><code>/usr/games</code></td>
+<td>游戏和教育二进制文件</td>
+<td>OPtional</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="usr-bin"><a href="#usr-bin" class="headerlink" title="/usr/bin"></a>/usr/bin</h2><p><code>/usr/bin</code> :大多数用户命令<br>这是系统上可执行命令的主要目录。</p>
+<p><br><br>The following files or symbolic-links to files must be in /usr/bin, if the corresponding subsystem is installed</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>perl</code></td>
+<td>实用提取和报告语言</td>
+<td>OPtional</td>
+</tr>
+<tr>
+<td><code>python</code></td>
+<td>python解释语言</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>tclsh</code></td>
+<td>tcl解释器的简单shell</td>
+<td>OPtional</td>
+</tr>
+<tr>
+<td><code>wish</code></td>
+<td>简单 tcl/tk windowing shell</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>expect</code></td>
+<td>程序交互式对话</td>
+<td>Optional</td>
+</tr>
+</tbody>
+</table>
+<p>因为shell script解释器(在shell script脚本的第一行 #!<path></path>)不能依赖路径，所以标准化它们的位置是有利的。<br>Bourne shell 和 C-shell解释器已经被固定在/bin中，但 perl,python,tcl经常在许多不同的地方。</p>
+<p><br></p>
+<h2 id="usr-include"><a href="#usr-include" class="headerlink" title="/usr/include"></a>/usr/include</h2><p><code>/usr/include</code> :标准C包含文件的目录</p>
+<p>这是C语言所有系统的通用包含文件应该被放置的地方。</p>
+<p><br></p>
+<h2 id="usr-lib"><a href="#usr-lib" class="headerlink" title="/usr/lib"></a>/usr/lib</h2><p><code>/usr/lib</code> :编程和包的所需要的库</p>
+<p><code>/usr/lib</code>包括 不打算由用户或shell script直接执行的目标文件、库和内部二进制文件。</p>
+<p><br></p>
+<h2 id="usr-lib-Optional"><a href="#usr-lib-Optional" class="headerlink" title="/usr/lib (Optional)"></a>/usr/lib<qual> (Optional)</qual></h2><p><code>/usr/lib&lt;qual&gt;</code> :可选格式库</p>
+<p><br></p>
+<h2 id="usr-local"><a href="#usr-local" class="headerlink" title="/usr/local"></a>/usr/local</h2><p><code>/usr/local</code> :本地层次结构</p>
+<p><code>/usr/local</code>是给系统管理员安装本地软件使用。当系统软件更新时，需保证安全。<br>它可以用于在一组主机之间共享，但在 <code>usr</code>中找不到的程序和数据。</p>
+<p>本地安装软件必须放在 <code>/usr/local</code> 而不是 <code>/usr</code>，除非安装它来升级或替换<code>usr</code>的软件</p>
+<p><br><br>The following dirs or symbolic-links to dis must be in <code>/usr/local</code></p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/usr/local/bin</code></td>
+<td>本地二进制文件</td>
+</tr>
+<tr>
+<td><code>/usr/local/etc</code></td>
+<td>本地二进制文件的特定配置文件</td>
+</tr>
+<tr>
+<td><code>/usr/local/games</code></td>
+<td>本地游戏二进制文件</td>
+</tr>
+<tr>
+<td><code>/usr/local/include</code></td>
+<td>本地C头文件</td>
+</tr>
+<tr>
+<td><code>/usr/local/lib</code></td>
+<td>本地库</td>
+</tr>
+<tr>
+<td><code>/usr/local/man</code></td>
+<td>本地在线手册</td>
+</tr>
+<tr>
+<td><code>/usr/local/sbin</code></td>
+<td>本地系统二进制文件</td>
+</tr>
+<tr>
+<td><code>/usr/local/share</code></td>
+<td>本地独立架构层次结构</td>
+</tr>
+<tr>
+<td><code>/usr/local/src</code></td>
+<td>本地源码</td>
+</tr>
+</tbody>
+</table>
+<p><code>/usr/local/share</code>目录内容的要求应与<code>/usr/share</code>相同，唯一附加约束是<code>/usr/local/share/man</code>和<code>/usr/local/man</code>目录必须是同步的。（基本上就是符号链接了！）</p>
+<p><br></p>
+<h2 id="usr-sbin"><a href="#usr-sbin" class="headerlink" title="/usr/sbin"></a>/usr/sbin</h2><p><code>/usr/sbin</code> :非必要的标准系统二进制文件</p>
+<p>该目录包含系统管理员转么使用的任何非必要的二进制文件。<br>系统修复、恢复、挂载/usr等其他重要必要功能必须放在/sbin中。</p>
+<p><br></p>
+<h2 id="usr-share"><a href="#usr-share" class="headerlink" title="/usr/share"></a>/usr/share</h2><p><code>/usr/share</code> :独立于架构的数据</p>
+<p><code>/usr/share</code>层次 是为了所有只读架构独立数据。<br>该层次可以在给定OS的所有体系架构平台之间共享。如具有i386和PPC平台站点可能会维护一个集中安装的/usr/share目录。<br>但<code>/usr/share</code>一般不打算由不同的操作系统共享，或由同一操作系统的不同版本共享。</p>
+<p><br><br>The following dis or symbolic-links to dirs must be in /usr/share</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>man</td>
+<td>在线手册</td>
+</tr>
+<tr>
+<td>misc</td>
+<td>其他独立于架构的数据</td>
+</tr>
+</tbody>
+</table>
+<p><br><br>The following dis or symbolic-links to dirs must be in /usr/share, if the corresponding subsystem is installed</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dict</td>
+<td>单词列表</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>doc</td>
+<td>各种文档</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>games</td>
+<td>/usr/games的静态文件</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>info</td>
+<td>GNU Info system’s primary dir</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>locale</td>
+<td>支持的区域信息</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>zoneinfo</td>
+<td>Timezone info and conf</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>NLS</td>
+<td>Native language support</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>sgml</td>
+<td>SGML数据</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>terminfo</td>
+<td>terminfo数据库目录</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>xml</td>
+<td>xml数据</td>
+<td>Optional</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="usr-share-dict"><a href="#usr-share-dict" class="headerlink" title="/usr/share/dict"></a>/usr/share/dict</h3><p><code>/usr/share/dict</code> :单词列表<br>这个目录是系统上单词列表的家目录，只包英文单词，它们由<code>look</code>和各种拼写程序使用。<br>它们是所有拼写检查器唯一通用的文件。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>words</td>
+<td>单词列表</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>linu.words</td>
+<td>linux可用单词列表</td>
+<td>Optional</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="usr-share-man"><a href="#usr-share-man" class="headerlink" title="/usr/share/man"></a>/usr/share/man</h3><p><code>/usr/share/man</code> :手册页<br>它包含了<code>/</code>, <code>/usr</code>文件系统下的命令和数据的手册信息</p>
+<p>手册页存储在 <code>/usr/share/man/&lt;locale&gt;/man&lt;section&gt;/&lt;arch&gt;</code>中。</p>
+<p>每个部分的描述：</p>
+<ul>
+<li>man1: 可公开访问的命令的手册页，用户需要使用的大多数程序文档放置于此；</li>
+<li>man2: 系统调用部分，描述所有的系统调用(请求内核执行操作)；</li>
+<li>man3: 函数库和子例程部分，描述不直接调用内核服务的程序库例程；</li>
+<li>man4: 特定文件部分，描述系统中特定文件，相关驱动程序和网络支持。通常，这包含/dev中找到的设备以及网络协议支持的内核接口；</li>
+<li>man5: 文件格式部分，许多数据文件的格式记录在此；</li>
+<li>man6: 游戏，演示和一般小程序；</li>
+<li>man7: 各种难以分类的手册页；</li>
+<li>man8: 系统管理员用于操作和维护系统的程序记录在这。</li>
+</ul>
+<p><br><br>The following dirs or symboli-link to dirs must be in <code>/usr/share/man/&lt;locale&gt;</code>, unless they are empty</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>man1</td>
+<td>用户程序</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>man2</td>
+<td>系统调用</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>man3</td>
+<td>函数库调用</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>man4</td>
+<td>特定文件</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>man5</td>
+<td>文件格式</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>man6</td>
+<td>游戏</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>man7</td>
+<td>混杂的手册页</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>man8</td>
+<td>系统管理</td>
+<td>Optional</td>
+</tr>
+</tbody>
+</table>
+<p><br><br>必须在<code>/usr/share/man</code>结构中作出规定，以支持用不同语言编写的手册页。这些规定必须考虑到手册页的存储和参考，相关因素包括语言和字符编码集。</p>
+<p>栗子：</p>
+<table>
+<thead>
+<tr>
+<th>Language</th>
+<th>Country</th>
+<th>CharacterSet</th>
+<th>Dir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>English</td>
+<td>-</td>
+<td>ASCII</td>
+<td>/usr/share/man/en</td>
+</tr>
+<tr>
+<td>English</td>
+<td>United Kingdom</td>
+<td>ISO 8859-15</td>
+<td>/usr/share/man/en_GB</td>
+</tr>
+<tr>
+<td>English</td>
+<td>United States</td>
+<td>ASCII</td>
+<td>/usr/share/man/en_US</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="usr-share-misc"><a href="#usr-share-misc" class="headerlink" title="/usr/share/misc"></a>/usr/share/misc</h3><p><code>/usr/share/misc</code> :与架构无关的数据</p>
+<p><br></p>
+<h3 id="usr-share-sgml"><a href="#usr-share-sgml" class="headerlink" title="/usr/share/sgml"></a>/usr/share/sgml</h3><p><code>/usr/share/sgml</code> :SGML数据</p>
+<p><br></p>
+<h3 id="usr-share-xml"><a href="#usr-share-xml" class="headerlink" title="/usr/share/xml"></a>/usr/share/xml</h3><p><code>/usr/share/xml</code> :XML数据</p>
+<p><br></p>
+<h2 id="usr-src"><a href="#usr-src" class="headerlink" title="/usr/src"></a>/usr/src</h2><p><code>/usr/src</code> :源代码<br>Source Code可能放置在此目录的子目录中，仅供参考。</p>
+<p><br><br><br></p>
+<h1 id="var-Hierarchy"><a href="#var-Hierarchy" class="headerlink" title="/var Hierarchy"></a>/var Hierarchy</h1><p><code>/var</code> 包含可变数据文件，包括假脱机目录和文件，系统管理和登录数据，以及临时文件。</p>
+<p>如果<code>/var</code>不能成为一个单独的分区，最好将<code>/var</code>移出<code>/</code>分区并移入<code>/usr</code>分区。（为了减小根分区大小或当根分区空间不足时）<br>也可将<code>/var</code>链接到<code>/usr/var</code>。</p>
+<p><br><br>The following dirs or symbolic-link to dirs are required in <code>/var</code>.</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/var/cache</code></td>
+<td>应用程序缓存数据</td>
+</tr>
+<tr>
+<td><code>/var/lib</code></td>
+<td>可变状态信息</td>
+</tr>
+<tr>
+<td><code>/var/local</code></td>
+<td>/usr/local的可变数据</td>
+</tr>
+<tr>
+<td><code>/var/lock</code></td>
+<td>锁文件</td>
+</tr>
+<tr>
+<td><code>/var/log</code></td>
+<td>日志文件</td>
+</tr>
+<tr>
+<td><code>/var/opt</code></td>
+<td>/opt的可变数据</td>
+</tr>
+<tr>
+<td><code>/var/run</code></td>
+<td>与运行进程相关的数据</td>
+</tr>
+<tr>
+<td><code>/var/spool</code></td>
+<td>应用程序队列数据</td>
+</tr>
+<tr>
+<td><code>/var/tmp</code></td>
+<td>为系统重启保留的临时文件</td>
+</tr>
+</tbody>
+</table>
+<p><br><br>The following dirs or symbolic-link to dir must be in /var,if the corresponding subsystem is installed.</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/var/account</code></td>
+<td>进程账户日志</td>
+<td>可选</td>
+</tr>
+<tr>
+<td><code>/var/crash</code></td>
+<td>系统奔溃转储</td>
+<td>可选</td>
+</tr>
+<tr>
+<td><code>/var/games</code></td>
+<td>可变游戏数据</td>
+<td>可选</td>
+</tr>
+<tr>
+<td><code>/var/mail</code></td>
+<td>用户邮箱文件</td>
+<td>可选</td>
+</tr>
+<tr>
+<td><code>/var/yp</code></td>
+<td>网络信息服务数据库文件</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="var-account"><a href="#var-account" class="headerlink" title="/var/account"></a>/var/account</h2><p><code>/var/account</code> :该目录保存当前活动的进程记账日志和复合进程数据。</p>
+<p><br></p>
+<h2 id="var-cache"><a href="#var-cache" class="headerlink" title="/var/cache"></a>/var/cache</h2><p><code>/var/cache</code> :保存应用程序缓存的数据。应用程序必须能够重新生成或回复数据。<br>与<code>/var/spool</code>不同，删除了缓存文件不会丢失数据。数据必须在应用程序调用和系统重启间保持有效。<br>缓存目录的数据格式没有其他要求。</p>
+<p>对于缓存数据单独存在的目录，系统管理员可从<code>/var</code>下其他目录设备不同的磁盘和备份策略。</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/var/cache/fonts</code></td>
+<td>本地生成的字体</td>
+<td>可选</td>
+</tr>
+<tr>
+<td><code>/var/cache/man</code></td>
+<td>本地格式化的手册页</td>
+<td>可选</td>
+</tr>
+<tr>
+<td><code>/var/cache/www</code></td>
+<td>www代理或缓存数据</td>
+<td>可选</td>
+</tr>
+<tr>
+<td><code>/var/cache/&lt;package&gt;</code></td>
+<td>特定包缓存数据</td>
+<td>可选</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="var-lib"><a href="#var-lib" class="headerlink" title="/var/lib"></a>/var/lib</h2><p><code>/var/lib</code> :可变状态信息。目录保存于应用程序或系统有关的状态信息。<br>状态信息(state infofmation)，是程序在运行时修改的数据，属于一个特定的主机。</p>
+<p>应用程序必须为其数据使用<code>/var/lib/&lt;subdir&gt;</code>，有一个必须的子目录<code>/var/lib/misc</code>用于不需要子目录的状态文件。</p>
+<p><br></p>
+<h2 id="var-lock"><a href="#var-lock" class="headerlink" title="/var/lock"></a>/var/lock</h2><p><code>/var/lock</code> :锁文件，锁文件应该存储在此目录中。<br>锁文件锁定多个应用程序共享的设备和其他资源。</p>
+<p>这种锁文件内容的格式必须是HDB UUCP锁文件格式。<br>HDB格式是将进程标识符(PID)存储为ASCII十进制数，并带有换行符。</p>
+<p><br></p>
+<h2 id="var-log"><a href="#var-log" class="headerlink" title="/var/log"></a>/var/log</h2><p><code>/var/log</code> :日志文件和目录，大多数日志必须写入此目录或适当子目录。</p>
+<p><br><br>The following file or symbolic-link to file must be in /var/log.</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lastlog</td>
+<td>每个用户上次登录信息的记录</td>
+</tr>
+<tr>
+<td>message</td>
+<td>syslogd的系统信息</td>
+</tr>
+<tr>
+<td>wtmp</td>
+<td>所有登录和注销的记录</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="var-mail"><a href="#var-mail" class="headerlink" title="/var/mail"></a>/var/mail</h2><p>邮件缓存区必须通过<code>/var/mail</code>访问，邮件缓冲区文件必须采用<username>的形式。</username></p>
+<p><br></p>
+<h2 id="var-run"><a href="#var-run" class="headerlink" title="/var/run"></a>/var/run</h2><p><code>/var/run</code> :运行时变化数据，此目录包含系统信息数据，描述系统启动以来的情况。<br>此目录下的文件必须在引导过程开始时被清除。<br>进程标识符(PID)文件放置于此目录或下的子目录里面。</p>
+<p><br></p>
+<h2 id="var-spool"><a href="#var-spool" class="headerlink" title="/var/spool"></a>/var/spool</h2><p><code>/var/spool</code> :应用程序队列数据。<br>此目录包含正在等待某种稍后处理的数据，/var/spool中的数据表示工作将在将来执行(通过程序，用户或管理员)，数据通常会在工作处理后被删除。</p>
+<p><br><br>The following dirs or symbolic-link to dirs must be in /var/spool,if the corresponding subsystem is installed.</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lpd</td>
+<td>打印机队列目录</td>
+<td>可选</td>
+</tr>
+<tr>
+<td>mqueue</td>
+<td>发送邮件队列</td>
+<td>可选</td>
+</tr>
+<tr>
+<td>news</td>
+<td>新闻假脱机目录</td>
+<td>可选</td>
+</tr>
+<tr>
+<td>rwho</td>
+<td>rwhod文件</td>
+<td>可选</td>
+</tr>
+<tr>
+<td>uucp</td>
+<td>uucp的假脱机目录</td>
+<td>可选</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="var-tmp"><a href="#var-tmp" class="headerlink" title="/var/tmp"></a>/var/tmp</h2><p><code>/var/tmp</code> :在系统重启之间保存的临时文件。存储在<code>/var/tmp</code>的数据比<code>/tmp</code>中的数据更持久。</p>
+<p><br><br><br></p>
+<h1 id="OS-Specific-Annex"><a href="#OS-Specific-Annex" class="headerlink" title="OS Specific Annex"></a>OS Specific Annex</h1><p>本节是针对仅适用于特定OS的其他建议和要求。</p>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>Linux操作系统的附件</p>
+<h3 id="跟目录"><a href="#跟目录" class="headerlink" title="/ :跟目录"></a>/ :跟目录</h3><p>在Linux系统上，如果内核位于<code>/</code>，建议使用Linux内核源代码包中使用的名称<strong>vmlinux或vmlinuz</strong>。</p>
+<p>我的<code>CentOS7</code>中，内核文件默认是<code>/boot/vmlinuz-$kernel-version.$arch</code></p>
+<p><br></p>
+<h3 id="bin-基本用户命令二进制文件-供多有用户使用"><a href="#bin-基本用户命令二进制文件-供多有用户使用" class="headerlink" title="/bin :基本用户命令二进制文件(供多有用户使用)"></a>/bin :基本用户命令二进制文件(供多有用户使用)</h3><p><br></p>
+<h3 id="dev-设备和特殊文件"><a href="#dev-设备和特殊文件" class="headerlink" title="/dev :设备和特殊文件"></a>/dev :设备和特殊文件</h3><ol>
+<li><code>/dev/null</code> :<br> 写入该设备的所有数据都被丢弃。从这个设备读取将返回一个EOF条件。</li>
+<li><code>/dev/zero</code> :<br> 该设备是归零数据的来源，写入该设备的所有数据被丢弃。从这个设备读取将返回包含zero的请求的字节数。</li>
+<li><code>/dev/tty</code> :<br> 该设备类似于进程控制终端。一旦这个设备被打开，所有读写操作就好像实际的控制终端以及被打开一样。</li>
+</ol>
+<p><br></p>
+<h3 id="etc-主机的特定系统配置"><a href="#etc-主机的特定系统配置" class="headerlink" title="/etc :主机的特定系统配置"></a>/etc :主机的特定系统配置</h3><p>Linux系统要将附件文件放置到<code>/etc</code>中。</p>
+<p><br></p>
+<h3 id="lib64-和-lib32-64-32位库-依赖于体系结构"><a href="#lib64-和-lib32-64-32位库-依赖于体系结构" class="headerlink" title="/lib64 和 /lib32 :64/32位库(依赖于体系结构)"></a>/lib64 和 /lib32 :64/32位库(依赖于体系结构)</h3><p>64位体系结构PPC64,AMD64,x86_64必须将64位库放置于<code>/lib64</code>中，将32位库放置于<code>/lib</code>中；<br>64位体系结构IA64必须将64位库放置于<code>/lib</code>中。</p>
+<p><br></p>
+<h3 id="proc-内核和进程信息虚拟文件系统"><a href="#proc-内核和进程信息虚拟文件系统" class="headerlink" title="/proc :内核和进程信息虚拟文件系统"></a>/proc :内核和进程信息虚拟文件系统</h3><p>PROC文件系统是用于处理进程和系统信息的标准Linux方法，而不是/dev/kmem和其它类似方法。<br>强烈建议使用PROC文件系统获取 存储，进程，内存，内核等信息。</p>
+<p><br></p>
+<h3 id="sbin-基本系统二进制文件"><a href="#sbin-基本系统二进制文件" class="headerlink" title="/sbin :基本系统二进制文件"></a>/sbin :基本系统二进制文件</h3><p>Linux系统将这些附加文件放置于<code>/sbin</code>中：</p>
+<p><strong>第二扩展文件系统命令（可选）：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">badblocks</div><div class="line">dumpe2fs</div><div class="line">e2fsck</div><div class="line">mke2fs</div><div class="line">mklost+found</div><div class="line">tune2fs</div></pre></td></tr></table></figure>
+<p><strong>boot-loader 映射安装程序（可选）：</strong><br><code>lilo</code></p>
+<p><strong>静态二进制文件：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ldconfig</div><div class="line">sln(static ln)</div><div class="line">ssync(static sync)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>出现问题时，sln（静态ln）和ssync（静态同步）非常有用；<br>idconfig程序可以作为升级知道的手段；<br>sln的主要用途，修复不良协调升级后/lib中不正确的符号链接动态库。</p>
+</blockquote>
+<p>对于/sbin, idconfig二进制文件是可选的。因为站点可能会在启动时选择运行idconfig而不是仅在升级共享库时。<br>以下是一些常见问题：</p>
+<ul>
+<li>我刚刚删除了/lib/<file>；</file></li>
+<li>我无法找到库的名称，因为<code>ls</code>是动态链接。我使用的shell没有内置<code>ls</code>，我也不知道使用<code>echo *</code>作为替换；</li>
+<li>我有一个静态ln，但我不知道怎么称呼这个链接。</li>
+</ul>
+<p><strong>杂项：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ctrl+alt+del</div><div class="line">ctrlaltdel</div><div class="line"></div><div class="line">#keyboard rate</div><div class="line">kbdrate</div></pre></td></tr></table></figure>
+<p>为了应对某些键盘出现如此高的重复速率一致无法使用,<code>kbdrate</code>可以安装在某些系统上的<code>/sbin</code>中；</p>
+<p>由于<code>ctrl+alt+del</code>组合键在内核中的默认操作是<strong>硬重启</strong>，因此通常建议在将根文件系统挂在到读写模式之前禁用该行为。这就可能需要<code>ctrlaltdel</code>程序，它可以安装在系统的<code>/sbin</code>中。</p>
+<p><br></p>
+<h2 id="usr-include-C程序包含的头文件"><a href="#usr-include-C程序包含的头文件" class="headerlink" title="/usr/include :C程序包含的头文件"></a>/usr/include :C程序包含的头文件</h2><p>如果安装了C或C++编译器，则只有非 基于glibc的系统才需要这些链接符号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/usr/include/asm  -&gt; /usr/src/linux/include/asm-&lt;arch&gt;</div><div class="line">/usr/include/linux  -&gt; /usr/src/linux/include/linux</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="usr-src-源代码"><a href="#usr-src-源代码" class="headerlink" title="/usr/src :源代码"></a>/usr/src :源代码</h2><p>对于基于glibc的系统，此目录没有具体指导。</p>
+<p>对于glibc之前基于linux libc修订版的系统： <code>/usr/src/linux</code>是唯一放置Linux内核源代码的位置。</p>
+<p><br></p>
+<h2 id="usr-spool-cron-cron和jobs"><a href="#usr-spool-cron-cron和jobs" class="headerlink" title="/usr/spool/cron :cron和jobs"></a>/usr/spool/cron :cron和jobs</h2><p>此目录包含了cron和程序的可变数据。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/FHS/" rel="tag"># FHS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/14/Zabbix/" rel="next" title="Zabbix">
+                <i class="fa fa-chevron-left"></i> Zabbix
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/01/HTPP-method-status/" rel="prev" title="HTPP请求方法和状态码">
+                HTPP请求方法和状态码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/touxiang.jpg"
+              alt="Zhang21" />
+          
+            <p class="site-author-name" itemprop="name">Zhang21</p>
+            <p class="site-description motion-element" itemprop="description">踏踏实实谋发展</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f13278e94ecb" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-circle-o"></i>简书</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Zhang21" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:elite_zhang21@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/Zhang21_" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+<br>
+<!--�����������������ⲿ����,auto=1��ʾ�Զ�����-->
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=411315632&auto=0&height=66"></iframe>
+
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FHS介绍"><span class="nav-number">1.</span> <span class="nav-text">FHS介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-Root-Filesystem"><span class="nav-number">2.</span> <span class="nav-text">The Root Filesystem</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bin"><span class="nav-number">2.1.</span> <span class="nav-text">/bin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#boot"><span class="nav-number">2.2.</span> <span class="nav-text">/boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dev"><span class="nav-number">2.3.</span> <span class="nav-text">/dev</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etc"><span class="nav-number">2.4.</span> <span class="nav-text">/etc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etc-opt"><span class="nav-number">2.5.</span> <span class="nav-text">/etc/opt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etc-xml"><span class="nav-number">2.6.</span> <span class="nav-text">/etc/xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#home-Optional"><span class="nav-number">2.7.</span> <span class="nav-text">/home (Optional)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lib"><span class="nav-number">2.8.</span> <span class="nav-text">/lib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lib-Optional"><span class="nav-number">2.9.</span> <span class="nav-text">/lib (Optional)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#media"><span class="nav-number">2.10.</span> <span class="nav-text">/media</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mnt"><span class="nav-number">2.11.</span> <span class="nav-text">/mnt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#opt"><span class="nav-number">2.12.</span> <span class="nav-text">/opt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#root-Optional"><span class="nav-number">2.13.</span> <span class="nav-text">/root (Optional)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sbin"><span class="nav-number">2.14.</span> <span class="nav-text">/sbin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#srv"><span class="nav-number">2.15.</span> <span class="nav-text">/srv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmp"><span class="nav-number">2.16.</span> <span class="nav-text">/tmp</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-usr-Hierarchy"><span class="nav-number">3.</span> <span class="nav-text">The /usr Hierarchy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#usr-bin"><span class="nav-number">3.1.</span> <span class="nav-text">/usr/bin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usr-include"><span class="nav-number">3.2.</span> <span class="nav-text">/usr/include</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usr-lib"><span class="nav-number">3.3.</span> <span class="nav-text">/usr/lib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usr-lib-Optional"><span class="nav-number">3.4.</span> <span class="nav-text">/usr/lib (Optional)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usr-local"><span class="nav-number">3.5.</span> <span class="nav-text">/usr/local</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usr-sbin"><span class="nav-number">3.6.</span> <span class="nav-text">/usr/sbin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usr-share"><span class="nav-number">3.7.</span> <span class="nav-text">/usr/share</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-share-dict"><span class="nav-number">3.7.1.</span> <span class="nav-text">/usr/share/dict</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-share-man"><span class="nav-number">3.7.2.</span> <span class="nav-text">/usr/share/man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-share-misc"><span class="nav-number">3.7.3.</span> <span class="nav-text">/usr/share/misc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-share-sgml"><span class="nav-number">3.7.4.</span> <span class="nav-text">/usr/share/sgml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-share-xml"><span class="nav-number">3.7.5.</span> <span class="nav-text">/usr/share/xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usr-src"><span class="nav-number">3.8.</span> <span class="nav-text">/usr/src</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#var-Hierarchy"><span class="nav-number">4.</span> <span class="nav-text">/var Hierarchy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#var-account"><span class="nav-number">4.1.</span> <span class="nav-text">/var/account</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#var-cache"><span class="nav-number">4.2.</span> <span class="nav-text">/var/cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#var-lib"><span class="nav-number">4.3.</span> <span class="nav-text">/var/lib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#var-lock"><span class="nav-number">4.4.</span> <span class="nav-text">/var/lock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#var-log"><span class="nav-number">4.5.</span> <span class="nav-text">/var/log</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#var-mail"><span class="nav-number">4.6.</span> <span class="nav-text">/var/mail</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#var-run"><span class="nav-number">4.7.</span> <span class="nav-text">/var/run</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#var-spool"><span class="nav-number">4.8.</span> <span class="nav-text">/var/spool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#var-tmp"><span class="nav-number">4.9.</span> <span class="nav-text">/var/tmp</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OS-Specific-Annex"><span class="nav-number">5.</span> <span class="nav-text">OS Specific Annex</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux"><span class="nav-number">5.1.</span> <span class="nav-text">Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#跟目录"><span class="nav-number">5.1.1.</span> <span class="nav-text">/ :跟目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bin-基本用户命令二进制文件-供多有用户使用"><span class="nav-number">5.1.2.</span> <span class="nav-text">/bin :基本用户命令二进制文件(供多有用户使用)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dev-设备和特殊文件"><span class="nav-number">5.1.3.</span> <span class="nav-text">/dev :设备和特殊文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-主机的特定系统配置"><span class="nav-number">5.1.4.</span> <span class="nav-text">/etc :主机的特定系统配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lib64-和-lib32-64-32位库-依赖于体系结构"><span class="nav-number">5.1.5.</span> <span class="nav-text">/lib64 和 /lib32 :64/32位库(依赖于体系结构)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-内核和进程信息虚拟文件系统"><span class="nav-number">5.1.6.</span> <span class="nav-text">/proc :内核和进程信息虚拟文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sbin-基本系统二进制文件"><span class="nav-number">5.1.7.</span> <span class="nav-text">/sbin :基本系统二进制文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usr-include-C程序包含的头文件"><span class="nav-number">5.2.</span> <span class="nav-text">/usr/include :C程序包含的头文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usr-src-源代码"><span class="nav-number">5.3.</span> <span class="nav-text">/usr/src :源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usr-spool-cron-cron和jobs"><span class="nav-number">5.4.</span> <span class="nav-text">/usr/spool/cron :cron和jobs</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang21</span>
+
+<!--字数统计-->
+  <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> 字数: 44.4k</span>
+</div>
+
+
+  
+</div>
+
+
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Zhang21.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://zhang21.github.io/2017/11/27/FHS/';
+          this.page.identifier = '2017/11/27/FHS/';
+          this.page.title = 'Filesystem Hierarchy Standard';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Zhang21.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
