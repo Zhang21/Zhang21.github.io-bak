@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang21.github.io/"/>
-  <updated>2017-12-01T10:32:55.978Z</updated>
+  <updated>2017-12-04T06:42:32.053Z</updated>
   <id>https://zhang21.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>HTPP请求方法和状态码</title>
-    <link href="https://zhang21.github.io/2017/12/01/HTPP-method-status/"/>
-    <id>https://zhang21.github.io/2017/12/01/HTPP-method-status/</id>
+    <title>HTTP请求方法和状态码</title>
+    <link href="https://zhang21.github.io/2017/12/01/HTTP-method-status/"/>
+    <id>https://zhang21.github.io/2017/12/01/HTTP-method-status/</id>
     <published>2017-12-01T05:53:20.000Z</published>
-    <updated>2017-12-01T10:32:55.978Z</updated>
+    <updated>2017-12-04T06:42:32.053Z</updated>
     
     <content type="html"><![CDATA[<h1 id="常见HTTP请求方法"><a href="#常见HTTP请求方法" class="headerlink" title="常见HTTP请求方法"></a>常见HTTP请求方法</h1><p>HTTP协议的请求方法有：<code>GET, POST, HEAD PUT DELETE, OPTIONS, TRACE, CONNECT</code></p>
 <a id="more"></a>
@@ -393,7 +393,7 @@
     <link href="https://zhang21.github.io/2017/11/27/FHS/"/>
     <id>https://zhang21.github.io/2017/11/27/FHS/</id>
     <published>2017-11-27T08:42:33.000Z</published>
-    <updated>2017-12-01T10:23:48.450Z</updated>
+    <updated>2017-12-08T06:54:59.089Z</updated>
     
     <content type="html"><![CDATA[<h1 id="FHS介绍"><a href="#FHS介绍" class="headerlink" title="FHS介绍"></a>FHS介绍</h1><p>FHS(Filesystem Hierarchy Standard)，文件系统层次化标准：<a href="http://www.pathname.com/fhs" target="_blank" rel="external">http://www.pathname.com/fhs</a></p>
 <p><br><br>FHS主要目的是希望让用户了解安装文件通常放置的目录。所以希望软件开发商、系统制定者以及维护系统的用户，都能够遵循FHS的标准。</p>
@@ -434,7 +434,7 @@
 </ul>
 <p><br><br><br></p>
 <h1 id="The-Root-Filesystem"><a href="#The-Root-Filesystem" class="headerlink" title="The Root Filesystem"></a>The Root Filesystem</h1><p><strong>根目录(/)</strong>是系统最重要的一个目录。不但所有目录都是由根目录衍生出来，同时根目录还与<strong>系统的启动、还原、修复</strong>等操作相关。<br>若系统出现问题，根目录必须要包含能够修复文件系统的程序才行。<br>破坏根文件系统上的数据的错误比破坏其他任何分区都要严重！</p>
-<p>为了平衡这些考虑，建议尽可能保持根分区小。<br>应用程序不应再根目录中创建特殊文件或子目录！</p>
+<p>为了平衡这些考虑，建议尽可能保持根分区小。<br>应用程序不应在根目录中创建特殊文件或子目录！</p>
 <p><br><br>The following dirs or symbolic-links, are required in /</p>
 <table>
 <thead>
@@ -937,7 +937,7 @@
 <h2 id="mnt"><a href="#mnt" class="headerlink" title="/mnt"></a>/mnt</h2><p><code>/mnt</code> :临时挂载文件系统的挂载点</p>
 <p><br></p>
 <h2 id="opt"><a href="#opt" class="headerlink" title="/opt"></a>/opt</h2><p><code>/opt</code> :为第三方软件包保留的目录</p>
-<p>要安装在<code>/opt</code>中的软件包必须将其静态文件放置在单独的<code>/opt/&lt;packge&gt;</code>目录树种。</p>
+<p>要安装在<code>/opt</code>中的软件包必须将其静态文件放置在单独的<code>/opt/&lt;packge&gt;</code>目录树中。</p>
 <p>目录/opt/bin, /opt/doc, /opt/include, /opt/info, /opt/lib, /opt/man 是保留给本地系统管理员使用。<br>如果第三方软件包含Unix手册，而手册必须放置于/opt/<package>/share/man/，必须使用与/usr/share/man相同的子结构。</package></p>
 <p><br></p>
 <h2 id="root-Optional"><a href="#root-Optional" class="headerlink" title="/root (Optional)"></a>/root (Optional)</h2><p><code>/root</code> :root用户的主目录</p>
@@ -1046,7 +1046,7 @@
 <h2 id="srv"><a href="#srv" class="headerlink" title="/srv"></a>/srv</h2><p><code>/srv</code> :系统提供的服务(service)的数据</p>
 <p><br></p>
 <h2 id="tmp"><a href="#tmp" class="headerlink" title="/tmp"></a>/tmp</h2><p><code>/tmp</code> :临时文件</p>
-<p><code>/tmp</code>目录为临时需要文件的程序提供。<br>程序不能再程序的调用之间保留/tmp中的任何文件或目录。<br>尽管/tmp中数据可能会以某种特定方式删除，但建议在系统启动时删除/tmp中所有文件。</p>
+<p><code>/tmp</code>目录为临时需要文件的程序提供。<br>程序不能在程序的调用之间保留/tmp中的任何文件或目录。<br>尽管/tmp中数据可能会以某种特定方式删除，但建议在系统启动时删除/tmp中所有文件。</p>
 <p><br><br><br></p>
 <h1 id="The-usr-Hierarchy"><a href="#The-usr-Hierarchy" class="headerlink" title="The /usr Hierarchy"></a>The /usr Hierarchy</h1><p><code>/usr</code> 里面放置的数据是可分享与不可变动的。<br>这就意味着可在各种符合FHS的主机之间共享，但不能写入。<br>大型软件包不应在/usr层次结构下使用直接子目录。</p>
 <p><br><br>The following dirs of symbolic-links to dirs are required in /usr</p>
@@ -1213,7 +1213,7 @@
 <p><code>/usr/local/share</code>目录内容的要求应与<code>/usr/share</code>相同，唯一附加约束是<code>/usr/local/share/man</code>和<code>/usr/local/man</code>目录必须是同步的。（基本上就是符号链接了！）</p>
 <p><br></p>
 <h2 id="usr-sbin"><a href="#usr-sbin" class="headerlink" title="/usr/sbin"></a>/usr/sbin</h2><p><code>/usr/sbin</code> :非必要的标准系统二进制文件</p>
-<p>该目录包含系统管理员转么使用的任何非必要的二进制文件。<br>系统修复、恢复、挂载/usr等其他重要必要功能必须放在/sbin中。</p>
+<p>该目录包含系统管理员专门使用的任何非必要的二进制文件。<br>系统修复、恢复、挂载/usr等其他重要必要功能必须放在/sbin中。</p>
 <p><br></p>
 <h2 id="usr-share"><a href="#usr-share" class="headerlink" title="/usr/share"></a>/usr/share</h2><p><code>/usr/share</code> :独立于架构的数据</p>
 <p><code>/usr/share</code>层次 是为了所有只读架构独立数据。<br>该层次可以在给定OS的所有体系架构平台之间共享。如具有i386和PPC平台站点可能会维护一个集中安装的/usr/share目录。<br>但<code>/usr/share</code>一般不打算由不同的操作系统共享，或由同一操作系统的不同版本共享。</p>
@@ -1299,7 +1299,7 @@
 </tbody>
 </table>
 <p><br></p>
-<h3 id="usr-share-dict"><a href="#usr-share-dict" class="headerlink" title="/usr/share/dict"></a>/usr/share/dict</h3><p><code>/usr/share/dict</code> :单词列表<br>这个目录是系统上单词列表的家目录，只包英文单词，它们由<code>look</code>和各种拼写程序使用。<br>它们是所有拼写检查器唯一通用的文件。</p>
+<h3 id="usr-share-dict"><a href="#usr-share-dict" class="headerlink" title="/usr/share/dict"></a>/usr/share/dict</h3><p><code>/usr/share/dict</code> :单词列表<br>这个目录是系统上单词列表的家目录，只包含英文单词，它们由<code>look</code>和各种拼写程序使用。<br>它们是所有拼写检查器唯一通用的文件。</p>
 <table>
 <thead>
 <tr>
@@ -1628,7 +1628,7 @@
 <p><br><br><br></p>
 <h1 id="OS-Specific-Annex"><a href="#OS-Specific-Annex" class="headerlink" title="OS Specific Annex"></a>OS Specific Annex</h1><p>本节是针对仅适用于特定OS的其他建议和要求。</p>
 <h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>Linux操作系统的附件</p>
-<h3 id="跟目录"><a href="#跟目录" class="headerlink" title="/ :跟目录"></a>/ :跟目录</h3><p>在Linux系统上，如果内核位于<code>/</code>，建议使用Linux内核源代码包中使用的名称<strong>vmlinux或vmlinuz</strong>。</p>
+<h3 id="根目录"><a href="#根目录" class="headerlink" title="/ :根目录"></a>/ :根目录</h3><p>在Linux系统上，如果内核位于<code>/</code>，建议使用Linux内核源代码包中使用的名称<strong>vmlinux或vmlinuz</strong>。</p>
 <p>我的<code>CentOS7</code>中，内核文件默认是<code>/boot/vmlinuz-$kernel-version.$arch</code></p>
 <p><br></p>
 <h3 id="bin-基本用户命令二进制文件-供多有用户使用"><a href="#bin-基本用户命令二进制文件-供多有用户使用" class="headerlink" title="/bin :基本用户命令二进制文件(供多有用户使用)"></a>/bin :基本用户命令二进制文件(供多有用户使用)</h3><p><br></p>
@@ -1714,7 +1714,7 @@
     <link href="https://zhang21.github.io/2017/11/14/Zabbix/"/>
     <id>https://zhang21.github.io/2017/11/14/Zabbix/</id>
     <published>2017-11-14T02:18:09.000Z</published>
-    <updated>2017-11-24T08:04:36.055Z</updated>
+    <updated>2017-12-04T06:41:25.795Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Zabbix简介"><a href="#Zabbix简介" class="headerlink" title="Zabbix简介"></a>Zabbix简介</h1><p><a href="https://www.zabbix.com/" target="_blank" rel="external">Zabbix官方网站</a><br><a href="https://www.zabbix.com/documentation/3.4/zh/manual/" target="_blank" rel="external">Zabbix中文文档</a><br>Zabbix-repo仓库：<repo.zabbix.com>， 阿里云上也有镜像！</repo.zabbix.com></p>
 <p>本文系统环境是CentOS7x86_64, Zabbix 3.4。</p>
@@ -1765,6 +1765,28 @@
 <p><strong>Zabbix server:</strong><br>Zabbix软件监控的核心程序，主要功能是与Zabbix proxies和agent进行交互、触发器计算、发送告警通知，并将数据集中保存等。</p>
 <p><strong>Zabbix agent:</strong><br>部署在监控对象上，能够主动监控本地资源和应用。</p>
 <p><strong>Zabbix proxy:</strong><br>帮助Zabbix server收集数据，分担Zabbix server的负载。</p>
+<p><br><br><br></p>
+<h1 id="Zabbix进程"><a href="#Zabbix进程" class="headerlink" title="Zabbix进程"></a>Zabbix进程</h1><h2 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h2><p>zabbix agent部署在监控的目标上，主动监测本地的资源和应用（硬件驱动，内存，处理器统计等）。<br>zabbix agent手机本地的操作信息并将数据报告给zabbix server用于进一步处理。</p>
+<p>zabbix agent有被动(passive)和主动(active)两种检查方式。</p>
+<p><br></p>
+<h2 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h2><p>zabbix server是zabbix软件的核心程序。它通过轮询和捕获数据，计算是否满足触发器条件，向用户发送通知。<br>它是zabbix监控代理和Proxy代理报告系统可用性和完整性数据的核心组件。zabbix server自身可以通过简单远程检查网络服务(如Web服务器和邮件服务器)。</p>
+<p>server是一个包含了被存储了所有配置，统计方面的和可操作数据的中央仓库，它是监控系统问题升级以致于激活警告管理器的zabbix中的实体。</p>
+<p>基本的zabbix server分三个不同的组件：<strong>zabbix server，web前端，数据库存储</strong>。<br>zabbix的所有配置信息都存储在服务器和web前端进行交互的数据库中。</p>
+<p>zabbix server进程是以守护进程（Daemon）运行的。</p>
+<p><br></p>
+<h2 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h2><p>zabbix proxy是一个可以从一个或多个受监控的设备设备收集监控数据，并将信息发送到zabbix server的进程，基本上是代表server工作。<br>所有收集的数据都在本地进行缓存，然后传送到proxy所属的zabbix server。</p>
+<p>zabbix proxy是完成远程区域、分支机构、没有本地管理员的网络的集中监控的理想解决方案。</p>
+<p>zabbix proxy需要使用独立的数据库，以守护进程的方式运行。</p>
+<p><br></p>
+<h2 id="Java-gateway"><a href="#Java-gateway" class="headerlink" title="Java gateway"></a>Java gateway</h2><p>zabbix守护进程原生支持监控JMX程序，它被称为zabbix java gateway。zabbix gateway是用Java语言写成。</p>
+<p>要查得一台主机特定的JMX计数器值，zabbix server向zabbix java gateway发送请求，后者使用JMX管理API去请求远程的有关应用。应用不许额外安装软件，只需要启动时在命令行指定 <code>-Dcom.sun.management.jmxremote</code>即可（是在java程序）。</p>
+<p>每个zabbix server或zabbix agent只能配置一个java gateway。</p>
+<p><br></p>
+<h2 id="Sender"><a href="#Sender" class="headerlink" title="Sender"></a>Sender</h2><p>zabbix sender是一种命令行应用，它可以将性能数据发送到zabbix server进行处理。该应用通常用在长时间运行的用户脚本，用于定期发送可用性和性能数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">zabbix_sender -z zabbix -s &quot;xxx&quot; -k db.connections -0 43</div><div class="line"></div><div class="line">-z :server主机</div><div class="line">-s :受监控主机的技术名称</div><div class="line">-k :监控项的键</div><div class="line">-o :要发送的值</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="Get"><a href="#Get" class="headerlink" title="Get"></a>Get</h2><p>zabbix get也是一种命令行应用，用于与zabbix agent进行通信，并从agent那里获取所需的信息。<br>该应用通常被用于zabbix agent故障排除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">zabbix_get -s $host -p xxx -k system.cpu.load[all,avg15]</div><div class="line"></div><div class="line">-s  --host</div><div class="line">-p --port</div><div class="line">-I --source-address</div><div class="line">-k --key</div><div class="line">-h --help</div><div class="line">-V --version</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h1 id="安装Zabbix"><a href="#安装Zabbix" class="headerlink" title="安装Zabbix"></a>安装Zabbix</h1><h2 id="Zabbix安装要求"><a href="#Zabbix安装要求" class="headerlink" title="Zabbix安装要求"></a>Zabbix安装要求</h2><p><strong>硬件：</strong></p>
 <ul>
