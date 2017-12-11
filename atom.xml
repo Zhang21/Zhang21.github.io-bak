@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang21.github.io/"/>
-  <updated>2017-12-04T06:42:32.053Z</updated>
+  <updated>2017-12-11T05:46:24.461Z</updated>
   <id>https://zhang21.github.io/</id>
   
   <author>
@@ -14,6 +14,204 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数据结构</title>
+    <link href="https://zhang21.github.io/2017/12/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    <id>https://zhang21.github.io/2017/12/11/数据结构/</id>
+    <published>2017-12-11T05:44:38.000Z</published>
+    <updated>2017-12-11T05:46:24.461Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p>在计算机科学中，<strong>数据结构(data structure)</strong>是计算机中存储、组织数据的方式。<br>大多数数据结构都有数列、记录、可辨识联合、引用等基本类型构成。</p>
+<p>数据结构意味着结构和封装，一个数据结构可被视为两个函数之间的接口，或是由数据类型联合组成的存储内容的访问方法和封装。<br>数据结构可通过程序语言所提供的数据类型、引用及其它操作加以实现。不同种类的数据结构适合不同种类的应用，部分数据结构甚至是为了解决特定问题而设计。<br>一个涉及良好的数据结构，应该尽可能使用较少的时间与空间资源的前提下，支持各种程序运行。</p>
+<p>正确选择数据结构可以提高算法的效率，在计算机程序设计里，选择适当的数据结构是一项重要工作。</p>
+<p><br></p>
+<h2 id="常见数据结构"><a href="#常见数据结构" class="headerlink" title="常见数据结构"></a>常见数据结构</h2><ul>
+<li>数组(Array);</li>
+<li>栈(Stack): 后进先出，线性表；</li>
+<li>队列(Queue): 先进先出，线性表；</li>
+<li>链表(Linked List): 每个节点包括两部分，一个存储数据元素的数据域，另一个存储下一个节点地址的指针域；</li>
+<li>树(Tree)；</li>
+<li>图(Graph)；</li>
+<li>堆(Heap): 一种动态树形结构；</li>
+<li>散列表(Hash)；</li>
+</ul>
+<p><br></p>
+<h3 id="数组-Array"><a href="#数组-Array" class="headerlink" title="数组(Array)"></a>数组(Array)</h3><p>数组数据结构，是由相同类型的元素的集合所组成，分配一块连续的内存来存储。利用数组元素的索引(index)可计算出元素对应存储地址。</p>
+<p>数组有 <strong>一维数组、二维数组、多维数组、可变长数组…</strong>。</p>
+<p><br></p>
+<h3 id="栈-Stack"><a href="#栈-Stack" class="headerlink" title="栈(Stack)"></a>栈(Stack)</h3><p>堆栈又称为栈，是计算机科学中一种特殊的串列形式的抽象资料类别。<br>其特殊之处在于只能允许在链接串列或阵列的一端(栈顶指标:top)，进行加入数据(push)和取出数据(pop)。</p>
+<p>由于栈数据结构只允许在一端进行操作，因为按照后进先出(LIFO, last-in-first-out)的原理运行。</p>
+<p><br></p>
+<h3 id="队列-Queue"><a href="#队列-Queue" class="headerlink" title="队列(Queue)"></a>队列(Queue)</h3><p>队列，是先进先出(FIFO, first-in-first-out)的线性表。在具体应用中通常用链表或数组来实现。<br>队列只允许在后端(Rear)进行插入操作，在前端(Front)进行删除操作。</p>
+<p><br></p>
+<h3 id="链表-Linked-List"><a href="#链表-Linked-List" class="headerlink" title="链表(Linked List)"></a>链表(Linked List)</h3><p>链表是一种线性表，但并不按线性的顺序存储数据，而是在每一个节点里存到下一个节点的指针(Pointer)。<br>由于不必须按顺序存储，链表再插入的时候可以达到 O(1)的时间复杂度，比另一种线性表顺序表快得多。但查找一个节点或访问特定节点则需要 O(n)的时间，而顺序表相应的时间复杂度分别是 O(logn)和O(1)。</p>
+<p>是用链表结构可以克服数组链表需要预先知道数据大小的缺点，链表可以充分利用计算机内存空间，实现灵活的内存动态管理。但是链表失去了数组随机读取的优点，同时链表由于增加了节点的指针域，空间开销比较大。</p>
+<p>链表有<strong>单向链表、双向链表、循环链表…</strong>。<br>链表用来构建许多其它数据结构，如栈，队列和他们的派生。</p>
+<p><br></p>
+<h3 id="树-Tree"><a href="#树-Tree" class="headerlink" title="树(Tree)"></a>树(Tree)</h3><p>树是一种抽象数据类型，用来模拟具有树状结构性质的数据集合。</p>
+<p>树有<strong>有序树、无序树（二叉树，B树，霍夫曼树）</strong>。</p>
+<p><br></p>
+<h3 id="图-Graph"><a href="#图-Graph" class="headerlink" title="图(Graph)"></a>图(Graph)</h3><p>在数学上，一个图是表示物体与物体之间的关系的方法，是图论的基本研究对象。</p>
+<p>图有：<strong>有向图、无向图、简单图、多重图</strong>。</p>
+<p><br></p>
+<h3 id="堆-Heap"><a href="#堆-Heap" class="headerlink" title="堆(Heap)"></a>堆(Heap)</h3><p>堆是计算机科学中一类特殊的数据结构的统称。<br>堆通常是一个可以被看做一棵树的数组对象。在队列中，调度程序反复提取队列中的第一个作业并运行，因为实际情况中某些时间较短的任务将等待很长时间才能结束，或者某些不短小，但具有重要性的作业，同样应当具有优先权。堆即为解决此类问题设计的一种数据结构。</p>
+<p>堆常用于排序，这种算法称作堆排序。</p>
+<p><br></p>
+<h3 id="散列表-Hash"><a href="#散列表-Hash" class="headerlink" title="散列表(Hash)"></a>散列表(Hash)</h3><p>散列表也叫哈希表，是根据<strong>键(key)</strong>而直接访问在内存存储位置的数据结构。<br>它通过计算一个关于键值的函数，将所需查询的数据映射到表中的一个位置来访问记录，这加快了查找速度。这种映射函数称为散列函数，存放记录的数组称为散列表。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;数据结构&quot;&gt;&lt;a href=&quot;#数据结构&quot; class=&quot;headerlink&quot; title=&quot;数据结构&quot;&gt;&lt;/a&gt;数据结构&lt;/h1&gt;&lt;p&gt;在计算机科学中，&lt;strong&gt;数据结构(data structure)&lt;/strong&gt;是计算机中存储、组织数据的方式。&lt;
+    
+    </summary>
+    
+      <category term="“Linux”" scheme="https://zhang21.github.io/categories/%E2%80%9CLinux%E2%80%9D/"/>
+    
+    
+      <category term="DataStructure" scheme="https://zhang21.github.io/tags/DataStructure/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MongoDB</title>
+    <link href="https://zhang21.github.io/2017/12/11/MongoDB/"/>
+    <id>https://zhang21.github.io/2017/12/11/MongoDB/</id>
+    <published>2017-12-11T02:49:52.000Z</published>
+    <updated>2017-12-11T10:34:58.125Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="http://docs.mongoing.com/" target="_blank" rel="external">MongoDB官方文档</a>;</li>
+<li>MongoDB中文文档:<a href="http://www.mongoing.com/docs/" target="_blank" rel="external">http://www.mongoing.com/docs/</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/MongoDB" target="_blank" rel="external">https://zh.wikipedia.org/wiki/MongoDB</a>;</li>
+<li><a href="http://www.ywnds.com/?p=5635" target="_blank" rel="external">http://www.ywnds.com/?p=5635</a>;</li>
+<li><a href="https://www.centos.bz/2017/08/mongodb-secure-intro-user-auth/" target="_blank" rel="external">https://www.centos.bz/2017/08/mongodb-secure-intro-user-auth/</a>;</li>
+<li><a href="http://www.03sec.com/3176.shtml" target="_blank" rel="external">http://www.03sec.com/3176.shtml</a>;</li>
+<li><a href="http://www.ywnds.com/?p=6502" target="_blank" rel="external">http://www.ywnds.com/?p=6502</a>;</li>
+<li><a href="http://wiki.jikexueyuan.com/project/the-little-mongodb-book/" target="_blank" rel="external">http://wiki.jikexueyuan.com/project/the-little-mongodb-book/</a>;</li>
+</ul>
+<p>环境：</p>
+<ul>
+<li>CentOS7_x64；</li>
+<li>MongoDB3.4；</li>
+</ul>
+<p><br></p>
+<hr>
+<p><br></p>
+<h1 id="NoSQL"><a href="#NoSQL" class="headerlink" title="NoSQL"></a>NoSQL</h1><p>NoSQL(Not Only SQL)是对不同于传统的<strong>关系型数据库</strong>的<strong>数据库管理系统(DBMS)</strong>的统称。<br>NoSQL不使用SQL作为查询语言，其数据结构可以不需要固定的表格模式，有横向可扩展性的特征。<br>NoSQL用于超大规模数据的存储，这些类型的数据存储不需要固定的模式，无序多余操作就可以横向扩展。</p>
+<p><br><br>关系型数据库的典型实现主要被调整用于执行规模小而读写频繁，或大批量极少写访问的事务。<br>当代典型的关系型数据库在一些数据敏感的应用中表现了糟糕的性能。例如：</p>
+<ul>
+<li>为巨量文档创建索引；</li>
+<li>高流量网站的网页服务；</li>
+<li>发送流媒体。</li>
+</ul>
+<p><br><br>NoSQL数据库分类：<br>类型 | 栗子 | 特点</p>
+<ul>
+<li>| - | -<br>文档存储 | MongoDB | 用类似json的格式存储，存储的内容是文档型的。这样就有机会对某些字段建立索引，实现关系数据库的某些功能<br>图形关系存储 | Neo4j | 图形关系的最佳存储<br>键-值(ker-value)存储 | 最终一致性的键-值存储 <br> 架构性键-值存储 | xxx<br>主机式服务 | key-value硬盘存储 <br> key-value RAM存储 | MemcacheDB <br> Redis<br>多数据库 | OpenQM | xxx<br>时序型数据库 | Graphite | xxx<br>对象数据库 | ObjecStore | 通过类似面向对象语言的语法操作数据库，通过对象的方式存取数据<br>列存储 | HBase | 顾名思义，按列存储数据。方便存储结构化和半结构化数据，方便做数据压缩，针对某一列或某几列的查询有很大的IO优势。</li>
+</ul>
+<p><br><br><br></p>
+<h1 id="MongoDB简介"><a href="#MongoDB简介" class="headerlink" title="MongoDB简介"></a>MongoDB简介</h1><p>MongoDB(<a href="https://www.mongodb.com/)是一种文档导向的数据库管理系统，由C++撰写而成，以此来解决应用程序开发社区中的大量现实问题。它是一种NoSQL。" target="_blank" rel="external">https://www.mongodb.com/)是一种文档导向的数据库管理系统，由C++撰写而成，以此来解决应用程序开发社区中的大量现实问题。它是一种NoSQL。</a><br>MongoDB支持的数据结构非常松散，是类似于json的bson格式，因此可以存储比较复杂的数据类型。<br>MongoDB是一个开源文档数据库，提供高性能，高可用性和自动扩展。</p>
+<p><br><br><strong>预备知识：</strong></p>
+<ol>
+<li>MongoDB中的<code>database</code>有和数据库一样的概念。一个MongoDB实例中，可以有零个或多个数据库，每个都作为一个高等容器，用于存储数据；</li>
+<li>MongoDB数据库中有零个或多个<code>collections</code>(集合)。集合类似于传统意义上的<code>table</code>(表)；</li>
+<li>MongoDB的集合是由零个或多个<code>documents</code>(文档)组成。文档类似于<code>row</code>(行)；</li>
+<li>MongoDB的文档由零个或多个<code>fields</code>(字段)组成。字段类似于<code>columns</code>(列)；</li>
+<li>MongoDB中<code>Indexes</code>(索引)扮演的角色与RDMS中一样；</li>
+<li>MongoDB中的<code>Cursors</code>(游标)很重要，但你想MongoDB取数据的时候，它会给你返回一个结果集的指针而不是真正的数据，这个指针我们叫它游标。我们可以用游标做任何事情，比如计数或跨行之类。</li>
+</ol>
+<p><br></p>
+<h2 id="MongoDB特点"><a href="#MongoDB特点" class="headerlink" title="MongoDB特点"></a>MongoDB特点</h2><p>不如这样认为，MongoDB是关系型数据库的一个代替案。比如用<code>Lucene</code>作为关系型数据库的全文检索索引的加强，或者是<code>Redis</code>作为持久性<code>key-value</code>存储。</p>
+<p><strong>无模式(Flexible Schema)</strong>：<br>它不需要一个固定的模式，这使得他们比传统的数据库表要灵活更多。</p>
+<p><br><br><strong>写操作(Writes)</strong>：<br>MongoDB可以胜任的一个特殊角色是在日志领域。有两点使得MongoDB的写操作非常快：</p>
+<ol>
+<li>可以选择发送了写操作之后立刻返回，而无需等到操作完成；</li>
+<li>可以控制数据持久性的写行为。</li>
+</ol>
+<p><br><br><strong>高性能(High Performance)</strong>：<br>MongoDB提供了高性能的数据持久性。尤其是：</p>
+<ul>
+<li>对嵌入式数据模型的支持减少了数据库系统上的I/O活动；</li>
+<li>索引支持更快的查询，并且可以包含来自嵌入式文档和数组的键。</li>
+</ul>
+<p><br><br><strong>高可用(High Availability)</strong>：<br>MongoDB的复制工具，称为副本集。提供：自动故障转移和数据冗余。</p>
+<p><br><br><strong>持久性(Durability)</strong>：<br>在MongoDB中，日志(Journaling)是默认启动的，该功能允许快速回复服务器，比如遭遇到了服务器奔溃或停电的问题。</p>
+<p><br><br><strong>丰富的查询语言(Rich Query Language)</strong>：<br>MongoDB支持丰富的查询语言来支持读写操作(CRUD)，数据聚合(Data Aggregation)，全文搜索(Text Search)。</p>
+<p><br><br><strong>水平可伸缩性(Horizontal Scalability)</strong>：<br>MongoDB提供了横向可伸缩性。</p>
+<p><br><br><strong>支持多个存储引擎(Support for Multiple Storage Engines)</strong>：<br>在MongoDB3.4以后默认引擎为: WiredTiger Storage Engine，允许第三方为MongoDB开发存储引擎。</p>
+<p><br></p>
+<p>## </p>
+<p><br><br><br></p>
+<h1 id="MongoDB安装"><a href="#MongoDB安装" class="headerlink" title="MongoDB安装"></a>MongoDB安装</h1><p>参考:<br><a href="https://docs.mongodb.com/manual/administration/install-on-linux/" target="_blank" rel="external">https://docs.mongodb.com/manual/administration/install-on-linux/</a><br><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/" target="_blank" rel="external">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/</a></p>
+<p>MongoDB有社区版(Community)和企业版(Enterprise)。社区办免费，企业版在商业方面收费。</p>
+<p><br><br>MongoDB在仓库中提供官方支持的包，包含以下软件包：<br>Package | Description</p>
+<ul>
+<li>| -<br>monogdb-org | 将自动安装下面四个组件包<br>mongodb-org-server | 包含<code>mongod</code>守护进程和相关配置和<code>init</code>脚本<br>mongodb-org-mongos | 包含<code>mongos</code>守护进程<br>mongodb-org-shell | 包含<code>mongo-shell</code><br>mongodb-org-tools | 包含相关MongoDB工具，如<code>mongoimport</code>,<code>mongoexport</code>,<code>mongodump</code>,<code>mongorestore</code>…</li>
+</ul>
+<p><code>mongodb-org-server</code>包提供了一个<code>/etc/mongod.conf</code>配置文件来开始和初始化<code>mongod</code>。默认配置文件默认bind_ip为 127.0.0.1，当你有需要和副本集时请修改它。</p>
+<h2 id="自建mongodb-repo仓库安装"><a href="#自建mongodb-repo仓库安装" class="headerlink" title="自建mongodb.repo仓库安装"></a>自建mongodb.repo仓库安装</h2><p><a href="https://repo.mongodb.org" target="_blank" rel="external">https://repo.mongodb.org</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">vim /etc/yum.repos.d/mongodb34.repo</div><div class="line"><span class="comment">#编辑仓库</span></div><div class="line"></div><div class="line"></div><div class="line">[mongodb34]</div><div class="line">name=MongoDB34 Repository</div><div class="line">baseurl=https://repo.mongodb.org/yum/redhat/<span class="variable">$releasever</span>/mongodb-org/3.4/x86_64/</div><div class="line">gpgcheck=0</div><div class="line">enabled=1</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#安装mongodb</span></div><div class="line">yum install -y mongodb-org</div></pre></td></tr></table></figure>
+<h2 id="下载rpm包安装"><a href="#下载rpm包安装" class="headerlink" title="下载rpm包安装"></a>下载rpm包安装</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /root/mongodb</div><div class="line">wget https://repo.mongodb.org/yum/redhat/7/mongodb-org/3.4/x86_64/RPMS/mongodb-org-3.4.10-1.el7.x86_64.rpm</div><div class="line">wget https://repo.mongodb.org/yum/redhat/7/mongodb-org/3.4/x86_64/RPMS/mongodb-xxx-3.4.10-1.el7.x86_64.rpm</div><div class="line"><span class="comment">#共五个包</span></div><div class="line"></div><div class="line"></div><div class="line">yum ./mongo-org*</div></pre></td></tr></table></figure>
+<h2 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-3.6.0.tgz</div><div class="line"></div><div class="line">tar -axvf mongodb-linux-x86_64-rhel70-3.6.0.tgz -C ./</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#默认路径/usr/local</span></div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<h2 id="开启mongodb"><a href="#开启mongodb" class="headerlink" title="开启mongodb"></a>开启mongodb</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#默认启动方式</span></div><div class="line">systemctl start mongod</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#指定配置文件启动</span></div><div class="line"><span class="comment">#注意修改配置文件里面的某些路径和名称，不然会和默认配置文件冲突</span></div><div class="line">mongod -f /etc/mongo_27018.conf</div><div class="line">mongod -f /etc/mongo_27019.conf</div><div class="line">``</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">## 卸载mongodb</span></div><div class="line"></div><div class="line">```sh</div><div class="line">systemctl stop mongod</div><div class="line"></div><div class="line">yum remove $(rpm -qa | grep mongodb-org)</div><div class="line"></div><div class="line">rm -rf /var/<span class="built_in">log</span>/mongodb</div><div class="line">rm -rf /var/dbpath/mongo</div></pre></td></tr></table></figure>
+<h2 id="mongodb异常关闭后"><a href="#mongodb异常关闭后" class="headerlink" title="mongodb异常关闭后"></a>mongodb异常关闭后</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#首先查看日志文件</span></div><div class="line">tail /var/<span class="built_in">log</span>/mongodb/mongod.log</div><div class="line"></div><div class="line"><span class="comment">#删除</span></div><div class="line">rm /var/run/mongodb/mongod.pid /var/db/mongodb/mongod.lock</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h1 id="MongoDB配置文件"><a href="#MongoDB配置文件" class="headerlink" title="MongoDB配置文件"></a>MongoDB配置文件</h1><p>MongoDB的配置文件格式使用了YAML格式。<br><a href="https://zh.wikipedia.org/wiki/YAML" target="_blank" rel="external">YAML维基百科</a>，Yet Another Markup Language。强调以数据为中心，而不是标记语言为重点，用方向缩略语重命名。</p>
+<p><br><br>默认配置文件<code>/etc/mongod.conf</code> 的几个大块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">systemLog:        #日志</div><div class="line"></div><div class="line">storage:          #存储</div><div class="line"></div><div class="line">processManagement:        #进程管理</div><div class="line"></div><div class="line">net:        #网络</div><div class="line"></div><div class="line">security:        #安全</div><div class="line"></div><div class="line">operationProfiling:        #性能分析器</div><div class="line"></div><div class="line">replication:        #主从复制</div><div class="line"></div><div class="line">sharding:        #架构</div><div class="line"></div><div class="line">setParameter:        #自定义变量</div><div class="line"></div><div class="line">auditLog:        #检测日志</div><div class="line"></div><div class="line">snmp:        #</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="systemLog"><a href="#systemLog" class="headerlink" title="systemLog"></a>systemLog</h2><p>日志相关参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">systemLog:</div><div class="line">  verbosity: &lt;int&gt;                #日志级别，默认0,1-5均会包含debug信息</div><div class="line">  quiet: &lt;boolean&gt;                #安静，true时mongod将会减少日志的输出量</div><div class="line">  traceAllExceptions: &lt;boolean&gt;        #打印异常详细信息</div><div class="line">  syslogFacility:  &lt;string&gt;                #指定用于登录时信息到syslog Facility水平，前提是启用syslog</div><div class="line">  path:  &lt;string&gt;          #日志路径，默认情况下，MongoDB将覆盖现有的日志文件</div><div class="line">  logAppend: &lt;boolean&gt;        #mongod重启后，在现有日志后继续添加日志，否则备份当前日志，然后创建新日志</div><div class="line">  logRotate: rename|reopen        #日志轮询，防止一个日志文件特别大。rename重命名日志文件，默认值；reopen使用Linuxrotate特性，关闭并重新打开日志文件，前提为logAppend: true</div><div class="line">  destination: &lt;string&gt;        #日志输出目的地，可为file或syslog，若不指定，则会输出到 std out</div><div class="line">  timeStampFormat: &lt;string&gt;        #指定日志格式的时间戳，有 ctime, Iso869-utc, iso8691-local</div><div class="line">  component:            #为不同的组件指定各自的日志信息级别</div><div class="line">      accessControl:</div><div class="line">          verbosity: &lt;int&gt;</div><div class="line">      command:</div><div class="line">          verbosity: &lt;int&gt;</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="storage"><a href="#storage" class="headerlink" title="storage"></a>storage</h2><p>存储引擎相关参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">storage:</div><div class="line">  dbPath: &lt;string&gt;        #mongodb进程存储数据目录，此配置进队此mongod进程有效，你使用配置文件开启的mongod就可以指定额外的数据目录</div><div class="line">  indexBuildRetry:  &lt;boolean&gt;        #当构件索引时mongod意外关闭，那么在此启动是否重建索引，默认true</div><div class="line">  repairPath: &lt;string&gt;        #在repair期间使用此目录存储临时数据，repair结束后此目录下数据将被删除</div><div class="line">  journal:</div><div class="line">      enabled: &lt;boolean&gt;        #journal日志持久存储，journal日志用来数据恢复，通常用于故障恢复，建议开启</div><div class="line">      commitIntervalMs: &lt;num&gt;        #mongod日志刷新值，范围1-500毫秒，默认100，不建议修改</div><div class="line">  directoryPerDB:  &lt;boolean&gt;        #是否将不同的数据存储在不同的目录中，dbPath子目录</div><div class="line">  syncPeriodSecs:  &lt;int&gt;        #fsync操作将数据flush到磁盘的时间间隔，默认为60秒，不建议修改</div><div class="line">  engine:  &lt;string&gt;        #存储引擎</div><div class="line"></div><div class="line">  mmapv1:    #mmapv1存储引擎，3.2前默认</div><div class="line">      preallocDataFiles:  &lt;boolean&gt;</div><div class="line">      nsSize: &lt;int&gt;</div><div class="line">      quota:</div><div class="line">          enforced: &lt;boolean&gt;</div><div class="line">          maxFilesPerDB: &lt;int&gt;</div><div class="line">      smallFiles: &lt;boolean&gt;</div><div class="line">      journal:</div><div class="line">          debugFlags: &lt;int&gt;</div><div class="line">          commitIntervalMs: &lt;num&gt;</div><div class="line">  wiredTiger:    #WiredTiger存储引擎，3.2后默认</div><div class="line">      engineConfig:</div><div class="line">          cacheSizeGB: &lt;number&gt;    #最大缓存大小</div><div class="line">          journalCompressor: &lt;string&gt;    #日志压缩算法，可选值有 none，snappy(默认)，zlib</div><div class="line">          directoryForIndexes: &lt;boolean&gt;    #是否将索引和collections数据分别存储在dbPath单独的目录中</div><div class="line">      collectionConfig:</div><div class="line">          blockCompressor: &lt;string&gt;    #collection数据压缩算法，可选none, snappy，zlib</div><div class="line">      indexConfig:</div><div class="line">          prefixCompression: &lt;boolean&gt;    #是否对索引数据使用前缀压缩。对那些经过排序的值存储有很大帮助，可有效减少索引数据的内存使用量。</div><div class="line">  inMemory:    #inMemory内存存储引擎，bate版</div><div class="line">      engineConfig:</div><div class="line">          inMemorySizeGB: &lt;number&gt;</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="processManagement"><a href="#processManagement" class="headerlink" title="processManagement"></a>processManagement</h2><p>进程相关参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">processManagement:</div><div class="line">  fork: &lt;boolean&gt;        #是否以fork模式运行mongod进程，默认情况下，mongod不作为守护进程运行</div><div class="line">  pidFilePath: &lt;string&gt;        #将mongod进程ID写入指定文件，如未指定，将不会创建PID文件</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="net"><a href="#net" class="headerlink" title="net"></a>net</h2><p>网络相关参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">net:</div><div class="line">  prot: &lt;int&gt;    #监听端口，默认27017</div><div class="line">  bindIp: &lt;string&gt;    #绑定IP，如果此值是“0.0.0.0”则绑定所有接口</div><div class="line">  maxIncomingConnections: &lt;int&gt;    #mongod进程允许的最大连接数，如果此值超过系统配置的连接数阈值，将不会生效(ulimit)</div><div class="line">  wireObjectCheck: &lt;boolean&gt;    #当客户端写入数据时，检查数据的有效性（BSON）。如果数据格式不良，update,insert等操作将会被拒绝</div><div class="line">  ipv6: &lt;boolean&gt;    #是否支持多实例之间使用ipv6</div><div class="line">  unixDomainSocker:    #适用于Unix系统</div><div class="line">      enabled: &lt;boolean&gt;</div><div class="line">      pathPrefix: &lt;string&gt;</div><div class="line">      filePermissions: &lt;int&gt;</div><div class="line">  http:    #</div><div class="line">      enabled: &lt;boolean&gt;</div><div class="line">      JSONEnabled: &lt;boolean&gt;</div><div class="line">      RESTInterfaceEnabled: &lt;boolean&gt;</div><div class="line">  ssl:</div><div class="line">      sslOnNormalPorts: &lt;boolean&gt;</div><div class="line">      mode: &lt;string&gt;</div><div class="line">      PEMKeyFile: &lt;string&gt;</div><div class="line">      PEMKeyPassword: &lt;string&gt;</div><div class="line">      clusterFile: &lt;string&gt;</div><div class="line">      clusterPassword: &lt;string&gt;</div><div class="line">      CAFile: &lt;string&gt;</div><div class="line">      CRLFile: &lt;string&gt;</div><div class="line">      allowConnectionsWithoutCertificates: &lt;boolean&gt;</div><div class="line">      allowInvalidCertificates: &lt;boolean&gt;</div><div class="line">      allowInvalidHostnames: &lt;boolean&gt;</div><div class="line">      disabledProtocols: &lt;string&gt;</div><div class="line">      FIPSMode: &lt;boolean&gt;</div><div class="line">  compression:</div><div class="line">      compressors: &lt;string&gt;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="security"><a href="#security" class="headerlink" title="security"></a>security</h2><p>安全相关参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">security:</div><div class="line">  authorization: enabled    #MondoDB认证功能</div><div class="line">  keyFile: /path/mongo.key    #MongoDB副本集节点身份验证密钥文件</div><div class="line">  clusterAuthMode: &lt;string&gt;    #集群members间的认证模式</div><div class="line">  transitionToAuth: &lt;boolean&gt;</div><div class="line">   javascriptEnabled:  &lt;boolean&gt;    #是否允许执行JavaScript脚本</div><div class="line">   redactClientLogData: &lt;boolean&gt;</div><div class="line">   sasl:</div><div class="line">      hostName: &lt;string&gt;</div><div class="line">      serviceName: &lt;string&gt;</div><div class="line">      saslauthdSocketPath: &lt;string&gt;</div><div class="line">   enableEncryption: &lt;boolean&gt;</div><div class="line">   encryptionCipherMode: &lt;string&gt;</div><div class="line">   encryptionKeyFile: &lt;string&gt;</div><div class="line">   kmip:</div><div class="line">      keyIdentifier: &lt;string&gt;</div><div class="line">      rotateMasterKey: &lt;boolean&gt;</div><div class="line">      serverName: &lt;string&gt;</div><div class="line">      port: &lt;string&gt;</div><div class="line">      clientCertificateFile: &lt;string&gt;</div><div class="line">      clientCertificatePassword: &lt;string&gt;</div><div class="line">      serverCAFile: &lt;string&gt;</div><div class="line">   ldap:</div><div class="line">      servers: &lt;string&gt;</div><div class="line">      bind:</div><div class="line">         method: &lt;string&gt;</div><div class="line">         saslMechanism: &lt;string&gt;</div><div class="line">         queryUser: &lt;string&gt;</div><div class="line">         queryPassword: &lt;string&gt;</div><div class="line">         useOSDefaults: &lt;boolean&gt;</div><div class="line">      transportSecurity: &lt;string&gt;</div><div class="line">      timeoutMS: &lt;int&gt;</div><div class="line">      userToDNMapping: &lt;string&gt;</div><div class="line">      authz:</div><div class="line">         queryTemplate: &lt;string&gt;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="operationProfiling"><a href="#operationProfiling" class="headerlink" title="operationProfiling"></a>operationProfiling</h2><p>慢查询相关参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">operationProfiling:</div><div class="line">  slowOpThresholdMs: &lt;int&gt;    #数据库profiler判定一个操作是“慢查询”的时间阈值，单位毫秒。mongod会把慢查询记录到日志中，默认100ms</div><div class="line">  mode: &lt;string&gt;    #数据库profiler级别，操作的性能信息将会被写入日志文件中，可选值“off”--关闭profiling，“slowOp”--只包包含慢操作，“all”--记录所有操作</div><div class="line">  #数据库profiling会影响性能，建议只在性能调试阶段开启</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="replication"><a href="#replication" class="headerlink" title="replication"></a>replication</h2><p>副本集：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">replication:</div><div class="line">  oplogSizeMB: &lt;int&gt;    #replication操作日志的最大尺寸，如果太小，secondary将不能通过oplog来同步数据，只能全量同步</div><div class="line">  replSetName: &lt;string&gt;    #副本集名称，副本集中所有的mongod实例都必须有相同的名字，Sharding分布式下，不同的sharding应该使用不同的repSetName</div><div class="line">  secondaryIndexPrefetch: &lt;string&gt;    #副本集中的secondary，从oplog中应用变更操作之前，将会先把索引加载到内存</div><div class="line">  enalbeMajorityReadConcern: &lt;boolean&gt;    #允许readConcern的级别为“majority”</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="sharding"><a href="#sharding" class="headerlink" title="sharding"></a>sharding</h2><p>分片相关参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sharding:</div><div class="line">  clusterRole: &lt;string&gt;    #在sharding集群中，此mongod实例可选的角色。configsvr,默认监听27019端口 和 shardsvr,默认监听27018端口</div><div class="line">  archiveMovedChunks: &lt;boolean&gt;    #当chunks因为“负载均衡”而迁移到其他节点时，mongod是否将这些chunks归档，并保存在dbPath/movechunk目录下，mongod不会删除moveChunk下的文件</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="setParameter"><a href="#setParameter" class="headerlink" title="setParameter"></a>setParameter</h2><p>自定义变量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">setParameter:</div><div class="line">  &lt;parameter1&gt;: &lt;value1&gt;</div><div class="line">  &lt;parameter2&gt;: &lt;value2&gt;</div><div class="line">  enableLocalhostAuthBypass: false    #栗子</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="auditLog"><a href="#auditLog" class="headerlink" title="auditLog"></a>auditLog</h2><p>审计相关参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">auditLog:</div><div class="line">  destination: &lt;string&gt;    #指定审计记录的输出方式，有syslog, console, file</div><div class="line">  format: &lt;string&gt;    #输出格式，有JSON 和 BSON</div><div class="line">  path: &lt;string&gt;    #如果审计时间输入为文件，那么就需要指定文件完整路径及文件名</div><div class="line">  filter: &lt;string&gt;    #过滤器，可限制审计系统记录的操作类型，该选项需要一个表单的查询文档的字符串表示形式</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h1 id="Mongo-Shell"><a href="#Mongo-Shell" class="headerlink" title="Mongo Shell"></a>Mongo Shell</h1><p>==mongo shell==是一个交互式的JavaScript结构的MongoDB。使用mongo shell来查询和更新数据以及执行管理操作。</p>
+<p><strong>启动monso shell</strong>：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#启动mongo shell前确保MongoDB实例正在运行</span></div><div class="line"></div><div class="line"><span class="comment">#以默认配置启动</span></div><div class="line">mongo</div><div class="line"></div><div class="line"><span class="comment">#以特定配置启动</span></div><div class="line">mongo --port 27018</div><div class="line"></div><div class="line"><span class="comment">#连接远程mongo shell</span></div><div class="line">mongo --host <span class="variable">$host</span> --port <span class="variable">$port</span> -u <span class="variable">$user</span> -p <span class="variable">$passwd</span></div></pre></td></tr></table></figure></p>
+<p><br><br><strong>.mongorc.js文件</strong><br>mongo shell开始运行时，mongo将在用户主目录下检查<code>.mongorc.js</code>的js文件。如果找到，mongo将在首次命令行之前解释执行.mongorc.js的内容。<br>如果你使用mongo shell执行一个js或表达式，无论是通过<code>mongo --eval</code>，或指定一个.js文件，mongo都将在js处理完成之后读取.mongorc.js文件。可使用 <code>--norc</code>选项禁止加载.mongorc.js。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ll /root/.mongorc.js</div><div class="line"><span class="comment"># -rw------- 1 root root 0 Dec 27  2016 /root/.mongorc.js</span></div></pre></td></tr></table></figure>
+<p><br><br><strong>使用mongo shell</strong>：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mongo</div><div class="line"></div><div class="line"><span class="comment">#显示当前使用数据库</span></div><div class="line">&gt;db</div><div class="line"></div><div class="line"><span class="comment">#切换数据库</span></div><div class="line">&gt;use &lt;database&gt;</div><div class="line"></div><div class="line"><span class="comment">#查看所有数据库</span></div><div class="line">&gt;show dbs</div></pre></td></tr></table></figure></p>
+<p>你可以切换到一个并不存在的数据库。当你第一次向数据库存储数据，如创建一个集合，MongoDB将自动创建数据库。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">use nothingdb</div><div class="line"></div><div class="line">db.mycollestion.insert(&#123;x:1&#125;);</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;参考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://docs.mongoing.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MongoDB官方文档&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;MongoDB中文文档:&lt;a href=&quot;http:/
+    
+    </summary>
+    
+      <category term="Database" scheme="https://zhang21.github.io/categories/Database/"/>
+    
+    
+      <category term="MongoDB" scheme="https://zhang21.github.io/tags/MongoDB/"/>
+    
+  </entry>
   
   <entry>
     <title>HTTP请求方法和状态码</title>
@@ -3202,7 +3400,7 @@
     <link href="https://zhang21.github.io/2017/09/01/Markdown%E8%AF%AD%E6%B3%95/"/>
     <id>https://zhang21.github.io/2017/09/01/Markdown语法/</id>
     <published>2017-09-01T10:16:38.000Z</published>
-    <updated>2017-11-30T03:17:19.025Z</updated>
+    <updated>2017-12-11T03:00:37.451Z</updated>
     
     <content type="html"><![CDATA[<h2 id="关于Markdown"><a href="#关于Markdown" class="headerlink" title="关于Markdown"></a>关于Markdown</h2><p>Markdown 是一种轻量级标记语言。它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML(或者HTML)文档”。</p>
 <h3 id="参考文件"><a href="#参考文件" class="headerlink" title="参考文件"></a>参考文件</h3><p><strong><a href="https://zh.wikipedia.org/wiki/Markdown" target="_blank" rel="external">Markdown-wiki</a></strong><br><strong><a href="https://daringfireball.net/projects/markdown/" target="_blank" rel="external">Markdown官网</a></strong><br><strong><a href="https://markdown-zh.readthedocs.io/en/latest/" target="_blank" rel="external">Markdown中文文档</a></strong><br><strong><a href="http://itmyhome.com/markdown/article/extension/strikethrougn.html" target="_blank" rel="external">Markdown语法</a></strong></p>
@@ -3402,7 +3600,7 @@
     
     </summary>
     
-      <category term="Python" scheme="https://zhang21.github.io/categories/Python/"/>
+      <category term="Network" scheme="https://zhang21.github.io/categories/Network/"/>
     
     
       <category term="Markdown" scheme="https://zhang21.github.io/tags/Markdown/"/>
@@ -3414,7 +3612,7 @@
     <link href="https://zhang21.github.io/2017/09/01/%E5%85%B3%E4%BA%8ENginx/"/>
     <id>https://zhang21.github.io/2017/09/01/关于Nginx/</id>
     <published>2017-09-01T08:22:58.000Z</published>
-    <updated>2017-09-01T12:46:35.644Z</updated>
+    <updated>2017-12-11T03:01:42.736Z</updated>
     
     <content type="html"><![CDATA[<h3 id="关于Nginx"><a href="#关于Nginx" class="headerlink" title="关于Nginx"></a>关于Nginx</h3><p><strong> <a href="https://nginx.org/" target="_blank" rel="external">Nginx官网</a> </strong><br><strong> <a href="https://zh.wikipedia.org/wiki/Nginx" target="_blank" rel="external">Nginx-Wikipedia</a> </strong></p>
 <p>Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 <code>HTTP, HTTPS, SMTP, POP3, IMAP</code> 的协议连接。<br>基于BSD-like协议发行，支持多种操作系统。<br><a id="more"></a><br>作为HTTP服务软件的后起之秀，Nginx有很多优点：</p>
@@ -3451,7 +3649,7 @@
     
     </summary>
     
-      <category term="Databases" scheme="https://zhang21.github.io/categories/Databases/"/>
+      <category term="Linux" scheme="https://zhang21.github.io/categories/Linux/"/>
     
     
       <category term="Nginx" scheme="https://zhang21.github.io/tags/Nginx/"/>
