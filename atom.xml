@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang21.github.io/"/>
-  <updated>2017-12-11T05:46:24.461Z</updated>
+  <updated>2017-12-11T10:37:59.882Z</updated>
   <id>https://zhang21.github.io/</id>
   
   <author>
@@ -20,11 +20,12 @@
     <link href="https://zhang21.github.io/2017/12/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     <id>https://zhang21.github.io/2017/12/11/数据结构/</id>
     <published>2017-12-11T05:44:38.000Z</published>
-    <updated>2017-12-11T05:46:24.461Z</updated>
+    <updated>2017-12-11T10:37:59.882Z</updated>
     
     <content type="html"><![CDATA[<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p>在计算机科学中，<strong>数据结构(data structure)</strong>是计算机中存储、组织数据的方式。<br>大多数数据结构都有数列、记录、可辨识联合、引用等基本类型构成。</p>
 <p>数据结构意味着结构和封装，一个数据结构可被视为两个函数之间的接口，或是由数据类型联合组成的存储内容的访问方法和封装。<br>数据结构可通过程序语言所提供的数据类型、引用及其它操作加以实现。不同种类的数据结构适合不同种类的应用，部分数据结构甚至是为了解决特定问题而设计。<br>一个涉及良好的数据结构，应该尽可能使用较少的时间与空间资源的前提下，支持各种程序运行。</p>
 <p>正确选择数据结构可以提高算法的效率，在计算机程序设计里，选择适当的数据结构是一项重要工作。</p>
+<a id="more"></a>
 <p><br></p>
 <h2 id="常见数据结构"><a href="#常见数据结构" class="headerlink" title="常见数据结构"></a>常见数据结构</h2><ul>
 <li>数组(Array);</li>
@@ -63,7 +64,9 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;数据结构&quot;&gt;&lt;a href=&quot;#数据结构&quot; class=&quot;headerlink&quot; title=&quot;数据结构&quot;&gt;&lt;/a&gt;数据结构&lt;/h1&gt;&lt;p&gt;在计算机科学中，&lt;strong&gt;数据结构(data structure)&lt;/strong&gt;是计算机中存储、组织数据的方式。&lt;
+      &lt;h1 id=&quot;数据结构&quot;&gt;&lt;a href=&quot;#数据结构&quot; class=&quot;headerlink&quot; title=&quot;数据结构&quot;&gt;&lt;/a&gt;数据结构&lt;/h1&gt;&lt;p&gt;在计算机科学中，&lt;strong&gt;数据结构(data structure)&lt;/strong&gt;是计算机中存储、组织数据的方式。&lt;br&gt;大多数数据结构都有数列、记录、可辨识联合、引用等基本类型构成。&lt;/p&gt;
+&lt;p&gt;数据结构意味着结构和封装，一个数据结构可被视为两个函数之间的接口，或是由数据类型联合组成的存储内容的访问方法和封装。&lt;br&gt;数据结构可通过程序语言所提供的数据类型、引用及其它操作加以实现。不同种类的数据结构适合不同种类的应用，部分数据结构甚至是为了解决特定问题而设计。&lt;br&gt;一个涉及良好的数据结构，应该尽可能使用较少的时间与空间资源的前提下，支持各种程序运行。&lt;/p&gt;
+&lt;p&gt;正确选择数据结构可以提高算法的效率，在计算机程序设计里，选择适当的数据结构是一项重要工作。&lt;/p&gt;
     
     </summary>
     
@@ -79,7 +82,7 @@
     <link href="https://zhang21.github.io/2017/12/11/MongoDB/"/>
     <id>https://zhang21.github.io/2017/12/11/MongoDB/</id>
     <published>2017-12-11T02:49:52.000Z</published>
-    <updated>2017-12-11T10:34:58.125Z</updated>
+    <updated>2017-12-11T10:39:13.348Z</updated>
     
     <content type="html"><![CDATA[<p>参考：</p>
 <ul>
@@ -97,6 +100,7 @@
 <li>CentOS7_x64；</li>
 <li>MongoDB3.4；</li>
 </ul>
+<a id="more"></a>
 <p><br></p>
 <hr>
 <p><br></p>
@@ -107,12 +111,60 @@
 <li>高流量网站的网页服务；</li>
 <li>发送流媒体。</li>
 </ul>
-<p><br><br>NoSQL数据库分类：<br>类型 | 栗子 | 特点</p>
-<ul>
-<li>| - | -<br>文档存储 | MongoDB | 用类似json的格式存储，存储的内容是文档型的。这样就有机会对某些字段建立索引，实现关系数据库的某些功能<br>图形关系存储 | Neo4j | 图形关系的最佳存储<br>键-值(ker-value)存储 | 最终一致性的键-值存储 <br> 架构性键-值存储 | xxx<br>主机式服务 | key-value硬盘存储 <br> key-value RAM存储 | MemcacheDB <br> Redis<br>多数据库 | OpenQM | xxx<br>时序型数据库 | Graphite | xxx<br>对象数据库 | ObjecStore | 通过类似面向对象语言的语法操作数据库，通过对象的方式存取数据<br>列存储 | HBase | 顾名思义，按列存储数据。方便存储结构化和半结构化数据，方便做数据压缩，针对某一列或某几列的查询有很大的IO优势。</li>
-</ul>
+<p><br><br>NoSQL数据库分类：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>栗子</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文档存储</td>
+<td>MongoDB</td>
+<td>用类似json的格式存储，存储的内容是文档型的。这样就有机会对某些字段建立索引，实现关系数据库的某些功能</td>
+</tr>
+<tr>
+<td>图形关系存储</td>
+<td>Neo4j</td>
+<td>图形关系的最佳存储</td>
+</tr>
+<tr>
+<td>键-值(ker-value)存储</td>
+<td>最终一致性的键-值存储 <br> 架构性键-值存储</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>主机式服务</td>
+<td>key-value硬盘存储 <br> key-value RAM存储</td>
+<td>MemcacheDB <br> Redis</td>
+</tr>
+<tr>
+<td>多数据库</td>
+<td>OpenQM</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>时序型数据库</td>
+<td>Graphite</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>对象数据库</td>
+<td>ObjecStore</td>
+<td>通过类似面向对象语言的语法操作数据库，通过对象的方式存取数据</td>
+</tr>
+<tr>
+<td>列存储</td>
+<td>HBase</td>
+<td>顾名思义，按列存储数据。方便存储结构化和半结构化数据，方便做数据压缩，针对某一列或某几列的查询有很大的IO优势。</td>
+</tr>
+</tbody>
+</table>
 <p><br><br><br></p>
-<h1 id="MongoDB简介"><a href="#MongoDB简介" class="headerlink" title="MongoDB简介"></a>MongoDB简介</h1><p>MongoDB(<a href="https://www.mongodb.com/)是一种文档导向的数据库管理系统，由C++撰写而成，以此来解决应用程序开发社区中的大量现实问题。它是一种NoSQL。" target="_blank" rel="external">https://www.mongodb.com/)是一种文档导向的数据库管理系统，由C++撰写而成，以此来解决应用程序开发社区中的大量现实问题。它是一种NoSQL。</a><br>MongoDB支持的数据结构非常松散，是类似于json的bson格式，因此可以存储比较复杂的数据类型。<br>MongoDB是一个开源文档数据库，提供高性能，高可用性和自动扩展。</p>
+<h1 id="MongoDB简介"><a href="#MongoDB简介" class="headerlink" title="MongoDB简介"></a>MongoDB简介</h1><p>MongoDB<a href="https://www.mongodb.com/" target="_blank" rel="external">https://www.mongodb.com/</a>，是一种文档导向的数据库管理系统，由C++撰写而成，以此来解决应用程序开发社区中的大量现实问题。它是一种NoSQL。<br>MongoDB支持的数据结构非常松散，是类似于json的bson格式，因此可以存储比较复杂的数据类型。<br>MongoDB是一个开源文档数据库，提供高性能，高可用性和自动扩展。</p>
 <p><br><br><strong>预备知识：</strong></p>
 <ol>
 <li>MongoDB中的<code>database</code>有和数据库一样的概念。一个MongoDB实例中，可以有零个或多个数据库，每个都作为一个高等容器，用于存储数据；</li>
@@ -145,10 +197,37 @@
 <p><br><br><br></p>
 <h1 id="MongoDB安装"><a href="#MongoDB安装" class="headerlink" title="MongoDB安装"></a>MongoDB安装</h1><p>参考:<br><a href="https://docs.mongodb.com/manual/administration/install-on-linux/" target="_blank" rel="external">https://docs.mongodb.com/manual/administration/install-on-linux/</a><br><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/" target="_blank" rel="external">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/</a></p>
 <p>MongoDB有社区版(Community)和企业版(Enterprise)。社区办免费，企业版在商业方面收费。</p>
-<p><br><br>MongoDB在仓库中提供官方支持的包，包含以下软件包：<br>Package | Description</p>
-<ul>
-<li>| -<br>monogdb-org | 将自动安装下面四个组件包<br>mongodb-org-server | 包含<code>mongod</code>守护进程和相关配置和<code>init</code>脚本<br>mongodb-org-mongos | 包含<code>mongos</code>守护进程<br>mongodb-org-shell | 包含<code>mongo-shell</code><br>mongodb-org-tools | 包含相关MongoDB工具，如<code>mongoimport</code>,<code>mongoexport</code>,<code>mongodump</code>,<code>mongorestore</code>…</li>
-</ul>
+<p><br><br>MongoDB在仓库中提供官方支持的包，包含以下软件包：</p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>monogdb-org</td>
+<td>将自动安装下面四个组件包</td>
+</tr>
+<tr>
+<td>mongodb-org-server</td>
+<td>包含<code>mongod</code>守护进程和相关配置和<code>init</code>脚本</td>
+</tr>
+<tr>
+<td>mongodb-org-mongos</td>
+<td>包含<code>mongos</code>守护进程</td>
+</tr>
+<tr>
+<td>mongodb-org-shell</td>
+<td>包含<code>mongo-shell</code></td>
+</tr>
+<tr>
+<td>mongodb-org-tools</td>
+<td>包含相关MongoDB工具，如<code>mongoimport</code>,<code>mongoexport</code>,<code>mongodump</code>,<code>mongorestore</code>…</td>
+</tr>
+</tbody>
+</table>
 <p><code>mongodb-org-server</code>包提供了一个<code>/etc/mongod.conf</code>配置文件来开始和初始化<code>mongod</code>。默认配置文件默认bind_ip为 127.0.0.1，当你有需要和副本集时请修改它。</p>
 <h2 id="自建mongodb-repo仓库安装"><a href="#自建mongodb-repo仓库安装" class="headerlink" title="自建mongodb.repo仓库安装"></a>自建mongodb.repo仓库安装</h2><p><a href="https://repo.mongodb.org" target="_blank" rel="external">https://repo.mongodb.org</a></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">vim /etc/yum.repos.d/mongodb34.repo</div><div class="line"><span class="comment">#编辑仓库</span></div><div class="line"></div><div class="line"></div><div class="line">[mongodb34]</div><div class="line">name=MongoDB34 Repository</div><div class="line">baseurl=https://repo.mongodb.org/yum/redhat/<span class="variable">$releasever</span>/mongodb-org/3.4/x86_64/</div><div class="line">gpgcheck=0</div><div class="line">enabled=1</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#安装mongodb</span></div><div class="line">yum install -y mongodb-org</div></pre></td></tr></table></figure>
@@ -202,7 +281,19 @@
       &lt;p&gt;参考：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;http://docs.mongoing.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MongoDB官方文档&lt;/a&gt;;&lt;/li&gt;
-&lt;li&gt;MongoDB中文文档:&lt;a href=&quot;http:/
+&lt;li&gt;MongoDB中文文档:&lt;a href=&quot;http://www.mongoing.com/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.mongoing.com/docs/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/MongoDB&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://zh.wikipedia.org/wiki/MongoDB&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.ywnds.com/?p=5635&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.ywnds.com/?p=5635&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.centos.bz/2017/08/mongodb-secure-intro-user-auth/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.centos.bz/2017/08/mongodb-secure-intro-user-auth/&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.03sec.com/3176.shtml&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.03sec.com/3176.shtml&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.ywnds.com/?p=6502&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.ywnds.com/?p=6502&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://wiki.jikexueyuan.com/project/the-little-mongodb-book/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://wiki.jikexueyuan.com/project/the-little-mongodb-book/&lt;/a&gt;;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;环境：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CentOS7_x64；&lt;/li&gt;
+&lt;li&gt;MongoDB3.4；&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     
