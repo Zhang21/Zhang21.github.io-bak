@@ -102,7 +102,8 @@
 <meta property="og:description" content="参考：  MongoDB官方文档; MongoDB中文文档; https://zh.wikipedia.org/wiki/MongoDB; http://www.ywnds.com/?p=5635; https://www.centos.bz/2017/08/mongodb-secure-intro-user-auth/; http://www.03sec.com/3176.shtml; http">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/MongoDB.jpeg">
-<meta property="og:updated_time" content="2017-12-12T10:55:05.691Z">
+<meta property="og:image" content="https://zhang21.github.io/images/collection.png">
+<meta property="og:updated_time" content="2017-12-13T10:43:22.811Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MongoDB">
 <meta name="twitter:description" content="参考：  MongoDB官方文档; MongoDB中文文档; https://zh.wikipedia.org/wiki/MongoDB; http://www.ywnds.com/?p=5635; https://www.centos.bz/2017/08/mongodb-secure-intro-user-auth/; http://www.03sec.com/3176.shtml; http">
@@ -454,7 +455,7 @@
 </tbody>
 </table>
 <p><br><br><br></p>
-<h1 id="MongoDB简介"><a href="#MongoDB简介" class="headerlink" title="MongoDB简介"></a>MongoDB简介</h1><p><img src="/images/MongoDB.jpeg" alt="MongoDB"><br><br></p>
+<h1 id="MongoDB简介"><a href="#MongoDB简介" class="headerlink" title="MongoDB简介"></a>MongoDB简介</h1><p><br><br><img src="/images/MongoDB.jpeg" alt="MongoDB"></p>
 <p>MongoDB(<a href="https://www.mongodb.com/" target="_blank" rel="external">https://www.mongodb.com/</a>)，是一种文档导向的数据库管理系统，由C++撰写而成，以此来解决应用程序开发社区中的大量现实问题。它是一种NoSQL。<br>MongoDB支持的数据结构非常松散，是类似于json的bson格式，因此可以存储比较复杂的数据类型。<br>MongoDB是一个开源文档数据库，提供高性能，高可用性和自动扩展。</p>
 <p><br><br><strong>预备知识：</strong></p>
 <ol>
@@ -483,6 +484,64 @@
 <p><br><br><strong>丰富的查询语言(Rich Query Language)</strong>：<br>MongoDB支持丰富的查询语言来支持读写操作(CRUD)，数据聚合(Data Aggregation)，全文搜索(Text Search)。</p>
 <p><br><br><strong>水平可伸缩性(Horizontal Scalability)</strong>：<br>MongoDB提供了横向可伸缩性。</p>
 <p><br><br><strong>支持多个存储引擎(Support for Multiple Storage Engines)</strong>：<br>在MongoDB3.4以后默认引擎为: WiredTiger Storage Engine，允许第三方为MongoDB开发存储引擎。</p>
+<p><br></p>
+<h2 id="database和collection"><a href="#database和collection" class="headerlink" title="database和collection"></a>database和collection</h2><p>MongoDB stores BSON documents.</p>
+<p><img src="/images/collection.png" alt="collection"></p>
+<p><br></p>
+<h3 id="databases"><a href="#databases" class="headerlink" title="databases"></a>databases</h3><p>In MongoDB,databases hold collections of documents.<br>如果一个数据库不存在，当你第一次存储数据时，MongoDB会自动创建数据库。这意味着可以切换到不存在的数据库。</p>
+<p>默认情况下，集合不要求其文档具有相同的模式；文档不要求具有相同的字段集；字段的数据类型在集合的文档间可以有所不同。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#select a db</span></div><div class="line">use &lt;db&gt;</div><div class="line"></div><div class="line"><span class="comment">#create a db</span></div><div class="line">use newdb</div><div class="line">db.newcoll.insert(&#123;name:<span class="string">'zhang'</span>&#125;)</div><div class="line">db.newcoll.insert(&#123;filed01:<span class="string">'filed01'</span>, filed02:<span class="string">'filed02'</span>, filed03:<span class="string">'filed03'</span>, filed04:<span class="string">'filed04'</span>&#125;)</div><div class="line">db.newcoll.insert(&#123;groups: [<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>]&#125;)</div><div class="line">db.newcoll.find().pretty()</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="collection"><a href="#collection" class="headerlink" title="collection"></a>collection</h3><p>MongoDB stores documents in collections.<br>collection类似于关系型数据库中的table。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">db.coll02.insert(&#123;x:1&#125;)</div><div class="line">db.coll03.createIndex(&#123;y:1&#125;)</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="显式创建-explicit-creation"><a href="#显式创建-explicit-creation" class="headerlink" title="显式创建(explicit creation)"></a>显式创建(explicit creation)</h3><p>MongoDB提供了<code>db.createCollection()</code>方法来显式创建一个附带各种选项的集合。如设置document最大大小，文件验证规则等选项。<br>如果不需要指定这些选项，就不需要使用显式创建集合，而直接向集合中插入数据即可。<br>修改collection选项，使用<code>collMod</code>方法。</p>
+<p><br></p>
+<h3 id="视图-View"><a href="#视图-View" class="headerlink" title="视图(View)"></a>视图(View)</h3><p>视图的定义是公开的，视图的解释操作将包括定义视图的管道。因此，避免之间引用视图定义中的敏感字段和值。</p>
+<p><strong>创建/删除视图：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">db.runCommand(</div><div class="line">&#123;</div><div class="line">	crete: &lt;view&gt;,</div><div class="line">    viewOn: &lt;<span class="built_in">source</span>&gt;,</div><div class="line">    pipeline: &lt;pipeline&gt;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">db.createView(&lt;view&gt;, &lt;<span class="built_in">source</span>&gt;, &lt;pipeline&gt;, &lt;collation&gt;)</div><div class="line"></div><div class="line">db.collection.drop()</div></pre></td></tr></table></figure>
+<p><br><br><strong>视图行为：</strong></p>
+<p>视图存在以下行为：</p>
+<ul>
+<li>视图只读，视图上的写操作将会出错；</li>
+<li>视图使用底层集合的索引；</li>
+<li>如果视图的基础集合被分割，视图也被认为可分割；</li>
+<li>不能重命名视图；</li>
+<li>视图上的字符串使用视图的默认排序规则。</li>
+</ul>
+<p><br></p>
+<h3 id="限制集"><a href="#限制集" class="headerlink" title="限制集"></a>限制集</h3><p>限制集是固定大小的集合支持基于文档插入顺序的高吞吐率的插入、检索、删除操作。<br>限制收集工作在某种程度上类似于循环缓冲区：一旦一个文档填满分配给它的空间，它将通过在限制集中重写老文档来个新文档让出空间。</p>
+<p><br></p>
+<h4 id="行为"><a href="#行为" class="headerlink" title="行为"></a>行为</h4><p><strong>插入顺序</strong><br>限制集合能够保留插入顺序。因此，查询并不需要索引来保证以插入顺序来返回文档。减少了索引的消耗，限制集可以支持更高的插入吞吐量。</p>
+<p><strong>最旧文档的自动删除</strong><br>为了给新文档腾出空间，再不需要脚本或显示删除操作的前提下，限制集自动删除集合中最旧的文档。</p>
+<p>例如replication set中的oplog.rs集合。考虑潜在用于集合封顶的用例：</p>
+<ul>
+<li>存储高容量系统生成的日志信息。没有索引的情况下向限制集中插入文档的速度接近于直接在文件系统中写日志的速度；</li>
+<li>在限制集中缓存少量的数据。</li>
+</ul>
+<p><strong>_id索引</strong><br>限制集合有一个_id字段并且默认在_id字段上创建索引。</p>
+<p><br></p>
+<h4 id="限制和建议"><a href="#限制和建议" class="headerlink" title="限制和建议"></a>限制和建议</h4><p><strong>更新</strong><br>更新限制集中的文档，创建一个索引保证这些更新操作不需要进行集合扫描。</p>
+<p><strong>文档大小</strong><br>一个更新或替换操作改变了文档大小，操作将会失败。</p>
+<p><strong>文档删除</strong><br>不能从一个限制集中删除文档！<br>为了从一个集合中删除所有文档，使用<code>drop()</code>方法来删除集合然后重新创建限制集。</p>
+<p><strong>分片</strong><br>不能对限制集分片。</p>
+<p><strong>查询效率</strong><br>用自然顺序监视限制集中大部分最近插入的文档。</p>
+<p><br></p>
+<h4 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h4><p><strong>创建一个限制集</strong><br>必须使用<code>db.createCollection()</code>方法创建限制集。且必须指定<strong>以字节为单位</strong>的最大集合大小。MongoDB将会预先分配集合。<br>另外，可为限制集指定最大文档数据，用<code>max</code>字段。</p>
+<p>大小参数是必须的。MongoDB会在达到最大限制前删除旧的文件。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#限制集大小</span></div><div class="line">db.createCollection(<span class="string">"log"</span>, &#123;capped: <span class="literal">true</span>, size: 1000000&#125;)</div><div class="line"></div><div class="line"><span class="comment">#限制集和文档大小</span></div><div class="line">db.createCollection(<span class="string">"log"</span>, &#123;capped: <span class="literal">true</span>, size: 5242880, max: 5000&#125;)</div></pre></td></tr></table></figure>
+<p><strong>查询一个限制集</strong><br>如果没有对限制集指定排序，则MongoDB的结果顺序和插入顺序相同。</p>
+<p><strong>检查一个集合是否是限制集</strong><br><code>isCapped()</code>方法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">db.collection.isCapped()</div><div class="line"><span class="comment">#db.coll01.isCapped()</span></div><div class="line"><span class="comment">#false</span></div></pre></td></tr></table></figure>
+<p><strong>将集合转换为限制集</strong><br><code>convertToCapped()</code>方法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">db.runCommand(&#123;<span class="string">"covertToCapped"</span>: <span class="string">"coll01"</span>, size: 1000000&#125;);</div><div class="line"><span class="comment">#db.coll01.isCapped()</span></div><div class="line"><span class="comment">#true</span></div></pre></td></tr></table></figure>
+<p><strong>在规定的时间周期之后将自动移除数据</strong><br>通过设置MongoDB的TTL时集合中的数据过期。<br>TTL collection与限制集不兼容。</p>
+<p><strong>Tailable游标</strong><br>类似于Unix中的<code>taif -f</code></p>
+<p><br><br><br></p>
+<h2 id="document"><a href="#document" class="headerlink" title="document"></a>document</h2><p>MongoDB存储数据记录为BSON文档。<br>BSON是JSON文档的二进制表示，因此它包含比JSON更多的数据类型。</p>
+<p><br></p>
+<h3 id="document-structure"><a href="#document-structure" class="headerlink" title="document structure"></a>document structure</h3><p>MongoDB字段由key-value对组成。<br>字段值可以是任一BSON数据类型，包括其他文档，数组，文档阵列。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	filed1: value1;</div><div class="line">    filed2: value2;</div><div class="line">    ...</div><div class="line">    filedN: valueN</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#data type</span></div><div class="line">var mydoc =&#123;</div><div class="line">	           _id: ObjectId(<span class="string">"5099803df3f4948bd2f98391"</span>),</div><div class="line">               name: &#123; first: <span class="string">"Alan"</span>, last: <span class="string">"Turing"</span> &#125;,</div><div class="line">               birth: new Date(<span class="string">'Jun 23, 1912'</span>),</div><div class="line">               death: new Date(<span class="string">'Jun 07, 1954'</span>),</div><div class="line">               contribs: [ <span class="string">"Turing machine"</span>, <span class="string">"Turing test"</span>, <span class="string">"Turingery"</span> ],</div><div class="line">               views : NumberLong(1250000)</div><div class="line">&#125;</div><div class="line"></div><div class="line">_id是ObjectID；</div><div class="line">name是嵌入式文档；</div><div class="line">birth是日期类型；</div><div class="line">contribs是字符串数组；</div><div class="line">view是NumberLong类型。</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <hr>
 <h1 id="MongoDB安装"><a href="#MongoDB安装" class="headerlink" title="MongoDB安装"></a>MongoDB安装</h1><p>参考:</p>
@@ -667,7 +726,7 @@
 </table>
 <p><br></p>
 <h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><p>使用mongo shell来计算JavaScript的值。</p>
-<p><br><br><strong>–eval <javascript></javascript></strong><br>mongo不是在环境js，而执行 –eval后的js</p>
+<p><br><br><strong>–eval <javascript></javascript></strong><br><code>mongo</code>执行 <code>--eval</code>后的js命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongo test --eval &quot;printjson(db.getCollectionNames())&quot;</div></pre></td></tr></table></figure>
 <p><br><br><strong>执行JavaScript文件</strong></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mongo localhost:27017/<span class="built_in">test</span> myjs.js</div><div class="line"></div><div class="line"><span class="comment">#在shell中执行.js</span></div><div class="line">&gt;load(<span class="string">"myjs.js"</span>)</div><div class="line">&gt;loca(<span class="string">"/root/mongo/myjs.js"</span>)</div></pre></td></tr></table></figure>
@@ -693,8 +752,277 @@
 <h3 id="NumberLong"><a href="#NumberLong" class="headerlink" title="NumberLong"></a>NumberLong</h3><p>mongo shell默认将所有数字处理为浮点值。</p>
 <p>用<code>numberlong()</code>包装来处理64位整数。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">NumberLong(<span class="string">"2090845886852"</span>)</div></pre></td></tr></table></figure>
-<p>用<code>NumberInt()</code>构造函数来显式指定32位整数。</p>
-
+<p><br></p>
+<h3 id="NumberInt"><a href="#NumberInt" class="headerlink" title="NumberInt"></a>NumberInt</h3><p>用<code>NumberInt()</code>构造函数来显式指定32位整数。</p>
+<p><br></p>
+<h3 id="NumberDecimal"><a href="#NumberDecimal" class="headerlink" title="NumberDecimal"></a>NumberDecimal</h3><p><code>mongo shell</code>默认将所有的数字处理为64位浮点的<code>double</code>值。<code>mongo shell</code>提供了<code>NumberDecimal()</code>构造函数限制指定128位基于十进制的浮点值，能够以精确的精度仿效十进制近似值。<br>这个功能在金融、税务以及科学计算等方面应用。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;NumberDecimal(<span class="string">'1000.55'</span>)</div><div class="line"><span class="comment">#强烈建议加上引号，没加引号可能会存在精度丢失的情况</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<p>###　在mongo shell中检查类型</p>
+<p><code>instanceof</code>返回一个bool值来验证一个值是否为某些类型的实例。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mydoc._id instanceof ObjectId</div><div class="line"><span class="comment">#true</span></div></pre></td></tr></table></figure>
+<p><code>typeof</code>返回一个字段的类型。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">typeof mydoc._id</div><div class="line"><span class="comment">#object</span></div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="mongo-shell快速参考"><a href="#mongo-shell快速参考" class="headerlink" title="mongo shell快速参考"></a>mongo shell快速参考</h2><h3 id="mongo-shell-历史命令"><a href="#mongo-shell-历史命令" class="headerlink" title="mongo shell 历史命令"></a>mongo shell 历史命令</h3><p>mongo shell历史命令保存在<code>~/.dbshell</code>文件中，<code>cat ~/.dbshell</code>。也可以使用<strong>上/下键</strong>切换历史命令。</p>
+<p><br></p>
+<h3 id="命令行选项"><a href="#命令行选项" class="headerlink" title="命令行选项"></a>命令行选项</h3><table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--help</code></td>
+<td>显示命令行选项</td>
+</tr>
+<tr>
+<td><code>--nodb</code></td>
+<td>启动mongo shell而不连接到数据库</td>
+</tr>
+<tr>
+<td><code>--shell</code></td>
+<td>执行文件后运行mongo shell</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="mongo-shell命令助手"><a href="#mongo-shell命令助手" class="headerlink" title="mongo shell命令助手"></a>mongo shell命令助手</h3><table>
+<thead>
+<tr>
+<th>help methods and commands</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>help</code></td>
+<td>显示帮助</td>
+</tr>
+<tr>
+<td><code>db.help</code></td>
+<td>显示数据库方法的帮助</td>
+</tr>
+<tr>
+<td><code>db.collection.help()</code></td>
+<td>显示集合方法的帮助</td>
+</tr>
+<tr>
+<td><code>show dbs</code></td>
+<td>打印服务器上的所有数据库列表</td>
+</tr>
+<tr>
+<td><code>show databases</code></td>
+<td>打印所有可获取的数据库列表</td>
+</tr>
+<tr>
+<td><code>use &lt;db&gt;</code></td>
+<td>切换数据库</td>
+</tr>
+<tr>
+<td><code>show collections</code></td>
+<td>打印当前数据库上的所有集合列表</td>
+</tr>
+<tr>
+<td><code>show users</code></td>
+<td>打印当前数据库的用户列表</td>
+</tr>
+<tr>
+<td><code>show roles</code></td>
+<td>打印当前数据库的所有角色(user-define and built-in)列表</td>
+</tr>
+<tr>
+<td><code>show profile</code></td>
+<td>打印花费1ms或更多时间的五个最近的操作</td>
+</tr>
+<tr>
+<td><code>load()</code></td>
+<td>在shell中执行一个JavaScript文件，建议使用绝对路径</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="mongo-shell的基本JavaScript操作"><a href="#mongo-shell的基本JavaScript操作" class="headerlink" title="mongo shell的基本JavaScript操作"></a>mongo shell的基本JavaScript操作</h3><p>mongo shell为数据库操作提供了一个JavaScript API。<br>db引用当的是前数据库的变量。</p>
+<table>
+<thead>
+<tr>
+<th>JavaScript db-operation</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>db.auth()</code></td>
+<td>在安全模式下认证用户</td>
+</tr>
+<tr>
+<td><code>coll = db.&lt;collection&gt;</code></td>
+<td>将当前db中的特定collection设置为coll，可在此变量上执行操作，如<code>coll.find();</code></td>
+</tr>
+<tr>
+<td><code>db.collection.find()</code></td>
+<td>查找集合中的所有文档，并返回一个游标</td>
+</tr>
+<tr>
+<td><code>db.collection.insert()</code></td>
+<td>插入一个新文档到集合中</td>
+</tr>
+<tr>
+<td><code>db.collection.update()</code></td>
+<td>更新集合中一个存在的文档</td>
+</tr>
+<tr>
+<td><code>db.collection.save()</code></td>
+<td>插入或更新 集合中的文档</td>
+</tr>
+<tr>
+<td><code>db.collection.remove()</code></td>
+<td>从集合中删除文档</td>
+</tr>
+<tr>
+<td><code>db.collection.drop()</code></td>
+<td>删除整个集合</td>
+</tr>
+<tr>
+<td><code>db.collection.createIndex()</code></td>
+<td>在集合中创建索引</td>
+</tr>
+<tr>
+<td><code>db.getSiblingDB()</code></td>
+<td>跨数据库查询</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="键盘快捷键"><a href="#键盘快捷键" class="headerlink" title="键盘快捷键"></a>键盘快捷键</h3><table>
+<thead>
+<tr>
+<th>keysrtoke</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Up/Down arrow</td>
+<td>前/后 历史命令</td>
+</tr>
+<tr>
+<td>Left/Right arrow</td>
+<td>左右移动</td>
+</tr>
+<tr>
+<td>Home/End</td>
+<td>行首/行尾</td>
+</tr>
+<tr>
+<td>Tab</td>
+<td>自动补全</td>
+</tr>
+<tr>
+<td>ctrl+c</td>
+<td>退出</td>
+</tr>
+<tr>
+<td>ctrl+l</td>
+<td>清屏</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="mongo-shell查询方法"><a href="#mongo-shell查询方法" class="headerlink" title="mongo shell查询方法"></a>mongo shell查询方法</h3><p>在mongo shell中，使用<code>find()</code>和<code>findOne()</code>方法执行读操作。</p>
+<table>
+<thead>
+<tr>
+<th>read-operations</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>db.collection.find(&lt;query&gt;)</code></td>
+<td>查找集合中与<query>匹配的文档，如果未指定<query>或为空，则读取操作会选择集合中的所有文档</query></query></td>
+</tr>
+<tr>
+<td><code>db.collection.find(&lt;query&gt;, &lt;projection&gt;)</code></td>
+<td>查找与<query>匹配的文档，返回<projection>特定字段</projection></query></td>
+</tr>
+<tr>
+<td><code>db.collection.find().sort(&lt;sort order&gt;)</code></td>
+<td>返回<sort order="">排序结果</sort></td>
+</tr>
+<tr>
+<td><code>db.collection.find(&lt;query&gt;).sort(&lt;sort order&gt;)</code></td>
+<td>返回匹配<query>和<sort order="">排序结果</sort></query></td>
+</tr>
+<tr>
+<td><code>db.collection.find(...).limit(&lt;n&gt;)</code></td>
+<td>限制输出结果为<n>行</n></td>
+</tr>
+<tr>
+<td><code>db.collection.find().pretty().limit()</code></td>
+<td>匹配，格式化，限制输出</td>
+</tr>
+<tr>
+<td><code>db.collection.find().limit().pretty()</code></td>
+<td>同上</td>
+</tr>
+<tr>
+<td><code>db.collection.find(...).skip(&lt;n&gt;)</code></td>
+<td>跳过前<n>行</n></td>
+</tr>
+<tr>
+<td><code>db.collection.count()</code></td>
+<td>返回集合中文档总数</td>
+</tr>
+<tr>
+<td><code>db.collection.find().count()</code></td>
+<td>返回匹配文档总数</td>
+</tr>
+<tr>
+<td><code>db.collection.findOne(&lt;query&gt;)</code></td>
+<td>查找并返回单一的文档，null表示未找到</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="管理命令助手"><a href="#管理命令助手" class="headerlink" title="管理命令助手"></a>管理命令助手</h3><table>
+<thead>
+<tr>
+<th>js db-administrative-methods</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>db.cloneDatabase(&lt;host&gt;)</code></td>
+<td>从指定主机克隆当前数据库，noauth mode</td>
+</tr>
+<tr>
+<td><code>db.copyDatabase(&lt;from&gt;, &lt;to&gt;, &lt;host&gt;)</code></td>
+<td>copy <from>db to <to>db</to></from></td>
+</tr>
+<tr>
+<td><code>db.fromColl.renameCollection(&lt;toColl&gt;)</code></td>
+<td>rename collection</td>
+</tr>
+<tr>
+<td><code>db.repairDatabase()</code></td>
+<td>修复当前db</td>
+</tr>
+<tr>
+<td><code>db.dropDatabases()</code></td>
+<td>删除当前数据库</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="打开附加连接"><a href="#打开附加连接" class="headerlink" title="打开附加连接"></a>打开附加连接</h3><p>可以在mongo shell中创建一个新连接。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;db = connect(<span class="string">"&lt;host&gt;:&lt;port&gt;/&lt;db&gt;"</span>)</div><div class="line">#db = connect("192.168.1.11/admin")</div><div class="line"></div><div class="line">&gt;conn = <span class="keyword">new</span> Mongo()</div><div class="line">&gt;db = conn.getDB(<span class="string">"dbname"</span>)</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<h1 id="MongoDB-CRUD操作"><a href="#MongoDB-CRUD操作" class="headerlink" title="MongoDB CRUD操作"></a>MongoDB CRUD操作</h1>
       
     </div>
     
@@ -910,7 +1238,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NoSQL"><span class="nav-number">1.</span> <span class="nav-text">NoSQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB简介"><span class="nav-number">2.</span> <span class="nav-text">MongoDB简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB特点"><span class="nav-number">2.1.</span> <span class="nav-text">MongoDB特点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB安装"><span class="nav-number">3.</span> <span class="nav-text">MongoDB安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自建mongodb-repo仓库安装"><span class="nav-number">3.1.</span> <span class="nav-text">自建mongodb.repo仓库安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载rpm包安装"><span class="nav-number">3.2.</span> <span class="nav-text">下载rpm包安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装"><span class="nav-number">3.3.</span> <span class="nav-text">源码安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启mongodb"><span class="nav-number">3.4.</span> <span class="nav-text">开启mongodb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongodb异常关闭后"><span class="nav-number">3.5.</span> <span class="nav-text">mongodb异常关闭后</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB配置文件"><span class="nav-number">4.</span> <span class="nav-text">MongoDB配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#systemLog"><span class="nav-number">4.1.</span> <span class="nav-text">systemLog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#storage"><span class="nav-number">4.2.</span> <span class="nav-text">storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#processManagement"><span class="nav-number">4.3.</span> <span class="nav-text">processManagement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#net"><span class="nav-number">4.4.</span> <span class="nav-text">net</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#security"><span class="nav-number">4.5.</span> <span class="nav-text">security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#operationProfiling"><span class="nav-number">4.6.</span> <span class="nav-text">operationProfiling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#replication"><span class="nav-number">4.7.</span> <span class="nav-text">replication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sharding"><span class="nav-number">4.8.</span> <span class="nav-text">sharding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setParameter"><span class="nav-number">4.9.</span> <span class="nav-text">setParameter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#auditLog"><span class="nav-number">4.10.</span> <span class="nav-text">auditLog</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mongo-Shell"><span class="nav-number">5.</span> <span class="nav-text">Mongo Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mongo-shell基础知识"><span class="nav-number">5.1.</span> <span class="nav-text">mongo shell基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动monso-shell"><span class="nav-number">5.1.1.</span> <span class="nav-text">启动monso shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用mongo-shell"><span class="nav-number">5.1.2.</span> <span class="nav-text">使用mongo shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化打印结果"><span class="nav-number">5.1.3.</span> <span class="nav-text">格式化打印结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell中的多行操作"><span class="nav-number">5.1.4.</span> <span class="nav-text">mongo shell中的多行操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tab命令补全和键盘快捷键"><span class="nav-number">5.1.5.</span> <span class="nav-text">Tab命令补全和键盘快捷键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#退出mongo-shell"><span class="nav-number">5.1.6.</span> <span class="nav-text">退出mongo shell</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置mongo-shell"><span class="nav-number">5.2.</span> <span class="nav-text">配置mongo shell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义提示符"><span class="nav-number">5.2.1.</span> <span class="nav-text">自定义提示符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在mongo-shell中使用外部编辑器"><span class="nav-number">5.2.2.</span> <span class="nav-text">在mongo shell中使用外部编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改mongo-shell批处理大小"><span class="nav-number">5.2.3.</span> <span class="nav-text">修改mongo shell批处理大小</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取mongo-shell帮助"><span class="nav-number">5.3.</span> <span class="nav-text">获取mongo shell帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#给mongo-shell写脚本"><span class="nav-number">5.4.</span> <span class="nav-text">给mongo shell写脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开新连接"><span class="nav-number">5.4.1.</span> <span class="nav-text">打开新连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交互式和脚本化mongo的区别"><span class="nav-number">5.4.2.</span> <span class="nav-text">交互式和脚本化mongo的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本"><span class="nav-number">5.4.3.</span> <span class="nav-text">脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongo-shell中的数据类型"><span class="nav-number">5.5.</span> <span class="nav-text">mongo shell中的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#日期"><span class="nav-number">5.5.1.</span> <span class="nav-text">日期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ObjectId"><span class="nav-number">5.5.2.</span> <span class="nav-text">ObjectId</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NumberLong"><span class="nav-number">5.5.3.</span> <span class="nav-text">NumberLong</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NoSQL"><span class="nav-number">1.</span> <span class="nav-text">NoSQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB简介"><span class="nav-number">2.</span> <span class="nav-text">MongoDB简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB特点"><span class="nav-number">2.1.</span> <span class="nav-text">MongoDB特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#database和collection"><span class="nav-number">2.2.</span> <span class="nav-text">database和collection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#databases"><span class="nav-number">2.2.1.</span> <span class="nav-text">databases</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#collection"><span class="nav-number">2.2.2.</span> <span class="nav-text">collection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显式创建-explicit-creation"><span class="nav-number">2.2.3.</span> <span class="nav-text">显式创建(explicit creation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视图-View"><span class="nav-number">2.2.4.</span> <span class="nav-text">视图(View)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制集"><span class="nav-number">2.2.5.</span> <span class="nav-text">限制集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#行为"><span class="nav-number">2.2.5.1.</span> <span class="nav-text">行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#限制和建议"><span class="nav-number">2.2.5.2.</span> <span class="nav-text">限制和建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序"><span class="nav-number">2.2.5.3.</span> <span class="nav-text">程序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#document"><span class="nav-number">2.3.</span> <span class="nav-text">document</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#document-structure"><span class="nav-number">2.3.1.</span> <span class="nav-text">document structure</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB安装"><span class="nav-number">3.</span> <span class="nav-text">MongoDB安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自建mongodb-repo仓库安装"><span class="nav-number">3.1.</span> <span class="nav-text">自建mongodb.repo仓库安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载rpm包安装"><span class="nav-number">3.2.</span> <span class="nav-text">下载rpm包安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装"><span class="nav-number">3.3.</span> <span class="nav-text">源码安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启mongodb"><span class="nav-number">3.4.</span> <span class="nav-text">开启mongodb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongodb异常关闭后"><span class="nav-number">3.5.</span> <span class="nav-text">mongodb异常关闭后</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB配置文件"><span class="nav-number">4.</span> <span class="nav-text">MongoDB配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#systemLog"><span class="nav-number">4.1.</span> <span class="nav-text">systemLog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#storage"><span class="nav-number">4.2.</span> <span class="nav-text">storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#processManagement"><span class="nav-number">4.3.</span> <span class="nav-text">processManagement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#net"><span class="nav-number">4.4.</span> <span class="nav-text">net</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#security"><span class="nav-number">4.5.</span> <span class="nav-text">security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#operationProfiling"><span class="nav-number">4.6.</span> <span class="nav-text">operationProfiling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#replication"><span class="nav-number">4.7.</span> <span class="nav-text">replication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sharding"><span class="nav-number">4.8.</span> <span class="nav-text">sharding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setParameter"><span class="nav-number">4.9.</span> <span class="nav-text">setParameter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#auditLog"><span class="nav-number">4.10.</span> <span class="nav-text">auditLog</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mongo-Shell"><span class="nav-number">5.</span> <span class="nav-text">Mongo Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mongo-shell基础知识"><span class="nav-number">5.1.</span> <span class="nav-text">mongo shell基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动monso-shell"><span class="nav-number">5.1.1.</span> <span class="nav-text">启动monso shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用mongo-shell"><span class="nav-number">5.1.2.</span> <span class="nav-text">使用mongo shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化打印结果"><span class="nav-number">5.1.3.</span> <span class="nav-text">格式化打印结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell中的多行操作"><span class="nav-number">5.1.4.</span> <span class="nav-text">mongo shell中的多行操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tab命令补全和键盘快捷键"><span class="nav-number">5.1.5.</span> <span class="nav-text">Tab命令补全和键盘快捷键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#退出mongo-shell"><span class="nav-number">5.1.6.</span> <span class="nav-text">退出mongo shell</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置mongo-shell"><span class="nav-number">5.2.</span> <span class="nav-text">配置mongo shell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义提示符"><span class="nav-number">5.2.1.</span> <span class="nav-text">自定义提示符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在mongo-shell中使用外部编辑器"><span class="nav-number">5.2.2.</span> <span class="nav-text">在mongo shell中使用外部编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改mongo-shell批处理大小"><span class="nav-number">5.2.3.</span> <span class="nav-text">修改mongo shell批处理大小</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取mongo-shell帮助"><span class="nav-number">5.3.</span> <span class="nav-text">获取mongo shell帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#给mongo-shell写脚本"><span class="nav-number">5.4.</span> <span class="nav-text">给mongo shell写脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开新连接"><span class="nav-number">5.4.1.</span> <span class="nav-text">打开新连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交互式和脚本化mongo的区别"><span class="nav-number">5.4.2.</span> <span class="nav-text">交互式和脚本化mongo的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本"><span class="nav-number">5.4.3.</span> <span class="nav-text">脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongo-shell中的数据类型"><span class="nav-number">5.5.</span> <span class="nav-text">mongo shell中的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#日期"><span class="nav-number">5.5.1.</span> <span class="nav-text">日期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ObjectId"><span class="nav-number">5.5.2.</span> <span class="nav-text">ObjectId</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NumberLong"><span class="nav-number">5.5.3.</span> <span class="nav-text">NumberLong</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NumberInt"><span class="nav-number">5.5.4.</span> <span class="nav-text">NumberInt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NumberDecimal"><span class="nav-number">5.5.5.</span> <span class="nav-text">NumberDecimal</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongo-shell快速参考"><span class="nav-number">5.6.</span> <span class="nav-text">mongo shell快速参考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell-历史命令"><span class="nav-number">5.6.1.</span> <span class="nav-text">mongo shell 历史命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行选项"><span class="nav-number">5.6.2.</span> <span class="nav-text">命令行选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell命令助手"><span class="nav-number">5.6.3.</span> <span class="nav-text">mongo shell命令助手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell的基本JavaScript操作"><span class="nav-number">5.6.4.</span> <span class="nav-text">mongo shell的基本JavaScript操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#键盘快捷键"><span class="nav-number">5.6.5.</span> <span class="nav-text">键盘快捷键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell查询方法"><span class="nav-number">5.6.6.</span> <span class="nav-text">mongo shell查询方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理命令助手"><span class="nav-number">5.6.7.</span> <span class="nav-text">管理命令助手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开附加连接"><span class="nav-number">5.6.8.</span> <span class="nav-text">打开附加连接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB-CRUD操作"><span class="nav-number">6.</span> <span class="nav-text">MongoDB CRUD操作</span></a></li></ol></div>
             
 
           </div>
@@ -942,7 +1270,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 51.1k</span>
+  <span class="post-count"> 字数: 53.2k</span>
 </div>
 
 
