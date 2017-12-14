@@ -103,7 +103,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/MongoDB.jpeg">
 <meta property="og:image" content="https://zhang21.github.io/images/collection.png">
-<meta property="og:updated_time" content="2017-12-13T10:43:22.811Z">
+<meta property="og:updated_time" content="2017-12-14T10:30:36.844Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MongoDB">
 <meta name="twitter:description" content="参考：  MongoDB官方文档; MongoDB中文文档; https://zh.wikipedia.org/wiki/MongoDB; http://www.ywnds.com/?p=5635; https://www.centos.bz/2017/08/mongodb-secure-intro-user-auth/; http://www.03sec.com/3176.shtml; http">
@@ -455,6 +455,7 @@
 </tbody>
 </table>
 <p><br><br><br></p>
+<hr>
 <h1 id="MongoDB简介"><a href="#MongoDB简介" class="headerlink" title="MongoDB简介"></a>MongoDB简介</h1><p><br><br><img src="/images/MongoDB.jpeg" alt="MongoDB"></p>
 <p>MongoDB(<a href="https://www.mongodb.com/" target="_blank" rel="external">https://www.mongodb.com/</a>)，是一种文档导向的数据库管理系统，由C++撰写而成，以此来解决应用程序开发社区中的大量现实问题。它是一种NoSQL。<br>MongoDB支持的数据结构非常松散，是类似于json的bson格式，因此可以存储比较复杂的数据类型。<br>MongoDB是一个开源文档数据库，提供高性能，高可用性和自动扩展。</p>
 <p><br><br><strong>预备知识：</strong></p>
@@ -510,7 +511,7 @@
 <li>视图上的字符串使用视图的默认排序规则。</li>
 </ul>
 <p><br></p>
-<h3 id="限制集"><a href="#限制集" class="headerlink" title="限制集"></a>限制集</h3><p>限制集是固定大小的集合支持基于文档插入顺序的高吞吐率的插入、检索、删除操作。<br>限制收集工作在某种程度上类似于循环缓冲区：一旦一个文档填满分配给它的空间，它将通过在限制集中重写老文档来个新文档让出空间。</p>
+<h3 id="限制集"><a href="#限制集" class="headerlink" title="限制集"></a>限制集</h3><p>限制集是固定大小的集合支持基于文档插入顺序的高吞吐率的插入、检索、删除操作。<br>限制收集工作在某种程度上类似于循环缓冲区：一旦一个文档填满分配给它的空间，它将通过在限制集中重写老文档来给新文档让出空间。</p>
 <p><br></p>
 <h4 id="行为"><a href="#行为" class="headerlink" title="行为"></a>行为</h4><p><strong>插入顺序</strong><br>限制集合能够保留插入顺序。因此，查询并不需要索引来保证以插入顺序来返回文档。减少了索引的消耗，限制集可以支持更高的插入吞吐量。</p>
 <p><strong>最旧文档的自动删除</strong><br>为了给新文档腾出空间，再不需要脚本或显示删除操作的前提下，限制集自动删除集合中最旧的文档。</p>
@@ -540,8 +541,171 @@
 <p><br><br><br></p>
 <h2 id="document"><a href="#document" class="headerlink" title="document"></a>document</h2><p>MongoDB存储数据记录为BSON文档。<br>BSON是JSON文档的二进制表示，因此它包含比JSON更多的数据类型。</p>
 <p><br></p>
-<h3 id="document-structure"><a href="#document-structure" class="headerlink" title="document structure"></a>document structure</h3><p>MongoDB字段由key-value对组成。<br>字段值可以是任一BSON数据类型，包括其他文档，数组，文档阵列。</p>
+<h3 id="document-structure"><a href="#document-structure" class="headerlink" title="document structure"></a>document structure</h3><p>MongoDB字段由key-value对组成。<br>字段值可以是任一BSON数据类型，包括其他文档，数组，阵列。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	filed1: value1;</div><div class="line">    filed2: value2;</div><div class="line">    ...</div><div class="line">    filedN: valueN</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#data type</span></div><div class="line">var mydoc =&#123;</div><div class="line">	           _id: ObjectId(<span class="string">"5099803df3f4948bd2f98391"</span>),</div><div class="line">               name: &#123; first: <span class="string">"Alan"</span>, last: <span class="string">"Turing"</span> &#125;,</div><div class="line">               birth: new Date(<span class="string">'Jun 23, 1912'</span>),</div><div class="line">               death: new Date(<span class="string">'Jun 07, 1954'</span>),</div><div class="line">               contribs: [ <span class="string">"Turing machine"</span>, <span class="string">"Turing test"</span>, <span class="string">"Turingery"</span> ],</div><div class="line">               views : NumberLong(1250000)</div><div class="line">&#125;</div><div class="line"></div><div class="line">_id是ObjectID；</div><div class="line">name是嵌入式文档；</div><div class="line">birth是日期类型；</div><div class="line">contribs是字符串数组；</div><div class="line">view是NumberLong类型。</div></pre></td></tr></table></figure>
+<p><strong>字段名(field name)</strong><br>字段名是字符串。<br>document对field name有以下限制:</p>
+<ul>
+<li>字段名称<code>_id</code>保留用作主键(primary key)，它的值在collection中必须唯一，不可变。它的类型可以是数组外的任何类型；</li>
+<li>字段名称不能以<code>$</code>字符开头；</li>
+<li>字段名称不能包含<code>.</code>字符；</li>
+<li>字段名称不能包含<code>null</code>字符。</li>
+</ul>
+<p>BSON documents 可能有多个字段名称相同的字段。然而，大多数的MongoDB Interface，MongoDB结构（如hash表），并不支持重复字段名称。<br>如果需要操作具有多个相同名称字段的文档，请参考 mongo driver。</p>
+<p>一些由内部MongoDB进程创建的documents可能会有重复的字段，但是没有MongoDB进程会向一个已经存在的user document中添加重复字段。</p>
+<p><strong>字段值限制(field value limit)</strong><br>For <code>indexed collections</code>，indexed fields的值有一个最大索引值长度限制(maximum index key length)。</p>
+<p><br></p>
+<h3 id="圆点表示法-dot-notation"><a href="#圆点表示法-dot-notation" class="headerlink" title="圆点表示法(dot notation)"></a>圆点表示法(dot notation)</h3><p>MongoDB使用圆点表示法来访问数组中的元素，访问嵌套文档中的字段。</p>
+<p><strong>数组(array)</strong><br>通过基于0的索引位置来指定或访问数组中的元素。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;array&gt;.&lt;index&gt;</div><div class="line"></div><div class="line">&#123;</div><div class="line">	contribs: [ <span class="string">'Turing machine'</span>, <span class="string">'Turing test'</span>, <span class="string">'Turingery'</span> ]</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">#contribs.0 == 'Turing machine'</span></div><div class="line"><span class="comment">#contribs.1 == 'Turing test'</span></div><div class="line"><span class="comment">#contribs.2 == 'Turingery'</span></div></pre></td></tr></table></figure>
+<p><strong>嵌套文档(embedded documents)</strong><br>通过圆点表示法来指定或访问嵌套文档中的字段。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;embedded document&gt;.&lt;field&gt;</div><div class="line"></div><div class="line">&#123;</div><div class="line">	name: &#123; first: <span class="string">'AAA'</span>, last: <span class="string">'ZZZ'</span>&#125;,</div><div class="line">    contact: &#123; phone: &#123; <span class="built_in">type</span>: <span class="string">'cell'</span>, number: <span class="string">'1-22-333'</span> &#125;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">#name.first == 'AAA'</span></div><div class="line"><span class="comment">#contact.phone.number == '1-22-333'</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="文档限制-document-limitation"><a href="#文档限制-document-limitation" class="headerlink" title="文档限制(document limitation)**"></a>文档限制(document limitation)**</h3><p><strong>文档大小限制(size limit)</strong><br>BSON document最大size为：16MB。</p>
+<p>最大document size确保一个单一document不能使用过量的RAM，或是传输期间的过量带宽。<br>MongoDB提供了<code>GridFS API</code>，用来保存超过最大size的文档。</p>
+<p><strong>文档字段序列(field order)</strong><br>MongoDB用write operation来作为document的序列，除了一下情况：</p>
+<ul>
+<li><code>_id</code>字段总是document中的第一个field；</li>
+<li>包含重命名的<code>update</code>操作，会导致document中的field重新排序。</li>
+</ul>
+<p><strong>_id字段</strong><br>在MongoDB中，每个保存在collection中的document都要求一个唯一的<code>_id</code>，用以担任主键(primary key)。<br>如果向document中<code>insert</code>数据是忽略的<code>_id</code>字段，则MongoDB driver会为<code>_id字段</code>自动生成一个ObjectID。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#默认生成_id</span></div><div class="line">db.coll01.insert(&#123;name: <span class="string">'zhang'</span>, sex: <span class="string">'man'</span>, hobby: <span class="string">'woman'</span>&#125;)</div><div class="line"><span class="comment"># "_id" : ObjectId("5a32166ebf2c986e8106f891")</span></div><div class="line"></div><div class="line"><span class="comment">#自定义_id</span></div><div class="line">db.coll01.insert(&#123;_id:<span class="string">'ZhangCustomDefine'</span>, name:<span class="string">'zhang'</span>, sex: <span class="string">'man'</span>, arr: [0, 1, 2, 3], emmdoc: &#123;emm01:<span class="string">'Emm01'</span>, emm02: <span class="string">'Emm02'</span>, emm03: <span class="string">'Emmo3'</span>&#125;&#125;)</div><div class="line"><span class="comment">#"_id" : "ZhangCustomDefine"</span></div></pre></td></tr></table></figure>
+<p><code>_id字段</code>有以下行为和约束：</p>
+<ul>
+<li>默认情况下，MongoDB在collection创建document时，会创建一个唯一的<code>_id</code>作为索引；</li>
+<li><code>_id字段</code>总是document中的第一个字段。如果server接受的document中<code>_id</code>不在第一个字段，那么Server会移动<code>_id</code>到第一个字段；</li>
+<li><code>_id</code>字段的数据类型除了数组外的任意BSON 数据类型；</li>
+<li>不要存储BSON正则表达式的类型在<code>_id</code>字段中。</li>
+</ul>
+<p><code>_id</code>字段值的常用选项：</p>
+<ul>
+<li>使用ObjectId；</li>
+<li>使用了自然唯一的标识符，节省了空间并避免了额外的索引；</li>
+<li>生成一个自动递增的数字；</li>
+<li>在应用程序代码中生成UUID；</li>
+</ul>
+<p><br></p>
+<h3 id="文档结构的其他用途"><a href="#文档结构的其他用途" class="headerlink" title="文档结构的其他用途"></a>文档结构的其他用途</h3><p><strong>查询过滤文档(query filter)</strong><br>使用<key>:<value>表达式来指定条件。</value></key></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	&lt;field1&gt;: &lt;value1&gt;</div><div class="line">    &lt;field2&gt;: &lt;value2&gt;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>更新特定文档(update)</strong><br>使用<code>db.collection.update()</code>操作更新数据。</p>
+<p><br><br><br></p>
+<h2 id="BSON类型"><a href="#BSON类型" class="headerlink" title="BSON类型"></a>BSON类型</h2><p>BSON是一个用来存储document和MongoDB进行远程调用的二进制序列化格式。<br>BSON支持一下数据类型作为文档中的值。每个数据类型都有一个相应的数字和字符串别名，可与$type操作符一起使用，以便按照bson类型查询文档。</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Number</th>
+<th>Alias</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>double</td>
+<td>1</td>
+<td>“double”</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td>2</td>
+<td>“string”</td>
+</tr>
+<tr>
+<td>对象</td>
+<td>3</td>
+<td>“object”</td>
+</tr>
+<tr>
+<td>数组</td>
+<td>4</td>
+<td>“array”</td>
+</tr>
+<tr>
+<td>二进制数据</td>
+<td>5</td>
+<td>“binData”</td>
+</tr>
+<tr>
+<td>未定义</td>
+<td>6</td>
+<td>“undefined”</td>
+</tr>
+<tr>
+<td>ObjectId</td>
+<td>7</td>
+<td>“objectId”</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>8</td>
+<td>“bool”</td>
+</tr>
+<tr>
+<td>日期</td>
+<td>9</td>
+<td>“date”</td>
+</tr>
+<tr>
+<td>空</td>
+<td>10</td>
+<td>“null”</td>
+</tr>
+<tr>
+<td>正则表达式</td>
+<td>11</td>
+<td>“regex”</td>
+</tr>
+<tr>
+<td>DBPointer</td>
+<td>12</td>
+<td>“dbPointer”</td>
+</tr>
+<tr>
+<td>JavaScript</td>
+<td>13</td>
+<td>“javascript”</td>
+</tr>
+<tr>
+<td>符号</td>
+<td>14</td>
+<td>“symbol”</td>
+</tr>
+<tr>
+<td>JavaScript(带范围)</td>
+<td>15</td>
+<td>“javascriptWithScope”</td>
+</tr>
+<tr>
+<td>32位整数</td>
+<td>16</td>
+<td>“int”</td>
+</tr>
+<tr>
+<td>时间戳</td>
+<td>17</td>
+<td>“timestamp”</td>
+</tr>
+<tr>
+<td>64位整数</td>
+<td>18</td>
+<td>“long”</td>
+</tr>
+<tr>
+<td>Decimal128</td>
+<td>19</td>
+<td>“decimal”</td>
+</tr>
+<tr>
+<td>Min key</td>
+<td>-1</td>
+<td>“minKey”</td>
+</tr>
+<tr>
+<td>Max key</td>
+<td>127</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>如果你想要将BSON转换为JSON，参考Extended JSON。</p>
 <p><br><br><br></p>
 <hr>
 <h1 id="MongoDB安装"><a href="#MongoDB安装" class="headerlink" title="MongoDB安装"></a>MongoDB安装</h1><p>参考:</p>
@@ -925,7 +1089,7 @@
 <td>退出</td>
 </tr>
 <tr>
-<td>ctrl+l</td>
+<td>ctrl+L</td>
 <td>清屏</td>
 </tr>
 </tbody>
@@ -1238,7 +1402,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NoSQL"><span class="nav-number">1.</span> <span class="nav-text">NoSQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB简介"><span class="nav-number">2.</span> <span class="nav-text">MongoDB简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB特点"><span class="nav-number">2.1.</span> <span class="nav-text">MongoDB特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#database和collection"><span class="nav-number">2.2.</span> <span class="nav-text">database和collection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#databases"><span class="nav-number">2.2.1.</span> <span class="nav-text">databases</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#collection"><span class="nav-number">2.2.2.</span> <span class="nav-text">collection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显式创建-explicit-creation"><span class="nav-number">2.2.3.</span> <span class="nav-text">显式创建(explicit creation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视图-View"><span class="nav-number">2.2.4.</span> <span class="nav-text">视图(View)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制集"><span class="nav-number">2.2.5.</span> <span class="nav-text">限制集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#行为"><span class="nav-number">2.2.5.1.</span> <span class="nav-text">行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#限制和建议"><span class="nav-number">2.2.5.2.</span> <span class="nav-text">限制和建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序"><span class="nav-number">2.2.5.3.</span> <span class="nav-text">程序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#document"><span class="nav-number">2.3.</span> <span class="nav-text">document</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#document-structure"><span class="nav-number">2.3.1.</span> <span class="nav-text">document structure</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB安装"><span class="nav-number">3.</span> <span class="nav-text">MongoDB安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自建mongodb-repo仓库安装"><span class="nav-number">3.1.</span> <span class="nav-text">自建mongodb.repo仓库安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载rpm包安装"><span class="nav-number">3.2.</span> <span class="nav-text">下载rpm包安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装"><span class="nav-number">3.3.</span> <span class="nav-text">源码安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启mongodb"><span class="nav-number">3.4.</span> <span class="nav-text">开启mongodb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongodb异常关闭后"><span class="nav-number">3.5.</span> <span class="nav-text">mongodb异常关闭后</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB配置文件"><span class="nav-number">4.</span> <span class="nav-text">MongoDB配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#systemLog"><span class="nav-number">4.1.</span> <span class="nav-text">systemLog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#storage"><span class="nav-number">4.2.</span> <span class="nav-text">storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#processManagement"><span class="nav-number">4.3.</span> <span class="nav-text">processManagement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#net"><span class="nav-number">4.4.</span> <span class="nav-text">net</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#security"><span class="nav-number">4.5.</span> <span class="nav-text">security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#operationProfiling"><span class="nav-number">4.6.</span> <span class="nav-text">operationProfiling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#replication"><span class="nav-number">4.7.</span> <span class="nav-text">replication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sharding"><span class="nav-number">4.8.</span> <span class="nav-text">sharding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setParameter"><span class="nav-number">4.9.</span> <span class="nav-text">setParameter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#auditLog"><span class="nav-number">4.10.</span> <span class="nav-text">auditLog</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mongo-Shell"><span class="nav-number">5.</span> <span class="nav-text">Mongo Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mongo-shell基础知识"><span class="nav-number">5.1.</span> <span class="nav-text">mongo shell基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动monso-shell"><span class="nav-number">5.1.1.</span> <span class="nav-text">启动monso shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用mongo-shell"><span class="nav-number">5.1.2.</span> <span class="nav-text">使用mongo shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化打印结果"><span class="nav-number">5.1.3.</span> <span class="nav-text">格式化打印结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell中的多行操作"><span class="nav-number">5.1.4.</span> <span class="nav-text">mongo shell中的多行操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tab命令补全和键盘快捷键"><span class="nav-number">5.1.5.</span> <span class="nav-text">Tab命令补全和键盘快捷键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#退出mongo-shell"><span class="nav-number">5.1.6.</span> <span class="nav-text">退出mongo shell</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置mongo-shell"><span class="nav-number">5.2.</span> <span class="nav-text">配置mongo shell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义提示符"><span class="nav-number">5.2.1.</span> <span class="nav-text">自定义提示符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在mongo-shell中使用外部编辑器"><span class="nav-number">5.2.2.</span> <span class="nav-text">在mongo shell中使用外部编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改mongo-shell批处理大小"><span class="nav-number">5.2.3.</span> <span class="nav-text">修改mongo shell批处理大小</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取mongo-shell帮助"><span class="nav-number">5.3.</span> <span class="nav-text">获取mongo shell帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#给mongo-shell写脚本"><span class="nav-number">5.4.</span> <span class="nav-text">给mongo shell写脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开新连接"><span class="nav-number">5.4.1.</span> <span class="nav-text">打开新连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交互式和脚本化mongo的区别"><span class="nav-number">5.4.2.</span> <span class="nav-text">交互式和脚本化mongo的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本"><span class="nav-number">5.4.3.</span> <span class="nav-text">脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongo-shell中的数据类型"><span class="nav-number">5.5.</span> <span class="nav-text">mongo shell中的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#日期"><span class="nav-number">5.5.1.</span> <span class="nav-text">日期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ObjectId"><span class="nav-number">5.5.2.</span> <span class="nav-text">ObjectId</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NumberLong"><span class="nav-number">5.5.3.</span> <span class="nav-text">NumberLong</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NumberInt"><span class="nav-number">5.5.4.</span> <span class="nav-text">NumberInt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NumberDecimal"><span class="nav-number">5.5.5.</span> <span class="nav-text">NumberDecimal</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongo-shell快速参考"><span class="nav-number">5.6.</span> <span class="nav-text">mongo shell快速参考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell-历史命令"><span class="nav-number">5.6.1.</span> <span class="nav-text">mongo shell 历史命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行选项"><span class="nav-number">5.6.2.</span> <span class="nav-text">命令行选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell命令助手"><span class="nav-number">5.6.3.</span> <span class="nav-text">mongo shell命令助手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell的基本JavaScript操作"><span class="nav-number">5.6.4.</span> <span class="nav-text">mongo shell的基本JavaScript操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#键盘快捷键"><span class="nav-number">5.6.5.</span> <span class="nav-text">键盘快捷键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell查询方法"><span class="nav-number">5.6.6.</span> <span class="nav-text">mongo shell查询方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理命令助手"><span class="nav-number">5.6.7.</span> <span class="nav-text">管理命令助手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开附加连接"><span class="nav-number">5.6.8.</span> <span class="nav-text">打开附加连接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB-CRUD操作"><span class="nav-number">6.</span> <span class="nav-text">MongoDB CRUD操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NoSQL"><span class="nav-number">1.</span> <span class="nav-text">NoSQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB简介"><span class="nav-number">2.</span> <span class="nav-text">MongoDB简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB特点"><span class="nav-number">2.1.</span> <span class="nav-text">MongoDB特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#database和collection"><span class="nav-number">2.2.</span> <span class="nav-text">database和collection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#databases"><span class="nav-number">2.2.1.</span> <span class="nav-text">databases</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#collection"><span class="nav-number">2.2.2.</span> <span class="nav-text">collection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显式创建-explicit-creation"><span class="nav-number">2.2.3.</span> <span class="nav-text">显式创建(explicit creation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视图-View"><span class="nav-number">2.2.4.</span> <span class="nav-text">视图(View)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制集"><span class="nav-number">2.2.5.</span> <span class="nav-text">限制集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#行为"><span class="nav-number">2.2.5.1.</span> <span class="nav-text">行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#限制和建议"><span class="nav-number">2.2.5.2.</span> <span class="nav-text">限制和建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序"><span class="nav-number">2.2.5.3.</span> <span class="nav-text">程序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#document"><span class="nav-number">2.3.</span> <span class="nav-text">document</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#document-structure"><span class="nav-number">2.3.1.</span> <span class="nav-text">document structure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#圆点表示法-dot-notation"><span class="nav-number">2.3.2.</span> <span class="nav-text">圆点表示法(dot notation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文档限制-document-limitation"><span class="nav-number">2.3.3.</span> <span class="nav-text">文档限制(document limitation)**</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文档结构的其他用途"><span class="nav-number">2.3.4.</span> <span class="nav-text">文档结构的其他用途</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BSON类型"><span class="nav-number">2.4.</span> <span class="nav-text">BSON类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB安装"><span class="nav-number">3.</span> <span class="nav-text">MongoDB安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自建mongodb-repo仓库安装"><span class="nav-number">3.1.</span> <span class="nav-text">自建mongodb.repo仓库安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载rpm包安装"><span class="nav-number">3.2.</span> <span class="nav-text">下载rpm包安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装"><span class="nav-number">3.3.</span> <span class="nav-text">源码安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启mongodb"><span class="nav-number">3.4.</span> <span class="nav-text">开启mongodb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongodb异常关闭后"><span class="nav-number">3.5.</span> <span class="nav-text">mongodb异常关闭后</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB配置文件"><span class="nav-number">4.</span> <span class="nav-text">MongoDB配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#systemLog"><span class="nav-number">4.1.</span> <span class="nav-text">systemLog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#storage"><span class="nav-number">4.2.</span> <span class="nav-text">storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#processManagement"><span class="nav-number">4.3.</span> <span class="nav-text">processManagement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#net"><span class="nav-number">4.4.</span> <span class="nav-text">net</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#security"><span class="nav-number">4.5.</span> <span class="nav-text">security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#operationProfiling"><span class="nav-number">4.6.</span> <span class="nav-text">operationProfiling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#replication"><span class="nav-number">4.7.</span> <span class="nav-text">replication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sharding"><span class="nav-number">4.8.</span> <span class="nav-text">sharding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setParameter"><span class="nav-number">4.9.</span> <span class="nav-text">setParameter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#auditLog"><span class="nav-number">4.10.</span> <span class="nav-text">auditLog</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mongo-Shell"><span class="nav-number">5.</span> <span class="nav-text">Mongo Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mongo-shell基础知识"><span class="nav-number">5.1.</span> <span class="nav-text">mongo shell基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动monso-shell"><span class="nav-number">5.1.1.</span> <span class="nav-text">启动monso shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用mongo-shell"><span class="nav-number">5.1.2.</span> <span class="nav-text">使用mongo shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化打印结果"><span class="nav-number">5.1.3.</span> <span class="nav-text">格式化打印结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell中的多行操作"><span class="nav-number">5.1.4.</span> <span class="nav-text">mongo shell中的多行操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tab命令补全和键盘快捷键"><span class="nav-number">5.1.5.</span> <span class="nav-text">Tab命令补全和键盘快捷键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#退出mongo-shell"><span class="nav-number">5.1.6.</span> <span class="nav-text">退出mongo shell</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置mongo-shell"><span class="nav-number">5.2.</span> <span class="nav-text">配置mongo shell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义提示符"><span class="nav-number">5.2.1.</span> <span class="nav-text">自定义提示符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在mongo-shell中使用外部编辑器"><span class="nav-number">5.2.2.</span> <span class="nav-text">在mongo shell中使用外部编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改mongo-shell批处理大小"><span class="nav-number">5.2.3.</span> <span class="nav-text">修改mongo shell批处理大小</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取mongo-shell帮助"><span class="nav-number">5.3.</span> <span class="nav-text">获取mongo shell帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#给mongo-shell写脚本"><span class="nav-number">5.4.</span> <span class="nav-text">给mongo shell写脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开新连接"><span class="nav-number">5.4.1.</span> <span class="nav-text">打开新连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交互式和脚本化mongo的区别"><span class="nav-number">5.4.2.</span> <span class="nav-text">交互式和脚本化mongo的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本"><span class="nav-number">5.4.3.</span> <span class="nav-text">脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongo-shell中的数据类型"><span class="nav-number">5.5.</span> <span class="nav-text">mongo shell中的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#日期"><span class="nav-number">5.5.1.</span> <span class="nav-text">日期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ObjectId"><span class="nav-number">5.5.2.</span> <span class="nav-text">ObjectId</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NumberLong"><span class="nav-number">5.5.3.</span> <span class="nav-text">NumberLong</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NumberInt"><span class="nav-number">5.5.4.</span> <span class="nav-text">NumberInt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NumberDecimal"><span class="nav-number">5.5.5.</span> <span class="nav-text">NumberDecimal</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongo-shell快速参考"><span class="nav-number">5.6.</span> <span class="nav-text">mongo shell快速参考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell-历史命令"><span class="nav-number">5.6.1.</span> <span class="nav-text">mongo shell 历史命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行选项"><span class="nav-number">5.6.2.</span> <span class="nav-text">命令行选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell命令助手"><span class="nav-number">5.6.3.</span> <span class="nav-text">mongo shell命令助手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell的基本JavaScript操作"><span class="nav-number">5.6.4.</span> <span class="nav-text">mongo shell的基本JavaScript操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#键盘快捷键"><span class="nav-number">5.6.5.</span> <span class="nav-text">键盘快捷键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell查询方法"><span class="nav-number">5.6.6.</span> <span class="nav-text">mongo shell查询方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理命令助手"><span class="nav-number">5.6.7.</span> <span class="nav-text">管理命令助手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开附加连接"><span class="nav-number">5.6.8.</span> <span class="nav-text">打开附加连接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB-CRUD操作"><span class="nav-number">6.</span> <span class="nav-text">MongoDB CRUD操作</span></a></li></ol></div>
             
 
           </div>
@@ -1270,7 +1434,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 53.2k</span>
+  <span class="post-count"> 字数: 54.2k</span>
 </div>
 
 
