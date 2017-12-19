@@ -74,10 +74,10 @@ git clone https://github.com/iissnan/hexo-theme-next themes/next
 
 <br>
 
-*** 强烈推荐  [查阅 NexT网站说明](http://theme-next.iissnan.com/)和[NexT-issues](https://github.com/iissnan/hexo-theme-next/issues)***
+***强烈推荐[查阅 NexT网站说明](http://theme-next.iissnan.com/)和[NexT-issues](https://github.com/iissnan/hexo-theme-next/issues)***
 
 
-**有关户名下面的几个menu点击后没有页面或者是空白页的问题: **
+**有关户名下面的几个menu点击后没有页面或者是空白页的问题:**
 
 ```sh
 #Create a menu page
@@ -105,7 +105,7 @@ menu:<br/>
 
 <br/>
 
-**有关添加背景图片**
+**有关添加背景图片:**
 
 将背景图片放置于`blog/themes/next/source/images/bg.jpg`，建议图片都放置于此。
 
@@ -122,7 +122,7 @@ menu:<br/>
 
 <br/>
 
-**有关动态效果**
+**有关动态效果:**
 
 在主题配置文件 _config.yml 中：
 
@@ -137,7 +137,7 @@ menu:<br/>
 
 <br/>
 
-**有关加头像**
+**有关加头像:**
 
 在NexT主题配置文件 _config.yml中:
 
@@ -150,7 +150,7 @@ avatar: /images/touxiang.png    #建议放在images目录下
 
 <br>
 
-**有关外部链接的标志**
+**有关外部链接的标志:**
 
 在NexT主题配置文件 _config.yml中:
 
@@ -168,7 +168,7 @@ social:
 
 <br/>
 
-**有关插入网易云音乐链接**
+**有关插入网易云音乐链接:**
 
 选择一首歌，生成对应的 HTML 代码，注意是否自动播放，并将代码添加到:
 
@@ -182,14 +182,14 @@ social:
 
 <br/>
 
-**有关MathJax支持**
+**有关MathJax支持:**
 
 修改主题配置`_config.yml`文件: `参考MathJax选项`
 
 
 <br/>
 
-**有关添加统计**
+**有关添加统计:**
 
 我个人使用了推荐的：`不蒜子统计`
 
@@ -197,7 +197,7 @@ social:
 
 <br/>
 
-**有关评论系统**
+**有关评论系统:**
 
 我使用推荐的：`Disqus`
 
