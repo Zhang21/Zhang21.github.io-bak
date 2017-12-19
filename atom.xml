@@ -79,10 +79,6 @@
     
     </summary>
     
-      <category term="Linux" scheme="https://zhang21.github.io/categories/Linux/"/>
-    
-    
-      <category term="Database" scheme="https://zhang21.github.io/tags/Database/"/>
     
   </entry>
   
@@ -91,7 +87,7 @@
     <link href="https://zhang21.github.io/2017/12/11/MongoDB/"/>
     <id>https://zhang21.github.io/2017/12/11/MongoDB/</id>
     <published>2017-12-11T02:49:52.000Z</published>
-    <updated>2017-12-15T10:30:39.040Z</updated>
+    <updated>2017-12-19T04:53:53.973Z</updated>
     
     <content type="html"><![CDATA[<p>参考：</p>
 <ul>
@@ -444,7 +440,177 @@
 <h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><p>BSON日期是一个64位整数，表示利当前Unix新纪元(1970.01.01)的毫秒数，可到未来的2.9亿年。<br>BSON日期类型是有符号的，负数表示1970年之前的时间。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var date1 = new Date()</div><div class="line">var date2 = ISODate()</div><div class="line"></div><div class="line">#date1</div><div class="line">#date2</div><div class="line">#ISODate(&quot;2017-12-15T03:28:08.227Z&quot;)</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
-<h2 id="MongoDB-Extended-JSON"><a href="#MongoDB-Extended-JSON" class="headerlink" title="MongoDB Extended JSON"></a>MongoDB Extended JSON</h2><p><br><br><br></p>
+<h2 id="MongoDB-Extended-JSON"><a href="#MongoDB-Extended-JSON" class="headerlink" title="MongoDB Extended JSON"></a>MongoDB Extended JSON</h2><p>JSON只能表示BSON类型的一个子集。为了保留类型信息，MongoDB对JSON格式添加了如下扩展性：</p>
+<ul>
+<li>Strict mode： Any JSON parser can parse these strict mode representations as key/value pairs;</li>
+<li>mongo shell mode： The MongoDB internal JSON parser and the mongo shell can parse this mode.</li>
+</ul>
+<p>多种数据类型的表示取决于JSON解析的上下文！</p>
+<p><br></p>
+<h3 id="解析器-parser-和支持的格式-format"><a href="#解析器-parser-和支持的格式-format" class="headerlink" title="解析器(parser)和支持的格式(format)"></a>解析器(parser)和支持的格式(format)</h3><p><strong>Input in Strict mode</strong><br>如下可在严格模式下被解析并识别类型信息。</p>
+<ul>
+<li>REST Interface;</li>
+<li>mongo import;</li>
+<li>–query;</li>
+<li>MongoDB Compass.</li>
+</ul>
+<p><br><br><strong>Input in mongo shell mode</strong><br>如下可在严格模式下被解析并识别类型信息。</p>
+<ul>
+<li>REST Interface;</li>
+<li>mongo import;</li>
+<li>–query;</li>
+<li>MongoDB Compass.</li>
+</ul>
+<p><br><br><strong>Output in Strict mode</strong><br><code>mongoexport</code>, REST, HTTP Interfaces.</p>
+<p><br><br><strong>Output in mongo shell mode</strong><br><code>bsondump</code>.</p>
+<p><br></p>
+<h3 id="BSON数据类型和关联表示"><a href="#BSON数据类型和关联表示" class="headerlink" title="BSON数据类型和关联表示"></a>BSON数据类型和关联表示</h3><p><strong>Binary</strong></p>
+<table>
+<thead>
+<tr>
+<th>Strict mode</th>
+<th>mongo shell mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{ “$binary”: “<bindata>“, “$type”: “<t>“ }</t></bindata></td>
+<td>BinData ( <t>, <bindata> )</bindata></t></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;bindata&gt;是二进制base64表示；</div><div class="line">&lt;t&gt;是由单字节的数据类型表示。</div></pre></td></tr></table></figure>
+<p><br><br><strong>Date</strong></p>
+<table>
+<thead>
+<tr>
+<th>Strict mode</th>
+<th>mongo shell mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{ “$date”: “<date>“ }</date></td>
+<td>new Date ( <date> )</date></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">In Strict mode, &lt;date&gt;是 ISO-8601的日期格式的时区字段，类型如**YYYY-MM-DDTHH:mm:ss.mm&lt;+/-offset&gt;;</div><div class="line">MongoDb JSON解析器目前暂不支持载入ISO-8601日期类型。</div></pre></td></tr></table></figure>
+<p><br><br><strong>Timestamp</strong></p>
+<table>
+<thead>
+<tr>
+<th>Strict mode</th>
+<th>mongo shell mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{ “$timestamp” ; { “t”: <t>, “i” } }</t></td>
+<td>Timestamp( <t>, <i> )</i></t></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;t&gt;是32位无符号整数的JSON表现形式；</div><div class="line">&lt;i&gt;是增量的32位无符号整数。</div></pre></td></tr></table></figure>
+<p><br><br><strong>Regular Expression</strong></p>
+<table>
+<thead>
+<tr>
+<th>Strict mode</th>
+<th>mongo shell mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{ “$regex”: <sregex>, “$options”: “<soptions>“ }</soptions></sregex></td>
+<td>/<jregex>/<joptions></joptions></jregex></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;sRegex&gt;是有效地JSON字符串；</div><div class="line">&lt;jRegex&gt;是一个可能包含有效的JSON字符和未转义的双引号(&quot;)，但可能不包括未转义的斜杠(/)字符；</div><div class="line">&lt;sOptions&gt;是一个正则表达式选项；</div><div class="line">&lt;jOptions&gt;是一个只能包含字符&quot;g&quot;, &quot;i&quot;, &quot;m&quot;, &quot;s&quot;的字符串。</div></pre></td></tr></table></figure>
+<p><br><br><strong>OID</strong></p>
+<table>
+<thead>
+<tr>
+<th>Strict mode</th>
+<th>mongo shell mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{ “$oid”: “<id>“ }</id></td>
+<td>ObjectId( “<id>“ )</id></td>
+</tr>
+</tbody>
+</table>
+<p><code>&lt;id&gt;是一个24字符的十六进制(hexadecimal)字符串</code></p>
+<p><br><br><strong>DB Reference</strong></p>
+<table>
+<thead>
+<tr>
+<th>strict mode</th>
+<th>mongo shell mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{ “$ref”: “<name>“, “$id”: “<id>“ }</id></name></td>
+<td>DBRef(“<name>“, “<id>“)</id></name></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;name&gt;是一个有效的JSON字符；</div><div class="line">&lt;id&gt;是任一extended JSON type。</div></pre></td></tr></table></figure>
+<p><br><br><strong>Undefined Type</strong></p>
+<table>
+<thead>
+<tr>
+<th>strict mode</th>
+<th>mongo shell mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{  “$undefined”: true }</td>
+<td>undefined</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><strong>MinKey/MaxKey</strong></p>
+<table>
+<thead>
+<tr>
+<th>strict mode</th>
+<th>mongo shell mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{ “$minkey”: 1 }</td>
+<td>MinKey</td>
+</tr>
+<tr>
+<td>{ “$maxkey”: 1 }</td>
+<td>MaxKey</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><strong>NumberLong</strong></p>
+<table>
+<thead>
+<tr>
+<th>strict mode</th>
+<th>mongo shell mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{ “$numberLong”: “<number>“ }</number></td>
+<td>NumberLong( “number&gt;” )</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Number是一个64位有符号整数。必须使用&quot;，否则它将被解释为浮点数，从而导致损失精度；</div><div class="line">db.json.insert&#123;&#123; longquoted: NumberLong(&quot;12345678901234345&quot;) &#125;)</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
 <hr>
 <h1 id="MongoDB安装"><a href="#MongoDB安装" class="headerlink" title="MongoDB安装"></a>MongoDB安装</h1><p>参考:</p>
 <ul>
@@ -541,10 +707,13 @@
 <ul>
 <li>WARNING: /sys/kernel/mm/transparent_hugepage/defrag is ‘always’. We suggest setting it to ‘never’.</li>
 <li>WARNING: /sys/kernel/mm/transparent_hugepage/defrag is ‘always’. We suggest setting it to ‘never’</li>
+<li>WARNING: Access control is not enabled for the database.</li>
 </ul>
-<p>hugepage(大内存页面)，是Linux操作系统一种管理内存的方式。和通常方式相比，hugepage模式下内存分配管理会有所差异。<br>MongoDB显然不希望这个特定被启用。</p>
+<p>hugepage(大内存页面)，是Linux操作系统一种管理内存的方式。和通常方式相比，hugepage模式下内存分配管理会有所差异。<br>MongoDB显然不希望这个特定被启用。<br>新版MongoDB增加了安全性设计，推荐用户创建使用数据库时进行验证。所以我们需要创建用户认证。</p>
 <p>关闭hugepage:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vim /etc/rc.d/rc.local</div><div class="line"></div><div class="line"><span class="built_in">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/enabled</div><div class="line"><span class="built_in">echo</span> never &gt; /sys/kernel/mm/transparent_hugepage/defrag</div><div class="line"></div><div class="line">chmox a+x /etc/rc.d/rc.local</div></pre></td></tr></table></figure>
+<p>创建用户认证:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&gt;use admin</div><div class="line">&gt;db.createUser(</div><div class="line">&#123;</div><div class="line">	user: <span class="string">"zhang"</span>,</div><div class="line">    <span class="built_in">pwd</span>: <span class="string">"zhang"</span>,</div><div class="line">    roles: [&#123; role: <span class="string">"root"</span>, db: <span class="string">"admin"</span>&#125;]</div><div class="line">&#125;</div><div class="line">)</div><div class="line"></div><div class="line">mongo -u zhang -p zhang --authenticationDatabase admin</div><div class="line"><span class="comment">#或</span></div><div class="line">mongo</div><div class="line">use admin</div><div class="line">db.auth(<span class="string">"zhang"</span>, <span class="string">"1314520"</span>)</div></pre></td></tr></table></figure>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mongo</div><div class="line"></div><div class="line"><span class="comment">#显示当前使用数据库</span></div><div class="line">&gt;db</div><div class="line"></div><div class="line"><span class="comment">#切换数据库</span></div><div class="line">&gt;use &lt;database&gt;</div><div class="line"></div><div class="line"><span class="comment">#查看所有数据库</span></div><div class="line">&gt;show dbs</div></pre></td></tr></table></figure>
 <p><br><br>你可以切换到一个并不存在的数据库。当你第一次向数据库存储数据，如创建一个集合，MongoDB将自动创建数据库。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">use nodb</div><div class="line"></div><div class="line">db.nocollestion.insert(&#123;x:1&#125;);</div></pre></td></tr></table></figure>
@@ -559,6 +728,8 @@
 <li>使用 <code>上/下箭头</code> 进行历史命令切换；</li>
 <li>使用 <code>Tab键</code> 自动补全命令。</li>
 </ul>
+<p><br></p>
+<h3 id="mongo-shell批量操作"><a href="#mongo-shell批量操作" class="headerlink" title="mongo shell批量操作"></a>mongo shell批量操作</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mongo -u xxx -p xxx --authenticationDatabase=xxx &lt;&lt; EOF</div><div class="line">show dbs</div><div class="line">use zhang</div><div class="line">db.coll01.drop()</div><div class="line">db.coll02.update( &#123; _id: <span class="string">"xxx"</span> &#125;, &#123; name: <span class="string">"zhang"</span> &#125;)</div><div class="line">EOF</div></pre></td></tr></table></figure>
 <p><br></p>
 <h3 id="退出mongo-shell"><a href="#退出mongo-shell" class="headerlink" title="退出mongo shell"></a>退出mongo shell</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">quit()</div><div class="line"></div><div class="line"><span class="built_in">exit</span></div><div class="line"></div><div class="line">Ctrl+c</div></pre></td></tr></table></figure>
 <p><br></p>
@@ -924,7 +1095,38 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;db = connect(<span class="string">"&lt;host&gt;:&lt;port&gt;/&lt;db&gt;"</span>)</div><div class="line">#db = connect("192.168.1.11/admin")</div><div class="line"></div><div class="line">&gt;conn = <span class="keyword">new</span> Mongo()</div><div class="line">&gt;db = conn.getDB(<span class="string">"dbname"</span>)</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <hr>
-<h1 id="MongoDB-CRUD操作"><a href="#MongoDB-CRUD操作" class="headerlink" title="MongoDB CRUD操作"></a>MongoDB CRUD操作</h1>]]></content>
+<h1 id="MongoDB-CRUD操作"><a href="#MongoDB-CRUD操作" class="headerlink" title="MongoDB CRUD操作"></a>MongoDB CRUD操作</h1><p><code>CRUD</code>操作就是<em>创建(create)，读取(read)，更新(update)，删除(delete)</em>文档(document)!</p>
+<p><br><br><strong>创建(create)操作</strong><br>创建或插入， 即是向 collection 添加新的 document。如果插入时集合不存在，插入操作会创建该集合。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">db.collection.insert()</div><div class="line">db.collection.insertOne()</div><div class="line">db.collection.insertMany()</div></pre></td></tr></table></figure>
+<p><br><br><strong>读取(read)操作</strong><br>读操作，获取 collection 中的 document。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.collection.find()</div></pre></td></tr></table></figure>
+<p><br><br><strong>更新(update)操作</strong><br>更新操作，修改 collection 中已经存在的 document。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">db.collection.update()</div><div class="line">db.collection.updateOne()</div><div class="line">db.collection.updateMany()</div><div class="line">db.collection.replaceOne()</div></pre></td></tr></table></figure>
+<p><br><br><strong>删除(delete)操作</strong><br>删除操作，是从一个 collection 中删除 document 的操作。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">db.collection.remove()</div><div class="line">db.collection.deleteOne()</div><div class="line">db.collection.deleteMany()</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="插入文档"><a href="#插入文档" class="headerlink" title="插入文档"></a>插入文档</h2><p><br></p>
+<h3 id="插入方法"><a href="#插入方法" class="headerlink" title="插入方法"></a>插入方法</h3><p>MongoDB提供了如下插入方法向collection中插入document：</p>
+<ul>
+<li>db.collection.insert()</li>
+<li>db.collection.insertOne()</li>
+<li>db.collection.insertMany()</li>
+</ul>
+<p><br></p>
+<h4 id="db-collection-insert"><a href="#db-collection-insert" class="headerlink" title="db.collection.insert()"></a>db.collection.insert()</h4><p><code>db.collection.insert()</code>,向collection中插入一个或多个document。<br>要想插入一个document，传递<strong>一个文档</strong>给该方法；要想插入多个documents，传递<strong>文档数组</strong>给该方法。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#插入一个文档</span></div><div class="line">db.user.insert(</div><div class="line">	&#123;</div><div class="line">    	_id: <span class="string">"ZhangTest"</span>,</div><div class="line">    	name: <span class="string">"zhang"</span>,</div><div class="line">        age: 2017,</div><div class="line">        sex: <span class="string">"man"</span></div><div class="line">    &#125;</div><div class="line">)</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#插入多个文档</span></div><div class="line">db.user.insert(</div><div class="line">	[</div><div class="line">    	&#123; name: <span class="string">"AAA"</span>, age: 20, status: <span class="string">"A"</span> &#125;,</div><div class="line">        &#123; name: <span class="string">"BBB"</span>, age: 21, status: <span class="string">"B"</span> &#125;,</div><div class="line">        &#123; name: <span class="string">"CCC"</span>, age: 22, status: <span class="string">"C"</span> &#125;</div><div class="line">    ]</div><div class="line">)</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="db-collection-insertOne"><a href="#db-collection-insertOne" class="headerlink" title="db.collection.insertOne()"></a>db.collection.insertOne()</h4><p><code>db.collection.insertOne()</code>,向collection中插入单个document。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">db.user.insertOne(</div><div class="line">	&#123;</div><div class="line">		name: <span class="string">"zhang"</span>,</div><div class="line">        age: <span class="string">"2017"</span>,</div><div class="line">        sex: <span class="string">"man"</span>,</div><div class="line">        education: <span class="string">"bachelor"</span></div><div class="line">	&#125;</div><div class="line">)</div><div class="line"></div><div class="line"><span class="comment">#此处并未自定义_id字段，因此它会自动添加_id字段</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="db-collection-insertMany"><a href="#db-collection-insertMany" class="headerlink" title="db.collection.insertMany()"></a>db.collection.insertMany()</h4><p><code>db.collection.insertMany()</code>,向collection插入多个documents。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">db.user.insertMany(</div><div class="line">	[</div><div class="line">    	&#123; name: <span class="string">"AAA"</span>, age: <span class="string">"20"</span>, status: <span class="string">"A"</span> &#125;,</div><div class="line">        &#123; name: <span class="string">"BBB"</span>, age: <span class="string">"21"</span>, status: <span class="string">"B"</span> &#125;,</div><div class="line">        &#123; name: <span class="string">"CCC"</span>, age: <span class="string">"22"</span>, status: <span class="string">"C"</span> &#125;</div><div class="line">    ]</div><div class="line">)</div><div class="line"></div><div class="line"><span class="comment">#自动生成3个document的_id字段</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="插入操作的行为表现"><a href="#插入操作的行为表现" class="headerlink" title="插入操作的行为表现"></a>插入操作的行为表现</h3><p><strong>创建集合</strong><br>插入的时候如果collection不存在，那么插入操作会创建collection。</p>
+<p><strong>_id字段</strong><br>在MongoDB中，存储于collection中的每一个document都需要一个唯一的<code>_id</code>字段作为<code>primary_key</code>。如果一个插入的document操作遗漏了<code>_id</code>字段，则<code>MongoDB driver</code>会自动生成一个<code>ObjectId</code>。</p>
+<p><strong>原子性</strong><br>MongoDB中所有的写操作在单一文档层级上是原子的。</p>
+<p><br><br><br></p>
+<h2 id="查询文档"><a href="#查询文档" class="headerlink" title="查询文档"></a>查询文档</h2>]]></content>
     
     <summary type="html">
     
@@ -1320,10 +1522,6 @@
     
     </summary>
     
-      <category term="Network" scheme="https://zhang21.github.io/categories/Network/"/>
-    
-    
-      <category term="HTTP" scheme="https://zhang21.github.io/tags/HTTP/"/>
     
   </entry>
   
@@ -2641,10 +2839,6 @@
     
     </summary>
     
-      <category term="Linux" scheme="https://zhang21.github.io/categories/Linux/"/>
-    
-    
-      <category term="FHS" scheme="https://zhang21.github.io/tags/FHS/"/>
     
   </entry>
   
@@ -2653,9 +2847,9 @@
     <link href="https://zhang21.github.io/2017/11/14/Zabbix/"/>
     <id>https://zhang21.github.io/2017/11/14/Zabbix/</id>
     <published>2017-11-14T02:18:09.000Z</published>
-    <updated>2017-12-04T06:41:25.795Z</updated>
+    <updated>2017-12-19T04:14:46.055Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Zabbix简介"><a href="#Zabbix简介" class="headerlink" title="Zabbix简介"></a>Zabbix简介</h1><p><a href="https://www.zabbix.com/" target="_blank" rel="external">Zabbix官方网站</a><br><a href="https://www.zabbix.com/documentation/3.4/zh/manual/" target="_blank" rel="external">Zabbix中文文档</a><br>Zabbix-repo仓库：<repo.zabbix.com>， 阿里云上也有镜像！</repo.zabbix.com></p>
+    <content type="html"><![CDATA[<h1 id="Zabbix简介"><a href="#Zabbix简介" class="headerlink" title="Zabbix简介"></a>Zabbix简介</h1><p><a href="https://www.zabbix.com/" target="_blank" rel="external">Zabbix官方网站</a><br><a href="https://www.zabbix.com/documentation/3.4/zh/manual/" target="_blank" rel="external">Zabbix中文文档</a><br>Zabbix-repo仓库: <a href="http://repo.zabbix.com" target="_blank" rel="external">http://repo.zabbix.com</a> , 阿里云镜像: <a href="https://mirrors.aliyun.com/zabbix/zabbix/" target="_blank" rel="external">https://mirrors.aliyun.com/zabbix/zabbix/</a> .</p>
 <p>本文系统环境是CentOS7x86_64, Zabbix 3.4。</p>
 <p>Zabbix （音同 zæbix），是由 Alexei Vladishev 开发的一种网络监视、管理系统，基于 Server-Client 架构。Zabbix 的授权是属于 GPLv2。<br>Zabbix可用于监视各种网络服务、服务器和网络机器等状态。是一个基于WEB界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案。<br>Zabbix也可经由SNMP、TCP、ICMP、SSH等对目标进行监视。<br><a id="more"></a></p>
 <p><br></p>
@@ -2684,6 +2878,7 @@
 <li>功能强大并易于扩展的监控代理。</li>
 </ul>
 <p><br><br><br></p>
+<hr>
 <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>Zabbix的常用术语含义。</p>
 <p><strong>主机(host)：</strong><br>一台你想监控的网络设备，用IP或域名表示。</p>
 <p><strong>主机组(host group):</strong><br>主机的逻辑组，它包含主机和模板。</p>
@@ -2705,6 +2900,7 @@
 <p><strong>Zabbix agent:</strong><br>部署在监控对象上，能够主动监控本地资源和应用。</p>
 <p><strong>Zabbix proxy:</strong><br>帮助Zabbix server收集数据，分担Zabbix server的负载。</p>
 <p><br><br><br></p>
+<hr>
 <h1 id="Zabbix进程"><a href="#Zabbix进程" class="headerlink" title="Zabbix进程"></a>Zabbix进程</h1><h2 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h2><p>zabbix agent部署在监控的目标上，主动监测本地的资源和应用（硬件驱动，内存，处理器统计等）。<br>zabbix agent手机本地的操作信息并将数据报告给zabbix server用于进一步处理。</p>
 <p>zabbix agent有被动(passive)和主动(active)两种检查方式。</p>
 <p><br></p>
@@ -2727,6 +2923,7 @@
 <h2 id="Get"><a href="#Get" class="headerlink" title="Get"></a>Get</h2><p>zabbix get也是一种命令行应用，用于与zabbix agent进行通信，并从agent那里获取所需的信息。<br>该应用通常被用于zabbix agent故障排除</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">zabbix_get -s $host -p xxx -k system.cpu.load[all,avg15]</div><div class="line"></div><div class="line">-s  --host</div><div class="line">-p --port</div><div class="line">-I --source-address</div><div class="line">-k --key</div><div class="line">-h --help</div><div class="line">-V --version</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
+<hr>
 <h1 id="安装Zabbix"><a href="#安装Zabbix" class="headerlink" title="安装Zabbix"></a>安装Zabbix</h1><h2 id="Zabbix安装要求"><a href="#Zabbix安装要求" class="headerlink" title="Zabbix安装要求"></a>Zabbix安装要求</h2><p><strong>硬件：</strong></p>
 <ul>
 <li>内存，最小128MB；</li>
@@ -2946,6 +3143,7 @@
 <p><br><br><strong>启动zabbix-agent</strong><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">systemctl zabbix-agent start</div><div class="line"></div><div class="line"><span class="comment">#查看状态,默认端口10050</span></div><div class="line">netstat -nltp</div></pre></td></tr></table></figure></p>
 <p><img src="/images/zabbix-agent.png" alt="zabbix-agent状态"></p>
 <p><br><br><br></p>
+<hr>
 <h1 id="快速开始zabbix-web菜单"><a href="#快速开始zabbix-web菜单" class="headerlink" title="快速开始zabbix-web菜单"></a>快速开始zabbix-web菜单</h1><p>zabbix-web界面中包含有<strong>监测中、资产记录、报表、配置、管理</strong>五项菜单。</p>
 <p><br></p>
 <h2 id="登录和配置用户"><a href="#登录和配置用户" class="headerlink" title="登录和配置用户"></a>登录和配置用户</h2><p>在浏览器输入 <a href="zabbix.me">zabbix.me</a> (修改hosts)，登录zabbix-web后台。<br>默认用户名：<strong>Admin</strong>，密码：<strong>zabbix</strong>。它是超级管理员。</p>
@@ -2985,6 +3183,7 @@
 <p><br><br>在<strong>配置</strong>菜单下的<strong>模板(Templates)</strong>下，点击<strong>创建模板(Create template)</strong>。填写对应的模板名称，群组等信息。<br><img src="/images/create-template.png" alt="创建模板"></p>
 <p>创建模板完毕后，可将模板链接到主机。之后，模板及其所有对象被添加到了主机。</p>
 <p><br><br><br></p>
+<hr>
 <h1 id="配置-Configuration"><a href="#配置-Configuration" class="headerlink" title="配置(Configuration)"></a>配置(Configuration)</h1><h2 id="主机和主机组-Hosts-and-groups"><a href="#主机和主机组-Hosts-and-groups" class="headerlink" title="主机和主机组(Hosts and groups)"></a>主机和主机组(Hosts and groups)</h2><p>一般来讲，zabbix主机是指你希望监控的那些设备。如服务器、工作站、交换机等。<br>创建主机是使用zabbix过程的首要任务。</p>
 <h3 id="配置一台主机"><a href="#配置一台主机" class="headerlink" title="配置一台主机"></a>配置一台主机</h3><p>配置–主机–创建主机–填写相关参数信息。</p>
 <p>可以在已经存在的主机上使用 <strong>Clone</strong>或<strong>Full Clone</strong>创建一个新主机。</p>
@@ -3356,8 +3555,9 @@
 <p><strong>配置用户(configuring user)</strong><br>管理-用户，创建和管理用户。</p>
 <p><strong>权限(permission)</strong><br>可定义相应的用户类型，如用户，管理员和超级管理员。</p>
 <p><strong>用户组(groups)</strong><br>管理-用户组，创建和配置用户组。</p>
-<p><br></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><br></h2><h1 id="服务监控-service-monitoring"><a href="#服务监控-service-monitoring" class="headerlink" title="服务监控(service monitoring)"></a>服务监控(service monitoring)</h1><p>服务监控，旨在帮助那些想要高级业务监控的人。<br>在很多情况下，我们关注的不是底层细节，而是提供的可用性服务。</p>
+<p><br><br><br></p>
+<hr>
+<h1 id="服务监控-service-monitoring"><a href="#服务监控-service-monitoring" class="headerlink" title="服务监控(service monitoring)"></a>服务监控(service monitoring)</h1><p>服务监控，旨在帮助那些想要高级业务监控的人。<br>在很多情况下，我们关注的不是底层细节，而是提供的可用性服务。</p>
 <p>服务是分层表示监控数据。</p>
 <blockquote>
 <p>IT</p>
@@ -3371,6 +3571,7 @@
 </blockquote>
 <p>配置-服务，最高节点的服务是’root’。<br>你可以通过添加低级服务节点和各个节点服务创建下层层次结构。</p>
 <p><br><br><br></p>
+<hr>
 <h1 id="Web监控-web-monitoring"><a href="#Web监控-web-monitoring" class="headerlink" title="Web监控(web monitoring)"></a>Web监控(web monitoring)</h1><p>配置-主机-web监测，创建或修改web监测信息。<br>可使用zabbix检查几个网站可用性方面。(zabbix中包含libcurl库才行)</p>
 <p>要使用web监控，需要定义web场景。包括一个或多个HTTP请求或步骤。Zabbix-Server根据预定义的命令周期性的执行这些步骤。</p>
 <p>所有web场景会手机下列数据：</p>
@@ -3395,6 +3596,7 @@
 </ul>
 <p><br><br><strong>举个栗子：</strong><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">##创建Web监测</span></div><div class="line"><span class="comment">#配置-主机-Web监测-创建web监测</span></div><div class="line"></div><div class="line">URL：web.zabbix.me/monitor.php</div><div class="line">要求的状态码：200</div><div class="line">超时：20s</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">##创建web监测触发器</span></div><div class="line"><span class="comment">#配置-主机-触发器-创建触发器</span></div><div class="line"></div><div class="line">严重性：一般严重</div><div class="line"><span class="comment">#触发条件：状态码!=200</span></div><div class="line">表达式：N&lt;&gt;200</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">##创建触发报警对应的动作</span></div><div class="line"><span class="comment">#配置-动作-创建动作</span></div><div class="line"></div><div class="line"><span class="comment">#触发条件</span></div><div class="line">触发器示警度=一般严重 or 触发器=web.zabbix.me</div><div class="line"></div><div class="line"><span class="comment">#操作：发送Email</span></div><div class="line">发送给zabbix administrator用户群组</div><div class="line">仅送到Email</div><div class="line">默认信息/自定义信息</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">##在媒体类型中定义Email相关信息</span></div><div class="line"><span class="comment">#管理-报警媒体类型-Email</span></div><div class="line"></div><div class="line">SMTP服务器：smtp.xxx.com</div><div class="line">smtp端口：465</div><div class="line">SMTP电邮：发件人Email</div><div class="line">安全链接：SSL/TLS</div><div class="line">认证：Usernameand passwd</div><div class="line">用户名：xxx</div><div class="line">密码： xxx</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">##接下来就可以测试接收报警Email了</span></div></pre></td></tr></table></figure></p>
 <p><br><br><br></p>
+<hr>
 <h1 id="虚拟机监控-VM-monitoring"><a href="#虚拟机监控-VM-monitoring" class="headerlink" title="虚拟机监控(VM monitoring)"></a>虚拟机监控(VM monitoring)</h1><p>zabbix支持对VMware的监控，使用low-levle-discovery(LLD)自动发现VMware hypervisors和虚拟机，并根据事先定义的主机原型，为这些虚拟机建立主机，添加监控。</p>
 <p>zabbix中提供了几个模板，可以直接用来解控VMware vCenter 或 ESX hypervisor。</p>
 <p><br><br>虚拟机监控分为两个步骤：</p>
@@ -3407,6 +3609,7 @@
 <p>配置-自动发现-创建自动发现<br>配置-主机-自动发现</p>
 </blockquote>
 <p><br><br><br></p>
+<hr>
 <h1 id="维护-maintenance"><a href="#维护-maintenance" class="headerlink" title="维护(maintenance)"></a>维护(maintenance)</h1><p>可在zabbix中为主机和主机组定义维护周期。<br>有两种维护类型：“继续对目标进行监控数据的收集” 和 “停止对目标进行监控数据的收集”</p>
 <p>要在维护期间正常接收问题通知，必须在动作配置中的选项中取消选择暂停操作。<br>为了确保定期维护按照预期的时间进行，需要对zabbix的所有部分使用通用时区。</p>
 <blockquote>
@@ -3414,12 +3617,14 @@
 </blockquote>
 <p>维护期的主机显示的是橙色背景！</p>
 <p><br><br><br></p>
+<hr>
 <h1 id="事件确认-event-acknowledgment"><a href="#事件确认-event-acknowledgment" class="headerlink" title="事件确认(event acknowledgment)"></a>事件确认(event acknowledgment)</h1><p>zabbix中的问题事件可以由用户确认。</p>
 <p>如果用户获得了有关问题时间的通知，可以访问zabbix前端，从时间导航到确认屏幕并确认问题。<br>当他们确认时，可输入评论或其他一些相关描述。<br>这样其他系统用户同样的问题，他们便会立即看到是否已被解决和目前的评论。</p>
 <p>以这种方式，可以更协调的进行解决多个系统用户的问题的工作流程。</p>
 <p>要确认事件，用户必须至少要有对相应触发器的读取权限。</p>
 <p><br><br>在Dashboard下，在出现的问题里，点击确认，进入确认事件。<br>也可在监控-问题下查看问题详细信息。</p>
 <p><br><br><br></p>
+<hr>
 <h1 id="配置导出-导入-Configuration-export-import"><a href="#配置导出-导入-Configuration-export-import" class="headerlink" title="配置导出/导入(Configuration export/import)"></a>配置导出/导入(Configuration export/import)</h1><p>zabbix导入/导出功能，使得可以在一个zabbix系统与另一个zabbix系统之间交换各种配置实体。<br>类似于数据库的导入导出。即也可以对zabbix做备份。</p>
 <p>可导出/导入的对象有：主机组； 模板； 主机； 拓扑； 图片； 聚合图形； 值映射。</p>
 <p>数据也可导出：</p>
@@ -3440,6 +3645,7 @@
 <li>使用“删除缺失”选项导入主机/模板时，导入的XML文件中不存在主机/模板宏也将被删除。</li>
 </ul>
 <p><br><br><br></p>
+<hr>
 <h1 id="将Zabbix展现在Nginx上"><a href="#将Zabbix展现在Nginx上" class="headerlink" title="将Zabbix展现在Nginx上"></a>将Zabbix展现在Nginx上</h1><p>毕竟现在Nginx用的多，那就把Apache换成Nginx吧！</p>
 <p>Nginx仓库:<a href="http://nginx.org/packages/" target="_blank" rel="external">http://nginx.org/packages/</a></p>
 <p>自己安装Nginx:</p>
@@ -3449,22 +3655,96 @@
 <li>直接下载<code>ngix.rpm</code>来安装；</li>
 <li>直接下载源码来安装。</li>
 </ol>
-<p>相较于Apache，Nginx也只是配置个server就行了。优化什么的自己弄。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">vim /etc/nginx/conf.d/zabbix.me</div><div class="line"></div><div class="line">server &#123;</div><div class="line">	listen 80;</div><div class="line">    server_name zabbix.me;</div><div class="line">    root /usr/share/zabbix;</div><div class="line"></div><div class="line">    location / &#123;</div><div class="line">    	<span class="keyword">if</span> (!f <span class="variable">$request_filename</span>) &#123;</div><div class="line">        	rewrite ^([^\?]+)$ /index.php?1=<span class="variable">$1</span> last;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    location ~ \.php$ &#123;</div><div class="line">    	root /usr/share/zabbix;</div><div class="line">        fastcgi_pass 127.0.0.1:9000;</div><div class="line">        fastcgi_index index.php;</div><div class="line">        fastcgi_param SCRIPT_FILENAME <span class="variable">$document_root</span>/<span class="variable">$fastcgi_script_name</span>;</div><div class="line">        include fastcgi_params;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">nginx -t</div><div class="line">systemctl start nginx</div></pre></td></tr></table></figure></p>
+<p>相较于Apache，Nginx也只是配置个server就行了。优化什么的自己弄。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">vim /etc/nginx/conf.d/zabbix.conf</div><div class="line"></div><div class="line">server &#123;</div><div class="line">	listen 80;</div><div class="line">    server_name zabbix.me;</div><div class="line">    root /usr/share/zabbix;</div><div class="line"></div><div class="line">    location / &#123;</div><div class="line">    	<span class="keyword">if</span> (!f <span class="variable">$request_filename</span>) &#123;</div><div class="line">        	rewrite ^([^\?]+)$ /index.php?1=<span class="variable">$1</span> last;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    location ~ \.php$ &#123;</div><div class="line">    	root /usr/share/zabbix;</div><div class="line">        fastcgi_pass 127.0.0.1:9000;</div><div class="line">        fastcgi_index index.php;</div><div class="line">        fastcgi_param SCRIPT_FILENAME <span class="variable">$document_root</span>/<span class="variable">$fastcgi_script_name</span>;</div><div class="line">        include fastcgi_params;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">nginx -t</div><div class="line">systemctl start nginx</div></pre></td></tr></table></figure></p>
 <p>下载就可以正常访问<code>zabbix-web</code>端了!</p>
+<p><br><br><br></p>
+<hr>
+<h1 id="Zabbix监控"><a href="#Zabbix监控" class="headerlink" title="Zabbix监控"></a>Zabbix监控</h1><p>Zabbix自带的templates基本涵盖了大部分监控信息。</p>
+<p>大部分操作系统：</p>
+<ul>
+<li>OS Linux;</li>
+<li>OS AIx;</li>
+<li>OS FreeBSD;</li>
+<li>OS Solaris;</li>
+<li>OS Windows;</li>
+<li>…</li>
+</ul>
+<p>大部分服务：</p>
+<ul>
+<li>CPU;</li>
+<li>Filesystems;</li>
+<li>HTTP/HTTPS service;</li>
+<li>Memory;</li>
+<li>Network interfaces;</li>
+<li>Processes;</li>
+<li>Secutity;</li>
+<li>Zabbix server/agent/Proxy;</li>
+<li>SMTP,POP,SSH,NTP, service;</li>
+<li>ICMP Ping;</li>
+<li>SNMP;</li>
+<li>…</li>
+</ul>
+<p>虚拟机：</p>
+<ul>
+<li>VM VMware;</li>
+<li>VM WMware Hypervisor;</li>
+<li>…</li>
+</ul>
+<p>网络设备：</p>
+<ul>
+<li>Cisco;</li>
+<li>Huawei;</li>
+<li>TPLink;</li>
+<li>HP;</li>
+<li>…</li>
+</ul>
+<p><br><br>除了Zabbix自带的templates，你还可以下载templates并导入zabbix-server。</p>
+<p>例如PHP, MongoDB, Apache, Nginx, Redis等额外软件的监控就需要下载额外templates。</p>
+<p><br><br><br></p>
+<h2 id="监控MongoDB"><a href="#监控MongoDB" class="headerlink" title="监控MongoDB"></a>监控MongoDB</h2><p><strong>感谢大神：</strong></p>
+<ul>
+<li>MongoDB-templates: <a href="https://share.zabbix.com/databases/mongodb/mongodb-for-zabbix-3-2" target="_blank" rel="external">https://share.zabbix.com/databases/mongodb/mongodb-for-zabbix-3-2</a> ;</li>
+<li>GitHub: <a href="https://github.com/oscm/zabbix/tree/master/mongodb" target="_blank" rel="external">https://github.com/oscm/zabbix/tree/master/mongodb</a></li>
+<li>此github-repo中还包含了<code>Oracle</code>, <code>php-fpm</code>, <code>postfix</code>, <code>redis</code>, <code>Nginx</code>。可参看README.md来配置zabbix对它们的监控。</li>
+</ul>
+<p><br></p>
+<p><img src="/images/zabbix_master.png" alt="./master"></p>
+<p><br></p>
+<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><p><strong>1. 在zabbix-agent安装<code>jq</code></strong><br>jq - Command-line JSON processor;</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y jq</div></pre></td></tr></table></figure>
+<p><br><br><strong>2. 在zabbix-agent的MongoDB中创建用于监控的账号</strong><br>创建用于读取MongoDB相关信息的账户及其权限。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mongo</div><div class="line"></div><div class="line">&gt;use admin</div><div class="line"></div><div class="line">&gt;db.createUser(</div><div class="line">  &#123;</div><div class="line">	user:<span class="string">'zabbix'</span>,</div><div class="line">	<span class="built_in">pwd</span>:<span class="string">'zabbix'</span>,</div><div class="line">	roles:[&#123;</div><div class="line">		role:<span class="string">'clusterMonitor'</span>,</div><div class="line">		db:<span class="string">'admin'</span>&#125;]</div><div class="line">  &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
+<p><br><br><strong>3. 在agent下载github仓库的MongoDB模板等文件</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">wget https://codeload.github.com/oscm/zabbix/zip/master</div><div class="line"><span class="comment">#这里面不仅仅有mongodb，还有redis,php等。</span></div><div class="line"><span class="comment">#我们只需要进入mongodb目录就好</span></div><div class="line"></div><div class="line"><span class="built_in">cd</span> ./zabbix-master/mongodb</div><div class="line">ls</div><div class="line"></div><div class="line"><span class="comment">#mongodb.sh , 执行脚本</span></div><div class="line"><span class="comment">#userparameter_mongodb.conf ，配置脚本</span></div><div class="line"><span class="comment">#zbx_export_templates.xml，zabbix模板文件</span></div></pre></td></tr></table></figure>
+<p><img src="/images/zabbix_mongodb1.png" alt="./master/mongodb"></p>
+<p><br><br><strong>4. 移动并配置mongodb.sh</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">cp ./mongodb.sh /etc/zabbix</div><div class="line"></div><div class="line">chmod a+x /etc/zabbix/mongodb.sh</div><div class="line"></div><div class="line"></div><div class="line">vi mongodb.sh</div><div class="line"></div><div class="line">DB_HOST=127.0.0.1</div><div class="line">DB_PORT=27017</div><div class="line">DB_USERNAME=zabbix</div><div class="line">DB_PASSWORD=zabbix</div></pre></td></tr></table></figure>
+<p><img src="/images/zabbix_mongodb2.png" alt="mongodb.sh"></p>
+<p><br><br><strong>5. 移动并修改userparameter_mongodb.conf</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cp ./zabbix-master/userparameter_mongodb.conf /etc/zabbix/zabbix_agentd.d</div><div class="line"></div><div class="line">vi ./userparameter_mongodb.conf</div><div class="line"></div><div class="line">UserParameter=mongodb.status[*],/etc/zabbix/mongodb.sh <span class="variable">$1</span> <span class="variable">$2</span> <span class="variable">$3</span> <span class="variable">$4</span> <span class="variable">$5</span></div><div class="line"><span class="comment">#修改为mongdb.sh真实位置</span></div></pre></td></tr></table></figure>
+<p><img src="/images/zabbix_mongodb3.png" alt="userparameter_mongodb.conf"></p>
+<p><br><br><strong>6. 重启zabbix-agent</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl restart zabbix-agent</div></pre></td></tr></table></figure>
+<p><br><br><strong>7. 在zabbix-web导入mongodb模板</strong></p>
+<ul>
+<li>配置-模板-导入模板；</li>
+<li>选择<code>./master/mongodb/zbx_export_templates.xml</code>模板文件，并导入；</li>
+<li>接下来便可以在 templates中看到”Template App MongoDB”这个模板；</li>
+<li>可将此模板链接到某个主机上监控，并到最新数据里查看相关MongoDB信息；</li>
+<li>如果相对此模板就行修改，可编辑zbx_export_templates.xml文件。</li>
+</ul>
+<p><br></p>
+<p><img src="/images/zabbix_web_import_mongodb1.png" alt="导入mongodb模板"><br><img src="/images/zabbix_web_import_mongodb2.png" alt="选择导入文件"><br><img src="/images/zabbix_web_import_mongodb3.png" alt="查看MongoDB模板"><br><img src="/images/zabbix_web_import_mongodb4.png" alt="在主机中关联MongoDB模板"><br><img src="/images/zabbix_web_import_mongodb5.png" alt="查看最新MongoDb数据"></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Zabbix简介&quot;&gt;&lt;a href=&quot;#Zabbix简介&quot; class=&quot;headerlink&quot; title=&quot;Zabbix简介&quot;&gt;&lt;/a&gt;Zabbix简介&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://www.zabbix.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Zabbix官方网站&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://www.zabbix.com/documentation/3.4/zh/manual/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Zabbix中文文档&lt;/a&gt;&lt;br&gt;Zabbix-repo仓库：&lt;repo.zabbix.com&gt;， 阿里云上也有镜像！&lt;/repo.zabbix.com&gt;&lt;/p&gt;
+      &lt;h1 id=&quot;Zabbix简介&quot;&gt;&lt;a href=&quot;#Zabbix简介&quot; class=&quot;headerlink&quot; title=&quot;Zabbix简介&quot;&gt;&lt;/a&gt;Zabbix简介&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://www.zabbix.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Zabbix官方网站&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://www.zabbix.com/documentation/3.4/zh/manual/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Zabbix中文文档&lt;/a&gt;&lt;br&gt;Zabbix-repo仓库: &lt;a href=&quot;http://repo.zabbix.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://repo.zabbix.com&lt;/a&gt; , 阿里云镜像: &lt;a href=&quot;https://mirrors.aliyun.com/zabbix/zabbix/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://mirrors.aliyun.com/zabbix/zabbix/&lt;/a&gt; .&lt;/p&gt;
 &lt;p&gt;本文系统环境是CentOS7x86_64, Zabbix 3.4。&lt;/p&gt;
 &lt;p&gt;Zabbix （音同 zæbix），是由 Alexei Vladishev 开发的一种网络监视、管理系统，基于 Server-Client 架构。Zabbix 的授权是属于 GPLv2。&lt;br&gt;Zabbix可用于监视各种网络服务、服务器和网络机器等状态。是一个基于WEB界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案。&lt;br&gt;Zabbix也可经由SNMP、TCP、ICMP、SSH等对目标进行监视。&lt;br&gt;
     
     </summary>
     
-      <category term="Linux" scheme="https://zhang21.github.io/categories/Linux/"/>
-    
-    
-      <category term="Zabbix" scheme="https://zhang21.github.io/tags/Zabbix/"/>
     
   </entry>
   
@@ -3501,10 +3781,6 @@
     
     </summary>
     
-      <category term="Literature" scheme="https://zhang21.github.io/categories/Literature/"/>
-    
-    
-      <category term="Poetry" scheme="https://zhang21.github.io/tags/Poetry/"/>
     
   </entry>
   
@@ -4044,10 +4320,6 @@
     
     </summary>
     
-      <category term="Linux" scheme="https://zhang21.github.io/categories/Linux/"/>
-    
-    
-      <category term="Shell" scheme="https://zhang21.github.io/tags/Shell/"/>
     
   </entry>
   
@@ -4070,10 +4342,6 @@
     
     </summary>
     
-      <category term="Notes" scheme="https://zhang21.github.io/categories/Notes/"/>
-    
-    
-      <category term="Songs" scheme="https://zhang21.github.io/tags/Songs/"/>
     
   </entry>
   
@@ -4094,10 +4362,6 @@
     
     </summary>
     
-      <category term="Literature" scheme="https://zhang21.github.io/categories/Literature/"/>
-    
-    
-      <category term="王小波" scheme="https://zhang21.github.io/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/"/>
     
   </entry>
   
@@ -4129,10 +4393,6 @@
     
     </summary>
     
-      <category term="Literature" scheme="https://zhang21.github.io/categories/Literature/"/>
-    
-    
-      <category term="马尔克斯" scheme="https://zhang21.github.io/tags/%E9%A9%AC%E5%B0%94%E5%85%8B%E6%96%AF/"/>
     
   </entry>
   
@@ -4341,10 +4601,6 @@
     
     </summary>
     
-      <category term="Network" scheme="https://zhang21.github.io/categories/Network/"/>
-    
-    
-      <category term="Markdown" scheme="https://zhang21.github.io/tags/Markdown/"/>
     
   </entry>
   
@@ -4390,10 +4646,6 @@
     
     </summary>
     
-      <category term="Linux" scheme="https://zhang21.github.io/categories/Linux/"/>
-    
-    
-      <category term="Nginx" scheme="https://zhang21.github.io/tags/Nginx/"/>
     
   </entry>
   
@@ -4429,10 +4681,6 @@
     
     </summary>
     
-      <category term="Test" scheme="https://zhang21.github.io/categories/Test/"/>
-    
-    
-      <category term="Testing" scheme="https://zhang21.github.io/tags/Testing/"/>
     
   </entry>
   
