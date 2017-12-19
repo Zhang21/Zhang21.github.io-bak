@@ -2,6 +2,8 @@
 
 ---
 
+<br>
+
 # 参考文档
 
 - [Hexo官方文档](https://hexo.io/zh-cn/docs/index.html);
@@ -49,6 +51,7 @@ ssh-keygen -t rsa -C "GitHub-Email"
 
 
 
+<br>
 <br/>
 
 # 安装NexT主题
@@ -64,6 +67,7 @@ git clone https://github.com/iissnan/hexo-theme-next themes/next
  ```
 
 
+<br>
 <br/>
 
 # 关于NexT的几个注意事项
@@ -117,6 +121,7 @@ menu:<br/>
 
 
 <br/>
+
 **有关动态效果**
 
 在主题配置文件 _config.yml 中：
@@ -131,6 +136,7 @@ menu:<br/>
 
 
 <br/>
+
 **有关加头像**
 
 在NexT主题配置文件 _config.yml中:
@@ -143,6 +149,7 @@ avatar: /images/touxiang.png    #建议放在images目录下
 
 
 <br>
+
 **有关外部链接的标志**
 
 在NexT主题配置文件 _config.yml中:
@@ -160,6 +167,7 @@ social:
 
 
 <br/>
+
 **有关插入网易云音乐链接**
 
 选择一首歌，生成对应的 HTML 代码，注意是否自动播放，并将代码添加到:
@@ -173,12 +181,14 @@ social:
 
 
 <br/>
+
 **有关MathJax支持**
 
 修改主题配置`_config.yml`文件: `参考MathJax选项`
 
 
 <br/>
+
 **有关添加统计**
 
 我个人使用了推荐的：`不蒜子统计`
@@ -186,12 +196,14 @@ social:
 
 
 <br/>
+
 **有关评论系统**
 
 我使用推荐的：`Disqus`
 
 
 <br>
+
 **添加搜索功能：**
 
 1. 安装`hexo-generator-searchdb`，在站点根目录下：
@@ -220,12 +232,19 @@ local_search:
 
 
 
+<br/>
 <br>
-### 创建和部署文章
+
+# 创建和部署文章
 
 ```
+#新建post
 hexo n "博客名字"
+
+#生成
 hexo g
+
+#
 hexo s
 hexo d
 ```

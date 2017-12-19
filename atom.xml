@@ -91,7 +91,7 @@
     <link href="https://zhang21.github.io/2017/12/11/MongoDB/"/>
     <id>https://zhang21.github.io/2017/12/11/MongoDB/</id>
     <published>2017-12-11T02:49:52.000Z</published>
-    <updated>2017-12-19T04:53:53.973Z</updated>
+    <updated>2017-12-19T08:27:43.977Z</updated>
     
     <content type="html"><![CDATA[<p>参考：</p>
 <ul>
@@ -1130,7 +1130,11 @@
 <p><strong>_id字段</strong><br>在MongoDB中，存储于collection中的每一个document都需要一个唯一的<code>_id</code>字段作为<code>primary_key</code>。如果一个插入的document操作遗漏了<code>_id</code>字段，则<code>MongoDB driver</code>会自动生成一个<code>ObjectId</code>。</p>
 <p><strong>原子性</strong><br>MongoDB中所有的写操作在单一文档层级上是原子的。</p>
 <p><br><br><br></p>
-<h2 id="查询文档"><a href="#查询文档" class="headerlink" title="查询文档"></a>查询文档</h2>]]></content>
+<h2 id="查询文档"><a href="#查询文档" class="headerlink" title="查询文档"></a>查询文档</h2><p>MongoDB提供了<code>db.collection.find()</code>方法从collection中读取document。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">db.collection.find( &lt;query filter&gt;, &lt;projection&gt; )</div><div class="line"></div><div class="line"><span class="comment">#&lt;query filter&gt;指明返回哪些document</span></div><div class="line"><span class="comment">#&lt;projection&gt;指明返回匹配document的那些filed</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">db.user.insertMany(</div><div class="line">  [</div><div class="line">  	&#123;</div><div class="line">		_id: 1,</div><div class="line">		name: <span class="string">"A"</span>,</div><div class="line">		favorites: &#123; artist: <span class="string">"Picasso"</span>, food: <span class="string">"pizza"</span> &#125;,</div><div class="line">        finished: [ 11, <span class="string">"AA"</span> ],</div><div class="line">        points: [ &#123; points: 85, bonus: 30 &#125;, &#123; points: 85, bonus: 10 &#125; ]</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">    	_id: 2,</div><div class="line">        name: <span class="string">"B"</span>,</div><div class="line">    	favorites: &#123; artist: <span class="string">"Miro"</span>, food: <span class="string">"merigue"</span> &#125;,</div><div class="line">        finished: [ 22, <span class="string">"BB"</span> ],</div><div class="line">        points: [ &#123; points: 85, bonus: 20 &#125;, &#123; points: 64, bonus: 12 &#125; ]</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">    	_id: 3,</div><div class="line">        name: <span class="string">"C"</span>,</div><div class="line">        favorites: &#123; artist: <span class="string">"Gaogeng"</span>, food: <span class="string">"cake"</span> &#125;,</div><div class="line">        finished: [ 33, <span class="string">"CC"</span> ],</div><div class="line">        points: [ &#123; points: 67, bonus: 8 &#125;, &#123; points: 55, bonus: 21 &#125; ]</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">)</div><div class="line"></div><div class="line"><span class="comment">#</span></div><div class="line">db.user.find(&#123;&#125;)</div></pre></td></tr></table></figure>
+]]></content>
     
     <summary type="html">
     
