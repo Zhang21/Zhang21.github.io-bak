@@ -91,7 +91,7 @@
     <link href="https://zhang21.github.io/2017/12/11/MongoDB/"/>
     <id>https://zhang21.github.io/2017/12/11/MongoDB/</id>
     <published>2017-12-11T02:49:52.000Z</published>
-    <updated>2017-12-19T08:27:43.977Z</updated>
+    <updated>2017-12-21T10:00:18.155Z</updated>
     
     <content type="html"><![CDATA[<p>参考：</p>
 <ul>
@@ -1109,12 +1109,12 @@
 <p><br><br><strong>删除(delete)操作</strong><br>删除操作，是从一个 collection 中删除 document 的操作。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">db.collection.remove()</div><div class="line">db.collection.deleteOne()</div><div class="line">db.collection.deleteMany()</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
-<h2 id="插入文档"><a href="#插入文档" class="headerlink" title="插入文档"></a>插入文档</h2><p><br></p>
+<h2 id="插入文档-Insert"><a href="#插入文档-Insert" class="headerlink" title="插入文档(Insert)"></a>插入文档(Insert)</h2><p><br></p>
 <h3 id="插入方法"><a href="#插入方法" class="headerlink" title="插入方法"></a>插入方法</h3><p>MongoDB提供了如下插入方法向collection中插入document：</p>
 <ul>
-<li>db.collection.insert()</li>
-<li>db.collection.insertOne()</li>
-<li>db.collection.insertMany()</li>
+<li><code>db.collection.insert()</code>, 向集合中插入一个或多个文档;</li>
+<li><code>db.collection.insertOne()</code>, 向集合中插入一个文档;</li>
+<li><code>db.collection.insertMany()</code>, 向集合中插入多个文档.</li>
 </ul>
 <p><br></p>
 <h4 id="db-collection-insert"><a href="#db-collection-insert" class="headerlink" title="db.collection.insert()"></a>db.collection.insert()</h4><p><code>db.collection.insert()</code>,向collection中插入一个或多个document。<br>要想插入一个document，传递<strong>一个文档</strong>给该方法；要想插入多个documents，传递<strong>文档数组</strong>给该方法。</p>
@@ -1130,11 +1130,218 @@
 <p><strong>_id字段</strong><br>在MongoDB中，存储于collection中的每一个document都需要一个唯一的<code>_id</code>字段作为<code>primary_key</code>。如果一个插入的document操作遗漏了<code>_id</code>字段，则<code>MongoDB driver</code>会自动生成一个<code>ObjectId</code>。</p>
 <p><strong>原子性</strong><br>MongoDB中所有的写操作在单一文档层级上是原子的。</p>
 <p><br><br><br></p>
-<h2 id="查询文档"><a href="#查询文档" class="headerlink" title="查询文档"></a>查询文档</h2><p>MongoDB提供了<code>db.collection.find()</code>方法从collection中读取document。</p>
+<h2 id="查询文档-Read"><a href="#查询文档-Read" class="headerlink" title="查询文档(Read)"></a>查询文档(Read)</h2><p>MongoDB提供了<code>db.collection.find()</code>方法从collection中读取document。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">db.collection.find( &lt;query filter&gt;, &lt;projection&gt; )</div><div class="line"></div><div class="line"><span class="comment">#&lt;query filter&gt;指明返回哪些document</span></div><div class="line"><span class="comment">#&lt;projection&gt;指明返回匹配document的那些filed</span></div></pre></td></tr></table></figure>
 <p><br></p>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">db.user.insertMany(</div><div class="line">  [</div><div class="line">  	&#123;</div><div class="line">		_id: 1,</div><div class="line">		name: <span class="string">"A"</span>,</div><div class="line">		favorites: &#123; artist: <span class="string">"Picasso"</span>, food: <span class="string">"pizza"</span> &#125;,</div><div class="line">        finished: [ 11, <span class="string">"AA"</span> ],</div><div class="line">        points: [ &#123; points: 85, bonus: 30 &#125;, &#123; points: 85, bonus: 10 &#125; ]</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">    	_id: 2,</div><div class="line">        name: <span class="string">"B"</span>,</div><div class="line">    	favorites: &#123; artist: <span class="string">"Miro"</span>, food: <span class="string">"merigue"</span> &#125;,</div><div class="line">        finished: [ 22, <span class="string">"BB"</span> ],</div><div class="line">        points: [ &#123; points: 85, bonus: 20 &#125;, &#123; points: 64, bonus: 12 &#125; ]</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">    	_id: 3,</div><div class="line">        name: <span class="string">"C"</span>,</div><div class="line">        favorites: &#123; artist: <span class="string">"Gaogeng"</span>, food: <span class="string">"cake"</span> &#125;,</div><div class="line">        finished: [ 33, <span class="string">"CC"</span> ],</div><div class="line">        points: [ &#123; points: 67, bonus: 8 &#125;, &#123; points: 55, bonus: 21 &#125; ]</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">)</div><div class="line"></div><div class="line"><span class="comment">#</span></div><div class="line">db.user.find(&#123;&#125;)</div></pre></td></tr></table></figure>
-]]></content>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">db.user.insertMany(</div><div class="line">  [</div><div class="line">  	&#123;</div><div class="line">		_id: 1,</div><div class="line">		name: <span class="string">"A"</span>,</div><div class="line">		favorites: &#123; artist: <span class="string">"Picasso"</span>, food: <span class="string">"pizza"</span> &#125;,</div><div class="line">        finished: [ 11, <span class="string">"AA"</span> ],</div><div class="line">        points: [ &#123; points: 85, bonus: 30 &#125;, &#123; points: 85, bonus: 10 &#125; ]</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">    	_id: 2,</div><div class="line">        name: <span class="string">"B"</span>,</div><div class="line">    	favorites: &#123; artist: <span class="string">"Miro"</span>, food: <span class="string">"merigue"</span> &#125;,</div><div class="line">        finished: [ 22, <span class="string">"BB"</span> ],</div><div class="line">        points: [ &#123; points: 85, bonus: 20 &#125;, &#123; points: 64, bonus: 12 &#125; ]</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">    	_id: 3,</div><div class="line">        name: <span class="string">"C"</span>,</div><div class="line">        favorites: &#123; artist: <span class="string">"Gaogeng"</span>, food: <span class="string">"cake"</span> &#125;,</div><div class="line">        finished: [ 33, <span class="string">"CC"</span> ],</div><div class="line">        points: [ &#123; points: 67, bonus: 8 &#125;, &#123; points: 55, bonus: 21 &#125; ]</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">)</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="查询和规划操作符"><a href="#查询和规划操作符" class="headerlink" title="查询和规划操作符"></a>查询和规划操作符</h3><p><strong>Comparison:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$eq</div><div class="line">$gt</div><div class="line">$gte</div><div class="line">$lt</div><div class="line">$ne</div><div class="line">$in</div><div class="line">$nin</div></pre></td></tr></table></figure>
+<p><strong>Logical：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$or</div><div class="line">$and</div><div class="line">$not</div><div class="line">$nor</div></pre></td></tr></table></figure>
+<p><strong>Element:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$exists</div><div class="line">$type</div></pre></td></tr></table></figure>
+<p><strong>Evaluation:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$mod</div><div class="line">$regex</div><div class="line">$text</div><div class="line">$where</div></pre></td></tr></table></figure>
+<p><strong>Geospatial:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$geoWithin</div><div class="line">$geoIntersects</div><div class="line">$near</div><div class="line">$nearSphere</div></pre></td></tr></table></figure>
+<p><strong>Array:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$all</div><div class="line">$eleMatch</div><div class="line">$size</div></pre></td></tr></table></figure>
+<p><strong>Bitwise:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$bitsAllSet</div><div class="line">$bitsAnySet</div><div class="line">$bitsAllClear</div><div class="line">$bitsAnyClear</div></pre></td></tr></table></figure>
+<p><strong>Comments:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$comment</div></pre></td></tr></table></figure>
+<p><strong>Projection Operators:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$</div><div class="line">$eleMatch</div><div class="line">$meta</div><div class="line">$slice</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="选择collectino中所有document"><a href="#选择collectino中所有document" class="headerlink" title="选择collectino中所有document"></a>选择collectino中所有document</h4><p>一个空的<code>query filter</code>会选择集合汇总所有文档。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">db.users.find(&#123;&#125;)</div><div class="line">db.user.find()</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="指定查询过滤条件"><a href="#指定查询过滤条件" class="headerlink" title="指定查询过滤条件"></a>指定查询过滤条件</h4><p><strong>1. 指定等于条件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123; &lt;field1&gt;: &lt;value1&gt;, ...&#125;</div><div class="line"></div><div class="line">#栗子</div><div class="line">db.user.find( &#123; name: &quot;C&quot; &#125; )</div></pre></td></tr></table></figure>
+<p><strong>2. 使用查询操作符指定条件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123; &lt;field1&gt;: &#123; &lt;operator1&gt;: &lt;value1&gt; &#125;, ... &#125;</div><div class="line"></div><div class="line">#栗子</div><div class="line">db.user.find( &#123; name: &#123; $in: [ &quot;A&quot;, &quot;B&quot; ] &#125; &#125; )</div></pre></td></tr></table></figure>
+<p><strong>3. 指定逻辑查询条件条件</strong><br>逻辑查询(AND, OR, NOT)。符合查询可以在集合文档的多个字段上指定条件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#AND</div><div class="line">db.user.find( &#123; name: &quot;A&quot;, age: &#123; $lt: 30&#125; &#125; )</div><div class="line"></div><div class="line"></div><div class="line">#OR</div><div class="line">db.user.find( &#123;</div><div class="line">	$or: [ &#123; name: &quot;A&quot; &#125;, &#123; age: &#123; $lt: 30 &#125; &#125; ]</div><div class="line">&#125; )</div><div class="line"></div><div class="line"></div><div class="line">#AND和OR</div><div class="line">db.user.find( &#123;</div><div class="line">	name: &quot;A&quot;,</div><div class="line">    $or: [ &#123;age: &#123; $lt: 30 &#125; &#125;, &#123; type: 1 &#125; ]</div><div class="line">&#125; )</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="嵌入式文档的查询"><a href="#嵌入式文档的查询" class="headerlink" title="嵌入式文档的查询"></a>嵌入式文档的查询</h4><p>当字段中包含嵌入文档时，查询可以指定嵌入文档中的精确匹配或使用<code>圆点(.)表示法</code>对嵌入文档的单个字段指定匹配。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#精确匹配</div><div class="line">db.user.find(&#123;</div><div class="line">	favorites: &#123; artist: &quot;Picasso&quot;, food: &quot;pizza&quot; &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"></div><div class="line">#圆点.表示法，记得加引号</div><div class="line">db.user.find( &#123; &quot;favorites.artist&quot;: &quot;Picasso&quot; &#125; )</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="数组上的查询"><a href="#数组上的查询" class="headerlink" title="数组上的查询"></a>数组上的查询</h4><p>当字段包含数组，可查询精确的匹配数组或数组中特定的值。如果数组包含嵌入文档，可使用<code>圆点表示法</code>查询内嵌文档中特定的字段。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#精确匹配</div><div class="line">db.user.find(&#123; finished: [ 11, &quot;AA&quot; ] &#125;)</div><div class="line"></div><div class="line"></div><div class="line">#匹配一个数组元素，会显示整个文档</div><div class="line">db.user.find(&#123; finished: &quot;BB&quot; &#125;)</div><div class="line"></div><div class="line"></div><div class="line">#匹配数组中指定元素，会返回整个文档</div><div class="line">db.user.find(&#123; &quot;finished.1&quot;: &quot;CC&quot; &#125;)</div><div class="line"></div><div class="line"></div><div class="line">#指定数组中的多个查询条件</div><div class="line">db.user.find(&#123; finished: &#123; $elemMatch: &#123;$gte: 11, $lt: 33&#125; &#125; &#125;)</div><div class="line"></div><div class="line">db.user.find(&#123; finished: &#123; $gt: 11, $lt: 33 &#125; &#125;)</div><div class="line"></div><div class="line"></div><div class="line">#嵌入文档数组</div><div class="line">db.user.find(&#123; &apos;points.points&apos;: &#123;$lte: 80 &#125; &#125;)</div><div class="line">db.user.find(&#123; &quot;points.0.points&quot;: &#123;$lte: 80&#125; &#125;)</div><div class="line"></div><div class="line"></div><div class="line">#元素组合满足查询条件</div><div class="line">db.user.find(&#123;</div><div class="line">	&quot;points.points&quot;: &#123;$lte: 80&#125;, &quot;points.bouns&quot;: 20</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="返回查询的映射字段"><a href="#返回查询的映射字段" class="headerlink" title="返回查询的映射字段"></a>返回查询的映射字段</h3><p>默认地，MongoDB中的查询返回匹配文档中的所有字段。为了限制MongoDB发送给应用的数据量，我们可以在查询操作中包括一个<code>projection</code>文档。</p>
+<p><br></p>
+<h4 id="映射文档"><a href="#映射文档" class="headerlink" title="映射文档"></a>映射文档</h4><p>映射文档限制了返回所有匹配文档的字段。映射文档可以致命包括哪些字段或排除哪些字段。<br>这个就很不错了，可以过滤掉我们不需要的信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">db.users.find( &#123;name: &quot;AAA&quot;&#125; ,&#123;_id: 0, name: 1, age: ture&#125; )</div><div class="line">db.user.find( &#123; name: &quot;BBB&quot;&#125;, &#123;_id: false&#125; )</div><div class="line"></div><div class="line">1或true，表示在返回的文档中包含字段；</div><div class="line">0或false，排除该字段；</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="更新文档-Update"><a href="#更新文档-Update" class="headerlink" title="更新文档(Update)"></a>更新文档(Update)</h2><p><strong>更新方法：</strong></p>
+<ul>
+<li><code>db.collection.updateOne()</code>, 更新一个文档</li>
+<li><code>db.collection.updateMany()</code>, 更新多个文档</li>
+<li><code>db.replaceOne()</code>, 替换一个文档</li>
+<li><code>db.collection.update()</code>, 更新或替换一个文档</li>
+</ul>
+<p><br></p>
+<h3 id="更新的行为表现"><a href="#更新的行为表现" class="headerlink" title="更新的行为表现"></a>更新的行为表现</h3><ul>
+<li><p>原子性：<br>MongoDB中所有的写操作在单一文档层级上是原子的。</p>
+</li>
+<li><p>_id字段：<br>不能更新<code>_id</code>字段的值，也不能用不同<code>_id</code>字段值的替换文档来替换已存在的文档。</p>
+</li>
+<li><p>文档大小：<br>当执行更新操作增加的文档大小超过了为该文档分配的空间时，更新操作会在磁盘上重定位该文档。</p>
+</li>
+<li><p>字段顺序：<br>MongoDB按照文档写入的顺序整理文档字段。但<code>_id</code>字段始终是文档中第一个字段；<code>renaming</code>操作可能会导致文档中的字段重新排序。</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="Update-Operator"><a href="#Update-Operator" class="headerlink" title="Update Operator"></a>Update Operator</h3><p><strong>Fields</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$currentDate</td>
+<td>将字段值设置为当前日期(date or timestamp)</td>
+</tr>
+<tr>
+<td>$inc</td>
+<td>按指定的数字递增字段的值</td>
+</tr>
+<tr>
+<td>$min</td>
+<td>指定的值小于字段的值时才更新</td>
+</tr>
+<tr>
+<td>$max</td>
+<td>指定的值大于字段的值时才更新</td>
+</tr>
+<tr>
+<td>$mul</td>
+<td>将字段的值乘以指定的数字</td>
+</tr>
+<tr>
+<td>$rename</td>
+<td>重命名一个字段</td>
+</tr>
+<tr>
+<td>$set</td>
+<td>设置文档中字段的值</td>
+</tr>
+<tr>
+<td>$setOnInsert</td>
+<td>如果更新导致文档插入，则设置字段的值</td>
+</tr>
+<tr>
+<td>$unset</td>
+<td>从文档中删除指定的字段，</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Array</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$</td>
+<td>用作更新与查询条件匹配的第一个元素的占位符</td>
+</tr>
+<tr>
+<td>$[]</td>
+<td>用作更新与查询条件匹配的文档的数组的所有元素的占位符</td>
+</tr>
+<tr>
+<td>$[<identifier>]</identifier></td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$addToSet</td>
+<td>在集合中不存在元素时添加元素到数组</td>
+</tr>
+<tr>
+<td>$pop</td>
+<td>移除数组中的第一项或最后一项</td>
+</tr>
+<tr>
+<td>$pull</td>
+<td>删除所有匹配指定查询的数组元素</td>
+</tr>
+<tr>
+<td>$push</td>
+<td>向数组中添加项</td>
+</tr>
+<tr>
+<td>$pullAll</td>
+<td>从数组中删除所有匹配的值</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Modifiers</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$each</td>
+<td>修饰$push and $addToSet， 向数组中添加多个项</td>
+</tr>
+<tr>
+<td>$position</td>
+<td>修饰$push，在数组中指定位置添加元素</td>
+</tr>
+<tr>
+<td>$slice</td>
+<td>修饰$push，限制更新数组的大小</td>
+</tr>
+<tr>
+<td>$sort</td>
+<td>修饰$push，重新排列存储在数组中的文档</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>BitWise</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$bit	执行按位AND,OR,XOR更新</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="更新文档字段中指定字段"><a href="#更新文档字段中指定字段" class="headerlink" title="更新文档字段中指定字段"></a>更新文档字段中指定字段</h3><p>为了修改文档中的字段，MongoDB提供了<code>update operators</code>，如用来修改值的<code>$set</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	&lt;update operator&gt;: &#123; &lt;field&gt;: &lt;value&gt;, ...&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">#更改指定字段的值</div><div class="line">db.user.update(</div><div class="line">	&#123; _id: 1 &#125;,</div><div class="line">    &#123; $set: &#123;name: &quot;SET&quot;&#125; &#125;</div><div class="line">)</div><div class="line"></div><div class="line">#删除指定字段，文档中其他字段还在</div><div class="line">db.user.update(</div><div class="line">	&#123; _id: 1 &#125;,</div><div class="line">    &#123; $unset: &#123;name: &quot;SET&quot;&#125; &#125;</div><div class="line">)</div><div class="line"></div><div class="line"></div><div class="line">#</div><div class="line">db.user.updateMany(</div><div class="line">	&#123; _id: 2&#125;,</div><div class="line">    &#123; $set: &#123;name: &quot;AAA&quot;, age: 222&#125; &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="文档替换-Replace"><a href="#文档替换-Replace" class="headerlink" title="文档替换(Replace)"></a>文档替换(Replace)</h3><p>当替换文档时，替换的文档必须仅仅有 <code>&lt;field&gt;: &lt;value&gt;</code>组成。<br>替换文档可以有不同于源文档的字段，但<code>_id</code>字段是不变的。</p>
+<p>**建议使用<code>_id</code>作为过滤条件，因为它是唯一的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">db.collection.replaceOne()</div><div class="line"></div><div class="line"></div><div class="line">db.user.replaceOne(</div><div class="line">	&#123; name: &quot;AAA&quot; &#125;,</div><div class="line">    &#123; name: &quot;A&quot;, age: 2, sex: &quot;man&quot;, favorites: &#123; artist: &quot;Dali&quot;, food: &quot;banana&quot; &#125; &#125;</div><div class="line">)</div><div class="line"></div><div class="line">db.user.update(</div><div class="line">	&#123; _id: 1&#125;,</div><div class="line">    &#123; name: &quot;A&quot;, age: 2, sex: &quot;man&quot;, favorites: &#123; artist: &quot;Dali&quot;, food: &quot;banana&quot; &#125; &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="删除文档-Delete"><a href="#删除文档-Delete" class="headerlink" title="删除文档(Delete)"></a>删除文档(Delete)</h2><p><strong>方法：</strong></p>
+<ul>
+<li><code>db.collection.remove()</code>, 删除一个文档，或所有满足匹配的文档;</li>
+<li><code>db.collection.deleteOne()</code>, 删除匹配最多条件的单个文档，即使可能有多个文档可能与指定过滤条件匹配;</li>
+<li><code>db.collection.deleteMany()</code>, 删除所有匹配指定过滤条件的文档。</li>
+</ul>
+<p><br></p>
+<h3 id="删除的行为表现"><a href="#删除的行为表现" class="headerlink" title="删除的行为表现"></a>删除的行为表现</h3><ul>
+<li><p>Indexes<br>删除操作不会删除索引，即使从集合中删除了所有的文档。</p>
+</li>
+<li><p>原子性<br>MongoDB中所有的写操作在单一文档层级上是原子的。</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#删除所有文档</div><div class="line">db.collectin.deleteMany(&#123;&#125;)</div><div class="line">db.collection.remove(&#123;&#125;)</div><div class="line"></div><div class="line"></div><div class="line">#删除所有满足条件的文档</div><div class="line">db.user.remove( &#123; name: &quot;A&quot; &#125; )</div><div class="line">db.user.deleteMany( &#123; name: &quot;A: &#125; )</div><div class="line"></div><div class="line"></div><div class="line">#仅删除一个满足条件最多的文档</div><div class="line">db.user.deleteOne( &#123; name: &quot;A&quot; &#125; )</div><div class="line"></div><div class="line">db.users.remove( &#123; name: &quot;A&quot;&#125;, 1)</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<h1 id="聚合-Agrregation"><a href="#聚合-Agrregation" class="headerlink" title="聚合(Agrregation)"></a>聚合(Agrregation)</h1>]]></content>
     
     <summary type="html">
     
@@ -4352,32 +4559,6 @@
   </entry>
   
   <entry>
-    <title>歌词摘抄</title>
-    <link href="https://zhang21.github.io/2017/09/13/song/"/>
-    <id>https://zhang21.github.io/2017/09/13/song/</id>
-    <published>2017-09-13T07:08:16.000Z</published>
-    <updated>2017-09-13T07:13:04.830Z</updated>
-    
-    <content type="html"><![CDATA[<p>就像蝴蝶飞不过沧海，没有人会忍心责怪<br><br></p>
-<p>这个城市一下雨就进入了秋天，</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;就像蝴蝶飞不过沧海，没有人会忍心责怪&lt;br&gt;&lt;br&gt;&lt;/p&gt;
-&lt;p&gt;这个城市一下雨就进入了秋天，&lt;/p&gt;
-
-    
-    </summary>
-    
-      <category term="Notes" scheme="https://zhang21.github.io/categories/Notes/"/>
-    
-    
-      <category term="Songs" scheme="https://zhang21.github.io/tags/Songs/"/>
-    
-  </entry>
-  
-  <entry>
     <title>工作与人生</title>
     <link href="https://zhang21.github.io/2017/09/04/%E5%B7%A5%E4%BD%9C%E4%B8%8E%E4%BA%BA%E7%94%9F/"/>
     <id>https://zhang21.github.io/2017/09/04/工作与人生/</id>
@@ -4698,11 +4879,45 @@
   </entry>
   
   <entry>
+    <title>I Like For You To Be Still</title>
+    <link href="https://zhang21.github.io/2017/09/01/ILikeForYouToBeStill/"/>
+    <id>https://zhang21.github.io/2017/09/01/ILikeForYouToBeStill/</id>
+    <published>2017-09-01T02:10:40.000Z</published>
+    <updated>2017-12-21T05:58:12.538Z</updated>
+    
+    <content type="html"><![CDATA[<p>《I Like For You To Be Still》</p>
+<p>出自<code>聂努达</code>诗集：《二十首情诗和一首绝望的歌》。</p>
+<p><br></p>
+<p>I like for you to be still<br>It is as though you are absent<br>And you hear me from far away<br>And my voice does not touch you<br>It seems as though your eyes had flown away<br>And it seems that a kiss had sealed your mouth<br>As all things are filled with my soul<br>You emerge from the things<br>Filled with my soul<br>You are like my soul<br>A butterfly of dream<br>And you are like the word: Melancholy</p>
+<a id="more"></a>
+<p><br></p>
+<p>I like for you to be still<br>And you seem far away<br>It sounds as though you are lamenting<br>A butterfly cooing like a dove<br>And you hear me from far away<br>And my voice does not reach you<br>Let me come to be still in your silence<br>And let me talk to you with your silence<br>That is bright as a lamp<br>Simple, as a ring<br>You are like the night<br>With its stillness and constellations<br>Your silence is that of a star<br>As remote and candid</p>
+<p><br></p>
+<p>I like for you to be still<br>It is as though you are absent<br>Distant and full of sorrow<br>So you would’ve died<br>One word then, One smile is enough<br>And I’m happy;<br>Happy that it’s not true</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;《I Like For You To Be Still》&lt;/p&gt;
+&lt;p&gt;出自&lt;code&gt;聂努达&lt;/code&gt;诗集：《二十首情诗和一首绝望的歌》。&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;I like for you to be still&lt;br&gt;It is as though you are absent&lt;br&gt;And you hear me from far away&lt;br&gt;And my voice does not touch you&lt;br&gt;It seems as though your eyes had flown away&lt;br&gt;And it seems that a kiss had sealed your mouth&lt;br&gt;As all things are filled with my soul&lt;br&gt;You emerge from the things&lt;br&gt;Filled with my soul&lt;br&gt;You are like my soul&lt;br&gt;A butterfly of dream&lt;br&gt;And you are like the word: Melancholy&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Literature" scheme="https://zhang21.github.io/categories/Literature/"/>
+    
+    
+      <category term="Pablo Neruda" scheme="https://zhang21.github.io/tags/Pablo-Neruda/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Test-My-Site</title>
     <link href="https://zhang21.github.io/2017/08/30/Test-My-Site/"/>
     <id>https://zhang21.github.io/2017/08/30/Test-My-Site/</id>
     <published>2017-08-30T08:02:43.000Z</published>
-    <updated>2017-09-05T06:59:02.097Z</updated>
+    <updated>2017-12-21T06:04:20.532Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li style="list-style: none"><input type="checkbox"> Monday</li>
@@ -4713,10 +4928,15 @@
 <li style="list-style: none"><input type="checkbox"> Saturday</li>
 <li style="list-style: none"><input type="checkbox"> Sunday</li>
 </ul>
-<p><br><br>$$\sideset{^1_2}{^3_4}A$$</p>
+<p><br></p>
+<p>$$\sideset{^1_2}{^3_4}A$$</p>
+<p><br></p>
 <p>$E=mc^2$</p>
+<p><br></p>
 <p>$$\sum_{i=1}^n a_i=0$$</p>
+<p><br></p>
 <p>$$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 $$</p>
+<p><br></p>
 <p>$$\sum^{j-1}<em>{k=0}{\widehat{\gamma}</em>{kj} z_k}$$</p>
 ]]></content>
     
@@ -4732,7 +4952,7 @@
       <category term="Test" scheme="https://zhang21.github.io/categories/Test/"/>
     
     
-      <category term="Testing" scheme="https://zhang21.github.io/tags/Testing/"/>
+      <category term="Test" scheme="https://zhang21.github.io/tags/Test/"/>
     
   </entry>
   
