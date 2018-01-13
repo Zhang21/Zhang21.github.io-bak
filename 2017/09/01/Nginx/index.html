@@ -103,7 +103,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/Nginx/Nginx001.jpg">
 <meta property="og:image" content="https://zhang21.github.io/images/Nginx/Nginx002.jpg">
-<meta property="og:updated_time" content="2017-12-29T02:00:30.537Z">
+<meta property="og:updated_time" content="2018-01-12T03:10:32.763Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx">
 <meta name="twitter:description" content="参考：  Nginx官网； Nginx-Wikipedia； Nginx-repo  环境：  CentOS7; Nginx1.12.1     Nginx介绍Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 HTTP, HTTPS, SMTP, POP3, IMAP 的协议连接。基于BSD-like协议发行，支持多种操作系统。">
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,041
+                  2,163
                 </span>
               
 
@@ -625,7 +625,12 @@
 </tbody>
 </table>
 <p><br><br><br></p>
-<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2>
+<h2 id="server"><a href="#server" class="headerlink" title="server"></a>server</h2><p>http服务上支持若干虚拟主机。每个虚拟主机对应一个server配置项，配置项里面包含该虚拟主机的相关配置。每个server里面可同时有多个<code>server_name</code>。</p>
+<p>在提供mail代理服务时，也可建立若干server，每个server通过监听地址或端口来区分。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#监听端口，默认80</span></div><div class="line">listen 80;</div><div class="line">listern 443;</div><div class="line"><span class="comment">#listen 88</span></div><div class="line">server_name www.zhang21.cn</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><p>location是http服务中，某些特定的URL对应的一系列配置项。</p>
+
       
     </div>
     
@@ -754,7 +759,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -765,7 +770,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -776,7 +781,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -841,7 +846,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx介绍"><span class="nav-number">1.</span> <span class="nav-text">Nginx介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#与PHP的集成"><span class="nav-number">1.1.</span> <span class="nav-text">与PHP的集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx常用功能"><span class="nav-number">1.2.</span> <span class="nav-text">Nginx常用功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http代理于反向代理"><span class="nav-number">1.2.1.</span> <span class="nav-text">http代理于反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">1.2.2.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web缓存"><span class="nav-number">1.2.3.</span> <span class="nav-text">web缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web服务"><span class="nav-number">1.2.4.</span> <span class="nav-text">web服务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx安装"><span class="nav-number">2.</span> <span class="nav-text">Nginx安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx配置文件"><span class="nav-number">3.</span> <span class="nav-text">Nginx配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#conf"><span class="nav-number">3.1.</span> <span class="nav-text">*.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#location"><span class="nav-number">3.2.</span> <span class="nav-text">location</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx介绍"><span class="nav-number">1.</span> <span class="nav-text">Nginx介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#与PHP的集成"><span class="nav-number">1.1.</span> <span class="nav-text">与PHP的集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx常用功能"><span class="nav-number">1.2.</span> <span class="nav-text">Nginx常用功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http代理于反向代理"><span class="nav-number">1.2.1.</span> <span class="nav-text">http代理于反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">1.2.2.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web缓存"><span class="nav-number">1.2.3.</span> <span class="nav-text">web缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web服务"><span class="nav-number">1.2.4.</span> <span class="nav-text">web服务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx安装"><span class="nav-number">2.</span> <span class="nav-text">Nginx安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx配置文件"><span class="nav-number">3.</span> <span class="nav-text">Nginx配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#conf"><span class="nav-number">3.1.</span> <span class="nav-text">*.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#server"><span class="nav-number">3.2.</span> <span class="nav-text">server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#location"><span class="nav-number">3.3.</span> <span class="nav-text">location</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -873,7 +878,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 74.9k</span>
+  <span class="post-count"> 字数: 91.5k</span>
 </div>
 
 
