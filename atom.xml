@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang21.github.io/"/>
-  <updated>2018-01-13T01:52:34.594Z</updated>
+  <updated>2018-01-18T04:00:58.848Z</updated>
   <id>https://zhang21.github.io/</id>
   
   <author>
@@ -16,11 +16,251 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>MySQL</title>
+    <link href="https://zhang21.github.io/2018/01/16/MySQL/"/>
+    <id>https://zhang21.github.io/2018/01/16/MySQL/</id>
+    <published>2018-01-16T02:47:12.000Z</published>
+    <updated>2018-01-18T04:00:58.848Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考：</p>
+<ul>
+<li>MySQL5.7参考文档： <a href="https://dev.mysql.com/doc/refman/5.7/en/" target="_blank" rel="external">https://dev.mysql.com/doc/refman/5.7/en/</a></li>
+</ul>
+<p><br></p>
+<p>环境：</p>
+<ul>
+<li>CentOS7.x86_64</li>
+<li>MySQL5.7</li>
+</ul>
+<a id="more"></a>
+<p><br></p>
+<hr>
+<p><br></p>
+<h1 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h1><p>MySQL官网： <a href="https://www.mysql.com/" target="_blank" rel="external">https://www.mysql.com/</a></p>
+<p>由于MySQL5.7和以前版本之间的许多功能和其他差异，因此此手册不太适用于之前的老版本。之前的版本请参考MySQL相关版本的手册。</p>
+<p><br></p>
+<p><img src="/images/Mysql/MySQL.png" alt="MySQL"></p>
+<p><br></p>
+<hr>
+<p><br></p>
+<h1 id="综述-General-information"><a href="#综述-General-information" class="headerlink" title="综述(General information)"></a>综述(General information)</h1><p>MySQL™ software提供了一个快速、多线程、多任务和健壮的SQL(结构化查询语言)的数据库服务器。MySQL server是为关键服务(mission-critical)、重负荷(heavy-load)生产系统以及嵌入式(embedding)大规模部署的软件而设计。<br>MySQL是Oracle Corporation的商标(trademark)。</p>
+<p>MySQL software是双重许可的(dual license)：</p>
+<ol>
+<li>Open Source product of the GNU General Public License</li>
+<li>A Standard commercial License from Oracle</li>
+</ol>
+<p><br><br><br></p>
+<h2 id="关于此手册"><a href="#关于此手册" class="headerlink" title="关于此手册"></a>关于此手册</h2><ul>
+<li>该手册作为一个参考，它不提供关于SQL或关系型数据库概念的一般指令；</li>
+<li>MySQL Database Software正在不断发展，所以参考手册也经常更新。可在此 &lt; <a href="http://dev.mysql.com/doc/&gt;" target="_blank" rel="external">http://dev.mysql.com/doc/&gt;</a> 获取最新版的手册；</li>
+<li>参考手册(Reference Manual)的源文件使用DocBook XML格式书写的，其他版本(如HTML)等是自动生成的；</li>
+<li>如果在使用过程中有任何问题或建议，请发邮件给我们；</li>
+<li>手册由MySQL Documentation Team维护。</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="MySQL-Database-Management-System"><a href="#MySQL-Database-Management-System" class="headerlink" title="MySQL Database Management System"></a>MySQL Database Management System</h2><p><br></p>
+<h3 id="What-is-MySQL"><a href="#What-is-MySQL" class="headerlink" title="What is MySQL"></a>What is MySQL</h3><p>MySQL是最流行的开源的SQL数据库管理系统，由Oracle Corporation开发、分发和支持。</p>
+<p><br></p>
+<ul>
+<li><p>MySQL is a database management system<br>数据库是一个结构化的数据集合。它可能是从简单的购物清单到图片库，或是公司网络中的大量信息。若要添加、访问和处理存储在计算机数据库中的数据，你需要一个像MySQL Server这样的数据库管理系统。由于计算机非常擅长处理大量的数据，数据库管理系统在计算机中扮演这一个重要的角色。</p>
+</li>
+<li><p>MySQL databases are relational<br>关系型数据库将数据存储在单独的表(table)中，而不是将所有数据放入一个大的库房中。数据库结构被组织成针对速度优化的物理文件。具有数据库(database)，表(table)，视图(view)，行(row)，列(column)等物理对象的逻辑模型提供了灵活的编程环境。你设置了管理不同数据字段之间关系的规则，如一对一，一对多，唯一，必须和可选关系，以及不同表之间的指针(pointer)。数据库强制执行这些规则，这样在设计良好的数据库中，应用程序就不会看到不一致、重复、孤立、过时或丢失的数据。</p>
+</li>
+</ul>
+<p>MySQL也是代表SQL(Structure Query Language)的一部分。SQL是访问数据库最常用的标准化语言。你可以直接使用SQL语句，或者将SQL语法隐藏到语言特定的API中。</p>
+<p>-MySQL software is Open Source<br>MySQL software使用GPL(GNU General Public License)，开源意味着任何人都可以下载、转发、使用和修改软件，而不需要支付任何费用。</p>
+<ul>
+<li><p>MySQL database server is very fast,reliable,scalabe and easy to use</p>
+</li>
+<li><p>MySQL server works in Client/Server or embedded system<br>MySQL Database Server是一个由多线程(multi-threaded)SQL Server组成的客户/服务器系统。它支持不同的后端，多个不同的客户程序和库、管理工具和广泛的APIs。<br>还提供MySQL Server作为一个嵌入式多线程库以便链接到你的产品，以获得一个更小，更快，更容易管理的独立产品。</p>
+</li>
+<li><p>A large amount of contributed MySQL software is available</p>
+</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="The-Main-Features-of-MySQL"><a href="#The-Main-Features-of-MySQL" class="headerlink" title="The Main Features of MySQL"></a>The Main Features of MySQL</h3><h4 id="Internals-and-Portability"><a href="#Internals-and-Portability" class="headerlink" title="Internals and Portability"></a>Internals and Portability</h4><ul>
+<li>由C和C++写成</li>
+<li>适用于许多不同的平台</li>
+<li>为了可移植性，使用<code>CMake</code></li>
+<li>采用独立(independent)模块的多层(layer)服务器设计</li>
+<li>设计为使用内核线程的完全多线程，如果有多核CPU，能够轻松使用它们</li>
+<li>提供了事务性(transactional)和非事务性(notransactional)存储引擎</li>
+<li>使用非常快速的带有索引压缩的B-tree磁盘表</li>
+<li>添加其他存储引擎相对容易</li>
+<li>使用非常快速的基于线程的内存分配系统</li>
+<li>使用优化的嵌套循环(nested-loop)连接执行非常快的联结</li>
+<li>实现内存中的hash table，这些表用作临时表</li>
+<li>使用高度优化的类库实现SQL函数</li>
+</ul>
+<p><br></p>
+<h4 id="Data-Type"><a href="#Data-Type" class="headerlink" title="Data Type"></a>Data Type</h4><ul>
+<li>1,2,3,4和8byte的有无符号(signed/unsigned)的整数(integers)</li>
+<li>FLOAT</li>
+<li>DOUBLE</li>
+<li>CHAR, VARCHAR</li>
+<li>BINARY, VARBINARY</li>
+<li>TEXT</li>
+<li>BLOB</li>
+<li>DATE, TIME, DATETIME</li>
+<li>TIMESTAMP</li>
+<li>YEAR</li>
+<li>SET</li>
+<li>ENUM</li>
+<li>OpenGIS</li>
+</ul>
+<p><br></p>
+<h4 id="Statements-and-Functions"><a href="#Statements-and-Functions" class="headerlink" title="Statements and Functions"></a>Statements and Functions</h4><ul>
+<li><code>SELECT</code>和<code>WHERT</code>中包含了所有支持的操作符和函数</li>
+<li>SQL中的<code>GROUP BY</code>和<code>ORDER BY</code>也全部支持</li>
+<li>GROUP functions(<code>COUNT()</code>, <code>AVG()</code>, <code>STD()</code>, <code>SUM()</code>, <code>MAX()</code>, <code>MIN()</code>, <code>GROUP_CONCAT()</code>)</li>
+<li>支持<code>LEFT OUTER JOIN</code>和<code>ROGHT OUTER JOIN</code></li>
+<li>按照SQL标准支持table和columns的别名</li>
+<li>支持<code>DELETE</code>,<code>INSERT</code>,<code>REPLACE</code>,<code>UPDATE</code>，以返回受影响的行数</li>
+<li>支持MySQL特定的<code>SHOW</code>显示语句</li>
+<li>一个<code>EXPLAIN</code>语句显示优化器如何解析查询</li>
+</ul>
+<p><br></p>
+<h4 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h4><ul>
+<li>权限(privilege)和密码系统，非常灵活和安全，并且支持基于主机的验证</li>
+<li>当连接到Server时，通过加密(encryption)所有密码通信量来确保密码安全</li>
+</ul>
+<p><br></p>
+<h4 id="Scalability-and-Limits"><a href="#Scalability-and-Limits" class="headerlink" title="Scalability and Limits"></a>Scalability and Limits</h4><ul>
+<li>支持大型数据库。包含五千万条记录，二十万个表，五十亿行</li>
+<li>每个表最多支持64个索引，每个索引可以由1到16个列组成</li>
+</ul>
+<p><br></p>
+<p>####　Conectivity</p>
+<ul>
+<li>客户端使用如下几种协议连接到MySQL Server<ul>
+<li>TCP/IP sockets</li>
+<li>–enable-named-pipe on Windows</li>
+<li>Unix domain socket files on UNIX</li>
+</ul>
+</li>
+<li>MySQL客户端可用多种语言编写</li>
+<li>APIs对于多数语言是可用的</li>
+</ul>
+<p><br></p>
+<h4 id="Localization"><a href="#Localization" class="headerlink" title="Localization"></a>Localization</h4><ul>
+<li>Server可以向多种语言的客户端提供错误信息</li>
+<li>完全支持几个不同的字符集(character sets)</li>
+<li>所有数据都被保存在选取的字符集(chracter set)</li>
+<li>排序和比较是根据默认的字符集和排序规则完成</li>
+<li>服务器时区(time zone)可动态更改，个客户端也可修改自己的时区</li>
+</ul>
+<p><br></p>
+<h4 id="Clients-and-Tools"><a href="#Clients-and-Tools" class="headerlink" title="Clients and Tools"></a>Clients and Tools</h4><ul>
+<li>MySQL包含几个客户机和使用程序<ul>
+<li>command-line： <code>mysqldump</code>, <code>mysqladmin</code></li>
+<li>graphical: MySQL Workbench</li>
+</ul>
+</li>
+<li>MySQL Server内置了对SQL语句的支持来检查、优化和修复表</li>
+<li>MySQL程序可使用<code>--help</code>或<code>-?</code>来获取帮助</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="History-of-MySQL"><a href="#History-of-MySQL" class="headerlink" title="History of MySQL"></a>History of MySQL</h3><ul>
+<li>MySQL is named after co-founder Monty Widenius’s daughter, My.</li>
+<li>The name of the MySQL Dolphin (our logo) is “Sakila,” which was chosen from a huge list of names suggested by users in our “Name the Dolphin” contest.</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="What-Is-New-in-MySQL-5-7"><a href="#What-Is-New-in-MySQL-5-7" class="headerlink" title="What Is New in MySQL 5.7"></a>What Is New in MySQL 5.7</h2><p><br></p>
+<h3 id="Features-Added-in-MySQL-5-7"><a href="#Features-Added-in-MySQL-5-7" class="headerlink" title="Features Added in MySQL 5.7"></a>Features Added in MySQL 5.7</h3><p><br><br><br></p>
+<h3 id="Features-Deprecated-in-MySQL-5-7"><a href="#Features-Deprecated-in-MySQL-5-7" class="headerlink" title="Features Deprecated in MySQL 5.7"></a>Features Deprecated in MySQL 5.7</h3><p><br><br><br></p>
+<h3 id="Features-Removed-in-MySQL-5-7"><a href="#Features-Removed-in-MySQL-5-7" class="headerlink" title="Features Removed in MySQL 5.7"></a>Features Removed in MySQL 5.7</h3><p><br><br><br></p>
+<h2 id="Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7"><a href="#Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7" class="headerlink" title="Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7"></a>Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7</h2><p><br><br><br></p>
+<h2 id="MySQL-Information-Sources"><a href="#MySQL-Information-Sources" class="headerlink" title="MySQL Information Sources"></a>MySQL Information Sources</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;参考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MySQL5.7参考文档： &lt;a href=&quot;https://dev.mysql.com/doc/refman/5.7/en/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://dev.mysql.com/doc/refman/5.7/en/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;环境：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CentOS7.x86_64&lt;/li&gt;
+&lt;li&gt;MySQL5.7&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Database" scheme="https://zhang21.github.io/categories/Database/"/>
+    
+    
+      <category term="MySQL" scheme="https://zhang21.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2018小计划</title>
+    <link href="https://zhang21.github.io/2018/01/15/2018%E5%B0%8F%E8%AE%A1%E5%88%92/"/>
+    <id>https://zhang21.github.io/2018/01/15/2018小计划/</id>
+    <published>2018-01-15T03:08:11.000Z</published>
+    <updated>2018-01-19T03:56:09.011Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h1><ul>
+<li><p>[ ] 《MongoDB官方文档》： <a href="https://docs.mongodb.com" target="_blank" rel="external">https://docs.mongodb.com</a></p>
+</li>
+<li><p>[ ] 《SatlStack官方文档》： <a href="https://docs.saltstack.com" target="_blank" rel="external">https://docs.saltstack.com</a></p>
+</li>
+<li><p>[ ] 《MySQL官方文档》： <a href="https://dev.mysql.com/doc/" target="_blank" rel="external">https://dev.mysql.com/doc/</a></p>
+</li>
+<li><p>[ ] 《TCP/IP协议族》： <a href="https://book.douban.com/subject/5386194/" target="_blank" rel="external">https://book.douban.com/subject/5386194/</a></p>
+</li>
+<li><p>[ ] 《Linux性能调优指南》： <a href="https://lihz1990.gitbooks.io/transoflptg/content/" target="_blank" rel="external">https://lihz1990.gitbooks.io/transoflptg/content/</a></p>
+</li>
+</ul>
+<a id="more"></a>
+<p><br></p>
+<hr>
+<p><br></p>
+<h1 id="个人"><a href="#个人" class="headerlink" title="个人"></a>个人</h1><ul>
+<li><p>[ ] 《资本论》： <a href="https://book.douban.com/subject/1150503/" target="_blank" rel="external">https://book.douban.com/subject/1150503/</a></p>
+</li>
+<li><p>[ ] 《灵飞经小楷》： <a href="https://book.douban.com/subject/1115916/" target="_blank" rel="external">https://book.douban.com/subject/1115916/</a></p>
+</li>
+</ul>
+<p><br></p>
+<hr>
+<p><br></p>
+<h1 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h1><ul>
+<li style="list-style: none"><input type="checkbox"> 沉得住气；</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;工作&quot;&gt;&lt;a href=&quot;#工作&quot; class=&quot;headerlink&quot; title=&quot;工作&quot;&gt;&lt;/a&gt;工作&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;[ ] 《MongoDB官方文档》： &lt;a href=&quot;https://docs.mongodb.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://docs.mongodb.com&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;[ ] 《SatlStack官方文档》： &lt;a href=&quot;https://docs.saltstack.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://docs.saltstack.com&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;[ ] 《MySQL官方文档》： &lt;a href=&quot;https://dev.mysql.com/doc/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://dev.mysql.com/doc/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;[ ] 《TCP/IP协议族》： &lt;a href=&quot;https://book.douban.com/subject/5386194/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://book.douban.com/subject/5386194/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;[ ] 《Linux性能调优指南》： &lt;a href=&quot;https://lihz1990.gitbooks.io/transoflptg/content/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://lihz1990.gitbooks.io/transoflptg/content/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Zhang" scheme="https://zhang21.github.io/categories/Zhang/"/>
+    
+    
+      <category term="2018" scheme="https://zhang21.github.io/tags/2018/"/>
+    
+  </entry>
+  
+  <entry>
     <title>海明威的《老人与海》</title>
     <link href="https://zhang21.github.io/2018/01/13/%E6%B5%B7%E6%98%8E%E5%A8%81%E7%9A%84%E3%80%8A%E8%80%81%E4%BA%BA%E4%B8%8E%E6%B5%B7%E3%80%8B/"/>
     <id>https://zhang21.github.io/2018/01/13/海明威的《老人与海》/</id>
     <published>2018-01-13T01:49:53.000Z</published>
-    <updated>2018-01-13T01:52:34.594Z</updated>
+    <updated>2018-01-15T02:06:45.715Z</updated>
     
     <content type="html"><![CDATA[<p>我不相信人会有所谓的“命运”，但是我相信对于任何人来说，“限度”总是存在的。再聪明再强悍的人，能够做到的事情也总是有限度的。老人桑地亚哥不是无能之辈，然而，尽管他是最好的渔夫，也不能让那些鱼来上他的钩。他遇到他的限度了，就象最好的农民遇上了大旱，最好的猎手久久碰不到猎物一般。每一个人都会遇到这样的限度，仿佛是命运在向你发出停止前行的命令。</p>
 <a id="more"></a>
@@ -54,10 +294,10 @@
     
     </summary>
     
-      <category term="王小波" scheme="https://zhang21.github.io/categories/%E7%8E%8B%E5%B0%8F%E6%B3%A2/"/>
+      <category term="Literature" scheme="https://zhang21.github.io/categories/Literature/"/>
     
     
-      <category term="Literature" scheme="https://zhang21.github.io/tags/Literature/"/>
+      <category term="王小波" scheme="https://zhang21.github.io/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/"/>
     
   </entry>
   
@@ -903,7 +1143,7 @@
     <link href="https://zhang21.github.io/2017/12/11/MongoDB/"/>
     <id>https://zhang21.github.io/2017/12/11/MongoDB/</id>
     <published>2017-12-11T02:49:52.000Z</published>
-    <updated>2018-01-11T10:18:11.922Z</updated>
+    <updated>2018-01-20T03:12:21.918Z</updated>
     
     <content type="html"><![CDATA[<p>参考：</p>
 <ul>
@@ -2372,7 +2612,7 @@
 <p><br></p>
 <hr>
 <p><br></p>
-<h1 id="管理MongoDB-administration"><a href="#管理MongoDB-administration" class="headerlink" title="管理MongoDB(administration)"></a>管理MongoDB(administration)</h1><p>The administration 文档说明了MongoDB实例和部署正在进行的操作和维护。本文档包括这些问题的高级概述，以及涵盖操作MongoDB的特定过程的教程。</p>
+<h1 id="MongoDB管理-administration"><a href="#MongoDB管理-administration" class="headerlink" title="MongoDB管理(administration)"></a>MongoDB管理(administration)</h1><p>The administration 文档说明了MongoDB实例和部署正在进行的操作和维护。本文档包括这些问题的高级概述，以及涵盖操作MongoDB的特定过程的教程。</p>
 <p><br><br><br></p>
 <h2 id="操作清单-operation-checklist"><a href="#操作清单-operation-checklist" class="headerlink" title="操作清单(operation checklist)"></a>操作清单(operation checklist)</h2><p>如下清单，提供了帮助你避免在MongoDB部署中出现问题的建议。</p>
 <p><br></p>
@@ -2832,12 +3072,202 @@
 <p>当<code>mongodump</code>在捕获输出时，应用程序可以继续修改数据。对于复制集来说，<code>mongodump</code>提供了<code>--oplog</code>选项来用以在<code>mongodump</code>操作期间包含数据的oplog条目。这允许相应的<code>mongorestore</code>操作去还原所捕获的oplog。</p>
 <p>然而，对于复制集来说，请考虑使用MongoDB Cloud Manager 或 Ops Manager来备份。</p>
 <p><br><br><br></p>
-<h3 id="使用文件系统快照进行备份和恢复-back-up-and-restore-with-filesystem-snapshots"><a href="#使用文件系统快照进行备份和恢复-back-up-and-restore-with-filesystem-snapshots" class="headerlink" title="使用文件系统快照进行备份和恢复(back up and restore with filesystem snapshots)"></a>使用文件系统快照进行备份和恢复(back up and restore with filesystem snapshots)</h3><p><br><br><br></p>
-<h3 id="使用MongoDB工具进行备份和恢复-back-up-and-restore-with-MongoDB-tools"><a href="#使用MongoDB工具进行备份和恢复-back-up-and-restore-with-MongoDB-tools" class="headerlink" title="使用MongoDB工具进行备份和恢复(back up and restore with MongoDB tools)"></a>使用MongoDB工具进行备份和恢复(back up and restore with MongoDB tools)</h3><p><br><br><br></p>
-<h3 id="从MongoDB备份中恢复一个复制集-restore-a-replica-set-from-MongoDB-backups"><a href="#从MongoDB备份中恢复一个复制集-restore-a-replica-set-from-MongoDB-backups" class="headerlink" title="从MongoDB备份中恢复一个复制集(restore a replica set from MongoDB backups)"></a>从MongoDB备份中恢复一个复制集(restore a replica set from MongoDB backups)</h3><p><br><br><br></p>
-<h3 id="备份和恢复分片集群-backup-and-restore-sharded-clusters"><a href="#备份和恢复分片集群-backup-and-restore-sharded-clusters" class="headerlink" title="备份和恢复分片集群(backup and restore sharded clusters)"></a>备份和恢复分片集群(backup and restore sharded clusters)</h3><p><br><br><br></p>
-<h3 id="从意外关闭中恢复-recover-a-standalone-after-an-unexpected-shutdown"><a href="#从意外关闭中恢复-recover-a-standalone-after-an-unexpected-shutdown" class="headerlink" title="从意外关闭中恢复(recover a standalone after an unexpected shutdown)"></a>从意外关闭中恢复(recover a standalone after an unexpected shutdown)</h3><p><br><br><br></p>
-<h2 id="MongoDB监控-monitoring-for-MongoDB"><a href="#MongoDB监控-monitoring-for-MongoDB" class="headerlink" title="MongoDB监控(monitoring for MongoDB)"></a>MongoDB监控(monitoring for MongoDB)</h2>]]></content>
+<h3 id="使用文件系统快照进行备份和恢复-back-up-and-restore-with-filesystem-snapshots"><a href="#使用文件系统快照进行备份和恢复-back-up-and-restore-with-filesystem-snapshots" class="headerlink" title="使用文件系统快照进行备份和恢复(back up and restore with filesystem snapshots)"></a>使用文件系统快照进行备份和恢复(back up and restore with filesystem snapshots)</h3><p>使用系统工具创建MongoDB系统的备份，诸如<strong>LVM</strong>，或<strong>block-level</strong>备份方法。使用系统工具来创建MongoDB数据文件的设备的副本。这些方法完成迅速、工作可靠，但是需要在MongoDB之外进行额外的系统配置。</p>
+<p><br></p>
+<h4 id="快照综述-snapshots-overview"><a href="#快照综述-snapshots-overview" class="headerlink" title="快照综述(snapshots overview)"></a>快照综述(snapshots overview)</h4><p>快照的工作方式是在实时数据(live data)和一个特定快照卷之间创建指针(pointer)。这个指针在理论上等同于<strong>硬链接(hard link)</strong>。作为工作数据偏离的快照，快照过程使用<strong>写时复制</strong>(copy-on-write)策略。结果，快照又只存储修改的数据。</p>
+<p>创建快照后，在文件系统上挂载(mount)快照镜像，并从中复制数据。生成的备份包含所有数据的完整副本。</p>
+<p><br></p>
+<p><strong>Valid database at the time of snapshot</strong></p>
+<p>当快照生成时数据库必须有效。这就意味着数据库所接收的所有写入(write)都需要完整的写入磁盘————无论是<code>journal</code>还是数据文件。<br>如果备份发生时磁盘上没有写入(write)，备份将不反映这些更改。</p>
+<p>对于WiredTiger storage engine，数据文件反映了最后一个检查点(last checkpoint)的一致状态。每2GB的数据或每分钟就会出现检查点。</p>
+<p><br></p>
+<p><strong>Entire disk image</strong></p>
+<p>快照创建一个整个磁盘镜像的镜像。除非你需要备份你的整个系统，否则考虑隔离(isolate)你的MongoDB数据文件、journal，并配置一个不包含任何其他数据的逻辑磁盘。<br>或者，将所有的MongoDB数据文件保存在一个专用的设备上，这样你就可以在没有重复(duplicating)和无关(extraneous)数据的情况下进行备份。</p>
+<p><br></p>
+<p><strong>Site failure precaution</strong></p>
+<p>确保将数据从快照复制到其他系统。这确保了在站点故障(site failure)的时候数据是安全的。</p>
+<p><br></p>
+<p><strong>No incremental backups</strong></p>
+<p>本教程不包含增量备份(incremental backups)的过程。虽然不同的快照方法提供了不同的功能，但下面列出的LVM方法不提供捕获增量备份的任何容量。</p>
+<p><br></p>
+<p><strong>Snapshots with journaling</strong></p>
+<p>如果你的mongod实例启用了journaling，则可以使用任何类型的文件系统和volume/block level快照工具来创建备份。</p>
+<p>如果你在基于Linux的系统上管理你自己的基础架构，请使用LVM配置你的系统以提供磁盘包并提供快照功能。</p>
+<p><br></p>
+<h4 id="在Linux上使用LVM进行备份和还原"><a href="#在Linux上使用LVM进行备份和还原" class="headerlink" title="在Linux上使用LVM进行备份和还原"></a>在Linux上使用LVM进行备份和还原</h4><p>生产备份系统必须考虑一些特定环境的应用程序特定需求和因素。</p>
+<p><br></p>
+<p><strong>Crete a snapshot</strong></p>
+<ul>
+<li>确保你创建的快照具有足够的空间来考虑数据的增长；</li>
+<li>如果快照超出了空间，快照镜像将无法使用。请放弃这个逻辑卷并创建另外一个；</li>
+<li>命令执行完毕时快照将存在。你可以随时直接从快照进行还原，也可以创建新的逻辑卷并从此快照还原到备用镜像；</li>
+<li>虽然快照对于快速创建高质量的备份非常好，但它们并不是理想的作为存储备份数据的格式；</li>
+<li>快照通常取决于并位于与原始磁盘镜像相同的存储基础架构上。因此，将这些快照存档并将其存储在别处至关重要。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#下面的这个vg-name指卷组名，这个卷组首先需要建立</span></div><div class="line"><span class="comment">#系统卷组和设备的位置和路径可能因LVM的配置二略有不同</span></div><div class="line"><span class="comment">#此大小不反映数据大小</span></div><div class="line"></div><div class="line">lvcreate --size 1G --snapshot --name mongodb-snap20180111 /dev/vg-name/mongodb</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Archive a snapshot</strong></p>
+<p>创建好snapshot之后，挂载<code>mount</code>快照并将数据复制到单独的存储中。</p>
+<p>压缩快照：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">umount /dev/vg-name/mongodb-snap01</div><div class="line">dd <span class="keyword">if</span>=/dev/vg-name/mongodb-snap01 | gzip &gt; mongodb-snap01.gz</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Restore a snapshot</strong></p>
+<p>同样适用LVM进行还原。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#lv-mongodb, vg0-vgname</span></div><div class="line"></div><div class="line">lvcreate --size 1G --name mongodb vg0</div><div class="line">gzip -d -c mongodb-snap01.gz | dd of=/dev/vg0/mongodb</div><div class="line">mount /dev/bg0/mongodb /dir/path</div></pre></td></tr></table></figure>
+<p>还原的快照中有一个陈旧的<code>mongo.lock</code>文件，如果你没有从快照中删除此文件，那么MongoDB可能会认为锁文件指示的是不正常的关闭。如果你开启了<code>storage.journal.enabled</code>，但没有使用<code>db.fsyncLock()</code>的话，那不需要删除<code>mongo.lock</code>文件，反之，删除它。</p>
+<p><br></p>
+<p><strong>Restore directly form a snapshot</strong></p>
+<p>不使用gz压缩文件下还原备份。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">umount /dev/vg-name/mongodb-snap01</div><div class="line">lvcreate --size 1G --name mongodb vg0</div><div class="line">dd <span class="keyword">if</span>=/dev/vg0/mongodb-snap01 of=/dev/vg0/mongodb</div><div class="line">mount /dev/vg0/mongodb /dir/path</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Remote backup storage</strong></p>
+<p>可以使用组合的进程和SSH实施离线备份。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">umount /dev/vg-name/mongodb-snap01</div><div class="line">dd <span class="keyword">if</span>=/dev/vg0/mongodb-snap01 | ssh user@host gzip &gt; /dir/path/mongodb-snap01.gz</div><div class="line">lvcreate --size 1G --name mongodb vg0</div><div class="line">ssh user@host gzip -d -c /dir/path/mongodb-snap-01.gz | dd of =/dev/vg0/mongodb</div><div class="line">mount /dev/vg0/mongodb /dir/path</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="使用单独卷上的Journal日志文件或没有Journal日志文件进行备份实例"><a href="#使用单独卷上的Journal日志文件或没有Journal日志文件进行备份实例" class="headerlink" title="使用单独卷上的Journal日志文件或没有Journal日志文件进行备份实例"></a>使用单独卷上的Journal日志文件或没有Journal日志文件进行备份实例</h4><p>从MongoDB3.2开始，为了使用WiredTiger对MongoDB实例进行volume-level备份，数据文件和Journal日志文件不再要求驻留在一个卷上。</p>
+<p>如果你的mongod实例没有使用Journal，或者启用了将Journal志文件放置于一个单独的卷上，则必须刷新(flush)对磁盘的所有写入，并在备份期间锁住数据库用以阻止写操作。<br>如果有复制集(replica set)配置，那么你可以在SECONDARY上不接收读取用以备份数据。</p>
+<p><br></p>
+<p><strong>1. 刷新写入磁盘并锁定数据库以防止进一步的写入：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#锁住数据库</div><div class="line">db.fsyncLock();</div></pre></td></tr></table></figure>
+<p><strong>2. 使用快照备份数据库：</strong></p>
+<p><strong>3. 解锁数据库：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#解锁数据库</div><div class="line">db.fsyncUnlock();</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="使用MongoDB工具进行备份和恢复-back-up-and-restore-with-MongoDB-tools"><a href="#使用MongoDB工具进行备份和恢复-back-up-and-restore-with-MongoDB-tools" class="headerlink" title="使用MongoDB工具进行备份和恢复(back up and restore with MongoDB tools)"></a>使用MongoDB工具进行备份和恢复(back up and restore with MongoDB tools)</h3><p>使用MongoDB提供的备份还原工具——<code>mongodump</code>和<code>mongorestore</code>来处理BSON data，对于创建小型部署的备份是很有用的。<br>对于弹性(resilient)备份和非破坏性(non-disruptive)备份，使用文件系统或块级磁盘快照。</p>
+<p>因为<code>mongodump</code>和<code>mongorestore</code>操作通过与正在运行中的<code>mongod</code>实例进行交互(interacting)，它们会影响正在运行的数据库的性能(performance)。这些工具不仅会为正在运行的数据库实例创建流量，还会强制数据库通过内存读取所有的数据。当MongoDB读取不经常(infrequently)使用的数据时，它会驱逐(evict)频繁(frequently)访问的数据，导致数据库正常工作负载的性能下降。</p>
+<p><br></p>
+<p>当使用MongoDB’s tools 来备份你的数据时，考虑如下建议：</p>
+<ul>
+<li>标签文件(label file)，以便你可以识别备份的内容以及备份所反映的时间点</li>
+<li>如果对你来说，<code>mongodump</code>和<code>mongorestore</code>对性能的影响是不可接受的，请使用替代备份策略——filesystem snapshot或MongoDB CloudManager</li>
+<li>使用<code>--oplog</code>去捕获在<code>mongodump</code>期间的传入写(write)操作，以确保备份一致性的数据状态</li>
+<li>通过将备份文件还原到测试环境中，以确认备份是可用的</li>
+</ul>
+<p><br></p>
+<h4 id="MongoDB-tools"><a href="#MongoDB-tools" class="headerlink" title="MongoDB tools"></a>MongoDB tools</h4><p><strong>MongoDB工具介绍及区别：</strong></p>
+<ul>
+<li><p>mongoexport<br><code>mongoexport</code> is a utility that produces a <strong>JSON or CSV</strong> export of data stored in a MongoDB instance.</p>
+</li>
+<li><p>mongoimport<br>The <code>mongoimport</code> tool imports content from an <strong>Extended JSON, CSV, or TSV</strong> export created by mongoexport, or potentially, another third-party export tool.</p>
+</li>
+<li><p>mongodump<br><code>mongodump</code> is a utility for creating a <strong>binary export of the contents of a database</strong>. mongodump can export data from either mongod or mongos instances.<br>mongodump excludes the content of the local database in its output.<br>The mongodump utility backs up data by connecting to a running mongod or mongos instance.</p>
+</li>
+<li><p>mongorestore<br>The <code>mongorestore</code> program writes data from a <strong>binary database dump</strong> created by mongodump to a MongoDB instance.</p>
+</li>
+</ul>
+<p><br></p>
+<h4 id="步骤-Procedures"><a href="#步骤-Procedures" class="headerlink" title="步骤(Procedures)"></a>步骤(Procedures)</h4><h5 id="使用mongodump备份"><a href="#使用mongodump备份" class="headerlink" title="使用mongodump备份"></a>使用mongodump备份</h5><ul>
+<li>`mongodump·备份数据库，如果数据库启用了访问控制，则必须拥有每个备份的数据库查询的权限。内置的备份角色提供了执行任何和数据库备份有关所需的权限。</li>
+<li>这就意味着你使用<code>mongodump</code>的user必须要对所备份的数据库有读取权限。</li>
+<li><code>mongodump</code>能够为<strong>整个服务器、数据库或集合</strong>创建备份，或者使用查询仅备份集合的一部分。</li>
+<li><code>mongodump</code>默认排除<code>local</code>数据库。</li>
+<li><code>mongodump</code>必须要能够连接到正在运行的mongod或mongos实例。默认连接为127.0.0.1:27017。</li>
+<li><code>mongodump</code>默认创建在当前目录下创建./dump备份文件。</li>
+<li>如果<code>mongodump</code>备份目录中已经存在备份数据目录，那么<code>mongodump</code>将会覆盖它们。</li>
+<li>指定认证库来认证你的用户名和密码。</li>
+</ul>
+<p><br></p>
+<p><strong>使用oplog进行时间点操作</strong></p>
+<ul>
+<li>在<code>mongodump</code>中使用<code>--oplog</code>选项来收集oplog条目，用以在副本集中构建数据库的实时快照。</li>
+<li>使用<code>--oplog</code>，<code>mongodump</code>会从源数据库复制所有的数据，包括备份开始到结束这段时间所有的oplog记录。</li>
+<li>在<code>mongorestore</code>还原时使用<code>--oplogReplay</code>选项，允许你还原特定时间节点的备份。这就对应在<code>mongodump</code>期间oplog的记录。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#127.0.0.1:27017 ./dump</span></div><div class="line">mongodump</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#--host,-h  --port</span></div><div class="line">mongodump -h mongodb.example.net --port 27107</div><div class="line">mongudump -h 127.0.0.1 --port 27018</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#-o, --out</span></div><div class="line">mongoodump -o /var/mongodb_backup/</div><div class="line">mongodump --host 127.0.0.1 --port 27017 --out /var/mongodb_backup/</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#--collection, --db</span></div><div class="line">mongodump --db zhang --out /var/mongodb_backup/zhang</div><div class="line">mongodump --db zhang --collection <span class="built_in">test</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#--authenticationDatabase</span></div><div class="line">mongodump --port 27018 -u zhang -p <span class="string">"passwd"</span>  --authenticationDatabase admin -d zhang -o /var/mongodb_backup/zhang</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="使用mongorestore还原"><a href="#使用mongorestore还原" class="headerlink" title="使用mongorestore还原"></a>使用mongorestore还原</h4><p>若要将数据还原到启用了访问控制的MongoDB部署，如果备份数据不包括<code>system.profile</code>集合数据，则restore角色提供了对数据库的访问权限。</p>
+<p>如果备份数据包含了<code>system.profile</code>集合并且目标数据库不包含<code>system.profile</code>集合，那么<code>mongorestore</code>会去创建这个集合即使<code>mongorestore</code>并没有还原<code>system.profile</code>文档。因此，用户就需要额外的权限才能在<code>system.profile</code>集合中上执行<code>createCollection</code>和<code>convertToCapped</code>。</p>
+<p>如果使用<code>--oplogReplay</code>，这个restore角色还不足以重放oplog。所以如果需要重放oplog，请使用一个能够重放oplog的角色。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mongorestore /var/mnogodb_backup</div><div class="line"></div><div class="line"></div><div class="line">mongorestore /var/mnogodb_backup --oplogReplay</div><div class="line"></div><div class="line"></div><div class="line">mongorestore --port 27018 -u zhang -p <span class="string">"passwd"</span> --authecticationDatabase admin -d zhang /var/mongodb_back/zhang</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="批量化操作mongo-shell-EOF"><a href="#批量化操作mongo-shell-EOF" class="headerlink" title="批量化操作mongo shell(EOF)"></a>批量化操作mongo shell(<code>EOF</code>)</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> coll <span class="keyword">in</span> &#123;collection1,collection2,...&#125;</div><div class="line"><span class="keyword">do</span></div><div class="line">	mongo host:port/db -u x -p xx &lt;&lt; EOF</div><div class="line">    use db</div><div class="line">    db.<span class="variable">$coll</span>.drop()</div><div class="line">    EOF</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="从MongoDB备份中还原副本集"><a href="#从MongoDB备份中还原副本集" class="headerlink" title="从MongoDB备份中还原副本集"></a>从MongoDB备份中还原副本集</h3><p>你不能将单个数据集(data set)还原为三个新的mongod实例，然后为此创建一个副本集(replication set)。<br>如果你将数据集复制到每个mongod实例，然后创建副本集，则MongoDB将强制SECONDARY执行<code>initial sync</code>。</p>
+<p><br></p>
+<h4 id="向一个单一副本集节点中还原数据-Restore-Database-into-a-Single-Node-Replica-Set"><a href="#向一个单一副本集节点中还原数据-Restore-Database-into-a-Single-Node-Replica-Set" class="headerlink" title="向一个单一副本集节点中还原数据(Restore Database into a Single Node Replica Set)"></a>向一个单一副本集节点中还原数据(Restore Database into a Single Node Replica Set)</h4><ol>
+<li><p>获取备份数据库文件</p>
+</li>
+<li><p>使用备份数据库文件作为数据库路径启动一个mongod实例</p>
+</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#方法1，直接启动</span></div><div class="line">mongod --dbpath /dir/path/mongodump --replSet &lt;replName&gt;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#方法2，使用配置文件启动，推荐</span></div><div class="line">vim /etc/mongod.conf</div><div class="line"></div><div class="line">storage:</div><div class="line">  dbPath: /dir/path/mongodump</div><div class="line">replication:</div><div class="line">  replSetName: zhang</div></pre></td></tr></table></figure>
+<ol>
+<li><p>连接到mongo shell</p>
+</li>
+<li><p>初始化这个新的副本集</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#对于有且仅有一个成员的副本集使用rs.initiate()</div><div class="line">rs.initiate()</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="向副本集中添加成员-Add-Members-to-the-Replica-Set"><a href="#向副本集中添加成员-Add-Members-to-the-Replica-Set" class="headerlink" title="向副本集中添加成员(Add Members to the Replica Set)"></a>向副本集中添加成员(Add Members to the Replica Set)</h4><p>MongoDB对于还原副本集SECONDARY节点提供了两种选择：</p>
+<ol>
+<li>手动复制数据库文件到数据目录</li>
+<li>允许<code>initial sync</code></li>
+</ol>
+<p><strong>建议：</strong></p>
+<blockquote>
+<p>如果备份的数据库文件很大，那么<code>initial sync</code>可能需要很长的时间才能完成。对于大型数据库，最好将数据库文件复制到每台主机上。</p>
+</blockquote>
+<p><br></p>
+<h5 id="Copy-Database-File-and-Restart-mongod-Instance"><a href="#Copy-Database-File-and-Restart-mongod-Instance" class="headerlink" title="Copy Database File and Restart mongod Instance"></a>Copy Database File and Restart mongod Instance</h5><ol>
+<li>Shut down the mongod instance that you restored</li>
+</ol>
+<blockquote>
+<p>使用 <code>--shutdown</code> 或 <code>db.shutdownServer()</code>来确保一个正常干净的关闭</p>
+</blockquote>
+<ol>
+<li><p>复制Primary的数据目录到每个从节点</p>
+</li>
+<li><p>Start the mongod instance that you restorerd</p>
+</li>
+<li><p>Add the secondaries to the replica set</p>
+</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PRIMARY&gt;rs.add()</div></pre></td></tr></table></figure>
+<p><br></p>
+<h5 id="Update-Secondaries-using-Initial-Sync"><a href="#Update-Secondaries-using-Initial-Sync" class="headerlink" title="Update Secondaries using Initial Sync"></a>Update Secondaries using Initial Sync</h5><ol>
+<li>确保副本集成员的数据目录为空</li>
+<li>将每个潜在成员添加到副本集</li>
+</ol>
+<p><br><br><br></p>
+<h3 id="备份和还原分片集群-sharded-cluster"><a href="#备份和还原分片集群-sharded-cluster" class="headerlink" title="备份和还原分片集群(sharded cluster)"></a>备份和还原分片集群(sharded cluster)</h3><p><br></p>
+<h4 id="通过文件系统快照-fs-snapshots-备份一个分片集群"><a href="#通过文件系统快照-fs-snapshots-备份一个分片集群" class="headerlink" title="通过文件系统快照(fs snapshots)备份一个分片集群"></a>通过文件系统快照(fs snapshots)备份一个分片集群</h4><p><br></p>
+<h4 id="通过Database-Dumps备份一个分片集群"><a href="#通过Database-Dumps备份一个分片集群" class="headerlink" title="通过Database Dumps备份一个分片集群"></a>通过Database Dumps备份一个分片集群</h4><p><br></p>
+<h4 id="Schedule-Backup-Window-for-Sharded-Clusters"><a href="#Schedule-Backup-Window-for-Sharded-Clusters" class="headerlink" title="Schedule Backup Window for Sharded Clusters"></a>Schedule Backup Window for Sharded Clusters</h4><p><br></p>
+<h4 id="还原一个分片集群"><a href="#还原一个分片集群" class="headerlink" title="还原一个分片集群"></a>还原一个分片集群</h4><p><br><br><br></p>
+<h3 id="从意外关闭中恢复-Recover-a-standalone-after-an-unexpected-shutdow"><a href="#从意外关闭中恢复-Recover-a-standalone-after-an-unexpected-shutdow" class="headerlink" title="从意外关闭中恢复(Recover a standalone after an unexpected shutdow)"></a>从意外关闭中恢复(Recover a standalone after an unexpected shutdow)</h3><p>当一个standalone模式的mongod实例关闭了journaling功能后，一个unclean的shutdown可能会导致数据处于不一致的状态。<br>当unclean shutdown之后，如果在dbPath下存在一个非空的<code>mongod.lock</code>文件，则mongod实例会记录如下信息：</p>
+<blockquote>
+<p>Dectected unclean shutdown - mongod.lock is not empty</p>
+</blockquote>
+<p>这样的话你必须要修复你的数据库，才能正常的启动mongod。</p>
+<blockquote>
+<p><strong>警告：</strong><br>不要用如下方法处理副本集 unclean shutdown。相反，你应该从备份或者从另一个副本集的成员恢复。</p>
+</blockquote>
+<p>默认情况下，MongoDB在启用journaling的情况下运行，以防止发生unclean shutdown时数据不一致的问题。</p>
+<p>使用运行mongod实例的那个用户来进行修复，避免由权限不一致而导致的新问题。</p>
+<ol>
+<li>Create a backup of the data files</li>
+<li>Start mongod with –repair</li>
+</ol>
+<p><br><br><br></p>
+<h2 id="监控-Monitoring-MongoDB"><a href="#监控-Monitoring-MongoDB" class="headerlink" title="监控(Monitoring)MongoDB"></a>监控(Monitoring)MongoDB</h2><p>监控是数据库管理的重要组成部分，充分了解MongoDB的运行状态，并在没有危机的情况下维护和部署。此外，了解MongoDB的正常操作参数将允许你在问题升级成为故障前诊断他们。</p>
+<p><br></p>
+<h3 id="Monitoring-for-MongoDB"><a href="#Monitoring-for-MongoDB" class="headerlink" title="Monitoring for MongoDB"></a>Monitoring for MongoDB</h3><p><br></p>
+<h4 id="Monitoring-Strategies-策略"><a href="#Monitoring-Strategies-策略" class="headerlink" title="Monitoring Strategies(策略)"></a>Monitoring Strategies(策略)</h4><p>有三种方法可以从运行中的MongoDB实例中收集状态信息：</p>
+<ol>
+<li>MongoDB提供的一组实时上报程序，提供数据库活动的实时报告；</li>
+<li>数据库命令以更大的保真度返回有关当前数据库状态的统计信息；</li>
+<li>MongoDB Atlas，MongoDB Cloud Manager；</li>
+</ol>
+<p>每个策略在不同的情况下都是很有用的，所以它们能够很好地进行互补。</p>
+<p><br></p>
+<h4 id="MongoDB-Reporting-Tools"><a href="#MongoDB-Reporting-Tools" class="headerlink" title="MongoDB Reporting Tools"></a>MongoDB Reporting Tools</h4><p><strong>Utilities</strong></p>
+<p>MongoDB提供了许多可以返回活动统计信息的实用工具，这对于诊断问题和评估操作非常有用。</p>
+<ul>
+<li><code>mongostat</code><br><code>mongostat</code>按类型捕获并返回数据库操作的计数(e.g: insert,query,update,delete…)</li>
+</ul>
+<p><img src="/images/Zabbix/mongostat.png" alt="mongostat"></p>
+]]></content>
     
     <summary type="html">
     
@@ -4566,11 +4996,14 @@
     <link href="https://zhang21.github.io/2017/11/14/Zabbix/"/>
     <id>https://zhang21.github.io/2017/11/14/Zabbix/</id>
     <published>2017-11-14T02:18:09.000Z</published>
-    <updated>2018-01-13T11:16:57.646Z</updated>
+    <updated>2018-01-20T10:41:48.487Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Zabbix简介"><a href="#Zabbix简介" class="headerlink" title="Zabbix简介"></a>Zabbix简介</h1><p><a href="https://www.zabbix.com/" target="_blank" rel="external">Zabbix官方网站</a><br><a href="https://www.zabbix.com/documentation/3.4/zh/manual/" target="_blank" rel="external">Zabbix中文文档</a><br>Zabbix-repo仓库: <a href="http://repo.zabbix.com" target="_blank" rel="external">http://repo.zabbix.com</a> , 阿里云镜像: <a href="https://mirrors.aliyun.com/zabbix/zabbix/" target="_blank" rel="external">https://mirrors.aliyun.com/zabbix/zabbix/</a> .</p>
-<p>本文系统环境是CentOS7x86_64, Zabbix 3.4。</p>
-<p>Zabbix （音同 zæbix），是由 Alexei Vladishev 开发的一种网络监视、管理系统，基于 Server-Client 架构。Zabbix 的授权是属于 GPLv2。<br>Zabbix可用于监视各种网络服务、服务器和网络机器等状态。是一个基于WEB界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案。<br>Zabbix也可经由SNMP、TCP、ICMP、SSH等对目标进行监视。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<h1 id="Zabbix简介"><a href="#Zabbix简介" class="headerlink" title="Zabbix简介"></a>Zabbix简介</h1><p>参考：</p>
+<p><a href="https://www.zabbix.com/" target="_blank" rel="external">Zabbix官方网站</a><br><a href="https://www.zabbix.com/documentation/3.4/zh/manual/" target="_blank" rel="external">Zabbix中文文档</a><br>Zabbix-repo仓库: <a href="http://repo.zabbix.com" target="_blank" rel="external">http://repo.zabbix.com</a> , 阿里云镜像: <a href="https://mirrors.aliyun.com/zabbix/zabbix/" target="_blank" rel="external">https://mirrors.aliyun.com/zabbix/zabbix/</a> .</p>
+<p>环境：</p>
+<p>CentOS7x86_64, Zabbix 3.4。</p>
+<a id="more"></a>
+<p>Zabbix （音同 zæbix），是由 Alexei Vladishev 开发的一种网络监视、管理系统，基于 Server-Client 架构。Zabbix 的授权是属于 GPLv2。<br>Zabbix可用于监视各种网络服务、服务器和网络机器等状态。是一个基于WEB界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案。<br>Zabbix也可经由SNMP、TCP、ICMP、SSH等对目标进行监视。</p>
 <p><br></p>
 <h2 id="Zabbix的系统构成"><a href="#Zabbix的系统构成" class="headerlink" title="Zabbix的系统构成"></a>Zabbix的系统构成</h2><p>Zabbix系统由以下各独立模块组成：</p>
 <ul>
@@ -4599,8 +5032,9 @@
 <p><br><br><br></p>
 <hr>
 <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>Zabbix的常用术语含义。</p>
-<p><strong>主机(host)：</strong><br>一台你想监控的网络设备，用IP或域名表示。</p>
-<p><strong>主机组(host group):</strong><br>主机的逻辑组，它包含主机和模板。</p>
+<p><strong>主机(host)：</strong></p>
+<p>一台你想监控的网络设备，用IP或域名表示。主机名不能使用中文创建，会报错。</p>
+<p><strong>主机组(host group):</strong><br>主机的逻辑组，它包含主机和模板。组名可以使用中文。</p>
 <p><strong>监控项(item):</strong><br>你想要接收的主机的特定数据，一个度量数据。</p>
 <p><strong>触发器(trigger):</strong><br>一个被用于定义问题阀值和评估监控项接收到的数据的逻辑表达式。</p>
 <p><strong>事件(event):</strong><br>单次发生的需要注意的事情。</p>
@@ -4842,11 +5276,17 @@
 <p><br></p>
 <h3 id="在web端配置zabbix"><a href="#在web端配置zabbix" class="headerlink" title="在web端配置zabbix"></a>在web端配置zabbix</h3><p>在浏览器访问 <a href="http://zabbix.me" target="_blank" rel="external">http://zabbix.me</a> 初始化zabbix配置。<br>配置好后就需要用账号密码进行登录zabbix-web端dashboard。</p>
 <p>默认用户名是：admin，密码是配置文件里面设置的。<br><img src="/images/Zabbix/zabbix_me.png" alt="登录zabbix Dashboard"></p>
-<p><br><br>登录进Dashboard后，可修改语言为中文。</p>
+<p><br></p>
+<p>登录进Dashboard后，可修改语言为中文。</p>
 <p><img src="/images/Zabbix/dashboard.jpg" alt="Dashboard"></p>
-<p><br><br><strong>如果你的Zabbix无法看到中文选项，那么可能需要如下操作：</strong><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /usr/share/zabbix/include/locales.inc.php</div><div class="line"></div><div class="line"><span class="comment">#修改</span></div><div class="line"><span class="string">'zh_CN'</span> =&gt; [<span class="string">'name'</span> =&gt; _(<span class="string">'Chinese (zh_CN)'</span>),     <span class="string">'display'</span> =&gt; <span class="literal">true</span>],</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<p><strong>如果你的Zabbix无法看到中文选项，那么可能需要如下操作：</strong><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /usr/share/zabbix/include/locales.inc.php</div><div class="line"></div><div class="line"><span class="comment">#修改</span></div><div class="line"><span class="string">'zh_CN'</span> =&gt; [<span class="string">'name'</span> =&gt; _(<span class="string">'Chinese (zh_CN)'</span>),     <span class="string">'display'</span> =&gt; <span class="literal">true</span>],</div></pre></td></tr></table></figure></p>
 <p><strong>如果又遇到中文乱码的问题，则可以从windows中挑选一些好看的中文字体，将对应字体文件放置到zabbix web的字体目录中。</strong><br>windows中字体后缀.TTF，Linux中为.ttf。注意修改大小写。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /usr/share/zabbix/fonts</div><div class="line"><span class="comment">#只有一个默认字体 graphfont.ttf</span></div><div class="line"><span class="comment">#将新字体放置到此目录下</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#修改配置文件中对应字体名称</span></div><div class="line">vim /usr/share/zabbix/include/define.inc.php</div><div class="line"></div><div class="line"><span class="comment">#将默认字体名字修改为字体目录下 你需要的字体名</span></div><div class="line">define(<span class="string">'ZBX_FONT_NAME'</span>, <span class="string">'graphfont'</span>);</div><div class="line">define(<span class="string">'ZBX_GRAPH_FONT_NAME'</span>,           <span class="string">'graphfont'</span>); // font file name</div><div class="line"></div><div class="line"><span class="comment">#栗子，如perpetua字图PER.ttf</span></div><div class="line">define(<span class="string">'ZBX_FONT_NAME'</span>, <span class="string">'PER'</span>);</div><div class="line">define(<span class="string">'ZBX_GRAPH_FONT_NAME'</span>,           <span class="string">'PER'</span>); // font file name</div></pre></td></tr></table></figure></p>
-<p><br><br>Zabbix Web界面菜单：<br><img src="/images/Zabbix/zabbix_menu.png" alt="zabbix菜单"></p>
+<p><br></p>
+<p><strong>图形显示乱码，同样是用以上方法。在windowss上找一个中文字体上传到zabbix字体目录，并修改配置文件就可以了。</strong></p>
+<p><br></p>
+<p>Zabbix Web界面菜单：</p>
+<p><img src="/images/Zabbix/zabbix_menu.png" alt="zabbix菜单"></p>
 <p><br></p>
 <ul>
 <li>管理菜单，用于管理zabbix自身及zabbix相关设置；</li>
@@ -4857,7 +5297,7 @@
 </ul>
 <p><br></p>
 <h2 id="安装zabbix-agent"><a href="#安装zabbix-agent" class="headerlink" title="安装zabbix agent"></a>安装zabbix agent</h2><p>Agent端安装也非常方便，直接在Client上安装两个包即可。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#配置zabbix源</span></div><div class="line">rpm -ivh http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-1.el7.centos.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment">#aliyun镜像</span></div><div class="line"><span class="comment">#rpm -ivh http://mirrors.aliyun.com/zabbix/zabbix/3.0/rhel/7/x86_64/zabbix-release-3.4-1.el7.noarch.rpm</span></div><div class="line"></div><div class="line"><span class="comment">#安装</span></div><div class="line">yum install -y zabbix-agent zabbix-sender</div><div class="line"></div><div class="line">rpm -ql zabbix-agent</div><div class="line"><span class="comment">#/etc/zabbix/zabbix_agentd.conf</span></div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#配置zabbix源</span></div><div class="line">rpm -ivh http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-1.el7.centos.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment">#aliyun镜像</span></div><div class="line"><span class="comment">#rpm -ivh http://mirrors.aliyun.com/zabbix/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-1.el7.noarch.rpm</span></div><div class="line"></div><div class="line"><span class="comment">#安装</span></div><div class="line">yum install -y zabbix-agent zabbix-sender</div><div class="line"></div><div class="line">rpm -ql zabbix-agent</div><div class="line"><span class="comment">#/etc/zabbix/zabbix_agentd.conf</span></div></pre></td></tr></table></figure>
 <p>zabbix的“主动模式”与“被动模式”都在<code>/etc/zabbix/zabbix_agentd.conf</code>中定义。<br>配置最常用的agent端：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">vim /etc/zabbix/zabbix_agentd.conf</div><div class="line"></div><div class="line"><span class="comment">####GENERAL PARAMETERS 通用配置</span></div><div class="line">PidFile=</div><div class="line">LogFile=</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">####Passive checks related 被动模式配置</span></div><div class="line"><span class="comment">#指定允许哪台服务器拉取本机数据</span></div><div class="line">Server=</div><div class="line"><span class="comment">#指定agent端工作于被动模式时监听的端口号</span></div><div class="line">ListenPort=10050(默认)</div><div class="line"><span class="comment">#指定agent端工作与被动模式时所监听的IP地址</span></div><div class="line">ListenIP=0.0.0.0(默认)</div><div class="line"><span class="comment">#指定预生成的agent进程数量</span></div><div class="line">StartAgents=</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">####Active checks related</span></div><div class="line"><span class="comment">#agent工作于主动模式时，将消息推送到哪台Server上</span></div><div class="line">ServerActive=IP1,IP2...</div><div class="line"><span class="comment">#指定当前主机主机名，Server端通过对应的主机名识别主机</span></div><div class="line">Hostname=</div><div class="line"><span class="comment">#指明agent端每隔多少秒将采集的数据发往Server端</span></div><div class="line">RefreshActiveChecks=</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#栗子</span></div><div class="line">Server=192.168.1.9</div><div class="line">ServerActive=192.168.1.9</div><div class="line">Hostname=zabbix.me</div></pre></td></tr></table></figure></p>
 <p><br><br><strong>启动zabbix-agent</strong><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">systemctl zabbix-agent start</div><div class="line"></div><div class="line"><span class="comment">#查看状态,默认端口10050</span></div><div class="line">netstat -nltp</div></pre></td></tr></table></figure></p>
 <p><img src="/images/Zabbix/zabbix-agent.png" alt="zabbix-agent状态"></p>
@@ -5293,7 +5733,7 @@
 <hr>
 <h1 id="Web监控-web-monitoring"><a href="#Web监控-web-monitoring" class="headerlink" title="Web监控(web monitoring)"></a>Web监控(web monitoring)</h1><p>配置-主机-web监测，创建或修改web监测信息。<br>可使用zabbix检查几个网站可用性方面。(zabbix中包含libcurl库才行)</p>
 <p>要使用web监控，需要定义web场景。包括一个或多个HTTP请求或步骤。Zabbix-Server根据预定义的命令周期性的执行这些步骤。</p>
-<p>所有web场景会手机下列数据：</p>
+<p>所有web场景会收集下列数据：</p>
 <ul>
 <li>整个场景中所有步骤的平均下载速度；</li>
 <li>失败的步骤数量；</li>
@@ -5313,7 +5753,8 @@
 <li>场景<scenario>的失败步骤；</scenario></li>
 <li>场景<scenario>的最后一个错误消息；</scenario></li>
 </ul>
-<p><br><br><strong>举个栗子：</strong><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">##创建Web监测</span></div><div class="line"><span class="comment">#配置-主机-Web监测-创建web监测</span></div><div class="line"></div><div class="line">URL：web.zabbix.me/monitor.php</div><div class="line">要求的状态码：200</div><div class="line">超时：20s</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">##创建web监测触发器</span></div><div class="line"><span class="comment">#配置-主机-触发器-创建触发器</span></div><div class="line"></div><div class="line">严重性：一般严重</div><div class="line"><span class="comment">#触发条件：状态码!=200</span></div><div class="line">表达式：N&lt;&gt;200</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">##创建触发报警对应的动作</span></div><div class="line"><span class="comment">#配置-动作-创建动作</span></div><div class="line"></div><div class="line"><span class="comment">#触发条件</span></div><div class="line">触发器示警度=一般严重 or 触发器=web.zabbix.me</div><div class="line"></div><div class="line"><span class="comment">#操作：发送Email</span></div><div class="line">发送给zabbix administrator用户群组</div><div class="line">仅送到Email</div><div class="line">默认信息/自定义信息</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">##在媒体类型中定义Email相关信息</span></div><div class="line"><span class="comment">#管理-报警媒体类型-Email</span></div><div class="line"></div><div class="line">SMTP服务器：smtp.xxx.com</div><div class="line">smtp端口：465</div><div class="line">SMTP电邮：发件人Email</div><div class="line">安全链接：SSL/TLS</div><div class="line">认证：Usernameand passwd</div><div class="line">用户名：xxx</div><div class="line">密码： xxx</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">##接下来就可以测试接收报警Email了</span></div></pre></td></tr></table></figure></p>
+<p><br></p>
+<p><strong>举个栗子：</strong><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">##创建Web监测</span></div><div class="line"><span class="comment">#配置-主机-Web监测-创建web监测</span></div><div class="line"></div><div class="line">URL：web.zabbix.me/monitor.php</div><div class="line">要求的状态码：200</div><div class="line">超时：20s</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">##创建web监测触发器</span></div><div class="line"><span class="comment">#配置-主机-触发器-创建触发器</span></div><div class="line"></div><div class="line">严重性：一般严重</div><div class="line"><span class="comment">#触发条件：状态码!=200</span></div><div class="line">表达式：N&lt;&gt;200</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">##创建触发报警对应的动作</span></div><div class="line"><span class="comment">#配置-动作-创建动作</span></div><div class="line"></div><div class="line"><span class="comment">#触发条件</span></div><div class="line">触发器示警度=一般严重 or 触发器=web.zabbix.me</div><div class="line"></div><div class="line"><span class="comment">#操作：发送Email</span></div><div class="line">发送给zabbix administrator用户群组</div><div class="line">仅送到Email</div><div class="line">默认信息/自定义信息</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">##在媒体类型中定义Email相关信息</span></div><div class="line"><span class="comment">#管理-报警媒体类型-Email</span></div><div class="line"></div><div class="line">SMTP服务器：smtp.xxx.com</div><div class="line">smtp端口：465</div><div class="line">SMTP电邮：发件人Email</div><div class="line">安全链接：SSL/TLS</div><div class="line">认证：Usernameand passwd</div><div class="line">用户名：xxx</div><div class="line">密码： xxx</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">##接下来就可以测试接收报警Email了</span></div></pre></td></tr></table></figure></p>
 <p><br><br><br></p>
 <hr>
 <h1 id="虚拟机监控-VM-monitoring"><a href="#虚拟机监控-VM-monitoring" class="headerlink" title="虚拟机监控(VM monitoring)"></a>虚拟机监控(VM monitoring)</h1><p>zabbix支持对VMware的监控，使用low-levle-discovery(LLD)自动发现VMware hypervisors和虚拟机，并根据事先定义的主机原型，为这些虚拟机建立主机，添加监控。</p>
@@ -5473,6 +5914,30 @@
 </ul>
 <p><br></p>
 <p><img src="/images/Zabbix/zabbix_web_import_mongodb1.png" alt="导入mongodb模板"><br><img src="/images/Zabbix/zabbix_web_import_mongodb2.png" alt="选择导入文件"><br><img src="/images/Zabbix/zabbix_web_import_mongodb3.png" alt="查看MongoDB模板"><br><img src="/images/Zabbix/zabbix_web_import_mongodb4.png" alt="在主机中关联MongoDB模板"><br><img src="/images/Zabbix/zabbix_web_import_mongodb5.png" alt="查看最新MongoDb数据"></p>
+<p><br></p>
+<h3 id="监控一台主机上的额外mongod实例"><a href="#监控一台主机上的额外mongod实例" class="headerlink" title="监控一台主机上的额外mongod实例"></a>监控一台主机上的额外mongod实例</h3><p>由于可能一台主机上运行的mongod实例不止一个，所以我们需要修改一下前面下载的配置文件，用以监控其它端口的mongod实例。</p>
+<ul>
+<li>此处假设默认的mongod实例运行在27017端口上</li>
+<li>另外还有一个mongod实例运行在27018端口上</li>
+<li>此处假设我们已经完成了前面对27017mongodb的监控了</li>
+</ul>
+<p>操作：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /etc/zabbix</div><div class="line">cp mongodb.sh mongodb_27018.sh</div><div class="line"></div><div class="line">vim ./mongodb_27018.sh</div><div class="line"><span class="comment">#配置监控的mongodb账号和端口</span></div><div class="line"></div><div class="line">DB_HOST=127.0.0.1</div><div class="line">DB_PORT=27018</div><div class="line">DB_USERNAME=zabbix</div><div class="line">DB_PASSWORD=zabbix</div><div class="line"></div><div class="line"><span class="comment">#现在就有了提取27017/27018两个mongodb实例的脚本</span></div><div class="line"><span class="comment">#mongodb.sh</span></div><div class="line"><span class="comment">#mongodb_27018.sh</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="built_in">cd</span> ./zabbxi-agentd.d</div><div class="line"></div><div class="line">vim userparameter_mongodb.conf</div><div class="line"><span class="comment">#在默认的27017下面添加一行提取mongodb_27018信息的脚本</span></div><div class="line"></div><div class="line">UserParameter=mongodb.status[*],/etc/zabbix/mongodb.sh <span class="variable">$1</span> <span class="variable">$2</span> <span class="variable">$3</span> <span class="variable">$4</span> <span class="variable">$5</span></div><div class="line">UserParameter=mongodb_27018.status[*],/etc/zabbix/mongodb_27018.sh <span class="variable">$1</span> <span class="variable">$2</span> <span class="variable">$3</span> <span class="variable">$4</span> <span class="variable">$5</span></div><div class="line"></div><div class="line"><span class="comment">#现在zabbix-server端就可以同时获取27017/27018两个mongodb实例的信息</span></div><div class="line"><span class="comment">#但是Web界面还不能直接显示出来，因为27018的键值和默认不相同</span></div><div class="line"><span class="comment">#没错，就是上面我们修改的 mongodb_27018.status[*]</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<p><img src="/images/Zabbix/mongodb_27018.png" alt="mongodb_27018.sh"></p>
+<p><img src="/images/Zabbix/mongodb_27018_02.png" alt="mongodb_27018.sh"></p>
+<p><br></p>
+<p><strong>接下来要在Zabbix-Web端配置监控项用以提取信息</strong></p>
+<p>我们先找到一个默认的MongoDB自带的配置模板，如<code>MongoDB Connections current</code>，点进去查看它的键值对为<code>mongodb.status[connections,current]</code></p>
+<p>因此我们只需要修改为我们配置文件里面的<code>mongodb_27018.status[*]</code>就可以了。</p>
+<p><img src="/images/Zabbix/mongodb_27018_03.png" alt="mongodb_27018.sh"></p>
+<p><img src="/images/Zabbix/mongodb_27018_04.png" alt="mongodb_27018.sh"></p>
+<p><br></p>
+<p>其余个监控项以此类推，我觉得其他服务也应该可以如此。</p>
+<p><strong>你也可以对此建立一个单独的模板，如MongoDB_27108 templates。在此监控模板下创建上面的监控项。这样就可以对所有主机生效了。也可以批量化操作，更方便一些。</strong></p>
+<p>下面是我的参考<strong>Template App MongoDB</strong>模板建立的<strong>Template App MongoDB_27018</strong></p>
+<p><img src="/images/Zabbix/mongodb_27018_05.png" alt="mongodb_27018.sh"></p>
+<p><img src="/images/Zabbix/mongodb_27018_06.png" alt="mongodb_27018.sh"></p>
 <p><br><br><br></p>
 <h2 id="监控PHP-FPM"><a href="#监控PHP-FPM" class="headerlink" title="监控PHP-FPM"></a>监控PHP-FPM</h2><p>同样使用上面大神的模板。</p>
 <p>步骤和监控MongoDB类似：</p>
@@ -5503,14 +5968,144 @@
 <h2 id="监控Redis"><a href="#监控Redis" class="headerlink" title="监控Redis"></a>监控Redis</h2><p>监控Redis，也是把包里面对应的文件复制过去就行。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ./zabbix-master/redis</div><div class="line">cp ./userparameter_redis.conf /etc/zabbix/zabbix_agentd.d/</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#如果redis设置有密码，请加上密码</span></div><div class="line"><span class="comment">#如果是不同的端口，请修改</span></div><div class="line">UserParameter=redis.local[*],redis-cli -h 127.0.0.1 -p 6379 info|grep <span class="variable">$1</span>|grep -v _human|cut -d : -f2</div><div class="line"><span class="comment">#UserParameter=redis.local[*],redis-cli -h 127.0.0.1 -p 6379 -a Password info|grep $1|grep -v _human|cut -d : -f2</span></div><div class="line">UserParameter=redis.status[*],redis-cli -h <span class="variable">$1</span> -p <span class="variable">$2</span> -a Password info|grep <span class="variable">$3</span>|grep -v _human|cut -d : -f2</div><div class="line">UserParameter=redis.proc,pidof redis-server | wc -l</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#重启服务</span></div><div class="line">systemctl restart redis</div></pre></td></tr></table></figure>
 <p>导入模板，链接主机，OK。</p>
+<p><br></p>
+<hr>
+<p><br></p>
+<h1 id="系统监控"><a href="#系统监控" class="headerlink" title="系统监控"></a>系统监控</h1><p><br></p>
+<h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><p>CPU的性能状态信息：</p>
+<table>
+<thead>
+<tr>
+<th>简写</th>
+<th>描述</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>us</td>
+<td>user cpu tim</td>
+<td>用户使用CPU时间</td>
+</tr>
+<tr>
+<td>sy</td>
+<td>system cpu time</td>
+<td>系统使用CPU时间</td>
+</tr>
+<tr>
+<td>id</td>
+<td>idle cpu time</td>
+<td>CPU的空闲时间</td>
+</tr>
+<tr>
+<td>wa</td>
+<td>io wait cpu time</td>
+<td>CPU等待IO时间</td>
+</tr>
+<tr>
+<td>ni</td>
+<td>user nice cpu time</td>
+<td>用nice调整进程优先级的CPU时间</td>
+</tr>
+<tr>
+<td>st</td>
+<td>steal time</td>
+<td>虚拟机偷取的CPU时间比，被强制等待虚拟CPU的时间</td>
+</tr>
+<tr>
+<td>si</td>
+<td>softirq time</td>
+<td>系统处理软件中断所花费的CPU时间</td>
+</tr>
+<tr>
+<td>hi</td>
+<td>hard time</td>
+<td>系统硬中断所花费的CPU时间</td>
+</tr>
+<tr>
+<td>interrupt</td>
+<td>中断</td>
+<td>被处理过的中断数</td>
+</tr>
+<tr>
+<td>cs</td>
+<td>Context switches</td>
+<td>上下文切换</td>
+</tr>
+<tr>
+<td>ql</td>
+<td>processor queue length</td>
+<td>队列长度</td>
+</tr>
+<tr>
+<td>processor load</td>
+<td>processor load</td>
+<td>处理器负载，几核乘以几</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h3><ul>
+<li>当我们要监控并报警CPU使用率时，我们可以反过来用CPU空闲时间来定义</li>
+<li>cpu idle tiem%  + cpu usage time% = 1</li>
+<li>(CPU usage time% gt 80%) == (CPU idel time% lt 20%)</li>
+<li>(CPU usage time% gt 90%) == (CPU idel time% &lt; 10%)</li>
+<li>所以监控CPU使用率就可以监控CPU空闲时间，并依据这个报警</li>
+</ul>
 <p><br><br><br></p>
-]]></content>
+<h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p>Zabbix中自带的Linux OS模板提供了<code>Total memory</code>和<code>Available memory</code>选项，这两者直接用模板就可以了。<br>但没有提供内存使用率的选项，因此需要我们自定义。</p>
+<ul>
+<li>内存使用率 = 可用内存 / 总内存</li>
+<li>ast(vm.memory.size[available])/last(vm.memory.size[total])</li>
+</ul>
+<h3 id="自定义内存使用率"><a href="#自定义内存使用率" class="headerlink" title="自定义内存使用率"></a>自定义内存使用率</h3><p>我们只需要在Linux OS模板下配置内存使用率，就可以一劳永逸。</p>
+<ol>
+<li>配置(Configuration)</li>
+<li>模板(Templates)</li>
+<li>OS Linux模板的监控项(Items)</li>
+<li>创建监控项</li>
+<li>监控项名称: Available memory percent</li>
+<li>类型： 可计算的</li>
+<li>键值： vm.memory.size[percent]</li>
+<li>公式： 100*last(vm.memory.size[available])/last(vm.memory.size[total])</li>
+<li>记得将其加入Memory应用集，这样便于查找和管理</li>
+<li>可加入单位： %</li>
+</ol>
+<p><br></p>
+<p><img src="/images/Zabbix/custom_memorypercent.png" alt="自定义可用内存率"></p>
+<p><img src="/images/Zabbix/custom_memorypercent2.png" alt="自定义可用内存率"></p>
+<p><img src="/images/Zabbix/custom_memorypercent3.png" alt="效果图"></p>
+<p><img src="/images/Zabbix/custom_memorypercent4.png" alt="效果图"></p>
+<p><br></p>
+<h3 id="添加触发器"><a href="#添加触发器" class="headerlink" title="添加触发器"></a>添加触发器</h3><ol>
+<li>配置</li>
+<li>模板</li>
+<li>OS Linux模板</li>
+<li>触发器</li>
+<li>创建触发器，当可用内存率在三分钟内的平均值小于20%时报警</li>
+<li>名字：Available memory percent lt 20% on {HOST.NAME}</li>
+<li>严重性：一般严重</li>
+<li>表达式： {Template OS Linux:vm.memory.size[percent].avg(3)}&lt;20</li>
+</ol>
+<p><br></p>
+<p><img src="/images/Zabbix/custom_memorypercent5.png" alt="自定义可用内存率报警"></p>
+<p><img src="/images/Zabbix/custom_memorypercent6.png" alt="效果图"></p>
+<p><br><br><br></p>
+<h2 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h2><p>由于Zabbix-Server自带的Linux OS模板中的filesystem的监控是一个自动发现规则，而在应用集中的filesystem是没有监控项的。所有对于磁盘的监控和触发要在自动发现规则中去定义。</p>
+<p><br></p>
+<p><img src="/images/Zabbix/custom_disk1.png" alt="监控项"></p>
+<p><img src="/images/Zabbix/custom_disk2.png" alt="触发器"></p>
+<p><img src="/images/Zabbix/custom_disk3.png" alt="触发器"></p>
+<p><img src="/images/Zabbix/custom_disk4.png" alt="触发器"></p>
+<p><br><br><br></p>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2>]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Zabbix简介&quot;&gt;&lt;a href=&quot;#Zabbix简介&quot; class=&quot;headerlink&quot; title=&quot;Zabbix简介&quot;&gt;&lt;/a&gt;Zabbix简介&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://www.zabbix.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Zabbix官方网站&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://www.zabbix.com/documentation/3.4/zh/manual/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Zabbix中文文档&lt;/a&gt;&lt;br&gt;Zabbix-repo仓库: &lt;a href=&quot;http://repo.zabbix.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://repo.zabbix.com&lt;/a&gt; , 阿里云镜像: &lt;a href=&quot;https://mirrors.aliyun.com/zabbix/zabbix/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://mirrors.aliyun.com/zabbix/zabbix/&lt;/a&gt; .&lt;/p&gt;
-&lt;p&gt;本文系统环境是CentOS7x86_64, Zabbix 3.4。&lt;/p&gt;
-&lt;p&gt;Zabbix （音同 zæbix），是由 Alexei Vladishev 开发的一种网络监视、管理系统，基于 Server-Client 架构。Zabbix 的授权是属于 GPLv2。&lt;br&gt;Zabbix可用于监视各种网络服务、服务器和网络机器等状态。是一个基于WEB界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案。&lt;br&gt;Zabbix也可经由SNMP、TCP、ICMP、SSH等对目标进行监视。&lt;br&gt;
+      &lt;h1 id=&quot;Zabbix简介&quot;&gt;&lt;a href=&quot;#Zabbix简介&quot; class=&quot;headerlink&quot; title=&quot;Zabbix简介&quot;&gt;&lt;/a&gt;Zabbix简介&lt;/h1&gt;&lt;p&gt;参考：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.zabbix.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Zabbix官方网站&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://www.zabbix.com/documentation/3.4/zh/manual/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Zabbix中文文档&lt;/a&gt;&lt;br&gt;Zabbix-repo仓库: &lt;a href=&quot;http://repo.zabbix.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://repo.zabbix.com&lt;/a&gt; , 阿里云镜像: &lt;a href=&quot;https://mirrors.aliyun.com/zabbix/zabbix/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://mirrors.aliyun.com/zabbix/zabbix/&lt;/a&gt; .&lt;/p&gt;
+&lt;p&gt;环境：&lt;/p&gt;
+&lt;p&gt;CentOS7x86_64, Zabbix 3.4。&lt;/p&gt;
     
     </summary>
     
@@ -6398,276 +6993,6 @@
     
     
       <category term="Markdown" scheme="https://zhang21.github.io/tags/Markdown/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Nginx</title>
-    <link href="https://zhang21.github.io/2017/09/01/Nginx/"/>
-    <id>https://zhang21.github.io/2017/09/01/Nginx/</id>
-    <published>2017-09-01T08:22:58.000Z</published>
-    <updated>2018-01-12T03:10:32.763Z</updated>
-    
-    <content type="html"><![CDATA[<p>参考：</p>
-<ul>
-<li><a href="https://nginx.org/" target="_blank" rel="external">Nginx官网</a>；</li>
-<li><a href="https://zh.wikipedia.org/wiki/Nginx" target="_blank" rel="external">Nginx-Wikipedia</a>；</li>
-<li><a href="http://nginx.org/packages/" target="_blank" rel="external">Nginx-repo</a></li>
-</ul>
-<p>环境：</p>
-<ul>
-<li>CentOS7;</li>
-<li>Nginx1.12.1</li>
-</ul>
-<p><br></p>
-<hr>
-<p><br></p>
-<h1 id="Nginx介绍"><a href="#Nginx介绍" class="headerlink" title="Nginx介绍"></a>Nginx介绍</h1><p>Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 <code>HTTP, HTTPS, SMTP, POP3, IMAP</code> 的协议连接。<br>基于BSD-like协议发行，支持多种操作系统。</p>
-<a id="more"></a>
-<p>作为HTTP服务软件的后起之秀，Nginx有很多优点：</p>
-<ul>
-<li>在性能上，Nginx占用的系统资源更少，支持更多的并发连接（特别是小静态文件场景下），达到更高的访问效率；</li>
-<li>在功能上，Nginx不仅是一个优秀的<em>Web服务软件</em>，还可以作为<em>反向代理</em> <em>负载均衡</em>及<em>缓存</em>使用。它类似于<em>LVS负载均衡</em>及<em>HAProxy</em>等专业代理软件，又类似于<em>Squid</em>等专业缓存服务软件；</li>
-<li>在安装配置上，Nginx方便、简单、灵活。</li>
-</ul>
-<p>Nginx功能丰富，可作为HTTP服务器、反向代理服务器、邮件服务器。支持<em>FastCGI, SSL, Virtual Host, URL Rewrite, Gzip</em>等功能，并支持很多第三方模块扩展。</p>
-<p><br></p>
-<h2 id="与PHP的集成"><a href="#与PHP的集成" class="headerlink" title="与PHP的集成"></a>与PHP的集成</h2><p>自PHP-5.3.3起，PHP-FPM加入到了PHP核心，编译时加上–enable-fpm即可提供支持。<br>PHP-FPM以守护进程在后台运行，Nginx响应请求后，自行处理静态请求，PHP请求则经过fastcgi_pass交由PHP-FPM处理，处理完毕后返回。<br>Nginx和PHP-FPM的组合，是一种稳定、高效的PHP运行方式，效率要比传统的Apache和mod_php高出不少。</p>
-<p><strong>Nginx的重要特性：</strong></p>
-<blockquote>
-<p>可针对静态资源高速高并发访问及缓存；<br>可使用反向代理加速，并且可进行数据缓存；<br>具有简单负载均衡、节点健康检查和容错功能；<br>支持远程FastCGI、Uwsgi、SCGI、Memcached Servers的加速和缓存；<br>支持SSL、TLS、SNI；<br>具有模块化的架构：过滤器包括gzip压缩、ranges支持、chunked响应、XSLT、SSI及图像缩放等功能。在SSI过滤器中，一个包含多个SSI的页面，如果FastCGI或反向代理处理，可被并行处理；<br>它具备的其他WWW服务特性：<br>支持基于名字、端口及IP的多虚拟主机站点；<br>支持Keep-alived和pipelined连接；<br>可进行修改Nginx配置，并且在代码上线时，可平滑重启，不中断业务访问；<br>可自定义访问日志格式，临时缓冲些日志操作，快速日志轮询及通过rsyslog处理日志；<br>可利用信号控制Nginx进程；<br>支持 3xx-5xx HTTP状态码重定向；<br>支持rewrite模块，支持URI重写及正则表达式匹配；<br>支持基于客户端IP地址和HTTP基本认证的访问控制；<br>支持PUT、DELETE、MKCOL、COPY及MOVE等较特殊的HTTP请求方法；<br>支持FLV流和MP4流技术产品应用；<br>支持HTTP响应速率限制；<br>支持同一IP地址的并发连接或请求数连接；<br>支持邮件服务器代理；</p>
-</blockquote>
-<p><br></p>
-<h2 id="Nginx常用功能"><a href="#Nginx常用功能" class="headerlink" title="Nginx常用功能"></a>Nginx常用功能</h2><h3 id="http代理于反向代理"><a href="#http代理于反向代理" class="headerlink" title="http代理于反向代理"></a>http代理于反向代理</h3><p>Nginx在做反向代理时，提供性能稳定，并且能够提供配置灵活的转发功能。Nginx可以根据不同的正则匹配，采取不同的转发策略，比如图片文件结尾的走文件服务器，动态页面走web服务器，只要你正则写的没问题，又有相对应的服务器解决方案，你就可以随心所欲的玩。并且Nginx对返回结果进行错误页跳转，异常判断等。如果被分发的服务器存在异常，他可以将请求重新转发给另外一台服务器，然后自动去除异常服务器。</p>
-<p><img src="/images/Nginx/Nginx001.jpg" alt="Nginx代理与反向代理"></p>
-<p><br></p>
-<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>Nginx提供的负载均衡策略有2种：内置策略和扩展策略。内置策略为轮询，加权轮询，Ip hash。扩展策略，就天马行空，只有你想不到的没有他做不到的啦，你可以参照所有的负载均衡算法，给他一一找出来做下实现。</p>
-<p><img src="/images/Nginx/Nginx002.jpg" alt=""></p>
-<p><br></p>
-<h3 id="web缓存"><a href="#web缓存" class="headerlink" title="web缓存"></a>web缓存</h3><p>Nginx可以对不同的文件做不同的缓存处理，配置灵活，并且支持FastCGI_Cache，主要用于对FastCGI的动态程序进行缓存。配合着第三方的ngx_cache_purge，对制定的URL缓存内容可以的进行增删管理。</p>
-<p><br></p>
-<h3 id="web服务"><a href="#web服务" class="headerlink" title="web服务"></a>web服务</h3><p>Nginx作为Web服务器的主要应用场景包括：</p>
-<ul>
-<li>使用Nginx运行HTML、JS、CSS、小图片等静态数据；</li>
-<li>结合FastCGI运行PHP等动态程序（如fastcgi_pass）；</li>
-<li>结合Tomcat/Resin等支持Java动态程序（如proxy_pass）。</li>
-</ul>
-<p><br></p>
-<hr>
-<p><br></p>
-<h1 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h1><ol>
-<li>添加RPM源安装:</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">yum install -y gcc gcc-c++ make libtool zlib zlib-devel openssl openssl-devel pcre pcre-devel    安装依赖</div><div class="line">rpm -ivm http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm 安装RPM源</div><div class="line"></div><div class="line">#安装Nginx</div><div class="line">yum install -y nginx</div><div class="line"></div><div class="line">#查询安装</div><div class="line">rpm -q nginx</div></pre></td></tr></table></figure>
-<ol>
-<li>添加Nginx yum repository休息安装：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim /etc/yum.repos.d/nginx.repo</div><div class="line"></div><div class="line">[nginx]#必须唯一</div><div class="line">name=nginx repo</div><div class="line">baseurl=http://nginx.org/packages/OS/OSRELEASE/$basearch/</div><div class="line">gpgcheck=0</div><div class="line">enabled=1</div></pre></td></tr></table></figure>
-<ol>
-<li>源码安装:</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src#建议解压于此目录</div><div class="line"></div><div class="line">wget http://xxx.xx.com/nginx.tar.gz</div><div class="line">tar -zxvf nginx.tar.gz</div><div class="line"></div><div class="line">cd ./nginx</div><div class="line">./configure --prefix=/usr/local</div><div class="line"></div><div class="line">make&amp;&amp;make install</div></pre></td></tr></table></figure>
-<p><br></p>
-<hr>
-<p><br></p>
-<h1 id="Nginx配置文件"><a href="#Nginx配置文件" class="headerlink" title="Nginx配置文件"></a>Nginx配置文件</h1><h2 id="conf"><a href="#conf" class="headerlink" title="*.conf"></a>*.conf</h2><p>Nginx配置文件主要分为四部分：</p>
-<ul>
-<li>main(全局设置)；</li>
-<li>server(主机设置)；</li>
-<li>upstream(上游服务器设置)，用于反向代理和负载均衡；</li>
-<li>location(URL匹配特定位置)。</li>
-</ul>
-<p>栗子：<br>运行<code>nginx -t</code>检查配置文件有误错误，这很重要!</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#main块</span></div><div class="line">user nginx;</div><div class="line">worker_processes 4;</div><div class="line">client_max_body_size  10M</div><div class="line"></div><div class="line"></div><div class="line">error_log /var/<span class="built_in">log</span>/nginx/error.log warn;</div><div class="line">pid /var/run/nginx.pid;</div><div class="line"></div><div class="line">events &#123;</div><div class="line">	worker_connections 102400;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">#http块</span></div><div class="line">http &#123;</div><div class="line">	include /etc/nginx/mime.types;</div><div class="line">    default_type application/octet-stream;</div><div class="line">    log_format main <span class="string">'$remote_addr - ...'</span>;</div><div class="line"></div><div class="line">    access_log /var/<span class="built_in">log</span>/nginx/access.log main;</div><div class="line">    sendfile on;</div><div class="line">    gzip on;</div><div class="line">    keepalive_timeout 60;</div><div class="line"></div><div class="line">	include /etc/nginx/conf.d/*.conf;</div><div class="line"></div><div class="line"></div><div class="line">	<span class="comment">#upstream块</span></div><div class="line">    upstream up_name&#123;</div><div class="line">    	server ip1;</div><div class="line">        server ip2:port;</div><div class="line">        server domain;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">	server &#123;</div><div class="line">    	server_name www.zhang21.cn;</div><div class="line"></div><div class="line">    	listen 80;</div><div class="line">        listen 443;</div><div class="line">        ssl on;</div><div class="line">        ssl_certificate /dir/path/xxx.crt;</div><div class="line">        ssl_certificate_key /dir/path/xxx.key;</div><div class="line"></div><div class="line">        location / &#123;</div><div class="line">        	root /var/www/zhang;</div><div class="line">            index index.php index.html index.htm;</div><div class="line"></div><div class="line">            allow 192.168.1.0/22;</div><div class="line">            deny all;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        location ~ \.php$ &#123;</div><div class="line">        	root /var/www/zhang;</div><div class="line">            fastcgi_pass 127.0.0.1:9000;</div><div class="line">            fastcgi_index index.php;</div><div class="line">            fastcgi_param SCRIPT_FILENAME <span class="variable">$document_root</span>/<span class="variable">$fastcgi_script_name</span>;</div><div class="line">            include fastcgi_params;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>全局块：<br>配置影响Nginx全局的指令。一般由运行Nginx服务器的用户组，Nginx进程pid存放路径，日志存放路径，允许生成的worker_processes等。</p>
-</li>
-<li><p>events块：<br>配置影响Nginx服务器或与用户的网络连接。有每个进程的最大连接数，选取哪种事件驱动模型处理连接请求，是否允许同时接受多个网络连接，开启多个网络连接序列化等。</p>
-</li>
-<li><p>http块：<br>可以嵌套多个server，配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置。如文件引入，mime-type定义，日志自定义，是否使用sendfile传输文件，链接超时时间，单连接请求数等。</p>
-</li>
-<li><p>server块：<br>配置虚拟主机的相关参数，一个http中可以有多个server。</p>
-</li>
-<li><p>location块：<br>配置请求的路由，以及各种页面的处理情况。</p>
-</li>
-</ul>
-<p><br></p>
-<table>
-<thead>
-<tr>
-<th>Nginx http功能模块</th>
-<th>模块说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ngx_http_core_module</td>
-<td>一些核心的http参数配置，对应Nginx的配置中的http块</td>
-</tr>
-<tr>
-<td>ngx_http_access_module</td>
-<td>访问控制模块，用来控制网站用户对Nginx的访问</td>
-</tr>
-<tr>
-<td>ngx_http_gzip_module</td>
-<td>压缩模块，对Nginx返回的数据压缩，属于性能优化模块</td>
-</tr>
-<tr>
-<td>ngx_http_fastcgi_module</td>
-<td>FastCGI模块，和动态应用相关的模块，如PHP</td>
-</tr>
-<tr>
-<td>ngx_http_proxy_module</td>
-<td>proxy代理模块</td>
-</tr>
-<tr>
-<td>ngx_http_upstream_module</td>
-<td>负载均衡模块，可实现网站的负载均衡及节点的监控检查</td>
-</tr>
-<tr>
-<td>ngx_http_rewrite_module</td>
-<td>URL重写模块</td>
-</tr>
-<tr>
-<td>ngx_http_limit_conn_module</td>
-<td>限制用户并发连接数及请求数模块</td>
-</tr>
-<tr>
-<td>ngx_http_limit_req_module</td>
-<td>根据定义的key限制Nginx请求过程的速率</td>
-</tr>
-<tr>
-<td>ngx_http_log_module</td>
-<td>访问日志模块，以指定的格式记录Nginx访问信息</td>
-</tr>
-<tr>
-<td>ngx_http_auth_basic_module</td>
-<td>web认证模块，设置通过账号，密码访问Nginx</td>
-</tr>
-<tr>
-<td>ngx_http_ssl_module</td>
-<td>ssl模块</td>
-</tr>
-<tr>
-<td>ngx_http_stub_status_module</td>
-<td>记录Nginx基本访问状态信息扥的模块</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<p>Nginx的日志时自动切割，并且一行可以记录多个日志格式。</p>
-<table>
-<thead>
-<tr>
-<th>Nginx日志格式</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$remote_addr</td>
-<td>客户端ip地址</td>
-</tr>
-<tr>
-<td>$http_x_forward_for</td>
-<td>当前端有代理服务器时，设置web节点记录web节点记录客户端地址的配置</td>
-</tr>
-<tr>
-<td>$remote_user</td>
-<td>客户端用户名称</td>
-</tr>
-<tr>
-<td>$time_local</td>
-<td>访问时间和时区</td>
-</tr>
-<tr>
-<td>$request</td>
-<td>请求的http协议和URL</td>
-</tr>
-<tr>
-<td>$status</td>
-<td>请求状态，如200</td>
-</tr>
-<tr>
-<td>$body_bytes_sent</td>
-<td>发送给客户端文件主体内容大小</td>
-</tr>
-<tr>
-<td>$http_referer</td>
-<td>从哪个页面链接访问过来</td>
-</tr>
-<tr>
-<td>$http_user_agent</td>
-<td>客户端浏览器信息</td>
-</tr>
-</tbody>
-</table>
-<p><br><br><br></p>
-<h2 id="server"><a href="#server" class="headerlink" title="server"></a>server</h2><p>http服务上支持若干虚拟主机。每个虚拟主机对应一个server配置项，配置项里面包含该虚拟主机的相关配置。每个server里面可同时有多个<code>server_name</code>。</p>
-<p>在提供mail代理服务时，也可建立若干server，每个server通过监听地址或端口来区分。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#监听端口，默认80</span></div><div class="line">listen 80;</div><div class="line">listern 443;</div><div class="line"><span class="comment">#listen 88</span></div><div class="line">server_name www.zhang21.cn</div></pre></td></tr></table></figure>
-<p><br><br><br></p>
-<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><p>location是http服务中，某些特定的URL对应的一系列配置项。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;参考：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://nginx.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Nginx官网&lt;/a&gt;；&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/Nginx&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Nginx-Wikipedia&lt;/a&gt;；&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://nginx.org/packages/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Nginx-repo&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;环境：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;CentOS7;&lt;/li&gt;
-&lt;li&gt;Nginx1.12.1&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h1 id=&quot;Nginx介绍&quot;&gt;&lt;a href=&quot;#Nginx介绍&quot; class=&quot;headerlink&quot; title=&quot;Nginx介绍&quot;&gt;&lt;/a&gt;Nginx介绍&lt;/h1&gt;&lt;p&gt;Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 &lt;code&gt;HTTP, HTTPS, SMTP, POP3, IMAP&lt;/code&gt; 的协议连接。&lt;br&gt;基于BSD-like协议发行，支持多种操作系统。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="https://zhang21.github.io/categories/Linux/"/>
-    
-    
-      <category term="Nginx" scheme="https://zhang21.github.io/tags/Nginx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>I Like For You To Be Still</title>
-    <link href="https://zhang21.github.io/2017/09/01/ILikeForYouToBeStill/"/>
-    <id>https://zhang21.github.io/2017/09/01/ILikeForYouToBeStill/</id>
-    <published>2017-09-01T02:10:40.000Z</published>
-    <updated>2017-12-21T05:58:12.538Z</updated>
-    
-    <content type="html"><![CDATA[<p>《I Like For You To Be Still》</p>
-<p>出自<code>聂努达</code>诗集：《二十首情诗和一首绝望的歌》。</p>
-<p><br></p>
-<p>I like for you to be still<br>It is as though you are absent<br>And you hear me from far away<br>And my voice does not touch you<br>It seems as though your eyes had flown away<br>And it seems that a kiss had sealed your mouth<br>As all things are filled with my soul<br>You emerge from the things<br>Filled with my soul<br>You are like my soul<br>A butterfly of dream<br>And you are like the word: Melancholy</p>
-<a id="more"></a>
-<p><br></p>
-<p>I like for you to be still<br>And you seem far away<br>It sounds as though you are lamenting<br>A butterfly cooing like a dove<br>And you hear me from far away<br>And my voice does not reach you<br>Let me come to be still in your silence<br>And let me talk to you with your silence<br>That is bright as a lamp<br>Simple, as a ring<br>You are like the night<br>With its stillness and constellations<br>Your silence is that of a star<br>As remote and candid</p>
-<p><br></p>
-<p>I like for you to be still<br>It is as though you are absent<br>Distant and full of sorrow<br>So you would’ve died<br>One word then, One smile is enough<br>And I’m happy;<br>Happy that it’s not true</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;《I Like For You To Be Still》&lt;/p&gt;
-&lt;p&gt;出自&lt;code&gt;聂努达&lt;/code&gt;诗集：《二十首情诗和一首绝望的歌》。&lt;/p&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;p&gt;I like for you to be still&lt;br&gt;It is as though you are absent&lt;br&gt;And you hear me from far away&lt;br&gt;And my voice does not touch you&lt;br&gt;It seems as though your eyes had flown away&lt;br&gt;And it seems that a kiss had sealed your mouth&lt;br&gt;As all things are filled with my soul&lt;br&gt;You emerge from the things&lt;br&gt;Filled with my soul&lt;br&gt;You are like my soul&lt;br&gt;A butterfly of dream&lt;br&gt;And you are like the word: Melancholy&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Literature" scheme="https://zhang21.github.io/categories/Literature/"/>
-    
-    
-      <category term="Pablo Neruda" scheme="https://zhang21.github.io/tags/Pablo-Neruda/"/>
     
   </entry>
   

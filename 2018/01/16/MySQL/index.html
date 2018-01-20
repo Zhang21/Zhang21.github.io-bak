@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="MySQL," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="参考：  MySQL5.7参考文档： https://dev.mysql.com/doc/refman/5.7/en/   环境：  CentOS7.x86_64 MySQL5.7">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL">
+<meta property="og:url" content="https://zhang21.github.io/2018/01/16/MySQL/index.html">
+<meta property="og:site_name" content="风继续吹">
+<meta property="og:description" content="参考：  MySQL5.7参考文档： https://dev.mysql.com/doc/refman/5.7/en/   环境：  CentOS7.x86_64 MySQL5.7">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://zhang21.github.io/images/Mysql/MySQL.png">
+<meta property="og:updated_time" content="2018-01-18T04:00:58.848Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL">
+<meta name="twitter:description" content="参考：  MySQL5.7参考文档： https://dev.mysql.com/doc/refman/5.7/en/   环境：  CentOS7.x86_64 MySQL5.7">
+<meta name="twitter:image" content="https://zhang21.github.io/images/Mysql/MySQL.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang21.github.io/2018/01/16/MySQL/"/>
+
+
+
+
+
+  <title>MySQL | 风继续吹</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风继续吹</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Yesterday, you said tomorrow!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2018/01/16/MySQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang21">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/leslie.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风继续吹">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-16T10:47:12+08:00">
+                2018-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Database/" itemprop="url" rel="index">
+                    <span itemprop="name">Database</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/16/MySQL/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/01/16/MySQL/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,618
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考：</p>
+<ul>
+<li>MySQL5.7参考文档： <a href="https://dev.mysql.com/doc/refman/5.7/en/" target="_blank" rel="external">https://dev.mysql.com/doc/refman/5.7/en/</a></li>
+</ul>
+<p><br></p>
+<p>环境：</p>
+<ul>
+<li>CentOS7.x86_64</li>
+<li>MySQL5.7</li>
+</ul>
+<a id="more"></a>
+<p><br></p>
+<hr>
+<p><br></p>
+<h1 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h1><p>MySQL官网： <a href="https://www.mysql.com/" target="_blank" rel="external">https://www.mysql.com/</a></p>
+<p>由于MySQL5.7和以前版本之间的许多功能和其他差异，因此此手册不太适用于之前的老版本。之前的版本请参考MySQL相关版本的手册。</p>
+<p><br></p>
+<p><img src="/images/Mysql/MySQL.png" alt="MySQL"></p>
+<p><br></p>
+<hr>
+<p><br></p>
+<h1 id="综述-General-information"><a href="#综述-General-information" class="headerlink" title="综述(General information)"></a>综述(General information)</h1><p>MySQL™ software提供了一个快速、多线程、多任务和健壮的SQL(结构化查询语言)的数据库服务器。MySQL server是为关键服务(mission-critical)、重负荷(heavy-load)生产系统以及嵌入式(embedding)大规模部署的软件而设计。<br>MySQL是Oracle Corporation的商标(trademark)。</p>
+<p>MySQL software是双重许可的(dual license)：</p>
+<ol>
+<li>Open Source product of the GNU General Public License</li>
+<li>A Standard commercial License from Oracle</li>
+</ol>
+<p><br><br><br></p>
+<h2 id="关于此手册"><a href="#关于此手册" class="headerlink" title="关于此手册"></a>关于此手册</h2><ul>
+<li>该手册作为一个参考，它不提供关于SQL或关系型数据库概念的一般指令；</li>
+<li>MySQL Database Software正在不断发展，所以参考手册也经常更新。可在此 &lt; <a href="http://dev.mysql.com/doc/&gt;" target="_blank" rel="external">http://dev.mysql.com/doc/&gt;</a> 获取最新版的手册；</li>
+<li>参考手册(Reference Manual)的源文件使用DocBook XML格式书写的，其他版本(如HTML)等是自动生成的；</li>
+<li>如果在使用过程中有任何问题或建议，请发邮件给我们；</li>
+<li>手册由MySQL Documentation Team维护。</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="MySQL-Database-Management-System"><a href="#MySQL-Database-Management-System" class="headerlink" title="MySQL Database Management System"></a>MySQL Database Management System</h2><p><br></p>
+<h3 id="What-is-MySQL"><a href="#What-is-MySQL" class="headerlink" title="What is MySQL"></a>What is MySQL</h3><p>MySQL是最流行的开源的SQL数据库管理系统，由Oracle Corporation开发、分发和支持。</p>
+<p><br></p>
+<ul>
+<li><p>MySQL is a database management system<br>数据库是一个结构化的数据集合。它可能是从简单的购物清单到图片库，或是公司网络中的大量信息。若要添加、访问和处理存储在计算机数据库中的数据，你需要一个像MySQL Server这样的数据库管理系统。由于计算机非常擅长处理大量的数据，数据库管理系统在计算机中扮演这一个重要的角色。</p>
+</li>
+<li><p>MySQL databases are relational<br>关系型数据库将数据存储在单独的表(table)中，而不是将所有数据放入一个大的库房中。数据库结构被组织成针对速度优化的物理文件。具有数据库(database)，表(table)，视图(view)，行(row)，列(column)等物理对象的逻辑模型提供了灵活的编程环境。你设置了管理不同数据字段之间关系的规则，如一对一，一对多，唯一，必须和可选关系，以及不同表之间的指针(pointer)。数据库强制执行这些规则，这样在设计良好的数据库中，应用程序就不会看到不一致、重复、孤立、过时或丢失的数据。</p>
+</li>
+</ul>
+<p>MySQL也是代表SQL(Structure Query Language)的一部分。SQL是访问数据库最常用的标准化语言。你可以直接使用SQL语句，或者将SQL语法隐藏到语言特定的API中。</p>
+<p>-MySQL software is Open Source<br>MySQL software使用GPL(GNU General Public License)，开源意味着任何人都可以下载、转发、使用和修改软件，而不需要支付任何费用。</p>
+<ul>
+<li><p>MySQL database server is very fast,reliable,scalabe and easy to use</p>
+</li>
+<li><p>MySQL server works in Client/Server or embedded system<br>MySQL Database Server是一个由多线程(multi-threaded)SQL Server组成的客户/服务器系统。它支持不同的后端，多个不同的客户程序和库、管理工具和广泛的APIs。<br>还提供MySQL Server作为一个嵌入式多线程库以便链接到你的产品，以获得一个更小，更快，更容易管理的独立产品。</p>
+</li>
+<li><p>A large amount of contributed MySQL software is available</p>
+</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="The-Main-Features-of-MySQL"><a href="#The-Main-Features-of-MySQL" class="headerlink" title="The Main Features of MySQL"></a>The Main Features of MySQL</h3><h4 id="Internals-and-Portability"><a href="#Internals-and-Portability" class="headerlink" title="Internals and Portability"></a>Internals and Portability</h4><ul>
+<li>由C和C++写成</li>
+<li>适用于许多不同的平台</li>
+<li>为了可移植性，使用<code>CMake</code></li>
+<li>采用独立(independent)模块的多层(layer)服务器设计</li>
+<li>设计为使用内核线程的完全多线程，如果有多核CPU，能够轻松使用它们</li>
+<li>提供了事务性(transactional)和非事务性(notransactional)存储引擎</li>
+<li>使用非常快速的带有索引压缩的B-tree磁盘表</li>
+<li>添加其他存储引擎相对容易</li>
+<li>使用非常快速的基于线程的内存分配系统</li>
+<li>使用优化的嵌套循环(nested-loop)连接执行非常快的联结</li>
+<li>实现内存中的hash table，这些表用作临时表</li>
+<li>使用高度优化的类库实现SQL函数</li>
+</ul>
+<p><br></p>
+<h4 id="Data-Type"><a href="#Data-Type" class="headerlink" title="Data Type"></a>Data Type</h4><ul>
+<li>1,2,3,4和8byte的有无符号(signed/unsigned)的整数(integers)</li>
+<li>FLOAT</li>
+<li>DOUBLE</li>
+<li>CHAR, VARCHAR</li>
+<li>BINARY, VARBINARY</li>
+<li>TEXT</li>
+<li>BLOB</li>
+<li>DATE, TIME, DATETIME</li>
+<li>TIMESTAMP</li>
+<li>YEAR</li>
+<li>SET</li>
+<li>ENUM</li>
+<li>OpenGIS</li>
+</ul>
+<p><br></p>
+<h4 id="Statements-and-Functions"><a href="#Statements-and-Functions" class="headerlink" title="Statements and Functions"></a>Statements and Functions</h4><ul>
+<li><code>SELECT</code>和<code>WHERT</code>中包含了所有支持的操作符和函数</li>
+<li>SQL中的<code>GROUP BY</code>和<code>ORDER BY</code>也全部支持</li>
+<li>GROUP functions(<code>COUNT()</code>, <code>AVG()</code>, <code>STD()</code>, <code>SUM()</code>, <code>MAX()</code>, <code>MIN()</code>, <code>GROUP_CONCAT()</code>)</li>
+<li>支持<code>LEFT OUTER JOIN</code>和<code>ROGHT OUTER JOIN</code></li>
+<li>按照SQL标准支持table和columns的别名</li>
+<li>支持<code>DELETE</code>,<code>INSERT</code>,<code>REPLACE</code>,<code>UPDATE</code>，以返回受影响的行数</li>
+<li>支持MySQL特定的<code>SHOW</code>显示语句</li>
+<li>一个<code>EXPLAIN</code>语句显示优化器如何解析查询</li>
+</ul>
+<p><br></p>
+<h4 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h4><ul>
+<li>权限(privilege)和密码系统，非常灵活和安全，并且支持基于主机的验证</li>
+<li>当连接到Server时，通过加密(encryption)所有密码通信量来确保密码安全</li>
+</ul>
+<p><br></p>
+<h4 id="Scalability-and-Limits"><a href="#Scalability-and-Limits" class="headerlink" title="Scalability and Limits"></a>Scalability and Limits</h4><ul>
+<li>支持大型数据库。包含五千万条记录，二十万个表，五十亿行</li>
+<li>每个表最多支持64个索引，每个索引可以由1到16个列组成</li>
+</ul>
+<p><br></p>
+<p>####　Conectivity</p>
+<ul>
+<li>客户端使用如下几种协议连接到MySQL Server<ul>
+<li>TCP/IP sockets</li>
+<li>–enable-named-pipe on Windows</li>
+<li>Unix domain socket files on UNIX</li>
+</ul>
+</li>
+<li>MySQL客户端可用多种语言编写</li>
+<li>APIs对于多数语言是可用的</li>
+</ul>
+<p><br></p>
+<h4 id="Localization"><a href="#Localization" class="headerlink" title="Localization"></a>Localization</h4><ul>
+<li>Server可以向多种语言的客户端提供错误信息</li>
+<li>完全支持几个不同的字符集(character sets)</li>
+<li>所有数据都被保存在选取的字符集(chracter set)</li>
+<li>排序和比较是根据默认的字符集和排序规则完成</li>
+<li>服务器时区(time zone)可动态更改，个客户端也可修改自己的时区</li>
+</ul>
+<p><br></p>
+<h4 id="Clients-and-Tools"><a href="#Clients-and-Tools" class="headerlink" title="Clients and Tools"></a>Clients and Tools</h4><ul>
+<li>MySQL包含几个客户机和使用程序<ul>
+<li>command-line： <code>mysqldump</code>, <code>mysqladmin</code></li>
+<li>graphical: MySQL Workbench</li>
+</ul>
+</li>
+<li>MySQL Server内置了对SQL语句的支持来检查、优化和修复表</li>
+<li>MySQL程序可使用<code>--help</code>或<code>-?</code>来获取帮助</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="History-of-MySQL"><a href="#History-of-MySQL" class="headerlink" title="History of MySQL"></a>History of MySQL</h3><ul>
+<li>MySQL is named after co-founder Monty Widenius’s daughter, My.</li>
+<li>The name of the MySQL Dolphin (our logo) is “Sakila,” which was chosen from a huge list of names suggested by users in our “Name the Dolphin” contest.</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="What-Is-New-in-MySQL-5-7"><a href="#What-Is-New-in-MySQL-5-7" class="headerlink" title="What Is New in MySQL 5.7"></a>What Is New in MySQL 5.7</h2><p><br></p>
+<h3 id="Features-Added-in-MySQL-5-7"><a href="#Features-Added-in-MySQL-5-7" class="headerlink" title="Features Added in MySQL 5.7"></a>Features Added in MySQL 5.7</h3><p><br><br><br></p>
+<h3 id="Features-Deprecated-in-MySQL-5-7"><a href="#Features-Deprecated-in-MySQL-5-7" class="headerlink" title="Features Deprecated in MySQL 5.7"></a>Features Deprecated in MySQL 5.7</h3><p><br><br><br></p>
+<h3 id="Features-Removed-in-MySQL-5-7"><a href="#Features-Removed-in-MySQL-5-7" class="headerlink" title="Features Removed in MySQL 5.7"></a>Features Removed in MySQL 5.7</h3><p><br><br><br></p>
+<h2 id="Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7"><a href="#Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7" class="headerlink" title="Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7"></a>Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7</h2><p><br><br><br></p>
+<h2 id="MySQL-Information-Sources"><a href="#MySQL-Information-Sources" class="headerlink" title="MySQL Information Sources"></a>MySQL Information Sources</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/15/2018小计划/" rel="next" title="2018小计划">
+                <i class="fa fa-chevron-left"></i> 2018小计划
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/leslie.jpg"
+              alt="Zhang21" />
+          
+            <p class="site-author-name" itemprop="name">Zhang21</p>
+            <p class="site-description motion-element" itemprop="description">踏踏实实谋发展</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f13278e94ecb" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-circle-o"></i>简书</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Zhang21" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:elite_zhang21@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/Zhang21_" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+<br>
+<!--�����������������ⲿ����,auto=1��ʾ�Զ�����-->
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=411315632&auto=0&height=66"></iframe>
+
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#序言"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综述-General-information"><span class="nav-number">2.</span> <span class="nav-text">综述(General information)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于此手册"><span class="nav-number">2.1.</span> <span class="nav-text">关于此手册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Database-Management-System"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL Database Management System</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-MySQL"><span class="nav-number">2.2.1.</span> <span class="nav-text">What is MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Main-Features-of-MySQL"><span class="nav-number">2.2.2.</span> <span class="nav-text">The Main Features of MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Internals-and-Portability"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">Internals and Portability</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Data-Type"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">Data Type</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Statements-and-Functions"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">Statements and Functions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Security"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">Security</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scalability-and-Limits"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">Scalability and Limits</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Localization"><span class="nav-number">2.2.2.6.</span> <span class="nav-text">Localization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Clients-and-Tools"><span class="nav-number">2.2.2.7.</span> <span class="nav-text">Clients and Tools</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#History-of-MySQL"><span class="nav-number">2.2.3.</span> <span class="nav-text">History of MySQL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-Is-New-in-MySQL-5-7"><span class="nav-number">2.3.</span> <span class="nav-text">What Is New in MySQL 5.7</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Features-Added-in-MySQL-5-7"><span class="nav-number">2.3.1.</span> <span class="nav-text">Features Added in MySQL 5.7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Features-Deprecated-in-MySQL-5-7"><span class="nav-number">2.3.2.</span> <span class="nav-text">Features Deprecated in MySQL 5.7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Features-Removed-in-MySQL-5-7"><span class="nav-number">2.3.3.</span> <span class="nav-text">Features Removed in MySQL 5.7</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7"><span class="nav-number">2.4.</span> <span class="nav-text">Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Information-Sources"><span class="nav-number">2.5.</span> <span class="nav-text">MySQL Information Sources</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang21</span>
+
+<!--字数统计-->
+  <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> 字数: 97.7k</span>
+</div>
+
+
+  
+</div>
+
+
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Zhang21.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://zhang21.github.io/2018/01/16/MySQL/';
+          this.page.identifier = '2018/01/16/MySQL/';
+          this.page.title = 'MySQL';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Zhang21.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
