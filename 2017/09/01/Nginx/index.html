@@ -103,7 +103,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/Nginx/Nginx001.jpg">
 <meta property="og:image" content="https://zhang21.github.io/images/Nginx/Nginx002.jpg">
-<meta property="og:updated_time" content="2018-01-12T03:10:32.763Z">
+<meta property="og:updated_time" content="2018-01-23T04:03:48.229Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx">
 <meta name="twitter:description" content="参考：  Nginx官网； Nginx-Wikipedia； Nginx-repo  环境：  CentOS7; Nginx1.12.1     Nginx介绍Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 HTTP, HTTPS, SMTP, POP3, IMAP 的协议连接。基于BSD-like协议发行，支持多种操作系统。">
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,163
+                  2,609
                 </span>
               
 
@@ -477,22 +477,15 @@
 <p><br></p>
 <hr>
 <p><br></p>
-<h1 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h1><ol>
-<li>添加RPM源安装:</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">yum install -y gcc gcc-c++ make libtool zlib zlib-devel openssl openssl-devel pcre pcre-devel    安装依赖</div><div class="line">rpm -ivm http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm 安装RPM源</div><div class="line"></div><div class="line">#安装Nginx</div><div class="line">yum install -y nginx</div><div class="line"></div><div class="line">#查询安装</div><div class="line">rpm -q nginx</div></pre></td></tr></table></figure>
-<ol>
-<li>添加Nginx yum repository休息安装：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim /etc/yum.repos.d/nginx.repo</div><div class="line"></div><div class="line">[nginx]#必须唯一</div><div class="line">name=nginx repo</div><div class="line">baseurl=http://nginx.org/packages/OS/OSRELEASE/$basearch/</div><div class="line">gpgcheck=0</div><div class="line">enabled=1</div></pre></td></tr></table></figure>
-<ol>
-<li>源码安装:</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src#建议解压于此目录</div><div class="line"></div><div class="line">wget http://xxx.xx.com/nginx.tar.gz</div><div class="line">tar -zxvf nginx.tar.gz</div><div class="line"></div><div class="line">cd ./nginx</div><div class="line">./configure --prefix=/usr/local</div><div class="line"></div><div class="line">make&amp;&amp;make install</div></pre></td></tr></table></figure>
+<h1 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h1><h2 id="RPM源安装"><a href="#RPM源安装" class="headerlink" title="RPM源安装:"></a>RPM源安装:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">yum install -y gcc gcc-c++ make libtool zlib zlib-devel openssl openssl-devel pcre pcre-devel    安装依赖</div><div class="line">rpm -ivm http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm 安装RPM源</div><div class="line"></div><div class="line">#安装Nginx</div><div class="line">yum install -y nginx</div><div class="line"></div><div class="line">#查询安装</div><div class="line">rpm -q nginx</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="添加Nginx-yum-repository安装"><a href="#添加Nginx-yum-repository安装" class="headerlink" title="添加Nginx yum repository安装"></a>添加Nginx yum repository安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">vim /etc/yum.repos.d/nginx.repo</div><div class="line"></div><div class="line"></div><div class="line">#必须唯一</div><div class="line">[nginx]</div><div class="line"></div><div class="line">name=nginx-repo</div><div class="line">baseurl=http://nginx.org/packages/$OS/$OSRELEASE/$basearch/</div><div class="line">gpgcheck=0</div><div class="line">enabled=1</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#建议解压于此目录</div><div class="line">cd /usr/local/src</div><div class="line"></div><div class="line">wget http://xxx.xx.com/nginx.tar.gz</div><div class="line">tar -zxvf nginx.tar.gz</div><div class="line"></div><div class="line">cd ./nginx</div><div class="line">./configure --prefix=/usr/local</div><div class="line"></div><div class="line">make&amp;&amp;make install</div></pre></td></tr></table></figure>
 <p><br></p>
 <hr>
 <p><br></p>
-<h1 id="Nginx配置文件"><a href="#Nginx配置文件" class="headerlink" title="Nginx配置文件"></a>Nginx配置文件</h1><h2 id="conf"><a href="#conf" class="headerlink" title="*.conf"></a>*.conf</h2><p>Nginx配置文件主要分为四部分：</p>
+<h1 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h1><h2 id="conf"><a href="#conf" class="headerlink" title="*.conf"></a>*.conf</h2><p>Nginx配置文件主要分为四部分：</p>
 <ul>
 <li>main(全局设置)；</li>
 <li>server(主机设置)；</li>
@@ -630,6 +623,80 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#监听端口，默认80</span></div><div class="line">listen 80;</div><div class="line">listern 443;</div><div class="line"><span class="comment">#listen 88</span></div><div class="line">server_name www.zhang21.cn</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><p>location是http服务中，某些特定的URL对应的一系列配置项。</p>
+<ul>
+<li>root 定义此location的根目录位置，一般放置在server里</li>
+<li>index 定义路径下的默认访问的文件名</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">	root /dir/path;</div><div class="line">    index index.html index.htm;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="location的正则写法"><a href="#location的正则写法" class="headerlink" title="location的正则写法"></a>location的正则写法</h3><p>location的使用方法：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+<th>优先级</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>精确匹配</td>
+<td>最高</td>
+<td>location =</td>
+</tr>
+<tr>
+<td>~</td>
+<td>区分大小写的正则匹配</td>
+<td>次次之</td>
+<td>location ~</td>
+</tr>
+<tr>
+<td>~*</td>
+<td>不区分大小写的正则匹配</td>
+<td>次次之</td>
+<td>location ~*</td>
+</tr>
+<tr>
+<td>^~</td>
+<td>常规字符串匹配</td>
+<td>次之</td>
+<td>location ^~</td>
+</tr>
+<tr>
+<td>/</td>
+<td>通用匹配</td>
+<td>最低</td>
+<td>location /</td>
+</tr>
+</tbody>
+</table>
+<p><strong>优先级：</strong></p>
+<blockquote>
+<p>= &gt; 完整路径 &gt; ^~ &gt; ~, ~* &gt; 部分路径 &gt; /</p>
+</blockquote>
+<p><br></p>
+<h3 id="location使用建议"><a href="#location使用建议" class="headerlink" title="location使用建议"></a>location使用建议</h3><p>location的使用根据实际情况来定。</p>
+<p>但个人觉得至少应该有三个匹配规则：</p>
+<ol>
+<li>直接匹配网站跟，通过域名访问网站首页比较频繁</li>
+<li>处理静态文件请求，这是Nginx作为http服务器的强项</li>
+<li>通用规则，用来转发动态请求到后端的应用服务器(符php-fpm)</li>
+<li>根据实际情况的自定义需求</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">	listen 80;</div><div class="line">    listen 443;</div><div class="line">    server_name zhang21.cn www.zhang21.cn;</div><div class="line">    root /dir/path/zhang;</div><div class="line"></div><div class="line">    ssl on;</div><div class="line">    ssl_certificate /etc/nginx/ssl/zhang.crt;</div><div class="line">    ssl_certificate_key /etc/nginx/ssl/zhang.key;</div><div class="line"></div><div class="line">	<span class="comment">#rewtire ^(.*)$ https://zhang21.cn/$1 permanent;</span></div><div class="line">	<span class="built_in">return</span> 301 https://zhang21.cn/<span class="variable">$requets_uri</span></div><div class="line"></div><div class="line"></div><div class="line">	location = / &#123;</div><div class="line">    	rewrite .*? /index.html last;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">	location  ^~ /static/ &#123;</div><div class="line">    	root /dir/path/zhang/static;</div><div class="line">    &#125;</div><div class="line">    location ~* \.(gif|jpg|png|css|js)$ &#123;</div><div class="line">    	root /dir/path/zhang/static;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">	location / &#123;</div><div class="line">    	<span class="keyword">if</span> (!-f <span class="variable">$request_filename</span>) &#123;</div><div class="line">            rewrite ^([^\?]+)$ /index.php?q=<span class="variable">$1</span> last;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    location ~ \.php$ &#123;</div><div class="line">        root           /dir/path;</div><div class="line">        fastcgi_pass   127.0.0.1:9000;</div><div class="line">        fastcgi_index  index.php;</div><div class="line">        fastcgi_param  SCRIPT_FILENAME  <span class="variable">$document_root</span>/<span class="variable">$fastcgi_script_name</span>;</div><div class="line">        include        fastcgi_params;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="Rewrite"><a href="#Rewrite" class="headerlink" title="Rewrite"></a>Rewrite</h2><p><br><br><br></p>
+<h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2><ul>
+<li>allow</li>
+<li>deny</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">	...</div><div class="line">    allow IP1</div><div class="line">    allow IP2;</div><div class="line">    deny all;</div><div class="line"></div><div class="line">	location / &#123;</div><div class="line">    	allow IP 1;</div><div class="line">        deny all;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="语法检查"><a href="#语法检查" class="headerlink" title="语法检查"></a>语法检查</h2><p>在启动或重启Nginx服务前检查语法非常重要，可以防止因配置错误导致网站重启或重载配置对用户的影响。</p>
+<p>每次更改Nginx配置文件后都需要重新加载，将配置信息加载到内存中。这样设计的目的是大幅度提升Nginx的访问性。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">nginx -t</div><div class="line"></div><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -759,7 +826,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -770,7 +837,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -781,7 +848,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -846,7 +913,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx介绍"><span class="nav-number">1.</span> <span class="nav-text">Nginx介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#与PHP的集成"><span class="nav-number">1.1.</span> <span class="nav-text">与PHP的集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx常用功能"><span class="nav-number">1.2.</span> <span class="nav-text">Nginx常用功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http代理于反向代理"><span class="nav-number">1.2.1.</span> <span class="nav-text">http代理于反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">1.2.2.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web缓存"><span class="nav-number">1.2.3.</span> <span class="nav-text">web缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web服务"><span class="nav-number">1.2.4.</span> <span class="nav-text">web服务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx安装"><span class="nav-number">2.</span> <span class="nav-text">Nginx安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx配置文件"><span class="nav-number">3.</span> <span class="nav-text">Nginx配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#conf"><span class="nav-number">3.1.</span> <span class="nav-text">*.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#server"><span class="nav-number">3.2.</span> <span class="nav-text">server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#location"><span class="nav-number">3.3.</span> <span class="nav-text">location</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx介绍"><span class="nav-number">1.</span> <span class="nav-text">Nginx介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#与PHP的集成"><span class="nav-number">1.1.</span> <span class="nav-text">与PHP的集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx常用功能"><span class="nav-number">1.2.</span> <span class="nav-text">Nginx常用功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http代理于反向代理"><span class="nav-number">1.2.1.</span> <span class="nav-text">http代理于反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">1.2.2.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web缓存"><span class="nav-number">1.2.3.</span> <span class="nav-text">web缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web服务"><span class="nav-number">1.2.4.</span> <span class="nav-text">web服务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx安装"><span class="nav-number">2.</span> <span class="nav-text">Nginx安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RPM源安装"><span class="nav-number">2.1.</span> <span class="nav-text">RPM源安装:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Nginx-yum-repository安装"><span class="nav-number">2.2.</span> <span class="nav-text">添加Nginx yum repository安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装"><span class="nav-number">2.3.</span> <span class="nav-text">源码安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx配置"><span class="nav-number">3.</span> <span class="nav-text">Nginx配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#conf"><span class="nav-number">3.1.</span> <span class="nav-text">*.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#server"><span class="nav-number">3.2.</span> <span class="nav-text">server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#location"><span class="nav-number">3.3.</span> <span class="nav-text">location</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#location的正则写法"><span class="nav-number">3.3.1.</span> <span class="nav-text">location的正则写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#location使用建议"><span class="nav-number">3.3.2.</span> <span class="nav-text">location使用建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rewrite"><span class="nav-number">3.4.</span> <span class="nav-text">Rewrite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问控制"><span class="nav-number">3.5.</span> <span class="nav-text">访问控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法检查"><span class="nav-number">3.6.</span> <span class="nav-text">语法检查</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -878,7 +945,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 97.7k</span>
+  <span class="post-count"> 字数: 104.4k</span>
 </div>
 
 
@@ -1397,7 +1464,7 @@
   });
 </script>
 
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
