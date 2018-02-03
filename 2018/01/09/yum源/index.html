@@ -429,21 +429,21 @@
       
         <p>参考：</p>
 <ul>
-<li><a href="http://blog.csdn.net/leshami/article/details/78133716" target="_blank" rel="external">CentOS 7下配置本地yum源及yum客户端</a></li>
-<li><a href="http://blog.csdn.net/conling_/article/details/70399694" target="_blank" rel="external">Centos7 配置本地源+阿里yum源/epel-yum+修改优先级</a></li>
-<li><a href="http://blog.csdn.net/kingfox/article/details/51233153" target="_blank" rel="external">调整CentOS 7中yum仓库的优先级</a></li>
-<li><a href="https://segmentfault.com/a/1190000000375848" target="_blank" rel="external">国内开源站点</a></li>
+<li><a href="http://blog.csdn.net/leshami/article/details/78133716" target="_blank" rel="noopener">CentOS 7下配置本地yum源及yum客户端</a></li>
+<li><a href="http://blog.csdn.net/conling_/article/details/70399694" target="_blank" rel="noopener">Centos7 配置本地源+阿里yum源/epel-yum+修改优先级</a></li>
+<li><a href="http://blog.csdn.net/kingfox/article/details/51233153" target="_blank" rel="noopener">调整CentOS 7中yum仓库的优先级</a></li>
+<li><a href="https://segmentfault.com/a/1190000000375848" target="_blank" rel="noopener">国内开源站点</a></li>
 </ul>
 <a id="more"></a>
 <p><br></p>
 <hr>
 <p><br></p>
 <h1 id="国内开源镜像站点"><a href="#国内开源镜像站点" class="headerlink" title="国内开源镜像站点"></a>国内开源镜像站点</h1><ul>
-<li>网易开源镜像站：<a href="http://mirrors.163.com/" target="_blank" rel="external">http://mirrors.163.com/</a></li>
-<li>阿里云开源镜像站：<a href="http://mirrors.aliyun.com" target="_blank" rel="external">http://mirrors.aliyun.com</a></li>
-<li>清华大学开源镜像站：<a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="external">https://mirrors.tuna.tsinghua.edu.cn/</a></li>
-<li>浙江大学开源镜像站： <a href="http://mirrors.zju.edu.cn/" target="_blank" rel="external">http://mirrors.zju.edu.cn/</a></li>
-<li>中国科技大学开源镜像站：<a href="http://mirrors.ustc.edu.cn/" target="_blank" rel="external">http://mirrors.ustc.edu.cn/</a></li>
+<li>网易开源镜像站：<a href="http://mirrors.163.com/" target="_blank" rel="noopener">http://mirrors.163.com/</a></li>
+<li>阿里云开源镜像站：<a href="http://mirrors.aliyun.com" target="_blank" rel="noopener">http://mirrors.aliyun.com</a></li>
+<li>清华大学开源镜像站：<a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/</a></li>
+<li>浙江大学开源镜像站： <a href="http://mirrors.zju.edu.cn/" target="_blank" rel="noopener">http://mirrors.zju.edu.cn/</a></li>
+<li>中国科技大学开源镜像站：<a href="http://mirrors.ustc.edu.cn/" target="_blank" rel="noopener">http://mirrors.ustc.edu.cn/</a></li>
 </ul>
 <p><br></p>
 <hr>
@@ -469,13 +469,13 @@
 <p><br></p>
 <h2 id="EPEL源"><a href="#EPEL源" class="headerlink" title="EPEL源"></a>EPEL源</h2><p>EPEL的全称叫 <code>Extra Packages for Enterprise Linux</code> 。EPEL是由 Fedora 社区打造，为 RHEL 及衍生发行版如 CentOS、Scientific Linux 等提供高质量软件包的项目。装上了 EPEL之后，就相当于添加了一个第三方源。</p>
 <p><code>EPEL源</code>为服务器提供了大量的rpm包(这些包可能有很多在默认源中没有)，并且绝大多数rpm包比官方默认源版本要新。</p>
-<p><strong>添加epel源：</strong><br>epel下载地址：<a href="http://download.fedora.redhat.com/pub/epel/" target="_blank" rel="external">http://download.fedora.redhat.com/pub/epel/</a><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">rpm -vih http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment">#yum install -y epel-release</span></div></pre></td></tr></table></figure></p>
+<p><strong>添加epel源：</strong><br>epel下载地址：<a href="http://download.fedora.redhat.com/pub/epel/" target="_blank" rel="noopener">http://download.fedora.redhat.com/pub/epel/</a><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">rpm -vih http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment">#yum install -y epel-release</span></div></pre></td></tr></table></figure></p>
 <p><br></p>
 <h2 id="remi源"><a href="#remi源" class="headerlink" title="remi源"></a>remi源</h2><p>Remi源大家或许很少听说，不过Remi源GoFace强烈推荐，尤其对于不想编译最新版的linux使用者，因为Remi源中的软件几乎都是最新稳定版。<br>或许您会怀疑稳定不？<br>放心，这些都是Linux骨灰级的玩家编译好放进源里的，他们对于系统环境和软件编译参数的熟悉程度毋庸置疑。</p>
-<p><strong>添加remi源：</strong><br>Remi下载地址：<a href="http://rpms.famillecollet.com" target="_blank" rel="external">http://rpms.famillecollet.com</a><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm</div><div class="line"></div><div class="line"><span class="comment">#yum install -y  http://rpms.famillecollet.com/enterprise/remi-release-7.rpm</span></div></pre></td></tr></table></figure></p>
+<p><strong>添加remi源：</strong><br>Remi下载地址：<a href="http://rpms.famillecollet.com" target="_blank" rel="noopener">http://rpms.famillecollet.com</a><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm</div><div class="line"></div><div class="line"><span class="comment">#yum install -y  http://rpms.famillecollet.com/enterprise/remi-release-7.rpm</span></div></pre></td></tr></table></figure></p>
 <p><br></p>
 <h2 id="RPMForge源"><a href="#RPMForge源" class="headerlink" title="RPMForge源"></a>RPMForge源</h2><p><code>RPMForge</code>是<code>CentOS</code>系统下的软件仓库，拥有4000多种的软件包, 被CentOS社区认为是最安全也是最稳定的一个软件仓库。</p>
-<p><strong>添加RPMForge源：</strong><br>RPMForge下载地址：<a href="http://repository.it4i.cz/mirrors/repoforge/redhat/el7/en/x86_64/rpmforge/RPMS/" target="_blank" rel="external">http://repository.it4i.cz/mirrors/repoforge/redhat/el7/en/x86_64/rpmforge/RPMS/</a><br>GitHub:<a href="https://github.com/repoforge" target="_blank" rel="external">https://github.com/repoforge</a></p>
+<p><strong>添加RPMForge源：</strong><br>RPMForge下载地址：<a href="http://repository.it4i.cz/mirrors/repoforge/redhat/el7/en/x86_64/rpmforge/RPMS/" target="_blank" rel="noopener">http://repository.it4i.cz/mirrors/repoforge/redhat/el7/en/x86_64/rpmforge/RPMS/</a><br>GitHub:<a href="https://github.com/repoforge" target="_blank" rel="noopener">https://github.com/repoforge</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">rpm -ivh http://repository.it4i.cz/mirrors/repoforge/redhat/el7/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm</div><div class="line"></div><div class="line">#yum localinstall --nogpgcheckhttp://repository.it4i.cz/mirrors/repoforge/redhat/el7/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm</div></pre></td></tr></table></figure>
 
       
@@ -606,7 +606,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -617,7 +617,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -628,7 +628,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -725,7 +725,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 104.4k</span>
+  <span class="post-count"> 字数: 115.6k</span>
 </div>
 
 

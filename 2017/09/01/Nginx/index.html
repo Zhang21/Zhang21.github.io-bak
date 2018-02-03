@@ -93,20 +93,21 @@
 
 
 
-<meta name="description" content="参考：  Nginx官网； Nginx-Wikipedia； Nginx-repo  环境：  CentOS7; Nginx1.12.1     Nginx介绍Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 HTTP, HTTPS, SMTP, POP3, IMAP 的协议连接。基于BSD-like协议发行，支持多种操作系统。">
+<meta name="description" content="参考：  Nginx官网 Nginx-Wikipedia Nginx-repo  环境：  CentOS7x86_64; Nginx1.12.1     Nginx介绍Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 HTTP, HTTPS, SMTP, POP3, IMAP 的协议连接。基于BSD-like协议发行，支持多种操">
 <meta name="keywords" content="Nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx">
 <meta property="og:url" content="https://zhang21.github.io/2017/09/01/Nginx/index.html">
 <meta property="og:site_name" content="风继续吹">
-<meta property="og:description" content="参考：  Nginx官网； Nginx-Wikipedia； Nginx-repo  环境：  CentOS7; Nginx1.12.1     Nginx介绍Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 HTTP, HTTPS, SMTP, POP3, IMAP 的协议连接。基于BSD-like协议发行，支持多种操作系统。">
+<meta property="og:description" content="参考：  Nginx官网 Nginx-Wikipedia Nginx-repo  环境：  CentOS7x86_64; Nginx1.12.1     Nginx介绍Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 HTTP, HTTPS, SMTP, POP3, IMAP 的协议连接。基于BSD-like协议发行，支持多种操">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/Nginx/Nginx001.jpg">
 <meta property="og:image" content="https://zhang21.github.io/images/Nginx/Nginx002.jpg">
-<meta property="og:updated_time" content="2018-01-23T04:03:48.229Z">
+<meta property="og:image" content="https://zhang21.github.io/images/Nginx/auth.png">
+<meta property="og:updated_time" content="2018-02-03T09:56:29.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx">
-<meta name="twitter:description" content="参考：  Nginx官网； Nginx-Wikipedia； Nginx-repo  环境：  CentOS7; Nginx1.12.1     Nginx介绍Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 HTTP, HTTPS, SMTP, POP3, IMAP 的协议连接。基于BSD-like协议发行，支持多种操作系统。">
+<meta name="twitter:description" content="参考：  Nginx官网 Nginx-Wikipedia Nginx-repo  环境：  CentOS7x86_64; Nginx1.12.1     Nginx介绍Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 HTTP, HTTPS, SMTP, POP3, IMAP 的协议连接。基于BSD-like协议发行，支持多种操">
 <meta name="twitter:image" content="https://zhang21.github.io/images/Nginx/Nginx001.jpg">
 
 
@@ -405,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,609
+                  8,740
                 </span>
               
 
@@ -432,13 +433,13 @@
       
         <p>参考：</p>
 <ul>
-<li><a href="https://nginx.org/" target="_blank" rel="external">Nginx官网</a>；</li>
-<li><a href="https://zh.wikipedia.org/wiki/Nginx" target="_blank" rel="external">Nginx-Wikipedia</a>；</li>
-<li><a href="http://nginx.org/packages/" target="_blank" rel="external">Nginx-repo</a></li>
+<li><a href="https://nginx.org/" target="_blank" rel="noopener">Nginx官网</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/Nginx" target="_blank" rel="noopener">Nginx-Wikipedia</a></li>
+<li><a href="http://nginx.org/packages/" target="_blank" rel="noopener">Nginx-repo</a></li>
 </ul>
 <p>环境：</p>
 <ul>
-<li>CentOS7;</li>
+<li>CentOS7x86_64;</li>
 <li>Nginx1.12.1</li>
 </ul>
 <p><br></p>
@@ -687,16 +688,468 @@
 </ol>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">	listen 80;</div><div class="line">    listen 443;</div><div class="line">    server_name zhang21.cn www.zhang21.cn;</div><div class="line">    root /dir/path/zhang;</div><div class="line"></div><div class="line">    ssl on;</div><div class="line">    ssl_certificate /etc/nginx/ssl/zhang.crt;</div><div class="line">    ssl_certificate_key /etc/nginx/ssl/zhang.key;</div><div class="line"></div><div class="line">	<span class="comment">#rewtire ^(.*)$ https://zhang21.cn/$1 permanent;</span></div><div class="line">	<span class="built_in">return</span> 301 https://zhang21.cn/<span class="variable">$requets_uri</span></div><div class="line"></div><div class="line"></div><div class="line">	location = / &#123;</div><div class="line">    	rewrite .*? /index.html last;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">	location  ^~ /static/ &#123;</div><div class="line">    	root /dir/path/zhang/static;</div><div class="line">    &#125;</div><div class="line">    location ~* \.(gif|jpg|png|css|js)$ &#123;</div><div class="line">    	root /dir/path/zhang/static;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">	location / &#123;</div><div class="line">    	<span class="keyword">if</span> (!-f <span class="variable">$request_filename</span>) &#123;</div><div class="line">            rewrite ^([^\?]+)$ /index.php?q=<span class="variable">$1</span> last;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    location ~ \.php$ &#123;</div><div class="line">        root           /dir/path;</div><div class="line">        fastcgi_pass   127.0.0.1:9000;</div><div class="line">        fastcgi_index  index.php;</div><div class="line">        fastcgi_param  SCRIPT_FILENAME  <span class="variable">$document_root</span>/<span class="variable">$fastcgi_script_name</span>;</div><div class="line">        include        fastcgi_params;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
-<h2 id="Rewrite"><a href="#Rewrite" class="headerlink" title="Rewrite"></a>Rewrite</h2><p><br><br><br></p>
-<h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2><ul>
+<h2 id="Rewrite"><a href="#Rewrite" class="headerlink" title="Rewrite"></a>Rewrite</h2><p>Nginx的主要功能是实现URL地址重写。Nginx的rewrite规则需要PCRE软件的支持，即通过Perl兼容正则表达式语法进行规则匹配。</p>
+<p>Nginx rewrite语法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server, location, <span class="keyword">if</span></div><div class="line"></div><div class="line">rewrite regex replacement [flag]</div></pre></td></tr></table></figure>
+<ul>
+<li>rewrite的功能就是，使用Nginx提供的全局变量或自定义变量，结合正则表达式(re)和标志位实现URL重写以及重定向</li>
+<li>rewrite只能放在server，location，if中，并且只能对域名后边的除去传递的参数外的字符串起作用</li>
+<li>如果相对域名或参数字符串起作用，可以使用全局变量匹配，也可使用proxy_pass反向代理</li>
+</ul>
+<p><br></p>
+<p>表面看rewrite和location功能有点像，都能实现跳转。主要区别在于：</p>
+<ul>
+<li>rewrite实在同一域名内更改获取资源的路径</li>
+<li>location是对一类路径做访问控制或反向代理，可proxy_pass到其它机器</li>
+</ul>
+<p>循环超多10次，返回500 Internal Server Error!</p>
+<p><br></p>
+<h3 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h3><ul>
+<li>last<ul>
+<li>表示完成rewrite，继续向下匹配新的规则</li>
+</ul>
+</li>
+<li>break<ul>
+<li>停止执行当前虚拟主机的后续rewrite指令集</li>
+</ul>
+</li>
+<li>redirect<ul>
+<li>返回302临时重定向，地址栏会显示跳转后的地址</li>
+</ul>
+</li>
+<li><p>permanent</p>
+<ul>
+<li>返回301永久重定向，地址栏会显示跳转后的地址</li>
+</ul>
+</li>
+<li><p>last和break用来实现URL重写，浏览器地址栏的URL地址不变，但在服务器端访问的程序及路径发生了变化</p>
+</li>
+<li>redirect和permanent用来实现URL跳转，浏览器地址栏会显示跳转后的URL地址</li>
+</ul>
+<p>Nginx的rewrite功能应用非常广泛：</p>
+<ul>
+<li>可调整用户浏览的URL，使其看起来更规范</li>
+<li>将动态URL地址伪装成静态地址提供服务</li>
+<li>让旧域名跳转到新域名上</li>
+<li>根据特殊变量、目录、客户端的信息进行URL跳转</li>
+</ul>
+<p><br></p>
+<h3 id="if指令"><a href="#if指令" class="headerlink" title="if指令"></a>if指令</h3><p>if语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (condition) &#123;</div><div class="line">	xxx;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>if的条件可以是如下内容：</p>
+<ul>
+<li>当表达式只是一个变量时，如果值为空或任何以0开头的字符串都会被当作<strong>false</strong></li>
+<li>直接比较变量和内容时，使用<strong>=</strong>或<strong>!=</strong></li>
+<li><strong>~</strong>正则表达式匹配，<strong>~*</strong>不区分大小写的正则匹配，<strong>!~</strong>不匹配</li>
+<li><strong>-f</strong>和<strong>!-f</strong>，用来判断是否存在文件</li>
+<li><strong>-d</strong>和<strong>!-d</strong>，用来判断是否存在目录</li>
+<li><strong>-e</strong>和<strong>!-e</strong>，用来判断时都存在文件或目录</li>
+<li><strong>-x</strong>和<strong>!-x</strong>，用来判断文件是否可执行</li>
+</ul>
+<p><br></p>
+<p>栗子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (<span class="variable">$http_user_agent</span> ~ MSIE) &#123;</div><div class="line">	rewrite ^(.*)$ /msie/<span class="variable">$1</span> <span class="built_in">break</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="variable">$http_cookie</span> ~* <span class="string">"id=([^;])(?:;|$)"</span>) &#123;</div><div class="line">	<span class="built_in">set</span> <span class="variable">$id</span> <span class="variable">$1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="variable">$http_method</span> = POST) &#123;</div><div class="line">	<span class="built_in">return</span> 405;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> (!-f <span class="variable">$request_filename</span>) &#123;</div><div class="line">	<span class="built_in">break</span>;</div><div class="line">    proxy_pass http://zhang;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="variable">$invalid_referer</span>) &#123;</div><div class="line">	<span class="built_in">return</span> 403;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="Nginx全局变量"><a href="#Nginx全局变量" class="headerlink" title="Nginx全局变量"></a>Nginx全局变量</h3><p>常用作<code>if</code>判断的全局变量：</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$args</td>
+<td>等于请求行中的参数</td>
+<td>同$query_string</td>
+</tr>
+<tr>
+<td>$body_bytes_sent</td>
+<td>响应是发送的body字节数</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$content_length</td>
+<td>Request Header中的Content-Length字段</td>
+<td>内容长度</td>
+</tr>
+<tr>
+<td>$content_type</td>
+<td>Request Header中的Content-Type字段</td>
+<td>内容类型</td>
+</tr>
+<tr>
+<td>$document_root</td>
+<td>当前根路径</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$host</td>
+<td>请求主机头字段，否则为服务器名称</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$hostname</td>
+<td>主机名</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$http_user_agent</td>
+<td>客户端agent信息</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$http_cookie</td>
+<td>客户端cookie信息</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$is_args</td>
+<td>如果有$args参数，这个变量等于”?”，否则等于空</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$limit_rate</td>
+<td>限制连接数度</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$remote_addr</td>
+<td>客户端IP地址</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$remote_port</td>
+<td>客户端端口</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$remote_user</td>
+<td>经过Auth Basic Module验证的用户名</td>
+<td>要先开启Nginx认证</td>
+</tr>
+<tr>
+<td>$request</td>
+<td>用户请求信息</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$request_method</td>
+<td>客户端请求方法</td>
+<td>通常为POST或GET</td>
+</tr>
+<tr>
+<td>$request_body</td>
+<td>记录POST过来的数据信息</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$request_filename</td>
+<td>当前请求的文件路径</td>
+<td>由root或alias指令与URI请求生成</td>
+</tr>
+<tr>
+<td>$request_completion</td>
+<td>如果请求结束，设置为OK。否则为空</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$scheme</td>
+<td>HTTP方法</td>
+<td>如http, https</td>
+</tr>
+<tr>
+<td>$server_protocol</td>
+<td>请求使用的协议</td>
+<td>通常为HTTP/1.0或HTTP/1.1</td>
+</tr>
+<tr>
+<td>$server_addr</td>
+<td>服务器地址</td>
+<td>在完成一次系统调用后可以确定这个值</td>
+</tr>
+<tr>
+<td>$server_name</td>
+<td>服务器名称</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$server_port</td>
+<td>请求到达服务器的端口号</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>$status</td>
+<td>请求的响应状态码</td>
+<td>如200</td>
+</tr>
+<tr>
+<td>$request_uri</td>
+<td>包含请求参数的原始URI，不包含主机名</td>
+<td>如”/foo/bar.php?arg=abc”</td>
+</tr>
+<tr>
+<td>$uri</td>
+<td>不带请求参数的当前URI，不包含主机名</td>
+<td>如”/foo/bar.html”</td>
+</tr>
+</tbody>
+</table>
+<p>栗子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">http://localhost:88/test1/test2/test.php</div><div class="line"></div><div class="line"><span class="variable">$hsot</span>: localhost</div><div class="line"><span class="variable">$server_port</span>: 88</div><div class="line"><span class="variable">$request_uri</span>: http://localhost:88/test1/test2/test.php</div><div class="line"><span class="variable">$document_uri</span>: /test1/test2/test.php</div><div class="line"><span class="variable">$document_root</span>: /var/www/<span class="built_in">test</span></div><div class="line"><span class="variable">$request_filename</span>: /var/www/<span class="built_in">test</span>/test1/test2/test.php</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="rewrite实例"><a href="#rewrite实例" class="headerlink" title="rewrite实例"></a>rewrite实例</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">http &#123;</div><div class="line">	log_format main xxxx;</div><div class="line">	rewrite_log on;</div><div class="line"></div><div class="line"></div><div class="line">    server &#123;</div><div class="line">    	root /var/www/zhang;</div><div class="line">        location / &#123;</div><div class="line">        	error_log logs/rewrite.log notice;</div><div class="line">            rewrite <span class="string">'^/images/([a-z]&#123;2&#125;)/([a-z0-9]&#123;5&#125;)/(.*)\.(png|jpg|gif)'</span>/data?file=<span class="variable">$3</span>.<span class="variable">$4</span>;</div><div class="line">            <span class="built_in">set</span> <span class="variable">$image_file</span> <span class="variable">$3</span>;</div><div class="line">            <span class="built_in">set</span> <span class="variable">$image_type</span> <span class="variable">$4</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        location /data &#123;</div><div class="line">        	access_log logs/images.log main;</div><div class="line">            root /data/images;</div><div class="line">            type_file /<span class="variable">$arg_file</span> /images404.html;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">		location = /image404.html &#123;</div><div class="line">        	<span class="built_in">return</span> 404 <span class="string">"Image Not Found\n"</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2><p><br></p>
+<h3 id="添加用户密码验证"><a href="#添加用户密码验证" class="headerlink" title="添加用户密码验证"></a>添加用户密码验证</h3><p>有时需要为我们的网站设置访问账号和密码权限。</p>
+<p>具体为这两个参数：</p>
+<ul>
+<li><code>auth_basic</code><ul>
+<li>默认值： <code>auth_basic off;</code></li>
+<li>使用位置：http, server, location, limit_except</li>
+</ul>
+</li>
+<li><code>auth_basic_user_file</code><ul>
+<li>使用位置： http, server, location, limit_except</li>
+</ul>
+</li>
+</ul>
+<p>栗子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /etc/nginx/conf.d</div><div class="line">vim test.conf</div><div class="line"></div><div class="line"></div><div class="line">location / &#123;</div><div class="line">	auth_basic <span class="string">"Zhang"</span>;</div><div class="line">    auth_basic_user_file /etc/nginx/nginx.auth;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">vim /etc/nginx/nginx.auth</div><div class="line"></div><div class="line"><span class="comment">#user:passwd</span></div><div class="line">zhang:zhang</div><div class="line"><span class="built_in">test</span>:<span class="built_in">test</span></div></pre></td></tr></table></figure>
+<p><img src="/images/Nginx/auth.png" alt=""></p>
+<p><br></p>
+<h3 id="限制IP访问"><a href="#限制IP访问" class="headerlink" title="限制IP访问"></a>限制IP访问</h3><ul>
 <li>allow</li>
 <li>deny</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">	...</div><div class="line">    allow IP1</div><div class="line">    allow IP2;</div><div class="line">    deny all;</div><div class="line"></div><div class="line">	location / &#123;</div><div class="line">    	allow IP 1;</div><div class="line">        deny all;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li>deny一定要加一个IP，否则会直接跳转403，不在往下执行。如果403默认页是在同一域名下，会造成死循环访问</li>
+<li>对于allow的IP短，从允许访问的IP段位从小到大排列，如127.0.0.0/24， 10.10.0.0/16</li>
+<li>以<code>deny all</code>结尾，表示除了上面允许的，其它都禁止</li>
+</ul>
 <p><br><br><br></p>
 <h2 id="语法检查"><a href="#语法检查" class="headerlink" title="语法检查"></a>语法检查</h2><p>在启动或重启Nginx服务前检查语法非常重要，可以防止因配置错误导致网站重启或重载配置对用户的影响。</p>
 <p>每次更改Nginx配置文件后都需要重新加载，将配置信息加载到内存中。这样设计的目的是大幅度提升Nginx的访问性。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">nginx -t</div><div class="line"></div><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
+<p><br></p>
+<hr>
+<p><br></p>
+<h1 id="Nginx优化"><a href="#Nginx优化" class="headerlink" title="Nginx优化"></a>Nginx优化</h1><p><br></p>
+<h2 id="常用优化"><a href="#常用优化" class="headerlink" title="常用优化"></a>常用优化</h2><p><br></p>
+<h3 id="隐藏Nginx版本号"><a href="#隐藏Nginx版本号" class="headerlink" title="隐藏Nginx版本号"></a>隐藏Nginx版本号</h3><p>一般来说，软件漏洞都和版本有关。因此要尽量隐藏对访问用户显示各类敏感信息。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">vim /etc/nginc/nginx.conf</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#nginx版本号默认是开启的</span></div><div class="line"><span class="comment">#位置：http, server, location</span></div><div class="line"></div><div class="line">http &#123;</div><div class="line">	server_tokens off|on;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="更改Nginx服务默认用户"><a href="#更改Nginx服务默认用户" class="headerlink" title="更改Nginx服务默认用户"></a>更改Nginx服务默认用户</h3><ol>
+<li>修改配置文件</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim /etc/nginx/nginx.conf</div><div class="line"></div><div class="line">user nginx;</div></pre></td></tr></table></figure>
+<ol>
+<li>如果是编译安装，直接在编译的时候指定用户和组</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --user=nginx --group=nginx</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="优化Nginx进程对应的配置"><a href="#优化Nginx进程对应的配置" class="headerlink" title="优化Nginx进程对应的配置"></a>优化Nginx进程对应的配置</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">vim /etc/nginx/nginx.conf</div><div class="line"></div><div class="line">worker_process n;</div><div class="line"><span class="comment">#建议n为CPU核数</span></div><div class="line"><span class="comment">#高并发场合可考虑为核数*2</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#查看CPU核数</span></div><div class="line">cat /proc/cpuinfo | grep processor | wc -l</div><div class="line">lscpu</div><div class="line">top命令，按1显示所有CPU核数</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="优化绑定不同的Nginx进程到不同的CPU上"><a href="#优化绑定不同的Nginx进程到不同的CPU上" class="headerlink" title="优化绑定不同的Nginx进程到不同的CPU上"></a>优化绑定不同的Nginx进程到不同的CPU上</h3><p>默认情况下，Nginx的多个进程有可能跑在某一个CPU或CPU的某一核上，导致Nginx进程使用硬件资源不均。<br>所以，要尽可能地分配不同的Nginx进程给不同的CPU处理，达到充分有效利用硬件的多CPU多核资源的目的。</p>
+<p>4核CPU配置举例：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim /etc/nginx/nginx.conf</div><div class="line"></div><div class="line">worker_processes 4;</div><div class="line"><span class="comment">#CPU亲和力参数</span></div><div class="line">worker_cpu_affinity 0001 0010 0100 1000;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="Nginx事件处理模型优化"><a href="#Nginx事件处理模型优化" class="headerlink" title="Nginx事件处理模型优化"></a>Nginx事件处理模型优化</h3><p>Nginx的连接处理机制在不同的操作系统会采用不同的I/O模型，在Linux下，Nginx使用epoll的I/O多路复用模型，在FreeBSD中使用kqueue的I/O多路复用模型，在solaris中使用/dev/poll方式的I/O多路复用模型，在Windows中使用的是icop。</p>
+<p>配置：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#对于linux内核，推荐使用epoll工作模式</span></div><div class="line"><span class="comment">#Linux下默认epoll</span></div><div class="line"></div><div class="line">vim /etc/nginx/nginx.conf</div><div class="line"></div><div class="line">events &#123;</div><div class="line">	use epoll;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="Nginx单个进程允许的客户端最大连接数"><a href="#Nginx单个进程允许的客户端最大连接数" class="headerlink" title="Nginx单个进程允许的客户端最大连接数"></a>Nginx单个进程允许的客户端最大连接数</h3><p>请根据服务器性能和程序的内存使用量来合理制定最大连接数。<br>这个连接数包括了所有连接，如<strong>代理服务器连接、客户端的连接、实际的并发连接</strong>。</p>
+<p>Nginx总并发连接数=worker*worker_connections</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vim /etc/nginx/nginx.conf</div><div class="line"></div><div class="line">events &#123;</div><div class="line">	worker_connections 10240;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>仅仅修改了nginx最大连接数可能还不行，由于Linux系统有<code>ulimit</code>限制，所以可能还要做额外操作。</p>
+<p>如：<code>nginx: [warn] 10240 worker_connections exceed open file resource limit: 1024</code>。</p>
+<p>配置：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">ulimit</span> -a</div><div class="line"></div><div class="line"><span class="built_in">ulimit</span> -n 10240</div></pre></td></tr></table></figure>
+<p>注意，使用<code>ulimit</code>命令修改的值并不是永久生效的。</p>
+<p><br></p>
+<h3 id="Nginx-worker进程最大打开文件数"><a href="#Nginx-worker进程最大打开文件数" class="headerlink" title="Nginx worker进程最大打开文件数"></a>Nginx worker进程最大打开文件数</h3><p>可能也要注意<code>ulimit</code>系统限制！</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim /etc/nginx/nginx.conf</div><div class="line"></div><div class="line">events &#123;</div><div class="line">	worker_rlimit_nofile 65535;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="开启高效文件传输"><a href="#开启高效文件传输" class="headerlink" title="开启高效文件传输"></a>开启高效文件传输</h3><h4 id="sendfile"><a href="#sendfile" class="headerlink" title="sendfile"></a>sendfile</h4><p>sendfile()是作用于两个文件描述符之间的数据拷贝，这个拷贝是在内核之中的，被称为零拷贝。sendfile（）比read和write函数要高效很多，因为write和read函数要把数据拷贝到应用层再进行操作。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#位置：http, server, location, if in location</span></div><div class="line">sendfile on;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="tcp-nopush"><a href="#tcp-nopush" class="headerlink" title="tcp_nopush"></a>tcp_nopush</h4><p>激活或禁用Linux上的TCP_CORK socket选项，仅当开启sendfile生效。允许把 http response和文件的开始部分放在一个文件里发布，其积极作用是减少网络报文段的数量。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">位置： http, server, location</div><div class="line">tcp_nopush on;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="Nginx连接参数，连接超时时间"><a href="#Nginx连接参数，连接超时时间" class="headerlink" title="Nginx连接参数，连接超时时间"></a>Nginx连接参数，连接超时时间</h3><p>keep-alive可以使客户端到服务器端已经建立的连接一致工作不退出，当服务器有持续请求时，keep-alive会使用已经建立的连接提供服务，从而避免服务器重新建立新连接请求处理。</p>
+<p>连接超时的作用：</p>
+<blockquote>
+<p>将无用的连接设置为尽快超时，可保护系统资源（CPU、内存、磁盘）<br>连接很多时，及时断掉那些已经建立好但又长时间不做事的连接，以减少其占用的服务器资源。因为服务器维护连接也是消耗资源的<br>黑客和恶意用户攻击网站，也会不断地和服务器建立多个连接，消耗连接数但啥也不干，大量消耗服务器的资源，此时就应该及时断掉这些恶意占用资源的连接<br>LNMP环境中，如果用户请求了动态服务，则Nginx就会建立连接，请求FastCGI服务以及后端的MySQL服务，此时这个Nginx连接就要设置一个超时时间，在用户容忍的时间内返回数据，或者再多等一会后端服务返回数据，具体策略根据具体业务进行具体分析<br>后端的FastCGI服务及MySQL服务也有对连接的超时控制</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">位置： http, server, location</div><div class="line">keepalive_timeout 60;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>默认情况下当数据发送时，内核并不会马上发送，可能会等待更多的字节组成一个数据包，这样可以提高I/O性能。<br>但是，在每次只发送很少字节的业务场景中，不使用tcp_nodelay功能，等待时间会比较长。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">位置： http, server, location</div><div class="line">tcp_nodelay on;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>读取客户端请求头数据的超时时间，如果超过这个时间，客户端还没有发送完整的header数据，服务器端将返回“Request time out（408）”错误。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">位置： http, server</div><div class="line">client_header_timeout 20;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>读取客户端请求主体的超时时间，如果在这个超时时间内，客户端没有发送任何数据，Nginx将返回“Request time out（408）”错误。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">位置： http, server, location</div><div class="line">client_body_timeout 60;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>指定响应客户端的超时时间，为握手后的一个超时。如果超过这个时间，客户端没有任何活动，Nginx将会关闭连接。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">位置： http, server, location</div><div class="line">send_timeout 60;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="上传文件大小限制-动态应用"><a href="#上传文件大小限制-动态应用" class="headerlink" title="上传文件大小限制(动态应用)"></a>上传文件大小限制(动态应用)</h3><p>设置为0，表示禁止检查客户端请求主体的大小。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">位置： http, server, location</div><div class="line">client_max_body_size 20m;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="gzip压缩"><a href="#gzip压缩" class="headerlink" title="gzip压缩"></a>gzip压缩</h3><p>Nginx gzip压缩模块提供了压缩文件内容的功能，用户请求的内容在发送到用户客户端之前，Nginx服务器会根据一些具体的策略实施压缩，以节约网络出口带宽，同时加快数据传输效率，提升用户体验。</p>
+<p>压缩对象：</p>
+<ul>
+<li>纯文本内容压缩比很高，如 html, js, css, xml等</li>
+<li>被压缩的纯文本文件必须要大于1KB，由于压缩算法的特殊原因，极小的文件压缩后可能反而变大</li>
+<li>图片、媒体等文件尽量不要压缩，因为这些文件大都经过压缩，再压缩很可能不会减小很多，或有可能增大，同时还要消耗系统资源</li>
+</ul>
+<p>配置：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#压缩功能</span></div><div class="line">gzip on;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#允许压缩的页面最小字节数</span></div><div class="line">gzip_min_length  1K;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#申请4个单位为16K的内存作为压缩结果流缓存</span></div><div class="line">gzip_buffers  4 16K;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#http协议版本</span></div><div class="line">gzip_http_version  1.1;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#指定压缩比，1压缩比最小，处理速度最快；9压缩比最大，传输速度最快，处理最慢</span></div><div class="line">gzip_comp_level  5;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#指定压缩类型，对应文件类型参考mime.types</span></div><div class="line">gzip_types  text/html text/css;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#vary header支持</span></div><div class="line">gzip_vary on;</div></pre></td></tr></table></figure>
+<p>在response header中查看效果： <code>Content-Encofing: gzip</code></p>
+<p><br></p>
+<h3 id="expires缓存"><a href="#expires缓存" class="headerlink" title="expires缓存"></a>expires缓存</h3><p>Nginx expires的功能就是为用户访问的网站内容设定一个过期时间。</p>
+<p>当用户第一次访问这些内容时，会把这些内容储存在用户浏览器本地，这样用户第二次及以后继续访问该网站时，浏览器会检查加载已经缓存在用户浏览器本地的内容，而不用去服务器下载，直到缓存的内容过期或被清除为止。</p>
+<p>缓存也要根据业务！当网站数据更新时，用户端看到的可能还是旧的已经缓存的内容。</p>
+<p>配置：</p>
+<ol>
+<li>根据文件扩展名进行判断</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">location ~ .*\.(gif|png|jpg|swf)$ &#123;</div><div class="line">	expires 10d;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">location ~ .*\.(css|js)$ &#123;</div><div class="line">	expires 20d;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>根据目录进行判断</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">location ~ ^/(images|static|media)/ &#123;</div><div class="line">	expires 50d;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在response header中查看：</p>
+<blockquote>
+<p>Expires: 缓存过期时间<br>Cache-Control： 缓存总时间</p>
+</blockquote>
+<p><br><br><br></p>
+<h2 id="FastCGI相关参数"><a href="#FastCGI相关参数" class="headerlink" title="FastCGI相关参数"></a>FastCGI相关参数</h2><p>FastCGI参数是配合Nginx向后请求PHP动态引擎服务的相关参数，这里指的是Nginx中的配置参数。</p>
+<p>Module ngx_http_fastcgi_module： <a href="https://nginx.org/en/docs/http/ngx_http_fastcgi_module.html" target="_blank" rel="noopener">https://nginx.org/en/docs/http/ngx_http_fastcgi_module.html</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#给FastCGI服务器设置地址</span></div><div class="line">fastcgi_pass</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#设置一个将在 $fastcgi_scripts_name 变量结尾的URI之后添加的文件名</span></div><div class="line">fastcgi_index</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#设置一个应该传递给FastCGI服务器的参数，当且仅当fastcgi_param在当前级别上没有定义指令时，这些指令将从上一级继承</span></div><div class="line">fastcgi_param</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#指定在哪种情况下将请求传递给下一个服务器；</span></div><div class="line">fastcgi_next_upsteam</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#表示Nginx服务器和后端FastCGI服务器连接的超时时间，默认值为60秒，这个参数通常不要超过75秒</span></div><div class="line">fastcgi_connect_timeout</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#设置Nginx允许FastCGI服务器端返回数据的超时时间，即在规定时间之内后端服务器必须传完所有的数据。否则，Nginx将断开这个连接</span></div><div class="line">fastcgi_send_timeout</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#设置Nginx从FastCGI服务器端读取响应信息的超时时间，表示连接建立成功后，Nginx等待后端服务器的响应时间，是Nginx已经进入后端的排队之中等候处理的时间</span></div><div class="line">fastcgi_read_timeout</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#这是Nginx FastCGI的缓冲区大小参数，设定用来读取从FastCGI服务器端收到的第一部分响应信息的缓冲区大小，这里的第一部分通常会包含一个小的响应头部</span></div><div class="line">fastcgi_buffer_size</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#设定用来读取从FastCGI服务器端收到的响应信息的缓冲区大小和缓冲区数量</span></div><div class="line">fastcgi_buffers</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#用于设置系统很忙时可以使用的proxy_buffers大小，官方推荐大小为proxy_buffers * 2</span></div><div class="line">proxy_busy_buffers_size</div><div class="line"></div><div class="line"></div><div class="line"> <span class="comment">#用于设置系统很忙时可以使用的fastcgi_buffers大小，官方推荐为 fastcgi_buffers * 2</span></div><div class="line">fastcgi_busy_buffers_size</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#FastCGI临时文件大小</span></div><div class="line">fastcgi_temp_file_write_size</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#表示开启FastCGI缓存并为其指定一个名称</span></div><div class="line">fastcgi_cache cachename_nginx</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#fastcgi_cache缓存目录</span></div><div class="line">fastcgi_cache_path</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#用来指定应答代码的缓存时间</span></div><div class="line">fastcgi_cache_valid</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#设置请求几次之后响应将被缓存</span></div><div class="line">fastcgi_cache_min_uses</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#定义在哪些情况下使用过期缓存</span></div><div class="line">fastcgi_cache_use_stale</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#定义fastcgi_cache的key</span></div><div class="line">fastcgi_cache_key</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="日志与安全"><a href="#日志与安全" class="headerlink" title="日志与安全"></a>日志与安全</h2><p>现在Nginx 日志已经自动轮询了，所以感觉没有必要自己切割日志！</p>
+<p><br></p>
+<h3 id="不记录不需要的日志"><a href="#不记录不需要的日志" class="headerlink" title="不记录不需要的日志"></a>不记录不需要的日志</h3><p>日志写入太频繁会消耗大量的磁盘I/O，降低服务性能。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">location ~ .*\.(js|png|css|gif|jpg) &#123;</div><div class="line">	access_log off;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="日志权限"><a href="#日志权限" class="headerlink" title="日志权限"></a>日志权限</h3><p>因为nginx master process的UID是root，所以可以修改日志权限。<br>不需要在日志目录上给Nginx用户读或写许可，很多人没注意这个问题，把权限直接给了Nginx用户，这就存在安全隐患。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chown -R root:root  /path/<span class="built_in">log</span>/nginx</div><div class="line">chmod -R 700 /path/<span class="built_in">log</span>/nginx</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="站点目录及URL访问控制"><a href="#站点目录及URL访问控制" class="headerlink" title="站点目录及URL访问控制"></a>站点目录及URL访问控制</h2><h3 id="根据扩展名限制程序或文件访问"><a href="#根据扩展名限制程序或文件访问" class="headerlink" title="根据扩展名限制程序或文件访问"></a>根据扩展名限制程序或文件访问</h3><p>利用Nginx配置禁止访问上传资源目录下的PHP、Shell、Perl、Python程序文件，这样用户即使上传了木马文件也没法执行，从而加强了网站的安全。</p>
+<p>对这些的限制必须放在Nginx处理<code>.php, .py, .sh</code>等文件的前面！</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#禁止解析指定目录下的程序</span></div><div class="line">location ~ ^/images/.*\.(php|py|sh|pl)$ &#123;</div><div class="line">	deny all;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">location ~ ^/static/.*\.(py|php|pl|sh) &#123;</div><div class="line">	deny all;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#禁止访问某些文件</span></div><div class="line">location ~* \.(txt|doc)$ &#123;</div><div class="line">	root /var/www/file;</div><div class="line">    deny all;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="禁止访问指定目录"><a href="#禁止访问指定目录" class="headerlink" title="禁止访问指定目录"></a>禁止访问指定目录</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">location ~ ^/<span class="built_in">test</span>/ &#123;</div><div class="line">	deny all;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#禁止访问多个目录</span></div><div class="line">location ~ ^/(<span class="built_in">test</span>|zhang) &#123;</div><div class="line">	deny all;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#返回状态码</span></div><div class="line">location ~ ^/haha/ &#123;</div><div class="line">	<span class="built_in">return</span> 403 <span class="string">"Hahaha"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="禁止非法域名解析访问网站"><a href="#禁止非法域名解析访问网站" class="headerlink" title="禁止非法域名解析访问网站"></a>禁止非法域名解析访问网站</h2><p>防止用户恶意域名解析。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /etc/nginx/conf.d</div><div class="line">vim default.conf</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#返回HTTP状态码</span></div><div class="line">server &#123;</div><div class="line">	listen 80 default_server;</div><div class="line">    server_name _;</div><div class="line">    <span class="built_in">return</span> 403;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#重定向</span></div><div class="line">server &#123;</div><div class="line">	listen 80 default_server;</div><div class="line">    server_name _;</div><div class="line">    rewrite ^(.*) https://www.baidu.com permanent;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>利用<code>default_server</code>，将网站所有请求定向到维护页面。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">	listen 80 default_server;</div><div class="line">    server_name _;</div><div class="line">    root /var/www;</div><div class="line"></div><div class="line">	location / &#123;</div><div class="line">    	rewrite ^(.*) /maintance.html <span class="built_in">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="built_in">cd</span> /var/www</div><div class="line">vim maintance.html</div><div class="line"></div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line"></div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">&lt;style <span class="built_in">type</span>=<span class="string">"text/css"</span>&gt;</div><div class="line">    h1&#123;text-align: center;</div><div class="line">       color: red;&#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line"></div><div class="line">&lt;br&gt;</div><div class="line">&lt;br&gt;</div><div class="line"></div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;h1&gt;网站维护中！&lt;/h1&gt;</div><div class="line"></div><div class="line">&lt;/body&gt;</div><div class="line"></div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="图片及目录防盗链"><a href="#图片及目录防盗链" class="headerlink" title="图片及目录防盗链"></a>图片及目录防盗链</h2><p><br></p>
+<h3 id="什么是资源盗链"><a href="#什么是资源盗链" class="headerlink" title="什么是资源盗链"></a>什么是资源盗链</h3><p>简单地说，就是某些不法网站未经许可，通过在其自身网站程序里非法调用其他网站的资源，然后在自己的网站上显示这些调用的资源，达到填充自身网站的效果。</p>
+<p>这一举动不仅浪费了调用资源网站的网络流量，还造成其他网站的带宽及服务压力吃紧。</p>
+<p>问题：</p>
+<blockquote>
+<p>某公司CDN源站流量没有变化，但CDN加速那边流量超了很多。这么大异常流量，全都是钱呀！</p>
+</blockquote>
+<p><br></p>
+<h3 id="常见防盗链解决方案"><a href="#常见防盗链解决方案" class="headerlink" title="常见防盗链解决方案"></a>常见防盗链解决方案</h3><p><br></p>
+<h4 id="根据HTTP-referer-实现防盗链"><a href="#根据HTTP-referer-实现防盗链" class="headerlink" title="根据HTTP referer 实现防盗链"></a>根据HTTP referer 实现防盗链</h4><p>在HTTP 协议中，有一个表头字段叫 referer，使用URL格式来表示是哪里的链接用了当前网页的资源。</p>
+<p>通过referer可以检测访问的来源网页，如果是资源文件，可以跟踪到显示它的网页地址，一旦检测出来不是本站，马上进行阻止。</p>
+<p>HTTP referer 是header的一部分，当浏览器向web服务器发送请求时，一般会带上referer，告诉服务器我是从哪个页面过来的，服务器借此获得一些信息用于处理。</p>
+<p><br></p>
+<h4 id="根据cookie防盗链"><a href="#根据cookie防盗链" class="headerlink" title="根据cookie防盗链"></a>根据cookie防盗链</h4><p>通过加密技术变换访问路径实现防盗链</p>
+<p><br></p>
+<h3 id="Nginx实现防盗链"><a href="#Nginx实现防盗链" class="headerlink" title="Nginx实现防盗链"></a>Nginx实现防盗链</h3><p>利用<code>referer</code>，针对指定扩展名进行<code>rewrite</code>或其他操作。</p>
+<p>请根据实际情况进行域名防盗链！</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">location ~* \.(jpg|png|gif|wav|mp3|zip|rar)$ &#123;</div><div class="line">	valid_referers none blocked *.zhang.com;</div><div class="line">    <span class="keyword">if</span> (<span class="variable">$invalid_regerer</span>) &#123;</div><div class="line">    	rewrite https://www.baidu.com;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>或者在产品设计上解决防盗链，如为资源加上水印等措施。</p>
+<p><br><br><br></p>
+<h2 id="错误页面优雅展示"><a href="#错误页面优雅展示" class="headerlink" title="错误页面优雅展示"></a>错误页面优雅展示</h2><p>我们可以将404、403等错误信息重定向到其他指定的页面，提升网站的用户访问体验！</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">	xxxx;</div><div class="line"></div><div class="line"></div><div class="line">	error_page 403 /403.html;</div><div class="line">    error_page 404 /404.jpg;</div><div class="line">    error_page 500 503 504 /50x.html;</div><div class="line"></div><div class="line">	location = /50x.html &#123;</div><div class="line">    	root /var/www/50x.html;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="目录及文件权限优化"><a href="#目录及文件权限优化" class="headerlink" title="目录及文件权限优化"></a>目录及文件权限优化</h2><p>为了保证网站安全，所有站点的目录和用户组都为root，所有目录权限是755，所有文件权限是644。<br>虽然这样的全线可以防止黑客上传修改站点的文件，但这样合法的用户便也没有了上传权限。</p>
+<p>比较好的方法是将用户上传文件的服务器与读取服务器进行分离，这样就可以进行安全授权。不同的服务所在的目录的权限依据业务功能而不同。</p>
+<p>严格控制Nginx目录的访问才能降低网站被入侵的风险！</p>
+<p><br><br><br></p>
+<h2 id="反爬虫优化"><a href="#反爬虫优化" class="headerlink" title="反爬虫优化"></a>反爬虫优化</h2><p><br></p>
+<h3 id="robots-txt机器人协议"><a href="#robots-txt机器人协议" class="headerlink" title="robots.txt机器人协议"></a>robots.txt机器人协议</h3><p>robots协议(<a href="https://zh.wikipedia.org/wiki/Robots.txt" target="_blank" rel="noopener">维基百科</a>)，也称为机器人协议，全称是<strong>网络爬虫排除标准（Robots Exclusion Protocol）</strong>。网站通过Robots协议告诉搜索引擎那些页面可以抓取，那些页面不能抓取。</p>
+<p>robots.txt协议并不是一个规范，而只是约定俗成的，所以并不能保证网站的隐私。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">User-Agent: *</div><div class="line">Allow: /zhang</div><div class="line">Disallow: /</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="Nginx反爬虫配置"><a href="#Nginx反爬虫配置" class="headerlink" title="Nginx反爬虫配置"></a>Nginx反爬虫配置</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (<span class="variable">$http_user_agent</span> ~* LWP::Simple|BBBike|wget) &#123;</div><div class="line">	<span class="built_in">return</span> 403;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> （<span class="variable">$http_user_agent</span> ~* (Firefox|MSIE) &#123;</div><div class="line">rewrite ^（.*） http://www.baidu.com:</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="限制HTTP请求方法"><a href="#限制HTTP请求方法" class="headerlink" title="限制HTTP请求方法"></a>限制HTTP请求方法</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> ( <span class="variable">$request_method</span> !~ ^(GET|POST|HEAD)$ ) &#123;</div><div class="line">	<span class="built_in">return</span> 501;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h2><p>CDN的全称是 Content Delivery Network，中文意思是内容分发网络。<br>我们可以利用CDN做网站内容加速。</p>
+<p>简单地讲，通过现有的Internet中增加一层新的网络架构，将网站的内容发布到最接近用户的Cache服务器内，通过智能DNS负载均衡技术，判断用户的来源，让用户就近使用与服务器相同线路的带宽访问Cache服务器，取得所需的内容。</p>
+<blockquote>
+<p>例如，北京电信用户访问北京电信Cache服务器上的内容，四川网通用户访问成都网通Cache服务器上的内容。这样可以有效减少数据在网络上传输的时间，提高访问速度。<br>CDN是一套全国或全球的风不是缓存集群，其实质是通过职能DNS判断用户的来源地域及上网线路，为用户选择一个最接近用户地域，以及和用户上网线路相同的服务器节点。因为低于近，线路相同，所以可以大幅度提升用户浏览网站的体验。</p>
+</blockquote>
+<p><br></p>
+<p>CDN的价值：</p>
+<ul>
+<li>提升用户体验</li>
+<li>阻挡大部分流量攻击</li>
+</ul>
+<p><br></p>
+<p>CDN的特点：</p>
+<ul>
+<li>通过服务器内存缓存网站数据，提高了企业站点（尤其是含有大量图片、视频等的站点）的访问速度，并大大提高企业站点的稳定性；</li>
+<li>用户根据智能DNS技术自动选择最适合的Cache服务器，降低不同运营商之间互联瓶颈造成的影响，实现了跨运营商的网络加速，保证不同网络中的用户都能得到良好的访问速度；</li>
+<li>加快了访问速度，减少了原站点的带宽；</li>
+<li>用户访问时从服务器的内存中读取数据，分担了网络流量，同时减轻了原站点负载压力；</li>
+<li>使用CDN可以分担源站的网络流量，同时减轻源站的负载压力，并降低黑客入侵及各种DDOS攻击对网站的影响，保证网站有较好的服务质量；</li>
+</ul>
+<p><br></p>
+<h3 id="使用CDN的要求"><a href="#使用CDN的要求" class="headerlink" title="使用CDN的要求"></a>使用CDN的要求</h3><p>首先要说的是，不是所有的网站都可以一上来就能用CDN的。要加速的业务数据应该存在独立的域名。如 pub.zhang21.com，业务内容图片、附件、JS、CSS等静态元素，这样的静态网站域名才能使用CDN。</p>
+<p><strong>将域名做CNAME(别名)</strong><br>将如上的<code>pub.zhang21.com</code>配置成CDN的域名。</p>
+<p><br><br><br></p>
+<h2 id="程序架构优化"><a href="#程序架构优化" class="headerlink" title="程序架构优化"></a>程序架构优化</h2><p><strong>解耦</strong> 是开发人员中流行的一个名词，简单地说就是把一堆程序代码按照业务用途分开，然后提供服务。</p>
+<blockquote>
+<p>例如，注册登录、上传、下载、浏览、商品页信息等都应该是独立的程序服务，只不过在客户端看来是一个整体而已。</p>
+</blockquote>
+<p><br></p>
+<p>分离的最佳方式是分别使用独立的服务器，可以选择改动程序或者在负载均衡器上配置（如Nginx），过滤请求，然后抛给后面对应的服务器。</p>
+<ul>
+<li>根据扩展名分发，请求图片就抛给图片服务器；</li>
+<li>根据URL路径转发，请求下载就交给下载服务器；</li>
+<li>请求动态PHP处理的就交给动态处理器；</li>
+<li>不符合以上要求的就交给默认服务器；</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="使用no-root用户启动Nginx"><a href="#使用no-root用户启动Nginx" class="headerlink" title="使用no-root用户启动Nginx"></a>使用no-root用户启动Nginx</h2><p>默认情况下，Nginx的Master进程使用的是root用户，worker进程使用的是Nginx指定的普通用户。</p>
+<p>使用root用户跑Nginx的Master进程有两个最大问题：</p>
+<ul>
+<li>管理权限必须是root，这就使得最小化分配权限原则遇到困难</li>
+<li>使用root跑Nginx服务，一旦网站出现漏洞，用户就可以很容易地获取服务器的root权限</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="控制Nginx并发连接数"><a href="#控制Nginx并发连接数" class="headerlink" title="控制Nginx并发连接数"></a>控制Nginx并发连接数</h2><p><code>ngx_http_limit_conn_module</code>这个模块用于限制每个定义的Key值的连接数，特别是单IP的连接数。</p>
+<p>不是所有的连接数都会被计数，一个符合要求的连接是整个请求头已经被读取的连接。</p>
+<p>用法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#位置： http</span></div><div class="line">limit_conn_zone key zone=name:size;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#位置： http, server, location</span></div><div class="line">limit_conn zone number;</div></pre></td></tr></table></figure>
+<p>栗子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">http &#123;</div><div class="line">	limit_conn_zone <span class="variable">$binary_remote_addr</span> zone=addr:10m;</div><div class="line">    xxx;</div><div class="line">&#125;</div><div class="line"></div><div class="line">server &#123;</div><div class="line">	xxx;</div><div class="line">    location /download/ &#123;</div><div class="line">    	limit_conn addr 3;</div><div class="line">        <span class="comment">#限制单IP并发连接为3</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="控制客户端请求Nginx的速率"><a href="#控制客户端请求Nginx的速率" class="headerlink" title="控制客户端请求Nginx的速率"></a>控制客户端请求Nginx的速率</h2><p><code>ngx_http_limit_req_module</code>被用来限制每个IP访问没法key的请求速率。</p>
+<p>用法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#位置： http</span></div><div class="line">limit_req_zone key zone=name:size rate=rate;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#位置： http, server, location</span></div><div class="line">limit_req zone=name;</div></pre></td></tr></table></figure>
+<p>栗子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">http &#123;</div><div class="line">limit_req_zone <span class="variable">$binary_remote_addr</span> zone=one:10m rate=1r/s;</div><div class="line"></div><div class="line">  server &#123;</div><div class="line">	location /search/ &#123;</div><div class="line">	limit_req zone=one burst=5;</div><div class="line">	&#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<hr>
+<p><br></p>
+<h1 id="Nginx反向代理与负载均衡"><a href="#Nginx反向代理与负载均衡" class="headerlink" title="Nginx反向代理与负载均衡"></a>Nginx反向代理与负载均衡</h1><p><br></p>
 
       
     </div>
@@ -826,7 +1279,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -837,7 +1290,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -848,7 +1301,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -913,7 +1366,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx介绍"><span class="nav-number">1.</span> <span class="nav-text">Nginx介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#与PHP的集成"><span class="nav-number">1.1.</span> <span class="nav-text">与PHP的集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx常用功能"><span class="nav-number">1.2.</span> <span class="nav-text">Nginx常用功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http代理于反向代理"><span class="nav-number">1.2.1.</span> <span class="nav-text">http代理于反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">1.2.2.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web缓存"><span class="nav-number">1.2.3.</span> <span class="nav-text">web缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web服务"><span class="nav-number">1.2.4.</span> <span class="nav-text">web服务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx安装"><span class="nav-number">2.</span> <span class="nav-text">Nginx安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RPM源安装"><span class="nav-number">2.1.</span> <span class="nav-text">RPM源安装:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Nginx-yum-repository安装"><span class="nav-number">2.2.</span> <span class="nav-text">添加Nginx yum repository安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装"><span class="nav-number">2.3.</span> <span class="nav-text">源码安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx配置"><span class="nav-number">3.</span> <span class="nav-text">Nginx配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#conf"><span class="nav-number">3.1.</span> <span class="nav-text">*.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#server"><span class="nav-number">3.2.</span> <span class="nav-text">server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#location"><span class="nav-number">3.3.</span> <span class="nav-text">location</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#location的正则写法"><span class="nav-number">3.3.1.</span> <span class="nav-text">location的正则写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#location使用建议"><span class="nav-number">3.3.2.</span> <span class="nav-text">location使用建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rewrite"><span class="nav-number">3.4.</span> <span class="nav-text">Rewrite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问控制"><span class="nav-number">3.5.</span> <span class="nav-text">访问控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法检查"><span class="nav-number">3.6.</span> <span class="nav-text">语法检查</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx介绍"><span class="nav-number">1.</span> <span class="nav-text">Nginx介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#与PHP的集成"><span class="nav-number">1.1.</span> <span class="nav-text">与PHP的集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx常用功能"><span class="nav-number">1.2.</span> <span class="nav-text">Nginx常用功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http代理于反向代理"><span class="nav-number">1.2.1.</span> <span class="nav-text">http代理于反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">1.2.2.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web缓存"><span class="nav-number">1.2.3.</span> <span class="nav-text">web缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web服务"><span class="nav-number">1.2.4.</span> <span class="nav-text">web服务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx安装"><span class="nav-number">2.</span> <span class="nav-text">Nginx安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RPM源安装"><span class="nav-number">2.1.</span> <span class="nav-text">RPM源安装:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Nginx-yum-repository安装"><span class="nav-number">2.2.</span> <span class="nav-text">添加Nginx yum repository安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装"><span class="nav-number">2.3.</span> <span class="nav-text">源码安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx配置"><span class="nav-number">3.</span> <span class="nav-text">Nginx配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#conf"><span class="nav-number">3.1.</span> <span class="nav-text">*.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#server"><span class="nav-number">3.2.</span> <span class="nav-text">server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#location"><span class="nav-number">3.3.</span> <span class="nav-text">location</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#location的正则写法"><span class="nav-number">3.3.1.</span> <span class="nav-text">location的正则写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#location使用建议"><span class="nav-number">3.3.2.</span> <span class="nav-text">location使用建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rewrite"><span class="nav-number">3.4.</span> <span class="nav-text">Rewrite</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flag"><span class="nav-number">3.4.1.</span> <span class="nav-text">flag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if指令"><span class="nav-number">3.4.2.</span> <span class="nav-text">if指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx全局变量"><span class="nav-number">3.4.3.</span> <span class="nav-text">Nginx全局变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rewrite实例"><span class="nav-number">3.4.4.</span> <span class="nav-text">rewrite实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问控制"><span class="nav-number">3.5.</span> <span class="nav-text">访问控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加用户密码验证"><span class="nav-number">3.5.1.</span> <span class="nav-text">添加用户密码验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制IP访问"><span class="nav-number">3.5.2.</span> <span class="nav-text">限制IP访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法检查"><span class="nav-number">3.6.</span> <span class="nav-text">语法检查</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx优化"><span class="nav-number">4.</span> <span class="nav-text">Nginx优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用优化"><span class="nav-number">4.1.</span> <span class="nav-text">常用优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏Nginx版本号"><span class="nav-number">4.1.1.</span> <span class="nav-text">隐藏Nginx版本号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更改Nginx服务默认用户"><span class="nav-number">4.1.2.</span> <span class="nav-text">更改Nginx服务默认用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化Nginx进程对应的配置"><span class="nav-number">4.1.3.</span> <span class="nav-text">优化Nginx进程对应的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化绑定不同的Nginx进程到不同的CPU上"><span class="nav-number">4.1.4.</span> <span class="nav-text">优化绑定不同的Nginx进程到不同的CPU上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx事件处理模型优化"><span class="nav-number">4.1.5.</span> <span class="nav-text">Nginx事件处理模型优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx单个进程允许的客户端最大连接数"><span class="nav-number">4.1.6.</span> <span class="nav-text">Nginx单个进程允许的客户端最大连接数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx-worker进程最大打开文件数"><span class="nav-number">4.1.7.</span> <span class="nav-text">Nginx worker进程最大打开文件数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启高效文件传输"><span class="nav-number">4.1.8.</span> <span class="nav-text">开启高效文件传输</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sendfile"><span class="nav-number">4.1.8.1.</span> <span class="nav-text">sendfile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tcp-nopush"><span class="nav-number">4.1.8.2.</span> <span class="nav-text">tcp_nopush</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx连接参数，连接超时时间"><span class="nav-number">4.1.9.</span> <span class="nav-text">Nginx连接参数，连接超时时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传文件大小限制-动态应用"><span class="nav-number">4.1.10.</span> <span class="nav-text">上传文件大小限制(动态应用)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gzip压缩"><span class="nav-number">4.1.11.</span> <span class="nav-text">gzip压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#expires缓存"><span class="nav-number">4.1.12.</span> <span class="nav-text">expires缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FastCGI相关参数"><span class="nav-number">4.2.</span> <span class="nav-text">FastCGI相关参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志与安全"><span class="nav-number">4.3.</span> <span class="nav-text">日志与安全</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不记录不需要的日志"><span class="nav-number">4.3.1.</span> <span class="nav-text">不记录不需要的日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志权限"><span class="nav-number">4.3.2.</span> <span class="nav-text">日志权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#站点目录及URL访问控制"><span class="nav-number">4.4.</span> <span class="nav-text">站点目录及URL访问控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#根据扩展名限制程序或文件访问"><span class="nav-number">4.4.1.</span> <span class="nav-text">根据扩展名限制程序或文件访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#禁止访问指定目录"><span class="nav-number">4.4.2.</span> <span class="nav-text">禁止访问指定目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#禁止非法域名解析访问网站"><span class="nav-number">4.5.</span> <span class="nav-text">禁止非法域名解析访问网站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片及目录防盗链"><span class="nav-number">4.6.</span> <span class="nav-text">图片及目录防盗链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是资源盗链"><span class="nav-number">4.6.1.</span> <span class="nav-text">什么是资源盗链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见防盗链解决方案"><span class="nav-number">4.6.2.</span> <span class="nav-text">常见防盗链解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#根据HTTP-referer-实现防盗链"><span class="nav-number">4.6.2.1.</span> <span class="nav-text">根据HTTP referer 实现防盗链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#根据cookie防盗链"><span class="nav-number">4.6.2.2.</span> <span class="nav-text">根据cookie防盗链</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx实现防盗链"><span class="nav-number">4.6.3.</span> <span class="nav-text">Nginx实现防盗链</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误页面优雅展示"><span class="nav-number">4.7.</span> <span class="nav-text">错误页面优雅展示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录及文件权限优化"><span class="nav-number">4.8.</span> <span class="nav-text">目录及文件权限优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反爬虫优化"><span class="nav-number">4.9.</span> <span class="nav-text">反爬虫优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#robots-txt机器人协议"><span class="nav-number">4.9.1.</span> <span class="nav-text">robots.txt机器人协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx反爬虫配置"><span class="nav-number">4.9.2.</span> <span class="nav-text">Nginx反爬虫配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#限制HTTP请求方法"><span class="nav-number">4.10.</span> <span class="nav-text">限制HTTP请求方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN"><span class="nav-number">4.11.</span> <span class="nav-text">CDN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用CDN的要求"><span class="nav-number">4.11.1.</span> <span class="nav-text">使用CDN的要求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序架构优化"><span class="nav-number">4.12.</span> <span class="nav-text">程序架构优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用no-root用户启动Nginx"><span class="nav-number">4.13.</span> <span class="nav-text">使用no-root用户启动Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制Nginx并发连接数"><span class="nav-number">4.14.</span> <span class="nav-text">控制Nginx并发连接数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制客户端请求Nginx的速率"><span class="nav-number">4.15.</span> <span class="nav-text">控制客户端请求Nginx的速率</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx反向代理与负载均衡"><span class="nav-number">5.</span> <span class="nav-text">Nginx反向代理与负载均衡</span></a></li></ol></div>
             
 
           </div>
@@ -945,7 +1398,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 104.4k</span>
+  <span class="post-count"> 字数: 115.6k</span>
 </div>
 
 

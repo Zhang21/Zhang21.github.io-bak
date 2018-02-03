@@ -431,10 +431,10 @@
       
         <p>参考：</p>
 <ul>
-<li>SaltStack官网：<a href="https://saltstack.com" target="_blank" rel="external">https://saltstack.com</a> ;</li>
-<li>SaltStack官方文档：<a href="https://docs.saltstack.com" target="_blank" rel="external">https://docs.saltstack.com</a> ;</li>
-<li>SaltStack-GitHub：<a href="https://github.com/saltstack" target="_blank" rel="external">https://github.com/saltstack</a> ;</li>
-<li>Salt-repo：<a href="https://repo.saltstack.com/" target="_blank" rel="external">https://repo.saltstack.com/</a> .</li>
+<li>SaltStack官网：<a href="https://saltstack.com" target="_blank" rel="noopener">https://saltstack.com</a> ;</li>
+<li>SaltStack官方文档：<a href="https://docs.saltstack.com" target="_blank" rel="noopener">https://docs.saltstack.com</a> ;</li>
+<li>SaltStack-GitHub：<a href="https://github.com/saltstack" target="_blank" rel="noopener">https://github.com/saltstack</a> ;</li>
+<li>Salt-repo：<a href="https://repo.saltstack.com/" target="_blank" rel="noopener">https://repo.saltstack.com/</a> .</li>
 </ul>
 <p>环境：</p>
 <ul>
@@ -484,12 +484,12 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#salt &lt;minion-id&gt; &lt;cmd&gt;</span></div><div class="line"></div><div class="line">salt minion1 test.ping</div><div class="line">salt * test.ping</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h2 id="Quick-Install"><a href="#Quick-Install" class="headerlink" title="Quick Install"></a>Quick Install</h2><p>在绝大多数发行版本上，可以使用<strong>Salt Bootstrap</strong>脚本进行快速安装。</p>
-<p>参考：<a href="https://docs.saltstack.com/en/latest/topics/tutorials/salt_bootstrap.html#salt-bootstrap" target="_blank" rel="external">Salt Bootstrap</a></p>
+<p>参考：<a href="https://docs.saltstack.com/en/latest/topics/tutorials/salt_bootstrap.html#salt-bootstrap" target="_blank" rel="noopener">Salt Bootstrap</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#wget</div><div class="line">wget https://bootstrap.saltstack.com -O bootstrap-salt.sh</div><div class="line">sh bootstrap-salt.sh</div><div class="line"></div><div class="line">#curl</div><div class="line">curl -o bootstrap-salt.sh -L https://bootstrap.saltstack.com</div><div class="line">sh bootstrap-salt.sh</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
-<h2 id="Platform-Specific-Installation"><a href="#Platform-Specific-Installation" class="headerlink" title="Platform-Specific Installation"></a>Platform-Specific Installation</h2><p><a href="https://docs.saltstack.com/en/latest/topics/installation/index.html#platform-specific-installation-instructions" target="_blank" rel="external">选择发行版本安装</a></p>
+<h2 id="Platform-Specific-Installation"><a href="#Platform-Specific-Installation" class="headerlink" title="Platform-Specific Installation"></a>Platform-Specific Installation</h2><p><a href="https://docs.saltstack.com/en/latest/topics/installation/index.html#platform-specific-installation-instructions" target="_blank" rel="noopener">选择发行版本安装</a></p>
 <p><br></p>
-<h3 id="在CentOS7上安装Salt"><a href="#在CentOS7上安装Salt" class="headerlink" title="在CentOS7上安装Salt"></a>在CentOS7上安装Salt</h3><p>repo: <a href="https://repo.saltstack.com/#rhel" target="_blank" rel="external">https://repo.saltstack.com/#rhel</a></p>
+<h3 id="在CentOS7上安装Salt"><a href="#在CentOS7上安装Salt" class="headerlink" title="在CentOS7上安装Salt"></a>在CentOS7上安装Salt</h3><p>repo: <a href="https://repo.saltstack.com/#rhel" target="_blank" rel="noopener">https://repo.saltstack.com/#rhel</a></p>
 <p><strong>1. 下载SaltStack-Repository进行安装：</strong></p>
 <p><code>systemd</code>和<code>systemd-python</code>是Salt必须的，在安装Salt前需装好。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#安装salt-repo</span></div><div class="line">yum install -y https://repo.saltstack.com/yum/redhat/salt-repo-latest-2.el7.noarch.rpm</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">yum clean expire-cache</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#安装salt组件</span></div><div class="line">yum install -y salt-master salt-master salt-ssh salt-syndic salt-cloud salt-api</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#开启</span></div><div class="line">systemctl start salt-master</div></pre></td></tr></table></figure>
@@ -507,7 +507,7 @@
 <p><strong>修改配置文件后，请重启服务。</strong></p>
 <p><br></p>
 <h4 id="Proxy-Minion-Configuration"><a href="#Proxy-Minion-Configuration" class="headerlink" title="Proxy Minion Configuration"></a>Proxy Minion Configuration</h4><p>A Proxy Minion 模仿一个规律的行为和继承(inherit)他们的选项。<br>类似地，它的配置文件存放于<code>/etc/salt/proxy</code>，<code>proxy</code>也将尝试连接DNS名为<code>salt</code>的主机。</p>
-<p>除了<code>salt-minion</code>有规律的选型，<code>proxy</code>还有一些特定的选项。参考:<a href="https://docs.saltstack.com/en/latest/ref/configuration/proxy.html#configuration-salt-proxy" target="_blank" rel="external">Proxy minion</a></p>
+<p>除了<code>salt-minion</code>有规律的选型，<code>proxy</code>还有一些特定的选项。参考:<a href="https://docs.saltstack.com/en/latest/ref/configuration/proxy.html#configuration-salt-proxy" target="_blank" rel="noopener">Proxy minion</a></p>
 <p><br></p>
 <h4 id="Running-Salt"><a href="#Running-Salt" class="headerlink" title="Running Salt"></a>Running Salt</h4><p>以<code>salt</code>命令运行:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">salt-master</div><div class="line"></div><div class="line"><span class="comment">#开启守护进程</span></div><div class="line">dalt-master -d</div><div class="line"></div><div class="line"></div><div class="line">salt-minion</div><div class="line">salt-minion -d</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#日志信息</span></div><div class="line">salt-master --<span class="built_in">log</span>-level=debug</div></pre></td></tr></table></figure>
@@ -540,7 +540,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">salt 192.168.1.7 test.ping</div><div class="line"></div><div class="line">salt * test.ping</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h2 id="Additional-Installation-Guides"><a href="#Additional-Installation-Guides" class="headerlink" title="Additional Installation Guides"></a>Additional Installation Guides</h2><h3 id="Salt-Bootstrap"><a href="#Salt-Bootstrap" class="headerlink" title="Salt Bootstrap"></a>Salt Bootstrap</h3><p>Salt Bootstrap脚本允许用户在各种系统和版本上安装<code>salt-minion</code>和<code>salt-master</code>。shell脚本为<code>bootstrap-salt.sh</code>，运行一系列的检查来确定操作系统的类型和版本，然后通过适当的方法安装salt二进制文件。salt-bootstrap脚本安装运行<code>salt</code>的最小化安装包，如Git便不会安装。</p>
-<p>Salt Bootstrap’s GitHub: <a href="https://github.com/saltstack/salt-bootstrap" target="_blank" rel="external">https://github.com/saltstack/salt-bootstrap</a></p>
+<p>Salt Bootstrap’s GitHub: <a href="https://github.com/saltstack/salt-bootstrap" target="_blank" rel="noopener">https://github.com/saltstack/salt-bootstrap</a></p>
 <p><br></p>
 <h4 id="Example-Usage"><a href="#Example-Usage" class="headerlink" title="Example Usage"></a>Example Usage</h4><p>Satl Bootstrap脚本有多种可以传递的选项，以及获取引导脚本本身的方法。</p>
 <p><strong>1. Using <code>curl</code></strong></p>
@@ -742,7 +742,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -753,7 +753,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -764,7 +764,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -861,7 +861,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 104.4k</span>
+  <span class="post-count"> 字数: 115.6k</span>
 </div>
 
 
