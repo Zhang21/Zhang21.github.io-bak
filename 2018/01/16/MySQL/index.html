@@ -102,7 +102,7 @@
 <meta property="og:description" content="参考：  MySQL5.7参考文档： https://dev.mysql.com/doc/refman/5.7/en/   环境：  CentOS7.x86_64 MySQL5.7">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/Mysql/MySQL.png">
-<meta property="og:updated_time" content="2018-01-18T04:00:58.848Z">
+<meta property="og:updated_time" content="2018-02-09T03:30:27.848Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL">
 <meta name="twitter:description" content="参考：  MySQL5.7参考文档： https://dev.mysql.com/doc/refman/5.7/en/   环境：  CentOS7.x86_64 MySQL5.7">
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,618
+                  1,686
                 </span>
               
 
@@ -440,17 +440,18 @@
 <li>MySQL5.7</li>
 </ul>
 <a id="more"></a>
-<p><br></p>
+<p><br><br><br></p>
 <hr>
 <p><br></p>
 <h1 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h1><p>MySQL官网： <a href="https://www.mysql.com/" target="_blank" rel="noopener">https://www.mysql.com/</a></p>
 <p>由于MySQL5.7和以前版本之间的许多功能和其他差异，因此此手册不太适用于之前的老版本。之前的版本请参考MySQL相关版本的手册。</p>
 <p><br></p>
 <p><img src="/images/Mysql/MySQL.png" alt="MySQL"></p>
-<p><br></p>
+<p><br><br><br></p>
 <hr>
 <p><br></p>
-<h1 id="综述-General-information"><a href="#综述-General-information" class="headerlink" title="综述(General information)"></a>综述(General information)</h1><p>MySQL™ software提供了一个快速、多线程、多任务和健壮的SQL(结构化查询语言)的数据库服务器。MySQL server是为关键服务(mission-critical)、重负荷(heavy-load)生产系统以及嵌入式(embedding)大规模部署的软件而设计。<br>MySQL是Oracle Corporation的商标(trademark)。</p>
+<h1 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h1><p>General information</p>
+<p>MySQL™ software提供了一个快速、多线程、多任务和健壮的SQL(结构化查询语言)的数据库服务器。MySQL server是为关键服务(mission-critical)、重负荷(heavy-load)生产系统以及嵌入式(embedding)大规模部署的软件而设计。<br>MySQL是Oracle Corporation的商标(trademark)。</p>
 <p>MySQL software是双重许可的(dual license)：</p>
 <ol>
 <li>Open Source product of the GNU General Public License</li>
@@ -465,8 +466,9 @@
 <li>手册由MySQL Documentation Team维护。</li>
 </ul>
 <p><br><br><br></p>
-<h2 id="MySQL-Database-Management-System"><a href="#MySQL-Database-Management-System" class="headerlink" title="MySQL Database Management System"></a>MySQL Database Management System</h2><p><br></p>
-<h3 id="What-is-MySQL"><a href="#What-is-MySQL" class="headerlink" title="What is MySQL"></a>What is MySQL</h3><p>MySQL是最流行的开源的SQL数据库管理系统，由Oracle Corporation开发、分发和支持。</p>
+<h2 id="MySQL数据库管理系统"><a href="#MySQL数据库管理系统" class="headerlink" title="MySQL数据库管理系统"></a>MySQL数据库管理系统</h2><p>MySQL Database Management System</p>
+<p><br></p>
+<h3 id="MySQL介绍"><a href="#MySQL介绍" class="headerlink" title="MySQL介绍"></a>MySQL介绍</h3><p>MySQL是最流行的开源的SQL数据库管理系统，由Oracle Corporation开发、分发和支持。</p>
 <p><br></p>
 <ul>
 <li><p>MySQL is a database management system<br>数据库是一个结构化的数据集合。它可能是从简单的购物清单到图片库，或是公司网络中的大量信息。若要添加、访问和处理存储在计算机数据库中的数据，你需要一个像MySQL Server这样的数据库管理系统。由于计算机非常擅长处理大量的数据，数据库管理系统在计算机中扮演这一个重要的角色。</p>
@@ -485,7 +487,7 @@
 </li>
 </ul>
 <p><br><br><br></p>
-<h3 id="The-Main-Features-of-MySQL"><a href="#The-Main-Features-of-MySQL" class="headerlink" title="The Main Features of MySQL"></a>The Main Features of MySQL</h3><h4 id="Internals-and-Portability"><a href="#Internals-and-Portability" class="headerlink" title="Internals and Portability"></a>Internals and Portability</h4><ul>
+<h3 id="MySQL主要特点"><a href="#MySQL主要特点" class="headerlink" title="MySQL主要特点"></a>MySQL主要特点</h3><h4 id="Internals-and-Portability"><a href="#Internals-and-Portability" class="headerlink" title="Internals and Portability"></a>Internals and Portability</h4><ul>
 <li>由C和C++写成</li>
 <li>适用于许多不同的平台</li>
 <li>为了可移植性，使用<code>CMake</code></li>
@@ -500,7 +502,7 @@
 <li>使用高度优化的类库实现SQL函数</li>
 </ul>
 <p><br></p>
-<h4 id="Data-Type"><a href="#Data-Type" class="headerlink" title="Data Type"></a>Data Type</h4><ul>
+<h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><ul>
 <li>1,2,3,4和8byte的有无符号(signed/unsigned)的整数(integers)</li>
 <li>FLOAT</li>
 <li>DOUBLE</li>
@@ -516,7 +518,8 @@
 <li>OpenGIS</li>
 </ul>
 <p><br></p>
-<h4 id="Statements-and-Functions"><a href="#Statements-and-Functions" class="headerlink" title="Statements and Functions"></a>Statements and Functions</h4><ul>
+<h4 id="状态和功能"><a href="#状态和功能" class="headerlink" title="状态和功能"></a>状态和功能</h4><p>statement and function</p>
+<ul>
 <li><code>SELECT</code>和<code>WHERT</code>中包含了所有支持的操作符和函数</li>
 <li>SQL中的<code>GROUP BY</code>和<code>ORDER BY</code>也全部支持</li>
 <li>GROUP functions(<code>COUNT()</code>, <code>AVG()</code>, <code>STD()</code>, <code>SUM()</code>, <code>MAX()</code>, <code>MIN()</code>, <code>GROUP_CONCAT()</code>)</li>
@@ -527,17 +530,20 @@
 <li>一个<code>EXPLAIN</code>语句显示优化器如何解析查询</li>
 </ul>
 <p><br></p>
-<h4 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h4><ul>
+<h4 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h4><p>security</p>
+<ul>
 <li>权限(privilege)和密码系统，非常灵活和安全，并且支持基于主机的验证</li>
 <li>当连接到Server时，通过加密(encryption)所有密码通信量来确保密码安全</li>
 </ul>
 <p><br></p>
-<h4 id="Scalability-and-Limits"><a href="#Scalability-and-Limits" class="headerlink" title="Scalability and Limits"></a>Scalability and Limits</h4><ul>
+<h4 id="扩展性和限制"><a href="#扩展性和限制" class="headerlink" title="扩展性和限制"></a>扩展性和限制</h4><p>Scalability and Limits</p>
+<ul>
 <li>支持大型数据库。包含五千万条记录，二十万个表，五十亿行</li>
 <li>每个表最多支持64个索引，每个索引可以由1到16个列组成</li>
 </ul>
 <p><br></p>
-<p>####　Conectivity</p>
+<p>####　连通性</p>
+<p>Conectivity</p>
 <ul>
 <li>客户端使用如下几种协议连接到MySQL Server<ul>
 <li>TCP/IP sockets</li>
@@ -549,7 +555,8 @@
 <li>APIs对于多数语言是可用的</li>
 </ul>
 <p><br></p>
-<h4 id="Localization"><a href="#Localization" class="headerlink" title="Localization"></a>Localization</h4><ul>
+<h4 id="本地化"><a href="#本地化" class="headerlink" title="本地化"></a>本地化</h4><p>Localization</p>
+<ul>
 <li>Server可以向多种语言的客户端提供错误信息</li>
 <li>完全支持几个不同的字符集(character sets)</li>
 <li>所有数据都被保存在选取的字符集(chracter set)</li>
@@ -557,7 +564,8 @@
 <li>服务器时区(time zone)可动态更改，个客户端也可修改自己的时区</li>
 </ul>
 <p><br></p>
-<h4 id="Clients-and-Tools"><a href="#Clients-and-Tools" class="headerlink" title="Clients and Tools"></a>Clients and Tools</h4><ul>
+<h4 id="客户端和工具"><a href="#客户端和工具" class="headerlink" title="客户端和工具"></a>客户端和工具</h4><p>Clients and Tools</p>
+<ul>
 <li>MySQL包含几个客户机和使用程序<ul>
 <li>command-line： <code>mysqldump</code>, <code>mysqladmin</code></li>
 <li>graphical: MySQL Workbench</li>
@@ -567,17 +575,23 @@
 <li>MySQL程序可使用<code>--help</code>或<code>-?</code>来获取帮助</li>
 </ul>
 <p><br><br><br></p>
-<h3 id="History-of-MySQL"><a href="#History-of-MySQL" class="headerlink" title="History of MySQL"></a>History of MySQL</h3><ul>
+<h3 id="MySQL历史"><a href="#MySQL历史" class="headerlink" title="MySQL历史"></a>MySQL历史</h3><p>History of MySQL</p>
+<ul>
 <li>MySQL is named after co-founder Monty Widenius’s daughter, My.</li>
 <li>The name of the MySQL Dolphin (our logo) is “Sakila,” which was chosen from a huge list of names suggested by users in our “Name the Dolphin” contest.</li>
 </ul>
 <p><br><br><br></p>
-<h2 id="What-Is-New-in-MySQL-5-7"><a href="#What-Is-New-in-MySQL-5-7" class="headerlink" title="What Is New in MySQL 5.7"></a>What Is New in MySQL 5.7</h2><p><br></p>
-<h3 id="Features-Added-in-MySQL-5-7"><a href="#Features-Added-in-MySQL-5-7" class="headerlink" title="Features Added in MySQL 5.7"></a>Features Added in MySQL 5.7</h3><p><br><br><br></p>
-<h3 id="Features-Deprecated-in-MySQL-5-7"><a href="#Features-Deprecated-in-MySQL-5-7" class="headerlink" title="Features Deprecated in MySQL 5.7"></a>Features Deprecated in MySQL 5.7</h3><p><br><br><br></p>
-<h3 id="Features-Removed-in-MySQL-5-7"><a href="#Features-Removed-in-MySQL-5-7" class="headerlink" title="Features Removed in MySQL 5.7"></a>Features Removed in MySQL 5.7</h3><p><br><br><br></p>
+<h2 id="MySQL5-7新特色"><a href="#MySQL5-7新特色" class="headerlink" title="MySQL5.7新特色"></a>MySQL5.7新特色</h2><p>What Is New in MySQL 5.7</p>
+<p><br></p>
+<h3 id="MySQL5-7新功能"><a href="#MySQL5-7新功能" class="headerlink" title="MySQL5.7新功能"></a>MySQL5.7新功能</h3><p>Features Added in MySQL 5.7</p>
+<p><br><br><br></p>
+<h3 id="MySQL5-7中过期的功能"><a href="#MySQL5-7中过期的功能" class="headerlink" title="MySQL5.7中过期的功能"></a>MySQL5.7中过期的功能</h3><p>Features Deprecated in MySQL 5.7</p>
+<p><br><br><br></p>
+<h3 id="MySQL5-7中移除的功能"><a href="#MySQL5-7中移除的功能" class="headerlink" title="MySQL5.7中移除的功能"></a>MySQL5.7中移除的功能</h3><p>Features Removed in MySQL 5.7</p>
+<p><br><br><br></p>
 <h2 id="Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7"><a href="#Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7" class="headerlink" title="Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7"></a>Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7</h2><p><br><br><br></p>
-<h2 id="MySQL-Information-Sources"><a href="#MySQL-Information-Sources" class="headerlink" title="MySQL Information Sources"></a>MySQL Information Sources</h2>
+<h2 id="MySQL信息源"><a href="#MySQL信息源" class="headerlink" title="MySQL信息源"></a>MySQL信息源</h2><p>MySQL Information Sources</p>
+
       
     </div>
     
@@ -706,7 +720,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -728,7 +742,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -793,7 +807,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#序言"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综述-General-information"><span class="nav-number">2.</span> <span class="nav-text">综述(General information)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于此手册"><span class="nav-number">2.1.</span> <span class="nav-text">关于此手册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Database-Management-System"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL Database Management System</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-MySQL"><span class="nav-number">2.2.1.</span> <span class="nav-text">What is MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Main-Features-of-MySQL"><span class="nav-number">2.2.2.</span> <span class="nav-text">The Main Features of MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Internals-and-Portability"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">Internals and Portability</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Data-Type"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">Data Type</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Statements-and-Functions"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">Statements and Functions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Security"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">Security</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scalability-and-Limits"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">Scalability and Limits</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Localization"><span class="nav-number">2.2.2.6.</span> <span class="nav-text">Localization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Clients-and-Tools"><span class="nav-number">2.2.2.7.</span> <span class="nav-text">Clients and Tools</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#History-of-MySQL"><span class="nav-number">2.2.3.</span> <span class="nav-text">History of MySQL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-Is-New-in-MySQL-5-7"><span class="nav-number">2.3.</span> <span class="nav-text">What Is New in MySQL 5.7</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Features-Added-in-MySQL-5-7"><span class="nav-number">2.3.1.</span> <span class="nav-text">Features Added in MySQL 5.7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Features-Deprecated-in-MySQL-5-7"><span class="nav-number">2.3.2.</span> <span class="nav-text">Features Deprecated in MySQL 5.7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Features-Removed-in-MySQL-5-7"><span class="nav-number">2.3.3.</span> <span class="nav-text">Features Removed in MySQL 5.7</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7"><span class="nav-number">2.4.</span> <span class="nav-text">Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Information-Sources"><span class="nav-number">2.5.</span> <span class="nav-text">MySQL Information Sources</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#序言"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">2.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于此手册"><span class="nav-number">2.1.</span> <span class="nav-text">关于此手册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据库管理系统"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL数据库管理系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL介绍"><span class="nav-number">2.2.1.</span> <span class="nav-text">MySQL介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL主要特点"><span class="nav-number">2.2.2.</span> <span class="nav-text">MySQL主要特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Internals-and-Portability"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">Internals and Portability</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据类型"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态和功能"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">状态和功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展性和限制"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">扩展性和限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地化"><span class="nav-number">2.2.2.6.</span> <span class="nav-text">本地化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端和工具"><span class="nav-number">2.2.2.7.</span> <span class="nav-text">客户端和工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL历史"><span class="nav-number">2.2.3.</span> <span class="nav-text">MySQL历史</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL5-7新特色"><span class="nav-number">2.3.</span> <span class="nav-text">MySQL5.7新特色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7新功能"><span class="nav-number">2.3.1.</span> <span class="nav-text">MySQL5.7新功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中过期的功能"><span class="nav-number">2.3.2.</span> <span class="nav-text">MySQL5.7中过期的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中移除的功能"><span class="nav-number">2.3.3.</span> <span class="nav-text">MySQL5.7中移除的功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7"><span class="nav-number">2.4.</span> <span class="nav-text">Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL信息源"><span class="nav-number">2.5.</span> <span class="nav-text">MySQL信息源</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -825,7 +839,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 115.6k</span>
+  <span class="post-count"> 字数: 138.4k</span>
 </div>
 
 
