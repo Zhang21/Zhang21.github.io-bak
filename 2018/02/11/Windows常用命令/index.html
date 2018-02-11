@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Windows," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="keywords" content="Windows">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows常用命令">
+<meta property="og:url" content="https://zhang21.github.io/2018/02/11/Windows常用命令/index.html">
+<meta property="og:site_name" content="风继续吹">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-11T08:16:06.545Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows常用命令">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang21.github.io/2018/02/11/Windows常用命令/"/>
+
+
+
+
+
+  <title>Windows常用命令 | 风继续吹</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风继续吹</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Yesterday, you said tomorrow!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2018/02/11/Windows常用命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang21">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/leslie.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风继续吹">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Windows常用命令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-11T14:37:59+08:00">
+                2018-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Windows/" itemprop="url" rel="index">
+                    <span itemprop="name">Windows</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/11/Windows常用命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/02/11/Windows常用命令/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,433
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><br></p>
+<a id="more"></a>
+<p><br></p>
+<h1 id="Windows快捷操作"><a href="#Windows快捷操作" class="headerlink" title="Windows快捷操作"></a>Windows快捷操作</h1><p><br></p>
+<h2 id="打开Windows系统应用"><a href="#打开Windows系统应用" class="headerlink" title="打开Windows系统应用"></a>打开Windows系统应用</h2><ul>
+<li>运行<ul>
+<li><code>Win+R</code></li>
+</ul>
+</li>
+<li>远程桌面<ul>
+<li><code>mstsc</code> (Microsoft terminal services client)</li>
+</ul>
+</li>
+<li>记事本<ul>
+<li><code>notepad</code></li>
+</ul>
+</li>
+<li>计算器<ul>
+<li><code>calc</code></li>
+</ul>
+</li>
+<li>屏幕键盘<ul>
+<li><code>osk</code></li>
+</ul>
+</li>
+<li>设备管理器<ul>
+<li><code>devmgmt.msc</code></li>
+</ul>
+</li>
+<li>事件查看器<ul>
+<li><code>eventvwr.msc</code></li>
+</ul>
+</li>
+<li>任务管理器<ul>
+<li><code>taskmgr</code></li>
+</ul>
+</li>
+<li>服务列表<ul>
+<li><code>services.msc</code></li>
+</ul>
+</li>
+<li>注册表<ul>
+<li><code>regedit</code></li>
+</ul>
+</li>
+<li>共享文件夹<ul>
+<li><code>fsmgmt.msc</code></li>
+</ul>
+</li>
+<li>系统信息<ul>
+<li><code>msinfo32</code></li>
+</ul>
+</li>
+<li>系统配置<ul>
+<li><code>msconfig</code></li>
+</ul>
+</li>
+<li>DirecX<ul>
+<li><code>dxdiag</code></li>
+</ul>
+</li>
+<li>清屏<ul>
+<li><code>cls</code></li>
+</ul>
+</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="Windows快捷键"><a href="#Windows快捷键" class="headerlink" title="Windows快捷键"></a>Windows快捷键</h2><p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="Windows批处理命令"><a href="#Windows批处理命令" class="headerlink" title="Windows批处理命令"></a>Windows批处理命令</h1><p>Windows下并不区分大小写。</p>
+<p>batch or batch file or DOS batch.是由DOS或Windows内嵌命令解释器(cmd.exe)解释执行。<br>类似于Unix中的shell script。</p>
+<p>在批处理中，不仅可以使用系统內建的命令，还可使用已安装的第三方提供的软件。</p>
+<p>一般情况下，每条命令占一行，当然也可以将多条命令用特定符号<code>&amp;  &amp;&amp;  |  ||</code>分隔后写到同一行。</p>
+<p>系统在解释运行批处理程序时，首先扫描整个批处理程序，然后从第一行代码开始详细逐句执行所有命令，直至程序结尾或遇见 exit 命令或出错意外退出。</p>
+<p><br><br><br></p>
+<h2 id="基础批处理命令"><a href="#基础批处理命令" class="headerlink" title="基础批处理命令"></a>基础批处理命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">#查看命令帮助</div><div class="line">cmd /?</div><div class="line"></div><div class="line"></div><div class="line">#打开或关闭回显</div><div class="line">echo</div><div class="line"></div><div class="line"></div><div class="line">#注释命令</div><div class="line">rem</div><div class="line"></div><div class="line"></div><div class="line">#暂停命令</div><div class="line">pause</div><div class="line"></div><div class="line"></div><div class="line">#从一个批处理程序调用另一个批处理程序，并且不终止父批处理程序</div><div class="line">call</div><div class="line"></div><div class="line"></div><div class="line">#调用外部程序，所有的dos命令都可以由start命令来调用</div><div class="line">start</div><div class="line"></div><div class="line"></div><div class="line">#跳转命令</div><div class="line">goto</div><div class="line"></div><div class="line"></div><div class="line">#显示、设置或删除变量</div><div class="line">set</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="批处理常用符号"><a href="#批处理常用符号" class="headerlink" title="批处理常用符号"></a>批处理常用符号</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">#回显屏蔽</div><div class="line">@</div><div class="line"></div><div class="line"></div><div class="line">#输出重定向</div><div class="line">&gt;  &gt;&gt;</div><div class="line"></div><div class="line"></div><div class="line">#输入重定向</div><div class="line">&lt;</div><div class="line"></div><div class="line"></div><div class="line">#管道符号</div><div class="line">|</div><div class="line"></div><div class="line"></div><div class="line">#转义符</div><div class="line">^</div><div class="line"></div><div class="line"></div><div class="line">#逻辑命令符</div><div class="line">&amp;  &amp;&amp;  ||</div><div class="line"></div><div class="line">#无条件执行&amp;后面的命令</div><div class="line">&amp;</div><div class="line"></div><div class="line">#当&amp;&amp;前面的命令成功后才执行&amp;&amp;后面的命令，否则不执行</div><div class="line">&amp;&amp;</div><div class="line"></div><div class="line">#当 || 前面的命令失败时，才执行 || 后面的命令，否则不执行</div><div class="line">||</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="基础dos命令"><a href="#基础dos命令" class="headerlink" title="基础dos命令"></a>基础dos命令</h2><h3 id="文件操作系统"><a href="#文件操作系统" class="headerlink" title="文件操作系统"></a>文件操作系统</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vol</div><div class="line"></div><div class="line">lable</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="文件夹管理"><a href="#文件夹管理" class="headerlink" title="文件夹管理"></a>文件夹管理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">cd</div><div class="line"></div><div class="line">md/mkdir</div><div class="line"></div><div class="line">rd/rmdir</div><div class="line"></div><div class="line">dir</div><div class="line"></div><div class="line">tree</div><div class="line"></div><div class="line">path</div><div class="line"></div><div class="line">xcopy</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">type</div><div class="line"></div><div class="line">copy</div><div class="line"></div><div class="line">del/erase</div><div class="line"></div><div class="line">move</div><div class="line"></div><div class="line">ren/rename</div><div class="line"></div><div class="line">replace</div><div class="line"></div><div class="line">attrib</div><div class="line"></div><div class="line">find</div><div class="line"></div><div class="line">fc</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="网络相关"><a href="#网络相关" class="headerlink" title="网络相关"></a>网络相关</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">ping</div><div class="line"></div><div class="line">ftp</div><div class="line"></div><div class="line">net</div><div class="line"></div><div class="line">netstat</div><div class="line"></div><div class="line">route</div><div class="line"></div><div class="line">tracert</div><div class="line"></div><div class="line">telnet</div><div class="line"></div><div class="line">ipconfig</div><div class="line"></div><div class="line">msg</div><div class="line"></div><div class="line">arp</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="系统管理"><a href="#系统管理" class="headerlink" title="系统管理"></a>系统管理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">at</div><div class="line"></div><div class="line">shutdown</div><div class="line"></div><div class="line">tskill</div><div class="line"></div><div class="line">taskkill</div><div class="line"></div><div class="line">tasklist</div><div class="line"></div><div class="line">sc</div><div class="line"></div><div class="line">reg</div><div class="line"></div><div class="line">powercfg</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cls</div><div class="line"></div><div class="line">assoc</div><div class="line"></div><div class="line">ftype</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="批处理命令使用"><a href="#批处理命令使用" class="headerlink" title="批处理命令使用"></a>批处理命令使用</h2><p><br></p>
+<h3 id="回显控制"><a href="#回显控制" class="headerlink" title="回显控制"></a>回显控制</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#关闭单行回显</div><div class="line">echo</div><div class="line"></div><div class="line"></div><div class="line">#从下一行开始关闭回显</div><div class="line">echo off</div><div class="line"></div><div class="line">#从本行开始关闭回显，一般批处理第一行都是这个</div><div class="line">@echo off</div><div class="line"></div><div class="line"></div><div class="line">#从下一行开始打开回显</div><div class="line">echo on</div><div class="line"></div><div class="line"></div><div class="line">#显示当前是 echo on还是 echo off</div><div class="line">echo</div><div class="line"></div><div class="line"></div><div class="line">#输出一个“回车换行”</div><div class="line">echo.</div><div class="line"></div><div class="line"></div><div class="line">#输出 hello world</div><div class="line">echo hello world</div><div class="line"></div><div class="line">#关闭回显是指运行批处理文件时，不显示文件里的每条命令，只显示运行结果批处理开始和结束时，系统都会自动打开</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="errorlevel程序返回码"><a href="#errorlevel程序返回码" class="headerlink" title="errorlevel程序返回码"></a>errorlevel程序返回码</h3><p>类似于Unix下的<code>$?</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#查看返回码的值</div><div class="line">echo %errorlevel%</div><div class="line"></div><div class="line">#执行成功默认为0</div><div class="line">#一般命令执行出错为1</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="显示目录和子目录"><a href="#显示目录和子目录" class="headerlink" title="显示目录和子目录"></a>显示目录和子目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">dir</div><div class="line"></div><div class="line"></div><div class="line">#列出所有文件和目录，包括隐藏文件</div><div class="line">dir /a</div><div class="line"></div><div class="line"></div><div class="line">#列出D盘</div><div class="line">dir d:</div><div class="line"></div><div class="line">#列出D盘中的目录</div><div class="line">dir d: /A:d</div><div class="line"></div><div class="line">#/A：属性</div><div class="line"></div><div class="line">/A          显示具有指定属性的文件</div><div class="line"></div><div class="line"></div><div class="line">#属性</div><div class="line"></div><div class="line">D  目录                R  只读文件</div><div class="line"></div><div class="line">H  隐藏文件            A  准备存档的文件</div><div class="line"></div><div class="line">S  系统文件            I  无内容索引文件</div><div class="line"></div><div class="line">L  解析点            -  表示“否”的前缀</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#显示文件内容</div><div class="line">type d:\hello.txt</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>%0 %1 %2 … %*, 命令行参数类似于shell</p>
+<ul>
+<li>%0: 批处理文件本身</li>
+<li>%1: 第一个参数</li>
+<li>%*: 所有参数</li>
+</ul>
+<p><br></p>
+<h3 id="if和for"><a href="#if和for" class="headerlink" title="if和for"></a>if和for</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">if &quot;%1&quot; == &quot;/a&quot; echo 第一个参数/a</div><div class="line">if /i &quot;%1&quot; equ &quot;/a&quot;</div><div class="line"></div><div class="line">if exist d:\hell.txt (</div><div class="line">	echo 存在</div><div class="line">)</div><div class="line">else (</div><div class="line">	echo 不存在</div><div class="line">)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">for %%i in (c: d: e: f:) do</div><div class="line">echo %%i</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="set设置变量"><a href="#set设置变量" class="headerlink" title="set设置变量"></a>set设置变量</h3><p>引用变量可在变量前加%，即 %变量名%</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">#显示目前所有可用的变量，包括系统变量和自定义的变量</div><div class="line">set</div><div class="line"></div><div class="line"></div><div class="line">#显示系统盘盘符。系统变量可以直接引用</div><div class="line">echo %SystemDrive%</div><div class="line"></div><div class="line"></div><div class="line">#显示所有以p开头的变量，要是一个也没有就设errorlevel=1</div><div class="line">set p</div><div class="line"></div><div class="line"></div><div class="line">#设置变量p，并赋值为 = 后面的字符串，即aa1bb1aa2bb2</div><div class="line">set p=aa1bb1aa2bb2</div><div class="line"></div><div class="line">#显示变量p代表的字符串，即aa1bb1aa2bb2</div><div class="line">echo %p%</div><div class="line"></div><div class="line">#显示变量p中第6个字符以后的所有字符，即aa2bb2</div><div class="line">echo %p:~6%</div><div class="line"></div><div class="line"></div><div class="line">#显示第6个字符以后的3个字符，即aa2</div><div class="line">echo %p:~6,3%</div><div class="line"></div><div class="line"></div><div class="line">#显示前3个字符，即aa1</div><div class="line">echo %p:~0,3%</div><div class="line"></div><div class="line"></div><div class="line">#显示最后面的2个字符，即b2</div><div class="line">echo %p:~-2%</div><div class="line"></div><div class="line"></div><div class="line">#显示除了最后2个字符以外的其它字符，即aa1bb1aa2b</div><div class="line">echo %p:~0,-2%</div><div class="line"></div><div class="line"></div><div class="line"> #用c替换变量p中所有的aa，即显示c1bb1c2bb2</div><div class="line">echo %p:aa=c%</div><div class="line"></div><div class="line"></div><div class="line">#将变量p中的所有aa字符串置换为空，即显示1bb12bb2</div><div class="line">echo %p:aa=%</div><div class="line"></div><div class="line"></div><div class="line"> #第一个bb及其之前的所有字符被替换为c，即显示c1aa2bb2</div><div class="line">echo %p:*bb=c%</div><div class="line"></div><div class="line"></div><div class="line">#设置变量p，赋值为 %p:*bb=c% ，即c1aa2bb2</div><div class="line">set p=%p:*bb=c%</div><div class="line"></div><div class="line"></div><div class="line">#设置p为数值型变量，值为39</div><div class="line">set /a p=39</div><div class="line"></div><div class="line"></div><div class="line">#支持运算符，有小数时用去尾法，39/10=3.9，去尾得3，p=3</div><div class="line">set /a p=39/10</div><div class="line"></div><div class="line"></div><div class="line">#用 /a 参数时，在 = 后面的变量可以不加%直接引用</div><div class="line">set /a p=p/10</div><div class="line"></div><div class="line"></div><div class="line">#”与”运算，要加引号。其它支持的运算符参见set/?</div><div class="line">set /a p=”1&amp;0″</div><div class="line"></div><div class="line"></div><div class="line">#取消p变量</div><div class="line">set p=</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">set /p p=请输入</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="一些动态变量"><a href="#一些动态变量" class="headerlink" title="一些动态变量"></a>一些动态变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">#系统盘符</div><div class="line">%SystemDrive%</div><div class="line"></div><div class="line"></div><div class="line">#代表当前目录的字符串</div><div class="line">%CD%</div><div class="line"></div><div class="line">#当前日期</div><div class="line">%DATE%</div><div class="line"></div><div class="line"></div><div class="line">#当前时间</div><div class="line">%TIME%</div><div class="line"></div><div class="line"></div><div class="line">#随机整数，介于0~32767</div><div class="line">%RANDOM%</div><div class="line"></div><div class="line"></div><div class="line">#当前ERRORLEVEL值</div><div class="line">%ERRORLEVEL%</div><div class="line"></div><div class="line"></div><div class="line">#当前命令处理器扩展名版本号</div><div class="line">%CMDEXTVERSION%</div><div class="line"></div><div class="line"></div><div class="line">#调用命令处理器的原始命令行</div><div class="line">%CMDCMDLINE%</div></pre></td></tr></table></figure>
+<h3 id="其它命令-1"><a href="#其它命令-1" class="headerlink" title="其它命令"></a>其它命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#批处理中调用外部程序的命令，否则等外部程序完成后才继续执行剩下的指令</div><div class="line">start</div><div class="line"></div><div class="line"></div><div class="line">#批处理中调用另一个批处理的命令，否则剩下的批处理指令将不会被执行</div><div class="line">call</div><div class="line"></div><div class="line"></div><div class="line">#让用户输入一个字符，从而选择运行不同的命令，返回码errorlevel为1234...</div><div class="line">choice</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Windows/" rel="tag"># Windows</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/08/正则表达式/" rel="next" title="正则表达式">
+                <i class="fa fa-chevron-left"></i> 正则表达式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/leslie.jpg"
+              alt="Zhang21" />
+          
+            <p class="site-author-name" itemprop="name">Zhang21</p>
+            <p class="site-description motion-element" itemprop="description">踏踏实实谋发展</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f13278e94ecb" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-circle-o"></i>简书</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Zhang21" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:elite_zhang21@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/Zhang21_" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+<br>
+<!--�����������������ⲿ����,auto=1��ʾ�Զ�����-->
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=411315632&auto=0&height=66"></iframe>
+
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows快捷操作"><span class="nav-number">1.</span> <span class="nav-text">Windows快捷操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#打开Windows系统应用"><span class="nav-number">1.1.</span> <span class="nav-text">打开Windows系统应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows快捷键"><span class="nav-number">1.2.</span> <span class="nav-text">Windows快捷键</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows批处理命令"><span class="nav-number">2.</span> <span class="nav-text">Windows批处理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础批处理命令"><span class="nav-number">2.1.</span> <span class="nav-text">基础批处理命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批处理常用符号"><span class="nav-number">2.2.</span> <span class="nav-text">批处理常用符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础dos命令"><span class="nav-number">2.3.</span> <span class="nav-text">基础dos命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件操作系统"><span class="nav-number">2.3.1.</span> <span class="nav-text">文件操作系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件夹管理"><span class="nav-number">2.3.2.</span> <span class="nav-text">文件夹管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件管理"><span class="nav-number">2.3.3.</span> <span class="nav-text">文件管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络相关"><span class="nav-number">2.3.4.</span> <span class="nav-text">网络相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统管理"><span class="nav-number">2.3.5.</span> <span class="nav-text">系统管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它命令"><span class="nav-number">2.3.6.</span> <span class="nav-text">其它命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批处理命令使用"><span class="nav-number">2.4.</span> <span class="nav-text">批处理命令使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#回显控制"><span class="nav-number">2.4.1.</span> <span class="nav-text">回显控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#errorlevel程序返回码"><span class="nav-number">2.4.2.</span> <span class="nav-text">errorlevel程序返回码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示目录和子目录"><span class="nav-number">2.4.3.</span> <span class="nav-text">显示目录和子目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">2.4.4.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if和for"><span class="nav-number">2.4.5.</span> <span class="nav-text">if和for</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set设置变量"><span class="nav-number">2.4.6.</span> <span class="nav-text">set设置变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些动态变量"><span class="nav-number">2.4.7.</span> <span class="nav-text">一些动态变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它命令-1"><span class="nav-number">2.4.8.</span> <span class="nav-text">其它命令</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang21</span>
+
+<!--字数统计-->
+  <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> 字数: 140.1k</span>
+</div>
+
+
+  
+</div>
+
+
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Zhang21.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://zhang21.github.io/2018/02/11/Windows常用命令/';
+          this.page.identifier = '2018/02/11/Windows常用命令/';
+          this.page.title = 'Windows常用命令';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Zhang21.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
