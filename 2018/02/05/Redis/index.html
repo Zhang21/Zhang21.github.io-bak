@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="风继续吹">
 <meta property="og:description" content="参考:  《Redis官方文档》: http://www.redis.cn/documentation.html 《Redis命令大全》: http://www.redis.cn/commands.html   环境:  CentOS7x86_64 Redis 3.2">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-11T06:32:10.472Z">
+<meta property="og:updated_time" content="2018-02-25T13:25:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis">
 <meta name="twitter:description" content="参考:  《Redis官方文档》: http://www.redis.cn/documentation.html 《Redis命令大全》: http://www.redis.cn/commands.html   环境:  CentOS7x86_64 Redis 3.2">
@@ -402,7 +402,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  5,120
+                  5,112
                 </span>
               
 
@@ -677,7 +677,7 @@
 <h2 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h2><p>由于redis速度相当快，一秒钟可以150K次密码尝试，所以需要设置一个密码强度很强大的密码。</p>
 <p>设置密码的两种方法：</p>
 <ul>
-<li><code>configg set requirepass &quot;passwd&quot;</code>，通过命令设置密码</li>
+<li><code>config set requirepass &quot;passwd&quot;</code>，通过命令设置密码</li>
 <li>直接在配置文件中<code>requirepass</code>属性后加上密码</li>
 </ul>
 <p>认证登录的两种方式：</p>
@@ -719,7 +719,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">redis-cli</div><div class="line">auth(&apos;passwd&apos;)</div><div class="line"></div><div class="line"></div><div class="line">key *</div><div class="line">get zhang</div></pre></td></tr></table></figure>
 <p><br></p>
 <p><strong>注意</strong>：</p>
-<p>由于Redis只是主从，并不像MongoDB的主从和集群功能。当Redis主挂掉以后，是不可能进行故障转移的。所以也就无法写入，即从库无法更新数据。这点也可以从Redis从的配置文件中看出，连接到Redis主的IP：PORT，并通过主的密码来认证。</p>
+<p>由于Redis只是主从，并不像MongoDB的集群功能。当Redis master挂掉以后，虽然优先级较小的slave成为了master，但从库是无法更新数据的。这点也可以从Redis从的配置文件中看出，连接到Redis主的IP：PORT，并通过主的密码来认证。</p>
 <p><br><br><br></p>
 <h2 id="事务处理"><a href="#事务处理" class="headerlink" title="事务处理"></a>事务处理</h2><p>Redis的事务处理比较简单。只能保证client发起的事务中的命令可以连续的执行，而且不会插入其他的client命令。</p>
 <p>当一个client在连接中发出multi命令时，这个连接就进入一个事务的上下文，该连接后续的命令不会执行，而是存放在一个队列中，当执行exec命令时，redis会顺序的执行队列中的所有命令。如果其中执行出现错误，执行正确的不会回滚，不同于关系型数据库的事务。</p>
@@ -888,7 +888,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -899,7 +899,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -910,7 +910,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1007,7 +1007,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 140.1k</span>
+  <span class="post-count"> 字数: 155.8k</span>
 </div>
 
 

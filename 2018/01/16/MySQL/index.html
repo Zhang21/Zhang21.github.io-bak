@@ -102,7 +102,8 @@
 <meta property="og:description" content="参考：  MySQL5.7参考文档： https://dev.mysql.com/doc/refman/5.7/en/   环境：  CentOS7.x86_64 MySQL5.7">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/Mysql/MySQL.png">
-<meta property="og:updated_time" content="2018-02-09T03:30:27.848Z">
+<meta property="og:image" content="https://zhang21.github.io/images/MySQL/20180301101009.jpg">
+<meta property="og:updated_time" content="2018-03-02T10:00:52.142Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL">
 <meta name="twitter:description" content="参考：  MySQL5.7参考文档： https://dev.mysql.com/doc/refman/5.7/en/   环境：  CentOS7.x86_64 MySQL5.7">
@@ -404,7 +405,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,686
+                  12,223
                 </span>
               
 
@@ -591,6 +592,1410 @@
 <p><br><br><br></p>
 <h2 id="Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7"><a href="#Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7" class="headerlink" title="Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7"></a>Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7</h2><p><br><br><br></p>
 <h2 id="MySQL信息源"><a href="#MySQL信息源" class="headerlink" title="MySQL信息源"></a>MySQL信息源</h2><p>MySQL Information Sources</p>
+<p>本章节将列出有关MySQL的帮助信息。</p>
+<p><br></p>
+<h3 id="MySQL站点"><a href="#MySQL站点" class="headerlink" title="MySQL站点"></a>MySQL站点</h3><p>MySQL Websites</p>
+<p>MySQL Documentation is <a href="https://dev.mysql.com/doc" target="_blank" rel="noopener">https://dev.mysql.com/doc</a></p>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="安装和升级MySQL"><a href="#安装和升级MySQL" class="headerlink" title="安装和升级MySQL"></a>安装和升级MySQL</h1><ul>
+<li>mysql-repo: <a href="http://repo.mysql.com/" target="_blank" rel="noopener">http://repo.mysql.com/</a></li>
+<li>yum-repo: <a href="http://repo.mysql.com/yum/" target="_blank" rel="noopener">http://repo.mysql.com/yum/</a></li>
+</ul>
+<p><br></p>
+<p>安装MySQL一般遵循以下步骤：</p>
+<ul>
+<li>确定MySQL是否支持你的平台(platform)<ul>
+<li>Unix、Linux、FreeBSD</li>
+<li>Windows</li>
+<li>OS X</li>
+</ul>
+</li>
+<li>选择要安装的发行版(distribution)</li>
+<li>下载你想要安装的发行版</li>
+<li>安装发行版</li>
+<li>执行任何必要的安装后设置</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="通用安装指南"><a href="#通用安装指南" class="headerlink" title="通用安装指南"></a>通用安装指南</h2><p>General Installation Guidance</p>
+<p><br><br><br></p>
+<h3 id="安装哪个发行版和MySQL版本"><a href="#安装哪个发行版和MySQL版本" class="headerlink" title="安装哪个发行版和MySQL版本"></a>安装哪个发行版和MySQL版本</h3><p>Which MySQL Version and Distribution to Install</p>
+<p><br></p>
+<p>在准备安装MySQL时，请决定使用哪种版本(version)和发行(distribution)格式(binary or source)</p>
+<p>首先，决定安装开发版还是稳定版。</p>
+<ul>
+<li>Development release<ul>
+<li>具有新功能，但不推荐用于生产环境</li>
+</ul>
+</li>
+<li>General Availability(GA) release<ul>
+<li>也称为稳定版(stable release)，推荐为生产环境使用</li>
+</ul>
+</li>
+</ul>
+<p>MySQL命名方案(naming scheme)， 例如MySQL5.7.1：</p>
+<ul>
+<li>5为主版本号(major)</li>
+<li>7为次版本号(minor)</li>
+<li>1为发行(release)系列版本号<ul>
+<li>系列号描述了稳定的功能集。对于每个新的修补程序，这都会增加。</li>
+</ul>
+</li>
+</ul>
+<p>在选择要安装的MySQL版本之后，决定要为操作系统安装哪个发行版格式。</p>
+<ul>
+<li>二进制(binary)<ul>
+<li>RPM, DMG</li>
+</ul>
+</li>
+<li>源码(source)<ul>
+<li>tar, zip</li>
+</ul>
+</li>
+</ul>
+<p>在某些情况下，最好使用源码安装MySQL：</p>
+<ul>
+<li>想在某个明确的位置安装MySQL</li>
+<li>希望使用二进制发行版中未包含的特性配置mysqld</li>
+<li>希望配置mysqld，而不需要二进制发行版中包含的一些功能</li>
+<li>你希望读取或修改组成MySQL的C、C++源代码</li>
+<li>源码发行版比二进制发行版包含更多的测试和示例</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="如何获取MySQL"><a href="#如何获取MySQL" class="headerlink" title="如何获取MySQL"></a>如何获取MySQL</h3><p>How to Get MySQL</p>
+<p><br></p>
+<ul>
+<li>MySQL当前版本下载页： <a href="https://dev.mysql.com/downloads/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/</a></li>
+<li>完整的MySQL镜像： <a href="https://dev.mysql.com/downloads/mirrors/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/mirrors/</a></li>
+<li>基于RPM的Linux平台，MySQL Yum Repository： <a href="https://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/repo/yum/</a></li>
+<li>基于Debian的Linux平台，MySQL APT Repository： <a href="https://dev.mysql.com/downloads/repo/apt/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/repo/apt/</a></li>
+<li>SUSE Linux平台，MySQL SUSE Repository： <a href="https://dev.mysql.com/downloads/repo/suse/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/repo/suse/</a></li>
+</ul>
+<p><br><br><br></p>
+<h3 id="使用MD5校验和或GnuPG验证程序完整性"><a href="#使用MD5校验和或GnuPG验证程序完整性" class="headerlink" title="使用MD5校验和或GnuPG验证程序完整性"></a>使用MD5校验和或GnuPG验证程序完整性</h3><p>Verifying Package Integrity Using MD5 Checksums or GnuPG</p>
+<p><br></p>
+<p>下载好MySQL包并在安装它之前，请确保它是完整的并未被篡改。有如下三种方法：</p>
+<ul>
+<li>MD5 checksums</li>
+<li>Cryptographic signatures using GnuPG, the GNU Privacy Guard</li>
+<li>For RPM packages, the built-in RPM integrity verification mechanism</li>
+</ul>
+<p><br><br><br></p>
+<h4 id="验证MD5校验和"><a href="#验证MD5校验和" class="headerlink" title="验证MD5校验和"></a>验证MD5校验和</h4><p>Verifying the MD5 Checksum</p>
+<p><br></p>
+<p>应确保下载的MySQL包的MD5校验和与MySQL官方提供的校验和相匹配。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">md5sum mysql-standard-5.7.22-linux-i686.tar.gz</div><div class="line"><span class="comment">#aaab65abbec64d5e907dcd41b8699945  mysql-standard-5.7.22-linux-i686.tar.gz</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="使用GnuPG进行签名检查"><a href="#使用GnuPG进行签名检查" class="headerlink" title="使用GnuPG进行签名检查"></a>使用GnuPG进行签名检查</h4><p>Signature Checking Using GnuPG</p>
+<p><br></p>
+<p>要验证软件包的签名，首先需要我们的公共GPG密钥的副本。可从<a href="http://pgp.mit.edu/" target="_blank" rel="noopener">http://pgp.mit.edu/</a>下载。<br>你想要获得的密钥名为<strong>mysql-build@oss.oracle.com</strong>，如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">-----BEGIN PGP PUBLIC KEY BLOCK-----</div><div class="line">Version: GnuPG v1.4.5 (GNU/Linux)</div><div class="line"></div><div class="line">mQGiBD4+owwRBAC14GIfUfCyEDSIePvEW3SAFUdJBtoQHH/nJKZyQT7h9bPlUWC3</div><div class="line">RODjQReyCITRrdwyrKUGku2FmeVGwn2u2WmDMNABLnpprWPkBdCk96+OmSLN9brZ</div><div class="line">fw2vOUgCmYv2hW0hyDHuvYlQA/BThQoADgj8AW6/0Lo7V1W9/8VuHP0gQwCgvzV3</div><div class="line">BqOx后面还有很多，省略</div><div class="line">-----END PGP PUBLIC KEY BLOCK-----</div></pre></td></tr></table></figure>
+<p>使用<code>gpg --import</code>将密钥导入到个人公共GPG密钥环中。如公共密钥为<code>mysql_pubkey.asc</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">gpg --import ./mysql_pubkey.asc</div><div class="line"></div><div class="line"></div><div class="line">#或使用public key id下载公共密钥</div><div class="line">gpg --recv-keys $pub-key-id</div></pre></td></tr></table></figure>
+<p>在rpm包中验证:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rpm --import ./mysql_pubkey.asc</div></pre></td></tr></table></figure>
+<p>确保两个文件都放置于同一目录下，然后运行命令验证签名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">gpg --verify package_name.asc</div><div class="line"></div><div class="line">gpg --verify mysql-standard-5.7.22-linux-i686.tar.gz.asc</div><div class="line">gpg: Signature made Tue 01 Feb 2011 02:38:30 AM CST using DSA key ID 5072E1F5</div><div class="line">gpg: Good signature from &quot;MySQL Release Engineering &lt;mysql-build@oss.oracle.com&gt;&quot;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="使用RPM进行签名检查"><a href="#使用RPM进行签名检查" class="headerlink" title="使用RPM进行签名检查"></a>使用RPM进行签名检查</h4><p>Signature Checking Using RPM</p>
+<p><br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rpm --checksig package_name.rpm</div><div class="line"></div><div class="line">[zhang@zabbix ~]$ rpm --checksig mysql-community-server-5.7.20-1.el7.x86_64.rpm</div><div class="line">mysql-community-server-5.7.20-1.el7.x86_64.rpm: (sha1) dsa sha1 md5 gpg OK</div></pre></td></tr></table></figure>
+<p>rpm还支持从URL加载密钥:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rpm --import http://dev.mysql.com/doc/refman/5.7/en/checking-gpg-signature.html</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="安装布局"><a href="#安装布局" class="headerlink" title="安装布局"></a>安装布局</h3><p>Installation Layouts</p>
+<p><br></p>
+<p>不同的安装类型(native packages, binary tarballs, and source tarballs)有不同的安装布局，这样可能会导致混淆。</p>
+<p><br><br><br></p>
+<h2 id="在Unix-Linux上使用通用二进制文件安装MySQL"><a href="#在Unix-Linux上使用通用二进制文件安装MySQL" class="headerlink" title="在Unix/Linux上使用通用二进制文件安装MySQL"></a>在Unix/Linux上使用通用二进制文件安装MySQL</h2><p>Installing MySQL on Unix/Linux Using Generic Binaries</p>
+<p><br></p>
+<p>包括以压缩的tar文件形式的通用二进制发行版，以及针对特定平台封装格式的二进制文件。</p>
+<p>MySQL压缩tar文件二进制发行版具有<strong> mysql-VERSION-OS.tar.gz</strong>的文件格式。</p>
+<p>MySQL依赖于<code>libaio</code> Library：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y libaio</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>默认地，tar文件二进制发行版，解压后安装于<code>/usr/local/mysql</code>目录。会在目录下生产 通用Unix/Linux二进制包的MySQL安装布局目录</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bin</td>
+<td>mysqld server, client and utility programs</td>
+</tr>
+<tr>
+<td>docs</td>
+<td>MySQL manual in Info format</td>
+</tr>
+<tr>
+<td>man</td>
+<td>Unix manual pages</td>
+</tr>
+<tr>
+<td>include</td>
+<td>Include (header) files</td>
+</tr>
+<tr>
+<td>lib</td>
+<td>Libraries</td>
+</tr>
+<tr>
+<td>share</td>
+<td>Error messages, dictionary, and SQL for database installation</td>
+</tr>
+<tr>
+<td>support-files</td>
+<td>Miscellaneous support files</td>
+</tr>
+</tbody>
+</table>
+<p>大致命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">shell&gt; groupadd mysql</div><div class="line">shell&gt; useradd -r -g mysql -s /bin/false mysql</div><div class="line">shell&gt; cd /usr/local</div><div class="line">shell&gt; tar zxvf /path/to/mysql-VERSION-OS.tar.gz</div><div class="line">shell&gt; ln -s full-path-to-mysql-VERSION-OS mysql</div><div class="line">shell&gt; cd mysql</div><div class="line">shell&gt; mkdir mysql-files</div><div class="line">shell&gt; chown mysql:mysql mysql-files</div><div class="line">shell&gt; chmod 750 mysql-files</div><div class="line">shell&gt; bin/mysqld --initialize --user=mysql</div><div class="line">shell&gt; bin/mysql_ssl_rsa_setup</div><div class="line">shell&gt; bin/mysqld_safe --user=mysql &amp;</div><div class="line"># Next command is optional</div><div class="line">shell&gt; cp support-files/mysql.server /etc/init.d/mysql.server</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#添加环境变量</div><div class="line">export PATH=$PATH:/usr/local/mysql/bin</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="在Linux上安装MySQL"><a href="#在Linux上安装MySQL" class="headerlink" title="在Linux上安装MySQL"></a>在Linux上安装MySQL</h2><p>Installing MySQL on Linux</p>
+<p><br></p>
+<p>Linux支持多种方法来安装MySQL。建议使用Oracle提供的一个发行版：</p>
+<ul>
+<li>Apt</li>
+<li>Yum</li>
+<li>Zypper</li>
+<li>RPM</li>
+<li>DEB</li>
+<li>Generic</li>
+<li>Source</li>
+<li>Docker</li>
+<li>Oracle Unbreakable Linux Network</li>
+</ul>
+<p>作为一个选择，你可以使用系统中的包管理工具自动下载和安装MySQL。</p>
+<p><br><br><br></p>
+<h3 id="在Linux上使用Yum-Repository安装MySQL"><a href="#在Linux上使用Yum-Repository安装MySQL" class="headerlink" title="在Linux上使用Yum Repository安装MySQL"></a>在Linux上使用Yum Repository安装MySQL</h3><p>Installing MySQL on Linux Using the MySQL Yum Repository</p>
+<p><br></p>
+<p><strong>安装一个全新的MySQL的步骤：</strong></p>
+<ul>
+<li>添加MySQL Yum Repository<ul>
+<li>首先，添加MySQL Yum repository到你的系统仓库列表</li>
+<li>选择和下载对应平台的release 或者 手动添加repository文件</li>
+<li>安装release package</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#yum localinstall platform-and-version-specific-package-name.rpm</span></div><div class="line">yun install http://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql57-community-release-el7-10.noarch.rpm</div><div class="line"></div><div class="line"></div><div class="line">yum repolist enabled | grep <span class="string">"mysql.*-community.*"</span></div></pre></td></tr></table></figure>
+<ul>
+<li>选择一个release series</li>
+</ul>
+<p>默认是最新的GA series，当前最新是MySQL5.7。</p>
+<p>查看所有的MySQL Yum repository: <code>yum repolist all | grep mysql</code></p>
+<p>安装最新MySQL不需要配置，而安装先前的版本则需要指定GA series。disable最新的GA series并且enable需要的GA series。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum-config-manager --disable mysql57-community</div><div class="line"></div><div class="line">yum-config-manager --enable mysql56-community</div></pre></td></tr></table></figure>
+<p><strong>或者手动创建repo，可直接定义版本</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[mysql57-community]</div><div class="line">name=MySQL 5.7 Community Server</div><div class="line">baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/</div><div class="line">enabled=1</div><div class="line">gpgcheck=1</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</div></pre></td></tr></table></figure>
+<ul>
+<li>安装MySQL</li>
+</ul>
+<p>在安装MySQL过程中出现错误，请务必查看日志文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum install -y mysql-community-server mysql-community-client</div><div class="line"></div><div class="line">#也可不安装客户端</div></pre></td></tr></table></figure>
+<ul>
+<li>开启MySQL Server</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">service mysqld start</div><div class="line">#Starting mysqld:[ OK ]</div><div class="line"></div><div class="line">service mysqld status</div></pre></td></tr></table></figure>
+<p><strong>在服务器初始启动时，如果服务器的数据目录为空，则会发生一下情况：</strong></p>
+<ul>
+<li>服务器已初始化</li>
+<li>SSL certificate and key files 在数据目录中生成</li>
+<li>validate_password已安装并启用</li>
+<li>超级用户账户’root’@’localhost’被创建，超级用户密码被设置并被存储在error log files<ul>
+<li>这一点和以前版本有很大区别，我被坑惨了</li>
+</ul>
+</li>
+</ul>
+<p><strong>注意：</strong></p>
+<blockquote>
+<p>ValidPassword的默认密码策略要求包含大写字母、小写字母、数字和特殊字符，并且密码长度至少为8个字符</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#查看初始密码</div><div class="line">grep &apos;temporary password&apos; /var/log/mysqld.log</div><div class="line"></div><div class="line"></div><div class="line">#无法使用mysqladmin修改密码，需要登录mysql后修改</div><div class="line"></div><div class="line">mysql -uroot -p</div><div class="line"></div><div class="line"></div><div class="line">#重置密码</div><div class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;NewPass4!;</div><div class="line"></div><div class="line"></div><div class="line">#如果找不到初始密码</div><div class="line">vim /etc/my.cnf</div><div class="line"></div><div class="line">#在[mysqld]最后行加上skip-grant-tables实现无认证登录</div><div class="line">#重启MySQL</div><div class="line">UPDATE  mysql.user  SET  authentication_string =PASSWORD(&apos;新密码&apos;)  WHERE  USER=&apos;xxx&apos;;</div><div class="line"></div><div class="line"></div><div class="line">#修改默认密码策略</div><div class="line">#更改密码强度</div><div class="line">set global validate_password_policy=0;</div><div class="line"></div><div class="line">#设置密码最小长度</div><div class="line">set global validate_password_length=4;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>使用Yum安装额外的MySQL产品和组件</strong></p>
+<p>你可使用Yum安装和管理MySQL的个别组件。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">yum --disablerepo=\* --enablerepo=<span class="string">'mysql*-community*'</span> list available</div><div class="line"></div><div class="line">yum install package-name</div><div class="line"></div><div class="line"><span class="comment">#栗子</span></div><div class="line">yum install mysql-community-libs</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="在Linux上使用Oracle提供的RPM包安装MySQL"><a href="#在Linux上使用Oracle提供的RPM包安装MySQL" class="headerlink" title="在Linux上使用Oracle提供的RPM包安装MySQL"></a>在Linux上使用Oracle提供的RPM包安装MySQL</h3><p>Installing MySQL on Linux Using RPM Packages from Oracle</p>
+<p><br></p>
+<p>MySQL Community Edition的rpm包如下：</p>
+<table>
+<thead>
+<tr>
+<th>包名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mysql-community-server</td>
+<td>Database server and related tools</td>
+</tr>
+<tr>
+<td>mysql-community-client</td>
+<td>MySQL client applications and tools</td>
+</tr>
+<tr>
+<td>mysql-community-common</td>
+<td>Common files for server and client libraries</td>
+</tr>
+<tr>
+<td>mysql-community-server-minimal</td>
+<td>Minimal installation of the database server and related tools</td>
+</tr>
+<tr>
+<td>mysql-community-devel</td>
+<td>Development header files and libraries for MySQL database client applications</td>
+</tr>
+<tr>
+<td>mysql-community-libs</td>
+<td>Shared libraries for MySQL database client applications</td>
+</tr>
+<tr>
+<td>mysql-community-libs-compat</td>
+<td>Shared compatibility libraries for previous MySQL installations</td>
+</tr>
+<tr>
+<td>mysql-community-embedded</td>
+<td>MySQL embedded library</td>
+</tr>
+<tr>
+<td>mysql-community-embedded-devel</td>
+<td>Development header files and libraries for MySQL as an embeddable library</td>
+</tr>
+<tr>
+<td>mysql-community-test</td>
+<td>Test suite for the MySQL server</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#rpm -qpl mysql-community-server-version-distribution-arch.rpm</div><div class="line"></div><div class="line">#yum install mysql-community-&#123;server,client,common,libs&#125;-*</div><div class="line"></div><div class="line"></div><div class="line">wget http://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql-community-server-5.7.20-1.el7.x86_64.rpm</div><div class="line">wget http://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql-community-client-5.7.20-1.el7.x86_64.rpm</div><div class="line"></div><div class="line">yum install -y mysql-community-server-5.7.20-1.el7.x86_64.rpm mysql-community-client-5.7.20-1.el7.x86_64.rpm</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Linux RPM包MySQL开发区的安装布局：</strong></p>
+<table>
+<thead>
+<tr>
+<th>文件或资源</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client programs and scripts</td>
+<td>/usr/bin</td>
+</tr>
+<tr>
+<td>mysqld server</td>
+<td>/usr/sbin</td>
+</tr>
+<tr>
+<td>configuration file</td>
+<td>/etc/my.cnf</td>
+</tr>
+<tr>
+<td>data directory</td>
+<td>/var/lib/mysql</td>
+</tr>
+<tr>
+<td>error log file</td>
+<td>/var/log/mysqld.log</td>
+</tr>
+<tr>
+<td>Value of secure_file_priv</td>
+<td>/var/lib/mysql-files</td>
+</tr>
+<tr>
+<td>System V init script</td>
+<td>/etc/init.d/mysqld</td>
+</tr>
+<tr>
+<td>Systemd service</td>
+<td>mysqld</td>
+</tr>
+<tr>
+<td>pid file</td>
+<td>/var/run/mysql/mysqld.pid</td>
+</tr>
+<tr>
+<td>socket</td>
+<td>/var/lib/mysql/mysql.sock</td>
+</tr>
+<tr>
+<td>Keyring directory</td>
+<td>/var/lib/mysql-keyring</td>
+</tr>
+<tr>
+<td>Unix manual pages</td>
+<td>/usr/share/man</td>
+</tr>
+<tr>
+<td>include (header) files</td>
+<td>/usr/include/mysql</td>
+</tr>
+<tr>
+<td>Libraries</td>
+<td>/usr/lib/mysql</td>
+</tr>
+<tr>
+<td>Miscellaneous support files (for example, error messages, and character set files)</td>
+<td>/usr/share/mysql</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>The installation also creates a user named mysql and a group named mysql on the system.</p>
+<blockquote>
+<p><strong>注意</strong><br>安装MySQL会在系统上生成一个名为mysql的用户和群组<br>安装以前的MySQL版本可能会创建<code>my.cnf</code>配置文件。强烈建议先将<code>my.cnf</code>进行迁移，然后删除它。之后才安装MySQL</p>
+</blockquote>
+<p><br><br><br></p>
+<h3 id="用systemd管理MySQL-Server"><a href="#用systemd管理MySQL-Server" class="headerlink" title="用systemd管理MySQL Server"></a>用systemd管理MySQL Server</h3><p>Managing MySQL Server with systemd</p>
+<p><br></p>
+<h4 id="systemd综述"><a href="#systemd综述" class="headerlink" title="systemd综述"></a>systemd综述</h4><p>Overview of systemd</p>
+<p><br></p>
+<p><code>systemd</code>提供了MySQL Server的自动开启和关闭，使用<code>systemctl</code>命令进行管理。</p>
+<p>或者，使用<code>system V</code>系统兼容的<code>service</code>命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">systemctl &#123;start|stop|restart|status&#125; mysqld</div><div class="line"></div><div class="line">service mysqld &#123;start|stop|restart|status&#125;</div></pre></td></tr></table></figure>
+<p>对systemd的支持包括这些文佳：</p>
+<ul>
+<li>mysqld.service<ul>
+<li>systemd服务单元配置文件，以及有关MySQL服务的详细信息</li>
+</ul>
+</li>
+<li>mysqld@.service<ul>
+<li>用于管理多个MySQL实例</li>
+</ul>
+</li>
+<li>mysqld.tmpfiles.d<ul>
+<li>包含支持临时文件功能的信息</li>
+</ul>
+</li>
+<li>mysqld_pre_systemd<ul>
+<li>支持单元文件的脚本</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h4 id="为MySQL配置systemd"><a href="#为MySQL配置systemd" class="headerlink" title="为MySQL配置systemd"></a>为MySQL配置systemd</h4><p>Configuring systemd for MySQL</p>
+<p><br></p>
+<p>为MySQL添加或修改systemd选项，参考如下方法：</p>
+<ul>
+<li>使用一个本地化的systemd配置文件</li>
+<li>安排systemd为MySQL Server进程设置环境变量</li>
+<li>设置MYSQLD_OPTS systemd变量</li>
+</ul>
+<p>创建<code>/etc/systemd/system/mysqld.service</code>本地化systemd配置文件，这里讨论的是将此文件名作为<code>override.conf</code>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[Service]</div><div class="line">LimitNOFILE=max_open_files</div><div class="line">PIDFile=/path/to/pid/file</div><div class="line">Nice=nice_level</div><div class="line">LimitCore=core_file_limit</div><div class="line">Environment=<span class="string">"LD_PRELOAD=/path/to/malloc/library"</span></div><div class="line">Environment=<span class="string">"TZ=time_zone_setting"</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#LimitNOFILE: 文件描述符数量</span></div><div class="line"><span class="comment">#LimitCore: 最大核心文件大小</span></div><div class="line"><span class="comment">#Nice: 优先级</span></div><div class="line"><span class="comment">#LD_PRELOAD: 特定内存分配库</span></div><div class="line"><span class="comment">#TZ: 指定时区</span></div></pre></td></tr></table></figure>
+<p>修改mysqld:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl edit mysqld</div></pre></td></tr></table></figure>
+<p>重新加载systemd配置，然后重启MySQL service：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">systemctl daemon-reload</div><div class="line"></div><div class="line">systemctl restart mysqld</div></pre></td></tr></table></figure>
+<p>可在<code>override.conf</code>中设置如下参数：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[Service]</div><div class="line">PIDFile=/var/run/mysqld/mysqld-custom.pid</div><div class="line">ExecStart=</div><div class="line">ExecStart=/usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld-custom.pid <span class="variable">$MYSQLD_OPTS</span></div></pre></td></tr></table></figure>
+<p>在<code>/etc/sysconfig/mysql</code>下指定值：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">LD_PRELOAD=/path/to/malloc/library</div><div class="line">TZ=time_zone_setting</div><div class="line"></div><div class="line"></div><div class="line">systemctl restart mysqld</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="使用systemd配置多个MySQL实例"><a href="#使用systemd配置多个MySQL实例" class="headerlink" title="使用systemd配置多个MySQL实例"></a>使用systemd配置多个MySQL实例</h4><p>Configuring Multiple MySQL Instances Using systemd</p>
+<p><br></p>
+<p>由于systemd具有在平台上管理多个MySQL实例的能力，而不必须需要<code>mysqld_multi</code>和<code>mysqld_multi.server</code>。</p>
+<p>若要使用多实例(multiple-instance)功能，请修改<code>/etc/my.cnf</code>文件以包含每个实例的关键选项配置。<br>例如，管理replication01和replication02两个实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">vim /etc/my.cnf</div><div class="line"></div><div class="line"></div><div class="line">[mysqld@replica01]</div><div class="line">datadir=/var/lib/mysql-replica01</div><div class="line">socket=/var/lib/mysql-replica01/mysql.sock</div><div class="line">port=3307</div><div class="line">log-error=/var/log/mysqld-replica01.log</div><div class="line"></div><div class="line"></div><div class="line">[mysqld@replica02]</div><div class="line">datadir=/var/lib/mysql-replica02</div><div class="line">socket=/var/lib/mysql-replica02/mysql.sock</div><div class="line">port=3308</div><div class="line">log-error=/var/log/mysqld-replica02.log</div></pre></td></tr></table></figure>
+<p><strong>这里的名称使用<code>@</code>作为分隔符(delimiter)，因为这个是<code>systemd</code>支持的唯一分隔符。</strong></p>
+<p>管理两个实例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">systemctl start mysqld@replica01</div><div class="line">systemctl start mysqld@replica02</div><div class="line"></div><div class="line"></div><div class="line">systemctl enable mysqld@replica01</div><div class="line">systemctl enable mysqld@replica02</div><div class="line"></div><div class="line"></div><div class="line">#使用通配符</div><div class="line">systemctl status &apos;mysqld@replica*&apos;</div><div class="line"></div><div class="line"></div><div class="line">systemctl stop mysqld@replica0&#123;1,2&#125;</div></pre></td></tr></table></figure>
+<p>对于同一个机器上的不同MySQL实例，systemd自动使用不同的单元文件。<br>在unit file中，<code>%I</code>和<code>%i</code>用于<code>@</code>标记后传入参数，用于管理特定实例。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#像这样</span></div><div class="line">mysqld --defaults-group-suffix=@%I ...</div><div class="line"></div><div class="line"></div><div class="line">systemctl status mysqld@replica01</div><div class="line"></div><div class="line"><span class="comment"># mysqld@replica01.service - MySQL Server</span></div><div class="line"><span class="comment">#  Loaded: loaded (/usr/lib/systemd/system/mysqld@.service; disabled; vendor preset: disabled)</span></div><div class="line"><span class="comment">#  Active: active (running) since Tue 2018-02-27 12:18:34 CST; 1min 6s ago</span></div><div class="line"><span class="comment">#    Docs: man:mysqld(8)</span></div><div class="line"><span class="comment">#          http://dev.mysql.com/doc/refman/en/using-systemd.html</span></div><div class="line"><span class="comment"># Process: 3927 ExecStart=/usr/sbin/mysqld --defaults-group-suffix=@%I --daemonize --pid-file=/var/run/mysqld/mysqld-%i.pid $MYSQLD_OPTS (code=exited, status=0/SUCCESS)</span></div><div class="line"><span class="comment"># Process: 3845 ExecStartPre=/usr/bin/mysqld_pre_systemd %I (code=exited, status=0/SUCCESS)</span></div><div class="line"><span class="comment">#Main PID: 3930 (mysqld)</span></div><div class="line"><span class="comment">#  CGroup: /system.slice/system-mysqld.slice/mysqld@replica01.service</span></div><div class="line"><span class="comment">#          `-3930 /usr/sbin/mysqld --defaults-group-suffix=@replica01 --daemonize --pid-file=/var/run/mysqld/mysqld-replica01.pid</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">#eb 27 12:18:27 zabbix.me systemd[1]: Starting MySQL Server...</span></div><div class="line"><span class="comment">#eb 27 12:18:34 zabbix.me systemd[1]: Started MySQL Server.</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="从mysqld-safe迁移到systemd"><a href="#从mysqld-safe迁移到systemd" class="headerlink" title="从mysqld_safe迁移到systemd"></a>从mysqld_safe迁移到systemd</h4><p>Migrating from mysqld_safe to systemd</p>
+<p><br></p>
+<p>因为<code>mysqld_safe</code>没有安装在使用<code>systemd</code>管理MySQL的平台上，所以以前需要为该程序指定选项：<code>[mysqld_safe]</code></p>
+<ul>
+<li>一些<code>[mysqld_safe]</code>的选项也能被<code>[mysqld]</code>支持</li>
+<li>一些<code>[mysqld_safe]</code>的选项类似于<code>[mysqld]</code>选项</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="从源码安装MySQL"><a href="#从源码安装MySQL" class="headerlink" title="从源码安装MySQL"></a>从源码安装MySQL</h2><p>Installing MySQL from Source</p>
+<p><br></p>
+<p>从源代码构建MySQL使我们能够自定义构建参数(parameter)、编译器优化(compiler optimization)和安装位置(installation location)。</p>
+<p>在使用源码安装前，请检查Oracle是否为你的平台生成预编译的二进制发行版，以及是否适合你。Oracle付出了很多努力确保提供的二进制文件具有最佳的性能选择。</p>
+<p><strong>源码安装系统需求：</strong><br>使用源码安装MySQL需要多种开发工具。</p>
+<p>使用源码安装MySQL，必须满足一下系统需求：</p>
+<ul>
+<li>CMake, which is used as the build framework on all platforms</li>
+<li>A good make program</li>
+<li>A working ANSI C++ compiler</li>
+<li>The Boost C++ libraries are required to build MySQL</li>
+<li>The ncurses library</li>
+<li>Sufficient free memory</li>
+<li>Perl is needed if you intend to run test scripts</li>
+</ul>
+<p>使用standard source distribution安装MySQL，需要以下工具来unpack分发文件：</p>
+<ul>
+<li>For a .tar.gz compressed tar file: <code>tar</code></li>
+<li>For a .zip Zip archive: <code>zip</code></li>
+<li>For an .rpm RPM package: <code>rpmbuild</code></li>
+</ul>
+<p><br><br><br></p>
+<h3 id="用于源码安装的MySQL布局"><a href="#用于源码安装的MySQL布局" class="headerlink" title="用于源码安装的MySQL布局"></a>用于源码安装的MySQL布局</h3><p>MySQL Layout for Source Installation</p>
+<p><br></p>
+<p>默认地，再从源码编译后安装MySQL时，安装步骤会将文件安装在<code>/usr/local/mysql</code>下。</p>
+<p><br><br><br></p>
+<h3 id="使用标准源码发行版安装MySQL"><a href="#使用标准源码发行版安装MySQL" class="headerlink" title="使用标准源码发行版安装MySQL"></a>使用标准源码发行版安装MySQL</h3><p>Installing MySQL Using a Standard Source Distribution</p>
+<p><br></p>
+<p>从一个标准源码发行版安装MySQL：</p>
+<ol>
+<li>确保系统满足工具需求</li>
+<li>获取发行文件</li>
+<li>配置、构建和安装</li>
+<li>执行安装后程序</li>
+</ol>
+<p><br></p>
+<p>如果是source RPM:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rpmbuild --rebuild --clean MySQL-VERSION.src.rpm</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>如果是compressed tar file 或 zip archive source:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Preconfiguration setup</span></div><div class="line">shell&gt; groupadd mysql</div><div class="line">shell&gt; useradd -r -g mysql -s /bin/<span class="literal">false</span> mysql</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># Beginning of source-build specific instructions</span></div><div class="line">shell&gt; tar zxvf mysql-VERSION.tar.gz</div><div class="line">shell&gt; <span class="built_in">cd</span> mysql-VERSION</div><div class="line">shell&gt; mkdir bld</div><div class="line">shell&gt; <span class="built_in">cd</span> bld</div><div class="line">shell&gt; cmake ..</div><div class="line">shell&gt; make</div><div class="line">shell&gt; make install</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># End of source-build specific instructions</span></div><div class="line"><span class="comment"># Postinstallation setup</span></div><div class="line">shell&gt; <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql</div><div class="line">shell&gt; mkdir mysql-files</div><div class="line">shell&gt; chown mysql:mysql mysql-files</div><div class="line">shell&gt; chmod 750 mysql-files</div><div class="line">shell&gt; bin/mysqld --initialize --user=mysql</div><div class="line">shell&gt; bin/mysql_ssl_rsa_setup</div><div class="line">shell&gt; bin/mysqld_safe --user=mysql &amp;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># Next command is optional</span></div><div class="line">shell&gt; cp support-files/mysql.server /etc/init.d/mysql.server</div></pre></td></tr></table></figure>
+<p><strong>/sbin/nologin和/bin/false的区别</strong></p>
+<ul>
+<li>/bin/false是最严格的禁止login选项，一切服务都不能用<ul>
+<li><code>mongod:x:996:994:mongod:/var/lib/mongo:/bin/false</code></li>
+</ul>
+</li>
+<li>/sbin/nologin只是不允许系统login，可以使用其他服务<ul>
+<li><code>ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin</code></li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>执行预配置(preconfiguration)设置</strong></p>
+<p>在Unix上，设置MySQL用户和组，用于运行和执行MySQL服务器和数据库目录。</p>
+<p><br></p>
+<p><strong>获得和解包distribution</strong></p>
+<p>选择要解压分发的目录，并将位置更改到其中。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tar zxvf mysql-VERSION.tar.gz</div><div class="line"></div><div class="line"><span class="comment">#gunzip &lt; mysql-VERSION.tar.gz | tar xvf -</span></div><div class="line"><span class="comment">#cmake -E tar zxvf mysql-VERSION.tar.gz</span></div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="使用开发源码树安装MySQL"><a href="#使用开发源码树安装MySQL" class="headerlink" title="使用开发源码树安装MySQL"></a>使用开发源码树安装MySQL</h3><p>Installing MySQL Using a Development Source Tree</p>
+<p><br></p>
+<p>install MySQL from the latest development source codew hich is hosted on GitHub: <a href="https://github.com/mysql/mysql-server" target="_blank" rel="noopener">https://github.com/mysql/mysql-server</a></p>
+<p><strong>设置一个MySQL git repository</strong></p>
+<ol>
+<li>克隆MySQL git repository到本机</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/mysql/mysql-server.git</div></pre></td></tr></table></figure>
+<ol>
+<li>查看</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> mysql-server</div></pre></td></tr></table></figure>
+<ol>
+<li>使用<code>git branch -r</code>查看远程MySQL分支</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> mysql-server</div><div class="line"></div><div class="line">git branch -r</div></pre></td></tr></table></figure>
+<ol>
+<li>查看分支</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> mysql-server</div><div class="line"></div><div class="line">git branch</div></pre></td></tr></table></figure>
+<ol>
+<li>切换分支</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> mysql-server</div><div class="line"></div><div class="line">git checkout 5.7</div></pre></td></tr></table></figure>
+<ol>
+<li>获取远程MySQL git repository更新</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> mysql-server</div><div class="line"></div><div class="line">git pull</div></pre></td></tr></table></figure>
+<ol>
+<li>检查提交历史</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> mysql-server</div><div class="line"></div><div class="line">git <span class="built_in">log</span></div><div class="line"></div><div class="line"><span class="comment">#也可在MySQL GitHub上查看commit history</span></div></pre></td></tr></table></figure>
+<ol>
+<li>在克隆MySQL git repository并切换到需要的分支后，便可以从源代码构建MySQL Server。</li>
+</ol>
+<p>在生产机器上从分发源码树安装构件时要小心，安装命令可能会覆盖您的实时发行版安装。</p>
+<p><br><br><br></p>
+<h3 id="MySQL源码配置选项"><a href="#MySQL源码配置选项" class="headerlink" title="MySQL源码配置选项"></a>MySQL源码配置选项</h3><p>MySQL Source-Configuration Options</p>
+<p><br></p>
+<p>CMake程序提供了一个强大的如何配置MySQL源码发行版的控制。</p>
+<p>具体链接参考: <a href="https://dev.mysql.com/doc/refman/5.7/en/source-configuration-options.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/source-configuration-options.html</a></p>
+<p><br><br><br></p>
+<h3 id="处理MySQL编译问题"><a href="#处理MySQL编译问题" class="headerlink" title="处理MySQL编译问题"></a>处理MySQL编译问题</h3><p>Dealing with Problems Compiling MySQL</p>
+<p><br></p>
+<ul>
+<li>如果CMake先前已经运行过，那么现在运行的CMake可能使用先前的调用过程中收集到的信息。这些信息存储在 CMakeCache.txt。在CMake启动时，它会寻找和读取此文件。</li>
+<li>每次运行<code>CMake</code>，必须再次运行<code>make</code>才能重新编译。</li>
+</ul>
+<p>防止使用old object file或配置文件:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">make clean</div><div class="line">rm CMakeCache.txt</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="安装之后的设置和测试"><a href="#安装之后的设置和测试" class="headerlink" title="安装之后的设置和测试"></a>安装之后的设置和测试</h2><p>Postinstallation Setup and Testing</p>
+<p><br></p>
+<p>在安装MySQL后你应该做的事：</p>
+<ul>
+<li>如有必要，初始化数据目录并创建MySQL授权表</li>
+<li>开启Server并确保它可以正常访问</li>
+<li>将密码分配给授权表中的root用户</li>
+<li>可选地，设置Server自启动</li>
+<li>可选地，填写时区表，以便识别时区</li>
+</ul>
+<p><br></p>
+<h3 id="初始化数据目录"><a href="#初始化数据目录" class="headerlink" title="初始化数据目录"></a>初始化数据目录</h3><p>Initializing the Data Directory</p>
+<p><br></p>
+<p>安装MySQL之后，必须初始化数据目录，包括mysql系统数据库中的表。有些安装方法会自动初始化，有些则需要手动初始化。<br>当然，如果修改了默认数据目录位置，那么也是需要手动初始化的。</p>
+<p>初始化数据库目录，主要是包含了初始MySQL授权表(grant table)的MySQL服务器，这些表确定了如何允许用户连接到服务器。<br>但是，初始化数据目录是不会覆盖(overwrite)任何现有权限表，因此在任何情况下运行都是安全的。</p>
+<p>数据目录初始化会在MySQL数据库汇总创建time zone，但不会填充它，所以它是空的。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql</div><div class="line"></div><div class="line">mkdir mysql-files</div><div class="line"></div><div class="line">chown mysql:mysql ./mysql-files</div><div class="line">chmod 750 ./mysql-files</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#--user</span></div><div class="line"><span class="comment">#使数据库目录文件属于mysql用户，以确保Server有读取权限</span></div><div class="line">/usr/<span class="built_in">local</span>/mysql/bin/mysqld --initialize --user=mysql</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#开启安全连接</span></div><div class="line">/usr/<span class="built_in">local</span>/mysql/bin/mysql_ssl_rsa_setup</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="使用mysqld手动初始化数据目录"><a href="#使用mysqld手动初始化数据目录" class="headerlink" title="使用mysqld手动初始化数据目录"></a>使用mysqld手动初始化数据目录</h4><p>Initializing the Data Directory Manually Using mysqld</p>
+<p><br></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql/bin</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#使数据库目录文件属于mysql用户，以确保Server有读取权限</span></div><div class="line"><span class="comment">#默认是secure，会生成root初始密码</span></div><div class="line">./mysqld --initialize --user=mysql</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#不生成root初始密码</span></div><div class="line">./bin/mysqld --initialize-insecure --user=mysql</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#指定目录</span></div><div class="line">--basedir=/usr/<span class="built_in">local</span>/mysql</div><div class="line">--datadir=/var/lib/mysql</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#或者将其写入配置文件</span></div><div class="line">vim /etc/my.cnf</div><div class="line"></div><div class="line">[mysqld]</div><div class="line">basedir=/usr/<span class="built_in">local</span>/mysql</div><div class="line">datadir=/var/lib/mysql</div><div class="line"></div><div class="line"><span class="comment">#指定配置文件初始化</span></div><div class="line">./mysqld --defaults-file=/etc/mysql.cnf --initialize --user=mysql</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="使用mysql-install-db初始化数据目录"><a href="#使用mysql-install-db初始化数据目录" class="headerlink" title="使用mysql_install_db初始化数据目录"></a>使用mysql_install_db初始化数据目录</h4><p>Initializing the Data Directory Manually Using mysql_install_db</p>
+<p><br></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql/bin</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#mysql_install_db命令会创建数据目录，并在数据目录下创建mysql数据库和授权表</span></div><div class="line">./mysql_install_db --user=mysql</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#指定目录是必须的</span></div><div class="line">--basedir=/usr/<span class="built_in">local</span>/mysql</div><div class="line">--datadir=/var/lib/mysql</div><div class="line"></div><div class="line">./mysqld_safe --user=mysql &amp;</div><div class="line"><span class="comment">#systemctl start mysqld</span></div><div class="line"></div><div class="line">mysql -u root -p xxx</div><div class="line"></div><div class="line">mysql&gt;SET PASSWORD FOR <span class="string">'root'</span>@<span class="string">'localhost'</span> = PASSWORD(<span class="string">'new_password'</span>);</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="Starting-the-Server"><a href="#Starting-the-Server" class="headerlink" title="Starting the Server"></a>Starting the Server</h3><ul>
+<li>Start the MySQL server like this if your installation includes mysqld_safe<ul>
+<li><code>/usr/local/mysql/binmysqld_safe --user=mysql &amp;</code></li>
+</ul>
+</li>
+<li>Start the server like this if your installation includes systemd support<ul>
+<li><code>systemctl start mysqld</code></li>
+</ul>
+</li>
+<li>使用non-root用户运行MySQL服务很重要</li>
+<li>如有错误请查看日志</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="Testing-the-Server"><a href="#Testing-the-Server" class="headerlink" title="Testing the Server"></a>Testing the Server</h3><p>执行一些简单测试以保证Server正常工作。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#使用mysqladmin验证Server正在运行</span></div><div class="line">mysqladmin --<span class="built_in">help</span></div><div class="line"></div><div class="line">mysqladmin -uuser -ppasswd version</div><div class="line"></div><div class="line">mysqladmin -uuser -ppasswd variables</div><div class="line"></div><div class="line">mysqladmin -user -ppasswd shutdown</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 使用mysqlshow查看数据库</span></div><div class="line">mysqlshow -uuser -ppasswd</div><div class="line"></div><div class="line"><span class="comment">#查看指定数据库信息</span></div><div class="line">mysqlshow -uuser -ppasswd mysql</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#读取信息</span></div><div class="line"><span class="comment">#-e,Execute command and quit</span></div><div class="line">mysql -uuser -ppasswd -e <span class="string">"SELECT user, host from mysql.user"</span></div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="保护初始化MySQL账户"><a href="#保护初始化MySQL账户" class="headerlink" title="保护初始化MySQL账户"></a>保护初始化MySQL账户</h3><p>Securing the Initial MySQL Accounts</p>
+<p><br></p>
+<p>在安装MySQL后，root账户密码可能已经被分配。</p>
+<p><code>mysql.user</code>授权表定义了初始化MySQL用户账户和它们的访问权限。<br>MySQL5.7只创建了一个<code>&#39;root&#39;@&#39;localhost&#39;</code>账户，但早期的版本可能有多个用户。</p>
+<p>请务必为每一个MySQL账户创建密码。</p>
+<p>查看用户：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#存储在authentication_string列中的密码可能包含无法正常显示的二进制数据</span></div><div class="line"><span class="comment">#所以将其转换为十六进制</span></div><div class="line">mysql&gt; SELECT user, host, hex(authentication_string) FROM mysql.user;</div><div class="line">mysql&gt; SELECT user, host, authentication_string FROM mysql.user;</div><div class="line"></div><div class="line"><span class="comment">#或</span></div><div class="line">mysql -uuser -ppasswd -e <span class="string">"SELECT user, host, hex(authentication_string) FROM mysql.user;"</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#5.7以前的版本</span></div><div class="line">mysql&gt; mysql&gt; SELECT user, host, password FROM mysql.user;</div><div class="line"></div><div class="line"><span class="comment">#或</span></div><div class="line">mysql -uuser -ppasswd -e <span class="string">"SELECT user, host, password FROM mysql.user;"</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>为root账户分配密码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#5.7.6</div><div class="line">mysql&gt; ALTER USER user IDENTIFIED BY &apos;new_passwd&apos;;</div><div class="line"></div><div class="line">mysql&gt; ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;new_passwd&apos;;</div><div class="line"></div><div class="line"></div><div class="line">#5.7.6前</div><div class="line">mysql&gt; SET PASSWORD FOR username = PASSWORD(&apos;new_passwd&apos;);</div><div class="line"></div><div class="line">mysql&gt; SET PASSWORD FOR &apos;root&apos;@&apos;localhost&apos; = PASSWORD(&apos;new_passwd&apos;);</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>给anonymous账户分配密码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SET PASSWORD FOR &apos;&apos;@&apos;localhost&apos; = PASSWORD(&apos;new_passwd&apos;);</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>移除匿名账户</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; DROP USER &apos;&apos;@&apos;localhost&apos;;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="升级或降级MySQL"><a href="#升级或降级MySQL" class="headerlink" title="升级或降级MySQL"></a>升级或降级MySQL</h2><p>Upgrading or Downgrading MySQL</p>
+<p><br></p>
+<ul>
+<li>升级是一个常见的过程。请在测试系统上确保运行正常后再实施到生产环境</li>
+<li>降级不太常见。一般是由于新版本在生产环境上发生某些兼容性或性能问题，并且是在测试环境中没有发现的情况下，从而需要降级。请现在测试系统上运行正常后再实施到生产环境。</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="升级MySQL"><a href="#升级MySQL" class="headerlink" title="升级MySQL"></a>升级MySQL</h3><p>请使用有管理权限的MySQL账户执行升级相关命令。(如root账户)</p>
+<p><br></p>
+<h4 id="MySQL升级策略"><a href="#MySQL升级策略" class="headerlink" title="MySQL升级策略"></a>MySQL升级策略</h4><p>MySQL Upgrade Strategies</p>
+<p><br></p>
+<p><strong>升级方法</strong></p>
+<ul>
+<li>直接升级(In-Place Upgrade)<ul>
+<li>包含关闭旧版MySQL，替换为新的MySQL版本，在现有数据目录上重启MySQL，运行<code>mysql_upgrade</code></li>
+</ul>
+</li>
+<li>逻辑升级(Logical Upgrade)<ul>
+<li>包含使用<code>mysqldump</code>导出现有数据文件，安装新版MySQL，导入数据文件到新版MySQL，运行<code>mysql_upgrade</code></li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>升级路径</strong></p>
+<ul>
+<li>只支持GA release之间</li>
+<li>这是一个发行系列的升级<ul>
+<li>如5.6.x到5.6.y</li>
+</ul>
+</li>
+<li>升级到下一个版本之前，建议先升级到最新版本<ul>
+<li>如先升级到5.6最新版，再升级到5.7</li>
+</ul>
+</li>
+<li>不支持跳版本升级<ul>
+<li>如5.5到5.7</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>升级之前</strong></p>
+<ul>
+<li>升级之前，请一定备份数据</li>
+<li>查看新版本的Release Note<ul>
+<li>删除和增加了什么功能</li>
+</ul>
+</li>
+<li>新版本依赖什么</li>
+<li>如果在InnoDB中使用XA事务，则在升级之前运行XA恢复以检查未提交的XA事务</li>
+<li>如果MySQL数据量很大，就地升级以后可能需要很长的时间才能进行转换<ul>
+<li>你可能会发现创建一个”dummy”数据库实例是很有用的，以及评估可能需要哪些转换以及执行这些转换所涉及的工作</li>
+</ul>
+</li>
+<li>无论在你安装或升级到一个MySQL新版本，建议重建和重装MySQL language interface<ul>
+<li>如PHP MySQL扩展</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>直接升级</strong></p>
+<ul>
+<li>配置MySQL执行slow shutdown</li>
+</ul>
+<p>innoDB在关闭前执行一个完整的清除和更改缓冲区合并，这确保数据文件在不同的版本的文件格式做好充分准备。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -u root -p --execute=<span class="string">"SET GLOBAL innodb_fast_shutdown=0"</span></div></pre></td></tr></table></figure>
+<ul>
+<li>关闭MySQL Server</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -p shutdown</div></pre></td></tr></table></figure>
+<ul>
+<li><p>升级MySQL</p>
+</li>
+<li><p>开启新版MySQL</p>
+</li>
+<li><p>运行mysql_upgrade</p>
+</li>
+</ul>
+<p><code>mysql_upgrade</code>检查所有数据库中的所有表与当前版本MySQL的不兼容性。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mysql_upgrade -uroot -p</div><div class="line"></div><div class="line"><span class="comment">#Upgrade process completed successfully.</span></div><div class="line"><span class="comment">#Checking if update is needed.</span></div></pre></td></tr></table></figure>
+<ul>
+<li>关闭和重启MySQL Server来确保改变生效</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysqladmin -uroot -p shutdown</div><div class="line"></div><div class="line">systemctl start mysqld</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>逻辑升级</strong></p>
+<ul>
+<li>导出所有数据</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysqldump -uroot -p  --all-databases --force &gt; mysqldb_backup.sql</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#-f, --force         Continue even if we get an SQL error</span></div><div class="line"><span class="comment">#Use the --routines and --events options if your databases include stored programs</span></div><div class="line"><span class="comment">#--add-drop-database Add a DROP DATABASE before each create.</span></div><div class="line">mysqldump -uroot -p --add-drop-table --routines --events --all-databases --force &gt; mysqldb_backup.sql</div></pre></td></tr></table></figure>
+<ul>
+<li>关闭MySQL Server</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqladmin -uroot -p shutdown</div></pre></td></tr></table></figure>
+<ul>
+<li><p>安装新版MySQL</p>
+</li>
+<li><p>初始化MySQL并启动</p>
+</li>
+<li><p>载入数据文件</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -p --force &lt; ./mysqldb_backup.sql</div></pre></td></tr></table></figure>
+<ul>
+<li>运行mysql_upgrade</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mysql_upgrade -uroot -p</div><div class="line"></div><div class="line"><span class="comment">#Upgrade process completed successfully.</span></div><div class="line"><span class="comment">#Checking if update is needed.</span></div></pre></td></tr></table></figure>
+<ul>
+<li>关闭并重启MySQL Server以确保更改生效</li>
+</ul>
+<p><br></p>
+<h4 id="通过MySQL-Yum-Repository进行升级"><a href="#通过MySQL-Yum-Repository进行升级" class="headerlink" title="通过MySQL Yum Repository进行升级"></a>通过MySQL Yum Repository进行升级</h4><p>Upgrading MySQL with the MySQL Yum Repository</p>
+<p><br></p>
+<p><strong>选择一个target series</strong></p>
+<p>默认情况下，MySQL Yum Repository会将MySQL升级到该release系列的最新版本。如5.7.1升级到5.7.10。</p>
+<p>如果要升级到其他release(如5.6到5.7)，就必须要先禁用此subrepository，并选择和启用新的subrepository。</p>
+<p>As a general rule, to upgrade from one release series to another, go to the next series rather than skipping a series.</p>
+<p><br></p>
+<p><strong>升级MySQL</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum update mysql-server mysql-client</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>重启MySQL</strong></p>
+<p>MySQL Server总是在Yum更新之后重启，一旦重启，请运行<code>mysql_upgrade</code>来检查旧数据与升级软件之间的任何不兼容问题。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mysql_upgrade -uroot -p</div><div class="line"></div><div class="line"><span class="comment">#Upgrade process completed successfully.</span></div><div class="line"><span class="comment">#Checking if update is needed.</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>升级Shared Client Libraries</strong></p>
+<p>所以说，用yum repository安装软件是很方便的。不管是在管理还是升级等方面…</p>
+<p><br></p>
+<h4 id="通过直接下载RPM包升级MySQL"><a href="#通过直接下载RPM包升级MySQL" class="headerlink" title="通过直接下载RPM包升级MySQL"></a>通过直接下载RPM包升级MySQL</h4><p>直接下载mysql相应组件的rpm进行升级。<br>建议备份好配置文件。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget http://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql-community-server-5.7.20-1.el7.x86_64.rpm</div><div class="line">wget http://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql-community-client-5.7.20-1.el7.x86_64.rpm</div><div class="line"></div><div class="line"></div><div class="line">yum install mysql-community-server-5.7.20-1.el7.x86_64.rpm mysql-community-client-5.7.20-1.el7.x86_64.rpm</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="mysql降级"><a href="#mysql降级" class="headerlink" title="mysql降级"></a>mysql降级</h3><p>MySQL降级类似于MySQL升级。也包含有直接降级和逻辑降级。</p>
+<p><br><br><br></p>
+<h3 id="重建或修复表或索引"><a href="#重建或修复表或索引" class="headerlink" title="重建或修复表或索引"></a>重建或修复表或索引</h3><p>Rebuilding or Repairing Tables or Indexes</p>
+<p><br></p>
+<ul>
+<li>MySQL处理数据类型和字符集的方式的更改</li>
+<li>表维修或升级(mysqlcheck, mysql_upgrade)</li>
+</ul>
+<p>重建表的方法：</p>
+<ul>
+<li>Dump and Reload</li>
+<li>ALTER TABLE</li>
+<li>REPAIR TABLE</li>
+</ul>
+<p><br></p>
+<p><strong>Dump and Reload Method</strong></p>
+<p>由于MySQL升级/降级之后，不同版本的MySQL无法处理这些表，则需要转储和重载的方法来重建表。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mysqldump -uroot -p --all-databases --force &gt; mysql_backdb.sql</div><div class="line">mysql -uroot -p --force &lt; mysql_backdb.sql</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#某个库或表</span></div><div class="line">mysqldump -uroot -p --databases <span class="built_in">test</span> --force &gt; db_test.sql</div><div class="line">mysql -uroot -p <span class="built_in">test</span> &lt; db_test.sql</div><div class="line"></div><div class="line">mysqldump -uroot -p --databases <span class="built_in">test</span> --tables table222 &gt; table222.sql</div><div class="line">mysql -uroot -p <span class="built_in">test</span>  &lt; table222.sql</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>ALTER TABLE Method</strong></p>
+<p>更改表以使用它已经拥有的存储引擎。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE test ENGINE = InnoDB;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>REPAIR TABLE Method</strong></p>
+<p><code>REPAIR TABLE</code>仅适用于MyISAM， ARCHIVE和 csv 表。</p>
+<p><code>mysqlcheck --repair</code>提供了对<code>REPAIR TABLE</code>的命令行访问。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">REPAIR TABLE t1;</div><div class="line"></div><div class="line"></div><div class="line">mysqlcheck --repair --databases db_name ...</div><div class="line">mysqlcheck --repair --all-databases</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="复制MySQL数据库到其他机器"><a href="#复制MySQL数据库到其他机器" class="headerlink" title="复制MySQL数据库到其他机器"></a>复制MySQL数据库到其他机器</h3><p>Copying MySQL Databases to Another Machine</p>
+<p><br></p>
+<p>在需要为不同体系架构之间传输MySQL数据库时，可使用<code>mysqldump</code>创建包含SQL语句的<code>.sql</code>文件，然后复制到另外的计算机上，将其作为输入提供给MySQL客户端。</p>
+<p>不要忘记复制mysql数据库，因为这个存储授权表的地方。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mysqldump --host &apos;remote-host&apos; -uxxx -p --compress --all-databases | mysql -uxxx -p</div><div class="line"></div><div class="line">mysqldump --host &apos;remote-host&apos; -uxxx -p --compress db_name | mysql -uxxx -p db_name</div><div class="line"></div><div class="line"></div><div class="line">mysqladmin -uxxx -p flush-privileges</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="Tutorial"><a href="#Tutorial" class="headerlink" title="Tutorial"></a>Tutorial</h1><p>如何使用MySQL client程序来创建和使用数据库。</p>
+<p><br></p>
+<h2 id="连接和断开服务器"><a href="#连接和断开服务器" class="headerlink" title="连接和断开服务器"></a>连接和断开服务器</h2><p>Connecting to and Disconnecting from the Server</p>
+<p><br></p>
+<p>Like this:</p>
+<ul>
+<li>不建议把密码直接写在命令行上</li>
+<li>host表示了MySQL Server运行在的机器</li>
+<li>某些MySQL允许匿名用户连接</li>
+<li><code>-ppassword, not as -p password</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">mysql --host host --user username -p</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#maybe not default port</span></div><div class="line">mysql --host host --user username -p  --port port</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#匿名用户连接</span></div><div class="line">mysql</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#退出</span></div><div class="line">mysql&gt; QUIT</div><div class="line"><span class="comment">#Unix</span></div><div class="line">mysql&gt; Ctrl+D</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="输入查询"><a href="#输入查询" class="headerlink" title="输入查询"></a>输入查询</h2><p>Entering Queries</p>
+<p><br></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#简单查询</div><div class="line">mysql&gt; SELECT VERSION(), CURRENT_DATE;</div><div class="line"></div><div class="line"></div><div class="line">#简单计算</div><div class="line"><span class="keyword">SELECT</span> <span class="keyword">SIN</span>(<span class="keyword">PI</span>()/<span class="number">2</span>), (<span class="number">4</span>+<span class="number">1</span>)*<span class="number">5</span>;</div><div class="line"></div><div class="line"></div><div class="line">#一行中输入多个语句</div><div class="line"><span class="keyword">SELECT</span> <span class="keyword">VERSION</span>(); <span class="keyword">SELECT</span> <span class="keyword">NOW</span>();</div><div class="line"></div><div class="line"></div><div class="line">#多行输入一个命令</div><div class="line">mysql&gt; SELECT</div><div class="line">    -&gt; USER()</div><div class="line">    -&gt; ,</div><div class="line">    -&gt; CURRENT_DATE;</div></pre></td></tr></table></figure>
+<p><img src="/images/MySQL/20180301101009.jpg" alt="MySQL简单查询"></p>
+<p><br></p>
+<p>这QUERY说明了有关MySQL的几件事：</p>
+<ul>
+<li>MySQL查询通常由一个<code>SQL statement</code>和<code>;</code>组成</li>
+<li>MySQL将查询发送给服务器并返回结果，然后打印下一个<code>mysql&gt;</code>提示</li>
+<li>MySQL以表格形式(rows and columns)显示查询输出</li>
+<li>MySQL显示返回多少行，以及执行查询花费了多长时间</li>
+<li>MySQL查询不区分大小写，但建议使用大写</li>
+<li>MySQL支持在一行中输入多个语句</li>
+<li>MySQL支持一个命令多行输入</li>
+</ul>
+<p><br></p>
+<p><strong>MySQL提示符：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Prompt</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mysql&gt;</code></td>
+<td>准备新查询</td>
+</tr>
+<tr>
+<td><code>-&gt;</code></td>
+<td>等待多行查询的下一行</td>
+</tr>
+<tr>
+<td><code>&#39;&gt;</code></td>
+<td>等待下一行，等待单引号开头的字符串的完成</td>
+</tr>
+<tr>
+<td><code>&quot;&gt;</code></td>
+<td>等待下一行，等待双引号字开头的字符串的完成</td>
+</tr>
+<tr>
+<td><code>\</code>&gt;`</td>
+<td>等待下一行，等待以反引号开始的标识符的完成</td>
+</tr>
+<tr>
+<td><code>/*&gt;</code></td>
+<td>等待下一行，等待以<code>/*</code>开头的注释的完成–&gt;<code>/*comments*/</code></td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h2 id="创建和使用数据库"><a href="#创建和使用数据库" class="headerlink" title="创建和使用数据库"></a>创建和使用数据库</h2><p>Creating and Using a Database</p>
+<p><br></p>
+<p>大致操作：</p>
+<ul>
+<li>Create a database</li>
+<li>Create a table</li>
+<li>Load data into the table</li>
+<li>Retrieve data from the table in various ways</li>
+<li>Use multiple tables</li>
+</ul>
+<p><br></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#显示数据库</div><div class="line">#不能显示你没有权限的数据库</div><div class="line">mysql&gt; SHOW DATABASES;</div><div class="line"></div><div class="line">#mysql数据库描述用户访问权限</div><div class="line">#test数据库通常作为用户尝试使用工作区</div><div class="line"></div><div class="line"></div><div class="line">#访问数据库</div><div class="line">mysql&gt; USE test;</div><div class="line"></div><div class="line">#USE和QUIT一样可以不使用分号，使用也无妨</div><div class="line">#USE只能是一个单行</div><div class="line"></div><div class="line"></div><div class="line">#授权</div><div class="line">#GRANT ALL ON da_name.table TO 'username'@'host';</div><div class="line">mysql&gt; GRANT ALL ON test.* TO 'test'@'127.0.0.1';</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="创建和选择数据库"><a href="#创建和选择数据库" class="headerlink" title="创建和选择数据库"></a>创建和选择数据库</h3><p>Creating and Selecting a Database</p>
+<p><br></p>
+<p><strong>Unix是区分大小写的(case-sensitive)，这与SQL keyword不一致。请注意。</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mysql&gt; CREATE DATABASE db01;</div><div class="line"></div><div class="line">mysql&gt; USE db01;</div><div class="line"></div><div class="line">#也可在mysql连接时直接指定数据库</div><div class="line">mysql -u username -p db01</div><div class="line"></div><div class="line"></div><div class="line">#查看当前选择的数据库</div><div class="line">mysql&gt; SELECT DATABASE();</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><p>Creating a Table</p>
+<p><br></p>
+<p><strong>困难的部分是决定数据库的结构应该是什么： 你需要哪些表以及每个表中应该包含哪些列。</strong></p>
+<p><code>VARCHAR</code>对于name，owner，species来说是一个不错的选择，因为column值的长度有所不同。<br><code>DATE</code>对于出生和死亡column来说很不错。<br>如果以后你发现你需要更长的字段，MySQL提供了一个<code>ALTER TABLE</code>语句来修改。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#创建一个宠物表</div><div class="line">mysql&gt; CREATE TABLE pet (name VARCHAR(20), owner VARCHAR(20),</div><div class="line">    -&gt; species VARCHAR(20), sex CHAR(1), birth DATE, death DATE);</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; SHOW TABLES;</div><div class="line"></div><div class="line"></div><div class="line">#验证表格</div><div class="line">#如果你忘记了表中列的名称或类型，使用DESCRIBE</div><div class="line">mysql&gt; DECRIBE pet;</div><div class="line">+<span class="comment">---------+-------------+------+-----+---------+-------+</span></div><div class="line">| Field   | Type        | Null | Key | Default | Extra |</div><div class="line">+<span class="comment">---------+-------------+------+-----+---------+-------+</span></div><div class="line">| name    | varchar(20) | YES  |     | NULL    |       |</div><div class="line">| owner   | varchar(20) | YES  |     | NULL    |       |</div><div class="line">| species | varchar(20) | YES  |     | NULL    |       |</div><div class="line">| sex     | char(1)     | YES  |     | NULL    |       |</div><div class="line">| birth   | date        | YES  |     | NULL    |       |</div><div class="line">| death   | date        | YES  |     | NULL    |       |</div><div class="line">+<span class="comment">---------+-------------+------+-----+---------+-------+</span></div><div class="line">6 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="将数据载入表格"><a href="#将数据载入表格" class="headerlink" title="将数据载入表格"></a>将数据载入表格</h3><p>Loading Data into a Table</p>
+<p><br></p>
+<p>假设pet表信息如下：</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>owner</th>
+<th>species</th>
+<th>sex</th>
+<th>birth</th>
+<th>death</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PetA</td>
+<td>Aa</td>
+<td>cat</td>
+<td>f</td>
+<td>1993-02-04</td>
+<td></td>
+</tr>
+<tr>
+<td>PetB</td>
+<td>Bb</td>
+<td>cat</td>
+<td>m</td>
+<td>1994-03-17</td>
+<td></td>
+</tr>
+<tr>
+<td>PetC</td>
+<td>Cc</td>
+<td>dog</td>
+<td>f</td>
+<td>1989-05-13</td>
+<td></td>
+</tr>
+<tr>
+<td>PetD</td>
+<td>Aa</td>
+<td>dog</td>
+<td>m</td>
+<td>1979-08-25</td>
+<td>1995-02-21</td>
+</tr>
+<tr>
+<td>PetE</td>
+<td>Cc</td>
+<td>bird</td>
+<td></td>
+<td>1991-02-17</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>你可以创建一个<code>pet.txt</code>文本文件，每行包含一个记录，值由制表符分割，并按照<code>CREATE TABLE</code>语句中列出的顺序给出。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">vim pet.txt</div><div class="line"></div><div class="line"></div><div class="line">PetA    Aa     cat    f      1993-02-04    \N</div><div class="line">PetB    Bb     cat    m      1994-03-17    \N</div><div class="line">PetC    Cc     dog    f      1989-05-13    \N</div><div class="line">PetD    Aa     dog    m      1979-08-25    1995-02-21</div><div class="line">PetE    Cc     bird  \N      1991-02-17    \N</div></pre></td></tr></table></figure>
+<p>将<code>pet.txt</code>载入<code>pet</code>表中：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">mysql&gt; LOAD DATA LOCAL INFILE '/path/file.txt' INTO TABLE table_name;</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; LOAD DATA LOCAL INFILE '/home/zhang/pet.txt' INTO TABLE pet;</div><div class="line">Query OK, 5 rows affected, 0 warnings (0.00 sec)</div><div class="line">Records: 5  Deleted: 0  Skipped: 0  Warnings: 0</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; SELECT * FROM pet;</div><div class="line">+<span class="comment">-------+-------+---------+------+------------+------------+</span></div><div class="line">| name  | owner | species | sex  | birth      | death      |</div><div class="line">+<span class="comment">-------+-------+---------+------+------------+------------+</span></div><div class="line">| PetA  |  Aa   |  cat    | f    | 1993-02-04 | NULL       |</div><div class="line">| PetB  |  Bb   |  cat    | m    | 1994-03-17 | NULL       |</div><div class="line">| PetC  |  Cc   |  dog    | f    | 1989-05-13 | NULL       |</div><div class="line">| PetD  |  Aa   |  dog    | m    | 1979-08-25 | 1995-02-21 |</div><div class="line">| PetE  |  Cc   |  bird   | NULL | 1991-02-17 | NULL       |</div><div class="line">+<span class="comment">-------+-------+---------+------+------------+------------+</span></div><div class="line">5 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#通过命令行载入</div><div class="line">mysql&gt; <span class="keyword">INSERT</span> <span class="keyword">INTO</span> pet</div><div class="line">    -&gt; <span class="keyword">VALUES</span> (<span class="string">'PetF'</span>, <span class="string">'Ff'</span>, <span class="string">'hamster'</span>, <span class="string">'f'</span>, <span class="string">'1999-03-21'</span>, <span class="literal">NULL</span>)</div><div class="line">    -&gt; ;</div><div class="line">Query OK, 1 row affected (0.00 sec)</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="从表中检索信息"><a href="#从表中检索信息" class="headerlink" title="从表中检索信息"></a>从表中检索信息</h3><p>Retrieving Information from a Table</p>
+<p><br></p>
+<p><code>SELECT</code>语句用于从表中提取信息：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> what_to_select</div><div class="line"><span class="keyword">FROM</span> which_table</div><div class="line"><span class="keyword">WHERE</span> condition;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="查询所有数据"><a href="#查询所有数据" class="headerlink" title="查询所有数据"></a>查询所有数据</h4><p>Selecting All Data</p>
+<p><br></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SELECT * FROM pet;</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; DELETE FROM pet;</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; UPDATE pet SET birth = '1989-06-17' WHERE name = 'PetC';</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="查询特定行"><a href="#查询特定行" class="headerlink" title="查询特定行"></a>查询特定行</h4><p>Selecting Particular Rows</p>
+<p><br></p>
+<p>当一个表很大时，你通常不想看到整个表。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">#条件查询</div><div class="line"></div><div class="line">mysql&gt; SELECT * FROM pet WHERE name = 'PetA';</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; SELECT * FROM pet WHERE owner = 'Cc';</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; SELECT * FROM pet WHERE birth &gt;= '1990-01-01';</div><div class="line"></div><div class="line"></div><div class="line">#AND</div><div class="line">mysql&gt; SELECT * FROM pet WHERE species = 'dog' AND sex = 'f';</div><div class="line"></div><div class="line"></div><div class="line">#OR</div><div class="line">mysql&gt; SELECT * FROM pet WHERE species = 'dog' OR species = 'bird';</div><div class="line"></div><div class="line"></div><div class="line">#AND和OR也可以混合使用</div><div class="line">mysql&gt; SELECT * FROM pet WHERE (species = 'cat' AND sex = 'm') OR (species = 'dog' AND sex='f');</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="查询特定列"><a href="#查询特定列" class="headerlink" title="查询特定列"></a>查询特定列</h4><p>Selecting Particular Columns</p>
+<p><br></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SELECT name FROM pet;</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; SELECT name, species FROM pet;</div><div class="line"></div><div class="line"></div><div class="line">#获取唯一结果</div><div class="line">mysql&gt; SELECT DISTINCT species FROM pet;</div><div class="line">+<span class="comment">---------+</span></div><div class="line">| species |</div><div class="line">+<span class="comment">---------+</span></div><div class="line">| cat     |</div><div class="line">| dog     |</div><div class="line">| bird    |</div><div class="line">+<span class="comment">---------+</span></div><div class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; <span class="keyword">SELECT</span> <span class="keyword">name</span>, species, birth <span class="keyword">FROM</span> pet <span class="keyword">WHERE</span> species = <span class="string">'dog'</span> <span class="keyword">OR</span> species = <span class="string">'cat'</span>;</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="行排序"><a href="#行排序" class="headerlink" title="行排序"></a>行排序</h4><p>Sorting Rows</p>
+<p><br></p>
+<p>使用<code>ORDER BY</code>语句对结果进行排序。默认排序顺序是升序。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SELECT name, birth FROM pet ORDER BY birth;</div><div class="line">+<span class="comment">------+------------+</span></div><div class="line">| name | birth      |</div><div class="line">+<span class="comment">------+------------+</span></div><div class="line">| PetD | 1979-08-25 |</div><div class="line">| PetC | 1989-06-17 |</div><div class="line">| PetE | 1991-02-17 |</div><div class="line">| PetA | 1993-02-04 |</div><div class="line">| PetB | 1994-03-17 |</div><div class="line">+<span class="comment">------+------------+</span></div><div class="line">5 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div><div class="line"></div><div class="line"></div><div class="line">#倒序</div><div class="line">mysql&gt; <span class="keyword">SELECT</span> <span class="keyword">name</span>, birth <span class="keyword">FROM</span> pet <span class="keyword">ORDER</span> <span class="keyword">BY</span> birth <span class="keyword">DESC</span>;</div></pre></td></tr></table></figure>
+<p>可对多列进行排序，也可按不同的方向对不同的列进行排序。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SELECT name, species, birth FROM pet</div><div class="line">    -&gt; ORDER BY species, birth DESC;</div><div class="line">+<span class="comment">------+---------+------------+</span></div><div class="line">| name | species | birth      |</div><div class="line">+<span class="comment">------+---------+------------+</span></div><div class="line">| PetE | bird    | 1991-02-17 |</div><div class="line">| PetB | cat     | 1994-03-17 |</div><div class="line">| PetA | cat     | 1993-02-04 |</div><div class="line">| PetC | dog     | 1989-06-17 |</div><div class="line">| PetD | dog     | 1979-08-25 |</div><div class="line">+<span class="comment">------+---------+------------+</span></div><div class="line">5 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; <span class="keyword">SELECT</span> <span class="keyword">name</span>, species, birth <span class="keyword">FROM</span> pet</div><div class="line">    -&gt; <span class="keyword">ORDER</span> <span class="keyword">BY</span> species <span class="keyword">DESC</span>, birth <span class="keyword">DESC</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="日期计算"><a href="#日期计算" class="headerlink" title="日期计算"></a>日期计算</h4><p>Date Calculations</p>
+<p><br></p>
+<p>MySQL提供了几个函数用于日期计算。如计算年龄或提取日期一部分等。</p>
+<p><br></p>
+<ul>
+<li><code>TIMESTAMPDIFF()</code><ul>
+<li>使用<code>TIMESTAMPDIFF()</code>函数计算pet的年龄。它的两个参数为两个相隔的日期</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SELECT name, species, birth, CURDATE(),</div><div class="line">    -&gt; TIMESTAMPDIFF(YEAR, birth, CURDATE()) AS age</div><div class="line">    -&gt; FROM pet</div><div class="line">    -&gt; ORDER BY age DESC;</div><div class="line">+<span class="comment">------+---------+------------+------------+------+</span></div><div class="line">| name | species | birth      | CURDATE()  | age  |</div><div class="line">+<span class="comment">------+---------+------------+------------+------+</span></div><div class="line">| PetD | dog     | 1979-08-25 | 2018-03-01 |   38 |</div><div class="line">| PetC | dog     | 1989-06-17 | 2018-03-01 |   28 |</div><div class="line">| PetE | bird    | 1991-02-17 | 2018-03-01 |   27 |</div><div class="line">| PetA | cat     | 1993-02-04 | 2018-03-01 |   25 |</div><div class="line">| PetB | cat     | 1994-03-17 | 2018-03-01 |   23 |</div><div class="line">+<span class="comment">------+---------+------------+------------+------+</span></div><div class="line">5 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div><div class="line"></div><div class="line"></div><div class="line">#死去的pet的age</div><div class="line">mysql&gt; <span class="keyword">SELECT</span> <span class="keyword">name</span>, species, birth, death,</div><div class="line">    -&gt; <span class="keyword">TIMESTAMPDIFF</span>(<span class="keyword">YEAR</span>, birth, death) <span class="keyword">AS</span> age</div><div class="line">    -&gt; <span class="keyword">FROM</span> pet</div><div class="line">    -&gt; <span class="keyword">WHERE</span> death <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span></div><div class="line">    -&gt; <span class="keyword">ORDER</span> <span class="keyword">BY</span> age;</div><div class="line">+<span class="comment">------+---------+------------+------------+------+</span></div><div class="line">| name | species | birth      | death      | age  |</div><div class="line">+<span class="comment">------+---------+------------+------------+------+</span></div><div class="line">| PetD | dog     | 1979-08-25 | 1995-02-21 |   15 |</div><div class="line">+<span class="comment">------+---------+------------+------------+------+</span></div><div class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div></pre></td></tr></table></figure>
+<p><br></p>
+<ul>
+<li><code>YEAR()</code><ul>
+<li>年</li>
+</ul>
+</li>
+<li><code>MONTH()</code><ul>
+<li>月</li>
+</ul>
+</li>
+<li><code>DAYOFMONTH()</code><ul>
+<li>日</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SELECT name, birth,</div><div class="line">    -&gt; YEAR(birth) AS bir_year,</div><div class="line">    -&gt; MONTH(birth) AS bir_month,</div><div class="line">    -&gt; DAYOFMONTH(birth) AS bir_day</div><div class="line">    -&gt; FROM pet;</div><div class="line">+<span class="comment">------+------------+----------+-----------+---------+</span></div><div class="line">| name | birth      | bir_year | bir_month | bir_day |</div><div class="line">+<span class="comment">------+------------+----------+-----------+---------+</span></div><div class="line">| PetA | 1993-02-04 |     1993 |         2 |       4 |</div><div class="line">| PetB | 1994-03-17 |     1994 |         3 |      17 |</div><div class="line">| PetC | 1989-06-17 |     1989 |         6 |      17 |</div><div class="line">| PetD | 1979-08-25 |     1979 |         8 |      25 |</div><div class="line">| PetE | 1991-02-17 |     1991 |         2 |      17 |</div><div class="line">+<span class="comment">------+------------+----------+-----------+---------+</span></div><div class="line">5 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#查找生日是<span class="number">2</span>月的pet</div><div class="line">mysql&gt; <span class="keyword">SELECT</span> <span class="keyword">name</span>, birth <span class="keyword">FROM</span> pet <span class="keyword">WHERE</span> <span class="keyword">MONTH</span>(birth) =<span class="number">2</span>;</div><div class="line">+<span class="comment">------+------------+</span></div><div class="line">| name | birth      |</div><div class="line">+<span class="comment">------+------------+</span></div><div class="line">| PetA | 1993-02-04 |</div><div class="line">| PetE | 1991-02-17 |</div><div class="line">+<span class="comment">------+------------+</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<ul>
+<li><code>DATE_ADD()</code><ul>
+<li>将日期间隔添加到给定日期</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SELECT name, birth FROM pet</div><div class="line">    -&gt; WHERE MONTH(birth) = MONTH(DATE_ADD(CURDATE(), INTERVAL 1 MONTH));</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="使用NULL值"><a href="#使用NULL值" class="headerlink" title="使用NULL值"></a>使用NULL值</h4><p>Working with NULL Values</p>
+<p><br></p>
+<p>从概念上讲，NULL value意味着<strong>一个缺失的未知值</strong>，它与其它值在某种程度上是不同的。</p>
+<ul>
+<li>使用<code>IS NULL</code>和<code>IS NOT NULL</code>操作符</li>
+<li>不能对NULL value使用算术运算符(arithmetic cpmparison operators)<ul>
+<li>如：<code>=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;&gt;</code></li>
+<li>任何对NULL value的算术运算符的结果也是NULL value，所以无法得到有意义的结果</li>
+</ul>
+</li>
+<li>在MySQL中，0或NULL表示false，其他任何值都意味着true</li>
+<li>两个NULL在<code>GROUP BY</code>中被认为是相等的</li>
+<li>NULL在<code>ORDER BY</code>正向排序中首先显示。反之，最后显示</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SELECT 1 IS NULL, 1 IS NOT NULL;</div><div class="line">+<span class="comment">-----------+---------------+</span></div><div class="line">| 1 IS NULL | 1 IS NOT NULL |</div><div class="line">+<span class="comment">-----------+---------------+</span></div><div class="line">|         0 |             1 |</div><div class="line">+<span class="comment">-----------+---------------+</span></div></pre></td></tr></table></figure>
+<p>因此，完全可以将一个<strong>zero</strong>或<strong>empty string</strong>插入到一个<strong>NOT NULL</strong>的column中，因为这些值NOT NULL。</p>
+<p><br></p>
+<h4 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h4><p>Pattern Matching</p>
+<p><br></p>
+<p>MySQL提供标准的SQL模式匹配以及基于扩展正则表达式的模式匹配形式。类似于Unix实用程序(vi, grep, sed…)</p>
+<p>SQL模式匹配允许:</p>
+<ul>
+<li>使用<code>_</code>来匹配可以使用的任意单字符(single character)</li>
+<li>使用<code>%</code>来匹配可以使用的任意数目的字符(arbitrary number of characters)</li>
+<li>SQL模式不区分大小写</li>
+<li>使用<code>LIKE</code>或<code>NOT LIKE</code>而不是<code>=</code>或<code>&lt;&gt;</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SELECT * FROM pet WHERE name LIKE '%b';</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line">| name | owner | species | sex  | birth      | death |</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line">| PetB | Bb    | cat     | m    | 1994-03-17 | NULL  |</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; SELECT * FROM pet WHERE name LIkE '___A' or name LIKE '___C';</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line">| name | owner | species | sex  | birth      | death |</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line">| PetA | Aa    | cat     | f    | 1993-02-04 | NULL  |</div><div class="line">| PetC | Cc    | dog     | f    | 1989-06-17 | NULL  |</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<p>MySQL提供的其它类型的模式匹配使用扩展的正则表达式：</p>
+<ul>
+<li><code>REGEXP</code> 或 <code>RLIKE</code></li>
+<li><code>NOT REGEXP</code> 或 <code>NOT RLIKE</code></li>
+<li>了解正则表达式知识</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SELECT * FROM pet WHERE name RLIKE '^pet[AB]';</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line">| name | owner | species | sex  | birth      | death |</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line">| PetA | Aa    | cat     | f    | 1993-02-04 | NULL  |</div><div class="line">| PetB | Bb    | cat     | m    | 1994-03-17 | NULL  |</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; SELECT * FROM pet WHERE owner RLIKE 'c$';</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line">| name | owner | species | sex  | birth      | death |</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line">| PetC | Cc    | dog     | f    | 1989-06-17 | NULL  |</div><div class="line">| PetE | Cc    | bird    | NULL | 1991-02-17 | NULL  |</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#包含某个字符</div><div class="line">mysql&gt; SELECT * FROM pet WHERE name RLIKE 'ete';</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line">| name | owner | species | sex  | birth      | death |</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line">| PetE | Cc    | bird    | NULL | 1991-02-17 | NULL  |</div><div class="line">+<span class="comment">------+-------+---------+------+------------+-------+</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#匹配字符个数</div><div class="line">mysql&gt; SELECT * FROM pet WHERE name RLIKE '^....$';</div><div class="line"></div><div class="line">mysql&gt; SELECT * FROM pet WHERE name RLIKE '^.&#123;4&#125;$';</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#强制区分大小写</div><div class="line">mysql&gt; SELECT * FROM pet WHERE name RLIKE BINARY '^Pet[AB]';</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="行数计算"><a href="#行数计算" class="headerlink" title="行数计算"></a>行数计算</h4><p>Counting Rows</p>
+<p><br></p>
+<ul>
+<li>使用<code>COUNT()</code>计算行数</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">#总行数</div><div class="line">mysql&gt; SELECT COUNT(*) AS count FROM pet;</div><div class="line">+<span class="comment">-------+</span></div><div class="line">| count |</div><div class="line">+<span class="comment">-------+</span></div><div class="line">|     5 |</div><div class="line">+<span class="comment">-------+</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#针对某个统计行数</div><div class="line">mysql&gt; SELECT owner, COUNT(*) FROM pet GROUP BY owner;</div><div class="line">+<span class="comment">-------+----------+</span></div><div class="line">| owner | COUNT(*) |</div><div class="line">+<span class="comment">-------+----------+</span></div><div class="line">| Aa    |        2 |</div><div class="line">| Bb    |        1 |</div><div class="line">| Cc    |        2 |</div><div class="line">+<span class="comment">-------+----------+</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#多个条件</div><div class="line">mysql&gt; SELECT species, sex, COUNT(*) FROM pet GROUP BY species, sex;</div><div class="line">+<span class="comment">---------+------+----------+</span></div><div class="line">| species | sex  | COUNT(*) |</div><div class="line">+<span class="comment">---------+------+----------+</span></div><div class="line">| bird    | NULL |        1 |</div><div class="line">| cat     | f    |        1 |</div><div class="line">| cat     | m    |        1 |</div><div class="line">| dog     | f    |        1 |</div><div class="line">| dog     | m    |        1 |</div><div class="line">+<span class="comment">---------+------+----------+</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="使用多个表"><a href="#使用多个表" class="headerlink" title="使用多个表"></a>使用多个表</h4><p>Using More Than one Table</p>
+<p><br></p>
+<p>创建一个额外的宠物信息表：</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>date</th>
+<th>type</th>
+<th>remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fluffy</td>
+<td>1995-05-15</td>
+<td>litter</td>
+<td>4 kittens, 3 female, 1 male</td>
+</tr>
+<tr>
+<td>Buffy</td>
+<td>1993-06-23</td>
+<td>litter</td>
+<td>5 puppies, 2 female, 3 male</td>
+</tr>
+<tr>
+<td>Buffy</td>
+<td>1994-06-19</td>
+<td>litter</td>
+<td>3 puppies, 3 female</td>
+</tr>
+<tr>
+<td>Chirpy</td>
+<td>1999-03-21</td>
+<td>vet</td>
+<td>needed beak straightened</td>
+</tr>
+<tr>
+<td>Slim</td>
+<td>1997-08-03</td>
+<td>vet</td>
+<td>broken rib</td>
+</tr>
+<tr>
+<td>Bowser</td>
+<td>1991-10-12</td>
+<td>kennel</td>
+<td></td>
+</tr>
+<tr>
+<td>Fang</td>
+<td>1991-10-12</td>
+<td>kennel</td>
+<td></td>
+</tr>
+<tr>
+<td>Fang</td>
+<td>1998-08-28</td>
+<td>birthday</td>
+<td>Gave him a new chew toy</td>
+</tr>
+<tr>
+<td>Claws</td>
+<td>1998-03-17</td>
+<td>birthday</td>
+<td>Gave him a new flea collar</td>
+</tr>
+<tr>
+<td>Whistler</td>
+<td>1998-12-09</td>
+<td>birthday</td>
+<td>First birthday</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mysql&gt; CREATE TABLE event ( name VARCHAR(20), date DATE,</div><div class="line">    -&gt; type VARCHAR(15), remark VARCHAR(255) );</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; LOAD DATA INFILE '/path/event.txt' INTO TABLE event;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="获取数据库和表的信息"><a href="#获取数据库和表的信息" class="headerlink" title="获取数据库和表的信息"></a>获取数据库和表的信息</h2><p>Getting Information About Databases and Tables</p>
+<p><br></p>
+<ul>
+<li>查看当前数据库<ul>
+<li><code>mysql&gt; SELECT DATABASE();</code></li>
+</ul>
+</li>
+<li>查看当前数据库下的表<ul>
+<li><code>mysql&gt; SHOW TABLES;</code></li>
+</ul>
+</li>
+<li>查看表的结构<ul>
+<li><code>mysql&gt; DESCRIBE pet;</code></li>
+</ul>
+</li>
+<li>创建数据库<ul>
+<li><code>mysql&gt; CREATE DATABASE db_01;</code></li>
+</ul>
+</li>
+<li>创建表<ul>
+<li><code>mysql&gt; CREATE TABLE table_01 {c1 VARCHAR(10), c2 INT, ...};</code></li>
+</ul>
+</li>
+<li>查看索引(如果存在)<ul>
+<li><code>SHOW INDEX FROM table_01;</code></li>
+</ul>
+</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="在批处理下使用mysql"><a href="#在批处理下使用mysql" class="headerlink" title="在批处理下使用mysql"></a>在批处理下使用mysql</h2><p>Using mysql in Batch Mode</p>
+<p><br></p>
+<p>在前面，我们都是使用MySQL交互式(interactively)输入命令并查看结果。但还可在批处理模式下运行MySQL。<br>我们可以创建一个脚本文件，然后以这种方式执行脚本文件。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql &lt; batch-file</div><div class="line"></div><div class="line">msyql -h host -u user -p &lt; /path/batch-file</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#出现错误也继续运行</span></div><div class="line">msyql -h host -u user -p --force &lt; /path/batch-file</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>为什么要使用脚本：</p>
+<ul>
+<li>如果需要反复(repeat)执行查询，将其写入脚本以避免每次执行时重新输入查询</li>
+<li>通过复制和修改脚本文件从现有查询中生成新的查询</li>
+<li>批处理模型在开发查询时也很有用，特别是对于多行语句。写错了直接修改脚本就好，而不必重新输入</li>
+<li>如果查询产生大量输出，可通过传呼机而不是翻滚到屏幕的最上方<ul>
+<li><code>mysql &lt; batch-file | more</code></li>
+</ul>
+</li>
+<li>可以把输出捕获到一个文件中<ul>
+<li><code>mysql &lt; batch-file &gt; mysql.out</code></li>
+</ul>
+</li>
+<li>可将脚本文件分发给其他人</li>
+<li>批处理模式下的MySQL输出更简洁<ul>
+<li>可使用<code>mysql -t</code>获得交互式数据格式</li>
+<li>使用<code>mysql -v</code>将执行语句回显</li>
+</ul>
+</li>
+<li>在mysql命令行中载入脚本<ul>
+<li><code>mysql&gt; source filename;</code></li>
+<li>或’mysql&gt; . filename;</li>
+</ul>
+</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="常见查询"><a href="#常见查询" class="headerlink" title="常见查询"></a>常见查询</h2><p>Examples of Common Queries</p>
+<p><br></p>
+<ul>
+<li>在命令行使用mysql并选择数据库</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql db_name -u user -p</div></pre></td></tr></table></figure>
+<ul>
+<li>创建和填充表</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> shop (</div><div class="line">    article <span class="built_in">INT</span>(<span class="number">4</span>) <span class="keyword">UNSIGNED</span> ZEROFILL <span class="keyword">DEFAULT</span> <span class="string">'0000'</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">    dealer  <span class="built_in">CHAR</span>(<span class="number">20</span>)                 <span class="keyword">DEFAULT</span> <span class="string">''</span>     <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">    price   <span class="keyword">DOUBLE</span>(<span class="number">16</span>,<span class="number">2</span>)             <span class="keyword">DEFAULT</span> <span class="string">'0.00'</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">    PRIMARY <span class="keyword">KEY</span>(article, dealer));</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> shop <span class="keyword">VALUES</span></div><div class="line">    (<span class="number">1</span>,<span class="string">'A'</span>,<span class="number">3.45</span>),(<span class="number">1</span>,<span class="string">'B'</span>,<span class="number">3.99</span>),(<span class="number">2</span>,<span class="string">'A'</span>,<span class="number">10.99</span>),(<span class="number">3</span>,<span class="string">'B'</span>,<span class="number">1.45</span>),</div><div class="line">    (<span class="number">3</span>,<span class="string">'C'</span>,<span class="number">1.69</span>),(<span class="number">3</span>,<span class="string">'D'</span>,<span class="number">1.25</span>),(<span class="number">4</span>,<span class="string">'D'</span>,<span class="number">19.95</span>);</div></pre></td></tr></table></figure>
+<ul>
+<li>查看表内容</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> shop;</div></pre></td></tr></table></figure>
+<ul>
+<li>列的最大值(maximum)</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="keyword">MAX</span>(article) <span class="keyword">AS</span> article <span class="keyword">FROM</span> shop;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> article, <span class="keyword">MAX</span>(price) <span class="keyword">AS</span> price</div><div class="line"><span class="keyword">FROM</span>   shop</div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> article;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用用户定义的变量(user-defined variables)</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SELECT @min_price:=MIN(price),@max_price:=MAX(price) FROM shop;</div><div class="line"></div><div class="line">mysql&gt; SELECT * FROM shop WHERE price=@min_price OR price=@max_price;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用外键(Foreign Keys)</li>
+</ul>
+<p>在MySQL中，InnoDB表支持检查外键约束。<br>外键约束不仅仅需要连接两个表。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person (</div><div class="line">    <span class="keyword">id</span> <span class="built_in">SMALLINT</span> <span class="keyword">UNSIGNED</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</div><div class="line">    <span class="keyword">name</span> <span class="built_in">CHAR</span>(<span class="number">60</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>)</div><div class="line">);</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> shirt (</div><div class="line">    <span class="keyword">id</span> <span class="built_in">SMALLINT</span> <span class="keyword">UNSIGNED</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</div><div class="line">    <span class="keyword">style</span> ENUM(<span class="string">'t-shirt'</span>, <span class="string">'polo'</span>, <span class="string">'dress'</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">    color ENUM(<span class="string">'red'</span>, <span class="string">'blue'</span>, <span class="string">'orange'</span>, <span class="string">'white'</span>, <span class="string">'black'</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">    owner <span class="built_in">SMALLINT</span> <span class="keyword">UNSIGNED</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">REFERENCES</span> person(<span class="keyword">id</span>),</div><div class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>)</div><div class="line">);</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person <span class="keyword">VALUES</span> (<span class="literal">NULL</span>, <span class="string">'Antonio Paz'</span>);</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> @<span class="keyword">last</span> := <span class="keyword">LAST_INSERT_ID</span>();</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> shirt <span class="keyword">VALUES</span></div><div class="line">(<span class="literal">NULL</span>, <span class="string">'polo'</span>, <span class="string">'blue'</span>, @<span class="keyword">last</span>),</div><div class="line">(<span class="literal">NULL</span>, <span class="string">'dress'</span>, <span class="string">'white'</span>, @<span class="keyword">last</span>),</div><div class="line">(<span class="literal">NULL</span>, <span class="string">'t-shirt'</span>, <span class="string">'blue'</span>, @<span class="keyword">last</span>);</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person <span class="keyword">VALUES</span> (<span class="literal">NULL</span>, <span class="string">'Lilliana Angelovska'</span>);</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> @<span class="keyword">last</span> := <span class="keyword">LAST_INSERT_ID</span>();</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> shirt <span class="keyword">VALUES</span></div><div class="line">(<span class="literal">NULL</span>, <span class="string">'dress'</span>, <span class="string">'orange'</span>, @<span class="keyword">last</span>),</div><div class="line">(<span class="literal">NULL</span>, <span class="string">'polo'</span>, <span class="string">'red'</span>, @<span class="keyword">last</span>),</div><div class="line">(<span class="literal">NULL</span>, <span class="string">'dress'</span>, <span class="string">'blue'</span>, @<span class="keyword">last</span>),</div><div class="line">(<span class="literal">NULL</span>, <span class="string">'t-shirt'</span>, <span class="string">'white'</span>, @<span class="keyword">last</span>);</div></pre></td></tr></table></figure>
+<ul>
+<li>在两个键上查找(Searching on Two Keys)</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> field1_index, field2_index <span class="keyword">FROM</span> test_table</div><div class="line"><span class="keyword">WHERE</span> field1_index = <span class="string">'1'</span> <span class="keyword">OR</span>  field2_index = <span class="string">'1'</span></div></pre></td></tr></table></figure>
+<ul>
+<li>使用自动增量</li>
+</ul>
+<p><code>AUTO_INCREMENT</code>属性能够为新行生成一个唯一的标识符。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> animals (</div><div class="line">     <span class="keyword">id</span> MEDIUMINT <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</div><div class="line">     <span class="keyword">name</span> <span class="built_in">CHAR</span>(<span class="number">30</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">     PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>)</div><div class="line">);</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> animals (<span class="keyword">name</span>) <span class="keyword">VALUES</span></div><div class="line">    (<span class="string">'dog'</span>),(<span class="string">'cat'</span>),(<span class="string">'penguin'</span>),</div><div class="line">    (<span class="string">'lax'</span>),(<span class="string">'whale'</span>),(<span class="string">'ostrich'</span>);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#设置指定增量开始值</div><div class="line">mysql&gt; ALTER TABLE tbl AUTO_INCREMENT = 100;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="MySQL-Programs"><a href="#MySQL-Programs" class="headerlink" title="MySQL Programs"></a>MySQL Programs</h1><p><br></p>
+<h2 id="MySQL程序概述"><a href="#MySQL程序概述" class="headerlink" title="MySQL程序概述"></a>MySQL程序概述</h2><p>Overview of MySQL Programs</p>
+<p><br></p>
+<p><strong>MySQL安装中有多个不同的程序：</strong></p>
+<ul>
+<li><strong>mysqld</strong><ul>
+<li>SQL daemon, MySQL Server, <strong>mysqld</strong>是执行大部分工作的主要程序</li>
+</ul>
+</li>
+<li><strong>mysqld_safe</strong><ul>
+<li>服务器启动脚本</li>
+<li>mysqld_safe尝试去启动mysqld</li>
+</ul>
+</li>
+<li><strong>mysql.server</strong><ul>
+<li>服务器启动脚本</li>
+<li>此脚本用于System V系统，包含启动特定运行级别的系统服务脚本</li>
+<li>它调用mysqld_safe来启动MySQL Server</li>
+</ul>
+</li>
+<li><strong>mysql_multi</strong><ul>
+<li>可启动和关闭安装在系统上的多个服务器的启动脚本</li>
+</ul>
+</li>
+<li><strong>comp_err</strong><ul>
+<li>在MySQL build/installation过程中使用</li>
+<li>从错误源文件中编译错误消息文件</li>
+</ul>
+</li>
+<li><strong>mysql_install_db</strong><ul>
+<li>初始化MySQL(数据目录，授权表，并设置InnoDB系统表空间)</li>
+<li>通常用于首次安装MySQL时</li>
+</ul>
+</li>
+<li><strong>mysql_plugin</strong><ul>
+<li>配置MySQL Server插件</li>
+</ul>
+</li>
+<li><strong>mysql_secure_installation</strong><ul>
+<li>能够提高MySQL安装的安全性</li>
+</ul>
+</li>
+<li><strong>mysql_ssl_rsa_setup</strong><ul>
+<li>如果这些文佳丢失，改程序会创建支持安全连接所需的SSL证书和密钥文件以及RSA密钥对文件</li>
+</ul>
+</li>
+<li><strong>mysql_tzinfo_to_sql</strong><ul>
+<li>从mysql数据库中加载时区表</li>
+</ul>
+</li>
+<li><strong>mysql_upgrade</strong><ul>
+<li>在MySQL升级操作后使用</li>
+<li>它检查表的不兼容性并在必要时修复它们，并用更新版的MySQL的任何更改来更新授权表</li>
+</ul>
+</li>
+<li><strong>mysql</strong><ul>
+<li>交互式输入SQL语句的命令行工具</li>
+<li>或执行一个批处理模式的文件</li>
+</ul>
+</li>
+<li><strong>mysqladmin</strong><ul>
+<li>执行管理操作的客户端</li>
+<li>如创建或删除数据库，重新加载授权表，刷新表的磁盘…</li>
+<li>也可用获取服务器版本、状态、进程信息</li>
+</ul>
+</li>
+<li><strong>mysqlcheck</strong><ul>
+<li>表格客户端</li>
+<li>用于检查、修复、分析和优化表格</li>
+</ul>
+</li>
+<li><strong>mysqldump</strong><ul>
+<li>将MySQL数据库转储为SQL、文本或XML文件的客户端</li>
+</ul>
+</li>
+<li><strong>mysqlimport</strong><ul>
+<li>使用<code>LOAD DATA INFILE</code>将文本文件导入各自表格的客户端</li>
+</ul>
+</li>
+<li><strong>mysqlpump</strong><ul>
+<li>将MySQL数据库转转储为SQL文件的客户端</li>
+</ul>
+</li>
+<li><strong>mysqlsh</strong><ul>
+<li>用于MySQL Server的高级命令行客户端和代码编辑器</li>
+<li>除了SQL外，MySQL Shell还为JS和Python提供了脚本功能</li>
+</ul>
+</li>
+<li><strong>mysqlshow</strong><ul>
+<li>显示有关数据库、表、列和索引的信息的客户端</li>
+</ul>
+</li>
+<li><strong>mysqlslap</strong><ul>
+<li>用于模拟MySQL Server的客户端负载并报告每个阶段的时间</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>MySQL管理和实用程序：</strong></p>
+<ul>
+<li><strong>innochecksum</strong><ul>
+<li>InnoDB脱机文件校验和程序</li>
+</ul>
+</li>
+<li><strong>myisam_ftdump</strong><ul>
+<li>在MyISAM表中显示有关全文索信息</li>
+</ul>
+</li>
+<li><strong>myisamchk</strong><ul>
+<li>描述，检查，优化和修复MyISAM表</li>
+</ul>
+</li>
+<li><strong>myisamlog</strong><ul>
+<li>处理MyISAM日志文件</li>
+</ul>
+</li>
+<li><strong>myisampack</strong><ul>
+<li>压缩MyISAM表以生成更小的只读表</li>
+</ul>
+</li>
+<li><strong>mysql_config_editor</strong><ul>
+<li>能够将认证凭证存储在名为安全的加密登录路径文件中</li>
+</ul>
+</li>
+<li><strong>mysqlbinlog</strong><ul>
+<li>从二进制日志中读取语句</li>
+</ul>
+</li>
+<li><strong>mysqldumpslow</strong><ul>
+<li>读取和总结慢查询日志内容</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>MySQL程序开发实用程序：</strong></p>
+<ul>
+<li><strong>mysql_config</strong><ul>
+<li>一个shell脚本，用于在编译MySQL程序是生产所需的选项值</li>
+</ul>
+</li>
+<li><strong>my_print_defaults：</strong><ul>
+<li>显示选项文件的选项组中存在哪些选项</li>
+</ul>
+</li>
+<li><strong>resolve_stack_dump</strong><ul>
+<li>将数值堆栈跟踪转储解析为符号</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>杂项(Miscellaneous)工具：</strong></p>
+<ul>
+<li><strong>lz4_decompress</strong><ul>
+<li>解压缩使用LZ4压缩格式的mysqldump输出</li>
+</ul>
+</li>
+<li><strong>perror</strong><ul>
+<li>显示系统或MySQL错误代码含义</li>
+</ul>
+</li>
+<li><strong>replace</strong><ul>
+<li>再输入文本中执行字符串替换</li>
+</ul>
+</li>
+<li><strong>resolveip</strong><ul>
+<li>将主机名解析为IP地址，反之亦然</li>
+</ul>
+</li>
+<li><strong>zlib_decompress</strong><ul>
+<li>解压缩使用ZLIB压缩格式的mysqldump输出</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>Oracle公司还提供了MySQL Workbench GUI工具，用于管理、创建、知悉和评估查询，以及从其它关系数据库管理系统迁移到MySQL系统。</p>
+<p>MySQL Client和Server间的通信使用如下环境变量：</p>
+<table>
+<thead>
+<tr>
+<th>Environment Variable</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MYSQL_UNIX_PORT</td>
+<td>The default Unix socket file; used for connections to localhost</td>
+</tr>
+<tr>
+<td>MYSQL_TCP_PORT</td>
+<td>The default port number; used for TCP/IP connections</td>
+</tr>
+<tr>
+<td>MYSQL_PWD</td>
+<td>The default password, insecure</td>
+</tr>
+<tr>
+<td>MYSQL_DEBUG</td>
+<td>Debug trace options when debugging</td>
+</tr>
+<tr>
+<td>TMPDIR</td>
+<td>The directory where temporary tables and files are created</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
@@ -720,7 +2125,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -731,7 +2136,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -742,7 +2147,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -807,7 +2212,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#序言"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">2.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于此手册"><span class="nav-number">2.1.</span> <span class="nav-text">关于此手册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据库管理系统"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL数据库管理系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL介绍"><span class="nav-number">2.2.1.</span> <span class="nav-text">MySQL介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL主要特点"><span class="nav-number">2.2.2.</span> <span class="nav-text">MySQL主要特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Internals-and-Portability"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">Internals and Portability</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据类型"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态和功能"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">状态和功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展性和限制"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">扩展性和限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地化"><span class="nav-number">2.2.2.6.</span> <span class="nav-text">本地化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端和工具"><span class="nav-number">2.2.2.7.</span> <span class="nav-text">客户端和工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL历史"><span class="nav-number">2.2.3.</span> <span class="nav-text">MySQL历史</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL5-7新特色"><span class="nav-number">2.3.</span> <span class="nav-text">MySQL5.7新特色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7新功能"><span class="nav-number">2.3.1.</span> <span class="nav-text">MySQL5.7新功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中过期的功能"><span class="nav-number">2.3.2.</span> <span class="nav-text">MySQL5.7中过期的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中移除的功能"><span class="nav-number">2.3.3.</span> <span class="nav-text">MySQL5.7中移除的功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7"><span class="nav-number">2.4.</span> <span class="nav-text">Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL信息源"><span class="nav-number">2.5.</span> <span class="nav-text">MySQL信息源</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#序言"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">2.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于此手册"><span class="nav-number">2.1.</span> <span class="nav-text">关于此手册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据库管理系统"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL数据库管理系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL介绍"><span class="nav-number">2.2.1.</span> <span class="nav-text">MySQL介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL主要特点"><span class="nav-number">2.2.2.</span> <span class="nav-text">MySQL主要特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Internals-and-Portability"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">Internals and Portability</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据类型"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态和功能"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">状态和功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展性和限制"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">扩展性和限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地化"><span class="nav-number">2.2.2.6.</span> <span class="nav-text">本地化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端和工具"><span class="nav-number">2.2.2.7.</span> <span class="nav-text">客户端和工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL历史"><span class="nav-number">2.2.3.</span> <span class="nav-text">MySQL历史</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL5-7新特色"><span class="nav-number">2.3.</span> <span class="nav-text">MySQL5.7新特色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7新功能"><span class="nav-number">2.3.1.</span> <span class="nav-text">MySQL5.7新功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中过期的功能"><span class="nav-number">2.3.2.</span> <span class="nav-text">MySQL5.7中过期的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中移除的功能"><span class="nav-number">2.3.3.</span> <span class="nav-text">MySQL5.7中移除的功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7"><span class="nav-number">2.4.</span> <span class="nav-text">Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL信息源"><span class="nav-number">2.5.</span> <span class="nav-text">MySQL信息源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL站点"><span class="nav-number">2.5.1.</span> <span class="nav-text">MySQL站点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装和升级MySQL"><span class="nav-number">3.</span> <span class="nav-text">安装和升级MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用安装指南"><span class="nav-number">3.1.</span> <span class="nav-text">通用安装指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装哪个发行版和MySQL版本"><span class="nav-number">3.1.1.</span> <span class="nav-text">安装哪个发行版和MySQL版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何获取MySQL"><span class="nav-number">3.1.2.</span> <span class="nav-text">如何获取MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用MD5校验和或GnuPG验证程序完整性"><span class="nav-number">3.1.3.</span> <span class="nav-text">使用MD5校验和或GnuPG验证程序完整性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#验证MD5校验和"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">验证MD5校验和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用GnuPG进行签名检查"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">使用GnuPG进行签名检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用RPM进行签名检查"><span class="nav-number">3.1.3.3.</span> <span class="nav-text">使用RPM进行签名检查</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装布局"><span class="nav-number">3.1.4.</span> <span class="nav-text">安装布局</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Unix-Linux上使用通用二进制文件安装MySQL"><span class="nav-number">3.2.</span> <span class="nav-text">在Unix/Linux上使用通用二进制文件安装MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Linux上安装MySQL"><span class="nav-number">3.3.</span> <span class="nav-text">在Linux上安装MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在Linux上使用Yum-Repository安装MySQL"><span class="nav-number">3.3.1.</span> <span class="nav-text">在Linux上使用Yum Repository安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在Linux上使用Oracle提供的RPM包安装MySQL"><span class="nav-number">3.3.2.</span> <span class="nav-text">在Linux上使用Oracle提供的RPM包安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用systemd管理MySQL-Server"><span class="nav-number">3.3.3.</span> <span class="nav-text">用systemd管理MySQL Server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#systemd综述"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">systemd综述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为MySQL配置systemd"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">为MySQL配置systemd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用systemd配置多个MySQL实例"><span class="nav-number">3.3.3.3.</span> <span class="nav-text">使用systemd配置多个MySQL实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从mysqld-safe迁移到systemd"><span class="nav-number">3.3.3.4.</span> <span class="nav-text">从mysqld_safe迁移到systemd</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从源码安装MySQL"><span class="nav-number">3.4.</span> <span class="nav-text">从源码安装MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用于源码安装的MySQL布局"><span class="nav-number">3.4.1.</span> <span class="nav-text">用于源码安装的MySQL布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用标准源码发行版安装MySQL"><span class="nav-number">3.4.2.</span> <span class="nav-text">使用标准源码发行版安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用开发源码树安装MySQL"><span class="nav-number">3.4.3.</span> <span class="nav-text">使用开发源码树安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL源码配置选项"><span class="nav-number">3.4.4.</span> <span class="nav-text">MySQL源码配置选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理MySQL编译问题"><span class="nav-number">3.4.5.</span> <span class="nav-text">处理MySQL编译问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装之后的设置和测试"><span class="nav-number">3.5.</span> <span class="nav-text">安装之后的设置和测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化数据目录"><span class="nav-number">3.5.1.</span> <span class="nav-text">初始化数据目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用mysqld手动初始化数据目录"><span class="nav-number">3.5.1.1.</span> <span class="nav-text">使用mysqld手动初始化数据目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用mysql-install-db初始化数据目录"><span class="nav-number">3.5.1.2.</span> <span class="nav-text">使用mysql_install_db初始化数据目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Starting-the-Server"><span class="nav-number">3.5.2.</span> <span class="nav-text">Starting the Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Testing-the-Server"><span class="nav-number">3.5.3.</span> <span class="nav-text">Testing the Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保护初始化MySQL账户"><span class="nav-number">3.5.4.</span> <span class="nav-text">保护初始化MySQL账户</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级或降级MySQL"><span class="nav-number">3.6.</span> <span class="nav-text">升级或降级MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#升级MySQL"><span class="nav-number">3.6.1.</span> <span class="nav-text">升级MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL升级策略"><span class="nav-number">3.6.1.1.</span> <span class="nav-text">MySQL升级策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过MySQL-Yum-Repository进行升级"><span class="nav-number">3.6.1.2.</span> <span class="nav-text">通过MySQL Yum Repository进行升级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过直接下载RPM包升级MySQL"><span class="nav-number">3.6.1.3.</span> <span class="nav-text">通过直接下载RPM包升级MySQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql降级"><span class="nav-number">3.6.2.</span> <span class="nav-text">mysql降级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重建或修复表或索引"><span class="nav-number">3.6.3.</span> <span class="nav-text">重建或修复表或索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制MySQL数据库到其他机器"><span class="nav-number">3.6.4.</span> <span class="nav-text">复制MySQL数据库到其他机器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tutorial"><span class="nav-number">4.</span> <span class="nav-text">Tutorial</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#连接和断开服务器"><span class="nav-number">4.1.</span> <span class="nav-text">连接和断开服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入查询"><span class="nav-number">4.2.</span> <span class="nav-text">输入查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建和使用数据库"><span class="nav-number">4.3.</span> <span class="nav-text">创建和使用数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建和选择数据库"><span class="nav-number">4.3.1.</span> <span class="nav-text">创建和选择数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建表"><span class="nav-number">4.3.2.</span> <span class="nav-text">创建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将数据载入表格"><span class="nav-number">4.3.3.</span> <span class="nav-text">将数据载入表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从表中检索信息"><span class="nav-number">4.3.4.</span> <span class="nav-text">从表中检索信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询所有数据"><span class="nav-number">4.3.4.1.</span> <span class="nav-text">查询所有数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询特定行"><span class="nav-number">4.3.4.2.</span> <span class="nav-text">查询特定行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询特定列"><span class="nav-number">4.3.4.3.</span> <span class="nav-text">查询特定列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行排序"><span class="nav-number">4.3.4.4.</span> <span class="nav-text">行排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日期计算"><span class="nav-number">4.3.4.5.</span> <span class="nav-text">日期计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用NULL值"><span class="nav-number">4.3.4.6.</span> <span class="nav-text">使用NULL值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模式匹配"><span class="nav-number">4.3.4.7.</span> <span class="nav-text">模式匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行数计算"><span class="nav-number">4.3.4.8.</span> <span class="nav-text">行数计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用多个表"><span class="nav-number">4.3.4.9.</span> <span class="nav-text">使用多个表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取数据库和表的信息"><span class="nav-number">4.4.</span> <span class="nav-text">获取数据库和表的信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在批处理下使用mysql"><span class="nav-number">4.5.</span> <span class="nav-text">在批处理下使用mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见查询"><span class="nav-number">4.6.</span> <span class="nav-text">常见查询</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-Programs"><span class="nav-number">5.</span> <span class="nav-text">MySQL Programs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL程序概述"><span class="nav-number">5.1.</span> <span class="nav-text">MySQL程序概述</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -839,7 +2244,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 140.1k</span>
+  <span class="post-count"> 字数: 155.8k</span>
 </div>
 
 
