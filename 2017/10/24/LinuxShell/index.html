@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://zhang21.github.io/images/vim.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Utf8webgrowth.png">
 <meta property="og:image" content="https://zhang21.github.io/images/unicode.png">
-<meta property="og:updated_time" content="2018-02-27T07:46:06.000Z">
+<meta property="og:updated_time" content="2018-03-12T02:32:24.406Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LinuxShell">
 <meta name="twitter:description" content="参考：  《Linux Shell脚本攻略》 《鸟哥的Linux私房菜》">
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  26,983
+                  26,993
                 </span>
               
 
@@ -2132,7 +2132,7 @@
 <td><code>/root/zhang.sh</code></td>
 </tr>
 <tr>
-<td><code>\$1</code>, <code>\$2</code></td>
+<td><code>$1</code>, <code>$2</code></td>
 <td>第1,2个…变量</td>
 <td><code>./zhang.sh start</code></td>
 </tr>
@@ -2264,7 +2264,7 @@
 <p>shell script执行方式的区别：</p>
 <ul>
 <li>直接执行，script是在子进程的bash中执行的。当子进程完成后，子进程内的各项变量或操作将会结束而不会传回到父进程中。</li>
-<li>source来执，在父进程中执行</li>
+<li>source来执行，在父进程中执行</li>
 </ul>
 <p><br><br><br></p>
 <h2 id="编写一个shell-script"><a href="#编写一个shell-script" class="headerlink" title="编写一个shell script"></a>编写一个shell script</h2><p>一个良好的shell script应该纪录好如下信息：</p>
@@ -2485,7 +2485,7 @@
 <li>中括号内的常量，最好都以单或双引号括起来</li>
 </ul>
 <p><br><br><br></p>
-<h2 id="shell-script的默认变量-0-1…"><a href="#shell-script的默认变量-0-1…" class="headerlink" title="shell script的默认变量: $0,$1…"></a>shell script的默认变量: $0,$1…</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/root/test.sh opt1 opt2 opt3</div><div class="line">	$0	   $1	$2	 $3</div></pre></td></tr></table></figure>
+<h2 id="shell-script的默认变量-0-1…"><a href="#shell-script的默认变量-0-1…" class="headerlink" title="shell script的默认变量: $0,$1…"></a>shell script的默认变量: $0,$1…</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/root/test.sh opt1 opt2 opt3</div><div class="line">	$0	$1	$2	$3</div></pre></td></tr></table></figure>
 <ul>
 <li>执行文件的脚本名就是$0</li>
 <li>文件后接的第一个参数就是$1，以此类推</li>
@@ -2511,7 +2511,7 @@
 <p><br></p>
 <h3 id="function功能"><a href="#function功能" class="headerlink" title="function功能"></a>function功能</h3><p>什么是函数？函数可以在shell script 当中做出一个类似自定义执行命令的东西。最大的动能是，可以简化很多的程序代码。</p>
 <p>因为shell script的执行方式是由上而下、由左而右。因此在shell script当中，function的定义一定要在程序的最前面，这样才能够在执行时被找到可用的程序段。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">fname</span></span> () &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">####栗子</span></div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">Zhang</span></span>() &#123;</div><div class="line">	<span class="built_in">echo</span> <span class="variable">$1</span> <span class="variable">$2</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">Zhang <span class="string">"<span class="variable">$1</span>"</span> <span class="string">"<span class="variable">$2</span>"</span></div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">vim func.sh</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">fname</span></span> () &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">####栗子</span></div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">Zhang</span></span>() &#123;</div><div class="line">	<span class="built_in">echo</span> <span class="variable">$1</span> <span class="variable">$2</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">Zhang <span class="string">"<span class="variable">$1</span>"</span> <span class="string">"<span class="variable">$2</span>"</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#执行</span></div><div class="line">sh func.sh aaa bbb</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h2 id="循环-loop-语句"><a href="#循环-loop-语句" class="headerlink" title="循环(loop)语句"></a>循环(loop)语句</h2><p><br></p>
 <h3 id="while-do-done-不定循环"><a href="#while-do-done-不定循环" class="headerlink" title="while do done(不定循环)"></a>while do done(不定循环)</h3><p><code>while</code>是当condition条件成立时，就进行循环，condition条件不成立就停止。</p>
@@ -3325,7 +3325,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 165.3k</span>
+  <span class="post-count"> 字数: 178.7k</span>
 </div>
 
 
