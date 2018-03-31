@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Docker," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="参考：  Docker官方文档 https://docs.docker.com/  环境：  CentOS7. x86_64 Docker v18.03">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker">
+<meta property="og:url" content="https://zhang21.github.io/2018/03/27/Docker/index.html">
+<meta property="og:site_name" content="风继续吹">
+<meta property="og:description" content="参考：  Docker官方文档 https://docs.docker.com/  环境：  CentOS7. x86_64 Docker v18.03">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://zhang21.github.io/images/Docker/engine-components-flow.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Docker/architecture.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Docker/laurel-docker-containers.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Docker/docker002.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Docker/docker003.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Docker/ingress-routing-mesh.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Docker/visualizer.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Docker/dockercloud.png">
+<meta property="og:updated_time" content="2018-03-31T14:06:09.848Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker">
+<meta name="twitter:description" content="参考：  Docker官方文档 https://docs.docker.com/  环境：  CentOS7. x86_64 Docker v18.03">
+<meta name="twitter:image" content="https://zhang21.github.io/images/Docker/engine-components-flow.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang21.github.io/2018/03/27/Docker/"/>
+
+
+
+
+
+  <title>Docker | 风继续吹</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风继续吹</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Yesterday, you said tomorrow!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2018/03/27/Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang21">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/leslie.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风继续吹">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-27T08:38:33+08:00">
+                2018-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/27/Docker/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/27/Docker/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6,759
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考：</p>
+<ul>
+<li>Docker官方文档 <a href="https://docs.docker.com/" target="_blank" rel="noopener">https://docs.docker.com/</a></li>
+</ul>
+<p>环境：</p>
+<ul>
+<li>CentOS7. x86_64</li>
+<li>Docker v18.03</li>
+</ul>
+<p><br><br><br></p>
+<a id="more"></a>
+<hr>
+<p><br></p>
+<h1 id="Docker综述"><a href="#Docker综述" class="headerlink" title="Docker综述"></a>Docker综述</h1><p>Docker是一个开发、shipping、运行应用程序的开放平台。Docker使你能够将应用程序与基础架构(infrastructure)分离开，从而可以快速交付软件。借助Docker，你可以像管理应用程序一样管理基础架构。利用Docker的方法快速进行运输、测试和部署代码，可以显著缩短编写代码和在生存环境中运行代码之间的延迟。</p>
+<p><br></p>
+<h2 id="Docker平台"><a href="#Docker平台" class="headerlink" title="Docker平台"></a>Docker平台</h2><p>Docker提供了在称为容器的松散隔离(isolated)环境中 打包和运行应用程序的能力。隔离性和安全性允许你在给定的主机上同时运行多个容器。容器是轻量级(lightweight)的，因为它们不需要hypervisor的额外负载，而是直接使用主机的内核运行。这意味着，与使用虚拟机相比，你可以在给定的硬件组合上运行更多的容器。你甚至可以在虚拟主机中运行Docker容器。</p>
+<p>Docker提供了工具和平台来管理容器的生命周期(lifecycle)：</p>
+<ul>
+<li>使用容器开发应用程序及其支持组件</li>
+<li>容器成为分发和测试你应用程序的单元</li>
+<li>准备好后，将你的应用程序部署到生存环境中，作为容器协调服</li>
+</ul>
+<p><br></p>
+<h2 id="Docker引擎"><a href="#Docker引擎" class="headerlink" title="Docker引擎"></a>Docker引擎</h2><p>Docker引擎是一个包含如下部件的client-server应用程序：</p>
+<ul>
+<li>Server是称为守护进程的dockerd</li>
+<li>REST API是指定程序可用于与守护进程进行通信并指示其执行操作的接口</li>
+<li>Client是command line interface(CLI)</li>
+</ul>
+<p><img src="/images/Docker/engine-components-flow.png" alt=""></p>
+<p>Docker的开源许可协议是Apache2.0</p>
+<p><br></p>
+<h2 id="能用Docker做什么"><a href="#能用Docker做什么" class="headerlink" title="能用Docker做什么"></a>能用Docker做什么</h2><p><strong>快速、一致的交付应用程序</strong></p>
+<p>通过允许开发人员在 提供应用程序和服务的本地容器 的标准化环境 下工作，Docker简化了开发生命周期。容器非常适合<strong>持续集成(continuous intergration,CI)和持续交付(continuous deliver,CD)</strong>工作流程。</p>
+<p>考虑如下示例场景：</p>
+<ul>
+<li>开发者在本地编写代码，并使用Docker容器分享工作给他们的同事</li>
+<li>使用Docker将应用程序push到测试环境，并自动执行和手动测试</li>
+<li>当开发人员发现bug，他们能在开发环境中修复bug，并重新部署应用程序到测试环境进行测试和验证</li>
+<li>测试完成后，向客户提供修补的应用程序 与将更新的image push到生产环境一样简单</li>
+</ul>
+<p><br></p>
+<p><strong>响应式部署和伸缩</strong></p>
+<ul>
+<li>Docker的基于容器的品台支持高度可移植的工作负载。Docker container可以运行在笔记本、物理机、虚拟机、云平台…</li>
+<li>Docker的可移植性和轻量化特性也使得动态管理工作负载非常容易，可以近乎实时地按业务需求扩展或拆分应用程序和服务</li>
+</ul>
+<p><br></p>
+<p><strong>在同一硬件上运行更多的工作负载</strong></p>
+<p>Docker轻量且快速。它为基于hypersior的虚拟机提供了一种可行、经济高效的替代方案，因此你可以使用更多计算容量来实现业务目标。Docker是高密度环境和中小型部署的理想选择，你需要用更小的资源做更多的事情。</p>
+<p><br></p>
+<h2 id="Docker架构"><a href="#Docker架构" class="headerlink" title="Docker架构"></a>Docker架构</h2><p>Docker使用了client-server的体系架构。客户端向守护进程发送消息，守护进程负责构建、运行和分发 Docker容器。客户端和守护进程可以在同一系统上运行，也可将客户端连接到远程的Docker守护进程。客户端和守护进程使用REST API，通过Unix socket或network interface进程通信。</p>
+<p><img src="/images/Docker/architecture.png" alt="Docker架构图"></p>
+<p><br></p>
+<h3 id="Docker-daemon"><a href="#Docker-daemon" class="headerlink" title="Docker daemon"></a>Docker daemon</h3><p>Docker daemon(<code>dockerd</code>)，监听Docker API请求并管理Docker对象——image、container、network、volume。<br>docker daemon还可与其它docker daemon通信来管理docker service。</p>
+<p><br></p>
+<h3 id="Docker-client"><a href="#Docker-client" class="headerlink" title="Docker client"></a>Docker client</h3><p>Docker client(<code>docker</code>)是许多Docker用户与Docker进行交互的主要方式。客户端将命令发送给守护进程，守护进程执行命令。<br>Docker命令使用Docker API，Docker客户端可于多个守护进程进行通信。</p>
+<p><br></p>
+<h3 id="Docker-registry"><a href="#Docker-registry" class="headerlink" title="Docker registry"></a>Docker registry</h3><p>Docker registry存储Docker image。Docker Hub和Docker Cloud是任何人都可使用的public registry，你可以创建private registry。</p>
+<p><code>docker pull</code>或<code>docker run</code>需要的image便是从配置的registry中提取。<code>docker push</code>推送image到你配置的registry。</p>
+<p><br></p>
+<h2 id="Docker-objects"><a href="#Docker-objects" class="headerlink" title="Docker objects"></a>Docker objects</h2><p>当你使用Docker时，你会创建和使用 image、container、network、volume、plugin和其它对象。</p>
+<p><br></p>
+<h3 id="image"><a href="#image" class="headerlink" title="image"></a>image</h3><p>镜像是一个只读模板，带有创建Docker容器的说明。通常，镜像基于其它镜像，并具有一些额外的自定义功能。<br>例如，你可构建基于Ubuntu镜像的镜像，但会按照ApacheWeb服务器和应用程序，以及应用程序所需的配置。</p>
+<p>你可能创建自己的镜像，或使用由别人创建并推送到registry上的镜像。构建自己的镜像，需要使用简单的语法创建一个Dockerfile，以定义创建镜像并运行它所需的步骤。</p>
+<p><br></p>
+<h3 id="container"><a href="#container" class="headerlink" title="container"></a>container</h3><p>容器是镜像的可运行实例。可将容器连接到一个或多个网络，将存储器连接到它，还可根据当前状态创建新镜像。</p>
+<p>默认情况下，容器与其它容器以及主机是相对隔离的。你可以控制容器的网络、存储、其它底层子系统与其它容器或主机的隔离程度。</p>
+<p>容器由镜像定义，以及你在创建或启动时提供给它的任何配置选项。当一个容器被移除时，其未被存储在永久存储器中的状态会消失。</p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#运行一个Ubuntu镜像，交互地连接到本地命令会话</div><div class="line"></div><div class="line">docker run -i -t ubuntu /bin/bash</div></pre></td></tr></table></figure>
+<p>以上命令会发生如下步骤:</p>
+<ol>
+<li>如果本地没有Ubuntu镜像，docker会从registry拉取，就好像你手动运行 <code>docker pull ubuntu</code></li>
+<li>Docker创建一个新容器，就好像你手动执行<code>docker container create</code></li>
+<li>Docker分配一个读写文件系统给容器，作为它的最后一层</li>
+<li>如果你没有指定任何网络选项，Docker会创建一个网络接口将容器连接到默认网络。</li>
+<li></li>
+</ol>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><p>Docker有两个可获取的版本：</p>
+<ul>
+<li>Community Edition(CE)<ul>
+<li>适合开始使用Docker并尝试基于容器的应用程序的开发人员和小型团队</li>
+</ul>
+</li>
+<li>Enterprise Edition(EE)<ul>
+<li>专为企业开发和IT团队而设计，可以在生产规模上构建，发布和运行关键业务应用程序</li>
+</ul>
+</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="为CentOS7安装Docker-CE"><a href="#为CentOS7安装Docker-CE" class="headerlink" title="为CentOS7安装Docker CE"></a>为CentOS7安装Docker CE</h2><h3 id="OS要求"><a href="#OS要求" class="headerlink" title="OS要求"></a>OS要求</h3><ul>
+<li>CentOS7.x</li>
+<li><code>centos-extras</code> repository</li>
+<li>推荐使用<code>overlay2</code>存储驱动</li>
+<li>安装新版本Docker需卸载老版本Docker</li>
+<li>Docker CE包被称为<code>docker-ce</code></li>
+</ul>
+<p><br></p>
+<h3 id="安装Docker-CE"><a href="#安装Docker-CE" class="headerlink" title="安装Docker CE"></a>安装Docker CE</h3><ul>
+<li><a href="https://download.docker.com/" target="_blank" rel="noopener">https://download.docker.com/</a></li>
+</ul>
+<p>多种安装方法：</p>
+<ul>
+<li>Docker’s repository</li>
+<li>RPM package</li>
+<li>scripts</li>
+</ul>
+<p><br></p>
+<p><strong>使用repository安装：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#安装依赖</span></div><div class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#设置repository</span></div><div class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#安装Docker CE</span></div><div class="line">yum install -y docker-ce</div><div class="line"></div><div class="line"><span class="comment">#Docker安装但未启动，docker group会被创建，但没有用户添加到组中</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#在生产环境中，你可能需要安装特定版本的Docker CE，而不是最新版</span></div><div class="line">yum list docker-ce --showduplicates | sort -r</div><div class="line">yum search docker-ce --showduplicates</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#开启docker</span></div><div class="line">systemctl start docker</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#测试docker</span></div><div class="line">docker run hello-world</div><div class="line"></div><div class="line"><span class="comment">#此命令下载一个测试image并将其运行到container中</span></div><div class="line"><span class="comment">#Hello from Docker!</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>使用package安装：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#下载rpm包</span></div><div class="line">https://download.docker.com/linux/centos/7/x86_64/stable/Packages/</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#安装</span></div><div class="line">yum install -y /path/docker-cexxx.rpm</div><div class="line"></div><div class="line"></div><div class="line">systemctl start docker</div><div class="line"></div><div class="line">docker run hello-world</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>使用scripts安装：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">curl -fsSL get.docker.com -o get-docker.sh</div><div class="line"></div><div class="line">sh get-docker.sh</div><div class="line"></div><div class="line"><span class="comment">#手动添加group合user</span></div><div class="line">usermod -aG docker your-user</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="卸载Docker-CE"><a href="#卸载Docker-CE" class="headerlink" title="卸载Docker CE"></a>卸载Docker CE</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">yum remove docker-ce</div><div class="line"></div><div class="line"><span class="comment">#默认文件</span></div><div class="line">rm -rf /var/lib/docker</div><div class="line"></div><div class="line"><span class="comment">#你还需要手动删除其它配置文件</span></div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p><br><br><br></p>
+<h2 id="关于Docker"><a href="#关于Docker" class="headerlink" title="关于Docker"></a>关于Docker</h2><p>Docker文档会有如下讲解：</p>
+<ul>
+<li>设置你的Docker环境</li>
+<li>在一个容器(container)中构建并运行一个镜像</li>
+<li>延伸你的APP以便在多个容器中运行</li>
+<li>在整个集群中分配你的APP</li>
+<li>通过添加后端数据库来堆栈服务</li>
+<li>将应用部署到生产</li>
+</ul>
+<p><br></p>
+<h3 id="Docker的概念"><a href="#Docker的概念" class="headerlink" title="Docker的概念"></a>Docker的概念</h3><p>Docker是开发人员，系统管理员使用容器来开发、部署和运行APP的平台。使用Linux容器来部署APP被称为<strong>集装箱化(containerzation)</strong></p>
+<p><img src="/images/Docker/laurel-docker-containers.png" alt=""></p>
+<p>集装箱受欢迎的几点原因：</p>
+<ul>
+<li>灵活(flexible)</li>
+<li>轻量(lightweight)</li>
+<li>通用(Interchangeable)</li>
+<li>可移植(portable)</li>
+<li>延伸(scalable)</li>
+<li>堆栈(stackable)</li>
+</ul>
+<p><br></p>
+<h3 id="镜像和容器"><a href="#镜像和容器" class="headerlink" title="镜像和容器"></a>镜像和容器</h3><p>通过运行镜像(image)启动容器(container)。镜像是一个可执行包，包含运行APP所需的所有内容：代码，库，环境变量，配置文件…</p>
+<p>容器是镜像的运行时(runtime)实例。在Linux上使用<code>docker ps</code>命令查看运行的容器列表。</p>
+<p><br></p>
+<h3 id="容器和虚拟机"><a href="#容器和虚拟机" class="headerlink" title="容器和虚拟机"></a>容器和虚拟机</h3><p>容器在Linux本地上运行，并与其它容器共享主机Kernel。它是一个独立的进程，不占其它可执行文件内存，使其轻量化。</p>
+<p>虚拟机(VM)运行一个完整的访客操作系统，通过虚拟机管理程序访问主机资源。一般来说，虚拟机比大多数应用程序需要的资源更多。</p>
+<p><img src="/images/Docker/docker002.png" alt=""></p>
+<p><br><br><br></p>
+<h3 id="准备Docker环境"><a href="#准备Docker环境" class="headerlink" title="准备Docker环境"></a>准备Docker环境</h3><p>Docker版本：</p>
+<ul>
+<li>CE: Docker Community Edition</li>
+<li>EE: Docker Enterprise Edition</li>
+</ul>
+<p><a href="#Docker安装">Install Docker</a></p>
+<p><br></p>
+<h2 id="测试Docker"><a href="#测试Docker" class="headerlink" title="测试Docker"></a>测试Docker</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">docker --version</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#查看详细信息</span></div><div class="line">docker info</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#测试安装工作是否正常</span></div><div class="line">docker run hello-world</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#查看镜像</span></div><div class="line">docker image ls</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#列出容器</span></div><div class="line">docker container ls -all</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#docker命令</span></div><div class="line">docker</div><div class="line">docker container --<span class="built_in">help</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>集装箱化使得<strong>CI/CD</strong>无缝：</p>
+<ul>
+<li>持续集成(Continuous integration, CI)</li>
+<li>持续部署(continuous deployment, CD)</li>
+<li>APP无系统依赖</li>
+<li>更新能够推送到分布式APP的任何部分</li>
+<li>资源密度可以被优化</li>
+</ul>
+<p>使用Docker，扩展APP的过程就是启动新的可执行文件，而不是运行繁重的VM主机。</p>
+<p><br><br><br></p>
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>Container</p>
+<p><br></p>
+<h3 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run hello-world</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>是时候使用Docker方式来构建一个APP了。</p>
+<ul>
+<li>从应用程序的层次结构底部开始，这是一个容器(container)</li>
+<li>在此级别之上，是一个服务(service)，它定义了容器在生产中的表现</li>
+<li>最后，顶层是堆栈(stack)，定义所有服务的交互(interaction)</li>
+</ul>
+<p>Like this:</p>
+<ul>
+<li>Stack</li>
+<li>Service</li>
+<li>Container</li>
+</ul>
+<p><br></p>
+<h3 id="新开发环境"><a href="#新开发环境" class="headerlink" title="新开发环境"></a>新开发环境</h3><p>在过去，如果你要开始编写一个Python APP，你的第一要务是在你的机器运行时安装Python。但是，这会造成你的计算机上的环境，需要如预期般完美适合你的APP，并且还需要与你的生产环境相匹配。</p>
+<p>使用Docker，你可以将一个可移植的Python运行时作为一个image，无需安装。接着，你的构建可以将基础Python image与APP代码一起包含在内，确保你的APP，依赖项…都构建一起。</p>
+<p><br></p>
+<h3 id="使用Dockerfile定义一个容器"><a href="#使用Dockerfile定义一个容器" class="headerlink" title="使用Dockerfile定义一个容器"></a>使用<code>Dockerfile</code>定义一个容器</h3><p><code>Dockerfile</code>定义了容器内环境中发生的事情。访问的网络接口(network interface)和磁盘驱动(disk driver)等资源是在此环境中虚拟化的(virtualized)，与系统其余部分隔离。因此你需要将端口映射(map port)到外部世界，并明确指定要将哪些文件<strong>复制</strong>到此环境中。但是，在完成这些后，你完全可以将它们看做一致 —— 在<code>Dockerfile</code>中定义的构建的APP的行为与它运行时的行为完全相同。</p>
+<p><strong>Dockerfile</strong></p>
+<p>创建一个空目录，并创建一个名叫<code>Dockerfile</code>的文件，复制以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"># Use an official Python runtime as a parent image</div><div class="line">FROM python:2.7-slim</div><div class="line"></div><div class="line"># Set the working directory to /app</div><div class="line">WORKDIR /app</div><div class="line"></div><div class="line"># Copy the current directory contents into the container at /app</div><div class="line">ADD . /app</div><div class="line"></div><div class="line"># Install any needed packages specified in requirements.txt</div><div class="line">RUN pip install --trusted-host pypi.python.org -r requirements.txt</div><div class="line"></div><div class="line"># Make port 80 available to the world outside this container</div><div class="line">EXPOSE 80</div><div class="line"></div><div class="line"># Define environment variable</div><div class="line">ENV NAME World</div><div class="line"></div><div class="line"># Run app.py when the container launches</div><div class="line">CMD [&quot;python&quot;, &quot;app.py&quot;]</div></pre></td></tr></table></figure>
+<p>注意代理服务器会阻断你与APP的连接！</p>
+<p>这个<code>Dockerfile</code>引用了一些我们还没有创建的文件，分别是<code>app.py</code>和<code>requirements.txt</code>。接下来创建它们。</p>
+<p><br></p>
+<h3 id="APP自身"><a href="#APP自身" class="headerlink" title="APP自身"></a>APP自身</h3><p>创建另外的文件，如上面的<code>app.py</code>和<code>requirements.txt</code>，并将它们与<code>Dockerfile</code>放置于同一目录下。这就完成了我们的APP，这看起来非常简单。当这个<code>Dockerfile</code>被构建成一个image时，由于<code>Dockerfile</code>的<code>ADD</code>命令，<code>app.py</code>和<code>requirements.txt</code>仍然存在，而且由于使用了EXPOSE命令，<code>app.py</code>的输出仍可以通过HTTP访问。</p>
+<p><strong>requirements.txt: </strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Flask</div><div class="line">Redis</div></pre></td></tr></table></figure>
+<p><strong>app.py: </strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">from flask import Flask</div><div class="line">from redis import Redis, RedisError</div><div class="line">import os</div><div class="line">import socket</div><div class="line"></div><div class="line"># Connect to Redis</div><div class="line">redis = Redis(host=&quot;redis&quot;, db=0, socket_connect_timeout=2, socket_timeout=2)</div><div class="line"></div><div class="line">app = Flask(__name__)</div><div class="line"></div><div class="line">@app.route(&quot;/&quot;)</div><div class="line">def hello():</div><div class="line">    try:</div><div class="line">        visits = redis.incr(&quot;counter&quot;)</div><div class="line">    except RedisError:</div><div class="line">        visits = &quot;&lt;i&gt;cannot connect to Redis, counter disabled&lt;/i&gt;&quot;</div><div class="line"></div><div class="line">    html = &quot;&lt;h3&gt;Hello &#123;name&#125;!&lt;/h3&gt;&quot; \</div><div class="line">           &quot;&lt;b&gt;Hostname:&lt;/b&gt; &#123;hostname&#125;&lt;br/&gt;&quot; \</div><div class="line">           &quot;&lt;b&gt;Visits:&lt;/b&gt; &#123;visits&#125;&quot;</div><div class="line">    return html.format(name=os.getenv(&quot;NAME&quot;, &quot;world&quot;), hostname=socket.gethostname(), visits=visits)</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    app.run(host=&apos;0.0.0.0&apos;, port=80)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在容器内访问主机的名称将检索容器ID，这进程ID类似。</p>
+</blockquote>
+<p>仅此而已，在你的系统中，你不需要任何Python或requirements.txt文件，也不需要在你的系统上安装 构建或运行的image。看起来你并没有真正用Python和Flask建立一个环境，但是你确实已经拥有了。</p>
+<p><br></p>
+<h3 id="构建APP"><a href="#构建APP" class="headerlink" title="构建APP"></a>构建APP</h3><p>我们准备去构建(build)APP。确保你仍在目录的顶层。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">#查看是否还在顶层</div><div class="line">ls</div><div class="line"></div><div class="line">Dockerfile		app.py			requirements.txt</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#在此目录运行build命令，这将创建一个Docker image，用 -t 命名</div><div class="line">docker build -t friendlyhello .</div><div class="line"></div><div class="line"></div><div class="line">#查看你build的image</div><div class="line">docker image ls</div><div class="line"></div><div class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</div><div class="line">friendlyhello       latest              b24e21d7645f        13 minutes ago      150MB</div><div class="line"></div><div class="line"></div><div class="line">#运行APP</div><div class="line">docker run -p 4000:80 friendlyhello</div><div class="line"></div><div class="line"></div><div class="line">#测试</div><div class="line">curl http://localhost:4000</div><div class="line">links http://localhost:4000</div><div class="line"></div><div class="line"></div><div class="line">#在后台运行</div><div class="line">docker run -d -p 4000:80 friendlyhello</div><div class="line"></div><div class="line"></div><div class="line">#查看容器</div><div class="line">docker container ls</div><div class="line"></div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                  NAMES</div><div class="line">146662dca737        friendlyhello       &quot;python app.py&quot;     16 seconds ago      Up 16 seconds       0.0.0.0:4000-&gt;80/tcp   goofy_chaplygin</div><div class="line"></div><div class="line"></div><div class="line">#停止</div><div class="line">Ctrl + C</div><div class="line">docker container stop docker-ID</div><div class="line">docker container stop 146662dca737</div></pre></td></tr></table></figure>
+<p><img src="/images/Docker/docker003.png" alt="效果图"></p>
+<p><br></p>
+<p>端口重映射<code>4000:80</code>是为了证明Dockerfile中的EXPOSE与使用<code>docker run -p</code>发布的内容之间的区别。<br>在后续步骤中，我们只需将主机的80端口映射到容器的80端口就好。</p>
+<p><br></p>
+<h3 id="分享你的image"><a href="#分享你的image" class="headerlink" title="分享你的image"></a>分享你的image</h3><p>为了演示刚才创建的image的可移植性(portability)，让我们上传build的image并在其它地方run它。毕竟，当你需要将container部署到生产环境时，你需要知道如何push注册。</p>
+<p>注册表(registry)是一个repository的集合，而repository是image的集合——有点类似于GitHub repository，但代码是已经构建了的。<br>注册表上的账户可以创建许多repository。docker CLI 默认使用Docker’s public registry。你也可以选择其它注册表，或创建自己的注册表。</p>
+<p><br></p>
+<p><strong>使用Docker ID登录：</strong></p>
+<p>如果没有Docker账户，请先注册 <cloud.docker.com>。</cloud.docker.com></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker login</div><div class="line"></div><div class="line">docker login -u zhang21</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>标记image：</strong></p>
+<p>使用<code>username/repository:tag</code>将本地image与registry中的repository相关联。tag是可选的，但推荐使用tag。因为它是注册管理机构用于为Docker image提供版本的机制。为该内容提供一个有意义的repository和tag，例如<code>get-started:part2</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">docker tag image username/repository:tag</div><div class="line"></div><div class="line">#例子</div><div class="line">docker tag friendlyhello zhang/test:tag-test</div><div class="line"></div><div class="line"></div><div class="line">#查看tag</div><div class="line">docker images ls</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>发布image：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#上传你标记了的image到repository</div><div class="line">docker push username/repository:tag</div><div class="line"></div><div class="line">docker push zhang21/test:tag-test</div><div class="line"></div><div class="line">#完成后，此image便可以公开获取</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>从远处repository拉取并运行image：</strong></p>
+<p>无论在哪里执行<code>docker run</code>，它都会将你的image以及Python和所有依赖关系一起拉取下来，并运行你的代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker run -p 4000:80 username/repository:tag</div><div class="line"></div><div class="line">docker run -p 80:80 zhang21/test:tag-test</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="本节基础命令"><a href="#本节基础命令" class="headerlink" title="本节基础命令"></a>本节基础命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#从Dockerfile创建image</span></div><div class="line">docker build -t image-name .</div><div class="line"></div><div class="line"><span class="comment">#运行image</span></div><div class="line">docker run -p 4000:80 image-name</div><div class="line"></div><div class="line"><span class="comment">#后台运行</span></div><div class="line">docker run -d -p 4000:80 image-name</div><div class="line"></div><div class="line"><span class="comment">#列出运行的容器</span></div><div class="line">docker container ls</div><div class="line"><span class="comment">#列出所有容器，包括未运行</span></div><div class="line">docker container ls -a</div><div class="line"></div><div class="line"><span class="comment">#优雅停止容器</span></div><div class="line">docker container stop 容器ID</div><div class="line"><span class="comment">#强制停止</span></div><div class="line">docker container <span class="built_in">kill</span> 容器ID</div><div class="line"></div><div class="line"><span class="comment">#删除容器</span></div><div class="line">docker container rm 容器ID</div><div class="line"><span class="comment">#删除所有容器</span></div><div class="line">docker container rm $(docker container ls -a -q)</div><div class="line"></div><div class="line"><span class="comment">#列出镜像</span></div><div class="line">docker image ls</div><div class="line"><span class="comment">#列出所有镜像</span></div><div class="line">docker image ls -a</div><div class="line"></div><div class="line"><span class="comment">#删除镜像</span></div><div class="line">docker image rm 镜像ID</div><div class="line"><span class="comment">#删除所有镜像</span></div><div class="line">docker image rm $(docker image ls -a -q)</div><div class="line"></div><div class="line"><span class="comment">#登录</span></div><div class="line">docker login</div><div class="line"></div><div class="line"><span class="comment">#标记</span></div><div class="line">docker tag 镜像 username/repository:tag</div><div class="line"></div><div class="line"><span class="comment">#上传到注册表</span></div><div class="line">docker push username/repository:tag</div><div class="line"></div><div class="line"><span class="comment">#从注册表拉取</span></div><div class="line">docker run username/repository:tag</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h2><p>service</p>
+<p><br></p>
+<h3 id="先决条件-1"><a href="#先决条件-1" class="headerlink" title="先决条件"></a>先决条件</h3><ul>
+<li>安装Docker</li>
+<li>获取Docker Compose</li>
+<li>阅读Orientation</li>
+<li>阅读Container</li>
+<li>确保已发布friendlyhello image到你的registry</li>
+<li>确保你的image工作为一个部署的container。<code>docker run -p 80:80 username/repo:tag</code></li>
+</ul>
+<p><br></p>
+<h3 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h3><p>在此，我们<strong>扩展(scale)</strong>APP并启用<strong>负载均衡(load balancing)</strong>。要做到这样，我们必须在分布式(distributed)应用程序的层次结构中升一级: 服务</p>
+<ul>
+<li>Stack</li>
+<li>Service</li>
+<li>Container</li>
+</ul>
+<p><br></p>
+<h3 id="关于服务"><a href="#关于服务" class="headerlink" title="关于服务"></a>关于服务</h3><p>在分布式应用程序中，应用程序的不同部分称为服务(service)。</p>
+<p>例如，一个视频共享站点。那么它可能包含：</p>
+<ul>
+<li>用于将应用程序数据 存储到数据库中的服务</li>
+<li>用户上传后的视频转码服务</li>
+<li>前端服务</li>
+<li>…</li>
+</ul>
+<p>服务是真正的生产环境中的容器。一个service只运行一个image，但它可修改image的运行方式 —— 哪个端口、容器应该运行多少个副本以便于服务所需的容量等.<br>伸缩服务会更改运行该软件的容器实例数量，从而为进程中的服务分配更多的计算资源。</p>
+<p>在Docker平台上定义、运行和伸缩服务都是很简单的 —— 只需修改<code>docker-compose.yml</code>文件。</p>
+<p><br></p>
+<h3 id="你的第一个docker-compose-yml文件"><a href="#你的第一个docker-compose-yml文件" class="headerlink" title="你的第一个docker-compose.yml文件"></a>你的第一个<code>docker-compose.yml</code>文件</h3><p><code>docker-compose.yml</code>是一个YAML文件，它定义了Docker container在生产中的行为方式。</p>
+<p><strong>docker-compose.yml：</strong></p>
+<p>将如下信息保存为<code>docker-compose.yml</code>，确保你已经<code>pushed the image</code>到registry，并通过修改<code>.yml</code>文件的image detail来替换<code>username/repo:tag</code>。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="attr">version:</span> <span class="string">"3"</span></div><div class="line"><span class="attr">services:</span></div><div class="line"><span class="attr">  web:</span></div><div class="line">    <span class="comment"># replace username/repo:tag with your name and image details</span></div><div class="line"><span class="attr">    image:</span> <span class="string">username/repo:tag</span></div><div class="line"><span class="attr">    deploy:</span></div><div class="line"><span class="attr">      replicas:</span> <span class="number">5</span></div><div class="line"><span class="attr">      resources:</span></div><div class="line"><span class="attr">        limits:</span></div><div class="line"><span class="attr">          cpus:</span> <span class="string">"0.1"</span></div><div class="line"><span class="attr">          memory:</span> <span class="number">50</span><span class="string">M</span></div><div class="line"><span class="attr">      restart_policy:</span></div><div class="line"><span class="attr">        condition:</span> <span class="string">on-failure</span></div><div class="line"><span class="attr">    ports:</span></div><div class="line"><span class="bullet">      -</span> <span class="string">"80:80"</span></div><div class="line"><span class="attr">    networks:</span></div><div class="line"><span class="bullet">      -</span> <span class="string">webnet</span></div><div class="line"><span class="attr">networks:</span></div><div class="line"><span class="attr">  webnet:</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<p><code>docker-compose.yml</code>文件告诉Docker之下如下操作：</p>
+<ul>
+<li>pull the image</li>
+<li>Run 5 instances of that image as a service called <code>web</code></li>
+<li>限制每个实例最多使用10%的CPU和50MB的RAM</li>
+<li>如果一个失败，马上重启container</li>
+<li>映射主机的80端口到web的80端口</li>
+<li>指示web container通过称为<code>webnet</code>的负载均衡网络共享80端口</li>
+<li>使用默认设置定义<code>webnet</code>网络</li>
+</ul>
+<p><br></p>
+<h3 id="运行你的负载均衡APP"><a href="#运行你的负载均衡APP" class="headerlink" title="运行你的负载均衡APP"></a>运行你的负载均衡APP</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">docker swarm init</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#运行并设置APP名字</span></div><div class="line">docker stack -c docker-compose.yml app-name</div><div class="line"></div><div class="line">docker stack -c docker-compose.yml LoadBalance</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#在一个主机上，单个服务栈通过部署的image运行5个container instance</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#获取service ID</span></div><div class="line">docker service ls</div><div class="line"></div><div class="line">ID                  NAME                MODE                REPLICAS            IMAGE                   PORTS</div><div class="line">3d1a48yse0t4        LoabBalance_web     replicated          5/5                 zhang21/<span class="built_in">test</span>:tag-test   *:80-&gt;80/tcp</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#查看服务中的任务</span></div><div class="line">docker service ps app-name_web</div><div class="line"></div><div class="line"></div><div class="line">docker container ls -q</div><div class="line"></div><div class="line"><span class="comment">#5个容器ID</span></div><div class="line">c7ce0075890e</div><div class="line">52ba026bf28c</div><div class="line">6d4381be438f</div><div class="line">bd297a42e89d</div><div class="line">357b05cc38eb</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#访问的时候容器ID会在此5个负载中变化</span></div></pre></td></tr></table></figure>
+<p>在服务中运行的单个container称为任务(task)。任务是具有数字增量的唯一ID，最大数量是在<code>docker-compose.yml</code>中定义的副本数量。</p>
+<p><br></p>
+<h3 id="伸缩APP"><a href="#伸缩APP" class="headerlink" title="伸缩APP"></a>伸缩APP</h3><p>通过修改<code>docker-compose.yml</code>中<code>replicas</code>的值，并重新运行<code>docker stack deploy -c xxx app-name</code>来伸缩APP。</p>
+<p>Docker执行就地更新，不需要stack down或kill any containers.</p>
+<p><strong>卸下APP和swarm：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#app</span></div><div class="line">docker stack rm app-name</div><div class="line"></div><div class="line">docker stack rm LoadBalance</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#swarm</span></div><div class="line">docker swarm leave --force</div></pre></td></tr></table></figure>
+<p>使用Docker扩展APP非常简单。</p>
+<p><br></p>
+<h3 id="本节命令"><a href="#本节命令" class="headerlink" title="本节命令"></a>本节命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#列出栈或APP</span></div><div class="line">docker stack ls</div><div class="line"></div><div class="line"><span class="comment">#运行指定配置文件</span></div><div class="line">docker stack deploy -c &lt;composefile&gt; &lt;appname&gt;</div><div class="line"></div><div class="line"><span class="comment">#列出与APP相关联的服务</span></div><div class="line">docker service ls</div><div class="line"></div><div class="line"><span class="comment">#列出与APP相关联的任务</span></div><div class="line">docker service ps &lt;service&gt;</div><div class="line"></div><div class="line"><span class="comment">#检查任务</span></div><div class="line">docker inspect &lt;task or container&gt;</div><div class="line"></div><div class="line"><span class="comment">#列出容器ID</span></div><div class="line">docker container ls -q</div><div class="line"></div><div class="line"><span class="comment">#除掉APP</span></div><div class="line">docker stack rm &lt;appname&gt;</div><div class="line"></div><div class="line"><span class="comment">#从管理中除掉一个单一节点swarm</span></div><div class="line">docker swarm leave --force</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="swarm"><a href="#swarm" class="headerlink" title="swarm"></a>swarm</h2><p><br></p>
+<h3 id="先决条件-2"><a href="#先决条件-2" class="headerlink" title="先决条件"></a>先决条件</h3><ul>
+<li>前面几个小节的内容</li>
+</ul>
+<p><br></p>
+<h3 id="介绍-2"><a href="#介绍-2" class="headerlink" title="介绍"></a>介绍</h3><p>前面你将一个服务运行在生产环境，并扩展为5个副本进程。</p>
+<p>在此，你将APP部署到到集群上，并在多台机器上运行它。通过将多台主机连接到成为<strong>swarm</strong>的<strong>Dockerized</strong>集群，使得多容器、多主机应用成为可能。</p>
+<p><br></p>
+<h3 id="理解swarm集群"><a href="#理解swarm集群" class="headerlink" title="理解swarm集群"></a>理解swarm集群</h3><p>swarm是一组运行Docker并加入到集群中的机器。这样以后，你可以在集群的swarm manager上执行Docker命令。swarm中的机器可以是物理的或虚拟的，当他们加入swarm后，他们便被成为node。</p>
+<p>swarm manager可以使用多种策略来运行容器，你可在compose file中指定相应的策略。</p>
+<p>swarm manager是swarm中唯一可以执行命令、授权其他机器作为工作者加入swarm的机器。工作者(worker)只能在那提供能力(capacity)，并没有权力告诉任何机器能够做什么。</p>
+<p>但目前为止，你已经在本机机器上以单主机(single host)模式使用Docker。但Docker也可以切换为swarm(集群)模式，这就是使用swarm的原因。立即启用swarm模式使得当前机器成为swarm manager。从此，Docker将运行在你管理的swarm上执行命令，而不仅仅是在当前机器上执行。</p>
+<p><br></p>
+<h3 id="建立swarm"><a href="#建立swarm" class="headerlink" title="建立swarm"></a>建立swarm</h3><p>一个swarm由多个节点组成，不管它是虚拟机还是物理机。</p>
+<ul>
+<li>基本概念很简单，运行<code>docker swarm init</code>来开启swarm模式并使得当前机器成为swarm manager</li>
+<li>在其它机器上运行<code>docker swarm join</code>使他们作为worker加入swarm</li>
+</ul>
+<p><br></p>
+<p><strong>栗子：</strong><br>使用VM快速创建两台机器的集群，并将其变为swarm。</p>
+<p>使用<code>docker-machine</code>创建一对VM:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#CentOS7</span></div><div class="line"></div><div class="line"><span class="comment">#安装VirtualBox</span></div><div class="line">wget https://download.virtualbox.org/virtualbox/5.2.8/VirtualBox-5.2-5.2.8_121009_el7-1.x86_64.rpm &amp;&amp; yum install -y Virtual.xx.rpm</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#安装docker-machine</span></div><div class="line"> curl -L https://github.com/docker/machine/releases/download/v0.14.0/docker-machine-`uname -s`-`uname -m` &gt;/tmp/docker-machine &amp;&amp; install /tmp/docker-machine /usr/<span class="built_in">local</span>/bin/docker-machine</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#在BIOS中开启虚拟化支持</span></div><div class="line"></div><div class="line"><span class="comment">#在VMware中开启虚拟化支持(如果是VM)</span></div><div class="line"></div><div class="line"></div><div class="line">docker-machine create --driver virtual myvm1</div><div class="line">docker-machine create --driver virtual myvm2</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#列出虚拟机</span></div><div class="line">docker-machine ls</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>初始化swarm并添加node</strong></p>
+<p>第一台机器作为swarm manager，执行命令和join认证，后面的机器作为worker。</p>
+<p>你可以使用<code>docker-machine ssh</code>发送命令到VM。在<code>swarm mananger</code>上执行<code>docker swarm init</code>初始化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">docker-machine ssh &lt;swarm manager&gt; &quot;docker swarm init --advertise-assr &lt;mananger-IP&gt;&quot;</div><div class="line"></div><div class="line">#add worker</div><div class="line">docker swarm jion --toker &lt;token&gt; &lt;wroker-ip&gt;:&lt;port&gt;</div><div class="line"></div><div class="line"></div><div class="line">#添加manager</div><div class="line">docker swarm join-token manaer</div></pre></td></tr></table></figure>
+<p><strong>由于我的虚拟的无法使用VT，因此我用的两台机器两个Docker来做swarm。</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#初始化这台机器默认为manager</span></div><div class="line">docker swarm init</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#作为worker加入，ip是manager的</span></div><div class="line"><span class="comment">#以下信息会在manager初始化时生成</span></div><div class="line"><span class="comment">#注意防火墙，可能会阻碍加入</span></div><div class="line"></div><div class="line">docker swarm join --toker &lt;toker&gt; &lt;ip:port&gt;</div><div class="line">docker swarm join --token SWMTKN-1-3vrbnuneu0hyu41evxlhbn5fp04ad5jvg9v5rzvdaedg2bghkt-e24mjnni3hu7782t3gkz0ny39 172.16.129.150:2377</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#查看swarm</span></div><div class="line">docker node ls</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#离开swarm</span></div><div class="line">docker swarm leave</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="在swarm集群上部署APP"><a href="#在swarm集群上部署APP" class="headerlink" title="在swarm集群上部署APP"></a>在swarm集群上部署APP</h3><p>主需要记住，只有swarm manager才能执行docker命令，worker仅仅是容量(capacity)。</p>
+<p>在swarm manager上使用<code>docker-composr.yml</code>和<code>docker stack deploy</code>命令来部署APP。使用<code>docker  service ps &lt;service name&gt;</code>来验证部署。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">#在manager部署</div><div class="line">docker stack deploy -c ./docker-compose.yml LoadBalance</div><div class="line"></div><div class="line"></div><div class="line">docker service ls</div><div class="line"></div><div class="line">docker stack ls</div><div class="line"></div><div class="line"></div><div class="line">#注意node名</div><div class="line">docker stack ps LoadBalance</div><div class="line"></div><div class="line">ID                  NAME                IMAGE                   NODE                DESIRED STATE       CURRENT STATE             ERROR               PORTS</div><div class="line">6nrn4mwc6pvt        LoadBalance_web.1   zhang21/test:tag-test   zhang22             Running             Preparing 2 minutes ago</div><div class="line">bpssrnzesl7n        LoadBalance_web.2   zhang21/test:tag-test   zhang22             Running             Preparing 2 minutes ago</div><div class="line">kmhd8p5wkc12        LoadBalance_web.3   zhang21/test:tag-test   zhang21             Running             Running 2 minutes ago</div><div class="line">i0pkf4foms87        LoadBalance_web.4   zhang21/test:tag-test   zhang22             Running             Preparing 2 minutes ago</div><div class="line">rvtpjk781frn        LoadBalance_web.5   zhang21/test:tag-test   zhang21             Running             Running 2 minutes ago</div><div class="line"></div><div class="line"></div><div class="line">#分别访问个主机的IP</div><div class="line">#创建的网络在它们之间共享并负载均衡</div><div class="line">links ip1</div><div class="line">links ip2</div></pre></td></tr></table></figure>
+<p>两个IP地址工作的原因是集群中的节点参与入口(ingress)路由网络(routing mesh)。这可以确保部署在swarm中某个端口的服务始终将该端口保留给自己，而不管实际运行容器的节点是什么。</p>
+<p><img src="/images/Docker/ingress-routing-mesh.png" alt="入口路由"></p>
+<p><br></p>
+<h3 id="清理并重启"><a href="#清理并重启" class="headerlink" title="清理并重启"></a>清理并重启</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker stack rm LoadBalance</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="stack"><a href="#stack" class="headerlink" title="stack"></a>stack</h2><p>先决条件，已完成前面的步骤。</p>
+<p><br></p>
+<h3 id="介绍-3"><a href="#介绍-3" class="headerlink" title="介绍"></a>介绍</h3><p>你已到达分布式应用程序层次结构的顶端——stack。堆栈是一组相互关联的服务，它们可以共享依赖关系，并可以进行协调和缩放。单个堆栈能够定义和协调整个应用程序的功能(尽管非常复杂的应用程序可能需要使用多个堆栈)。</p>
+<p>在前面使用的<code>docker deploy</code>——是运行在单主机上的单个服务堆栈，这通常不会发生在生产环境中。在这里，你会使用学到的东西使多个服务相互关联，并在多台机器上运行它们。</p>
+<p><br></p>
+<h3 id="添加一个新服务并部署"><a href="#添加一个新服务并部署" class="headerlink" title="添加一个新服务并部署"></a>添加一个新服务并部署</h3><p>docker-compose2.yml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">version: &quot;3&quot;</div><div class="line">services:</div><div class="line">  web:</div><div class="line">    # replace username/repo:tag with your name and image details</div><div class="line">    image: username/repo:tag</div><div class="line">    deploy:</div><div class="line">      replicas: 5</div><div class="line">      restart_policy:</div><div class="line">        condition: on-failure</div><div class="line">      resources:</div><div class="line">        limits:</div><div class="line">          cpus: &quot;0.1&quot;</div><div class="line">          memory: 50M</div><div class="line">    ports:</div><div class="line">      - &quot;80:80&quot;</div><div class="line">    networks:</div><div class="line">      - webnet</div><div class="line">  #可视化</div><div class="line">  visualizer:</div><div class="line">    image: dockersamples/visualizer:stable</div><div class="line">    ports:</div><div class="line">      - &quot;8080:8080&quot;</div><div class="line">    volumes:</div><div class="line">      - &quot;/var/run/docker.sock:/var/run/docker.sock&quot;</div><div class="line">    deploy:</div><div class="line">      placement:</div><div class="line">        constraints: [node.role == manager]</div><div class="line">    networks:</div><div class="line">      - webnet</div><div class="line">networks:</div><div class="line">  webnet:</div></pre></td></tr></table></figure>
+<p>新增的东西使web对等服务，称为visualizer。注意两个事：</p>
+<ul>
+<li>volumes: 给予visualizer访问主机Docker的socket文件</li>
+<li>placement： 确保服务运行在manager而不是worker上</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">docker stack deploy -c ./docker-compose2.yml stack-test</div><div class="line"></div><div class="line">Creating network stack-test_webnet</div><div class="line">Creating service stack-test_visualizer</div><div class="line">Creating service stack-test_web</div><div class="line"></div><div class="line"></div><div class="line">#查看visualizer，要等一会才能正常访问，别着急</div><div class="line">访问 IP:8080</div></pre></td></tr></table></figure>
+<p><img src="/images/Docker/visualizer.png" alt=""></p>
+<p><br></p>
+<h3 id="持久化数据"><a href="#持久化数据" class="headerlink" title="持久化数据"></a>持久化数据</h3><p>让我们再次通过相同的工作流程来添加用于存储应用程序数据的Redis数据库。</p>
+<p>docker-compose3.yml，添加一个Redis服务器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">version: &quot;3&quot;</div><div class="line">services:</div><div class="line">  web:</div><div class="line">    # replace username/repo:tag with your name and image details</div><div class="line">    image: username/repo:tag</div><div class="line">    deploy:</div><div class="line">      replicas: 5</div><div class="line">      restart_policy:</div><div class="line">        condition: on-failure</div><div class="line">      resources:</div><div class="line">        limits:</div><div class="line">          cpus: &quot;0.1&quot;</div><div class="line">          memory: 50M</div><div class="line">    ports:</div><div class="line">      - &quot;80:80&quot;</div><div class="line">    networks:</div><div class="line">      - webnet</div><div class="line">  visualizer:</div><div class="line">    image: dockersamples/visualizer:stable</div><div class="line">    ports:</div><div class="line">      - &quot;8080:8080&quot;</div><div class="line">    volumes:</div><div class="line">      - &quot;/var/run/docker.sock:/var/run/docker.sock&quot;</div><div class="line">    deploy:</div><div class="line">      placement:</div><div class="line">        constraints: [node.role == manager]</div><div class="line">    networks:</div><div class="line">      - webnet</div><div class="line">  redis:</div><div class="line">    image: redis</div><div class="line">    ports:</div><div class="line">      - &quot;6379:6379&quot;</div><div class="line">    volumes:</div><div class="line">      - &quot;/home/docker/data:/data&quot;</div><div class="line">    deploy:</div><div class="line">      placement:</div><div class="line">        constraints: [node.role == manager]</div><div class="line">    command: redis-server --appendonly yes</div><div class="line">    networks:</div><div class="line">      - webnet</div><div class="line">networks:</div><div class="line">  webnet:</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#部署</div><div class="line">docker stack deploy -c docker-compose3.yml redis-test</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#测试</div><div class="line">访问 IP:port</div></pre></td></tr></table></figure>
+<p>Redis是一个Docker library中的官方image，并被授予redis镜像名称。</p>
+<p>redis规范中有几件事使数据在这个堆栈的部署之间持续存在：</p>
+<ul>
+<li>redis运行在manager，所以它总是使用相同的文件系统</li>
+<li>redis将数据存储在上面的目录</li>
+<li>确保redis服务始终使用相同的主机</li>
+<li>确保存储的数据的连续性</li>
+</ul>
+<p>如果没有创建，redis会将数据存储在容器文件系统的/data中，如果该容器被重新部署，则数据将被清除。</p>
+<p><br><br><br></p>
+<h2 id="部署APP"><a href="#部署APP" class="headerlink" title="部署APP"></a>部署APP</h2><p>先决条件为前面的操作步骤。</p>
+<p><br></p>
+<h3 id="介绍-4"><a href="#介绍-4" class="headerlink" title="介绍"></a>介绍</h3><p>compose file在生产环境中的效果与在您的计算机上的效果相同。</p>
+<p><br></p>
+<h3 id="选择版本"><a href="#选择版本" class="headerlink" title="选择版本"></a>选择版本</h3><p>我安装的是社区版(ce)。如果你在生产环境中使用docker-ce，则可以使用Docker Cloud帮助管理你的应用程序，如AWS、Aliyun、腾讯云。<br>docker云： <cloud.docker.com>，可注册后建立、上传、管理自己的repo。</cloud.docker.com></p>
+<p>设置和部署：</p>
+<ul>
+<li>连接Docker Cloud并授权它自动为你配置Dockerize VM</li>
+<li>使用Docker Cloud创建你的计算资源和swarm</li>
+<li>部署应用程序</li>
+</ul>
+<p><br></p>
+<h3 id="连接DockerCloud"><a href="#连接DockerCloud" class="headerlink" title="连接DockerCloud"></a>连接DockerCloud</h3><p>你可以标准模式或swarm模式运行Docker Cloud。</p>
+<ul>
+<li>AWS配置指南</li>
+<li>Aliyun配置指南</li>
+<li>腾讯云配置指南</li>
+</ul>
+<p><br></p>
+<h3 id="创建swarm"><a href="#创建swarm" class="headerlink" title="创建swarm"></a>创建swarm</h3><p>你可在Docker Cloud UI创建你的node，或<code>docker swarm init|join</code>命令。</p>
+<p><br></p>
+<h3 id="在云提供商上部署应用程序"><a href="#在云提供商上部署应用程序" class="headerlink" title="在云提供商上部署应用程序"></a>在云提供商上部署应用程序</h3><p><img src="/images/Docker/dockercloud.png" alt="栗子"></p>
+<p>我觉得阿里云和腾讯云也有对应的平台。</p>
+<p>运行部署命令: <code>docker stack deploy -c xxx.yml &lt;cus_appname&gt;</code>，现在你的APP就运行在云提供商上。</p>
+<p><strong>运行swarm命令来验证部署</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">docker node ls</div><div class="line"></div><div class="line">docker service ls</div><div class="line"></div><div class="line">docker service ps &lt;service&gt;</div></pre></td></tr></table></figure>
+<p><strong>在云提供商开放端口</strong></p>
+<table>
+<thead>
+<tr>
+<th>service</th>
+<th>type</th>
+<th>protocol</th>
+<th>port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>web</td>
+<td>http</td>
+<td>tcp</td>
+<td>80</td>
+</tr>
+<tr>
+<td>visualizer</td>
+<td>http</td>
+<td>tcp</td>
+<td>8080</td>
+</tr>
+<tr>
+<td>redis</td>
+<td>tcp</td>
+<td>tcp</td>
+<td>6379</td>
+</tr>
+</tbody>
+</table>
+<p>具体操作参见各云提供商。</p>
+<p><br></p>
+<h3 id="迭代和清理"><a href="#迭代和清理" class="headerlink" title="迭代和清理"></a>迭代和清理</h3><ul>
+<li>改变<code>*.yml</code>文件伸缩应用程序</li>
+<li>使用<code>docker stack deploy</code>部署应用程序</li>
+<li>push和pull image</li>
+<li>使用<code>docker stack rm &lt;name&gt;</code>清除stack</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/05/网站运维/" rel="next" title="《网站运维》读书笔记">
+                <i class="fa fa-chevron-left"></i> 《网站运维》读书笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/leslie.jpg"
+              alt="Zhang21" />
+          
+            <p class="site-author-name" itemprop="name">Zhang21</p>
+            <p class="site-description motion-element" itemprop="description">踏踏实实谋发展</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f13278e94ecb" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-circle-o"></i>简书</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Zhang21" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:elite_zhang21@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/Zhang21_" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+<br>
+<!--����������������ⲿ����,auto=1��ʾ�Զ�����-->
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=411315632&auto=0&height=66"></iframe>
+
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker综述"><span class="nav-number">1.</span> <span class="nav-text">Docker综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker平台"><span class="nav-number">1.1.</span> <span class="nav-text">Docker平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker引擎"><span class="nav-number">1.2.</span> <span class="nav-text">Docker引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#能用Docker做什么"><span class="nav-number">1.3.</span> <span class="nav-text">能用Docker做什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker架构"><span class="nav-number">1.4.</span> <span class="nav-text">Docker架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-daemon"><span class="nav-number">1.4.1.</span> <span class="nav-text">Docker daemon</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-client"><span class="nav-number">1.4.2.</span> <span class="nav-text">Docker client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-registry"><span class="nav-number">1.4.3.</span> <span class="nav-text">Docker registry</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-objects"><span class="nav-number">1.5.</span> <span class="nav-text">Docker objects</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#image"><span class="nav-number">1.5.1.</span> <span class="nav-text">image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#container"><span class="nav-number">1.5.2.</span> <span class="nav-text">container</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Docker"><span class="nav-number">2.</span> <span class="nav-text">安装Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为CentOS7安装Docker-CE"><span class="nav-number">2.1.</span> <span class="nav-text">为CentOS7安装Docker CE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OS要求"><span class="nav-number">2.1.1.</span> <span class="nav-text">OS要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Docker-CE"><span class="nav-number">2.1.2.</span> <span class="nav-text">安装Docker CE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载Docker-CE"><span class="nav-number">2.1.3.</span> <span class="nav-text">卸载Docker CE</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始"><span class="nav-number">3.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于Docker"><span class="nav-number">3.1.</span> <span class="nav-text">关于Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker的概念"><span class="nav-number">3.1.1.</span> <span class="nav-text">Docker的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#镜像和容器"><span class="nav-number">3.1.2.</span> <span class="nav-text">镜像和容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器和虚拟机"><span class="nav-number">3.1.3.</span> <span class="nav-text">容器和虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备Docker环境"><span class="nav-number">3.1.4.</span> <span class="nav-text">准备Docker环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试Docker"><span class="nav-number">3.2.</span> <span class="nav-text">测试Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">3.2.1.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器"><span class="nav-number">3.3.</span> <span class="nav-text">容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先决条件"><span class="nav-number">3.3.1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">3.3.2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新开发环境"><span class="nav-number">3.3.3.</span> <span class="nav-text">新开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Dockerfile定义一个容器"><span class="nav-number">3.3.4.</span> <span class="nav-text">使用Dockerfile定义一个容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APP自身"><span class="nav-number">3.3.5.</span> <span class="nav-text">APP自身</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建APP"><span class="nav-number">3.3.6.</span> <span class="nav-text">构建APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分享你的image"><span class="nav-number">3.3.7.</span> <span class="nav-text">分享你的image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本节基础命令"><span class="nav-number">3.3.8.</span> <span class="nav-text">本节基础命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务"><span class="nav-number">3.4.</span> <span class="nav-text">服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先决条件-1"><span class="nav-number">3.4.1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-1"><span class="nav-number">3.4.2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于服务"><span class="nav-number">3.4.3.</span> <span class="nav-text">关于服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你的第一个docker-compose-yml文件"><span class="nav-number">3.4.4.</span> <span class="nav-text">你的第一个docker-compose.yml文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行你的负载均衡APP"><span class="nav-number">3.4.5.</span> <span class="nav-text">运行你的负载均衡APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伸缩APP"><span class="nav-number">3.4.6.</span> <span class="nav-text">伸缩APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本节命令"><span class="nav-number">3.4.7.</span> <span class="nav-text">本节命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#swarm"><span class="nav-number">3.5.</span> <span class="nav-text">swarm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先决条件-2"><span class="nav-number">3.5.1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-2"><span class="nav-number">3.5.2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解swarm集群"><span class="nav-number">3.5.3.</span> <span class="nav-text">理解swarm集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立swarm"><span class="nav-number">3.5.4.</span> <span class="nav-text">建立swarm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在swarm集群上部署APP"><span class="nav-number">3.5.5.</span> <span class="nav-text">在swarm集群上部署APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理并重启"><span class="nav-number">3.5.6.</span> <span class="nav-text">清理并重启</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stack"><span class="nav-number">3.6.</span> <span class="nav-text">stack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-3"><span class="nav-number">3.6.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加一个新服务并部署"><span class="nav-number">3.6.2.</span> <span class="nav-text">添加一个新服务并部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#持久化数据"><span class="nav-number">3.6.3.</span> <span class="nav-text">持久化数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署APP"><span class="nav-number">3.7.</span> <span class="nav-text">部署APP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-4"><span class="nav-number">3.7.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择版本"><span class="nav-number">3.7.2.</span> <span class="nav-text">选择版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接DockerCloud"><span class="nav-number">3.7.3.</span> <span class="nav-text">连接DockerCloud</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建swarm"><span class="nav-number">3.7.4.</span> <span class="nav-text">创建swarm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在云提供商上部署应用程序"><span class="nav-number">3.7.5.</span> <span class="nav-text">在云提供商上部署应用程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代和清理"><span class="nav-number">3.7.6.</span> <span class="nav-text">迭代和清理</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang21</span>
+
+<!--字数统计-->
+  <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> 字数: 187.7k</span>
+</div>
+
+
+  
+</div>
+
+
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Zhang21.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://zhang21.github.io/2018/03/27/Docker/';
+          this.page.identifier = '2018/03/27/Docker/';
+          this.page.title = 'Docker';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Zhang21.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

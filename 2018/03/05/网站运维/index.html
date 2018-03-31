@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="风继续吹">
 <meta property="og:description" content="参考：  《网站运维：保持数据实时的秘籍》(Web Operations: Keeping the Data on Time)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-25T03:33:30.245Z">
+<meta property="og:updated_time" content="2018-03-25T03:53:52.761Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《网站运维》读书笔记">
 <meta name="twitter:description" content="参考：  《网站运维：保持数据实时的秘籍》(Web Operations: Keeping the Data on Time)">
@@ -1358,7 +1358,7 @@
 <li>易于配置</li>
 <li>便宜</li>
 </ul>
-<p>当然，缺点就是只有一台服务器！加入发生问题，没有冗余机器做故障转移。性能也会受影响。</p>
+<p>当然，缺点就是只有一台服务器！假如发生问题，没有冗余机器做故障转移。性能也会受影响。</p>
 <p><br></p>
 <h3 id="主服务器与单复制从服务器"><a href="#主服务器与单复制从服务器" class="headerlink" title="主服务器与单复制从服务器"></a>主服务器与单复制从服务器</h3><p>各数据库的复制技术都不一样，但一般而言，发生在主服务器上的数据修改，都要在从服务器上重复一遍，所以从服务器是主服务器数据的只读拷贝。依赖于数据库、系统负载以及执行的查询类型，从服务器不一定时刻与主服务器的数据完全一致(异步复制)。</p>
 <p>增加一个复制从服务器有很多好处。数据库读请求可以在主、从指间分担，这称为读写分离。可以在从服务器上执行那些效率不高的查询、备份以及其它有可能对网站造成破坏的任务。</p>
@@ -1710,6 +1710,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/03/27/Docker/" rel="prev" title="Docker">
+                Docker <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -1795,7 +1799,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1817,7 +1821,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1914,7 +1918,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 178.7k</span>
+  <span class="post-count"> 字数: 187.7k</span>
 </div>
 
 
