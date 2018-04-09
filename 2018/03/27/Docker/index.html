@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://zhang21.github.io/images/Docker/ingress-routing-mesh.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Docker/visualizer.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Docker/dockercloud.png">
-<meta property="og:updated_time" content="2018-04-04T08:59:31.000Z">
+<meta property="og:updated_time" content="2018-04-08T02:11:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker">
 <meta name="twitter:description" content="参考：  Docker官方文档 https://docs.docker.com/  环境：  CentOS7. x86_64 Docker v18.03">
@@ -933,7 +933,7 @@
 <p>这就引进了上下文的概念。当构建的时候，用户会指定构建镜像的上下文的路径，<code>docker build</code>命令得知这个路径后，会将路径下的所有内容打包，然后上传给Docker引擎。这样Docker引擎收到这个上下文包后，展开就会获得构建镜像所需的一切文件。</p>
 <p><br></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#复制上下文目录下的package.json</div><div class="line">COPY ./package.json /app/</div></pre></td></tr></table></figure>
-<p>因此<code>COPY</code>这类指令中的源文件的路劲都是相对路径，因为绝对路径已经超出了上下文的范围，Docker引擎无法获取这些位置的文件。如果真需要这些文件，请将它们复制到上下文目录中去。</p>
+<p>因此<code>COPY</code>这类指令中的源文件的路径都是相对路径，因为绝对路径已经超出了上下文的范围，Docker引擎无法获取这些位置的文件。如果真需要这些文件，请将它们复制到上下文目录中去。</p>
 <p>理解构建上下文对于镜像构建很重要，避免犯一些不应该的错误。</p>
 <p>一般来说，应将<code>Dockerfile</code>置于一个空目录下，或者项目根目录下。如果该目录下没有所需文件，则应该把所需文件复制一份过来。如果目录下有些东西不希望构建时传给Docker引擎，可以写一个<code>.dockerignore</code>文件，用于剔除不需要作为上下文传递给Docker引擎的。</p>
 <p>实际上，<code>Dockerfile</code>的文件名并不要求必须为<code>Dockerfile</code>，也并不要求必须位于上下文目录中。可使用<code>-f</code>指定某个文件为<code>Dockerfile</code>。</p>
@@ -970,19 +970,13 @@
 <h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><p><code>CMD</code>，容器启动命令。</p>
 <p>也有两个格式：</p>
 <ul>
-<li><code>shell</code>格式<ul>
-<li><code>CMD &lt;command&gt;</code></li>
-</ul>
-</li>
+<li><code>shell</code>格式： <code>CMD &lt;command&gt;</code></li>
 </ul>
 <p><code>shell</code>格式，在实际中会被包装成<code>sh -c</code>的参数形式进行执行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">CMD echo $HOME</div><div class="line"></div><div class="line">#转变为</div><div class="line">CMD[&quot;sh&quot;, &quot;-c&quot;, &quot;echo $HOME&quot;]</div><div class="line"></div><div class="line">#-c string If  the  -c option is present, then commands are read from string.</div><div class="line"></div><div class="line"></div><div class="line">#这就是为什么我们可以使用环境变量的原因，因为这些环境变量会被 shell 进行解析处理</div></pre></td></tr></table></figure>
 <p><br></p>
 <ul>
-<li><code>exec</code>格式<ul>
-<li><code>CMD [&quot;可执行文件&quot;, &quot;参数1&quot;, &quot;参数2&quot; ...]</code></li>
-</ul>
-</li>
+<li><code>exec</code>格式： <code>CMD [&quot;可执行文件&quot;, &quot;参数1&quot;, &quot;参数2&quot; ...]</code></li>
 </ul>
 <p>Docker不是虚拟机，容器就是进程。既然是进程，那么在启动容器的时候，需要指定所运行的程序及参数。<code>CMD</code>指令就是用于指定默认的容器主进程的启动命令的。<br>``</p>
 <p>对于容器而言，其启动程序就是容器应用进程，容器就是为了主进程而存在的，主进程退出，容器就失去了存在的意义，从而退出，其它辅助进程不是它需要关心的东西。</p>
@@ -995,11 +989,11 @@
 <ul>
 <li><strong>让镜像变成像命令一样使用</strong></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#可以从腾讯上拉取，快一些</div><div class="line">#ccr.ccs.tencentyun.com/qcloud/ubuntu</div><div class="line"></div><div class="line">FROM ubuntu:16.04</div><div class="line">RUN apt-get update \</div><div class="line">    &amp;&amp; apt-get install -y curl \</div><div class="line">    &amp;&amp; rm -rf /var/lib/apt/lists/*</div><div class="line">CMD [ &quot;curl&quot;, &quot;-s&quot;, &quot;http://ip.cn&quot; ]</div><div class="line"></div><div class="line"></div><div class="line">docker build -t myip</div><div class="line">docker run myip</div><div class="line">#当前 IP：182.150.56.83 来自：四川省成都市 电信</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#可以从腾讯上拉取，快一些</div><div class="line">#ccr.ccs.tencentyun.com/qcloud/ubuntu</div><div class="line"></div><div class="line">FROM ubuntu:16.04</div><div class="line">RUN apt-get update \</div><div class="line">    &amp;&amp; apt-get install -y curl \</div><div class="line">    &amp;&amp; rm -rf /var/lib/apt/lists/*</div><div class="line">CMD [ &quot;curl&quot;, &quot;-s&quot;, &quot;http://ip.cn&quot; ]</div><div class="line"></div><div class="line"></div><div class="line">docker build -t myip</div><div class="line">docker run myip</div><div class="line">#当前 IP：182.150.x.xx 来自：四川省成都市 电信</div></pre></td></tr></table></figure>
 <p>不过命令总有参数，例如我想查看HTTP header，使用<code>-i</code>参数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">docker run myip -i</div><div class="line">#这样会报错，-i替换了CMD命令，而不是-s参数，然而-i并不是命令</div><div class="line"></div><div class="line"></div><div class="line">#重新完整输入命令</div><div class="line">docker run myip curl -s http://ip.cn -i</div><div class="line">#这样又太麻烦</div></pre></td></tr></table></figure>
 <p>这时便可以使用<code>ENTRYPOINT</code>解决这个问题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">FROM ubuntu:16.04</div><div class="line">RUN apt-get update \</div><div class="line">    &amp;&amp; apt-get install -y curl \</div><div class="line">    &amp;&amp; rm -rf /var/lib/apt/lists/*</div><div class="line">ENTRYPOINT [ &quot;curl&quot;, &quot;-s&quot;, &quot;http://ip.cn&quot; ]</div><div class="line"></div><div class="line"></div><div class="line">docker build it myip</div><div class="line">docker run myip</div><div class="line">#当前 IP：182.150.56.83 来自：四川省成都市 电信</div><div class="line"></div><div class="line"></div><div class="line">docker run myip -i</div><div class="line">#成功</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">FROM ubuntu:16.04</div><div class="line">RUN apt-get update \</div><div class="line">    &amp;&amp; apt-get install -y curl \</div><div class="line">    &amp;&amp; rm -rf /var/lib/apt/lists/*</div><div class="line">ENTRYPOINT [ &quot;curl&quot;, &quot;-s&quot;, &quot;http://ip.cn&quot; ]</div><div class="line"></div><div class="line"></div><div class="line">docker build it myip</div><div class="line">docker run myip</div><div class="line">#当前 IP：182.150.x.xx 来自：四川省成都市 电信</div><div class="line"></div><div class="line"></div><div class="line">docker run myip -i</div><div class="line">#成功</div></pre></td></tr></table></figure>
 <p>当存在<code>ENTRYPOINT</code>后，<code>CMD</code>的内容将作为参数传递给<code>ENTRYPOINT</code>，而<code>-i</code>就是新的<code>CMD</code>，因此会作为参数传递给<code>curl</code>，从而达到预期效果。</p>
 <p><br></p>
 <ul>
@@ -1164,8 +1158,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/04/Consul/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/05/Consul/" rel="prev" title="Consul">
+                Consul <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1253,7 +1247,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1264,7 +1258,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1275,7 +1269,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1372,7 +1366,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 193.7k</span>
+  <span class="post-count"> 字数: 194.3k</span>
 </div>
 
 
