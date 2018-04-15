@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="风继续吹">
 <meta property="og:description" content="参考：  https://www.consul.io/intro/index.html https://www.consul.io/docs/">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-09T11:59:36.000Z">
+<meta property="og:updated_time" content="2018-04-11T07:19:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Consul">
 <meta name="twitter:description" content="参考：  https://www.consul.io/intro/index.html https://www.consul.io/docs/">
@@ -402,7 +402,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,397
+                  2,411
                 </span>
               
 
@@ -548,7 +548,7 @@
 <li>HTTP API</li>
 <li>Consul KV CLI</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">#CLI</div><div class="line">consul kv --help</div><div class="line"></div><div class="line">consul kv put name zhang</div><div class="line">consul kv get name</div><div class="line">#zhang</div><div class="line"></div><div class="line">consul kv get -detailed name</div><div class="line"></div><div class="line">consul kv puut -flags=42 who zhang21</div><div class="line">#所有key都支持设置一个64位的整数标志值</div><div class="line"></div><div class="line"></div><div class="line">#列出所有kv</div><div class="line">consul kv get -recurse</div><div class="line"></div><div class="line"></div><div class="line">#删除</div><div class="line">consul kv delete name</div><div class="line"></div><div class="line"></div><div class="line">#使用 Check-And-Set 进行原子更新</div><div class="line">consul kv put -cas -modify-index=112 NAME zhang</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">#CLI</div><div class="line">consul kv --help</div><div class="line"></div><div class="line">consul kv put name zhang</div><div class="line">consul kv get name</div><div class="line">#zhang</div><div class="line"></div><div class="line">consul kv get -detailed name</div><div class="line"></div><div class="line">consul kv puut -flags=42 who zhang21</div><div class="line">#所有key都支持设置一个64位的整数标志值</div><div class="line"></div><div class="line"></div><div class="line">#列出所有kv</div><div class="line">consul kv get -recurse</div><div class="line"></div><div class="line"></div><div class="line">#删除</div><div class="line">consul kv delete name</div><div class="line"></div><div class="line"></div><div class="line">#使用 Check-And-Set 进行原子更新</div><div class="line">consul kv put -cas -modify-index=112 NAME zhang</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#导出与导入</div><div class="line">consul kv export &gt; xxx.json</div><div class="line"></div><div class="line">consul kv import $xxx.json</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h2 id="Consul-Web界面"><a href="#Consul-Web界面" class="headerlink" title="Consul Web界面"></a>Consul Web界面</h2><p>Consul支持美观的Web界面。用户界面可以查看所有的服务和节点，查看所有健康检查和当前状态，读取和设置kv数据，并自动支持多数据中心。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">consul agent -ui</div><div class="line"></div><div class="line">#localhost:8500/ui</div></pre></td></tr></table></figure>
@@ -681,7 +681,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -703,7 +703,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -800,7 +800,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 194.3k</span>
+  <span class="post-count"> 字数: 197.6k</span>
 </div>
 
 

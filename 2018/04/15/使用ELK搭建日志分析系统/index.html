@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="elasticsearch,logstash,kibana," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="参考：  elastci指南: https://www.elastic.co/guide/index.html Elasticsearch文档: https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html Logstash文档: https://www.elastic.co/guide/en/logstash">
+<meta name="keywords" content="elasticsearch,logstash,kibana">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用ELK搭建日志分析系统">
+<meta property="og:url" content="https://zhang21.github.io/2018/04/15/使用ELK搭建日志分析系统/index.html">
+<meta property="og:site_name" content="风继续吹">
+<meta property="og:description" content="参考：  elastci指南: https://www.elastic.co/guide/index.html Elasticsearch文档: https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html Logstash文档: https://www.elastic.co/guide/en/logstash">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://zhang21.github.io/images/ELK/ELK.jpg">
+<meta property="og:image" content="https://zhang21.github.io/images/ELK/elk.png">
+<meta property="og:image" content="https://zhang21.github.io/images/ELK/InstallationFlow.jpg">
+<meta property="og:image" content="https://zhang21.github.io/images/ELK/9200auth.png">
+<meta property="og:image" content="https://zhang21.github.io/images/ELK/5601kibana.png">
+<meta property="og:image" content="https://zhang21.github.io/images/ELK/basic_logstash_pipeline.png">
+<meta property="og:updated_time" content="2018-04-15T06:59:36.611Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用ELK搭建日志分析系统">
+<meta name="twitter:description" content="参考：  elastci指南: https://www.elastic.co/guide/index.html Elasticsearch文档: https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html Logstash文档: https://www.elastic.co/guide/en/logstash">
+<meta name="twitter:image" content="https://zhang21.github.io/images/ELK/ELK.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang21.github.io/2018/04/15/使用ELK搭建日志分析系统/"/>
+
+
+
+
+
+  <title>使用ELK搭建日志分析系统 | 风继续吹</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风继续吹</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Yesterday, you said tomorrow!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2018/04/15/使用ELK搭建日志分析系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang21">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/leslie.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风继续吹">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用ELK搭建日志分析系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-15T22:08:11+08:00">
+                2018-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/15/使用ELK搭建日志分析系统/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/04/15/使用ELK搭建日志分析系统/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,948
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考：</p>
+<ul>
+<li>elastci指南: <a href="https://www.elastic.co/guide/index.html" target="_blank" rel="noopener">https://www.elastic.co/guide/index.html</a></li>
+<li>Elasticsearch文档: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html</a></li>
+<li>Logstash文档: <a href="https://www.elastic.co/guide/en/logstash/current/index.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/logstash/current/index.html</a></li>
+<li>Kibana文档: <a href="https://www.elastic.co/guide/en/kibana/current/index.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/kibana/current/index.html</a></li>
+</ul>
+<p>环境：</p>
+<ul>
+<li>CentOS7.x86_64</li>
+<li>Elastcisearch v6.2.3</li>
+<li>Kibana v6.2.3</li>
+<li>Logstash v6.2.3</li>
+</ul>
+<p><br><br><br></p>
+<a id="more"></a>
+<hr>
+<p><br></p>
+<h1 id="ELK综述"><a href="#ELK综述" class="headerlink" title="ELK综述"></a>ELK综述</h1><p>开源的 Elastic Stack:<br>能够安全可靠地获取任何来源、任何格式的数据，并且能够实时地对数据进行搜索、分析和可视化。</p>
+<p><br></p>
+<p><img src="/images/ELK/ELK.jpg" alt="ELK流程图"></p>
+<p><img src="/images/ELK/elk.png" alt="ELK流程图"></p>
+<p><br></p>
+<p>ELK指的是<a href="https://www.elastic.co" target="_blank" rel="noopener">elastic</a>公司下的三款产品：</p>
+<ul>
+<li>Elasticsearch</li>
+<li>Logstash</li>
+<li>Kibana</li>
+</ul>
+<p>其它产品：</p>
+<ul>
+<li>Beats</li>
+<li>X-Pack</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h2><ul>
+<li>开放源码且自由使用</li>
+<li>License: Apache License 2.0</li>
+<li>GitHub: <a href="https://github.com/elastic/elasticsearch" target="_blank" rel="noopener">https://github.com/elastic/elasticsearch</a></li>
+<li>Doc: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html</a></li>
+</ul>
+<p><br></p>
+<p>搜索、分析和存储您的数据。<br>Elasticsearch 是基于 JSON 的分布式搜索和分析引擎，专为实现水平扩展、高可用和管理便捷性而设计。<br>Elasticsearch 是一个分布式的 RESTful 风格的搜索和数据分析引擎，能够解决不断涌现出的各种用例。作为 Elastic Stack 的核心，它集中存储您的数据，帮助您发现意料之中以及意料之外的情况。</p>
+<p>基于Lucene。Lucene是一套用于全文检索和搜寻的开放源码程式库，由Apache软件基金会支持和提供。<br>Lucene提供了一个简单却强大的应用程式介面，能够做全文索引和搜寻，在Java开发环境里Lucene是一个成熟的免费开放原始码工具；就其本身而论，Lucene是现在并且是这几年，最受欢迎的免费Java资讯检索程式库。</p>
+<p><br><br><br></p>
+<h2 id="Logstash"><a href="#Logstash" class="headerlink" title="Logstash"></a>Logstash</h2><ul>
+<li>开放源码且自由使用</li>
+<li>GitHub: <a href="https://github.com/elastic/logstash" target="_blank" rel="noopener">https://github.com/elastic/logstash</a></li>
+<li>Doc: <a href="https://www.elastic.co/guide/en/logstash/current/index.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/logstash/current/index.html</a></li>
+</ul>
+<p><br></p>
+<p>集中、转换和存储数据<br>Logstash 是动态数据收集管道，拥有可扩展的插件生态系统，能够与 Elasticsearch 产生强大的协同作用。<br>Logstash 是开源的服务器端数据处理管道，能够同时 从多个来源采集数据、转换数据，然后将数据发送到您最喜欢的 “存储库” 中。（我们的存储库当然是 Elasticsearch。）</p>
+<p><br><br><br></p>
+<h2 id="Kibana"><a href="#Kibana" class="headerlink" title="Kibana"></a>Kibana</h2><ul>
+<li>开放源码且自由使用</li>
+<li>GitHub: <a href="https://github.com/elastic/kibana" target="_blank" rel="noopener">https://github.com/elastic/kibana</a></li>
+<li>Doc: <a href="https://www.elastic.co/guide/en/kibana/current/index.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/kibana/current/index.html</a></li>
+</ul>
+<p><br></p>
+<p>实现数据可视化<br>Kibana 让您能够可视化 Elasticsearch 中的数据并操作 Elastic Stack，因此您可以在这里解开任何疑问：例如，为何会在凌晨 2:00 被传呼，雨水会对季度数据造成怎样的影响。</p>
+<p><br><br><br></p>
+<h2 id="Beats"><a href="#Beats" class="headerlink" title="Beats"></a>Beats</h2><ul>
+<li>开放源码且自由使用</li>
+<li>GitHub: <a href="https://github.com/elastic/beats" target="_blank" rel="noopener">https://github.com/elastic/beats</a></li>
+<li>Doc: <a href="https://www.elastic.co/guide/en/beats/libbeat/current/index.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/beats/libbeat/current/index.html</a></li>
+</ul>
+<p><br></p>
+<p>Beats 是轻量型采集器的平台，从边缘机器向 Logstash 和 Elasticsearch 发送数据。<br>Beats 平台集合了多种单一用途数据采集器。这些采集器安装后可用作轻量型代理，从成百上千或成千上万台机器向 Logstash 或 Elasticsearch 发送数据。</p>
+<p><br><br><br></p>
+<h2 id="X-Pack"><a href="#X-Pack" class="headerlink" title="X-Pack"></a>X-Pack</h2><ul>
+<li>Doc: <a href="https://www.elastic.co/guide/en/x-pack/current/index.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/x-pack/current/index.html</a></li>
+</ul>
+<p><br></p>
+<p>一个程序包，带来丰富的可能性<br>单就其自身而言，Elastic Stack 就是一款值得考虑的强大工具。X-Pack 将诸多强大功能集合到一个单独的程序包中，更将它带上了一个新的层次。<br>X-Pack 是集成了多种便捷功能的单个插件 — security、alerting、monitoring、reporting、graph 探索和 machine learning — 您可以在 Elastic Stack 中放心地使用这些功能。</p>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>安装步骤：</p>
+<ul>
+<li>Elasticsearch</li>
+<li>Kibana</li>
+<li>Logstash</li>
+<li>Install X-Pack into Elasticsearch</li>
+<li>Install X-Pack into Kibana</li>
+</ul>
+<p><br></p>
+<h2 id="安装ELK"><a href="#安装ELK" class="headerlink" title="安装ELK"></a>安装ELK</h2><p>需要以来JDK（java），请先安装。</p>
+<p>我是直接使用的RPM包安装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#安装Java</div><div class="line">yum install java-1.8.0-openjdk-headless-1.8.0.161-0.b14.el7_4.x86_64 -y</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#编写repo</div><div class="line">vim /etc/yum.repo.d/elk.repo</div><div class="line"></div><div class="line"></div><div class="line">[elasticsearch-6.x]</div><div class="line">name=Elasticsearch repository for 6.x packages</div><div class="line">baseurl=https://artifacts.elastic.co/packages/6.x/yum</div><div class="line">gpgcheck=1</div><div class="line">gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch</div><div class="line">enabled=1</div><div class="line">autorefresh=1</div><div class="line">type=rpm-md</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#安装</div><div class="line">yum install -y elasticsearch logstash kibana</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>由于elk默认将软件安装到<code>/usr/share/</code>下，因此我把它们的路径加入PATH。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim /etc/profile</div><div class="line"></div><div class="line"></div><div class="line">PATH=$PATH::/usr/share/elasticsearch/bin:/usr/share/kibana/bin:/usr/share/logstash/bin:/usr/share/elasticsearch/bin/x-pack</div><div class="line"></div><div class="line"></div><div class="line">source /etc/profile</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>ELK使用RPM安装的布局说明：</p>
+<ul>
+<li>主目录<ul>
+<li><code>/usr/share/elasticsearch</code></li>
+<li><code>/usr/share/kibana</code></li>
+<li><code>/usr/share/logstash</code></li>
+</ul>
+</li>
+<li>二进制文件<ul>
+<li><code>/usr/share/elasticsearch/bin</code></li>
+<li><code>/usr/share/kibana/bin</code></li>
+<li><code>/usr/share/logstash/bin</code></li>
+</ul>
+</li>
+<li>配置文件<ul>
+<li><code>/etc/elastcisearch</code></li>
+<li><code>/etc/kibana</code></li>
+<li><code>/etc/logstash</code></li>
+</ul>
+</li>
+<li>环境变量<ul>
+<li><code>/etc/sysconfig/elasticsearch</code></li>
+</ul>
+</li>
+<li>插件<ul>
+<li><code>/usr/share/elastcisearch/plugins</code></li>
+<li><code>/usr/share/kibana/plugins</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>记得把ELK的bin目录加入PATH</strong></p>
+<p><br><br><br></p>
+<h2 id="安装X-Pack"><a href="#安装X-Pack" class="headerlink" title="安装X-Pack"></a>安装X-Pack</h2><p>安装X-Pack前，请先安装ELK。<br>请安装匹配版本的X-Pack。</p>
+<ul>
+<li>Install X-Pack on Elasticsearch</li>
+<li>Install X-Pack on Kibana</li>
+<li>Install X-Pack on Logstash</li>
+</ul>
+<p><br></p>
+<p><img src="/images/ELK/InstallationFlow.jpg" alt="安装流程图"></p>
+<p><br></p>
+<p><strong>启用或禁用X-Pack功能</strong></p>
+<p>所有功能默认启。<br>在一下文件中配置它们：</p>
+<ul>
+<li><code>elasticsearch.yml</code></li>
+<li><code>kibana.yml</code></li>
+<li><code>logstash.yml</code></li>
+</ul>
+<p>配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">xpack.graph.enabled</div><div class="line">#false</div><div class="line"></div><div class="line">xpack.ml.enabled</div><div class="line">#false</div><div class="line"></div><div class="line">xpack.monitoring.enabled</div><div class="line">#false</div><div class="line"></div><div class="line">xpack.reporting.enabled</div><div class="line">#false</div><div class="line"></div><div class="line">xpack.security</div><div class="line">#false</div><div class="line"></div><div class="line">xpack.watch.enabled</div><div class="line">#false</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#Elastcisearch安装X-Pack</div><div class="line">elasticsearch-plugin install x-pack</div><div class="line"></div><div class="line"></div><div class="line">#启动</div><div class="line">#9200, 9300端口</div><div class="line">elasticsearch</div><div class="line"></div><div class="line"></div><div class="line">#生成默认用户密码，此密码针对elastic和kibana用户</div><div class="line">#/usr/share/elasticsearch/bin/x-pack</div><div class="line">#将此加入PATH</div><div class="line">setup-passwords auto</div><div class="line"></div><div class="line">#或手动输入密码</div><div class="line">setup-passwords interactive</div><div class="line">elastic</div><div class="line">#elastic</div><div class="line">kibana</div><div class="line">#kibana</div><div class="line">logstash_system</div><div class="line">#logstash</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#Kibana安装X-Pack</div><div class="line">kibana-plugin install x-pack</div><div class="line"></div><div class="line"></div><div class="line">#对kibana.yml添加用户和密码</div><div class="line">#此密码是前面默认生成的</div><div class="line">vim /etc/kibana/kibana.yml`</div><div class="line"></div><div class="line">elasticsearch.username: &quot;kibana&quot;</div><div class="line">elasticsearch.password:  &quot;kibana&quot;</div><div class="line">#修改监听地址</div><div class="line">server.host: &quot;0.0.0.0&quot;</div><div class="line"></div><div class="line">logging.dest: /var/log/kibana/kibana.log</div><div class="line">#kibana日志默认是stdout</div><div class="line">#修改为/var/log/kibana/kibana.log</div><div class="line">mkdir /var/log/kibana</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#启动kibana</div><div class="line">#5601端口</div><div class="line">#kibana可用root启动</div><div class="line">kibana</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>启动时可能遇到的问题</strong></p>
+<ol>
+<li><p>can not run elasticsearch as root</p>
+<ul>
+<li>专门建立一个管理ELK的用户，切换到此用户后运行，注意修改ELK相关目录权限</li>
+<li>或者修改ELK各自用户的/etc/passwd，切换到对应用户后运行。注意权限 – <code>su elasticsearch &amp;&amp; elasticsearch</code></li>
+</ul>
+</li>
+<li><p>elasticsearch process is too low, increase to at least [65536]</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">vim /etc/security/limits.conf</div><div class="line"></div><div class="line"></div><div class="line">* soft nofile 655350</div><div class="line">* hard nofile 655350</div><div class="line"></div><div class="line"></div><div class="line">ulimit -a</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>访问elasticsearch</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ip:9200</div><div class="line">#此处访问是需要用户名和密码的</div><div class="line">#使用前面X-Pack生成的默认用户名和密码</div><div class="line"></div><div class="line">elastic elastic</div><div class="line">#登录之后便可看到node，cluster相关信息</div></pre></td></tr></table></figure>
+<p><img src="/images/ELK/9200auth.png" alt="认证后相关信息"></p>
+<p><br></p>
+<p><strong>访问kibana</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#5601端口</div><div class="line">http://0.0.0.0:5601</div></pre></td></tr></table></figure>
+<p><img src="/images/ELK/5601kibana.png" alt=""></p>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="与Nginx结合使用"><a href="#与Nginx结合使用" class="headerlink" title="与Nginx结合使用"></a>与Nginx结合使用</h1><p>将Kibana展现到Nginx上的话，便可以不对Kibana开发外网访问。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">#安装Nginx</div><div class="line"></div><div class="line">vim /etc/yum.repo.d/nginx.repo</div><div class="line"></div><div class="line"></div><div class="line">[nginx]</div><div class="line">name=nginx repo</div><div class="line">baseurl=http://nginx.org/packages/centos/$releasever/$basearch/</div><div class="line">gpgcheck=0</div><div class="line">enabled=1</div><div class="line"></div><div class="line"></div><div class="line">yum install -y nginx  nginx-mod-stream</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#配置</div><div class="line">vim /etc/nginx/conf.d/kibana.conf</div><div class="line"></div><div class="line"></div><div class="line">#可把IP换成kibana相应的域名</div><div class="line">#再将域名解析到此IP</div><div class="line">server &#123;</div><div class="line"></div><div class="line">    listen 80;</div><div class="line">    server_name 172.16.129.150;</div><div class="line"></div><div class="line">#Kibana</div><div class="line">    location / &#123;</div><div class="line">        proxy_pass http://127.0.0.1:5601;</div><div class="line">        proxy_set_header Upgrade $http_upgrade;</div><div class="line">        proxy_set_header Connection &apos;upgrade&apos;;</div><div class="line">        proxy_set_header Host $host;</div><div class="line">        proxy_cache_bypass $http_upgrade;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>可能会遇到的问题</strong></p>
+<ul>
+<li>Nignx错误日志: Permission denied) while connecting to upstream</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">sudo cat /var/log/audit/audit.log | grep nginx | grep denied</div><div class="line"></div><div class="line">#后来判断是SELinux的问题</div><div class="line">getenforce</div><div class="line">setenforce 0</div><div class="line"></div><div class="line"></div><div class="line">#修改SELinux</div><div class="line">vim /etc/selinux/config</div><div class="line"></div><div class="line">SELINUX=disabled</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="使用Logstash处理日志"><a href="#使用Logstash处理日志" class="headerlink" title="使用Logstash处理日志"></a>使用Logstash处理日志</h1><p><img src="/images/ELK/basic_logstash_pipeline.png" alt="logstash流程图"></p>
+<p><br></p>
+<p>Logstash的pipeline有两个必须的元素：</p>
+<ul>
+<li>input<ul>
+<li>消耗来自source的数据</li>
+</ul>
+</li>
+<li>output<ul>
+<li>将修改后的数据写入destination</li>
+</ul>
+</li>
+</ul>
+<p>以及一个可选元素：</p>
+<ul>
+<li>filter<ul>
+<li>根据你的定义来修改数据</li>
+</ul>
+</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="Stash-First-Event"><a href="#Stash-First-Event" class="headerlink" title="Stash First Event"></a>Stash First Event</h2><p><strong>测试Logstash和运行一个基本的pipeline</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">logstash -e &apos;input &#123; stdin &#123; &#125; &#125; output &#123; stdout &#123;&#125; &#125;&apos;</div><div class="line"></div><div class="line">#等待启动，输入hello world</div><div class="line">#Logstash将时间戳和主机名添加到message</div><div class="line">#2018-04-13T08:17:51.702Z zhang22 helloworld</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>启动logstsh时的一个问题： <code>WARNING: Could not find logstash.yml which is typically located in $LS_HOME/config or /etc/logstash</code></p>
+<p>虽然通过RPM安装Logstash存在<code>/etc/logstash</code>文件，但是还是会报错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /usr/share/logstash/bin</div><div class="line"></div><div class="line">ln -s /etc/logstash ./config</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="通过Logstash解析Logs"><a href="#通过Logstash解析Logs" class="headerlink" title="通过Logstash解析Logs"></a>通过Logstash解析Logs</h2><p>前面我们创建了一个基本的Logstash pipeline来测试Logstash，但真正处理logs的Logstash pipeline不会这么简单，它可能会有多个input, filter, output。</p>
+<p>本节利用一个Filebeat，将Nginx Web Logs作为Logstash pipeline的input，解析这些logs中创建的特定命名字段，并将解析的数据写入Elasticsearch集群。</p>
+<p><br></p>
+<p><strong>添加一个Logstash配置文件，将Nginx的访问日志作为input，解析后输出到Elasticsearch中</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#pipe配置</div><div class="line">/etc/logstash/pipe.yml</div><div class="line"></div><div class="line">cd /etc/logstash/conf.d</div><div class="line"></div><div class="line">vim pipe_nginx.conf</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/elasticsearch/" rel="tag"># elasticsearch</a>
+          
+            <a href="/tags/logstash/" rel="tag"># logstash</a>
+          
+            <a href="/tags/kibana/" rel="tag"># kibana</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/10/Beanstalkd/" rel="next" title="Beanstalkd">
+                <i class="fa fa-chevron-left"></i> Beanstalkd
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/leslie.jpg"
+              alt="Zhang21" />
+          
+            <p class="site-author-name" itemprop="name">Zhang21</p>
+            <p class="site-description motion-element" itemprop="description">踏踏实实谋发展</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f13278e94ecb" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-circle-o"></i>简书</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Zhang21" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:elite_zhang21@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/Zhang21_" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+<br>
+<!--����������������ⲿ����,auto=1��ʾ�Զ�����-->
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=411315632&auto=0&height=66"></iframe>
+
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ELK综述"><span class="nav-number">1.</span> <span class="nav-text">ELK综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Elasticsearch"><span class="nav-number">1.1.</span> <span class="nav-text">Elasticsearch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logstash"><span class="nav-number">1.2.</span> <span class="nav-text">Logstash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kibana"><span class="nav-number">1.3.</span> <span class="nav-text">Kibana</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Beats"><span class="nav-number">1.4.</span> <span class="nav-text">Beats</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#X-Pack"><span class="nav-number">1.5.</span> <span class="nav-text">X-Pack</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装ELK"><span class="nav-number">2.1.</span> <span class="nav-text">安装ELK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装X-Pack"><span class="nav-number">2.2.</span> <span class="nav-text">安装X-Pack</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#与Nginx结合使用"><span class="nav-number">3.</span> <span class="nav-text">与Nginx结合使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Logstash处理日志"><span class="nav-number">4.</span> <span class="nav-text">使用Logstash处理日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Stash-First-Event"><span class="nav-number">4.1.</span> <span class="nav-text">Stash First Event</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过Logstash解析Logs"><span class="nav-number">4.2.</span> <span class="nav-text">通过Logstash解析Logs</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang21</span>
+
+<!--字数统计-->
+  <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> 字数: 197.6k</span>
+</div>
+
+
+  
+</div>
+
+
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Zhang21.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://zhang21.github.io/2018/04/15/使用ELK搭建日志分析系统/';
+          this.page.identifier = '2018/04/15/使用ELK搭建日志分析系统/';
+          this.page.title = '使用ELK搭建日志分析系统';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Zhang21.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
