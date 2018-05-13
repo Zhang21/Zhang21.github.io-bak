@@ -112,7 +112,7 @@
 <meta property="og:image" content="https://zhang21.github.io/images/ELK/kibana-20180413.png">
 <meta property="og:image" content="https://zhang21.github.io/image/ELK/filebeat.png">
 <meta property="og:image" content="https://zhang21.github.io/images/ELK/filebeat002.png">
-<meta property="og:updated_time" content="2018-05-04T09:26:37.000Z">
+<meta property="og:updated_time" content="2018-05-10T11:43:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ELK Stack">
 <meta name="twitter:description" content="参考：  elastci指南: https://www.elastic.co/guide/index.html Elasticsearch文档: https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html Logstash文档: https://www.elastic.co/guide/en/logstash">
@@ -414,7 +414,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  9,932
+                  11,114
                 </span>
               
 
@@ -578,7 +578,7 @@
 </li>
 <li>插件<ul>
 <li><code>/usr/share/elastcisearch/plugins</code></li>
-<li>`/usr/share/kibana/plugins</li>
+<li><code>/usr/share/kibana/plugins</code></li>
 </ul>
 </li>
 </ul>
@@ -602,8 +602,43 @@
 <li><code>filebeat.yml</code></li>
 </ul>
 <p>X-Pack功能：</p>
-<p>| 功能 | 描述 |<br>| xpack.graph.enabled | X-Pack图形功能 |<br>| xpack.ml.enabled | X-Pack机器学习功能 |<br>| xpack.monitoring.enabled | X-Pack监视功能 |<br>| xpack.reporting.enabled | X-Pack报告功能 |<br>| xpack.security.enabled | X-Pack安全功能 |<br>| xpack.watcher.enabled | X-Pack观察器 |</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">#xpack.graph.enabled</div><div class="line">#xpack.ml.enabled</div><div class="line">#xpack.monitoring.enabled</div><div class="line">#xpack.reporting.enabled</div><div class="line">#xpack.security.enabled</div><div class="line">#xpack.watcher.enabled</div><div class="line"></div><div class="line"></div><div class="line">#在Elasticsearch和kibana中禁用验证后，不用在logstash中输入，否则会报错。</div><div class="line">xpack.security.enabled: false</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#启用验证</div><div class="line"></div><div class="line">#在logstash.yml中配置xpack.monitoring</div><div class="line">xpack.monitoring.enabled: true</div><div class="line">xpack.monitoring.elasticsearch.url: &quot;http://127.0.0.1:9200&quot;</div><div class="line">#xpack.monitoring.elasticsearch.username: logstash_system</div><div class="line">#xpack.monitoring.elasticsearch.password: logstash</div><div class="line"></div><div class="line"></div><div class="line">#在Filebeat中添加monitoring</div><div class="line">xpack.monitoring:</div><div class="line">  enabled: true</div><div class="line">  elasticsearch:</div><div class="line">        url: http://127.0.0.1:9200</div><div class="line">		#usernaem: &quot;elastic&quot;</div><div class="line">		#password: &quot;elastic&quot;</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>xpack.graph.enabled</td>
+<td>X-Pack图形功能</td>
+</tr>
+<tr>
+<td>xpack.ml.enabled</td>
+<td>X-Pack机器学习功能</td>
+</tr>
+<tr>
+<td>xpack.monitoring.enabled</td>
+<td>X-Pack监视功能</td>
+</tr>
+<tr>
+<td>xpack.reporting.enabled</td>
+<td>X-Pack报告功能</td>
+</tr>
+<tr>
+<td>xpack.security.enabled</td>
+<td>X-Pack安全功能</td>
+</tr>
+<tr>
+<td>xpack.watcher.enabled</td>
+<td>X-Pack观察器</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>在ELK中启动X-Pack monitoring功能</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">#xpack.graph.enabled</div><div class="line">#xpack.ml.enabled</div><div class="line">#xpack.monitoring.enabled</div><div class="line">#xpack.reporting.enabled</div><div class="line">#xpack.security.enabled</div><div class="line">#xpack.watcher.enabled</div><div class="line"></div><div class="line"></div><div class="line">#在Elasticsearch和kibana中禁用验证后，不用在logstash中输入，否则会报错。</div><div class="line">xpack.security.enabled: false</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#启用验证</div><div class="line">#具体可参考官方文档</div><div class="line"></div><div class="line">#在logstash.yml中配置xpack.monitoring</div><div class="line">xpack.monitoring.enabled: true</div><div class="line">xpack.monitoring.elasticsearch.url: &quot;http://127.0.0.1:9200&quot;</div><div class="line">#xpack.monitoring.elasticsearch.username: logstash_system</div><div class="line">#xpack.monitoring.elasticsearch.password: logstash</div><div class="line"></div><div class="line"></div><div class="line">#在Filebeat中添加monitoring</div><div class="line">xpack.monitoring:</div><div class="line">  enabled: true</div><div class="line">  elasticsearch:</div><div class="line">        url: &quot;http://localhost:9200&quot;</div><div class="line">		#usernaem: &quot;elastic&quot;</div><div class="line">		#password: &quot;elastic&quot;</div></pre></td></tr></table></figure>
 <p><br></p>
 <p>安装：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#Elastcisearch安装X-Pack</div><div class="line">elasticsearch-plugin install x-pack</div><div class="line"></div><div class="line"></div><div class="line">#启动</div><div class="line">#9200, 9300端口</div><div class="line">#elasticsearch不能使用root启动，所以我把elastic用户修改为/bin/bash</div><div class="line">su elasticsearch</div><div class="line">elasticsearch -d</div><div class="line">#elasticsearch</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#生成默认用户密码，此密码针对elastic和kibana用户</div><div class="line">#/usr/share/elasticsearch/bin/x-pack</div><div class="line">#将此加入PATH</div><div class="line">setup-passwords auto</div><div class="line"></div><div class="line">#或手动输入密码</div><div class="line">setup-passwords interactive</div><div class="line">elastic</div><div class="line">#elastic</div><div class="line">kibana</div><div class="line">#kibana</div><div class="line">logstash_system</div><div class="line">#logstash</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#Kibana安装X-Pack</div><div class="line">kibana-plugin install x-pack</div><div class="line"></div><div class="line"></div><div class="line">#对kibana.yml添加用户和密码</div><div class="line">#此密码是前面默认生成的</div><div class="line">vim /etc/kibana/kibana.yml`</div><div class="line"></div><div class="line">elasticsearch.username: &quot;elastic&quot;</div><div class="line">elasticsearch.password:  &quot;elastic&quot;</div><div class="line">#修改监听地址</div><div class="line">server.host: &quot;0.0.0.0&quot;</div><div class="line"></div><div class="line">logging.dest: /var/log/kibana/kibana.log</div><div class="line">#kibana日志默认是stdout</div><div class="line">#修改为/var/log/kibana/kibana.log</div><div class="line">mkdir /var/log/kibana</div><div class="line"></div><div class="line"></div><div class="line">#启动kibana</div><div class="line">#5601端口</div><div class="line">#kibana可用root启动</div><div class="line">kibana</div><div class="line">#或</div><div class="line">systemctl start kibana</div><div class="line"></div><div class="line"></div><div class="line">#Logstash安装X-Pack</div><div class="line">logstash-plugin install x-pack</div></pre></td></tr></table></figure>
@@ -743,7 +778,7 @@
 </li>
 </ul>
 <p><br><br><br></p>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>安装，储藏，解析，汇聚多个Input/Output。</p>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>安装，储藏，解析，汇聚多个Input/Output。</p>
 <p><br><br><br></p>
 <h3 id="储藏第一个事件"><a href="#储藏第一个事件" class="headerlink" title="储藏第一个事件"></a>储藏第一个事件</h3><p><strong>测试Logstash和运行一个基本的pipeline</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">logstash -e &apos;input &#123; stdin &#123; &#125; &#125; output &#123; stdout &#123;&#125; &#125;&apos;</div><div class="line"></div><div class="line">#等待启动，输入hello world</div><div class="line">#Logstash将时间戳和主机名添加到message</div><div class="line">#2018-04-13T08:17:51.702Z zhang22 helloworld</div></pre></td></tr></table></figure>
@@ -849,7 +884,1603 @@
 <p><br><br><br></p>
 <hr>
 <p><br></p>
-<h2 id="Lostash怎样工作"><a href="#Lostash怎样工作" class="headerlink" title="Lostash怎样工作"></a>Lostash怎样工作</h2><p><br><br><br></p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>输入插件可以使特定的事件源由Logstash读取。</p>
+<p>可用的输入插件：<br>我只列出了常见的，具体请参考: <a href="https://www.elastic.co/guide/en/logstash/current/input-plugins.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/logstash/current/input-plugins.html</a></p>
+<table>
+<thead>
+<tr>
+<th>插件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beats</td>
+<td>从Elastic框架接收事件</td>
+</tr>
+<tr>
+<td>couchdb_changes</td>
+<td>从CouchDB的<code>_changes</code>URI流式传输事件</td>
+</tr>
+<tr>
+<td>dead_letter_queue</td>
+<td>从Logstash的dead letter queue读取事件</td>
+</tr>
+<tr>
+<td>elasticsearch</td>
+<td>从Elasticsearch集群中读取查询结果</td>
+</tr>
+<tr>
+<td>exec</td>
+<td>抓取shell命令的输出作为事件</td>
+</tr>
+<tr>
+<td>file</td>
+<td>来自文件的流事件</td>
+</tr>
+<tr>
+<td>github</td>
+<td>从GitHub webhook读取事件</td>
+</tr>
+<tr>
+<td>heartbeat</td>
+<td>为测试生成心跳事件</td>
+</tr>
+<tr>
+<td>http</td>
+<td>通过HTTP/HTTPS接收事件</td>
+</tr>
+<tr>
+<td>http_poller</td>
+<td>解码HTTP API输出为事件</td>
+</tr>
+<tr>
+<td>imap</td>
+<td>从IMAP服务器读取邮件</td>
+</tr>
+<tr>
+<td>jmx</td>
+<td>通过JVM从java程序检索标准</td>
+</tr>
+<tr>
+<td>kafka</td>
+<td>从kafka中读取事件</td>
+</tr>
+<tr>
+<td>log4j</td>
+<td>通过TCP socket从Log4j对象读取事件</td>
+</tr>
+<tr>
+<td>pipe</td>
+<td>从长时间运行的命令管道中获取流事件</td>
+</tr>
+<tr>
+<td>rabbitmq</td>
+<td>从Redis实例读取事件</td>
+</tr>
+<tr>
+<td>sqlite</td>
+<td>基于SQLite数据库中的行创建事件</td>
+</tr>
+<tr>
+<td>stdin</td>
+<td>从标准输入中读取事件</td>
+</tr>
+<tr>
+<td>syslog</td>
+<td>读取系统日志作为事件</td>
+</tr>
+<tr>
+<td>tcp</td>
+<td>从TCP socket读取事件</td>
+</tr>
+<tr>
+<td>udp</td>
+<td>从UDP读取事件</td>
+</tr>
+<tr>
+<td>unix</td>
+<td>通过Unix socket读取事件</td>
+</tr>
+<tr>
+<td>websocket</td>
+<td>从一个websocket读取事件</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="beats"><a href="#beats" class="headerlink" title="beats"></a>beats</h3><p>此插件使Logstash能够从Elasticsearch框架中接收事件。</p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">input &#123;</div><div class="line">  beats &#123;</div><div class="line">    port =&gt; 5044</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">output &#123;</div><div class="line">  elasticsearch &#123;</div><div class="line">    hosts =&gt; &quot;localhost:9200&quot;</div><div class="line">	#hosts =&gt; [&quot;hosts1&quot;, &quot;hosts2&quot;, ...]</div><div class="line">    manage_template =&gt; false</div><div class="line">    index =&gt; &quot;%&#123;[@metadata][beat]&#125;-%&#123;[@metadata][version]&#125;-%&#123;+YYYY.MM.dd&#125;&quot;</div><div class="line">    document_type =&gt; &quot;%&#123;[@metadata][type]&#125;&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Beats Input配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input_type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cipher_suites</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr>
+<td>client_inactivity_timeout</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>host</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>include_codec_tag</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>port</td>
+<td>number</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>ssl</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl_certificate</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl_certificate_authorities</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl_handshake_timeout</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl_key</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl_key_passphrase</td>
+<td>password</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl_verify_mode</td>
+<td>string, one of [none, peer,force_peer]</td>
+<td>No</td>
+</tr>
+<tr>
+<td>tls_max_version</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>tls_min_version</td>
+<td>number</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="elasticsearch"><a href="#elasticsearch" class="headerlink" title="elasticsearch"></a>elasticsearch</h3><p><strong>Elasticsearch Input配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input_type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ca_file</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>docinfo</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>docinfo_fields</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr>
+<td>docinfo_target</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>hosts</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr>
+<td>index</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>password</td>
+<td>password</td>
+<td>No</td>
+</tr>
+<tr>
+<td>query</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>schedule</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>scroll</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>size</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>user</td>
+<td>string</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">input &#123;</div><div class="line">  elasticsearch &#123;</div><div class="line">    hosts =&gt; &quot;es.production.mysite.org&quot;</div><div class="line">    index =&gt; &quot;mydata-2018.09.*&quot;</div><div class="line">    query =&gt; &apos;&#123; &quot;query&quot;: &#123; &quot;query_string&quot;: &#123; &quot;query&quot;: &quot;*&quot; &#125; &#125; &#125;&apos;</div><div class="line">    size =&gt; 500</div><div class="line">    scroll =&gt; &quot;5m&quot;</div><div class="line">    docinfo =&gt; true</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">output &#123;</div><div class="line">  elasticsearch &#123;</div><div class="line">    index =&gt; &quot;copy-of-production.%&#123;[@metadata][_index]&#125;&quot;</div><div class="line">    document_type =&gt; &quot;%&#123;[@metadata][_type]&#125;&quot;</div><div class="line">    document_id =&gt; &quot;%&#123;[@metadata][_id]&#125;&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h3><p>定期运行shell命令，并抓取整个输出为事件。</p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">input &#123;</div><div class="line">  exec &#123;</div><div class="line">    command =&gt; &quot;ls&quot;</div><div class="line">    interval =&gt; 30</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>exec Input配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input_type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>command</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>interval</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>schedule</td>
+<td>string</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>此调度表示方法如同Linux中定时任务<code>* 5 * 1-3 *</code>。</p>
+<p><br><br><br></p>
+<h3 id="file"><a href="#file" class="headerlink" title="file"></a>file</h3><p>从文件读取流事件。</p>
+<p><strong>file input配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input_type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>close_older</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>delimiter</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>discover_interval</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>exclude</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ignore_older</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>max_open_files</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>path</td>
+<td>array</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>sincedb_path</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>sincedb_write_interval</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>start_position</td>
+<td>string, one of [“beginning”, “end”]</td>
+<td>No</td>
+</tr>
+<tr>
+<td>stat_interval</td>
+<td>number</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><p><strong>github input配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input_type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>drop_invalid</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ip</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>port</td>
+<td>number</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>secret_token</td>
+<td>string</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="kafka"><a href="#kafka" class="headerlink" title="kafka"></a>kafka</h3><p><a href="https://www.elastic.co/guide/en/logstash/current/plugins-inputs-kafka.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/logstash/current/plugins-inputs-kafka.html</a></p>
+<p><br><br><br></p>
+<h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><p>从redis实例读取事件，它支持redis的channel和list类型。</p>
+<p><strong>redis input配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input_type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>batch_count</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>data_type</td>
+<td>string, one of [list,channel,pattern_channel]</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>db</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>host</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>key</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>password</td>
+<td>password</td>
+<td>No</td>
+</tr>
+<tr>
+<td>port</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>threads</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>number</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="sqlite"><a href="#sqlite" class="headerlink" title="sqlite"></a>sqlite</h3><p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">input &#123;</div><div class="line">  sqlite &#123;</div><div class="line">    path =&gt; &quot;/tmp/example.db&quot;</div><div class="line">    type =&gt; weblogs</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">output &#123;</div><div class="line">  stdout &#123;</div><div class="line">    debug =&gt; true</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>sqlite input配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input_type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>batch</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>exclude_tables</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="stdin"><a href="#stdin" class="headerlink" title="stdin"></a>stdin</h3><p><br><br><br></p>
+<h3 id="syslog"><a href="#syslog" class="headerlink" title="syslog"></a>syslog</h3><p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">input &#123;</div><div class="line">  syslog &#123;</div><div class="line">    port =&gt; 12345</div><div class="line">    codec =&gt; cef</div><div class="line">    syslog_field =&gt; &quot;syslog&quot;</div><div class="line">    grok_pattern =&gt; &quot;&lt;%&#123;POSINT:priority&#125;&gt;%&#123;SYSLOGTIMESTAMP:timestamp&#125; CUSTOM GROK HERE&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>syslog input配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input_type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>facility_labels</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr>
+<td>grok_pattern</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>host</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>locale</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>port</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>proxy_protocol</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>severity_labels</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr>
+<td>syslog_field</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>timezone</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>use_labels</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="tcp"><a href="#tcp" class="headerlink" title="tcp"></a>tcp</h3><p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">input &#123;</div><div class="line">  tcp &#123;</div><div class="line">    port =&gt; 12345</div><div class="line">    codec =&gt; json</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>tcp input配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input_type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>host</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>string, one of [server, client]</td>
+<td>No</td>
+</tr>
+<tr>
+<td>port</td>
+<td>number</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>proxy_protocol</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl_cert</td>
+<td>a valid file system path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl_enable</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl_extra_chain_certs</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl_key</td>
+<td>a valid file system path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl_key_passphrase</td>
+<td>password</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl_verify</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="udp"><a href="#udp" class="headerlink" title="udp"></a>udp</h3><p><br><br><br></p>
+<h3 id="unix"><a href="#unix" class="headerlink" title="unix"></a>unix</h3><p><br><br><br></p>
+<h3 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h3><p><br><br><br></p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>输出将事件数据发送到特定的目标。输出是事件管道的最后阶段。</p>
+<p>输出列表：</p>
+<ul>
+<li>boundary</li>
+<li>circonus</li>
+<li>CSV</li>
+<li>datadog</li>
+<li>Elasticsearch</li>
+<li>email</li>
+<li>exec</li>
+<li>file</li>
+<li>gelf</li>
+<li>ganglia</li>
+<li>http/https</li>
+<li>influxdb</li>
+<li>irc</li>
+<li>kafka</li>
+<li>librato</li>
+<li>loggly</li>
+<li>lumberjack</li>
+<li>metriccatcher</li>
+<li>mongodb</li>
+<li>nagios</li>
+<li>opentsdb</li>
+<li>pipe</li>
+<li>rabbitmq</li>
+<li>redis</li>
+<li>redmine</li>
+<li>stdout</li>
+<li>syslog</li>
+<li>tcp</li>
+<li>udp</li>
+<li>websocket</li>
+<li>zabbix</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="csv"><a href="#csv" class="headerlink" title="csv"></a>csv</h3><p><strong>csv output配置选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input_type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>create_if_deleted</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>csv_options</td>
+<td>hash</td>
+<td>No</td>
+</tr>
+<tr>
+<td>dir_mode</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>fields</td>
+<td>array</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>file_mode</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>filename_failure</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>flush_interval</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>gzip</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>spreadsheet_safe</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="elasticsearch-1"><a href="#elasticsearch-1" class="headerlink" title="elasticsearch"></a>elasticsearch</h3><p><strong>Elasticsearch output配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>action</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>bulk path</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>cacert</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>doc as upsert</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>document id</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>document type</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>failure type logging whitelist</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr>
+<td>healthcheck path</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>hosts</td>
+<td>uri</td>
+<td>No</td>
+</tr>
+<tr>
+<td>http compression</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>index</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>keystore</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>keystore password</td>
+<td>password</td>
+<td>No</td>
+</tr>
+<tr>
+<td>manage template</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>parameters</td>
+<td>hash</td>
+<td>No</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>password</td>
+<td>password</td>
+<td>No</td>
+</tr>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>pipeline</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>pool max</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>pool max per route</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>proxy</td>
+<td>uri</td>
+<td>No</td>
+</tr>
+<tr>
+<td>resurrect delay</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>retry initial interval</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>retry max interval</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>retry on conflict</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>routing</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>script</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>script lang</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>script type</td>
+<td>string, one of [inline, indexed, file]</td>
+<td>No</td>
+</tr>
+<tr>
+<td>script var name</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>scripted upsert</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>sniffing</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>sniffing delay</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>sniffing path</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl certificate verification</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>template</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>template name</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>template overwrite</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>truststore</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>truststore password</td>
+<td>password</td>
+<td>No</td>
+</tr>
+<tr>
+<td>upsert</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>user</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>validate after inactivity</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>version</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>version type</td>
+<td>string, one of [internal, external, external gt, external gte, force]</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="exec-1"><a href="#exec-1" class="headerlink" title="exec"></a>exec</h3><p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">output &#123;</div><div class="line">  if [type] == &quot;abuse&quot; &#123;</div><div class="line">    exec &#123;</div><div class="line">      command =&gt; &quot;iptables -A INPUT -s %&#123;clientip&#125; -j DROP&quot;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>exec output配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>command</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>quiet</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="file-1"><a href="#file-1" class="headerlink" title="file"></a>file</h3><p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">output &#123;</div><div class="line"> file &#123;</div><div class="line">   path =&gt; ...</div><div class="line">   codec =&gt; line &#123; format =&gt; &quot;custom format: %&#123;message&#125;&quot;&#125;</div><div class="line"> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>file output配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>create if deleted</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>dir mode</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>file mode</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>filename failure</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>flush interval</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>gzip</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>write behavior</td>
+<td>string</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="kafka-1"><a href="#kafka-1" class="headerlink" title="kafka"></a>kafka</h3><p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">output &#123;</div><div class="line">  kafka &#123;</div><div class="line">    codec =&gt; json</div><div class="line">    topic_id =&gt; &quot;mytopic&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>kafka output配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>acks</td>
+<td>string, one of [0, 1, all]</td>
+<td>No</td>
+</tr>
+<tr>
+<td>batch size</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>bootstrap servers</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>buffer memory</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>client id</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>compression type</td>
+<td>string, one of [none, gzip, snappy, lz4]</td>
+<td>No</td>
+</tr>
+<tr>
+<td>jaas path</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>kerberos config</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>key serializer</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>linger ms</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>max request size</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>message key</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>metadata fetch timeout ms</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>metadata max age ms</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>receive buffer bytes</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>reconnect backoff ms</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>request timeout ms</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>retries</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>retry backoff ms</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>sasl kerberos service name</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>sasl mechanism</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>security protocol</td>
+<td>string, one of [PLAINTEXT, SSL, SASL PLAINTEXT, SASL SSL]</td>
+<td>No</td>
+</tr>
+<tr>
+<td>send buffer bytes</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl key password</td>
+<td>password</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl keystore location</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl keystore password</td>
+<td>password</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl keystore type</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl truststore location</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl truststore password</td>
+<td>password</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl truststore type</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>topic id</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>value serializer</td>
+<td>string</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="mongodb"><a href="#mongodb" class="headerlink" title="mongodb"></a>mongodb</h3><p><strong>mongodb output配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bulk</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>bulk interval</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>bulk size</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>collection</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>database</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>generateId</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>isodate</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>retry delay</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>uri</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="redis-1"><a href="#redis-1" class="headerlink" title="redis"></a>redis</h3><p>将Redis作为消息队列缓存能极大降低系统负载，减轻系统压力。</p>
+<p><strong>redis output配置项：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Setting | Input type | Required</div><div class="line">- | - | -</div><div class="line">batch | boolean | No</div><div class="line">batch events | number | No</div><div class="line">batch timeout | number | No</div><div class="line">congestion interval | number | No</div><div class="line">congestion threshold | number | No</div><div class="line">data type | string, one of [list, channel] | No</div><div class="line">db | number | No</div><div class="line">host | array | No</div><div class="line">key | string | No</div><div class="line">password | password | No</div><div class="line">port | number | No</div><div class="line">reconnect interval | number | No</div><div class="line">shuffle hosts | boolean | No</div><div class="line">timeout | number | No</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="redmine"><a href="#redmine" class="headerlink" title="redmine"></a>redmine</h3><p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">output &#123;</div><div class="line">  redmine &#123;</div><div class="line">    url =&gt; &quot;http://redmineserver.tld&quot;</div><div class="line">    token =&gt; &apos;token&apos;</div><div class="line">    project_id =&gt; 200</div><div class="line">    tracker_id =&gt; 1</div><div class="line">    status_id =&gt; 3</div><div class="line">    priority_id =&gt; 2</div><div class="line">    subject =&gt; &quot;Error ... detected&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>redmine output配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>assigned to id</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>categorie id</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>fixed version id</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>parent issue id</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>priority id</td>
+<td>number</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>project id</td>
+<td>number</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>ssl</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>status id</td>
+<td>number</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>subject</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>token</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>tracker id</td>
+<td>number</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="output"><a href="#output" class="headerlink" title="output"></a>output</h3><p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">output &#123;</div><div class="line">  stdout &#123; codec =&gt; json &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="syslog-1"><a href="#syslog-1" class="headerlink" title="syslog"></a>syslog</h3><p><strong>syslog output配置：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>appname</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>facility</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>host</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>msgid</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>port</td>
+<td>number</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>priority</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>procid</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>protocol</td>
+<td>string, one of [tcp, udp, ssl-tcp]</td>
+<td>No</td>
+</tr>
+<tr>
+<td>reconnect interval</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>rfc</td>
+<td>string, one of [rfc3164, rfc5424]</td>
+<td>No</td>
+</tr>
+<tr>
+<td>severity</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>sourcehost</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl cacert</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl cert</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl key</td>
+<td>a valid filesystem path</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl key passphrase</td>
+<td>password</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ssl verify</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+<tr>
+<td>use labels</td>
+<td>boolean</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="zabbix"><a href="#zabbix" class="headerlink" title="zabbix"></a>zabbix</h3><p><strong>zabbix output配置项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Input type</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>multi value</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>zabbix host</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>zabbix key</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>zabbix server host</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr>
+<td>zabbix server port</td>
+<td>number</td>
+<td>No</td>
+</tr>
+<tr>
+<td>zabbix value</td>
+<td>string</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h2 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h2><p><br><br><br></p>
+<h2 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h2><p>使用条件判断决定filter和output处理特定的事件。</p>
+<p>Logstash条件类似于编程语言，条件语句，可以嵌套：</p>
+<ul>
+<li><code>if</code></li>
+<li><code>else if</code></li>
+<li><code>else</code></li>
+</ul>
+<p><br></p>
+<p>比较操作：</p>
+<ul>
+<li><code>==</code></li>
+<li><code>!=</code></li>
+<li><code>&lt;</code></li>
+<li><code>&gt;</code></li>
+<li><code>&lt;=</code></li>
+<li><code>&gt;=</code></li>
+<li><code>=~</code> 匹配正则</li>
+<li><code>!~</code> 不匹配正则</li>
+<li><code>in</code> 包含</li>
+<li><code>not in</code> 不包含</li>
+</ul>
+<p><br></p>
+<p>布尔操作：</p>
+<ul>
+<li><code>and</code></li>
+<li><code>or</code></li>
+<li><code>nand</code></li>
+<li><code>xor</code></li>
+</ul>
+<p><br></p>
+<p>一元运算符：</p>
+<ul>
+<li><code>!</code> 取反</li>
+<li><code>()</code> 复合表达式</li>
+</ul>
+<p><br></p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">output &#123;</div><div class="line">  if [path] == &quot;/var/nginx/access.log&quot; &#123;</div><div class="line">    elasticsearch &#123;</div><div class="line">	  hosts =&gt;</div><div class="line">	  user =&gt;</div><div class="line">	  password =&gt;</div><div class="line">	  index =&gt; &quot;nginx-access-%&#123;+YYYY.MM.dd&#125;&quot;</div><div class="line">	&#125;</div><div class="line">  &#125;</div><div class="line">  else if [path] == &quot;/var/nginx/error.log&quot; &#123;</div><div class="line">    elasticsearch &#123;</div><div class="line">	  hosts =&gt;</div><div class="line">	  user =&gt;</div><div class="line">	  password =&gt;</div><div class="line">	  index =&gt; &quot;nginx-error-%&#123;+YYYY.MM.dd&#125;&quot;</div><div class="line">	&#125;</div><div class="line">  &#125;</div><div class="line">  else &#123;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
 <hr>
 <p><br></p>
 <h1 id="Filebeat文档"><a href="#Filebeat文档" class="headerlink" title="Filebeat文档"></a>Filebeat文档</h1><p><br></p>
@@ -858,7 +2489,7 @@
 <p><br></p>
 <p><img src="/image/ELK/filebeat.png" alt="filebeat流程图"></p>
 <p><br><br><br></p>
-<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>开始filebeat前，请确保安装和配置了如下产品：</p>
+<h2 id="入门-1"><a href="#入门-1" class="headerlink" title="入门"></a>入门</h2><p>开始filebeat前，请确保安装和配置了如下产品：</p>
 <ul>
 <li>Elasticsearch(存储和索引数据)</li>
 <li>Kibana(UI)</li>
@@ -915,7 +2546,7 @@
 <p>解决办法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#重新载入索引模板</div><div class="line">filebeat setup</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
-<h2 id="Filebeat的output"><a href="#Filebeat的output" class="headerlink" title="Filebeat的output"></a>Filebeat的output</h2><p>我们可根据系统的负载情况将Filebeat的output到合适的地方，output只能有一个！<br>如果有时候系统负载过高的话，可以考虑output到Redis或Elasticsearch。</p>
+<h2 id="output-1"><a href="#output-1" class="headerlink" title="output"></a>output</h2><p>我们可根据系统的负载情况将Filebeat的output到合适的地方，output只能有一个！<br>如果有时候系统负载过高的话，可以考虑output到Redis或Elasticsearch。</p>
 <p>redis和logstash都还需要logstash的pipeline转交给Elasticsearch，但你可以filter。而直接使用Elasticsearch便不能过滤。</p>
 <ul>
 <li>Logstash</li>
@@ -923,13 +2554,13 @@
 <li>Redis</li>
 </ul>
 <p><br></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">vim /etc/filebeat/filebeat.yml</div><div class="line"></div><div class="line"></div><div class="line">#找到output</div><div class="line"></div><div class="line"></div><div class="line">#redis</div><div class="line">output.redis:</div><div class="line">  hosts: [ &quot;localhost:port&quot; ]</div><div class="line">  key: &quot;filebeat&quot;</div><div class="line">  #自定义key-name</div><div class="line"></div><div class="line"></div><div class="line">#logstash</div><div class="line">output.logstash:</div><div class="line">  hosts: [ &quot;localhost:5044&quot; ]</div><div class="line"></div><div class="line"></div><div class="line">#Elasticsearch</div><div class="line">elasticsearch.output:</div><div class="line">  hosts: [ &quot;localhost:9200&quot; ]</div><div class="line"></div><div class="line"></div><div class="line">==================</div><div class="line"></div><div class="line">#redis对应的pipeline</div><div class="line">vim /etc/logstash/conf.d/redis-pipeline.conf</div><div class="line"></div><div class="line"></div><div class="line">input &#123;</div><div class="line">  redis &#123;</div><div class="line">    data_type =&gt; &quot;list&quot;</div><div class="line">    key =&gt; &quot;filebeat&quot;</div><div class="line">    hosts =&gt; &quot;localhost&quot;</div><div class="line">    port =&gt; 6369</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">#filter&#123; &#125;</div><div class="line">output &#123;</div><div class="line">  elasticsearch &#123;</div><div class="line">  	hosts =&gt; [ &quot;localhost:9200&quot; ]</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">vim /etc/filebeat/filebeat.yml</div><div class="line"></div><div class="line"></div><div class="line">#找到output</div><div class="line"></div><div class="line"></div><div class="line">#redis</div><div class="line">output.redis:</div><div class="line">  hosts: &quot;localhost&quot;</div><div class="line">  port: 6379</div><div class="line">  key: &quot;filebeat&quot;</div><div class="line">  #自定义key-name</div><div class="line">  #password:</div><div class="line">  #db:</div><div class="line">  #data_type: &apos;list&apos;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#logstash</div><div class="line">output.logstash:</div><div class="line">  hosts: [ &quot;localhost:5044&quot; ]</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#Elasticsearch</div><div class="line">elasticsearch.output:</div><div class="line">  hosts: [ &quot;localhost:9200&quot; ]</div><div class="line">  #username:</div><div class="line">  #name:</div><div class="line"></div><div class="line"></div><div class="line">==================</div><div class="line"></div><div class="line">#redis对应的pipeline</div><div class="line">vim /etc/logstash/conf.d/redis-pipeline.conf</div><div class="line"></div><div class="line"></div><div class="line">input &#123;</div><div class="line">  redis &#123;</div><div class="line">    data_type =&gt; &quot;list&quot;</div><div class="line">    key =&gt; &quot;filebeat&quot;</div><div class="line">    host =&gt; &quot;localhost&quot;</div><div class="line">    port =&gt; 6379</div><div class="line">	#password =&gt;</div><div class="line">	#db =&gt;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">#filter&#123; &#125;</div><div class="line">output &#123;</div><div class="line">  elasticsearch &#123;</div><div class="line">  	hosts =&gt; [ &quot;localhost:9200&quot; ]</div><div class="line">	#user</div><div class="line">	#password</div><div class="line">	index =&gt; &quot;filebeat-%&#123;+YYYY.MM.dd&#125;&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <hr>
 <p><br></p>
 <h1 id="Kibana文档"><a href="#Kibana文档" class="headerlink" title="Kibana文档"></a>Kibana文档</h1><p>Kibana是一个开源分析和可视化平台，旨在与Elasticsearch合作。你可使用Kibana来检索(search)，查看(view)存储在Elasticsearch索引中的数据并与其进行交互(interact)。你可以很轻松地执行高级数据分析，并在各种图表、表格和地图中可视化你的数据。<br>Kibana可以很容易地理解大量的数据。基于浏览器的接口能够快速创建和分享动态仪表盘，实时显示Elasticsearch查询的变化。</p>
 <p><br><br><br></p>
-<h2 id="入门-1"><a href="#入门-1" class="headerlink" title="入门"></a>入门</h2><p>在开始前，请确保已安装Kibana并与Elasticsearch建立了连接。</p>
+<h2 id="入门-2"><a href="#入门-2" class="headerlink" title="入门"></a>入门</h2><p>在开始前，请确保已安装Kibana并与Elasticsearch建立了连接。</p>
 <p><br><br><br></p>
 <h3 id="载入示例数据"><a href="#载入示例数据" class="headerlink" title="载入示例数据"></a>载入示例数据</h3><p>本节依赖如下示例数据：</p>
 <ul>
@@ -982,7 +2613,7 @@
 <p><br><br><br></p>
 <hr>
 <p><br></p>
-<h1 id="Elasticsearch文档"><a href="#Elasticsearch文档" class="headerlink" title="Elasticsearch文档"></a>Elasticsearch文档</h1><h2 id="入门-2"><a href="#入门-2" class="headerlink" title="入门"></a>入门</h2><p>Elasticsearch是一个高度可扩展的开源全文搜索和分析引擎。它允许你快速、近乎实时地存储、搜索和分析大量数据。</p>
+<h1 id="Elasticsearch文档"><a href="#Elasticsearch文档" class="headerlink" title="Elasticsearch文档"></a>Elasticsearch文档</h1><h2 id="入门-3"><a href="#入门-3" class="headerlink" title="入门"></a>入门</h2><p>Elasticsearch是一个高度可扩展的开源全文搜索和分析引擎。它允许你快速、近乎实时地存储、搜索和分析大量数据。</p>
 <p>Elasticsearch的几个例子：</p>
 <ul>
 <li>使用Elasticsearch来存储产品目录和库存，并为其提供搜索和建议</li>
@@ -1281,7 +2912,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1292,7 +2923,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1357,7 +2988,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ELK综述"><span class="nav-number">1.</span> <span class="nav-text">ELK综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Elasticsearch"><span class="nav-number">1.1.</span> <span class="nav-text">Elasticsearch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logstash"><span class="nav-number">1.2.</span> <span class="nav-text">Logstash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kibana"><span class="nav-number">1.3.</span> <span class="nav-text">Kibana</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Beats"><span class="nav-number">1.4.</span> <span class="nav-text">Beats</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#X-Pack"><span class="nav-number">1.5.</span> <span class="nav-text">X-Pack</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Docker"><span class="nav-number">2.</span> <span class="nav-text">使用Docker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装ELKF"><span class="nav-number">3.1.</span> <span class="nav-text">安装ELKF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装X-Pack"><span class="nav-number">3.2.</span> <span class="nav-text">安装X-Pack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动ELK"><span class="nav-number">3.3.</span> <span class="nav-text">启动ELK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启用xpack注意事项"><span class="nav-number">3.4.</span> <span class="nav-text">启用xpack注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Filebeat"><span class="nav-number">3.5.</span> <span class="nav-text">安装Filebeat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改ELK-jvm内存大小"><span class="nav-number">3.6.</span> <span class="nav-text">修改ELK jvm内存大小</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#与Nginx结合使用"><span class="nav-number">4.</span> <span class="nav-text">与Nginx结合使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Logstash文档"><span class="nav-number">5.</span> <span class="nav-text">Logstash文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">5.1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Logstash的能量"><span class="nav-number">5.1.1.</span> <span class="nav-text">Logstash的能量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Logstash喜欢的数据"><span class="nav-number">5.1.1.1.</span> <span class="nav-text">Logstash喜欢的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Logs-and-Metrics"><span class="nav-number">5.1.1.2.</span> <span class="nav-text">Logs and Metrics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Web"><span class="nav-number">5.1.1.3.</span> <span class="nav-text">Web</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据存储和流"><span class="nav-number">5.1.1.4.</span> <span class="nav-text">数据存储和流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sensors-and-IoT"><span class="nav-number">5.1.1.5.</span> <span class="nav-text">Sensors and IoT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#轻松丰富一切"><span class="nav-number">5.1.2.</span> <span class="nav-text">轻松丰富一切</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择你的储藏室"><span class="nav-number">5.1.3.</span> <span class="nav-text">选择你的储藏室</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">5.2.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#储藏第一个事件"><span class="nav-number">5.2.1.</span> <span class="nav-text">储藏第一个事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过Logstash解析Logs"><span class="nav-number">5.2.2.</span> <span class="nav-text">通过Logstash解析Logs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拼接多个输入和输出插件"><span class="nav-number">5.2.3.</span> <span class="nav-text">拼接多个输入和输出插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lostash怎样工作"><span class="nav-number">5.3.</span> <span class="nav-text">Lostash怎样工作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Filebeat文档"><span class="nav-number">6.</span> <span class="nav-text">Filebeat文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">6.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#入门"><span class="nav-number">6.2.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">6.2.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置filebeat使用logstash"><span class="nav-number">6.2.2.</span> <span class="nav-text">配置filebeat使用logstash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在Elasticsearch中载入索引模板"><span class="nav-number">6.2.3.</span> <span class="nav-text">在Elasticsearch中载入索引模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置Kibana面板"><span class="nav-number">6.2.4.</span> <span class="nav-text">设置Kibana面板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Filebeat"><span class="nav-number">6.2.5.</span> <span class="nav-text">启动Filebeat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看示例Kibana仪表板"><span class="nav-number">6.2.6.</span> <span class="nav-text">查看示例Kibana仪表板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速开始常见日志格式"><span class="nav-number">6.2.7.</span> <span class="nav-text">快速开始常见日志格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Filebeat的output"><span class="nav-number">6.3.</span> <span class="nav-text">Filebeat的output</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kibana文档"><span class="nav-number">7.</span> <span class="nav-text">Kibana文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#入门-1"><span class="nav-number">7.1.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#载入示例数据"><span class="nav-number">7.1.1.</span> <span class="nav-text">载入示例数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义你的索引模式"><span class="nav-number">7.1.2.</span> <span class="nav-text">定义你的索引模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据发现"><span class="nav-number">7.1.3.</span> <span class="nav-text">数据发现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Elasticsearch文档"><span class="nav-number">8.</span> <span class="nav-text">Elasticsearch文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#入门-2"><span class="nav-number">8.1.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">8.1.1.</span> <span class="nav-text">基本概念</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#探索你的集群"><span class="nav-number">8.2.</span> <span class="nav-text">探索你的集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集群健康"><span class="nav-number">8.2.1.</span> <span class="nav-text">集群健康</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有索引"><span class="nav-number">8.2.2.</span> <span class="nav-text">列出所有索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建索引"><span class="nav-number">8.2.3.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引和查询文档"><span class="nav-number">8.2.4.</span> <span class="nav-text">索引和查询文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除索引"><span class="nav-number">8.2.5.</span> <span class="nav-text">删除索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改数据"><span class="nav-number">8.3.</span> <span class="nav-text">修改数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更新文档"><span class="nav-number">8.3.1.</span> <span class="nav-text">更新文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文档"><span class="nav-number">8.3.2.</span> <span class="nav-text">删除文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量处理"><span class="nav-number">8.3.3.</span> <span class="nav-text">批量处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#探索你的数据"><span class="nav-number">8.4.</span> <span class="nav-text">探索你的数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Search-API"><span class="nav-number">8.4.1.</span> <span class="nav-text">Search API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询语法"><span class="nav-number">8.4.2.</span> <span class="nav-text">查询语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行搜索"><span class="nav-number">8.4.3.</span> <span class="nav-text">执行搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过滤"><span class="nav-number">8.4.4.</span> <span class="nav-text">过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合"><span class="nav-number">8.4.5.</span> <span class="nav-text">聚合</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ELK综述"><span class="nav-number">1.</span> <span class="nav-text">ELK综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Elasticsearch"><span class="nav-number">1.1.</span> <span class="nav-text">Elasticsearch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logstash"><span class="nav-number">1.2.</span> <span class="nav-text">Logstash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kibana"><span class="nav-number">1.3.</span> <span class="nav-text">Kibana</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Beats"><span class="nav-number">1.4.</span> <span class="nav-text">Beats</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#X-Pack"><span class="nav-number">1.5.</span> <span class="nav-text">X-Pack</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Docker"><span class="nav-number">2.</span> <span class="nav-text">使用Docker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装ELKF"><span class="nav-number">3.1.</span> <span class="nav-text">安装ELKF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装X-Pack"><span class="nav-number">3.2.</span> <span class="nav-text">安装X-Pack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动ELK"><span class="nav-number">3.3.</span> <span class="nav-text">启动ELK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启用xpack注意事项"><span class="nav-number">3.4.</span> <span class="nav-text">启用xpack注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Filebeat"><span class="nav-number">3.5.</span> <span class="nav-text">安装Filebeat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改ELK-jvm内存大小"><span class="nav-number">3.6.</span> <span class="nav-text">修改ELK jvm内存大小</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#与Nginx结合使用"><span class="nav-number">4.</span> <span class="nav-text">与Nginx结合使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Logstash文档"><span class="nav-number">5.</span> <span class="nav-text">Logstash文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">5.1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Logstash的能量"><span class="nav-number">5.1.1.</span> <span class="nav-text">Logstash的能量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Logstash喜欢的数据"><span class="nav-number">5.1.1.1.</span> <span class="nav-text">Logstash喜欢的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Logs-and-Metrics"><span class="nav-number">5.1.1.2.</span> <span class="nav-text">Logs and Metrics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Web"><span class="nav-number">5.1.1.3.</span> <span class="nav-text">Web</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据存储和流"><span class="nav-number">5.1.1.4.</span> <span class="nav-text">数据存储和流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sensors-and-IoT"><span class="nav-number">5.1.1.5.</span> <span class="nav-text">Sensors and IoT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#轻松丰富一切"><span class="nav-number">5.1.2.</span> <span class="nav-text">轻松丰富一切</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择你的储藏室"><span class="nav-number">5.1.3.</span> <span class="nav-text">选择你的储藏室</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#入门"><span class="nav-number">5.2.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#储藏第一个事件"><span class="nav-number">5.2.1.</span> <span class="nav-text">储藏第一个事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过Logstash解析Logs"><span class="nav-number">5.2.2.</span> <span class="nav-text">通过Logstash解析Logs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拼接多个输入和输出插件"><span class="nav-number">5.2.3.</span> <span class="nav-text">拼接多个输入和输出插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input"><span class="nav-number">5.3.</span> <span class="nav-text">Input</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#beats"><span class="nav-number">5.3.1.</span> <span class="nav-text">beats</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#elasticsearch"><span class="nav-number">5.3.2.</span> <span class="nav-text">elasticsearch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exec"><span class="nav-number">5.3.3.</span> <span class="nav-text">exec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file"><span class="nav-number">5.3.4.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#github"><span class="nav-number">5.3.5.</span> <span class="nav-text">github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka"><span class="nav-number">5.3.6.</span> <span class="nav-text">kafka</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis"><span class="nav-number">5.3.7.</span> <span class="nav-text">redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sqlite"><span class="nav-number">5.3.8.</span> <span class="nav-text">sqlite</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stdin"><span class="nav-number">5.3.9.</span> <span class="nav-text">stdin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#syslog"><span class="nav-number">5.3.10.</span> <span class="nav-text">syslog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp"><span class="nav-number">5.3.11.</span> <span class="nav-text">tcp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#udp"><span class="nav-number">5.3.12.</span> <span class="nav-text">udp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unix"><span class="nav-number">5.3.13.</span> <span class="nav-text">unix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#websocket"><span class="nav-number">5.3.14.</span> <span class="nav-text">websocket</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output"><span class="nav-number">5.4.</span> <span class="nav-text">Output</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#csv"><span class="nav-number">5.4.1.</span> <span class="nav-text">csv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#elasticsearch-1"><span class="nav-number">5.4.2.</span> <span class="nav-text">elasticsearch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exec-1"><span class="nav-number">5.4.3.</span> <span class="nav-text">exec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file-1"><span class="nav-number">5.4.4.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka-1"><span class="nav-number">5.4.5.</span> <span class="nav-text">kafka</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongodb"><span class="nav-number">5.4.6.</span> <span class="nav-text">mongodb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-1"><span class="nav-number">5.4.7.</span> <span class="nav-text">redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redmine"><span class="nav-number">5.4.8.</span> <span class="nav-text">redmine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#output"><span class="nav-number">5.4.9.</span> <span class="nav-text">output</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#syslog-1"><span class="nav-number">5.4.10.</span> <span class="nav-text">syslog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zabbix"><span class="nav-number">5.4.11.</span> <span class="nav-text">zabbix</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter"><span class="nav-number">5.5.</span> <span class="nav-text">filter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件判断"><span class="nav-number">5.6.</span> <span class="nav-text">条件判断</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Filebeat文档"><span class="nav-number">6.</span> <span class="nav-text">Filebeat文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">6.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#入门-1"><span class="nav-number">6.2.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">6.2.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置filebeat使用logstash"><span class="nav-number">6.2.2.</span> <span class="nav-text">配置filebeat使用logstash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在Elasticsearch中载入索引模板"><span class="nav-number">6.2.3.</span> <span class="nav-text">在Elasticsearch中载入索引模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置Kibana面板"><span class="nav-number">6.2.4.</span> <span class="nav-text">设置Kibana面板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Filebeat"><span class="nav-number">6.2.5.</span> <span class="nav-text">启动Filebeat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看示例Kibana仪表板"><span class="nav-number">6.2.6.</span> <span class="nav-text">查看示例Kibana仪表板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速开始常见日志格式"><span class="nav-number">6.2.7.</span> <span class="nav-text">快速开始常见日志格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#output-1"><span class="nav-number">6.3.</span> <span class="nav-text">output</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kibana文档"><span class="nav-number">7.</span> <span class="nav-text">Kibana文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#入门-2"><span class="nav-number">7.1.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#载入示例数据"><span class="nav-number">7.1.1.</span> <span class="nav-text">载入示例数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义你的索引模式"><span class="nav-number">7.1.2.</span> <span class="nav-text">定义你的索引模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据发现"><span class="nav-number">7.1.3.</span> <span class="nav-text">数据发现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Elasticsearch文档"><span class="nav-number">8.</span> <span class="nav-text">Elasticsearch文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#入门-3"><span class="nav-number">8.1.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">8.1.1.</span> <span class="nav-text">基本概念</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#探索你的集群"><span class="nav-number">8.2.</span> <span class="nav-text">探索你的集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集群健康"><span class="nav-number">8.2.1.</span> <span class="nav-text">集群健康</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有索引"><span class="nav-number">8.2.2.</span> <span class="nav-text">列出所有索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建索引"><span class="nav-number">8.2.3.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引和查询文档"><span class="nav-number">8.2.4.</span> <span class="nav-text">索引和查询文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除索引"><span class="nav-number">8.2.5.</span> <span class="nav-text">删除索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改数据"><span class="nav-number">8.3.</span> <span class="nav-text">修改数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更新文档"><span class="nav-number">8.3.1.</span> <span class="nav-text">更新文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文档"><span class="nav-number">8.3.2.</span> <span class="nav-text">删除文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量处理"><span class="nav-number">8.3.3.</span> <span class="nav-text">批量处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#探索你的数据"><span class="nav-number">8.4.</span> <span class="nav-text">探索你的数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Search-API"><span class="nav-number">8.4.1.</span> <span class="nav-text">Search API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询语法"><span class="nav-number">8.4.2.</span> <span class="nav-text">查询语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行搜索"><span class="nav-number">8.4.3.</span> <span class="nav-text">执行搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过滤"><span class="nav-number">8.4.4.</span> <span class="nav-text">过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合"><span class="nav-number">8.4.5.</span> <span class="nav-text">聚合</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1389,7 +3020,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 207.6k</span>
+  <span class="post-count"> 字数: 217.8k</span>
 </div>
 
 

@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="风继续吹">
 <meta property="og:description" content="参考:  《Redis官方文档》: http://www.redis.cn/documentation.html 《Redis命令大全》: http://www.redis.cn/commands.html   环境:  CentOS7x86_64 Redis 3.2">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-25T13:25:59.216Z">
+<meta property="og:updated_time" content="2018-05-09T09:19:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis">
 <meta name="twitter:description" content="参考:  《Redis官方文档》: http://www.redis.cn/documentation.html 《Redis命令大全》: http://www.redis.cn/commands.html   环境:  CentOS7x86_64 Redis 3.2">
@@ -402,7 +402,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  5,112
+                  5,352
                 </span>
               
 
@@ -749,7 +749,7 @@
 <h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>Redis的虚拟内存是暂时把不经常访问的数据从内存交换到磁盘中，从而腾出内存空间用于其它的访问数据。<br>对于redis这样的内存数据库，内存总是不够用的。</p>
 <p>在配置文件(/etc/redis.conf)中配置VM:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#开启vm功能</span></div><div class="line">vm-enableyes</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#交换出来的value保存的文件路径</span></div><div class="line">vm-swap-file    /tmp/redis.swap</div><div class="line"></div><div class="line"><span class="comment">#redis使用的最大内存上线</span></div><div class="line">vm-max-memory 10000000</div><div class="line"></div><div class="line"><span class="comment">#每个页面的大小32字节</span></div><div class="line">vm-page-size 32</div><div class="line"></div><div class="line"><span class="comment">#最多使用多少个页面</span></div><div class="line">vm-pages 123217729</div><div class="line"></div><div class="line"><span class="comment">#用于执行value对象换入的工作线程数量</span></div><div class="line">vm-max-threads 4</div></pre></td></tr></table></figure>
-<p><br></p>
+<p><br><br><br></p>
 <hr>
 <p><br></p>
 <h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ul>
@@ -759,6 +759,21 @@
 <li>关闭redis的保护模式(protect-mode)，这里的保护模式是指是否允许其他IP的设备访问redis。如果开启的话就只能允许本机访问。如果是生产开发的实际运行环境，请一定开启保护模式</li>
 <li>设置redis数据库密码！不仅仅是redis，任何数据库都应该设置密码，否则对外网开放的数据库就成了活靶子。</li>
 </ul>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="多数据库"><a href="#多数据库" class="headerlink" title="多数据库"></a>多数据库</h1><ul>
+<li>Redis支持多个数据库</li>
+<li>类似于其它数据库，不同的数据存储在不同的数据库中</li>
+<li>Redis下，数据库是由一个整数索引标识，而不是数据库名称。默认情况下，客户端连接到<code>数据库0</code></li>
+<li>Redis不支持自定义数据库名称，所以需要开发者记录那些数据库存储了哪些数据</li>
+<li>Redis不支持为每个数据库设置不同的访问密码，因为密码是在配置文件中设置的。所以一个用户可对所有数据库进行访问</li>
+<li>Redis默认支持16个数据库，但可在配置文件中修改</li>
+<li>使用<code>SELECT</code>命令切换数据库</li>
+<li><code>FLUSHALL</code>命令或清除所有数据库，请注意</li>
+</ul>
+<p><br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cat /etc/redis.conf</div><div class="line"></div><div class="line"># Set the number of databases. The default database is DB 0, you can select</div><div class="line"># a different one on a per-connection basis using SELECT &lt;dbid&gt; where</div><div class="line"># dbid is a number between 0 and &apos;databases&apos;-1</div><div class="line">databases 16</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -899,7 +914,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -910,7 +925,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -975,7 +990,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis简介"><span class="nav-number">1.</span> <span class="nav-text">Redis简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis是什么"><span class="nav-number">1.1.</span> <span class="nav-text">Redis是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis的优点"><span class="nav-number">1.2.</span> <span class="nav-text">Redis的优点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis安装"><span class="nav-number">2.</span> <span class="nav-text">Redis安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis配置"><span class="nav-number">3.</span> <span class="nav-text">Redis配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis数据类型"><span class="nav-number">4.</span> <span class="nav-text">Redis数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串-strings"><span class="nav-number">4.1.</span> <span class="nav-text">字符串(strings)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表-lists"><span class="nav-number">4.2.</span> <span class="nav-text">列表(lists)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#散列-hash"><span class="nav-number">4.3.</span> <span class="nav-text">散列(hash)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无序集合-unorder-set"><span class="nav-number">4.4.</span> <span class="nav-text">无序集合(unorder set)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有序集合-order-set"><span class="nav-number">4.5.</span> <span class="nav-text">有序集合(order set)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis命令"><span class="nav-number">5.</span> <span class="nav-text">Redis命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令"><span class="nav-number">5.1.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置相关"><span class="nav-number">5.2.</span> <span class="nav-text">设置相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接操作"><span class="nav-number">5.3.</span> <span class="nav-text">连接操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化"><span class="nav-number">5.4.</span> <span class="nav-text">持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程服务"><span class="nav-number">5.5.</span> <span class="nav-text">远程服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值-value-操作"><span class="nav-number">5.6.</span> <span class="nav-text">值(value)操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串-string-操作"><span class="nav-number">5.7.</span> <span class="nav-text">字符串(string)操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表-list-操作"><span class="nav-number">5.8.</span> <span class="nav-text">列表(list)操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合-set-操作"><span class="nav-number">5.9.</span> <span class="nav-text">集合(set)操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有序集合-sorted-set-操作"><span class="nav-number">5.10.</span> <span class="nav-text">有序集合(sorted set)操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash操作"><span class="nav-number">5.11.</span> <span class="nav-text">hash操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis高级应用"><span class="nav-number">6.</span> <span class="nav-text">Redis高级应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安全性"><span class="nav-number">6.1.</span> <span class="nav-text">安全性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从复制"><span class="nav-number">6.2.</span> <span class="nav-text">主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主从复制栗子"><span class="nav-number">6.2.1.</span> <span class="nav-text">主从复制栗子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务处理"><span class="nav-number">6.3.</span> <span class="nav-text">事务处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化机制"><span class="nav-number">6.4.</span> <span class="nav-text">持久化机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存"><span class="nav-number">6.5.</span> <span class="nav-text">虚拟内存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意"><span class="nav-number">7.</span> <span class="nav-text">注意</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis简介"><span class="nav-number">1.</span> <span class="nav-text">Redis简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis是什么"><span class="nav-number">1.1.</span> <span class="nav-text">Redis是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis的优点"><span class="nav-number">1.2.</span> <span class="nav-text">Redis的优点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis安装"><span class="nav-number">2.</span> <span class="nav-text">Redis安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis配置"><span class="nav-number">3.</span> <span class="nav-text">Redis配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis数据类型"><span class="nav-number">4.</span> <span class="nav-text">Redis数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串-strings"><span class="nav-number">4.1.</span> <span class="nav-text">字符串(strings)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表-lists"><span class="nav-number">4.2.</span> <span class="nav-text">列表(lists)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#散列-hash"><span class="nav-number">4.3.</span> <span class="nav-text">散列(hash)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无序集合-unorder-set"><span class="nav-number">4.4.</span> <span class="nav-text">无序集合(unorder set)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有序集合-order-set"><span class="nav-number">4.5.</span> <span class="nav-text">有序集合(order set)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis命令"><span class="nav-number">5.</span> <span class="nav-text">Redis命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令"><span class="nav-number">5.1.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置相关"><span class="nav-number">5.2.</span> <span class="nav-text">设置相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接操作"><span class="nav-number">5.3.</span> <span class="nav-text">连接操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化"><span class="nav-number">5.4.</span> <span class="nav-text">持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程服务"><span class="nav-number">5.5.</span> <span class="nav-text">远程服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值-value-操作"><span class="nav-number">5.6.</span> <span class="nav-text">值(value)操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串-string-操作"><span class="nav-number">5.7.</span> <span class="nav-text">字符串(string)操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表-list-操作"><span class="nav-number">5.8.</span> <span class="nav-text">列表(list)操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合-set-操作"><span class="nav-number">5.9.</span> <span class="nav-text">集合(set)操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有序集合-sorted-set-操作"><span class="nav-number">5.10.</span> <span class="nav-text">有序集合(sorted set)操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash操作"><span class="nav-number">5.11.</span> <span class="nav-text">hash操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis高级应用"><span class="nav-number">6.</span> <span class="nav-text">Redis高级应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安全性"><span class="nav-number">6.1.</span> <span class="nav-text">安全性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从复制"><span class="nav-number">6.2.</span> <span class="nav-text">主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主从复制栗子"><span class="nav-number">6.2.1.</span> <span class="nav-text">主从复制栗子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务处理"><span class="nav-number">6.3.</span> <span class="nav-text">事务处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化机制"><span class="nav-number">6.4.</span> <span class="nav-text">持久化机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存"><span class="nav-number">6.5.</span> <span class="nav-text">虚拟内存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意"><span class="nav-number">7.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多数据库"><span class="nav-number">8.</span> <span class="nav-text">多数据库</span></a></li></ol></div>
             
 
           </div>
@@ -1007,7 +1022,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 207.6k</span>
+  <span class="post-count"> 字数: 217.8k</span>
 </div>
 
 
