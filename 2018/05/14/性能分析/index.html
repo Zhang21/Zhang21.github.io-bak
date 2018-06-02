@@ -93,18 +93,18 @@
 
 
 
-<meta name="description" content="环境：  CentOS7.x84_64  参考:  strace命令: http://man.linuxde.net/strace pstack命令: http://man.linuxde.net/pstack 系统调用: https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8 Linux系统调用列表: https://">
+<meta name="description" content="环境：  CentOS7.x84_64  参考:  strace命令: http://man.linuxde.net/strace pstack命令: http://man.linuxde.net/pstack lsof命令: http://man.linuxde.net/lsof 系统调用: https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E8%">
 <meta name="keywords" content="Linux,系统调优">
 <meta property="og:type" content="article">
 <meta property="og:title" content="性能分析">
 <meta property="og:url" content="https://zhang21.github.io/2018/05/14/性能分析/index.html">
 <meta property="og:site_name" content="风继续吹">
-<meta property="og:description" content="环境：  CentOS7.x84_64  参考:  strace命令: http://man.linuxde.net/strace pstack命令: http://man.linuxde.net/pstack 系统调用: https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8 Linux系统调用列表: https://">
+<meta property="og:description" content="环境：  CentOS7.x84_64  参考:  strace命令: http://man.linuxde.net/strace pstack命令: http://man.linuxde.net/pstack lsof命令: http://man.linuxde.net/lsof 系统调用: https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E8%">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-14T08:59:31.000Z">
+<meta property="og:updated_time" content="2018-05-22T02:08:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="性能分析">
-<meta name="twitter:description" content="环境：  CentOS7.x84_64  参考:  strace命令: http://man.linuxde.net/strace pstack命令: http://man.linuxde.net/pstack 系统调用: https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8 Linux系统调用列表: https://">
+<meta name="twitter:description" content="环境：  CentOS7.x84_64  参考:  strace命令: http://man.linuxde.net/strace pstack命令: http://man.linuxde.net/pstack lsof命令: http://man.linuxde.net/lsof 系统调用: https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E8%">
 
 
 
@@ -402,7 +402,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,255
+                  3,462
                 </span>
               
 
@@ -435,6 +435,7 @@
 <ul>
 <li>strace命令: <a href="http://man.linuxde.net/strace" target="_blank" rel="noopener">http://man.linuxde.net/strace</a></li>
 <li>pstack命令: <a href="http://man.linuxde.net/pstack" target="_blank" rel="noopener">http://man.linuxde.net/pstack</a></li>
+<li>lsof命令: <a href="http://man.linuxde.net/lsof" target="_blank" rel="noopener">http://man.linuxde.net/lsof</a></li>
 <li>系统调用: <a href="https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8</a></li>
 <li>Linux系统调用列表: <a href="https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html#8" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html#8</a></li>
 <li>高CPU分析: <a href="http://blog.51cto.com/yaocoder/1543352" target="_blank" rel="noopener">http://blog.51cto.com/yaocoder/1543352</a></li>
@@ -1564,10 +1565,16 @@
 <p><br><br><br></p>
 <hr>
 <p><br></p>
+<h1 id="lsof命令"><a href="#lsof命令" class="headerlink" title="lsof命令"></a>lsof命令</h1><p>lsof命令用于查看你进程开打的文件，打开文件的进程，进程打开的端口(TCP、UDP)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">-a：列出打开文件存在的进程</div><div class="line">-c&lt;进程名&gt;：列出指定进程所打开的文件</div><div class="line">-g：列出GID号进程详情</div><div class="line">-d&lt;文件号&gt;：列出占用该文件号的进程</div><div class="line">+d&lt;目录&gt;：列出目录下被打开的文件</div><div class="line">+D&lt;目录&gt;：递归列出目录下被打开的文件</div><div class="line">-n&lt;目录&gt;：列出使用NFS的文件</div><div class="line">-i&lt;条件&gt;：列出符合条件的进程（4、6、协议、:端口、 @ip ）</div><div class="line">-p&lt;进程号&gt;：列出指定进程号所打开的文件</div><div class="line">-u：列出UID号进程详情</div><div class="line">-h：显示帮助信息</div><div class="line">-v：显示版本信息</div></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
 <h1 id="高CPU占用分析"><a href="#高CPU占用分析" class="headerlink" title="高CPU占用分析"></a>高CPU占用分析</h1><p>步骤：</p>
 <ul>
 <li>查看进程 <code>top</code></li>
 <li>查看线程 <code>top -H -p $pid</code></li>
+<li>查看进程打开连接数 <code>lsof -p ${pid}</code></li>
 <li>追踪 <code>strace -T -r -c -p $pid</code></li>
 <li>栈 <code>pstack $pid</code></li>
 </ul>
@@ -1720,7 +1727,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1785,7 +1792,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#系统调用"><span class="nav-number">1.</span> <span class="nav-text">系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux系统调用方法"><span class="nav-number">1.1.</span> <span class="nav-text">Linux系统调用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#strace命令"><span class="nav-number">2.</span> <span class="nav-text">strace命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题案例"><span class="nav-number">2.1.</span> <span class="nav-text">问题案例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pstack命令"><span class="nav-number">3.</span> <span class="nav-text">pstack命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高CPU占用分析"><span class="nav-number">4.</span> <span class="nav-text">高CPU占用分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#系统调用"><span class="nav-number">1.</span> <span class="nav-text">系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux系统调用方法"><span class="nav-number">1.1.</span> <span class="nav-text">Linux系统调用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#strace命令"><span class="nav-number">2.</span> <span class="nav-text">strace命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题案例"><span class="nav-number">2.1.</span> <span class="nav-text">问题案例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pstack命令"><span class="nav-number">3.</span> <span class="nav-text">pstack命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lsof命令"><span class="nav-number">4.</span> <span class="nav-text">lsof命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高CPU占用分析"><span class="nav-number">5.</span> <span class="nav-text">高CPU占用分析</span></a></li></ol></div>
             
 
           </div>
@@ -1817,7 +1824,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 229.9k</span>
+  <span class="post-count"> 字数: 245.4k</span>
 </div>
 
 

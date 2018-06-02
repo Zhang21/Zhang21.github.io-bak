@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="风继续吹">
 <meta property="og:description" content="参考：  http://www.supervisord.org  环境：  Supervisor 3.3.4 CentOS7.x86_64">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-10T01:05:11.000Z">
+<meta property="og:updated_time" content="2018-05-23T09:26:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Supervisor">
 <meta name="twitter:description" content="参考：  http://www.supervisord.org  环境：  Supervisor 3.3.4 CentOS7.x86_64">
@@ -402,7 +402,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,786
+                  2,027
                 </span>
               
 
@@ -508,8 +508,10 @@
 <p><br><br><br></p>
 <h2 id="创建一个配置文件"><a href="#创建一个配置文件" class="headerlink" title="创建一个配置文件"></a>创建一个配置文件</h2><p>由于我是通过<code>yum</code>安装，所以<code>supervisor</code>配置文件自动在<code>/etc</code>下自动生成：</p>
 <ul>
-<li>默认配置文件： <code>/etc/supervisord.conf</code></li>
-<li>目录： <code>/etc/supervisord.d</code></li>
+<li><p>默认配置文件： <code>/etc/supervisord.conf</code><br>建议在此配置文件中加入<code>[include]</code>，默认已包含此配置</p>
+</li>
+<li><p>目录： <code>/etc/supervisord.d</code><br>建议将每个配置单独写在此目录下</p>
+</li>
 </ul>
 <p><br><br><br></p>
 <hr>
@@ -590,7 +592,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">serverurl</div><div class="line"></div><div class="line">#与前面设置的验证账户一致</div><div class="line">username</div><div class="line">password</div><div class="line"></div><div class="line">prompt</div><div class="line"></div><div class="line">history_file</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h2 id="program-x"><a href="#program-x" class="headerlink" title="[program:x]"></a>[program:x]</h2><p>supervisord知道的应该启动和控制的程序。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">command</div><div class="line"></div><div class="line">process_name</div><div class="line"></div><div class="line">numproc</div><div class="line"></div><div class="line">numprocs_start</div><div class="line"></div><div class="line">priority</div><div class="line"></div><div class="line">autostart</div><div class="line"></div><div class="line">startsecs</div><div class="line"></div><div class="line">startretries</div><div class="line"></div><div class="line">autorestart</div><div class="line"></div><div class="line">exitcodes</div><div class="line"></div><div class="line">stopsignal</div><div class="line"></div><div class="line">stopwaitsecs</div><div class="line"></div><div class="line">stopagroup</div><div class="line"></div><div class="line">killasgroup</div><div class="line"></div><div class="line">user</div><div class="line"></div><div class="line">redirect_stderr</div><div class="line"></div><div class="line">stdout_logfile</div><div class="line">stdout_logfile_maxbytes</div><div class="line">stdout_logfile_backups</div><div class="line">stdout_capture_maxbytes</div><div class="line">stdout_events_enabled</div><div class="line"></div><div class="line">stderr_logfile</div><div class="line">stderr_logfile_maxbytes</div><div class="line">stderr_logfile_backups</div><div class="line">stderr_capture_maxbytes</div><div class="line">stderr_events_enabled</div><div class="line"></div><div class="line">environment</div><div class="line"></div><div class="line">directory</div><div class="line"></div><div class="line">umask</div><div class="line"></div><div class="line">serverurl</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"> #该程序启动时将运行的命令</div><div class="line">command</div><div class="line"></div><div class="line"> #进程名称</div><div class="line">process_name</div><div class="line"></div><div class="line"> #多个实例</div><div class="line">numproc</div><div class="line"></div><div class="line"> #用于计算numprocs开始的数量</div><div class="line">numprocs_start</div><div class="line"></div><div class="line"> #程序在启动和关闭顺序中的相对优先级</div><div class="line">priority</div><div class="line"></div><div class="line"> #当supervisord启动时，改程序将自动启动</div><div class="line">autostart</div><div class="line"></div><div class="line"> #程序在启动后需要保持运行以考虑启动成功的总秒数，设置为0表示不需要再任何特定的事件内保持运行</div><div class="line">startsecs</div><div class="line"></div><div class="line"> #允许失败的尝试次数，然后放弃并将进程置入fatal状态</div><div class="line">startretries</div><div class="line"></div><div class="line"> #自动重启进程</div><div class="line">autorestart</div><div class="line"></div><div class="line"> #异常退出码</div><div class="line">exitcodes</div><div class="line"></div><div class="line"> #请求停止时用于杀死程序的信号</div><div class="line">stopsignal</div><div class="line"></div><div class="line"> #发送停止信号后，等待系统将信号返回给supervisord的秒数</div><div class="line">stopwaitsecs</div><div class="line"></div><div class="line"> #将停止信号发送给整个进程组</div><div class="line">stopagroup</div><div class="line"></div><div class="line"> #</div><div class="line">killasgroup</div><div class="line"></div><div class="line"> #以哪个用户运行该程序</div><div class="line">user</div><div class="line"></div><div class="line">redirect_stderr</div><div class="line"></div><div class="line">stdout_logfile</div><div class="line">stdout_logfile_maxbytes</div><div class="line">stdout_logfile_backups</div><div class="line">stdout_capture_maxbytes</div><div class="line">stdout_events_enabled</div><div class="line"></div><div class="line">stderr_logfile</div><div class="line">stderr_logfile_maxbytes</div><div class="line">stderr_logfile_backups</div><div class="line">stderr_capture_maxbytes</div><div class="line">stderr_events_enabled</div><div class="line"></div><div class="line">environment</div><div class="line"></div><div class="line">directory</div><div class="line"></div><div class="line">umask</div><div class="line"></div><div class="line">serverurl</div></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h2 id="include"><a href="#include" class="headerlink" title="[include]"></a>[include]</h2><p>如果配置文件包含<code>[include]</code>部分，则它必须包含一个名为<code>files</code>的key。该key中的值包含了其它配置文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#文件空间的空格分隔序列，路径可以是相对或绝对。</div><div class="line">files</div></pre></td></tr></table></figure>
@@ -755,7 +757,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -852,7 +854,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 229.9k</span>
+  <span class="post-count"> 字数: 245.4k</span>
 </div>
 
 
