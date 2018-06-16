@@ -402,7 +402,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  5,616
+                  5,636
                 </span>
               
 
@@ -976,7 +976,7 @@
 <p><br></p>
 <h2 id="sbin"><a href="#sbin" class="headerlink" title="/sbin"></a>/sbin</h2><p><code>/sbin</code> :系统二进制文件</p>
 <p>系统管理的实用程序(命令)，存储在<code>/sbin, /usr/sbin, /usr/local/sbin</code>中。<br><code>/sbin</code>包含<strong>启动，恢复，修复</strong>系统，以及<code>/bin</code>中二进制文件所必须的二进制文件。<br>本地安装的系统管理程序应放置在<code>/usr/local/sbin</code>中。</p>
-<p><br><br>The following commands or symbolic-links to commands are required in /sbin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">shutdown		#关闭系统</div></pre></td></tr></table></figure></p>
+<p><br><br>The following commands or symbolic-links to commands are required in /sbin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shutdown		#关闭系统</span><br></pre></td></tr></table></figure></p>
 <p><br><br>The following files or symbolic-links to files，must be in /sbin if the corresponding subsystem is installed</p>
 <table>
 <thead>
@@ -1678,10 +1678,10 @@
 <p><br></p>
 <h3 id="sbin-基本系统二进制文件"><a href="#sbin-基本系统二进制文件" class="headerlink" title="/sbin :基本系统二进制文件"></a>/sbin :基本系统二进制文件</h3><p>Linux系统将这些附加文件放置于<code>/sbin</code>中：</p>
 <p><strong>第二扩展文件系统命令（可选）：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">badblocks</div><div class="line">dumpe2fs</div><div class="line">e2fsck</div><div class="line">mke2fs</div><div class="line">mklost+found</div><div class="line">tune2fs</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">badblocks</span><br><span class="line">dumpe2fs</span><br><span class="line">e2fsck</span><br><span class="line">mke2fs</span><br><span class="line">mklost+found</span><br><span class="line">tune2fs</span><br></pre></td></tr></table></figure>
 <p><strong>boot-loader 映射安装程序（可选）：</strong><br><code>lilo</code></p>
 <p><strong>静态二进制文件：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ldconfig</div><div class="line">sln(static ln)</div><div class="line">ssync(static sync)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ldconfig</span><br><span class="line">sln(static ln)</span><br><span class="line">ssync(static sync)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>出现问题时，sln（静态ln）和ssync（静态同步）非常有用；<br>idconfig程序可以作为升级知道的手段；<br>sln的主要用途，修复不良协调升级后/lib中不正确的符号链接动态库。</p>
 </blockquote>
@@ -1692,12 +1692,12 @@
 <li>我有一个静态ln，但我不知道怎么称呼这个链接。</li>
 </ul>
 <p><strong>杂项：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ctrl+alt+del</div><div class="line">ctrlaltdel</div><div class="line"></div><div class="line">#keyboard rate</div><div class="line">kbdrate</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ctrl+alt+del</span><br><span class="line">ctrlaltdel</span><br><span class="line"></span><br><span class="line">#keyboard rate</span><br><span class="line">kbdrate</span><br></pre></td></tr></table></figure>
 <p>为了应对某些键盘出现如此高的重复速率一致无法使用,<code>kbdrate</code>可以安装在某些系统上的<code>/sbin</code>中；</p>
 <p>由于<code>ctrl+alt+del</code>组合键在内核中的默认操作是<strong>硬重启</strong>，因此通常建议在将根文件系统挂在到读写模式之前禁用该行为。这就可能需要<code>ctrlaltdel</code>程序，它可以安装在系统的<code>/sbin</code>中。</p>
 <p><br></p>
 <h2 id="usr-include-C程序包含的头文件"><a href="#usr-include-C程序包含的头文件" class="headerlink" title="/usr/include :C程序包含的头文件"></a>/usr/include :C程序包含的头文件</h2><p>如果安装了C或C++编译器，则只有非 基于glibc的系统才需要这些链接符号。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/usr/include/asm  -&gt; /usr/src/linux/include/asm-&lt;arch&gt;</div><div class="line">/usr/include/linux  -&gt; /usr/src/linux/include/linux</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/include/asm  -&gt; /usr/src/linux/include/asm-&lt;arch&gt;</span><br><span class="line">/usr/include/linux  -&gt; /usr/src/linux/include/linux</span><br></pre></td></tr></table></figure>
 <p><br></p>
 <h2 id="usr-src-源代码"><a href="#usr-src-源代码" class="headerlink" title="/usr/src :源代码"></a>/usr/src :源代码</h2><p>对于基于glibc的系统，此目录没有具体指导。</p>
 <p>对于glibc之前基于linux libc修订版的系统： <code>/usr/src/linux</code>是唯一放置Linux内核源代码的位置。</p>
@@ -1832,7 +1832,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1854,7 +1854,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1951,7 +1951,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 245.4k</span>
+  <span class="post-count"> 字数: 279.8k</span>
 </div>
 
 

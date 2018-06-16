@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Wireshark," />
 
 
 
@@ -93,16 +93,18 @@
 
 
 
-<meta name="description" content="踏踏实实谋发展">
-<meta property="og:type" content="website">
-<meta property="og:title" content="风继续吹">
-<meta property="og:url" content="https://zhang21.github.io/tags/HTTP/index.html">
+<meta name="description" content="过滤语法wireshark过滤分为两种:  抓包过滤 显示过滤    尽量避免使用抓包过滤。即便多看几个报文，也比漏掉一个报文要好。   抓包过滤类型  host net port   方向  src dst   协议  ether ip/arp tcp/udp http/dns/ftp/icmp …   逻辑运算符  &amp;amp;&amp;amp; || !   栗子： 1234567891011121">
+<meta name="keywords" content="Wireshark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Wireshark">
+<meta property="og:url" content="https://zhang21.github.io/2017/10/25/wireshark/index.html">
 <meta property="og:site_name" content="风继续吹">
-<meta property="og:description" content="踏踏实实谋发展">
+<meta property="og:description" content="过滤语法wireshark过滤分为两种:  抓包过滤 显示过滤    尽量避免使用抓包过滤。即便多看几个报文，也比漏掉一个报文要好。   抓包过滤类型  host net port   方向  src dst   协议  ether ip/arp tcp/udp http/dns/ftp/icmp …   逻辑运算符  &amp;amp;&amp;amp; || !   栗子： 1234567891011121">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-12T09:41:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="风继续吹">
-<meta name="twitter:description" content="踏踏实实谋发展">
+<meta name="twitter:title" content="Wireshark">
+<meta name="twitter:description" content="过滤语法wireshark过滤分为两种:  抓包过滤 显示过滤    尽量避免使用抓包过滤。即便多看几个报文，也比漏掉一个报文要好。   抓包过滤类型  host net port   方向  src dst   协议  ether ip/arp tcp/udp http/dns/ftp/icmp …   逻辑运算符  &amp;amp;&amp;amp; || !   栗子： 1234567891011121">
 
 
 
@@ -132,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://zhang21.github.io/tags/HTTP/"/>
+  <link rel="canonical" href="https://zhang21.github.io/2017/10/25/wireshark/"/>
 
 
 
 
 
-  <title>标签: HTTP | 风继续吹</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Wireshark | 风继续吹</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -157,7 +159,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -285,54 +287,299 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>HTTP<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2017/10/25/wireshark/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang21">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/leslie.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风继续吹">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2017/12/01/HTTP-method-status/" itemprop="url">
-              
-                <span itemprop="name">HTTP请求方法和状态码</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Wireshark</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-12-01T13:53:20+08:00"
-              content="2017-12-01" >
-          12-01
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T15:47:39+08:00">
+                2017-10-25
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Network/" itemprop="url" rel="index">
+                    <span itemprop="name">Network</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/25/wireshark/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/10/25/wireshark/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  300
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<h1 id="过滤语法"><a href="#过滤语法" class="headerlink" title="过滤语法"></a>过滤语法</h1><p>wireshark过滤分为两种:</p>
+<ul>
+<li>抓包过滤</li>
+<li>显示过滤</li>
+</ul>
+<p><br></p>
+<blockquote>
+<p><strong>尽量避免使用抓包过滤。即便多看几个报文，也比漏掉一个报文要好。</strong></p>
+</blockquote>
+<p><br><br><br></p>
+<h2 id="抓包过滤"><a href="#抓包过滤" class="headerlink" title="抓包过滤"></a>抓包过滤</h2><p><strong>类型</strong></p>
+<ul>
+<li>host</li>
+<li>net</li>
+<li>port</li>
+</ul>
+<p><br></p>
+<p><strong>方向</strong></p>
+<ul>
+<li>src</li>
+<li>dst</li>
+</ul>
+<p><br></p>
+<p><strong>协议</strong></p>
+<ul>
+<li>ether</li>
+<li>ip/arp</li>
+<li>tcp/udp</li>
+<li>http/dns/ftp/icmp</li>
+<li>…</li>
+</ul>
+<p><br></p>
+<p><strong>逻辑运算符</strong></p>
+<ul>
+<li><code>&amp;&amp;</code></li>
+<li><code>||</code></li>
+<li><code>!</code></li>
+</ul>
+<p><br></p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#主机</span><br><span class="line">host www.xx.com</span><br><span class="line">src host 192.168.1.1 &amp;&amp; dst port 80</span><br><span class="line">host 193.168.1.1 || host 192.168.1.2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#广播包</span><br><span class="line">!broadcast</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#MAC</span><br><span class="line">ether host 00:88:ab:56:12:0d</span><br><span class="line">src ether host 00:88:ab:56:12:0d</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#IP</span><br><span class="line">host 192.168.1.1</span><br><span class="line">dst host 192.168.1.1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#net</span><br><span class="line">net 192.168.1.0/24</span><br><span class="line">src net 192.168.1.0/24</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#vlan</span><br><span class="line">vlan 11</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#Port</span><br><span class="line">port 80</span><br><span class="line">! port 443</span><br><span class="line">dst port 80</span><br><span class="line">udp dst port 5678</span><br><span class="line">portrange 1-80</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="显示过滤"><a href="#显示过滤" class="headerlink" title="显示过滤"></a>显示过滤</h2><p><strong>比较操作符</strong></p>
+<ul>
+<li><code>==</code></li>
+<li><code>!=</code></li>
+<li><code>&gt;</code></li>
+<li><code>&lt;</code></li>
+<li><code>&gt;=</code></li>
+<li><code>&lt;=</code></li>
+</ul>
+<p><br></p>
+<p><strong>逻辑操作符</strong></p>
+<ul>
+<li><code>and</code></li>
+<li><code>or</code></li>
+<li><code>xor</code></li>
+<li><code>not</code></li>
+</ul>
+<p><br></p>
+<p><strong>IP</strong></p>
+<ul>
+<li><code>ip.addr</code></li>
+<li><code>ip.src</code></li>
+<li><code>ip.dst</code></li>
+</ul>
+<p><br></p>
+<p><strong>Port</strong></p>
+<ul>
+<li><code>tcp.port</code></li>
+<li><code>tcp.srcport</code></li>
+<li><code>tcp.dstport</code></li>
+<li><code>tcp.flag.syn</code></li>
+<li><code>tcp.flag.ack</code></li>
+</ul>
+<p><br></p>
+<p><strong>Protocol</strong></p>
+<ul>
+<li><code>arp</code></li>
+<li><code>ip</code></li>
+<li><code>icmp</code></li>
+<li><code>udp</code></li>
+<li><code>tcp</code></li>
+<li><code>dns</code></li>
+<li>…</li>
+</ul>
+<p><br></p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#ip</span><br><span class="line">ip.addr == 1.1.1.1</span><br><span class="line">ip.src == 1.1.1.1 and ip.dst == 2.2.2.2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#port</span><br><span class="line">tcp.port == 80</span><br><span class="line">tcp.dstport == 80</span><br><span class="line">tcp.flag.syn == 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#pro</span><br><span class="line">arp</span><br><span class="line">not icmp</span><br></pre></td></tr></table></figure>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Wireshark/" rel="tag"># Wireshark</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/24/LinuxShell/" rel="next" title="Linux">
+                <i class="fa fa-chevron-left"></i> Linux
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/06/Love-at-First-Sight/" rel="prev" title="Love at First Sight">
+                Love at First Sight <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -340,6 +587,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -360,8 +618,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <img class="site-author-image" itemprop="image"
@@ -456,6 +723,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#过滤语法"><span class="nav-number">1.</span> <span class="nav-text">过滤语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抓包过滤"><span class="nav-number">1.1.</span> <span class="nav-text">抓包过滤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示过滤"><span class="nav-number">1.2.</span> <span class="nav-text">显示过滤</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -613,6 +896,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
 
   
 
@@ -630,6 +917,18 @@
       <script id="dsq-count-scr" src="https://Zhang21.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://zhang21.github.io/2017/10/25/wireshark/';
+          this.page.identifier = '2017/10/25/wireshark/';
+          this.page.title = 'Wireshark';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Zhang21.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
@@ -971,39 +1270,7 @@
         onPopupClose();
       }
     });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -1021,6 +1288,18 @@
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
+
+
+
+
+
+  
+
+  
+
+  
+
+  
   
 
 

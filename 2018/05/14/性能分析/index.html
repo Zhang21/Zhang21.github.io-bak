@@ -402,7 +402,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,462
+                  3,479
                 </span>
               
 
@@ -1549,7 +1549,7 @@
 <p>strace的最简单的用法就是执行一个指定的命令，在指定的命令结束之后它也就退出了。在命令执行的过程中，strace会记录和解析命令进程的所有系统调用以及这个进程所接收到的所有的信号值。</p>
 <p>strace可跟踪一个命令或进程。</p>
 <p><br></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">strace - trace system calls and signals</div><div class="line"></div><div class="line">strace --<span class="built_in">help</span></div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">strace - trace system calls and signals</span><br><span class="line"></span><br><span class="line">strace --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h2 id="问题案例"><a href="#问题案例" class="headerlink" title="问题案例"></a>问题案例</h2><p>当发现进程或服务异常时，我们可以通过strace来跟踪其系统调用，“看看它在干啥”，进而找到异常的原因。熟悉常用系统调用，能够更好地理解和使用strace。<br>当然，万能的strace也不是真正的万能。当目标进程卡死在用户态时，strace就没有输出了。</p>
 <ul>
@@ -1561,12 +1561,12 @@
 <hr>
 <p><br></p>
 <h1 id="pstack命令"><a href="#pstack命令" class="headerlink" title="pstack命令"></a>pstack命令</h1><p>pstack命令可显示每个进程(线程)的栈跟踪。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum install -y gdb</div><div class="line"></div><div class="line">pstack $PID</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install -y gdb</span><br><span class="line"></span><br><span class="line">pstack $PID</span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <hr>
 <p><br></p>
 <h1 id="lsof命令"><a href="#lsof命令" class="headerlink" title="lsof命令"></a>lsof命令</h1><p>lsof命令用于查看你进程开打的文件，打开文件的进程，进程打开的端口(TCP、UDP)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">-a：列出打开文件存在的进程</div><div class="line">-c&lt;进程名&gt;：列出指定进程所打开的文件</div><div class="line">-g：列出GID号进程详情</div><div class="line">-d&lt;文件号&gt;：列出占用该文件号的进程</div><div class="line">+d&lt;目录&gt;：列出目录下被打开的文件</div><div class="line">+D&lt;目录&gt;：递归列出目录下被打开的文件</div><div class="line">-n&lt;目录&gt;：列出使用NFS的文件</div><div class="line">-i&lt;条件&gt;：列出符合条件的进程（4、6、协议、:端口、 @ip ）</div><div class="line">-p&lt;进程号&gt;：列出指定进程号所打开的文件</div><div class="line">-u：列出UID号进程详情</div><div class="line">-h：显示帮助信息</div><div class="line">-v：显示版本信息</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-a：列出打开文件存在的进程</span><br><span class="line">-c&lt;进程名&gt;：列出指定进程所打开的文件</span><br><span class="line">-g：列出GID号进程详情</span><br><span class="line">-d&lt;文件号&gt;：列出占用该文件号的进程</span><br><span class="line">+d&lt;目录&gt;：列出目录下被打开的文件</span><br><span class="line">+D&lt;目录&gt;：递归列出目录下被打开的文件</span><br><span class="line">-n&lt;目录&gt;：列出使用NFS的文件</span><br><span class="line">-i&lt;条件&gt;：列出符合条件的进程（4、6、协议、:端口、 @ip ）</span><br><span class="line">-p&lt;进程号&gt;：列出指定进程号所打开的文件</span><br><span class="line">-u：列出UID号进程详情</span><br><span class="line">-h：显示帮助信息</span><br><span class="line">-v：显示版本信息</span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <hr>
 <p><br></p>
@@ -1705,7 +1705,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1727,7 +1727,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1824,7 +1824,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 245.4k</span>
+  <span class="post-count"> 字数: 279.8k</span>
 </div>
 
 
