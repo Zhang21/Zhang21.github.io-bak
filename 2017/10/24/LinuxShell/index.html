@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://zhang21.github.io/images/vim.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Utf8webgrowth.png">
 <meta property="og:image" content="https://zhang21.github.io/images/unicode.png">
-<meta property="og:updated_time" content="2018-06-05T01:24:57.000Z">
+<meta property="og:updated_time" content="2018-06-21T03:31:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux">
 <meta name="twitter:description" content="参考：  《Linux Shell脚本攻略》 《鸟哥的Linux私房菜》">
@@ -3146,7 +3146,7 @@
 <p><br><br><br></p>
 <h2 id="iptables"><a href="#iptables" class="headerlink" title="iptables"></a>iptables</h2><p>iptables/ip6tables — administration tool for IPv4/IPv6 packet filtering and NAT</p>
 <p>切记谨慎使用iptables命令，特别是在远程连接的时候。<br>规则是有顺序的，规则的顺序很重要。当规则顺序排列错误时，会产生很严重的错误。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">iptables --help</span><br><span class="line"></span><br><span class="line">-t&lt;表&gt;： 指定要操纵的表</span><br><span class="line">-A： 向规则链中添加条目</span><br><span class="line">-D： 从规则链中删除条目</span><br><span class="line">-i： 向规则链中插入条目</span><br><span class="line">-R： 替换规则链中的条目</span><br><span class="line">-L： 显示规则链中已有的条目</span><br><span class="line">-F： 清楚规则链中已有的条目</span><br><span class="line">-Z： 清空规则链中的数据包计算器和字节计数器</span><br><span class="line">-X： 删除用户定义的链</span><br><span class="line">-N： 创建新的用户自定义规则链</span><br><span class="line">-P： 定义规则链中的默认目标</span><br><span class="line">-h： 显示帮助信息</span><br><span class="line">-p： 指定要匹配的数据包协议类型</span><br><span class="line">-s： 指定要匹配的数据包源ip地址</span><br><span class="line">-j&lt;目标&gt;： 指定要跳转的目标</span><br><span class="line">-i&lt;网络接口&gt;： 指定数据包进入本机的网络接口</span><br><span class="line">-o&lt;网络接口&gt;： 指定数据包要离开本机所使用的网络接口</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">iptables --help</span><br><span class="line"></span><br><span class="line">-t&lt;表&gt;： 指定要操纵的表</span><br><span class="line">-A： 向规则链中添加条目</span><br><span class="line">-D： 从规则链中删除条目</span><br><span class="line">-I： 向规则链中插入条目</span><br><span class="line">-R： 替换规则链中的条目</span><br><span class="line">-L： 显示规则链中已有的条目</span><br><span class="line">-F： 清楚规则链中已有的条目</span><br><span class="line">-Z： 清空规则链中的数据包计算器和字节计数器</span><br><span class="line">-X： 删除用户定义的链</span><br><span class="line">-N： 创建新的用户自定义规则链</span><br><span class="line">-P： 定义规则链中的默认目标</span><br><span class="line">-h： 显示帮助信息</span><br><span class="line">-p： 指定要匹配的数据包协议类型</span><br><span class="line">-s： 指定要匹配的数据包源ip地址</span><br><span class="line">-j&lt;目标&gt;： 指定要跳转的目标</span><br><span class="line">-i&lt;网络接口&gt;： 指定数据包进入本机的网络接口</span><br><span class="line">-o&lt;网络接口&gt;： 指定数据包要离开本机所使用的网络接口</span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h3 id="表格-链-动作"><a href="#表格-链-动作" class="headerlink" title="表格/链/动作"></a>表格/链/动作</h3><p>为什么称为iptables? 因为此软件里面有多个表格(table)，每个表格定义了自己的默认策略和规则，且每个表格的用途都不相同。</p>
 <p><strong>表(Table)</strong></p>
@@ -3362,7 +3362,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -3459,7 +3459,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 279.8k</span>
+  <span class="post-count"> 字数: 268.9k</span>
 </div>
 
 

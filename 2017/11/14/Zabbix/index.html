@@ -93,13 +93,13 @@
 
 
 
-<meta name="description" content="参考： Zabbix官方网站Zabbix中文文档Zabbix-repo仓库: http://repo.zabbix.com , 阿里云镜像: https://mirrors.aliyun.com/zabbix/zabbix/ . 环境： CentOS7x86_64, Zabbix 3.4。">
+<meta name="description" content="参考：  Zabbix官方网站 Zabbix中文文档 Zabbix-repo仓库: http://repo.zabbix.com 阿里云镜像: https://mirrors.aliyun.com/zabbix/zabbix/ .  环境：  CentOS7x86_64 Zabbix 3.4">
 <meta name="keywords" content="Zabbix">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zabbix">
 <meta property="og:url" content="https://zhang21.github.io/2017/11/14/Zabbix/index.html">
 <meta property="og:site_name" content="风继续吹">
-<meta property="og:description" content="参考： Zabbix官方网站Zabbix中文文档Zabbix-repo仓库: http://repo.zabbix.com , 阿里云镜像: https://mirrors.aliyun.com/zabbix/zabbix/ . 环境： CentOS7x86_64, Zabbix 3.4。">
+<meta property="og:description" content="参考：  Zabbix官方网站 Zabbix中文文档 Zabbix-repo仓库: http://repo.zabbix.com 阿里云镜像: https://mirrors.aliyun.com/zabbix/zabbix/ .  环境：  CentOS7x86_64 Zabbix 3.4">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/zabbix_database.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Zabbix/zabbix_conf.png">
@@ -166,10 +166,10 @@
 <meta property="og:image" content="https://zhang21.github.io/images/Zabbix/SDK06.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Zabbix/SDK07.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Zabbix/action.png">
-<meta property="og:updated_time" content="2018-02-24T11:03:55.440Z">
+<meta property="og:updated_time" content="2018-06-21T06:21:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zabbix">
-<meta name="twitter:description" content="参考： Zabbix官方网站Zabbix中文文档Zabbix-repo仓库: http://repo.zabbix.com , 阿里云镜像: https://mirrors.aliyun.com/zabbix/zabbix/ . 环境： CentOS7x86_64, Zabbix 3.4。">
+<meta name="twitter:description" content="参考：  Zabbix官方网站 Zabbix中文文档 Zabbix-repo仓库: http://repo.zabbix.com 阿里云镜像: https://mirrors.aliyun.com/zabbix/zabbix/ .  环境：  CentOS7x86_64 Zabbix 3.4">
 <meta name="twitter:image" content="https://zhang21.github.io/images/zabbix_database.png">
 
 
@@ -468,7 +468,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  21,237
+                  21,378
                 </span>
               
 
@@ -494,9 +494,17 @@
 
       
         <p>参考：</p>
-<p><a href="https://www.zabbix.com/" target="_blank" rel="noopener">Zabbix官方网站</a><br><a href="https://www.zabbix.com/documentation/3.4/zh/manual/" target="_blank" rel="noopener">Zabbix中文文档</a><br>Zabbix-repo仓库: <a href="http://repo.zabbix.com" target="_blank" rel="noopener">http://repo.zabbix.com</a> , 阿里云镜像: <a href="https://mirrors.aliyun.com/zabbix/zabbix/" target="_blank" rel="noopener">https://mirrors.aliyun.com/zabbix/zabbix/</a> .</p>
+<ul>
+<li><a href="https://www.zabbix.com/" target="_blank" rel="noopener">Zabbix官方网站</a></li>
+<li><a href="https://www.zabbix.com/documentation/3.4/zh/manual/" target="_blank" rel="noopener">Zabbix中文文档</a></li>
+<li>Zabbix-repo仓库: <a href="http://repo.zabbix.com" target="_blank" rel="noopener">http://repo.zabbix.com</a></li>
+<li>阿里云镜像: <a href="https://mirrors.aliyun.com/zabbix/zabbix/" target="_blank" rel="noopener">https://mirrors.aliyun.com/zabbix/zabbix/</a> .</li>
+</ul>
 <p>环境：</p>
-<p>CentOS7x86_64, Zabbix 3.4。</p>
+<ul>
+<li>CentOS7x86_64</li>
+<li>Zabbix 3.4</li>
+</ul>
 <p><br><br><br><br><a id="more"></a></p>
 <hr>
 <p><br></p>
@@ -1525,6 +1533,27 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">location /nginx_status &#123;</span><br><span class="line">	allow IP;</span><br><span class="line">	deny all;</span><br><span class="line">	stub_status on;</span><br><span class="line">    access_log off;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#栗子</span></span><br><span class="line">Active connections: 14</span><br><span class="line">server accepts handled requests</span><br><span class="line"> 22889 22889 72510</span><br><span class="line">Reading: 0 Writing: 2 Waiting: 12</span><br></pre></td></tr></table></figure>
 <p><img src="/images/Zabbix/nginx_status.png" alt="nginx_status栗子"></p>
 <p><br></p>
+<p><strong>一些状态信息</strong></p>
+<ul>
+<li><p>Active connections<br>当前active client的连接数，包括<code>Wating</code></p>
+</li>
+<li><p>accepts<br>接受的客户端连接总数</p>
+</li>
+<li><p>handled<br>已处理的连接总数。通常，handled与accepts相同，除非已达到了资源限制(如worker_connections限制)</p>
+</li>
+<li><p>requests<br>客户端请求总数</p>
+</li>
+<li><p>Reading<br>当前nginx正在读取request header的连接数</p>
+</li>
+<li><p>Writing<br>当前Nginx将reponse写回客户端的连接数</p>
+</li>
+<li><p>Waiting<br>当前等待请求的空闲客户端的连接数</p>
+</li>
+</ul>
+<p><br></p>
+<p>上面的结果还可通过命令来查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -n | awk &apos;/^tcp/ &#123;++S[$NF]&#125; END &#123;for(a in S) print a,S[a]&#125;&apos;</span><br></pre></td></tr></table></figure>
+<p><br></p>
 <p>以上数据是通过Web端查看。<br>但，我们需要把数据收集到Zabbix-Server。还需要使用之前下载同MongoDB，php-fpm一起的那个包。</p>
 <p><strong>操作，基本还是类似MongoDB，php-fpm。只是个别参数需要修改一下。</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">cd ./zabbix-master/nginx/</span><br><span class="line">cp ./nginx.sh /etc/zabbix/</span><br><span class="line">chmod a+x /etc/zabbix/nginx.sh</span><br><span class="line"></span><br><span class="line">cp ./userparameter_nginx.conf /etc/zabbix/zabbix_agentd.d</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vim /etc/zabbix/nginx.sh</span><br><span class="line"></span><br><span class="line">#HOST=&quot;localhost&quot;</span><br><span class="line">PORT=&quot;80&quot;</span><br><span class="line">#stub_status=stub_status</span><br><span class="line">stub_status=nginx_status</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vim /etc/zabbix/zabbix_agentd.d/userparameter_nginx.conf</span><br><span class="line"></span><br><span class="line">#修改成脚本对应的位置</span><br><span class="line">UserParameter=nginx.status[*],/etc/zabbix/nginx.sh $1</span><br></pre></td></tr></table></figure>
@@ -1993,7 +2022,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2090,7 +2119,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 279.8k</span>
+  <span class="post-count"> 字数: 268.9k</span>
 </div>
 
 

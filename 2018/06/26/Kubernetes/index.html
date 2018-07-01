@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Kubernetes," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="参考：  Kubernetes: https://zh.wikipedia.org/wiki/Kubernetes 官方文档: https://kubernetes.io/cn/docs/ 中文文档: http://docs.kubernetes.org.cn/ GitHub: https://github.com/kubernetes/kubernetes  环境：  CentOSx86_64">
+<meta name="keywords" content="Kubernetes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes">
+<meta property="og:url" content="https://zhang21.github.io/2018/06/26/Kubernetes/index.html">
+<meta property="og:site_name" content="风继续吹">
+<meta property="og:description" content="参考：  Kubernetes: https://zh.wikipedia.org/wiki/Kubernetes 官方文档: https://kubernetes.io/cn/docs/ 中文文档: http://docs.kubernetes.org.cn/ GitHub: https://github.com/kubernetes/kubernetes  环境：  CentOSx86_64">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://zhang21.github.io/images/K8s/Kubernetes_logo.png">
+<meta property="og:updated_time" content="2018-06-28T07:28:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kubernetes">
+<meta name="twitter:description" content="参考：  Kubernetes: https://zh.wikipedia.org/wiki/Kubernetes 官方文档: https://kubernetes.io/cn/docs/ 中文文档: http://docs.kubernetes.org.cn/ GitHub: https://github.com/kubernetes/kubernetes  环境：  CentOSx86_64">
+<meta name="twitter:image" content="https://zhang21.github.io/images/K8s/Kubernetes_logo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang21.github.io/2018/06/26/Kubernetes/"/>
+
+
+
+
+
+  <title>Kubernetes | 风继续吹</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风继续吹</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Yesterday, you said tomorrow!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2018/06/26/Kubernetes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang21">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/leslie.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风继续吹">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Kubernetes</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-26T11:38:33+08:00">
+                2018-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/26/Kubernetes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/26/Kubernetes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5,803
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考：</p>
+<ul>
+<li>Kubernetes: <a href="https://zh.wikipedia.org/wiki/Kubernetes" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/Kubernetes</a></li>
+<li>官方文档: <a href="https://kubernetes.io/cn/docs/" target="_blank" rel="noopener">https://kubernetes.io/cn/docs/</a></li>
+<li>中文文档: <a href="http://docs.kubernetes.org.cn/" target="_blank" rel="noopener">http://docs.kubernetes.org.cn/</a></li>
+<li>GitHub: <a href="https://github.com/kubernetes/kubernetes" target="_blank" rel="noopener">https://github.com/kubernetes/kubernetes</a></li>
+</ul>
+<p>环境：</p>
+<ul>
+<li>CentOSx86_64</li>
+<li>Kubernetes v1.10</li>
+</ul>
+<p><br><br><br></p>
+<a id="more"></a>
+<hr>
+<p><br></p>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p><img src="/images/K8s/Kubernetes_logo.png" alt="Kubernetes"></p>
+<p>Kubernetes（常简称为K8s），Kubernetes的名字来自希腊语，意思是“舵手”或“领航员”。K8s是将8个字母“ubernete”替换为“8”的缩写。<br>它用于自动部署、扩展和管理容器化（containerized）应用程序的开源系统。它旨在提供“跨主机集群的自动部署、扩展以及运行应用程序容器的平台”。它支持一系列容器工具, 包括Docker等。</p>
+<p>通过Kubernetes你可以：</p>
+<ul>
+<li>快速部署应用</li>
+<li>快速扩展应用</li>
+<li>无缝对接新的应用功能</li>
+<li>优化硬件资源，降低成本</li>
+</ul>
+<p>Kubernetes特点：</p>
+<ul>
+<li>可移植(portable)</li>
+<li>可扩展( extensible)</li>
+<li>自动化()</li>
+</ul>
+<p>容器优点：</p>
+<ul>
+<li>快速创建/部署应用</li>
+<li>持续开发、集成和部署(CI/CD)</li>
+<li>开发和运维相分离</li>
+<li>开发、测试、生产环境的一致性</li>
+<li>可移植性</li>
+<li>松耦合、分布式、弹性伸缩、微服务化</li>
+<li>资源隔离</li>
+<li>资源利用</li>
+</ul>
+<p><br></p>
+<p><strong>Kubernetes能做什么</strong><br>Kubernetes还允许开发人员从物理和虚拟机脱离，从以主机为中心的基础架构转移到以容器为中心的基础架构。这样可以日工容器固有的全部优点。</p>
+<p>Kubernetes满足的应用程序常见需求：</p>
+<ul>
+<li>Pod</li>
+<li>挂载外部存储</li>
+<li>分布式secrets</li>
+<li>应用健康检查</li>
+<li>副本应用实例</li>
+<li>横向自动伸缩</li>
+<li>服务发现</li>
+<li>负载均衡</li>
+<li>滚动更新</li>
+<li>资源监控</li>
+<li>日志采集和存储</li>
+<li>自检和调试</li>
+<li>认证和授权</li>
+</ul>
+<p>这提供了<strong>平台即服务(PAAS)</strong>的简单性以及<strong>基础架构即服务(IAAS)</strong>的灵活性，并促进基础设施供应商的可移植性。</p>
+<p><br></p>
+<p><strong>Kubernetes不是什么</strong><br>Kubernetes 不是一个传统意义上，包罗万象的PaaS(平台即服务)系统。</p>
+<ul>
+<li>不限制支持的应用程序类型，不限制应用程序框架</li>
+<li>不提供中间件(如消息中间件)、数据处理框架(如spark)，数据库或集群存储系统</li>
+<li>不提供点击即部署的服务市场</li>
+<li>不部署代码不构建应用</li>
+<li>允许用户选择日志、监控和报警</li>
+<li>不提供或授权一个全面的应用程序配置系统/语言</li>
+<li>不提供任何机器配置、维护、管理或自我修复系统</li>
+</ul>
+<p>你可以自定义你的PAAS，与你选择的CI系统集成，或与Kubernetes一起使用，将你的容器镜像部署到Kubernetes。<br>由于Kubernetes在应用级别而不仅仅在硬件级别上运行，因此它提供了PAAS产品通用的一些功能。如部署、扩展、负载均衡、日志记录、监控等。</p>
+<p><br><br><br></p>
+<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><p>Kubernetes 所需的各种二进制组件, 用于提供齐全的功能。</p>
+<p><br><br><br></p>
+<h3 id="Master组件"><a href="#Master组件" class="headerlink" title="Master组件"></a>Master组件</h3><p>Master组件提供的集群控制。<br>Master组件可在集群中任何节点上运行。然而，为了简单，通常在一台机器上启动所有Master组件，并且不会在此机器上运行用户容器。<br>可使用多个机器的设置来构建<strong>高可用性能集群</strong>。</p>
+<p>master组件：</p>
+<ul>
+<li><p>APIserver<br><code>kube-apiserver</code>对外暴露Kubernetes API。它是Kubernetes前端控制层，任何的资源请求/调用都是通过它提供的接口进行。<br>它被设计为水平扩展，即通过部署更多实例来缩放。</p>
+</li>
+<li><p>etcd<br><code>etcd</code>用于Kubernetes的后端存储。所有集群数据都存储于此。<br>请始终为k8s集群的etcd数据做备份。</p>
+</li>
+<li><p>kube-controller-manager</p>
+<ul>
+<li>节点控制器</li>
+<li>副本控制器</li>
+<li>端点控制器</li>
+<li>服务账户和令牌控制器</li>
+</ul>
+</li>
+</ul>
+<p><code>kube-controller-manager</code>运行控制器,它们是集群中处理常规任务的后台线程。逻辑上，每个控制器是一个单独的进程。但为了降低复杂性，它们都被编译成独立的二进制可执行文件，并在单个进程中运行。</p>
+<p>节点(node)控制器：当节点移除时，负责注意和相应<br>副本(replication)控制器：维护系统中每个副本对象正确数量的pod<br>端点(endpoint)控制器：填充端点对象<br>服务账户(service account)和令牌(token)控制器：为新的命名空间(namespace)创建默认账户和API访问令牌</p>
+<ul>
+<li>cloud-controller-manager<br>云控制器管理器是用于与底层云提供商交互的控制器。它仅运行云提供商特定的控制器循环。你必须在<code>kube-controller-manager</code>中禁用这些控制器循环。</li>
+</ul>
+<p>以下控制器具有云提供商依赖关系：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">节点控制器</span><br><span class="line">路由控制器</span><br><span class="line">服务控制器</span><br><span class="line">数据卷控制器</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>kube-scheduler<br>调度器监视没有分配节点的新创建的pod，选择一个节点供他们运行。</p>
+</li>
+<li><p>addons</p>
+<ul>
+<li>DNS</li>
+<li>用户界面</li>
+<li>容器资源监控</li>
+<li>集群层面日志(cluster-level logging)</li>
+</ul>
+</li>
+</ul>
+<p>插件是实现集群功能的Pod和Service。addon管理器用于创建和维护附加资源。</p>
+<p>DNS: 所有k8s集群都应该具有cluster dns。它是一个DNS服务器，为Kubernetes服务提供DNS记录。Kubernetes启动的容器自动将DNS服务器包含在DNS搜索中。<br>集群层面日志机制负责将容器的日志数据保存到一个集中的日志存储中，改存储能够提供搜索和浏览接口。</p>
+<p><br></p>
+<h3 id="节点组件"><a href="#节点组件" class="headerlink" title="节点组件"></a>节点组件</h3><p>节点(node)组件在每个节点上运行，维护运行的pod并提供Kubernetes运行时环境。</p>
+<p>节点组件：</p>
+<ul>
+<li>kubelet<ul>
+<li>挂载pod所需的数据卷</li>
+<li>下载pod的secrets</li>
+<li>pod中运行docker容器</li>
+<li>周期性的容器健康检查</li>
+<li>如有需要，通过创建<code>mirror pod</code>将pod的状态报告回系统的其余部分</li>
+<li>将节点的状态报告回系统的其余部分</li>
+</ul>
+</li>
+</ul>
+<p><code>kubelet</code>是主要的节点代理，它监测已分配给节点的pod，提供这些功能。</p>
+<ul>
+<li><p>kube-proxy<br><code>kube-proxy</code>通过维护主机上的网络规则并执行连接转发，来实现Kubernetes服务抽象。</p>
+</li>
+<li><p>docker<br><code>docker</code>用于运行容器。</p>
+</li>
+<li><p>rkt<br><code>rkt</code>运行容器，作为docker的替代方案。</p>
+</li>
+<li><p>supervisord<br><code>supervisord</code>是一个轻量级的进程监控系统，可用来保证<code>kubelet</code>和<code>docker</code>运行。</p>
+</li>
+<li><p>fluentd<br><code>fluentd</code>是一个守护进程，有助于提供集群层面的日志。</p>
+</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>在Kubernetes系统中，Kubernetes对象 是持久化的实体。Kubernetes使用这些实体去表示整个集群的状态。特别地，它们描述了如下信息：</p>
+<ul>
+<li>哪些容器化应用正在运行(以及在哪个节点上)</li>
+<li>可以被应用使用的资源</li>
+<li>应用运行的策略(重启、升级、容错)</li>
+</ul>
+<p>Kubernetes 对象是 “目标性记录” —— 一旦创建对象，Kubernetes 系统将持续工作以确保对象存在。通过创建对象，本质上是在告知 Kubernetes 系统，所需要的集群工作负载看起来是什么样子的，这就是 Kubernetes 集群的 期望状态（Desired State）。<br>操作 Kubernetes 对象 —— 是否创建、修改，或者删除 —— 需要使用 Kubernetes API</p>
+<p><br></p>
+<p><strong>对象规约(Spec)与状态(Status)</strong><br>每个 Kubernetes 对象包含两个嵌套的对象字段，它们负责管理对象的配置：对象<code>spec</code>和对象<code>status</code>。 spec是必需的，它描述了对象的<strong>期望状态（Desired State）</strong> —— 希望对象所具有的特征。 status 描述了对象的<strong>实际状态（Actual State）</strong>，它是由 Kubernetes 系统提供和更新的。在任何时刻，Kubernetes 控制面一直努力地管理着对象的实际状态以与期望状态相匹配。</p>
+<p><br></p>
+<p><strong>描述Kubernetes对象</strong><br>当创建 Kubernetes 对象时，必须提供对象的规约，用来描述该对象的期望状态，以及关于对象的一些基本信息（如名称）。</p>
+<p>创建对象：</p>
+<ul>
+<li><p><code>Kubernetes API</code><br>API请求必须使用JSON格式</p>
+</li>
+<li><p><code>kubectl</code><br>在<code>.yaml</code>配置文件中为<code>kubectl</code>提供这些信息。<code>kubectl</code>在发起API请求时，将这些信息转换成JSON格式。<br>在创建Kubernetes对象的yaml文件时，必须配置如下字段。</p>
+</li>
+<li><p>apiVersion<br>Kubernetes API版本</p>
+</li>
+<li><p>kind<br>想要创建的对象类型</p>
+</li>
+<li><p>metadata<br>识别对象唯一性的数据，包括<code>name</code>, <code>UID</code>和可选的<code>namespace</code></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#栗子</span><br><span class="line"># for versions before 1.9.0 use apps/v1beta2</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: nginx-deployment</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: nginx</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: nginx</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: nginx</span><br><span class="line">        image: nginx:1.7.9</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 80</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#创建</span><br><span class="line">kubectl create -f /tmp/nginx-deployment.yaml --record</span><br><span class="line"></span><br><span class="line">#输出</span><br><span class="line">deployment &quot;nginx-deployment&quot; created</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="names"><a href="#names" class="headerlink" title="names"></a>names</h2><p>Kubernetes REST API中所有对象都用<strong>name</strong>和<strong>UID</strong>来明确标识。</p>
+<p><br><br><br></p>
+<h2 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h2><p>Kubernetes使用namespace(命名空间)创建多个虚拟集群。命名空间是一种将集群资源划分为多个用途的方法。<br>命名空间名称满足正则表达式，最大长度为63位。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#通过命令创建</span></span><br><span class="line">kubectl create namespace my-namespace</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#通过文件创建</span></span><br><span class="line">vim my-namespace</span><br><span class="line"></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Namespace</span><br><span class="line">metadata:</span><br><span class="line">  name: my-namespace</span><br><span class="line"></span><br><span class="line">kubectl create -f /tmp/my-namespace.yaml</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看</span></span><br><span class="line">kubectl get namespace</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除</span></span><br><span class="line">kubectl delete namespace my-namespace</span><br></pre></td></tr></table></figure>
+<p>Kubernetes有两个初始的命名空间开始：</p>
+<ul>
+<li>default</li>
+<li>kube-system: 对象的命名空间</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>删除一个命名空间会自动删除所有属于该命名空间的资源</li>
+<li>k8s初始化的两个命名空间无法删除</li>
+<li>持久化卷(persistent volume)不属于任何命名空间，但持久化卷声明(persistent volume claim)是属于某个特定命名空间的</li>
+<li>事件(event)是否属于命名空间取决于产生事件的对象</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><p>标签其实是一对<code>key/value</code>，被关联到对象上。标签能够标识对象的特殊特点。每个对象可拥有多个标签，但key必须唯一。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&quot;labels&quot;: &#123;</span><br><span class="line">  &quot;key1&quot; : &quot;value1&quot;,</span><br><span class="line">  &quot;key2&quot; : &quot;value2&quot;,</span><br><span class="line">  &quot;keyN&quot; : &quot;valueN&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#栗子</span><br><span class="line">&quot;release&quot; : &quot;stable&quot;</span><br><span class="line">&quot;environment&quot; : &quot;dev&quot;</span><br><span class="line">&quot;track&quot; : &quot;daily&quot;</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h2><p>默认情况下，容器中的文件时非持久化的。Kubernetes Volume用于解决如下问题：</p>
+<ul>
+<li>容器挂掉后，kubelet重启它时，文件会丢失</li>
+<li>当pod中同时运行多个容器，容器间需要共享文件时</li>
+</ul>
+<p>要使用volume，pod需要指定volume的类型和内容，以及映射到容器的位置。</p>
+<p><br></p>
+<p><strong>Kubernetes支持的volume类型</strong></p>
+<ul>
+<li>emptyDir</li>
+<li>hostPath</li>
+<li>gcePersistentDisk</li>
+<li>awsElasticBlockStore</li>
+<li>nfs</li>
+<li>iscsi</li>
+<li>fc</li>
+<li>flocker</li>
+<li>glusterfs</li>
+<li>rbd</li>
+<li>cephfs</li>
+<li>secret</li>
+<li>persistentVolumeClaim</li>
+<li>downwardAPI</li>
+<li>projected</li>
+<li>vsphereVolume</li>
+<li>local</li>
+<li>StorageOS</li>
+<li>portworxVolume</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="annotation"><a href="#annotation" class="headerlink" title="annotation"></a>annotation</h2><p>Kubernetes可使用annotation(注释)将任何非标识metadata附加到对象。它也由<code>key/value</code>组成。<br>Annotations不会被Kubernetes直接使用，其主要目的是方便用户阅读查找。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;annotations&quot;: &#123;</span><br><span class="line">  &quot;key1&quot; : &quot;value1&quot;,</span><br><span class="line">  &quot;key2&quot; : &quot;value2&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="node"><a href="#node" class="headerlink" title="node"></a>node</h2><p><code>node</code>是Kubernetes的工作节点，以前称为<code>minion</code>。也就是集群中的一台主机。每个节点都有用于运行<code>pods</code>的必要服务，并由master组件管理。<br>节点上的服务包括<code>docker</code>, <code>kubelet</code>, ‘kube-proxy’。</p>
+<p><br></p>
+<h3 id="节点状态"><a href="#节点状态" class="headerlink" title="节点状态"></a>节点状态</h3><p>一个节点的状态包含以下信息：</p>
+<ul>
+<li><p>地址(address)</p>
+<ul>
+<li>hostname</li>
+<li>ExternalIP</li>
+<li>InternalIP</li>
+</ul>
+</li>
+<li><p>条件(condition)<br>描述所有运行中节点的状态。节点调试使用JSON对象表示。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OutOfDisk</td>
+<td>True 表示 node 的空闲空间不足以用于添加新 pods, 否则为 False</td>
+</tr>
+<tr>
+<td>Ready</td>
+<td>True 表示 node 是健康的并已经准备好接受 pods；False 表示 node 不健康而且不能接受 pods；Unknown 表示 node 控制器在最近 40 秒内没有收到 node 的消息</td>
+</tr>
+<tr>
+<td>MemoryPressure</td>
+<td>True 表示 node 不存在内存压力 – 即 node 内存用量低, 否则为 False</td>
+</tr>
+<tr>
+<td>DiskPressure</td>
+<td>True 表示 node 不存在磁盘压力 – 即磁盘用量低, 否则为 False</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>一个健康的节点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;conditions&quot;: [</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;kind&quot;: &quot;Ready&quot;,</span><br><span class="line">    &quot;status&quot;: &quot;True&quot;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>容量(capacity)<br>描述节点上的可用资源：CPU、内存和可调度到节点上的最大pods数。</p>
+</li>
+<li><p>信息(info)<br>关于节点的统一信息，如内核版本、Kubernetes版本、Docker版本等。</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h3><p>Kubernetes创建一个节点时，它其实仅仅创建了一个对象来代表这个节点。创建以后，Kubernetes将检查这个节点是否可用。<br>如果节点可用，意即所有必要服务都已运行，它就符合了运行一个pod的条件。否则它将被所有的集群动作忽略知道变为可用。请注意，Kubernetes将保持不可用节点的对象，除非它被手动删除。Kubernetes将持续检查节点是否变得可用。</p>
+<p>有3个组件同Kubernetes节点接口交互：</p>
+<ul>
+<li>节点控制器</li>
+<li>kubelet</li>
+<li>kubectl</li>
+</ul>
+<p><br></p>
+<p><strong>节点自注册</strong><br>当<code>kubelet</code>标志<code>--register-node</code>为<code>true</code>（默认）时，它会尝试向 API 服务注册自己。这是首选模式，被绝大多数发行版选用。</p>
+<p>如果管理员希望手动创建节点对象，请设置<code>kubelet</code>标记<code>--register-node=false</code>。</p>
+<p><br></p>
+<h3 id="节点通信"><a href="#节点通信" class="headerlink" title="节点通信"></a>节点通信</h3><p>Master节点(APIserver)和Kubernetes集群之间的通信。</p>
+<ul>
+<li><strong>cluster-&gt;master</strong><br>所有从集群到master的通信路径都终止于APIserver。<br>应该使用集群的公共根证书开通节点，如此它们就能够基于有效的客户端凭据安全的连接 apiserver。<br>想要连接到 apiserver 的 Pods 可以使用一个 service account 安全的进行连接。<br>Master 组件通过非安全（没有加密或认证）端口和集群的 apiserver 通信。</li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>master-&gt;cluster</strong><br>从 master（apiserver）到集群有两种主要的通信路径。第一种是从 apiserver 到集群中每个节点上运行的 kubelet 进程。第二种是从 apiserver 通过它的代理功能到任何 node、pod 或者 service。</li>
+</ul>
+<p>Google Kubernets Engine使用SSH隧道保护Master-&gt;Cluster通信路径。</p>
+<p><br><br><br></p>
+<h2 id="pod"><a href="#pod" class="headerlink" title="pod"></a>pod</h2><p>pod是Kubernetes最基本的调度单位。它可以包更高级的抽象内容增加到容器化组件。一个pod代表集群上正在运行的一个进程。<br>一个pod一般包含一个或多个容器，这样可以保证它们一直位于主机上，并且可以共享资源。<br>每个pod都被分配一个唯一的(集群内)IP地址。<br>每个pod都是运行应用的单个实例，如需水平扩展应用，则应该使用多个pods。这在Kubernetes中通常称为Replication。</p>
+<p>docker是Kubernetes pod中最常见的runtime，当然还有其它runtime。</p>
+<p>pod提供两种共享资源：</p>
+<ul>
+<li>网络</li>
+<li>存储</li>
+</ul>
+<p><br></p>
+<p>你很少会直接在Kubernetes中创建单个pod，因为它的生命周期是短暂的，是用后即焚的实体。当它被创建后，都会被Kubernetes调度到集群的节点上。<br>pod不会自愈，如果pod运行的节点或调度器故障，则pod就会被删除。</p>
+<p>注意，重启pod中的容器和重启pod不是一回事。pod只提供容器的运行环境并保持容器的运行状态，重启容器不会造成pod重启。</p>
+<p>控制器可以创建和管理多个pod，提供副本管理、滚动升级和集群级别的自愈能力。例如，如果一个节点故障，控制器就能自动将该节点上的pod调度到其它健康的节点上。</p>
+<p>pod template是包含了其它对象中的pod定义。控制器使用pod模板来创建实际需要的pod。</p>
+<p><br><br><br></p>
+<h3 id="pod安全策略"><a href="#pod安全策略" class="headerlink" title="pod安全策略"></a>pod安全策略</h3><p>Pod Security Policy 类型的对象能够控制，是否可以向Pod发送请求，该Pod能够影响被应用到Pod和容器的 SecurityContext。<br>pod 安全策略是集群级别的资源，它能够孔子pod运行的行为，以及它既有访问什么的能力。</p>
+<p>有如下方面：</p>
+<ul>
+<li>privileged</li>
+<li>defaultAddCapabilities</li>
+<li>requiredDropCapabilities</li>
+<li>allowCapabilities</li>
+<li>volumes</li>
+<li>hostNetwork</li>
+<li>hostPorts</li>
+<li>hostPID</li>
+<li>hostIPC</li>
+<li>allowedHostPaths</li>
+<li>selinux</li>
+<li>runAsUser</li>
+<li>supplementalGroups</li>
+<li>fsGroups</li>
+<li>readOnlyRootFilesystem</li>
+</ul>
+<p><br></p>
+<p><strong>创建pod安全策略</strong><br>如下的栗子，所有字段都被允许</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: extensions/v1beta1</span><br><span class="line">kind: PodSecurityPolicy</span><br><span class="line">metadata:</span><br><span class="line">  name: permissive</span><br><span class="line">spec:</span><br><span class="line">  seLinux:</span><br><span class="line">    rule: RunAsAny</span><br><span class="line">  supplementalGroups:</span><br><span class="line">    rule: RunAsAny</span><br><span class="line">  runAsUser:</span><br><span class="line">    rule: RunAsAny</span><br><span class="line">  fsGroup:</span><br><span class="line">    rule: RunAsAny</span><br><span class="line">  hostPorts:</span><br><span class="line">  - min: 8000</span><br><span class="line">    max: 8080</span><br><span class="line">  volumes:</span><br><span class="line">  - &apos;*&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#创建</span><br><span class="line">kubectl create -f ./psp.yaml</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#查看</span><br><span class="line">kubectl get psp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#修改</span><br><span class="line">kubectl edit psp permissive</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#删除</span><br><span class="line">kubectl delete psp permissive</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="pod生命周期"><a href="#pod生命周期" class="headerlink" title="pod生命周期"></a>pod生命周期</h3><p><strong>pod phase</strong><br>pod的<code>status</code>定义在PodStatus对象中，有一个<code>phase</code>字段。<br>pod的运行阶段(phase)是pod在其生命周期中的简单宏观概述。</p>
+<p><code>phase</code>可能是如下值：</p>
+<ul>
+<li><p>挂起(pending)<br>Pod 已被 Kubernetes 系统接受，但有一个或者多个容器镜像尚未创建。等待时间包括调度 Pod 的时间和通过网络下载镜像的时间，这可能需要花点时间。</p>
+</li>
+<li><p>运行中(running)<br>该 Pod 已经绑定到了一个节点上，Pod 中所有的容器都已被创建。至少有一个容器正在运行，或者正处于启动或重启状态。</p>
+</li>
+<li><p>成功(succeeded)<br>Pod 中的所有容器都被成功终止，并且不会再重启。</p>
+</li>
+<li><p>失败(failed)<br>Pod 中的所有容器都已终止了，并且至少有一个容器是因为失败终止。也就是说，容器以非0状态退出或者被系统终止。</p>
+</li>
+<li><p>未知(unknown)<br>因为某些原因无法取得 Pod 的状态，通常是因为与 Pod 所在主机通信失败。</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>pod status</strong><br>pod有一个PodStatus对象，其中包含一个PodCondition数组，数组的每个元素都有一个<code>type</code>和<code>status</code>字段。type 字段是字符串，可能的值有 PodScheduled、Ready、Initialized 和 Unschedulable。status 字段是一个字符串，可能的值有 True、False 和 Unknown。</p>
+<p><br></p>
+<p><strong>容器探针</strong><br>探针 是由 kubelet 对容器执行的定期诊断。要执行诊断，kubelet 调用由容器实现的 Handler。有三种类型的处理程序：</p>
+<ul>
+<li>ExecAction：在容器内执行指定命令。如果命令退出时返回码为 0 则认为诊断成功。</li>
+<li>TCPSocketAction：对指定端口上的容器的 IP 地址进行 TCP 检查。如果端口打开，则诊断被认为是成功的。</li>
+<li>HTTPGetAction：对指定的端口和路径上的容器的 IP 地址执行 HTTP Get 请求。如果响应的状态码大于等于200 且小于 400，则诊断被认为是成功的。</li>
+</ul>
+<p>每次探测都将获得以下三种结果之一:</p>
+<ul>
+<li>成功：容器通过了诊断。</li>
+<li>失败：容器未通过诊断。</li>
+<li>未知：诊断失败，因此不会采取任何行动。</li>
+</ul>
+<p>Kubelet 可以选择是否执行在容器上运行的两种探针执行和做出反应：</p>
+<ul>
+<li>livenessProbe：指示容器是否正在运行。如果存活探测失败，则 kubelet 会杀死容器，并且容器将受到其 重启策略 的影响。如果容器不提供存活探针，则默认状态为 Success。</li>
+<li>readinessProbe：指示容器是否准备好服务请求。如果就绪探测失败，端点控制器将从与 Pod 匹配的所有 Service 的端点中删除该 Pod 的 IP 地址。初始延迟之前的就绪状态默认为 Failure。如果容器不提供就绪探针，则默认状态为 Success。</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="init容器"><a href="#init容器" class="headerlink" title="init容器"></a>init容器</h3><p><br><br><br></p>
+<h3 id="设置pod的资源"><a href="#设置pod的资源" class="headerlink" title="设置pod的资源"></a>设置pod的资源</h3><p><br><br><br></p>
+<h3 id="pod-preset"><a href="#pod-preset" class="headerlink" title="pod preset"></a>pod preset</h3><p><br><br><br></p>
+<h3 id="pod服务质量等级"><a href="#pod服务质量等级" class="headerlink" title="pod服务质量等级"></a>pod服务质量等级</h3><p><br><br><br></p>
+<h3 id="pod优先级和抢占"><a href="#pod优先级和抢占" class="headerlink" title="pod优先级和抢占"></a>pod优先级和抢占</h3><p><br><br><br></p>
+<h2 id="副本集"><a href="#副本集" class="headerlink" title="副本集"></a>副本集</h2><p>Kubernetes ReplicaSet(RS)是Replication Controller(RC)的升级版本。<br>虽然副本集可以独立使用，但它主要被部署(Deployment)用作pod机制的创建、删除和更新。当使用部署时，你不必担心创建pod的副本集，因为可通过部署实现管理。<br>副本集能确保运行指定数量的pod。然而，部署是一个更高层次的概念，我们建议你使用管理来管理副本集。这意味着你可能永远不需要操作副本集对象，而是使用部署替代管理。</p>
+<p><br></p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: extensions/v1beta1</span><br><span class="line">kind: ReplicaSet</span><br><span class="line">metadata:</span><br><span class="line">  name: frontend</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      tier: frontend</span><br><span class="line">    matchExpressions:</span><br><span class="line">      - &#123;key: tier, operator: In, values: [frontend]&#125;</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: guestbook</span><br><span class="line">        tier: frontend</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: php-redis</span><br><span class="line">        image: gcr.io/google_samples/gb-frontend:v3</span><br><span class="line">        resources:</span><br><span class="line">          requests:</span><br><span class="line">            cpu: 100m</span><br><span class="line">            memory: 100Mi</span><br><span class="line">        env:</span><br><span class="line">        - name: GET_HOSTS_FROM</span><br><span class="line">          value: dns</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 80</span><br></pre></td></tr></table></figure>
+<p>创建并查看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl create -f frontend.yaml</span><br><span class="line">replicaset &quot;frontend&quot; created</span><br><span class="line">$ kubectl describe rs/frontend</span><br><span class="line">Name:          frontend</span><br><span class="line">Namespace:     default</span><br><span class="line">Image(s):      gcr.io/google_samples/gb-frontend:v3</span><br><span class="line">Selector:      tier=frontend,tier in (frontend)</span><br><span class="line">Labels:        app=guestbook,tier=frontend</span><br><span class="line">Replicas:      3 current / 3 desired</span><br><span class="line">Pods Status:   3 Running / 0 Waiting / 0 Succeeded / 0 Failed</span><br><span class="line">No volumes.</span><br><span class="line">Events:</span><br><span class="line">  FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message</span><br><span class="line">  ---------    --------    -----    ----                -------------    --------    ------            -------</span><br><span class="line">  1m           1m          1        &#123;replicaset-controller &#125;             Normal      SuccessfulCreate  Created pod: frontend-qhloh</span><br><span class="line">  1m           1m          1        &#123;replicaset-controller &#125;             Normal      SuccessfulCreate  Created pod: frontend-dnjpy</span><br><span class="line">  1m           1m          1        &#123;replicaset-controller &#125;             Normal      SuccessfulCreate  Created pod: frontend-9si5l</span><br><span class="line">$ kubectl get pods</span><br><span class="line">NAME             READY     STATUS    RESTARTS   AGE</span><br><span class="line">frontend-9si5l   1/1       Running   0          1m</span><br><span class="line">frontend-dnjpy   1/1       Running   0          1m</span><br><span class="line">frontend-qhloh   1/1       Running   0          1m</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>一个部署控制器(Deployment Controller)为pod和副本集提供了声明式更新。<br>你只需要在部署中描述你想要的目标状态是什么，部署控制器就会帮你将pod和副本集的实际状态改变到你的目标状态。你可以定义一个全新的部署来创建副本集，或删除已有的部署并创建一个新的来替换。</p>
+<p>你不应该管理由Deployment部署的副本集。所有用例都应该通过操作Deployment对象来覆盖。</p>
+<p><br></p>
+<p>以下是部署的典型用例：</p>
+<ul>
+<li>创建副本集</li>
+<li>通过更新部署的PodTemplateSpec字段来声明pod的新状态</li>
+<li>回滚到之前的部署版本</li>
+<li>伸缩部署</li>
+<li>暂停部署使用部署状态</li>
+<li>清理就得副本集</li>
+</ul>
+<h3 id="创建部署"><a href="#创建部署" class="headerlink" title="创建部署"></a>创建部署</h3><p><br><br><br></p>
+<h3 id="更新部署"><a href="#更新部署" class="headerlink" title="更新部署"></a>更新部署</h3><p><br><br><br></p>
+<h3 id="回滚部署"><a href="#回滚部署" class="headerlink" title="回滚部署"></a>回滚部署</h3><p><br><br><br></p>
+<h3 id="暂停和恢复部署"><a href="#暂停和恢复部署" class="headerlink" title="暂停和恢复部署"></a>暂停和恢复部署</h3><p><br><br><br></p>
+<h3 id="伸缩部署"><a href="#伸缩部署" class="headerlink" title="伸缩部署"></a>伸缩部署</h3><p><br><br><br></p>
+<h3 id="部署状态"><a href="#部署状态" class="headerlink" title="部署状态"></a>部署状态</h3><p><br><br><br></p>
+<h3 id="清理策略"><a href="#清理策略" class="headerlink" title="清理策略"></a>清理策略</h3><p><br><br><br></p>
+<h3 id="编写Deployment-spec"><a href="#编写Deployment-spec" class="headerlink" title="编写Deployment spec"></a>编写Deployment spec</h3><p><br><br><br></p>
+<h3 id="替代部署"><a href="#替代部署" class="headerlink" title="替代部署"></a>替代部署</h3><p><br><br><br></p>
+<h2 id="副本控制器"><a href="#副本控制器" class="headerlink" title="副本控制器"></a>副本控制器</h2><p>Kubernetes Replication Controller</p>
+<p>建议使用副本控制器(RC)配置副本集(RS)来控制副本数。</p>
+<p><br><br><br></p>
+<h2 id="StatefulSet"><a href="#StatefulSet" class="headerlink" title="StatefulSet"></a>StatefulSet</h2><p><br><br><br></p>
+<h2 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h2><p>Kubernetes Service</p>
+<p>k8s pod是有生命周期的，它们可被创建和销毁。通过副本控制器(RC)能动态地创建和销毁pod。每个pod都会获取它自己的IP地址，即使这些IP地址不总是稳定可依赖的。<br>如果k8s集群中，一组pod(backend)为其它pod(frontend)提供服务，那么那些frontend该如何发现，并连接到哪些backend呢？</p>
+<p>k8s service定义了这样一种抽象： 一个pod的逻辑分组，一种可以访问它们的策略(微服务)。<br>这一组pod能够被service访问到，通常是通过<code>Label Selector</code>实现的。</p>
+<p><br><br><br></p>
+<h2 id="垃圾收集"><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h2><p>Kubernetes 垃圾收集器的角色是删除指定的对象，这些对象曾经有但以后不再拥有 Owner 了。</p>
+<p>某些Kubernetes对象是其它一些对象的Owner。如，一个副本集是一组pod的Owner。<br>具有Owner的对象被称为是Owner的<strong>Dependent</strong>。每个Dependent对象具有一个执行所属对象的<code>metadata.ownerReference</code>字段。</p>
+<p>有时，Kubernetes会自动设置<code>ownerReference</code>的值。<br>也可以手动设置<code>ownerReference</code>的值，来指定Owner和Dependent之间的关系。</p>
+<p><br></p>
+<p><strong>控制垃圾收集器删除Dependent</strong></p>
+<ul>
+<li><p>级联删除</p>
+<ul>
+<li>background</li>
+<li>foreground<br>删除对象时自动删除Dependent。<br>在bg级联删除模式下，k8s会立即删除Owner对象，然后垃圾收集器会在后台删除这些Dependent。<br>在fg级联删除模式下，根对象首先进入删除中状态。一旦对象被设置为删除中状态，垃圾收集器会删除对象的所有Dependent。</li>
+</ul>
+</li>
+<li><p>孤儿<br>删除对象时，不自动删除它的Dependent。这些Dependent就被称作孤儿。垃圾收集器在删除了所有 “Blocking” 状态的 Dependent（对象的 ownerReference.blockOwnerDeletion=true）之后，它会删除 Owner 对象。</p>
+</li>
+</ul>
+<p><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h1><p>安装Kubernetes和配置Kubernetes集群。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Kubernetes/" rel="tag"># Kubernetes</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/14/性能分析/" rel="next" title="性能分析">
+                <i class="fa fa-chevron-left"></i> 性能分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/leslie.jpg"
+              alt="Zhang21" />
+          
+            <p class="site-author-name" itemprop="name">Zhang21</p>
+            <p class="site-description motion-element" itemprop="description">踏踏实实谋发展</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f13278e94ecb" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-circle-o"></i>简书</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Zhang21" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:elite_zhang21@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/Zhang21_" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+<br>
+<!--����������������ⲿ����,auto=1��ʾ�Զ�����-->
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=411315632&auto=0&height=66"></iframe>
+
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">1.1.</span> <span class="nav-text">组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Master组件"><span class="nav-number">1.1.1.</span> <span class="nav-text">Master组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点组件"><span class="nav-number">1.1.2.</span> <span class="nav-text">节点组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">1.2.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#names"><span class="nav-number">1.3.</span> <span class="nav-text">names</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#namespace"><span class="nav-number">1.4.</span> <span class="nav-text">namespace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#label"><span class="nav-number">1.5.</span> <span class="nav-text">label</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volume"><span class="nav-number">1.6.</span> <span class="nav-text">volume</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#annotation"><span class="nav-number">1.7.</span> <span class="nav-text">annotation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node"><span class="nav-number">1.8.</span> <span class="nav-text">node</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节点状态"><span class="nav-number">1.8.1.</span> <span class="nav-text">节点状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理"><span class="nav-number">1.8.2.</span> <span class="nav-text">管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点通信"><span class="nav-number">1.8.3.</span> <span class="nav-text">节点通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pod"><span class="nav-number">1.9.</span> <span class="nav-text">pod</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pod安全策略"><span class="nav-number">1.9.1.</span> <span class="nav-text">pod安全策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod生命周期"><span class="nav-number">1.9.2.</span> <span class="nav-text">pod生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init容器"><span class="nav-number">1.9.3.</span> <span class="nav-text">init容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置pod的资源"><span class="nav-number">1.9.4.</span> <span class="nav-text">设置pod的资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod-preset"><span class="nav-number">1.9.5.</span> <span class="nav-text">pod preset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod服务质量等级"><span class="nav-number">1.9.6.</span> <span class="nav-text">pod服务质量等级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod优先级和抢占"><span class="nav-number">1.9.7.</span> <span class="nav-text">pod优先级和抢占</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副本集"><span class="nav-number">1.10.</span> <span class="nav-text">副本集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">1.11.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建部署"><span class="nav-number">1.11.1.</span> <span class="nav-text">创建部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新部署"><span class="nav-number">1.11.2.</span> <span class="nav-text">更新部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回滚部署"><span class="nav-number">1.11.3.</span> <span class="nav-text">回滚部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暂停和恢复部署"><span class="nav-number">1.11.4.</span> <span class="nav-text">暂停和恢复部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伸缩部署"><span class="nav-number">1.11.5.</span> <span class="nav-text">伸缩部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署状态"><span class="nav-number">1.11.6.</span> <span class="nav-text">部署状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理策略"><span class="nav-number">1.11.7.</span> <span class="nav-text">清理策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写Deployment-spec"><span class="nav-number">1.11.8.</span> <span class="nav-text">编写Deployment spec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替代部署"><span class="nav-number">1.11.9.</span> <span class="nav-text">替代部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副本控制器"><span class="nav-number">1.12.</span> <span class="nav-text">副本控制器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StatefulSet"><span class="nav-number">1.13.</span> <span class="nav-text">StatefulSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务"><span class="nav-number">1.14.</span> <span class="nav-text">服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集"><span class="nav-number">1.15.</span> <span class="nav-text">垃圾收集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装和配置"><span class="nav-number">2.</span> <span class="nav-text">安装和配置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang21</span>
+
+<!--字数统计-->
+  <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> 字数: 268.9k</span>
+</div>
+
+
+  
+</div>
+
+
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Zhang21.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://zhang21.github.io/2018/06/26/Kubernetes/';
+          this.page.identifier = '2018/06/26/Kubernetes/';
+          this.page.title = 'Kubernetes';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Zhang21.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

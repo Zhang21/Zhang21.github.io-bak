@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="风继续吹">
 <meta property="og:description" content="环境:  CentOS7x86_64 Python3.5  参考:  Python教程: https://docs.python.org/3.5/tutorial/index.html Python词汇表: https://docs.python.org/3.5/glossary.html Python语言参考: https://docs.python.org/3.5/reference/inde">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-15T06:28:48.000Z">
+<meta property="og:updated_time" content="2018-06-19T05:55:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python">
 <meta name="twitter:description" content="环境:  CentOS7x86_64 Python3.5  参考:  Python教程: https://docs.python.org/3.5/tutorial/index.html Python词汇表: https://docs.python.org/3.5/glossary.html Python语言参考: https://docs.python.org/3.5/reference/inde">
@@ -402,7 +402,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  29,355
+                  29,515
                 </span>
               
 
@@ -2432,7 +2432,14 @@
 <li>redis</li>
 </ul>
 <p><br></p>
-<h3 id="PyMySQL"><a href="#PyMySQL" class="headerlink" title="PyMySQL"></a>PyMySQL</h3><p><br><br><br></p>
+<h3 id="PyMySQL"><a href="#PyMySQL" class="headerlink" title="PyMySQL"></a>PyMySQL</h3><p>PyMySQL：<a href="https://pypi.org/project/PyMySQL/" target="_blank" rel="noopener">https://pypi.org/project/PyMySQL/</a></p>
+<p><br></p>
+<p><strong>首先创建数据库</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`users`</span> (</span><br><span class="line">    <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    <span class="string">`email`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">COLLATE</span> utf8_bin <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`password`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">COLLATE</span> utf8_bin <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8 <span class="keyword">COLLATE</span>=utf8_bin</span><br><span class="line">AUTO_INCREMENT=<span class="number">1</span> ;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>连接</strong></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">connection = pymysql.connect(</span><br><span class="line">    host=<span class="string">'localhost'</span>,</span><br><span class="line">    user=<span class="string">'username'</span>,</span><br><span class="line">    password=<span class="string">'password'</span>,</span><br><span class="line">    port=<span class="number">3306</span>,</span><br><span class="line">    db=<span class="string">'DBname'</span>,</span><br><span class="line">    charset=<span class="string">'utf8'</span>,</span><br><span class="line">    cursorclass=pymysql.cursors.DictCursor)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">with</span> connection.cursor() <span class="keyword">as</span> cursor:</span><br><span class="line">        sql = <span class="string">"INSERT INTO `users` (`email`, `password`) VALUES (%s, %s)"</span></span><br><span class="line">        cursor.execute(sql, (<span class="string">'webmaster@python.org'</span>, <span class="string">'very-secret'</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">#commit to save</span></span><br><span class="line">    connection.commit()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> connection.cursor() <span class="keyword">as</span> cursor:</span><br><span class="line">        sql = <span class="string">"SELECT `id`, `password` FROM `users` WHERE `email`=%s"</span></span><br><span class="line">        cursor.execute(sql, (<span class="string">'webmaster@python.org'</span>,))</span><br><span class="line">        result = cursor.fetchone()</span><br><span class="line">        print(result)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    connection.close()</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
 <h3 id="pyMongo"><a href="#pyMongo" class="headerlink" title="pyMongo"></a>pyMongo</h3><p>pyMongo Docs: <a href="https://api.mongodb.com/python/current/" target="_blank" rel="noopener">https://api.mongodb.com/python/current/</a></p>
 <p>pyMongo是一个用于使用MongoDB的工具的Python发行版，并且是从Python工作于MongoDB的推荐方式。</p>
 <p><br></p>
@@ -2640,7 +2647,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2737,7 +2744,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 279.8k</span>
+  <span class="post-count"> 字数: 268.9k</span>
 </div>
 
 
