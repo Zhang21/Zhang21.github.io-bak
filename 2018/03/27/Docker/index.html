@@ -111,7 +111,10 @@
 <meta property="og:image" content="https://zhang21.github.io/images/Docker/dockercloud.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Docker/types-of-mounts.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Docker/share_data_amon_machine.png">
-<meta property="og:updated_time" content="2018-06-15T10:06:05.000Z">
+<meta property="og:image" content="https://zhang21.github.io/images/Docker/container-layers.jpg">
+<meta property="og:image" content="https://zhang21.github.io/images/Docker/sharing-layers.jpg">
+<meta property="og:image" content="https://zhang21.github.io/images/Docker/aufs_layers.jpg">
+<meta property="og:updated_time" content="2018-07-08T04:20:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker">
 <meta name="twitter:description" content="参考：  Docker文档:  https://docs.docker.com/ https://blog.csdn.net/sD7O95O/article/details/78623697 https://www.zhihu.com/question/22969309/answer/34030581  环境：  CentOS7x86_64 Docker v18.03">
@@ -347,7 +350,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-08T12:20:00+08:00">
+                2018-07-08
+              </time>
             
           </span>
 
@@ -364,8 +379,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
                   </a>
                 </span>
 
@@ -413,7 +428,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  24,820
+                  34,697
                 </span>
               
 
@@ -1869,11 +1884,13 @@
 <h2 id="Volumes"><a href="#Volumes" class="headerlink" title="Volumes"></a>Volumes</h2><p>volumes是持久化Docker数据的首选机制，卷由docker完全管理。另外，由于卷不会增加使用它的容器的大小，并且该卷的内容存在于给定容器的周期之外，因此卷通产是比将容器的可写入层中的数据持久化更好的选择。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-v/--volume</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#此选项更详细和简单</span><br><span class="line">#如果你需要指定volume driver，请使用此flag</span><br><span class="line">--mount</span><br><span class="line"></span><br><span class="line">docker service create \</span><br><span class="line">  --mount &apos;type=volume,src=&lt;VOLUME-NAME&gt;,dst=&lt;CONTAINER-PATH&gt;,volume-driver=local,volume-opt=type=nfs,volume-opt=device=&lt;nfs-server&gt;:&lt;nfs-path&gt;,&quot;volume-opt=o=addr=&lt;nfs-address&gt;,vers=4,soft,timeo=180,bg,tcp,rw&quot;&apos;</span><br><span class="line">  --name myservice \</span><br><span class="line">  &lt;IMAGE&gt;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p><code>--volume</code><br>由三个由冒号<code>:</code>分割的字段组成。这些字段必须按照正确的顺序排列，每个字段的含义并不明显。<br>第一个字段是卷的名称，并且在给定主机上是唯一的。对于匿名卷，第一个字段被省略。<br>第二个字段是文件或目录在容器中的挂载路径。<br>第三个字段是可选的，是由一个逗号`,分隔的选项列表。</p>
-</li>
-<li><p><code>--mount</code><br>由多个键值对组成，以逗号<code>,</code>分隔。<code>--mount</code>的语法比<code>--volume</code>更冗长，但键的顺序并不重要，并且标志的值更易于理解。<br>挂载的类型(type)有<code>bind, volume, tmpfs</code>。<br>挂载的来源(source, src)为卷的名称，对于匿名卷该字段可被省略。<br>目的地(destination, dst, target)的值是安装在容器中的文件或目录的路径。<br>只读(readonly)选项将导致bind mount以只读方式挂载到容器中。<br><code>volume-opt</code>选项可以多次指定，它是由选项名称和值组成的键值对组成。</p>
-</li>
+<li><code>--volume</code></li>
 </ul>
+<p>由三个由冒号<code>:</code>分割的字段组成。这些字段必须按照正确的顺序排列，每个字段的含义并不明显。<br>第一个字段是卷的名称，并且在给定主机上是唯一的。对于匿名卷，第一个字段被省略。<br>第二个字段是文件或目录在容器中的挂载路径。<br>第三个字段是可选的，是由一个逗号`,分隔的选项列表。</p>
+<ul>
+<li><code>--mount</code></li>
+</ul>
+<p>由多个键值对组成，以逗号<code>,</code>分隔。<code>--mount</code>的语法比<code>--volume</code>更冗长，但键的顺序并不重要，并且标志的值更易于理解。<br>挂载的类型(type)有<code>bind, volume, tmpfs</code>。<br>挂载的来源(source, src)为卷的名称，对于匿名卷该字段可被省略。<br>目的地(destination, dst, target)的值是安装在容器中的文件或目录的路径。<br>只读(readonly)选项将导致bind mount以只读方式挂载到容器中。<br><code>volume-opt</code>选项可以多次指定，它是由选项名称和值组成的键值对组成。</p>
 <p><br></p>
 <h3 id="创建和管理卷"><a href="#创建和管理卷" class="headerlink" title="创建和管理卷"></a>创建和管理卷</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">docker volume create my-vol</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker volume ls</span><br><span class="line">DRIVER              VOLUME NAME</span><br><span class="line">local               my-vol</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker volume inspect my-vol</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;CreatedAt&quot;: &quot;2018-06-15T17:19:02+08:00&quot;,</span><br><span class="line">        &quot;Driver&quot;: &quot;local&quot;,</span><br><span class="line">        &quot;Labels&quot;: &#123;&#125;,</span><br><span class="line">        &quot;Mountpoint&quot;: &quot;/opt/docker/volumes/my-vol/_data&quot;,</span><br><span class="line">        &quot;Name&quot;: &quot;my-vol&quot;,</span><br><span class="line">        &quot;Options&quot;: &#123;&#125;,</span><br><span class="line">        &quot;Scope&quot;: &quot;local&quot;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker volume rm my-vol</span><br></pre></td></tr></table></figure>
 <p><br></p>
@@ -1899,25 +1916,987 @@
 <p><br></p>
 <h3 id="使用卷驱动"><a href="#使用卷驱动" class="headerlink" title="使用卷驱动"></a>使用卷驱动</h3><p>Use a volume driver</p>
 <p>在创建卷或启动带卷的容器时，你可以指定卷驱动。如<code>vieux/sshfs</code>卷驱动程序。</p>
-<ol>
+<ul>
 <li>初始化</li>
-</ol>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker plugin install --grant-all-permissions vieux/sshfs</span><br></pre></td></tr></table></figure>
-<ol>
+<ul>
 <li>使用卷驱动创建卷</li>
-</ol>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#操作node2</span><br><span class="line">docker volume create --driver vieux/sshfs \</span><br><span class="line">  -o sshcmd=test@node2:/home/test \</span><br><span class="line">  -o password=testpassword \</span><br><span class="line">  sshvolume</span><br></pre></td></tr></table></figure>
-<ol>
+<ul>
 <li>启动一个带用卷驱动程序创建的卷的容器</li>
-</ol>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">  --name sshfs-container \</span><br><span class="line">  --volume-driver vieux/sshfs \</span><br><span class="line">  --mount src=sshvolume,target=/app,volume-opt=sshcmd=test@node2:/home/test,volume-opt=password=testpassword \</span><br><span class="line">  nginx:latest</span><br></pre></td></tr></table></figure>
-<ol>
+<ul>
 <li>备份，还原或迁移数据卷</li>
-</ol>
+</ul>
 <p>使用<code>--volumes-from</code>标志创建一个挂载该卷的新容器。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#备份</span><br><span class="line">docker run --rm --volumes-from dbstore -v $(pwd):/backup ubuntu tar cvf /backup/backup.tar /dbdata</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#从备份还原</span><br><span class="line">docker run -v /dbdata --name dbstore2 ubuntu /bin/bash</span><br><span class="line">docker run --rm --volumes-from dbstore2 -v $(pwd):/backup ubuntu bash -c &quot;cd /dbdata &amp;&amp; tar xvf /backup/backup.tar --strip 1&quot;</span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
-<h2 id="bind-mounts"><a href="#bind-mounts" class="headerlink" title="bind mounts"></a>bind mounts</h2>
+<h2 id="bind-mounts"><a href="#bind-mounts" class="headerlink" title="bind mounts"></a>bind mounts</h2><p>与volumes相比，bind mounts功能有限。当你使用bind mounts时，主机上的文件或目录(绝对路径或相对路径)被挂载到容器内。相比之下，当你使用volumes时，会在主机上的Docker存储目录中创建一个新目录，并且Docker会管理该目录的内容。<br>该文件或目录不需要已经存在于Docker主机上。如果它尚未存在，它会根据需求创建。bind mounts非常高效，但是它们依赖于具有特定目录结构的主机文件系统。如果你正在开发新的Docker Application，请考虑使用volumes。你不能使用Docker CLI直接管理bind mounts。</p>
+<p>你可以使用<code>--volume</code>或<code>--mount</code>(语法更详细)flag。具体区别参考volumes的介绍。</p>
+<p><br></p>
+<h3 id="启动用bind-mount的容器"><a href="#启动用bind-mount的容器" class="headerlink" title="启动用bind mount的容器"></a>启动用bind mount的容器</h3><p>Start a container with a bind mount</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#--mount</span><br><span class="line">docker run -d \</span><br><span class="line">  -it \</span><br><span class="line">  --name devtest \</span><br><span class="line">  --mount type=bind,source=&quot;$(pwd)&quot;/target,target=/app \</span><br><span class="line">  nginx:latest</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#--volume</span><br><span class="line">docker run -d \</span><br><span class="line">  -it \</span><br><span class="line">  --name devtest \</span><br><span class="line">  -v &quot;$(pwd)&quot;/target:/app \</span><br><span class="line">  nginx:latest</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>挂载到容器内非空目录</strong><br>如果挂载在容器内非空目录上，则该目录的已有内容将被隐藏。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#--mount</span><br><span class="line">docker run -d \</span><br><span class="line">  -it \</span><br><span class="line">  --name broken-container \</span><br><span class="line">  --mount type=bind,source=/tmp,target=/usr \</span><br><span class="line">  nginx:latest</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#--volume</span><br><span class="line">docker run -d \</span><br><span class="line">  -it \</span><br><span class="line">  --name broken-container \</span><br><span class="line">  -v /tmp:/usr \</span><br><span class="line">  nginx:latest</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="只读bind-mount"><a href="#只读bind-mount" class="headerlink" title="只读bind mount"></a>只读bind mount</h3><p>Use a read-only bind mount</p>
+<p>某些时候，容器可能只需要只读权限。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#--mount</span><br><span class="line">docker run -d \</span><br><span class="line">  -it \</span><br><span class="line">  --name devtest \</span><br><span class="line">  --mount type=bind,source=&quot;$(pwd)&quot;/target,target=/app,readonly \</span><br><span class="line">  nginx:latest</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#--volume</span><br><span class="line">docker run -d \</span><br><span class="line">  -it \</span><br><span class="line">  --name devtest \</span><br><span class="line">  -v &quot;$(pwd)&quot;/target:/app:ro \</span><br><span class="line">  nginx:latest</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="bind-propagation"><a href="#bind-propagation" class="headerlink" title="bind propagation"></a>bind propagation</h3><p>对于bind mounts和volumes，bind propagation(传播)默认为<code>rprivate</code>。它只能对Linux主机上的bind mounts进行配置。它是一个高级话题，许多用户并不需要配置它。</p>
+<p>bind propagation(传播)是指在给定的bind-mounts或named volume中创建的挂载是否可以传播(propagation)到该挂载(mount)的副本(replicas)。<br>考虑一个挂载点<code>/mnt</code>，挂载在<code>/tmp</code>上。传播设置控制<code>/tmp/a</code>上的挂载点是否也可用于<code>/mnt/a</code>。每个传播设置都有一个递归对应点。在递归的情况下，考虑<code>/tmp/a</code>也被挂载到<code>/foo</code>。传播设置控制是否存在<code>/mnt/a</code>和<code>/tmp/a</code>。</p>
+<table>
+<thead>
+<tr>
+<th>传播设置</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>shared</td>
+<td>原始mount的sub-mount会暴露给replica mounts，并且replica mounts的sub-mount同样传播给原始mount。也就是双向</td>
+</tr>
+<tr>
+<td>slave</td>
+<td>类似于shared，但仅限于单方向。</td>
+</tr>
+<tr>
+<td>private</td>
+<td>私有挂载</td>
+</tr>
+<tr>
+<td>rshared</td>
+<td>与shared相同，但传播也扩展到嵌套在任何原始或副本挂载点内的挂载点</td>
+</tr>
+<tr>
+<td>rslave</td>
+<td>与slave相同，但传播也扩展到嵌套在任何原始或副本挂载点内的挂载点</td>
+</tr>
+<tr>
+<td>rprivate</td>
+<td>默认值。与private相同，这意味着原始或副本挂载点内的任何位置的挂载点都不会沿任一方向传播</td>
+</tr>
+</tbody>
+</table>
+<p>在设置bind propagation之前，主机文件系统需要已经支持bind propagatin: <a href="https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt" target="_blank" rel="noopener">https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#--mount</span><br><span class="line">docker run -d \</span><br><span class="line">  -it \</span><br><span class="line">  --name devtest \</span><br><span class="line">  --mount type=bind,source=&quot;$(pwd)&quot;/target,target=/app \</span><br><span class="line">  --mount type=bind,source=&quot;$(pwd)&quot;/target,target=/app2,readonly,bind-propagation=rslave \</span><br><span class="line">  nginx:latest</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#--volume</span><br><span class="line">docker run -d \</span><br><span class="line">  -it \</span><br><span class="line">  --name devtest \</span><br><span class="line">  -v &quot;$(pwd)&quot;/target:/app \</span><br><span class="line">  -v &quot;$(pwd)&quot;/target:/app2:ro,rslave \</span><br><span class="line">  nginx:latest</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="selinux-label"><a href="#selinux-label" class="headerlink" title="selinux label"></a>selinux label</h3><p>如果你使用selinux，你可以添加<code>z</code>或<code>Z</code>选项来修改挂载到容器内的主机文件或目录的selinux标签。这户影响主机本身的文件或目录，并可能导致Docker范围之外的后果。</p>
+<ul>
+<li><p><code>z</code><br>bind mount的内容在多个容器之间共享。</p>
+</li>
+<li><p><code>Z</code><br>bind mount的内容是私有和非共享的。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#不支持--mount</span><br><span class="line">docker run -d \</span><br><span class="line">  -it \</span><br><span class="line">  --name devtest \</span><br><span class="line">  -v &quot;$(pwd)&quot;/target:/app:z \</span><br><span class="line">  nginx:latest</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="tmpfs-mounts"><a href="#tmpfs-mounts" class="headerlink" title="tmpfs mounts"></a>tmpfs mounts</h2><p>tmpfs: <a href="https://docs.docker.com/storage/tmpfs/#limitations-of-tmpfs-mounts" target="_blank" rel="noopener">https://docs.docker.com/storage/tmpfs/#limitations-of-tmpfs-mounts</a><br>tmpfs mounts只支持运行在Linux上的Docker。</p>
+<p><br><br><br></p>
+<h2 id="Troubleshoot"><a href="#Troubleshoot" class="headerlink" title="Troubleshoot"></a>Troubleshoot</h2><p>troubleshoot: <a href="https://docs.docker.com/storage/troubleshooting_volume_errors/" target="_blank" rel="noopener">https://docs.docker.com/storage/troubleshooting_volume_errors/</a></p>
+<p><br><br><br></p>
+<h2 id="将数据存储到容器内"><a href="#将数据存储到容器内" class="headerlink" title="将数据存储到容器内"></a>将数据存储到容器内</h2><p>Store data within containers</p>
+<h3 id="关于存储驱动"><a href="#关于存储驱动" class="headerlink" title="关于存储驱动"></a>关于存储驱动</h3><p>为了有效地使用存储驱动(storage driver)，了解Docker如何构建和存储镜像，以及容器如何使用镜像是很重要的。你可以使用这些信息作出明智的选择，以便找到应用程序数据持久化的最佳方式，并避免出现性能问题。</p>
+<p>存储驱动允许你在容器的可写入层创建数据。在容器停止后，这些文件将不会被保留，并且读写速度都很低。</p>
+<p><br></p>
+<h4 id="镜像和层"><a href="#镜像和层" class="headerlink" title="镜像和层"></a>镜像和层</h4><p>Images and layers</p>
+<p>Docker镜像由一系列层(layer)构建而成。每个层代表镜像的Dockerfile中的指令，除最后一层外的每个层都是只读的。</p>
+<p>考虑如下Dockerfile:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:15.04</span><br><span class="line">COPY . /app</span><br><span class="line">RUN make /app</span><br><span class="line">CMD python /app/app.py</span><br></pre></td></tr></table></figure>
+<p>此Dockerfile包含4个命令，每个命令创建一个层。<br>当你创建一个新容器时，你在底层之上添加了一个新的可写入层——它通常被称为<strong>容器层(container layer)</strong>。<br>对运行中的容器所做的所有更改(增删改文件)都会写入此可写容器层。</p>
+<p><img src="/images/Docker/container-layers.jpg" alt="容器层"></p>
+<p>存储驱动处理有关这些层相互交互的详细信息。有几个不同的驱动程序，在不同的情况下具有相应的优点和缺点。</p>
+<p><br></p>
+<h4 id="容器和层"><a href="#容器和层" class="headerlink" title="容器和层"></a>容器和层</h4><p>Container and layers</p>
+<p>容器和镜像之间的主要区别是最高的可写入层。当容器删除时，可写入层也被删除。但底层镜像保持不变。</p>
+<p>由于每个容器都有自己的可写入容器层，并且所有的更改都存储在此容器中，因此多个容器可以共享相同的基础镜像的访问权限，并拥有自己的数据状态。</p>
+<p><img src="/images/Docker/sharing-layers.jpg" alt="容器和层"></p>
+<p>Docker使用存储驱动来管理镜像层和可写入容器层的内容。每个存储驱动程序都已不同方式实现，但所有驱动程序都是用可堆叠(stackable)的镜像层和写入时复制(copy-on-write)策略。</p>
+<p><br></p>
+<h4 id="容器大小"><a href="#容器大小" class="headerlink" title="容器大小"></a>容器大小</h4><p>Container size on disk</p>
+<p>使用<code>docker ps -s(--size)</code>命令查看正在运行的容器的大小。有两个大小:</p>
+<ul>
+<li><p><code>size</code><br>每个容器的可写入层的数据量(在磁盘上的)</p>
+</li>
+<li><p><code>virtual size</code><br>容器使用的只读镜像的数据量加上容器可写入层大小</p>
+</li>
+</ul>
+<p><br><br><br></p>
+<h4 id="写入时复制"><a href="#写入时复制" class="headerlink" title="写入时复制"></a>写入时复制</h4><p>The copy-on-write (CoW) strategy</p>
+<p>写入时复制是一种共享和复制文件以实现最高效率的策略。如果文件或目录存在于镜像的较低层中，而另外的层(包括可写入层)需要对其进行读取访问，则它只是用已有文件。第一次需要修改文件时，该文件将被复制到该层并进行修改。这最大限度减少了每个后续层的I/O和大小。</p>
+<p><strong>共享促进了较小的容器</strong><br>Sharing promotes smaller images</p>
+<p>当你创建和拉取镜像时，它们通常存储于本机的<code>/var/lib/docker</code>下。每层都存储在主机存储区内的特定目录下<code>/var/lib/docker/&lt;storage-driver&gt;/layers</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ls /var/lib/docker/aufs/layers</span><br><span class="line"></span><br><span class="line">1d6674ff835b10f76e354806e16b950f91a191d3b471236609ab13a930275e24</span><br><span class="line">5dbb0cbe0148cf447b9464a358c1587be586058d9a4c9ce079320265e2bb94e7</span><br><span class="line">bef7199f2ed8e86fa4ada1309cfad3089e0542fec8894690529e4c04a7ca2d73</span><br><span class="line">ebf814eccfe98f2704660ca1d844e4348db3b5ccc637eb905d4818fbfb00a06a</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>复制使容器高效</strong><br>Copying makes containers efficient</p>
+<p>容器不会更改的任何文件都不会被复制到此可写入层中。这意味着可写入层尽可能小。</p>
+<p>当容器中存在的文件被修改时，存储驱动之赐你个写入时复制操作(CoW)。涉及的具体步骤取决于具体的存储驱动。</p>
+<p>aufs, overlay, overlay2存储驱动 遵循的基本顺序:</p>
+<ul>
+<li>通过镜像层搜索要更新的文件</li>
+<li>对找到的文件的第一个副本执行<code>copy_up</code>操作，将文件复制到容器的可写入层</li>
+<li>任何修改应用于此复制的文件，并且该容器不能看到存在于较低层中的文件的只读副本</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="选择存储驱动"><a href="#选择存储驱动" class="headerlink" title="选择存储驱动"></a>选择存储驱动</h3><p>Select a storage driver</p>
+<p>理想情况下，将很少的数据写入容器的可写入层，并且使用Docker volume写入数据。但某些工作负载要求你能够写入容器的可写入层，这就是存储驱动进来的地方。</p>
+<p>存储驱动控制镜像和容器在Docker主机上的存储和管理方式。</p>
+<p>考虑三个高层次因素：</p>
+<ul>
+<li><p>如果你的Kernel支持多个存储驱动，在没有指定存储驱动的情况下，Docker会列出要使用拿个存储驱动程序的优先级列表</p>
+<ul>
+<li>如果可能，将使用配置最少的存储驱动。如<code>brrfs</code>, <code>zfs</code></li>
+<li>否则，请尝试在最常见的情况下使用具有最佳整体性能和稳定性的存储驱动程序<ul>
+<li><code>overlay2</code>是首选(Docker CE的默认选择)，其次是<code>overlay</code>。这些都不需要额外的配置。</li>
+<li><code>devicemapper</code>居次，但需要<code>direc-lvm</code>用于生产环境，因为<code>loopback-lvm</code>的性能很差。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>你的选择会受限于Docker版本、操作系统和发行版</p>
+</li>
+<li><p>某些存储驱动要求你为文件系统使用特定格式</p>
+</li>
+<li><p>你的选择还取决于工作负载和所需的稳定级别</p>
+</li>
+</ul>
+<p><br></p>
+<h4 id="Linux发行版支持的存储驱动"><a href="#Linux发行版支持的存储驱动" class="headerlink" title="Linux发行版支持的存储驱动"></a>Linux发行版支持的存储驱动</h4><p><strong>Docker CE</strong></p>
+<table>
+<thead>
+<tr>
+<th>Linux distribution</th>
+<th>Recommended storage drivers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Docker CE on Ubuntu</td>
+<td>aufs, devicemapper, overlay2 (Ubuntu 14.04.4 or later, 16.04 or later), overlay, zfs, vfs</td>
+</tr>
+<tr>
+<td>Docker CE on Debian</td>
+<td>aufs, devicemapper, overlay2 (Debian Stretch), overlay, vfs</td>
+</tr>
+<tr>
+<td>Docker CE on CentOS</td>
+<td>devicemapper, vfs</td>
+</tr>
+<tr>
+<td>Docker CE on Fedora</td>
+<td>devicemapper, overlay2 (Fedora 26 or later, experimental), overlay (experimental), vfs</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="存储驱动支持的文件系统"><a href="#存储驱动支持的文件系统" class="headerlink" title="存储驱动支持的文件系统"></a>存储驱动支持的文件系统</h4><table>
+<thead>
+<tr>
+<th>Storage driver</th>
+<th>Supported backing filesystems</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>overlay, overlay2</td>
+<td>ext4, xfs</td>
+</tr>
+<tr>
+<td>aufs</td>
+<td>ext4, xfs</td>
+</tr>
+<tr>
+<td>devicemapper</td>
+<td>direct-lvm</td>
+</tr>
+<tr>
+<td>btrfs</td>
+<td>btrfs</td>
+</tr>
+<tr>
+<td>zfs</td>
+<td>zfs</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="查看存储驱动"><a href="#查看存储驱动" class="headerlink" title="查看存储驱动"></a>查看存储驱动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Server Version: 18.03.1-ce</span><br><span class="line">Storage Driver: overlay2</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="AUFS存储驱动"><a href="#AUFS存储驱动" class="headerlink" title="AUFS存储驱动"></a>AUFS存储驱动</h3><p>AUFS is a union filesystem.</p>
+<p>aufs存储驱动用于管理Ubuntu上Docker的镜像和层。</p>
+<p>我的发行版是Centos，此驱动针对Ubuntu。注意</p>
+<p><br></p>
+<h4 id="使用aufs存储驱动配置Docker"><a href="#使用aufs存储驱动配置Docker" class="headerlink" title="使用aufs存储驱动配置Docker"></a>使用aufs存储驱动配置Docker</h4><ul>
+<li>判断kernel是否支持aufs</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep aufs /proc/filesystems</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看Docker存储驱动</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置存储驱动</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">#或</span><br><span class="line">--storage-driver</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="aufs存储驱动如何工作"><a href="#aufs存储驱动如何工作" class="headerlink" title="aufs存储驱动如何工作"></a>aufs存储驱动如何工作</h4><p>AUFS是一个联合文件系统，这意味着它在单个Linux主机上对多个目录进行分层并将它们呈现为单个目录。这些目录在AUFS术语中称为分支，在Docker术语中称为层。统一过程被称为联合安装。</p>
+<p><img src="/images/Docker/aufs_layers.jpg" alt=""></p>
+<p><br></p>
+<h4 id="容器如何使用aufs进行读写"><a href="#容器如何使用aufs进行读写" class="headerlink" title="容器如何使用aufs进行读写"></a>容器如何使用aufs进行读写</h4><p><strong>读取文件</strong></p>
+<p><br></p>
+<h3 id="Btrfs存储驱动"><a href="#Btrfs存储驱动" class="headerlink" title="Btrfs存储驱动"></a>Btrfs存储驱动</h3><p>Use the BTRFS storage driver</p>
+<p><br></p>
+<h3 id="Device-Mapper存储驱动"><a href="#Device-Mapper存储驱动" class="headerlink" title="Device Mapper存储驱动"></a>Device Mapper存储驱动</h3><p>Use the Device Mapper storage driver</p>
+<p>Device Mapper是基于kernel的框架，支持Linux上的许多高级卷管理技术。Docker的<code>devicemapper</code>存储驱动利用此框架的精简配置和快照功能进行镜像和容器管理。</p>
+<p>对于支持它的系统，<code>devicemapper</code>支持包含在Linux内核中。但是，需要特定配置才能将其用于Docker。<code>devicemapper</code>驱动使用专用于Docker的块设备，并在块级(block level)而不是文件级(file level)运行。这些设备可通过在Docker主机添加物理设备来扩展，并且它们比咋子操作系统级别使用文件系统更好。</p>
+<p><br></p>
+<p><strong>依赖</strong></p>
+<ul>
+<li>Docker EE</li>
+<li>Docker CE</li>
+<li>更改存储驱动会使已创建的容器在本地系统上都无法访问</li>
+</ul>
+<p><br></p>
+<p><strong>配置devicemapper存储驱动</strong></p>
+<ul>
+<li>loop-lvm</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#loop-lvm模式</span><br><span class="line">/etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;storage-driver&quot;: &quot;devicemapper&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#查看</span><br><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<ul>
+<li>direct-lvm<br>生产环境的devicemapper存储驱动必须使用direct-lvm模式。此模式使用块设备创建精简池。这比使用loopback设备更快，更高效地使用系统资源，并且块设备可以根据需求进行扩展。</li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Required</th>
+<th>Default</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dm.directlvm_device</td>
+<td>The path to the block device to configure for direct-lvm.</td>
+<td>Yes</td>
+<td>-</td>
+<td>dm.directlvm_device=”/dev/xvdf”</td>
+</tr>
+<tr>
+<td>dm.thinp_percent</td>
+<td>The percentage of space to use for storage from the passed in block device.</td>
+<td>No</td>
+<td>95</td>
+<td>dm.thinp_percent=95</td>
+</tr>
+<tr>
+<td>dm.thinp_metapercent</td>
+<td>The percentage of space to for metadata storage from the passed-in block device.</td>
+<td>No</td>
+<td>1</td>
+<td>dm.thinp_metapercent=1</td>
+</tr>
+<tr>
+<td>dm.thinp_autoextend_threshold</td>
+<td>The threshold for when lvm should automatically extend the thin pool as a percentage of the total storage space.</td>
+<td>No</td>
+<td>80</td>
+<td>dm.thinp_autoextend_threshold=80</td>
+</tr>
+<tr>
+<td>dm.thinp_autoextend_percent</td>
+<td>The percentage to increase the thin pool by when an autoextend is triggered.</td>
+<td>No</td>
+<td>20</td>
+<td>dm.thinp_autoextend_percent=20</td>
+</tr>
+<tr>
+<td>dm.directlvm_device_force</td>
+<td>Whether to format the block device even if a filesystem already exists on it. If set to false and a filesystem is present, an error is logged and the filesystem is left intact.</td>
+<td>No</td>
+<td>false</td>
+<td>dm.directlvm_device_force=true</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#安装依赖</span><br><span class="line">RHEL / CentOS: device-mapper-persistent-data, lvm2, and all dependencies</span><br><span class="line">Ubuntu / Debian: thin-provisioning-tools, lvm2, and all dependencies</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#创建物理卷(physical volume)</span><br><span class="line">pvcreate /dev/cvdf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#创建卷组(volume group)</span><br><span class="line">vgcreat docker /dev/xvdf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#创建逻辑卷(logical volume)</span><br><span class="line">lvcreate --wipesignatures y -n thinpool docker -l 95%VG</span><br><span class="line">lvcreate --wipesignatures y -n thinpoolmeta docker -l 1%VG</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#转换卷为精简池</span><br><span class="line">lvconvert -y \</span><br><span class="line">--zero n \</span><br><span class="line">-c 512K \</span><br><span class="line">--thinpool docker/thinpool \</span><br><span class="line">--poolmetadata docker/thinpoolmeta</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#配置lvm配置文件精简池自动扩展</span><br><span class="line">/etc/lvm/profile/docker-thinpool.profile</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#指定thin_pool_autoextend_threshold 和 thin_pool_autoextend_percent的值</span><br><span class="line">activation &#123;</span><br><span class="line">  thin_pool_autoextend_threshold=80</span><br><span class="line">  thin_pool_autoextend_percent=20</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#应用LVM profile</span><br><span class="line">lvchange --metadataprofile docker-thinpool docker/thinpool</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#启用监控LV</span><br><span class="line">lvs -o+seg_monitor</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#配置devicemapper存储驱动</span><br><span class="line">/etc/docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">    &quot;storage-driver&quot;: &quot;devicemapper&quot;,</span><br><span class="line">    &quot;storage-opts&quot;: [</span><br><span class="line">    &quot;dm.thinpooldev=/dev/mapper/docker-thinpool&quot;,</span><br><span class="line">    &quot;dm.use_deferred_removal=true&quot;,</span><br><span class="line">    &quot;dm.use_deferred_deletion=true&quot;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#查看</span><br><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="管理devicemapper"><a href="#管理devicemapper" class="headerlink" title="管理devicemapper"></a>管理devicemapper</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#查看LVM logs</span><br><span class="line">journalctl -fu dm-event.service</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pvdisplay</span><br><span class="line">vgdisplay/vgextend</span><br><span class="line">lvdisplay/lvextend/lvchange</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="OverlayFS存储驱动"><a href="#OverlayFS存储驱动" class="headerlink" title="OverlayFS存储驱动"></a>OverlayFS存储驱动</h3><p>Use the OverlayFS storage driver</p>
+<p><br></p>
+<h3 id="ZFS存储驱动"><a href="#ZFS存储驱动" class="headerlink" title="ZFS存储驱动"></a>ZFS存储驱动</h3><p>Use the ZFS storage driver</p>
+<p><br></p>
+<h3 id="VFS存储驱动"><a href="#VFS存储驱动" class="headerlink" title="VFS存储驱动"></a>VFS存储驱动</h3><p>Use the VFS storage driver</p>
+<p>VFS存储驱动不是联合文件系统，相反，每层都是磁盘上的一个目录，它不支持CoW。要创建一个新层，先前的层会进行<strong>深层复制(deep copy)</strong>。与其它驱动相比，这导致磁盘性能下降和占用更多磁盘空间。但是，它强大，稳定，适用于各种环境。</p>
+<p><strong>配置VFS存储驱动</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;storage-driver&quot;: &quot;vfs&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#控制大小</span><br><span class="line">&#123;</span><br><span class="line">  &quot;storage-opts&quot;: [&quot;size=256M&quot;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#查看</span><br><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="在生产环境运行应用程序"><a href="#在生产环境运行应用程序" class="headerlink" title="在生产环境运行应用程序"></a>在生产环境运行应用程序</h1><p>Run your app in production</p>
+<p><br></p>
+<h2 id="配置对象"><a href="#配置对象" class="headerlink" title="配置对象"></a>配置对象</h2><p>Configure all objects</p>
+<p><br></p>
+<h3 id="自定义原数据"><a href="#自定义原数据" class="headerlink" title="自定义原数据"></a>自定义原数据</h3><p>Apply custom metadata to objects</p>
+<p><strong>Docker object label</strong><br>标签(label)是一种将原数据(metadata)应用于docker object的机制，包含:</p>
+<ul>
+<li>image</li>
+<li>container</li>
+<li>local daemon</li>
+<li>volume</li>
+<li>network</li>
+<li>node</li>
+<li>service</li>
+</ul>
+<p><br></p>
+<h4 id="label-key-and-value"><a href="#label-key-and-value" class="headerlink" title="label key and value"></a>label key and value</h4><p>标签是一组键值对，以字符串形式存储。可以为对象指定多个标签，但每个键值对必须唯一。如果一个键有多个值，则最新写入的值会覆盖以前的值。</p>
+<p><strong>key格式建议</strong><br>label key是可能包含字母，数字，<code>.</code>，<code>-</code>组成的字符串。</p>
+<ul>
+<li>第三方工具的作者给每个label key加上前缀域，如<code>com.example.some-label</code></li>
+<li>未经允许，不得使用他人域</li>
+<li><code>com.docker.*</code>, <code>io.docker.*</code>, <code>org.dockerproject.*</code>命名空间保留给Docker内部使用</li>
+<li>以小写字母开头和结尾</li>
+<li>用<code>.</code>分割命令空间字段</li>
+</ul>
+<p><br></p>
+<p><strong>value 指南</strong><br>label value可以包含任何可表示为字符串的数据类型，包括JSON, XML, CSV, YAML…唯一的要求是，首先使用特定于结构类型的机制将该值序列化为字符串。</p>
+<p><br><br><br></p>
+<h3 id="清理未使用的对象"><a href="#清理未使用的对象" class="headerlink" title="清理未使用的对象"></a>清理未使用的对象</h3><p>Prune unused Docker objects</p>
+<p>Docker采取保守的方法来清理未使用的对象(通常称为垃圾回收)，通常它不会删除这些对象，除非你明确要求Docker这样做。对于每个类型的对象，docker提供了<code>prune</code>命令。你也可以使用<code>docker system prune</code>命令一次清理多种类型的对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#prune image</span><br><span class="line">docker image prune</span><br><span class="line"> docker image prune -a --filter &quot;until=24h&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#prune container</span><br><span class="line">docker container prune</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#prune volume</span><br><span class="line">docker volume prune</span><br><span class="line">docker volume prune --filter &quot;label!=keep&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#prune everything</span><br><span class="line">docker system prune</span><br><span class="line">docker system prune --volumes</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h3><p>Format command and log output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#join</span><br><span class="line">docker inspect --format &apos;&#123;&#123;join .Args &quot; , &quot;&#125;&#125;&apos; container</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#json</span><br><span class="line">docker inspect --format &apos;&#123;&#123;json .Mounts&#125;&#125;&apos; container</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#lower</span><br><span class="line">docker inspect --format &quot;&#123;&#123;lower .Name&#125;&#125;&quot; container</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#split</span><br><span class="line">docker inspect --format &apos;&#123;&#123;split .Image &quot;:&quot;&#125;&#125;&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#title</span><br><span class="line">docker inspect --format &quot;&#123;&#123;title .Name&#125;&#125;&quot; container</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#upper</span><br><span class="line">docker inspect --format &quot;&#123;&#123;upper .Name&#125;&#125;&quot; container</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#printIn</span><br><span class="line">docker inspect --format=&apos;&#123;&#123;range .NetworkSettings.Networks&#125;&#125;&#123;&#123;println .IPAddress&#125;&#125;&#123;&#123;end&#125;&#125;&apos; container</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="配置daemon"><a href="#配置daemon" class="headerlink" title="配置daemon"></a>配置daemon</h2><p>Configure the daemon</p>
+<p><br></p>
+<h3 id="配置和运行Docker"><a href="#配置和运行Docker" class="headerlink" title="配置和运行Docker"></a>配置和运行Docker</h3><p><strong>配置docker daemon</strong></p>
+<ul>
+<li>使用json配置文件</li>
+<li>使用<code>dockerd --flage</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;debug&quot;: true,</span><br><span class="line">  &quot;tls&quot;: true,</span><br><span class="line">  &quot;tlscert&quot;: &quot;/var/docker/server.pem&quot;,</span><br><span class="line">  &quot;tlskey&quot;: &quot;/var/docker/serverkey.pem&quot;,</span><br><span class="line">  &quot;hosts&quot;: [&quot;tcp://192.168.59.3:2376&quot;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#或</span><br><span class="line">dockerd --debug \</span><br><span class="line">  --tls=true \</span><br><span class="line">  --tlscert=/var/docker/server.pem \</span><br><span class="line">  --tlskey=/var/docker/serverkey.pem \</span><br><span class="line">  --host tcp://192.168.59.3:2376</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>docker daemon目录</strong><br>docker daemon将所有数据保存在一个目录中。你可以手动修改它。</p>
+<p>默认目录:</p>
+<ul>
+<li>Linux： <code>/var/lib/docker</code></li>
+<li>Windows: <code>C:\ProgramData\docker</code></li>
+</ul>
+<p><br><br><br></p>
+<h3 id="使用systemd控制docker"><a href="#使用systemd控制docker" class="headerlink" title="使用systemd控制docker"></a>使用systemd控制docker</h3><p>Control Docker with systemd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat /usr/lib/systemd/system/docker.service</span><br><span class="line">#or</span><br><span class="line">cat /etc/systemd/system/docker.service</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">systemctl enable/start/stop/status docker</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>自定义docker daemon选项</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;data-root&quot;: &quot;/mnt/docker-data&quot;,</span><br><span class="line">    &quot;storage-driver&quot;: &quot;overlay&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>http/https proxy</strong><br>Docker daemon使用<code>HTTP_PROXY</code>，<code>HTTPS_PROXY</code>和<code>NO_PROXY</code>环境变量来配置代理行为。无法使用<code>daemon.json</code>文件来配置环境变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /etc/systemd/system/docker.service.d</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#/etc/systemd/system/docker.service.d/http-proxy.conf</span><br><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTP_PROXY=http://proxy.example.com:80/&quot;</span><br><span class="line"></span><br><span class="line">#/etc/systemd/system/docker.service.d/https-proxy.conf</span><br><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTPS_PROXY=https://proxy.example.com:443/&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br><span class="line">systemctl show --property=Environment docker</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="收集Docker指标"><a href="#收集Docker指标" class="headerlink" title="收集Docker指标"></a>收集Docker指标</h3><p>Collect Docker metrics with Prometheus</p>
+<p>Promethus: <a href="https://prometheus.io/" target="_blank" rel="noopener">https://prometheus.io/</a><br>Prometheus是一个开源的系统监控和报警工具包。你可以将Docker配置为Prometheus target。设置Prometheus作为Docker容器运行，并使用Prometheus监控Docker实例。</p>
+<p><strong>配置Docker</strong><br>配置docker daemon作为Prometheus target，你需要指定<code>metrics-address</code>。最佳方式是通过<code>daemon.json</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;metrics-addr&quot; : &quot;127.0.0.1:9323&quot;,</span><br><span class="line">  &quot;experimental&quot; : true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>配置和运行Prometheus</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">/tmp/prometheus.yml</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># my global config</span><br><span class="line">global:</span><br><span class="line">  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.</span><br><span class="line">  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.</span><br><span class="line">  # scrape_timeout is set to the global default (10s).</span><br><span class="line"></span><br><span class="line">  # Attach these labels to any time series or alerts when communicating with</span><br><span class="line">  # external systems (federation, remote storage, Alertmanager).</span><br><span class="line">  external_labels:</span><br><span class="line">      monitor: &apos;codelab-monitor&apos;</span><br><span class="line"></span><br><span class="line"># Load rules once and periodically evaluate them according to the global &apos;evaluation_interval&apos;.</span><br><span class="line">rule_files:</span><br><span class="line">  # - &quot;first.rules&quot;</span><br><span class="line">  # - &quot;second.rules&quot;</span><br><span class="line"></span><br><span class="line"># A scrape configuration containing exactly one endpoint to scrape:</span><br><span class="line"># Here it&apos;s Prometheus itself.</span><br><span class="line">scrape_configs:</span><br><span class="line">  # The job name is added as a label `job=&lt;job_name&gt;` to any timeseries scraped from this config.</span><br><span class="line">  - job_name: &apos;prometheus&apos;</span><br><span class="line"></span><br><span class="line">    # metrics_path defaults to &apos;/metrics&apos;</span><br><span class="line">    # scheme defaults to &apos;http&apos;.</span><br><span class="line"></span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [&apos;localhost:9090&apos;]</span><br><span class="line"></span><br><span class="line">  - job_name: &apos;docker&apos;</span><br><span class="line">         # metrics_path defaults to &apos;/metrics&apos;</span><br><span class="line">         # scheme defaults to &apos;http&apos;.</span><br><span class="line"></span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [&apos;localhost:9323&apos;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker service create --replicas 1 --name my-prometheus \</span><br><span class="line">    --mount type=bind,source=/tmp/prometheus.yml,destination=/etc/prometheus/prometheus.yml \</span><br><span class="line">    --publish published=9090,target=9090,protocol=tcp \</span><br><span class="line">    prom/prometheus</span><br></pre></td></tr></table></figure>
+<p>访问: <a href="http://localhost:9090/targets/" target="_blank" rel="noopener">http://localhost:9090/targets/</a></p>
+<p><br><br><br></p>
+<h2 id="配置容器"><a href="#配置容器" class="headerlink" title="配置容器"></a>配置容器</h2><p>Configure containers</p>
+<h3 id="自动启动容器"><a href="#自动启动容器" class="headerlink" title="自动启动容器"></a>自动启动容器</h3><p>Start containers automatically</p>
+<p>Docker提供了重启策略，以控制容器在退出或重启时自动启动。重启策略可确保链接的容器以正确的书序启动。Docker建议你使用重启策略，并避免使用进程管理器(如supervisor)来启动容器。<br>重启策略与<code>docker xxx --live-restart</code>标志不同，后者可以让你在Docker upgrage期间保持容器运行。</p>
+<p><br></p>
+<p><strong>重启策略</strong><br>使用<code>docker run xxx --restart</code>标志来配置重启策略，<code>--restart</code>的值如下：</p>
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>no</td>
+<td>不要自动重启容器(默认值)</td>
+</tr>
+<tr>
+<td>on-failure</td>
+<td>如果容器由于错误(非零退出码)退出，则重启容器</td>
+</tr>
+<tr>
+<td>unless-stopped</td>
+<td>除非明确停止或docker本身停止或重启，则重启容器</td>
+</tr>
+<tr>
+<td>always</td>
+<td>如果停止，则始终重启容器</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#栗子</span><br><span class="line">docker run -dit --restart unless-stopped redis</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>重启策略注意事项</strong></p>
+<ul>
+<li><p>重启策略尽在容器成功启动后才生效——这意味着容器已启动至少10s，并且Docker已开始监视它。<br>这可以防止根本不启动的容器进入重启循环。</p>
+</li>
+<li><p>如果你手动停止容器(状态码为0)，则在重启Docker daemon或手动启动容器之前，其重启策略将会被忽略。<br>这是另一个防止重启循环的尝试。</p>
+</li>
+<li><p>重启策略仅适用于容器。集群服务的重启策略与此不同。</p>
+</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="在daemon停机期间保持容器活着"><a href="#在daemon停机期间保持容器活着" class="headerlink" title="在daemon停机期间保持容器活着"></a>在daemon停机期间保持容器活着</h3><p>Keep containers alive during daemon downtime</p>
+<p>默认情况下，当Docker daemon终止时，它会关闭正在运行的容器。从Docker Engine 1.12开始，你可配置守护进程，以便在守护进程不可用时容器保持运行。这个功能被称为<strong>实时恢复(live restore)</strong>。<br>它不支持Windows container。</p>
+<p><br></p>
+<p><strong>实时恢复</strong><br>有两种方式来启用live restore，只启用其中一个就好。<br>实时恢复仅适用于独立容器，不适用于集群服务。</p>
+<ul>
+<li>修改配置文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;live-restore&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>--live-restore</code>标志<br>不推荐</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dockerd xxx --live-restore</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="在一个容器中运行多个服务"><a href="#在一个容器中运行多个服务" class="headerlink" title="在一个容器中运行多个服务"></a>在一个容器中运行多个服务</h3><p>Run multiple services in a container</p>
+<p>容器的主要运行进程是Dockerfile末尾的<code>ENTRYPOINT</code>或<code>CMD</code>指令。通常建议你通过每个容器运行一项服务来分割关注区域。这些服务可能会分成多个进程(如Nginx的worker processe)。你可以使用用户定义的network和shared volumes来连接多个容器。</p>
+<p>容器的主进程负责管理它启动的所有进程。在某些情况下，主进程设计不好，在容器退出时无法正常处理<strong>停止</strong>子进程。如果你的进程属于这个类别，你可在容器运行时使用<code>--init</code>选型。<code>--init</code>标志将一个微小的<code>inti-process</code>作为主进程插入到容器中，并在容器退出时处理所有进程的停止。以这种方式处理这些进程优于使用完整的初始化进程。</p>
+<p><br></p>
+<p>如果你需要在一个容器中运行多个服务，则可通过几种不同方式来完成此操作。</p>
+<ul>
+<li>将所有命令封装进一个脚本中，并附带测试和调试信息。以封装脚本作为你的CMD</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vim my_wrapper.sh</span><br><span class="line"></span><br><span class="line">#!/bin/bash</span><br><span class="line">xxxxx</span><br><span class="line">xxx</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vim Dockerfile</span><br><span class="line"></span><br><span class="line">FROM ubuntu:latest</span><br><span class="line">COPY my_first_process my_first_process</span><br><span class="line">COPY my_second_process my_second_process</span><br><span class="line">COPY my_wrapper_script.sh my_wrapper_script.sh</span><br><span class="line">CMD ./my_wrapper_script.sh</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用如<code>supervisord</code>这样的进程管理器</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:latest</span><br><span class="line">RUN apt-get update &amp;&amp; apt-get install -y supervisor</span><br><span class="line">RUN mkdir -p /var/log/supervisor</span><br><span class="line">COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf</span><br><span class="line">COPY my_first_process my_first_process</span><br><span class="line">COPY my_second_process my_second_process</span><br><span class="line">CMD [&quot;/usr/bin/supervisord&quot;]</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="容器运行指标"><a href="#容器运行指标" class="headerlink" title="容器运行指标"></a>容器运行指标</h3><p>Container runtime metrics</p>
+<p><strong>docker stats</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker stats redis1 redis2</span><br><span class="line"></span><br><span class="line">CONTAINER           CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O</span><br><span class="line">redis1              0.07%               796 KB / 64 MB        1.21%               788 B / 648 B       3.568 MB / 512 KB</span><br><span class="line">redis2              0.07%               2.746 MB / 64 MB      4.29%               1.266 KB / 648 B    12.4 MB / 0 B</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Control groups</strong></p>
+<p>Linux Container依赖于<code>control group</code>，这些组不仅跟踪进程组，还公开有关CPU，mem，block I/O的使用情况和度量标准。你可以访问这些指标并判断容器运行状况。<br>control group通过为文件系统(pseudo-fs)公开，你应该可在<code>/proc/fs/cgroup</code>中找到它。</p>
+<p>查看cgroup子系统：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">grep cgroup /proc/mounts</span><br><span class="line"></span><br><span class="line">#or</span><br><span class="line">mount -l | grep cgroup</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#进程</span><br><span class="line">/proc/&lt;pid&gt;/cgroup</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#/表示进程尚未分配给group</span><br><span class="line">cat /proc/1/cgroup</span><br><span class="line">11:devices:/</span><br><span class="line">10:cpuset:/</span><br><span class="line">9:hugetlb:/</span><br><span class="line">8:memory:/</span><br><span class="line">7:blkio:/</span><br><span class="line">6:net_prio,net_cls:/</span><br><span class="line">5:pids:/</span><br><span class="line">4:perf_event:/</span><br><span class="line">3:cpuacct,cpu:/</span><br><span class="line">2:freezer:/</span><br><span class="line">1:name=systemd:/</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>查找给定容器的cgroup</strong><br>对于每个容器，每个层次结构中创建一个cgroup。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">/sys/fs/cgroup/memory/docker/&lt;docker-longid&gt;/</span><br><span class="line"></span><br><span class="line">cd /sys/fs/cgroup/memory/docker/893903129d869f384bd78d63a382f1c9527d6979be0a6cf3c13ea4f45a1554d6</span><br><span class="line">cat memory.stat</span><br><span class="line"></span><br><span class="line">cache 36282368</span><br><span class="line">rss 196608</span><br><span class="line">rss_huge 0</span><br><span class="line">mapped_file 1077248</span><br><span class="line">swap 0</span><br><span class="line">pgpgin 212904</span><br><span class="line">pgpgout 205531</span><br><span class="line">pgfault 314692</span><br><span class="line">pgmajfault 204</span><br><span class="line">inactive_anon 131072</span><br><span class="line">active_anon 65536</span><br><span class="line">inactive_file 18223104</span><br><span class="line">active_file 18059264</span><br><span class="line">unevictable 0</span><br><span class="line">hierarchical_memory_limit 9223372036854771712</span><br><span class="line">hierarchical_memsw_limit 9223372036854771712</span><br><span class="line">total_cache 36282368</span><br><span class="line">total_rss 196608</span><br><span class="line">total_rss_huge 0</span><br><span class="line">total_mapped_file 1077248</span><br><span class="line">total_swap 0</span><br><span class="line">total_pgpgin 212904</span><br><span class="line">total_pgpgout 205531</span><br><span class="line">total_pgfault 314692</span><br><span class="line">total_pgmajfault 204</span><br><span class="line">total_inactive_anon 131072</span><br><span class="line">total_active_anon 65536</span><br><span class="line">total_inactive_file 18223104</span><br><span class="line">total_active_file 18059264</span><br><span class="line">total_unevictable 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#其它信息类似</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="限制容器的资源"><a href="#限制容器的资源" class="headerlink" title="限制容器的资源"></a>限制容器的资源</h3><p>Limit a container’s resources</p>
+<p>默认情况下，容器没有资源限制，可以使用主机内核调度程序允许给定的资源。Docker提供了一些方法来控制容器可以使用的CPU、memory、block I/O。</p>
+<p>许多这些功能需要内核的支持。使用<code>docker info</code>命令检查是否支持。如果内核禁用了某功能，则可能会有如下警告: <strong>WARNING: No swap limit support</strong></p>
+<p><br></p>
+<h4 id="memory"><a href="#memory" class="headerlink" title="memory"></a>memory</h4><p><strong>你需要了解内存耗尽(out of memory)的风险</strong><br>不要让正在运行的容器消耗太多的主机内存，这很重要。在Linux主机上，如果内核检测到没有足够的内存来执行重要的系统功能，它会抛出一个<strong>OOME(out of memory exception)</strong>，并开始killing process以释放进程。任何进程都会是killing objects，包括Docker和其它重要应用程序。</p>
+<p>docker尝试通过调整docker daemon的OOM优先级来降低这些风险，从而使其比系统上的其它进程更小(less)可能的被killing。容器的OOM优先级不进行调整，这使得单个容器被killing的可能性要大于docker或其它进程。你不应该给docker daemon的<code>--oom-score-adj</code>或container的<code>--oom-kill-disable</code>标志来绕过这些安全措施。</p>
+<p>你可以通过以下方式减轻由OOM引起的系统不稳定的风险:</p>
+<ul>
+<li>在上线之前，进行测试以了解应用程序的内存需求</li>
+<li>确保应用程序仅在拥有足够资源的主机上运行</li>
+<li>限制容器可使用的内存量</li>
+<li>在主机上配置swap时请注意。swap比内存更慢，性能更低，但可以提供缓冲区以防系统内存耗尽</li>
+<li>考虑将容器转换为服务，并使用服务级别约束和节点标签来确保应用程序仅在具有足够内存的主机上运行</li>
+</ul>
+<p><br></p>
+<p><strong>限制容器对内存的</strong><br>Limit a container’s access to memory</p>
+<p>Docker可以强制<code>hard limit</code>，允许容器使用不超过给定数量的用户/系统内存，或<code>soft limit</code>。这允许容器使用尽可能多的内存。</p>
+<p>如下这些选项具有这样一些效果，注意内存单位<code>b, k, m, g</code>：</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-m/--memory=</code></td>
+<td>容器可使用的最大内存量。如果你设置此选项，则允许的最小值为4m</td>
+</tr>
+<tr>
+<td><code>--memory-swap</code></td>
+<td>容器允许使用的swap量。只有在<code>--momery</code>设置时才有意义</td>
+</tr>
+<tr>
+<td><code>--memory-swappiness</code></td>
+<td>默认情况下，容器可使用的主机内核可交换的匿名页面的百分比<0-100></0-100></td>
+</tr>
+<tr>
+<td><code>--memory-reservation</code></td>
+<td>允许你指定一个小于<code>--memory</code>的soft limit。当docker检测到内存不足时，此会被激活</td>
+</tr>
+<tr>
+<td><code>--kernel-memory</code></td>
+<td>容器可以使用的最大kernel memory。内核内存不能够被swap out，因此内核内存不足的容器可能会阻塞主机资源，这会对主机和其它容器产生副作用</td>
+</tr>
+<tr>
+<td><code>--oom-kill-disable</code></td>
+<td>默认情况下，如果发生内存溢出(OOM)，内核会杀死容器中的进程。使用此选项改变此行为</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="cpu"><a href="#cpu" class="headerlink" title="cpu"></a>cpu</h4><p>默认情况下，每个容器对主机CPU周期的访问是无限制的。你可以设置各种约束来限制给定容器访问主机的CPU周期。</p>
+<p><strong>CFS scheduler</strong><br>CFS是用于普通Linux进程的Linux kernel CPU调度器，一些运行时标志用于配置容器的CPU资源访问量。</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--cpu=&lt;value&gt;</code></td>
+<td>指定容器可以使用的CPU资源，如<code>--cpu=&quot;1.6&quot;</code></td>
+</tr>
+<tr>
+<td><code>--cpu-period=&lt;value&gt;</code></td>
+<td>指定CFS调度器周期，它与<code>--cpu-quota</code>一起使用。默认100ms。Docker1.13以后，使用<code>--cpus</code>替代</td>
+</tr>
+<tr>
+<td><code>--cpu-quota=&lt;value&gt;</code></td>
+<td>在容器上条件CFS配额。在Docker1.13以后，使用<code>--cpus</code>替代</td>
+</tr>
+<tr>
+<td><code>--cpuset-cpus</code></td>
+<td>限制容器可以使用的特定CPU或CORE。如果有多个CPU，请使用逗号<code>,</code>分割。如<code>0,2</code></td>
+</tr>
+<tr>
+<td><code>--cpu-shares</code></td>
+<td>将此标志设置为大于/小于1024(默认值)的值，以增加或减少容器的重量，并使其能够访问更大或更小比例的主机CPU周期。这仅在CPU周期受到限制时才会执行。</td>
+</tr>
+</tbody>
+</table>
+<p>如果你只有1 CPU，如下命令可保证容器每秒最多有50%的CPU——<code>docker run -it --cpus=&quot;.5&quot; xxx</code></p>
+<p><br></p>
+<p><strong>realtime scheduler</strong></p>
+<p>在Docker1.13及更高版本，对于无法使用CFS的任务，你可以使用realtime scheduler。<br>在你配置docker daemon和container之前，请正确地配置主机内核。</p>
+<p><strong>注意： CPU调度和优先级是高级内核功能。大多数用户不需要修改它。错误地设置将导致主机系统不稳定或不可用。</strong></p>
+<ul>
+<li><p>配置主机内核<br>通过运行<code>zcat /proc/config.gz | grep CONFIG_RT_GROUP_SCHED</code>或检查<code>/sys/fs/cgroup/cpu.rt_runtime_us</code>来验证内核是否启用了<code>CONFIG_RT_GROUP_SCHED</code>。有关配置内核实时调度器的指导，请参考相关文档。</p>
+</li>
+<li><p>配置docker daemon<br>运行docker daemon时使用<code>--cpu-rt-runtime</code>标志设置每个运行时间段的实时任务保留的最大微秒数。可使用systemd的docker.service进行配置。</p>
+</li>
+<li><p>配置独立容器<br>当使用<code>docker run</code>启动容器时，可以传递多个标志来控制容器CPU的优先级。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--cap-add=sys_nice</code></td>
+<td>授予容器<code>CAP_SYS_NICE</code>功能，允许容器提升进程的nice值，设置实时调度策略，设置CPU关联和其它操作</td>
+</tr>
+<tr>
+<td><code>--cpu-rt-runtime=&lt;value&gt;</code></td>
+<td>Docker实时调度器期间，容器可以以实时优先级运行的最大微秒数。需要<code>--cap-add=sys_nice</code>标志</td>
+</tr>
+<tr>
+<td><code>--ulimit rtprio=&lt;value&gt;</code></td>
+<td>容器允许的最大实时优先级，需要<code>--cap-add=sys_nice</code>标志</td>
+</tr>
+</tbody>
+</table>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run --it --cpu-rt-runtime=950000 \</span><br><span class="line">                  --ulimit rtprio=99 \</span><br><span class="line">                  --cap-add=sys_nice \</span><br><span class="line">                  debian:jessie</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h3><h4 id="查看容器日志"><a href="#查看容器日志" class="headerlink" title="查看容器日志"></a>查看容器日志</h4><p>记录的信息和日志格式取决于容器的端点命令。<br><code>docker logs</code>命令显示正在运行的容器记录的信息。<br><code>docker service logs</code>命令显示参与服务的所有容器记录的信息。在swarm模式下。</p>
+<p>在某些情况下，<code>docker logs</code>可能不会显示有用的信息，除非你采取其它措施。</p>
+<ul>
+<li>如果将日志发送到文件、主机、数据库或其它日志驱动程序，则<code>docker logs</code>可能不会显示有用的信息</li>
+<li>如果你的镜像运行non-interactive进程(如数据库)，则该应用程序可能会将output发送到日志文件而不是stdout/stderr</li>
+</ul>
+<p><br></p>
+<h4 id="配置日志驱动"><a href="#配置日志驱动" class="headerlink" title="配置日志驱动"></a>配置日志驱动</h4><p>Configure logging drivers</p>
+<p>docker提供了多种日志记录机制(logging mechanisms)来帮助你从运行的容器和服务中获取信息。这些机制被称为日志驱动(logging driver)。<br>每个docker daemon都有一个默认日志驱动，每个容器也默认使用该驱动。除非你给容器配置了其它日志驱动。<br>除了使用docker附带日志驱动，在Docker v17.05之后，你还可以使用日志驱动插件(logging driver plugin)。</p>
+<p><br></p>
+<p><strong>配置默认日志驱动</strong><br>默认的日志驱动是<code>json-flie</code>。<br>可在<code>daemon.json</code>文件里通过<code>log-driver</code>选项匹配置日志驱动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">#设置为syslog</span><br><span class="line">&#123;</span><br><span class="line">  &quot;log-driver&quot;: &quot;syslog&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果日志驱动存在可配置选项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;log-driver&quot;: &quot;json-file&quot;,</span><br><span class="line">  &quot;log-opts&quot;: &#123;</span><br><span class="line">    &quot;labels&quot;: &quot;production_status&quot;,</span><br><span class="line">    &quot;env&quot;: &quot;os,customer&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#查看</span><br><span class="line">docker info | grep &apos;Loggin Driver&apos;</span><br><span class="line">Logging Driver: json-file</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>为容器配置日志驱动</strong><br>启动容器时，可使用<code>--log-driver</code>标志为其配置不同于docker daemon的日志驱动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --log-driver none alpine ash</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#查看容器日志驱动</span><br><span class="line">docker inspect -f &apos;&#123;&#123;.HostConfig.LogConfig.Type&#125;&#125;&apos; &lt;CONTAINER&gt;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>配置从容器到日志驱动的log message的交付模式</strong><br>Docker为从容器到日志驱动的日志消息提供了两种交付(delivery）模式：</p>
+<ul>
+<li><p>直接阻塞(blocking)从容器到驱动的交付(默认)</p>
+</li>
+<li><p>非阻塞交付(non-blocking)，将日志消息存储在中间每个容器的环形缓冲区中供驱动使用<br>非阻塞消息交付模式可防止应用程序因日志反压而被阻塞。当STDERR或STDOUT流阻塞时，应用程序可能会以意想不到的方式失败。</p>
+</li>
+</ul>
+<p><strong>注意：当缓冲区已满且新消息排入队列时，内存中最早的消息将被丢弃。丢弃消息通常首选阻止应用程序的日志写入过程。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --log-opt mode=non-blocking --log-opt max-buffer-size=4m alpine ping 127.0.0.1</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>日志驱动使用环境变量或label</strong><br>一些日志驱动将容器的<code>--env/-e</code>或<code>--label</code>标签的值添加到容器的日志中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -dit --label production_status=testing -e os=ubuntu alpine sh</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>支持的日志驱动</strong><br>如下是受支持的日志驱动。</p>
+<table>
+<thead>
+<tr>
+<th>驱动</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>none</td>
+<td>No logs are available for the container and docker logs does not return any output.</td>
+</tr>
+<tr>
+<td>json-file</td>
+<td>The logs are formatted as JSON. The default logging driver for Docker.</td>
+</tr>
+<tr>
+<td>syslog</td>
+<td>Writes logging messages to the syslog facility. The syslog daemon must be running on the host machine.</td>
+</tr>
+<tr>
+<td>journald</td>
+<td>Writes log messages to journald. The journald daemon must be running on the host machine.</td>
+</tr>
+<tr>
+<td>gelf</td>
+<td>Writes log messages to a Graylog Extended Log Format (GELF) endpoint such as Graylog or Logstash.</td>
+</tr>
+<tr>
+<td>fluentd</td>
+<td>Writes log messages to fluentd (forward input). The fluentd daemon must be running on the host machine.</td>
+</tr>
+<tr>
+<td>splunk</td>
+<td>Writes log messages to splunk using the HTTP Event Collector.</td>
+</tr>
+<tr>
+<td>logentries</td>
+<td>Writes log messages to Rapid7 Logentries.</td>
+</tr>
+<tr>
+<td>云日志系统</td>
+<td>各类云服务商提供的云日志系统</td>
+</tr>
+</tbody>
+</table>
+<p><code>docker logs</code>命令不适用于除<code>json-file</code>和<code>journald</code>之外的其它日志驱动。</p>
+<p><br></p>
+<h4 id="日志驱动插件"><a href="#日志驱动插件" class="headerlink" title="日志驱动插件"></a>日志驱动插件</h4><p>日志驱动插件允许你扩展和定制docker的日志记录功能，超越了内置的日志驱动的功能。</p>
+<ul>
+<li>安装日志驱动插件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker plugin install &lt;org/image&gt;</span><br><span class="line"></span><br><span class="line">docker plugin ls</span><br></pre></td></tr></table></figure>
+<ul>
+<li>将插件配置为docker daemon默认日志驱动</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/etc/docker/daemon.josn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#or</span><br><span class="line">--loggin-driver</span><br></pre></td></tr></table></figure>
+<ul>
+<li>将插件配置为容器日志驱动</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run xxx --log-driver</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="定制日志驱动输出"><a href="#定制日志驱动输出" class="headerlink" title="定制日志驱动输出"></a>定制日志驱动输出</h4><p>Customize log driver output</p>
+<p>日志选项<code>tag</code>指定如何格式化表示容器日志消息。默认情况下，系统使用容器ID的前12个字符。你可以指定<code>tag</code>选项来覆盖此行为：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --<span class="built_in">log</span>-driver=fluentd \</span><br><span class="line">		  --<span class="built_in">log</span>-opt fluentd-address=myhost.local:24224 \</span><br><span class="line">		  --<span class="built_in">log</span>-opt tag=<span class="string">"mailer"</span></span><br></pre></td></tr></table></figure>
+<p>在指定<code>tag</code>时，Docker支持的一些特殊模板标记：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;.ID&#125;&#125;</span><br><span class="line">The first 12 characters of the container ID</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;.FullID&#125;&#125;</span><br><span class="line">The full container ID</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;.Name&#125;&#125;</span><br><span class="line">The container name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;.ImageID&#125;&#125;</span><br><span class="line">The first 12 characters of the container’s image ID</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;.ImageFullID&#125;&#125;</span><br><span class="line">The container’s full image ID</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;.ImageName&#125;&#125;</span><br><span class="line">The name of the image used by the container</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;.DaemonName&#125;&#125;</span><br><span class="line">The name of the docker program (docker)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--log-opt tag=&quot;&#123;&#123;.ImageName&#125;&#125;/&#123;&#123;.Name&#125;&#125;/&#123;&#123;.ID&#125;&#125;&quot;</span><br><span class="line"></span><br><span class="line">Aug  7 18:33:19 HOSTNAME hello-world/foobar/5790672ab6a0[9103]: Hello from Docker.</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="日志驱动"><a href="#日志驱动" class="headerlink" title="日志驱动"></a>日志驱动</h4><p>介绍如下日志驱动！</p>
+<h5 id="Logentries"><a href="#Logentries" class="headerlink" title="Logentries"></a>Logentries</h5><p>Logentries日志驱动将容器日志发送到Logentries server。</p>
+<p><code>--log-opt</code>:</p>
+<ul>
+<li><code>logentries-token</code>: 指定Logentries log设置的token</li>
+<li><code>line-only</code>: 仅发送原始有效载荷</li>
+</ul>
+<p>docker daemon:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dockerd --log-driver=logentries</span><br><span class="line"></span><br><span class="line">#可在docker.service中设置</span><br></pre></td></tr></table></figure>
+<p>docker container:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --log-driver=logentries ...</span><br></pre></td></tr></table></figure>
+<p>在使用此日志驱动之前，你需要在Logentries web界面中创建一个新的日志集，并将该日志集的令牌传递给docker：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --log-driver=logentries --log-opt logentries-token=abcd1234-12ab-34cd-5678-0123456789ab</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h5 id="json-file"><a href="#json-file" class="headerlink" title="json file"></a>json file</h5><p>默认情况下，docker捕获所有容器的STDOUT和STDERR，并使用json格式将它们写入文件。每个文件包含仅包含一个容器的信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;log-driver&quot;: &quot;json-file&quot;,</span><br><span class="line">  &quot;log-opts&quot;: &#123;</span><br><span class="line">    &quot;max-size&quot;: &quot;10m&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#or</span><br><span class="line">docker run \</span><br><span class="line">      --log-driver json-file --log-opt max-size=10m \</span><br><span class="line">      alpine echo hello world</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#栗子</span><br><span class="line">docker run -it --log-opt max-size=10m --log-opt max-file=3 alpine ash</span><br></pre></td></tr></table></figure>
+<p>json-file支持的日志选项：</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+<th>栗子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>max-size</td>
+<td>The maximum size of the log before it is rolled. A positive integer plus a modifier representing the unit of measure (k, m, or g). Defaults to -1 (unlimited).</td>
+<td>–log-opt max-size=10m</td>
+</tr>
+<tr>
+<td>max-file</td>
+<td>The maximum number of log files that can be present. If rolling the logs creates excess files, the oldest file is removed. Only effective when max-size is also set. A positive integer. Defaults to 1.</td>
+<td>–log-opt max-file=3</td>
+</tr>
+<tr>
+<td>labels</td>
+<td>Applies when starting the Docker daemon. A comma-separated list of logging-related labels this daemon accepts. Used for advanced log tag options.</td>
+<td>–log-opt labels=production_status,geo</td>
+</tr>
+<tr>
+<td>env</td>
+<td>Applies when starting the Docker daemon. A comma-separated list of logging-related environment variables this daemon accepts. Used for advanced log tag options.</td>
+<td>–log-opt env=os,customer</td>
+</tr>
+<tr>
+<td>env-regex</td>
+<td>Similar to and compatible with env. A regular expression to match logging-related environment variables. Used for advanced log tag options.</td>
+<td>–log-opt env-regex=^(os或customer).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h5 id="Graylog-Extended-Format-gelf"><a href="#Graylog-Extended-Format-gelf" class="headerlink" title="Graylog Extended Format(gelf)"></a>Graylog Extended Format(gelf)</h5><p><code>gelf</code>日志驱动是一种方便的格式，可被Graylog, Logstash, Fluentd等工具所理解。许多工具使用这种格式。</p>
+<p>在GELF中，每条日志消息都是带有一下字段的字典：</p>
+<ul>
+<li>version</li>
+<li>host</li>
+<li>timestamp</li>
+<li>short and long version of the message</li>
+<li>自定义的字段</li>
+</ul>
+<p><br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;log-driver&quot;: &quot;gelf&quot;,</span><br><span class="line">  &quot;log-opts&quot;: &#123;</span><br><span class="line">    &quot;gelf-address&quot;: &quot;udp://1.2.3.4:12201&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#or</span><br><span class="line">dockerd --log-driver gelf –-log-opt gelf-address=udp://1.2.3.4:12201</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#容器</span><br><span class="line">docker run \</span><br><span class="line">      --log-driver gelf –-log-opt gelf-address=udp://1.2.3.4:12201 \</span><br><span class="line">      alpine echo hello world</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>GELF选项：</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gelf-address</code></td>
+<td>required</td>
+<td>GELF服务器地址(tcp/udp)</td>
+<td><code>--log-opt gelf-address=udp://192.168.0.42:12201</code></td>
+</tr>
+<tr>
+<td><code>gelf-compression-type</code></td>
+<td>optional</td>
+<td>仅限于UDP。类型有gzip(default),zlib,none</td>
+<td><code>--log-opt gelf-compression-type=gzip</code></td>
+</tr>
+<tr>
+<td><code>gelf-compression-level</code></td>
+<td>optional</td>
+<td><code>-1/0 - 9</code>,<code>-1/0</code>(禁用压缩)，1(BestSpeed)，9(BestCompress)</td>
+<td><code>--log-opt gelf-compression-level=2</code></td>
+</tr>
+<tr>
+<td><code>gelf-tcp-max-reconnect</code></td>
+<td>optional</td>
+<td>仅TCP，连接断开尝试的最大重连次数，默认3</td>
+<td><code>--log-opt gelf-tcp-max-reconnect=3</code></td>
+</tr>
+<tr>
+<td><code>gelf-tcp-reconnect-delay</code></td>
+<td>optinal</td>
+<td>仅TCP，重连等待的秒数，默认1s</td>
+<td><code>--log-opt gelf-tcp-reconnect-delay=1</code></td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>optional</td>
+<td>默认使用Docker容器ID的前12位</td>
+<td><code>--log-opt tag=mailer</code></td>
+</tr>
+<tr>
+<td><code>labels</code></td>
+<td>optional</td>
+<td>以逗号分隔的日志相关标签</td>
+<td><code>--log-opt labels=production_status,geo</code></td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td>optional</td>
+<td>以逗号分隔的日志相关的环境变量</td>
+<td><code>--log-opt env=os,customer</code></td>
+</tr>
+<tr>
+<td><code>evn-regex</code></td>
+<td>optional</td>
+<td>匹配日志相关环境变量的正则表达式</td>
+<td><code>--log-opt env-regex=^(os l customer)</code></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h5 id="Syslog"><a href="#Syslog" class="headerlink" title="Syslog"></a>Syslog</h5><p>syslog日志驱动将日志路由到系统日志服务器。系统日志必须以特定方式格式化才能生效。从有效的消息中，接收者可以提取以下消息：</p>
+<ul>
+<li><p>priority<br>日志级别，debug, info, warning, error…</p>
+</li>
+<li><p>timestamp</p>
+</li>
+<li>hostname</li>
+<li><p>facility<br>记录消息的子系统</p>
+</li>
+<li><p>process name</p>
+</li>
+<li>pid</li>
+</ul>
+<p><br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;log-driver&quot;: &quot;syslog&quot;,</span><br><span class="line">  &quot;log-opts&quot;: &#123;</span><br><span class="line">    &quot;syslog-address&quot;: &quot;udp://1.2.3.4:1111&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#or</span><br><span class="line">#syslog-address支持tcp和udp</span><br><span class="line">docker run \</span><br><span class="line">      -–log-driver syslog –-log-opt syslog-address=udp://1.2.3.4:1111 \</span><br><span class="line">      alpine echo hello world</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>syslog日志驱动选项：</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+<th>栗子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>syslog-address</code></td>
+<td><code>[tcp l udp l tcp+tls]:host:port</code>, <code>unixgram://path</code>, <code>unix://path</code></td>
+<td><code>--log-opt syslog-address=tcp+tls://192.168.1.3:514</code>, <code>--log-opt syslog-address=unix:///tmp/syslog.sock</code></td>
+</tr>
+<tr>
+<td><code>syslog-facility</code></td>
+<td>子系统</td>
+<td><code>--log-opt syslog-facility=daemon</code></td>
+</tr>
+<tr>
+<td><code>syslog-tls-ca-cert</code></td>
+<td>CA</td>
+<td><code>--log-opt syslog-tls-ca-cert=/etc/ca-certificates/custom/ca.pem</code></td>
+</tr>
+<tr>
+<td><code>syslog-tls-cert</code></td>
+<td>TLS certificate</td>
+<td><code>--log-opt syslog-tls-key=/etc/ca-certificates/custom/key.pem</code></td>
+</tr>
+<tr>
+<td><code>syslog-tls-skip-verify</code></td>
+<td>跳过tls验证</td>
+<td><code>--log-opt syslog-tls-skip-verify=true</code></td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>如前</td>
+<td>如前</td>
+</tr>
+<tr>
+<td><code>syslog-format</code></td>
+<td>日志格式</td>
+<td><code>--log-opt syslog-format=rfc5424micro</code></td>
+</tr>
+<tr>
+<td><code>lables</code></td>
+<td>如前</td>
+<td>如前</td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td>如前</td>
+<td>如前</td>
+</tr>
+<tr>
+<td><code>env-regex</code></td>
+<td>如前</td>
+<td>如前</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h5 id="ETW"><a href="#ETW" class="headerlink" title="ETW"></a>ETW</h5><p>ETW日志驱动将容器日志转发为ETW事件。每个ETW时间都包含一条日志及其上下文信息的消息，然后客户端可以创建一个ETW监听器来监听这些事件。</p>
+<p><br></p>
+<h5 id="Fluentd"><a href="#Fluentd" class="headerlink" title="Fluentd"></a>Fluentd</h5><p>fluentd日志驱动将容器日志作为结构化日志数据发送到fluentd收集器。接着，用户便可以使用任意一种Fluentd output plugin将这些日志写入不同的目的地。</p>
+<p>fluentd发送一下这些元数据：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>container_id</code></td>
+<td>完整的64位容器ID</td>
+</tr>
+<tr>
+<td><code>container_ame</code></td>
+<td>启动时的容器名</td>
+</tr>
+<tr>
+<td>source</td>
+<td>stdout or stderr</td>
+</tr>
+<tr>
+<td>log</td>
+<td>容器日志</td>
+</tr>
+</tbody>
+</table>
+<p><code>docker logs</code>命令不可用于此日志驱动。</p>
+<p><br></p>
+<ul>
+<li><p><code>fluentd-address</code><br>指定fluentd daemon地址</p>
+</li>
+<li><p>tag</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">   &quot;log-driver&quot;: &quot;fluentd&quot;,</span><br><span class="line">   &quot;log-opts&quot;: &#123;</span><br><span class="line">     &quot;fluentd-address&quot;: &quot;fluentdhost:24224&quot;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#or</span><br><span class="line">docker run --log-driver=fluentd --log-opt fluentd-address=fluentdhost:24224</span><br><span class="line">docker run --log-driver=fluentd --log-opt fluentd-address=tcp://fluentdhost:24224</span><br><span class="line">docker run --log-driver=fluentd --log-opt fluentd-address=unix:///path/to/fluentd.sock</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h5 id="Journald"><a href="#Journald" class="headerlink" title="Journald"></a>Journald</h5><p>journald 日志驱动将容器日志发送给 systemd journal。可以通过<code>journalctl</code>命令，<code>journal</code> API，<code>docker logs</code>来检索日志条目。</p>
+<p>journald日志驱动还提供如下元数据：</p>
+<ul>
+<li><code>CONTAINER_ID</code></li>
+<li><code>CONTAINER_ID_FULL</code></li>
+<li><code>CONTAINER_NAME</code></li>
+<li><code>CONTAINER_TAG</code></li>
+<li><code>CONTAINER_PARTIAL_MESSAGE</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;log-driver&quot;: &quot;journald&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#or</span><br><span class="line">docker run --log-driver=journald ...</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>几个选项：</p>
+<ul>
+<li>tag</li>
+<li>label</li>
+<li>env</li>
+<li>env-regex</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run --log-driver=journald \</span><br><span class="line">    --log-opt labels=location \</span><br><span class="line">    --log-opt env=TEST \</span><br><span class="line">    --env &quot;TEST=false&quot; \</span><br><span class="line">    --label location=west \</span><br><span class="line">    your/application</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>使用<code>journalctl</code>命令查看日志：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">journalctl CONTAINER_NAME=webserver</span><br><span class="line">journalctl -o json CONTAINER_NAME=webserver</span><br></pre></td></tr></table></figure>
+<p>使用journal API：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> systemd.journal</span><br><span class="line"></span><br><span class="line">reader = systemd.journal.Reader()</span><br><span class="line">reader.add_match(<span class="string">'CONTAINER_NAME=web'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> msg <span class="keyword">in</span> reader:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'&#123;CONTAINER_ID_FULL&#125;: &#123;MESSAGE&#125;'</span>.format(**msg)</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h5 id="Splunk"><a href="#Splunk" class="headerlink" title="Splunk"></a>Splunk</h5><p>splunk日志驱动将容器日志发送到Splunk Enterprise和Splunk Clound的HTTP Event Collector。</p>
+<p><br><br><br></p>
+<h3 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h3>
       
     </div>
     
@@ -2046,7 +3025,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2068,7 +3047,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2133,7 +3112,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker平台"><span class="nav-number">1.1.</span> <span class="nav-text">Docker平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker引擎"><span class="nav-number">1.2.</span> <span class="nav-text">Docker引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#能用Docker做什么"><span class="nav-number">1.3.</span> <span class="nav-text">能用Docker做什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker架构"><span class="nav-number">1.4.</span> <span class="nav-text">Docker架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-daemon"><span class="nav-number">1.4.1.</span> <span class="nav-text">Docker daemon</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-client"><span class="nav-number">1.4.2.</span> <span class="nav-text">Docker client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-registry"><span class="nav-number">1.4.3.</span> <span class="nav-text">Docker registry</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker对象"><span class="nav-number">1.5.</span> <span class="nav-text">Docker对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#image"><span class="nav-number">1.5.1.</span> <span class="nav-text">image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#container"><span class="nav-number">1.5.2.</span> <span class="nav-text">container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service"><span class="nav-number">1.5.3.</span> <span class="nav-text">service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#底层技术"><span class="nav-number">1.5.4.</span> <span class="nav-text">底层技术</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS7安装Docker-CE"><span class="nav-number">2.1.</span> <span class="nav-text">CentOS7安装Docker CE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OS要求"><span class="nav-number">2.1.1.</span> <span class="nav-text">OS要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Docker-CE"><span class="nav-number">2.1.2.</span> <span class="nav-text">安装Docker CE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载Docker-CE"><span class="nav-number">2.1.3.</span> <span class="nav-text">卸载Docker CE</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始"><span class="nav-number">3.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于Docker"><span class="nav-number">3.1.</span> <span class="nav-text">关于Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker的概念"><span class="nav-number">3.1.1.</span> <span class="nav-text">Docker的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#镜像和容器"><span class="nav-number">3.1.2.</span> <span class="nav-text">镜像和容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器和虚拟机"><span class="nav-number">3.1.3.</span> <span class="nav-text">容器和虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备Docker环境"><span class="nav-number">3.1.4.</span> <span class="nav-text">准备Docker环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试Docker"><span class="nav-number">3.2.</span> <span class="nav-text">测试Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">3.2.1.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器"><span class="nav-number">3.3.</span> <span class="nav-text">容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先决条件"><span class="nav-number">3.3.1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">3.3.2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新开发环境"><span class="nav-number">3.3.3.</span> <span class="nav-text">新开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Dockerfile定义一个容器"><span class="nav-number">3.3.4.</span> <span class="nav-text">使用Dockerfile定义一个容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APP自身"><span class="nav-number">3.3.5.</span> <span class="nav-text">APP自身</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建APP"><span class="nav-number">3.3.6.</span> <span class="nav-text">构建APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分享你的image"><span class="nav-number">3.3.7.</span> <span class="nav-text">分享你的image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本节基础命令"><span class="nav-number">3.3.8.</span> <span class="nav-text">本节基础命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务"><span class="nav-number">3.4.</span> <span class="nav-text">服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先决条件-1"><span class="nav-number">3.4.1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-1"><span class="nav-number">3.4.2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于服务"><span class="nav-number">3.4.3.</span> <span class="nav-text">关于服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你的第一个docker-compose-yml文件"><span class="nav-number">3.4.4.</span> <span class="nav-text">你的第一个docker-compose.yml文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行你的负载均衡APP"><span class="nav-number">3.4.5.</span> <span class="nav-text">运行你的负载均衡APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伸缩APP"><span class="nav-number">3.4.6.</span> <span class="nav-text">伸缩APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本节命令"><span class="nav-number">3.4.7.</span> <span class="nav-text">本节命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#swarm"><span class="nav-number">3.5.</span> <span class="nav-text">swarm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先决条件-2"><span class="nav-number">3.5.1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-2"><span class="nav-number">3.5.2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解swarm集群"><span class="nav-number">3.5.3.</span> <span class="nav-text">理解swarm集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立swarm"><span class="nav-number">3.5.4.</span> <span class="nav-text">建立swarm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在swarm集群上部署APP"><span class="nav-number">3.5.5.</span> <span class="nav-text">在swarm集群上部署APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理并重启"><span class="nav-number">3.5.6.</span> <span class="nav-text">清理并重启</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stack"><span class="nav-number">3.6.</span> <span class="nav-text">stack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-3"><span class="nav-number">3.6.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加一个新服务并部署"><span class="nav-number">3.6.2.</span> <span class="nav-text">添加一个新服务并部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#持久化数据"><span class="nav-number">3.6.3.</span> <span class="nav-text">持久化数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署APP"><span class="nav-number">3.7.</span> <span class="nav-text">部署APP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-4"><span class="nav-number">3.7.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择版本"><span class="nav-number">3.7.2.</span> <span class="nav-text">选择版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接DockerCloud"><span class="nav-number">3.7.3.</span> <span class="nav-text">连接DockerCloud</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建swarm"><span class="nav-number">3.7.4.</span> <span class="nav-text">创建swarm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在云提供商上部署应用程序"><span class="nav-number">3.7.5.</span> <span class="nav-text">在云提供商上部署应用程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代和清理"><span class="nav-number">3.7.6.</span> <span class="nav-text">迭代和清理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改Docker默认路径"><span class="nav-number">3.8.</span> <span class="nav-text">修改Docker默认路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器服务自启动"><span class="nav-number">3.9.</span> <span class="nav-text">容器服务自启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交互式容器"><span class="nav-number">3.10.</span> <span class="nav-text">交互式容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker日志"><span class="nav-number">3.11.</span> <span class="nav-text">Docker日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新镜像"><span class="nav-number">3.12.</span> <span class="nav-text">更新镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备份与恢复"><span class="nav-number">3.13.</span> <span class="nav-text">备份与恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#备份容器"><span class="nav-number">3.13.1.</span> <span class="nav-text">备份容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#恢复容器"><span class="nav-number">3.13.2.</span> <span class="nav-text">恢复容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景与注意事项"><span class="nav-number">3.14.</span> <span class="nav-text">应用场景与注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">3.14.1.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">3.14.2.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dockerfile"><span class="nav-number">4.</span> <span class="nav-text">Dockerfile</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Dockerfile定制镜像"><span class="nav-number">4.1.</span> <span class="nav-text">使用Dockerfile定制镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FROM"><span class="nav-number">4.1.1.</span> <span class="nav-text">FROM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RUN"><span class="nav-number">4.1.2.</span> <span class="nav-text">RUN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建镜像"><span class="nav-number">4.1.3.</span> <span class="nav-text">构建镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile指令"><span class="nav-number">4.2.</span> <span class="nav-text">Dockerfile指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LABLE"><span class="nav-number">4.2.1.</span> <span class="nav-text">LABLE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#COPY"><span class="nav-number">4.2.2.</span> <span class="nav-text">COPY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ADD"><span class="nav-number">4.2.3.</span> <span class="nav-text">ADD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMD"><span class="nav-number">4.2.4.</span> <span class="nav-text">CMD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ENTRYPOINT"><span class="nav-number">4.2.5.</span> <span class="nav-text">ENTRYPOINT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ENV"><span class="nav-number">4.2.6.</span> <span class="nav-text">ENV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARG"><span class="nav-number">4.2.7.</span> <span class="nav-text">ARG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VOLUME"><span class="nav-number">4.2.8.</span> <span class="nav-text">VOLUME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXPOSE"><span class="nav-number">4.2.9.</span> <span class="nav-text">EXPOSE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WORKDIR"><span class="nav-number">4.2.10.</span> <span class="nav-text">WORKDIR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#USER"><span class="nav-number">4.2.11.</span> <span class="nav-text">USER</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HEALTHCHECK"><span class="nav-number">4.2.12.</span> <span class="nav-text">HEALTHCHECK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ONBUILD"><span class="nav-number">4.2.13.</span> <span class="nav-text">ONBUILD</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile多阶段构建"><span class="nav-number">4.3.</span> <span class="nav-text">Dockerfile多阶段构建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile最佳实践"><span class="nav-number">4.4.</span> <span class="nav-text">Dockerfile最佳实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Compose-file"><span class="nav-number">5.</span> <span class="nav-text">Compose file</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Docker进行开发"><span class="nav-number">6.</span> <span class="nav-text">使用Docker进行开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在Docker上开发应用程序"><span class="nav-number">6.1.</span> <span class="nav-text">在Docker上开发应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker开发最佳实践"><span class="nav-number">6.1.1.</span> <span class="nav-text">Docker开发最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何保持较小的镜像"><span class="nav-number">6.1.1.1.</span> <span class="nav-text">如何保持较小的镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#何处以及如何持久化应用程序数据"><span class="nav-number">6.1.1.2.</span> <span class="nav-text">何处以及如何持久化应用程序数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尽可能使用swarm服务"><span class="nav-number">6.1.1.3.</span> <span class="nav-text">尽可能使用swarm服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用CI-CD进行测试和部署"><span class="nav-number">6.1.1.4.</span> <span class="nav-text">使用CI/CD进行测试和部署</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Develop-images"><span class="nav-number">6.1.2.</span> <span class="nav-text">Develop images</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编写Dockerfile的最佳实践"><span class="nav-number">6.1.2.1.</span> <span class="nav-text">编写Dockerfile的最佳实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一般准则和建议"><span class="nav-number">6.1.2.2.</span> <span class="nav-text">一般准则和建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建一个基镜像"><span class="nav-number">6.1.2.3.</span> <span class="nav-text">创建一个基镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用多阶段构建"><span class="nav-number">6.1.2.4.</span> <span class="nav-text">使用多阶段构建</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Docker-Engine-SDKs和API进行开发"><span class="nav-number">6.2.</span> <span class="nav-text">使用Docker Engine SDKs和API进行开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#综述"><span class="nav-number">6.3.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装SDKs"><span class="nav-number">6.3.1.</span> <span class="nav-text">安装SDKs</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-SDK"><span class="nav-number">6.3.1.1.</span> <span class="nav-text">Go SDK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Python-SDK"><span class="nav-number">6.3.1.2.</span> <span class="nav-text">Python SDK</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速开始SDK和API"><span class="nav-number">6.3.2.</span> <span class="nav-text">快速开始SDK和API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SDK和API栗子"><span class="nav-number">6.3.3.</span> <span class="nav-text">SDK和API栗子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络配置"><span class="nav-number">7.</span> <span class="nav-text">网络配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#综述-1"><span class="nav-number">7.1.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络驱动"><span class="nav-number">7.1.1.</span> <span class="nav-text">网络驱动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bridge"><span class="nav-number">7.2.</span> <span class="nav-text">bridge</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bridge与user-defined-bridges"><span class="nav-number">7.2.1.</span> <span class="nav-text">bridge与user-defined bridges</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理user-defined-bridge"><span class="nav-number">7.2.2.</span> <span class="nav-text">管理user-defined bridge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接到自定义桥接网络"><span class="nav-number">7.2.3.</span> <span class="nav-text">连接到自定义桥接网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用IPv6"><span class="nav-number">7.2.4.</span> <span class="nav-text">使用IPv6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启用容器转发"><span class="nav-number">7.2.5.</span> <span class="nav-text">启用容器转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认桥接网络"><span class="nav-number">7.2.6.</span> <span class="nav-text">默认桥接网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#overlay"><span class="nav-number">7.3.</span> <span class="nav-text">overlay</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#所有overlay网络的操作"><span class="nav-number">7.3.1.</span> <span class="nav-text">所有overlay网络的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建overlay网络"><span class="nav-number">7.3.1.1.</span> <span class="nav-text">创建overlay网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加密overlay网络上的流量"><span class="nav-number">7.3.1.2.</span> <span class="nav-text">加密overlay网络上的流量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义默认ingress网络"><span class="nav-number">7.3.1.3.</span> <span class="nav-text">自定义默认ingress网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义docker-gwbridge"><span class="nav-number">7.3.1.4.</span> <span class="nav-text">自定义docker_gwbridge</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swarm服务的操作"><span class="nav-number">7.3.2.</span> <span class="nav-text">swarm服务的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在overlay网络上发布端口"><span class="nav-number">7.3.2.1.</span> <span class="nav-text">在overlay网络上发布端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绕过swarm的路由网格"><span class="nav-number">7.3.2.2.</span> <span class="nav-text">绕过swarm的路由网格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分离控制流量和数据流量"><span class="nav-number">7.3.2.3.</span> <span class="nav-text">分离控制流量和数据流量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#overlay网络上独立容器的操作"><span class="nav-number">7.3.3.</span> <span class="nav-text">overlay网络上独立容器的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将独立容器连接到overlay网络"><span class="nav-number">7.3.3.1.</span> <span class="nav-text">将独立容器连接到overlay网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发布端口"><span class="nav-number">7.3.3.2.</span> <span class="nav-text">发布端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器发现"><span class="nav-number">7.3.3.3.</span> <span class="nav-text">容器发现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#host"><span class="nav-number">7.4.</span> <span class="nav-text">host</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Macvlan"><span class="nav-number">7.5.</span> <span class="nav-text">Macvlan</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个macvaln网络"><span class="nav-number">7.5.1.</span> <span class="nav-text">创建一个macvaln网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#禁用容器网络"><span class="nav-number">7.6.</span> <span class="nav-text">禁用容器网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络教程"><span class="nav-number">7.7.</span> <span class="nav-text">网络教程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bridge-network"><span class="nav-number">7.7.1.</span> <span class="nav-text">bridge network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#default-bridge-network"><span class="nav-number">7.7.1.1.</span> <span class="nav-text">default bridge network</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#user-defined-bridge-networks"><span class="nav-number">7.7.1.2.</span> <span class="nav-text">user-defined bridge networks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#host-network"><span class="nav-number">7.7.2.</span> <span class="nav-text">host network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#overlay-network"><span class="nav-number">7.7.3.</span> <span class="nav-text">overlay network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#default-overlay"><span class="nav-number">7.7.3.1.</span> <span class="nav-text">default overlay</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#user-defined-overlay"><span class="nav-number">7.7.3.2.</span> <span class="nav-text">user-defined overlay</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#overlay-network-for-standalone-containers"><span class="nav-number">7.7.3.3.</span> <span class="nav-text">overlay network for standalone containers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Communicate-between-a-container-and-a-swarm-service"><span class="nav-number">7.7.3.4.</span> <span class="nav-text">Communicate between a container and a swarm service</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#macvalan-network"><span class="nav-number">7.7.4.</span> <span class="nav-text">macvalan network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bridge-1"><span class="nav-number">7.7.4.1.</span> <span class="nav-text">bridge</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#802-1q-trunked-bridge-network"><span class="nav-number">7.7.4.2.</span> <span class="nav-text">802.1q trunked bridge network</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置守护进程和容器"><span class="nav-number">7.8.</span> <span class="nav-text">配置守护进程和容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启用IPv6"><span class="nav-number">7.8.1.</span> <span class="nav-text">启用IPv6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iptables"><span class="nav-number">7.8.2.</span> <span class="nav-text">iptables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器网络"><span class="nav-number">7.8.3.</span> <span class="nav-text">容器网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker使用代理服务器"><span class="nav-number">7.8.4.</span> <span class="nav-text">Docker使用代理服务器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用程序数据"><span class="nav-number">8.</span> <span class="nav-text">应用程序数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#存储综述"><span class="nav-number">8.1.</span> <span class="nav-text">存储综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择正确的挂载方式"><span class="nav-number">8.1.1.</span> <span class="nav-text">选择正确的挂载方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#volumes的好栗子"><span class="nav-number">8.1.1.1.</span> <span class="nav-text">volumes的好栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bind-mounts的好栗子"><span class="nav-number">8.1.1.2.</span> <span class="nav-text">bind mounts的好栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tmpfs-mounts的好栗子"><span class="nav-number">8.1.1.3.</span> <span class="nav-text">tmpfs mounts的好栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用bind或volumes的提示"><span class="nav-number">8.1.1.4.</span> <span class="nav-text">使用bind或volumes的提示</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Volumes"><span class="nav-number">8.2.</span> <span class="nav-text">Volumes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建和管理卷"><span class="nav-number">8.2.1.</span> <span class="nav-text">创建和管理卷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动用卷的容器"><span class="nav-number">8.2.2.</span> <span class="nav-text">启动用卷的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动用卷的服务"><span class="nav-number">8.2.3.</span> <span class="nav-text">启动用卷的服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在机器间共享数据"><span class="nav-number">8.2.4.</span> <span class="nav-text">在机器间共享数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用卷驱动"><span class="nav-number">8.2.5.</span> <span class="nav-text">使用卷驱动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bind-mounts"><span class="nav-number">8.3.</span> <span class="nav-text">bind mounts</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker平台"><span class="nav-number">1.1.</span> <span class="nav-text">Docker平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker引擎"><span class="nav-number">1.2.</span> <span class="nav-text">Docker引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#能用Docker做什么"><span class="nav-number">1.3.</span> <span class="nav-text">能用Docker做什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker架构"><span class="nav-number">1.4.</span> <span class="nav-text">Docker架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-daemon"><span class="nav-number">1.4.1.</span> <span class="nav-text">Docker daemon</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-client"><span class="nav-number">1.4.2.</span> <span class="nav-text">Docker client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-registry"><span class="nav-number">1.4.3.</span> <span class="nav-text">Docker registry</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker对象"><span class="nav-number">1.5.</span> <span class="nav-text">Docker对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#image"><span class="nav-number">1.5.1.</span> <span class="nav-text">image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#container"><span class="nav-number">1.5.2.</span> <span class="nav-text">container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service"><span class="nav-number">1.5.3.</span> <span class="nav-text">service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#底层技术"><span class="nav-number">1.5.4.</span> <span class="nav-text">底层技术</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS7安装Docker-CE"><span class="nav-number">2.1.</span> <span class="nav-text">CentOS7安装Docker CE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OS要求"><span class="nav-number">2.1.1.</span> <span class="nav-text">OS要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Docker-CE"><span class="nav-number">2.1.2.</span> <span class="nav-text">安装Docker CE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载Docker-CE"><span class="nav-number">2.1.3.</span> <span class="nav-text">卸载Docker CE</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始"><span class="nav-number">3.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于Docker"><span class="nav-number">3.1.</span> <span class="nav-text">关于Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker的概念"><span class="nav-number">3.1.1.</span> <span class="nav-text">Docker的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#镜像和容器"><span class="nav-number">3.1.2.</span> <span class="nav-text">镜像和容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器和虚拟机"><span class="nav-number">3.1.3.</span> <span class="nav-text">容器和虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备Docker环境"><span class="nav-number">3.1.4.</span> <span class="nav-text">准备Docker环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试Docker"><span class="nav-number">3.2.</span> <span class="nav-text">测试Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">3.2.1.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器"><span class="nav-number">3.3.</span> <span class="nav-text">容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先决条件"><span class="nav-number">3.3.1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">3.3.2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新开发环境"><span class="nav-number">3.3.3.</span> <span class="nav-text">新开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Dockerfile定义一个容器"><span class="nav-number">3.3.4.</span> <span class="nav-text">使用Dockerfile定义一个容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APP自身"><span class="nav-number">3.3.5.</span> <span class="nav-text">APP自身</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建APP"><span class="nav-number">3.3.6.</span> <span class="nav-text">构建APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分享你的image"><span class="nav-number">3.3.7.</span> <span class="nav-text">分享你的image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本节基础命令"><span class="nav-number">3.3.8.</span> <span class="nav-text">本节基础命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务"><span class="nav-number">3.4.</span> <span class="nav-text">服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先决条件-1"><span class="nav-number">3.4.1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-1"><span class="nav-number">3.4.2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于服务"><span class="nav-number">3.4.3.</span> <span class="nav-text">关于服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你的第一个docker-compose-yml文件"><span class="nav-number">3.4.4.</span> <span class="nav-text">你的第一个docker-compose.yml文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行你的负载均衡APP"><span class="nav-number">3.4.5.</span> <span class="nav-text">运行你的负载均衡APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伸缩APP"><span class="nav-number">3.4.6.</span> <span class="nav-text">伸缩APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本节命令"><span class="nav-number">3.4.7.</span> <span class="nav-text">本节命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#swarm"><span class="nav-number">3.5.</span> <span class="nav-text">swarm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先决条件-2"><span class="nav-number">3.5.1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-2"><span class="nav-number">3.5.2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解swarm集群"><span class="nav-number">3.5.3.</span> <span class="nav-text">理解swarm集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立swarm"><span class="nav-number">3.5.4.</span> <span class="nav-text">建立swarm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在swarm集群上部署APP"><span class="nav-number">3.5.5.</span> <span class="nav-text">在swarm集群上部署APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理并重启"><span class="nav-number">3.5.6.</span> <span class="nav-text">清理并重启</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stack"><span class="nav-number">3.6.</span> <span class="nav-text">stack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-3"><span class="nav-number">3.6.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加一个新服务并部署"><span class="nav-number">3.6.2.</span> <span class="nav-text">添加一个新服务并部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#持久化数据"><span class="nav-number">3.6.3.</span> <span class="nav-text">持久化数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署APP"><span class="nav-number">3.7.</span> <span class="nav-text">部署APP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-4"><span class="nav-number">3.7.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择版本"><span class="nav-number">3.7.2.</span> <span class="nav-text">选择版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接DockerCloud"><span class="nav-number">3.7.3.</span> <span class="nav-text">连接DockerCloud</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建swarm"><span class="nav-number">3.7.4.</span> <span class="nav-text">创建swarm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在云提供商上部署应用程序"><span class="nav-number">3.7.5.</span> <span class="nav-text">在云提供商上部署应用程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代和清理"><span class="nav-number">3.7.6.</span> <span class="nav-text">迭代和清理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改Docker默认路径"><span class="nav-number">3.8.</span> <span class="nav-text">修改Docker默认路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器服务自启动"><span class="nav-number">3.9.</span> <span class="nav-text">容器服务自启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交互式容器"><span class="nav-number">3.10.</span> <span class="nav-text">交互式容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker日志"><span class="nav-number">3.11.</span> <span class="nav-text">Docker日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新镜像"><span class="nav-number">3.12.</span> <span class="nav-text">更新镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备份与恢复"><span class="nav-number">3.13.</span> <span class="nav-text">备份与恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#备份容器"><span class="nav-number">3.13.1.</span> <span class="nav-text">备份容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#恢复容器"><span class="nav-number">3.13.2.</span> <span class="nav-text">恢复容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景与注意事项"><span class="nav-number">3.14.</span> <span class="nav-text">应用场景与注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">3.14.1.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">3.14.2.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dockerfile"><span class="nav-number">4.</span> <span class="nav-text">Dockerfile</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Dockerfile定制镜像"><span class="nav-number">4.1.</span> <span class="nav-text">使用Dockerfile定制镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FROM"><span class="nav-number">4.1.1.</span> <span class="nav-text">FROM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RUN"><span class="nav-number">4.1.2.</span> <span class="nav-text">RUN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建镜像"><span class="nav-number">4.1.3.</span> <span class="nav-text">构建镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile指令"><span class="nav-number">4.2.</span> <span class="nav-text">Dockerfile指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LABLE"><span class="nav-number">4.2.1.</span> <span class="nav-text">LABLE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#COPY"><span class="nav-number">4.2.2.</span> <span class="nav-text">COPY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ADD"><span class="nav-number">4.2.3.</span> <span class="nav-text">ADD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMD"><span class="nav-number">4.2.4.</span> <span class="nav-text">CMD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ENTRYPOINT"><span class="nav-number">4.2.5.</span> <span class="nav-text">ENTRYPOINT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ENV"><span class="nav-number">4.2.6.</span> <span class="nav-text">ENV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARG"><span class="nav-number">4.2.7.</span> <span class="nav-text">ARG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VOLUME"><span class="nav-number">4.2.8.</span> <span class="nav-text">VOLUME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXPOSE"><span class="nav-number">4.2.9.</span> <span class="nav-text">EXPOSE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WORKDIR"><span class="nav-number">4.2.10.</span> <span class="nav-text">WORKDIR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#USER"><span class="nav-number">4.2.11.</span> <span class="nav-text">USER</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HEALTHCHECK"><span class="nav-number">4.2.12.</span> <span class="nav-text">HEALTHCHECK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ONBUILD"><span class="nav-number">4.2.13.</span> <span class="nav-text">ONBUILD</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile多阶段构建"><span class="nav-number">4.3.</span> <span class="nav-text">Dockerfile多阶段构建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile最佳实践"><span class="nav-number">4.4.</span> <span class="nav-text">Dockerfile最佳实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Compose-file"><span class="nav-number">5.</span> <span class="nav-text">Compose file</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Docker进行开发"><span class="nav-number">6.</span> <span class="nav-text">使用Docker进行开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在Docker上开发应用程序"><span class="nav-number">6.1.</span> <span class="nav-text">在Docker上开发应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker开发最佳实践"><span class="nav-number">6.1.1.</span> <span class="nav-text">Docker开发最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何保持较小的镜像"><span class="nav-number">6.1.1.1.</span> <span class="nav-text">如何保持较小的镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#何处以及如何持久化应用程序数据"><span class="nav-number">6.1.1.2.</span> <span class="nav-text">何处以及如何持久化应用程序数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尽可能使用swarm服务"><span class="nav-number">6.1.1.3.</span> <span class="nav-text">尽可能使用swarm服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用CI-CD进行测试和部署"><span class="nav-number">6.1.1.4.</span> <span class="nav-text">使用CI/CD进行测试和部署</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Develop-images"><span class="nav-number">6.1.2.</span> <span class="nav-text">Develop images</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编写Dockerfile的最佳实践"><span class="nav-number">6.1.2.1.</span> <span class="nav-text">编写Dockerfile的最佳实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一般准则和建议"><span class="nav-number">6.1.2.2.</span> <span class="nav-text">一般准则和建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建一个基镜像"><span class="nav-number">6.1.2.3.</span> <span class="nav-text">创建一个基镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用多阶段构建"><span class="nav-number">6.1.2.4.</span> <span class="nav-text">使用多阶段构建</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Docker-Engine-SDKs和API进行开发"><span class="nav-number">6.2.</span> <span class="nav-text">使用Docker Engine SDKs和API进行开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#综述"><span class="nav-number">6.3.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装SDKs"><span class="nav-number">6.3.1.</span> <span class="nav-text">安装SDKs</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-SDK"><span class="nav-number">6.3.1.1.</span> <span class="nav-text">Go SDK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Python-SDK"><span class="nav-number">6.3.1.2.</span> <span class="nav-text">Python SDK</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速开始SDK和API"><span class="nav-number">6.3.2.</span> <span class="nav-text">快速开始SDK和API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SDK和API栗子"><span class="nav-number">6.3.3.</span> <span class="nav-text">SDK和API栗子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络配置"><span class="nav-number">7.</span> <span class="nav-text">网络配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#综述-1"><span class="nav-number">7.1.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络驱动"><span class="nav-number">7.1.1.</span> <span class="nav-text">网络驱动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bridge"><span class="nav-number">7.2.</span> <span class="nav-text">bridge</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bridge与user-defined-bridges"><span class="nav-number">7.2.1.</span> <span class="nav-text">bridge与user-defined bridges</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理user-defined-bridge"><span class="nav-number">7.2.2.</span> <span class="nav-text">管理user-defined bridge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接到自定义桥接网络"><span class="nav-number">7.2.3.</span> <span class="nav-text">连接到自定义桥接网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用IPv6"><span class="nav-number">7.2.4.</span> <span class="nav-text">使用IPv6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启用容器转发"><span class="nav-number">7.2.5.</span> <span class="nav-text">启用容器转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认桥接网络"><span class="nav-number">7.2.6.</span> <span class="nav-text">默认桥接网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#overlay"><span class="nav-number">7.3.</span> <span class="nav-text">overlay</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#所有overlay网络的操作"><span class="nav-number">7.3.1.</span> <span class="nav-text">所有overlay网络的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建overlay网络"><span class="nav-number">7.3.1.1.</span> <span class="nav-text">创建overlay网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加密overlay网络上的流量"><span class="nav-number">7.3.1.2.</span> <span class="nav-text">加密overlay网络上的流量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义默认ingress网络"><span class="nav-number">7.3.1.3.</span> <span class="nav-text">自定义默认ingress网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义docker-gwbridge"><span class="nav-number">7.3.1.4.</span> <span class="nav-text">自定义docker_gwbridge</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swarm服务的操作"><span class="nav-number">7.3.2.</span> <span class="nav-text">swarm服务的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在overlay网络上发布端口"><span class="nav-number">7.3.2.1.</span> <span class="nav-text">在overlay网络上发布端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绕过swarm的路由网格"><span class="nav-number">7.3.2.2.</span> <span class="nav-text">绕过swarm的路由网格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分离控制流量和数据流量"><span class="nav-number">7.3.2.3.</span> <span class="nav-text">分离控制流量和数据流量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#overlay网络上独立容器的操作"><span class="nav-number">7.3.3.</span> <span class="nav-text">overlay网络上独立容器的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将独立容器连接到overlay网络"><span class="nav-number">7.3.3.1.</span> <span class="nav-text">将独立容器连接到overlay网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发布端口"><span class="nav-number">7.3.3.2.</span> <span class="nav-text">发布端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器发现"><span class="nav-number">7.3.3.3.</span> <span class="nav-text">容器发现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#host"><span class="nav-number">7.4.</span> <span class="nav-text">host</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Macvlan"><span class="nav-number">7.5.</span> <span class="nav-text">Macvlan</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个macvaln网络"><span class="nav-number">7.5.1.</span> <span class="nav-text">创建一个macvaln网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#禁用容器网络"><span class="nav-number">7.6.</span> <span class="nav-text">禁用容器网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络教程"><span class="nav-number">7.7.</span> <span class="nav-text">网络教程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bridge-network"><span class="nav-number">7.7.1.</span> <span class="nav-text">bridge network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#default-bridge-network"><span class="nav-number">7.7.1.1.</span> <span class="nav-text">default bridge network</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#user-defined-bridge-networks"><span class="nav-number">7.7.1.2.</span> <span class="nav-text">user-defined bridge networks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#host-network"><span class="nav-number">7.7.2.</span> <span class="nav-text">host network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#overlay-network"><span class="nav-number">7.7.3.</span> <span class="nav-text">overlay network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#default-overlay"><span class="nav-number">7.7.3.1.</span> <span class="nav-text">default overlay</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#user-defined-overlay"><span class="nav-number">7.7.3.2.</span> <span class="nav-text">user-defined overlay</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#overlay-network-for-standalone-containers"><span class="nav-number">7.7.3.3.</span> <span class="nav-text">overlay network for standalone containers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Communicate-between-a-container-and-a-swarm-service"><span class="nav-number">7.7.3.4.</span> <span class="nav-text">Communicate between a container and a swarm service</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#macvalan-network"><span class="nav-number">7.7.4.</span> <span class="nav-text">macvalan network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bridge-1"><span class="nav-number">7.7.4.1.</span> <span class="nav-text">bridge</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#802-1q-trunked-bridge-network"><span class="nav-number">7.7.4.2.</span> <span class="nav-text">802.1q trunked bridge network</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置守护进程和容器"><span class="nav-number">7.8.</span> <span class="nav-text">配置守护进程和容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启用IPv6"><span class="nav-number">7.8.1.</span> <span class="nav-text">启用IPv6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iptables"><span class="nav-number">7.8.2.</span> <span class="nav-text">iptables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器网络"><span class="nav-number">7.8.3.</span> <span class="nav-text">容器网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker使用代理服务器"><span class="nav-number">7.8.4.</span> <span class="nav-text">Docker使用代理服务器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用程序数据"><span class="nav-number">8.</span> <span class="nav-text">应用程序数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#存储综述"><span class="nav-number">8.1.</span> <span class="nav-text">存储综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择正确的挂载方式"><span class="nav-number">8.1.1.</span> <span class="nav-text">选择正确的挂载方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#volumes的好栗子"><span class="nav-number">8.1.1.1.</span> <span class="nav-text">volumes的好栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bind-mounts的好栗子"><span class="nav-number">8.1.1.2.</span> <span class="nav-text">bind mounts的好栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tmpfs-mounts的好栗子"><span class="nav-number">8.1.1.3.</span> <span class="nav-text">tmpfs mounts的好栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用bind或volumes的提示"><span class="nav-number">8.1.1.4.</span> <span class="nav-text">使用bind或volumes的提示</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Volumes"><span class="nav-number">8.2.</span> <span class="nav-text">Volumes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建和管理卷"><span class="nav-number">8.2.1.</span> <span class="nav-text">创建和管理卷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动用卷的容器"><span class="nav-number">8.2.2.</span> <span class="nav-text">启动用卷的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动用卷的服务"><span class="nav-number">8.2.3.</span> <span class="nav-text">启动用卷的服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在机器间共享数据"><span class="nav-number">8.2.4.</span> <span class="nav-text">在机器间共享数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用卷驱动"><span class="nav-number">8.2.5.</span> <span class="nav-text">使用卷驱动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bind-mounts"><span class="nav-number">8.3.</span> <span class="nav-text">bind mounts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动用bind-mount的容器"><span class="nav-number">8.3.1.</span> <span class="nav-text">启动用bind mount的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只读bind-mount"><span class="nav-number">8.3.2.</span> <span class="nav-text">只读bind mount</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bind-propagation"><span class="nav-number">8.3.3.</span> <span class="nav-text">bind propagation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#selinux-label"><span class="nav-number">8.3.4.</span> <span class="nav-text">selinux label</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmpfs-mounts"><span class="nav-number">8.4.</span> <span class="nav-text">tmpfs mounts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Troubleshoot"><span class="nav-number">8.5.</span> <span class="nav-text">Troubleshoot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将数据存储到容器内"><span class="nav-number">8.6.</span> <span class="nav-text">将数据存储到容器内</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于存储驱动"><span class="nav-number">8.6.1.</span> <span class="nav-text">关于存储驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像和层"><span class="nav-number">8.6.1.1.</span> <span class="nav-text">镜像和层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器和层"><span class="nav-number">8.6.1.2.</span> <span class="nav-text">容器和层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器大小"><span class="nav-number">8.6.1.3.</span> <span class="nav-text">容器大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写入时复制"><span class="nav-number">8.6.1.4.</span> <span class="nav-text">写入时复制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择存储驱动"><span class="nav-number">8.6.2.</span> <span class="nav-text">选择存储驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux发行版支持的存储驱动"><span class="nav-number">8.6.2.1.</span> <span class="nav-text">Linux发行版支持的存储驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储驱动支持的文件系统"><span class="nav-number">8.6.2.2.</span> <span class="nav-text">存储驱动支持的文件系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看存储驱动"><span class="nav-number">8.6.2.3.</span> <span class="nav-text">查看存储驱动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AUFS存储驱动"><span class="nav-number">8.6.3.</span> <span class="nav-text">AUFS存储驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用aufs存储驱动配置Docker"><span class="nav-number">8.6.3.1.</span> <span class="nav-text">使用aufs存储驱动配置Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#aufs存储驱动如何工作"><span class="nav-number">8.6.3.2.</span> <span class="nav-text">aufs存储驱动如何工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器如何使用aufs进行读写"><span class="nav-number">8.6.3.3.</span> <span class="nav-text">容器如何使用aufs进行读写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Btrfs存储驱动"><span class="nav-number">8.6.4.</span> <span class="nav-text">Btrfs存储驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Device-Mapper存储驱动"><span class="nav-number">8.6.5.</span> <span class="nav-text">Device Mapper存储驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#管理devicemapper"><span class="nav-number">8.6.5.1.</span> <span class="nav-text">管理devicemapper</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OverlayFS存储驱动"><span class="nav-number">8.6.6.</span> <span class="nav-text">OverlayFS存储驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZFS存储驱动"><span class="nav-number">8.6.7.</span> <span class="nav-text">ZFS存储驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VFS存储驱动"><span class="nav-number">8.6.8.</span> <span class="nav-text">VFS存储驱动</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在生产环境运行应用程序"><span class="nav-number">9.</span> <span class="nav-text">在生产环境运行应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置对象"><span class="nav-number">9.1.</span> <span class="nav-text">配置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义原数据"><span class="nav-number">9.1.1.</span> <span class="nav-text">自定义原数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#label-key-and-value"><span class="nav-number">9.1.1.1.</span> <span class="nav-text">label key and value</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理未使用的对象"><span class="nav-number">9.1.2.</span> <span class="nav-text">清理未使用的对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化输出"><span class="nav-number">9.1.3.</span> <span class="nav-text">格式化输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置daemon"><span class="nav-number">9.2.</span> <span class="nav-text">配置daemon</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置和运行Docker"><span class="nav-number">9.2.1.</span> <span class="nav-text">配置和运行Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用systemd控制docker"><span class="nav-number">9.2.2.</span> <span class="nav-text">使用systemd控制docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收集Docker指标"><span class="nav-number">9.2.3.</span> <span class="nav-text">收集Docker指标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置容器"><span class="nav-number">9.3.</span> <span class="nav-text">配置容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动启动容器"><span class="nav-number">9.3.1.</span> <span class="nav-text">自动启动容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在daemon停机期间保持容器活着"><span class="nav-number">9.3.2.</span> <span class="nav-text">在daemon停机期间保持容器活着</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在一个容器中运行多个服务"><span class="nav-number">9.3.3.</span> <span class="nav-text">在一个容器中运行多个服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器运行指标"><span class="nav-number">9.3.4.</span> <span class="nav-text">容器运行指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制容器的资源"><span class="nav-number">9.3.5.</span> <span class="nav-text">限制容器的资源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#memory"><span class="nav-number">9.3.5.1.</span> <span class="nav-text">memory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cpu"><span class="nav-number">9.3.5.2.</span> <span class="nav-text">cpu</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logging"><span class="nav-number">9.3.6.</span> <span class="nav-text">Logging</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看容器日志"><span class="nav-number">9.3.6.1.</span> <span class="nav-text">查看容器日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置日志驱动"><span class="nav-number">9.3.6.2.</span> <span class="nav-text">配置日志驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日志驱动插件"><span class="nav-number">9.3.6.3.</span> <span class="nav-text">日志驱动插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定制日志驱动输出"><span class="nav-number">9.3.6.4.</span> <span class="nav-text">定制日志驱动输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日志驱动"><span class="nav-number">9.3.6.5.</span> <span class="nav-text">日志驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Logentries"><span class="nav-number">9.3.6.5.1.</span> <span class="nav-text">Logentries</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#json-file"><span class="nav-number">9.3.6.5.2.</span> <span class="nav-text">json file</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Graylog-Extended-Format-gelf"><span class="nav-number">9.3.6.5.3.</span> <span class="nav-text">Graylog Extended Format(gelf)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Syslog"><span class="nav-number">9.3.6.5.4.</span> <span class="nav-text">Syslog</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ETW"><span class="nav-number">9.3.6.5.5.</span> <span class="nav-text">ETW</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Fluentd"><span class="nav-number">9.3.6.5.6.</span> <span class="nav-text">Fluentd</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Journald"><span class="nav-number">9.3.6.5.7.</span> <span class="nav-text">Journald</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Splunk"><span class="nav-number">9.3.6.5.8.</span> <span class="nav-text">Splunk</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全"><span class="nav-number">9.3.7.</span> <span class="nav-text">安全</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -2165,7 +3144,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 279.8k</span>
+  <span class="post-count"> 字数: 313.7k</span>
 </div>
 
 

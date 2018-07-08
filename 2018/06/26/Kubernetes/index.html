@@ -102,7 +102,7 @@
 <meta property="og:description" content="参考：  Kubernetes: https://zh.wikipedia.org/wiki/Kubernetes 官方文档: https://kubernetes.io/cn/docs/ 中文文档: http://docs.kubernetes.org.cn/ GitHub: https://github.com/kubernetes/kubernetes  环境：  CentOSx86_64">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/K8s/Kubernetes_logo.png">
-<meta property="og:updated_time" content="2018-06-28T07:28:11.000Z">
+<meta property="og:updated_time" content="2018-07-04T07:39:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kubernetes">
 <meta name="twitter:description" content="参考：  Kubernetes: https://zh.wikipedia.org/wiki/Kubernetes 官方文档: https://kubernetes.io/cn/docs/ 中文文档: http://docs.kubernetes.org.cn/ GitHub: https://github.com/kubernetes/kubernetes  环境：  CentOSx86_64">
@@ -338,7 +338,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-04T15:39:02+08:00">
+                2018-07-04
+              </time>
             
           </span>
 
@@ -404,7 +416,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  5,803
+                  7,223
                 </span>
               
 
@@ -445,8 +457,9 @@
 <a id="more"></a>
 <hr>
 <p><br></p>
-<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p><img src="/images/K8s/Kubernetes_logo.png" alt="Kubernetes"></p>
-<p>Kubernetes（常简称为K8s），Kubernetes的名字来自希腊语，意思是“舵手”或“领航员”。K8s是将8个字母“ubernete”替换为“8”的缩写。<br>它用于自动部署、扩展和管理容器化（containerized）应用程序的开源系统。它旨在提供“跨主机集群的自动部署、扩展以及运行应用程序容器的平台”。它支持一系列容器工具, 包括Docker等。</p>
+<p><img src="/images/K8s/Kubernetes_logo.png" alt="Kubernetes"></p>
+<p><br></p>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>Kubernetes（常简称为K8s），Kubernetes的名字来自希腊语，意思是“舵手”或“领航员”。K8s是将8个字母“ubernete”替换为“8”的缩写。<br>它用于自动部署、扩展和管理容器化（containerized）应用程序的开源系统。它旨在提供“跨主机集群的自动部署、扩展以及运行应用程序容器的平台”。它支持一系列容器工具, 包括Docker等。</p>
 <p>通过Kubernetes你可以：</p>
 <ul>
 <li>快速部署应用</li>
@@ -458,7 +471,7 @@
 <ul>
 <li>可移植(portable)</li>
 <li>可扩展( extensible)</li>
-<li>自动化()</li>
+<li>自动化(automatic)</li>
 </ul>
 <p>容器优点：</p>
 <ul>
@@ -472,7 +485,7 @@
 <li>资源利用</li>
 </ul>
 <p><br></p>
-<p><strong>Kubernetes能做什么</strong><br>Kubernetes还允许开发人员从物理和虚拟机脱离，从以主机为中心的基础架构转移到以容器为中心的基础架构。这样可以日工容器固有的全部优点。</p>
+<p><strong>Kubernetes能做什么</strong><br>Kubernetes还允许开发人员从物理和虚拟机脱离，从以主机为中心的基础架构转移到以容器为中心的基础架构。这样可以使用容器固有的全部优点。</p>
 <p>Kubernetes满足的应用程序常见需求：</p>
 <ul>
 <li>Pod</li>
@@ -503,6 +516,138 @@
 </ul>
 <p>你可以自定义你的PAAS，与你选择的CI系统集成，或与Kubernetes一起使用，将你的容器镜像部署到Kubernetes。<br>由于Kubernetes在应用级别而不仅仅在硬件级别上运行，因此它提供了PAAS产品通用的一些功能。如部署、扩展、负载均衡、日志记录、监控等。</p>
 <p><br><br><br></p>
+<h2 id="标准词汇"><a href="#标准词汇" class="headerlink" title="标准词汇"></a>标准词汇</h2><p>Standardized Glossary</p>
+<p><br></p>
+<ul>
+<li><p><strong>Annotation</strong><br>用于将任意非标识元数据(metadata)附加到随想的键值对。</p>
+</li>
+<li><p><strong>Application Architect</strong><br>负责程序高级设计的人员。</p>
+</li>
+<li><p><strong>Application Developer</strong><br>编写在Kubernetes集群中运行的应用程序的人。</p>
+</li>
+<li><p><strong>Approver</strong><br>可以审批Kubernetes代码贡献的人。</p>
+</li>
+<li><p><strong>CLA(Contributor License Agreement)</strong><br>贡献者向开源项目授予其贡献许可的条款。</p>
+</li>
+<li><p><strong>Certificate</strong><br>一个加密安全文件，用于验证对Kubernetes集群的访问的加密。</p>
+</li>
+<li><p><strong>Cloud Controller Manager</strong></p>
+</li>
+<li><p><strong>Cloud Provider</strong></p>
+</li>
+<li><p><strong>Cluster</strong><br>一组称为节点(node)的机器，运行着由Kubernetes管理的容器化的应用程序。</p>
+</li>
+<li><p><strong>Cluster Architect</strong><br>设计一个或多个Kubernetes集群的基础架构的人。</p>
+</li>
+<li><p><strong>Cluster Operator</strong><br>配置，控制和监控集群的人。</p>
+</li>
+<li><p><strong>Code Contributor</strong><br>为Kubernetes开源代码库开发和共享代码的人。</p>
+</li>
+<li><p><strong>ConfigMap</strong><br>一个API对象，用于在键值对中存储非机密的数据。可认为是环境变量，命令行参数…</p>
+</li>
+<li><p><strong>Container</strong><br>一个轻量化和可移植的包含应用程序及其依赖项的可执行的镜像。</p>
+</li>
+<li><p><strong>Container Environment Variables</strong><br>容器环境变量是<code>name/value</code>对，为Pod中运行的容器提供有用的信息。</p>
+</li>
+<li><p><strong>Contributor</strong><br>捐赠代码，文档或时间来帮助Kubernetes项目或社区的人。</p>
+</li>
+<li><p><strong>Controller</strong><br>一个控制循环，通过APIServer监视集群的共享状态，并进行修改，尝试将当前状态移至理想(desired)状态。</p>
+</li>
+<li><p><strong>CronJob</strong><br>管理一个定期运行的工作。</p>
+</li>
+<li><p><strong>CustomResourceDefinition</strong><br>自定义码，用于定义要添加到Kubernetes APIServer的资源，而无需构建完整的自定义服务器。</p>
+</li>
+<li><p><strong>DaemonSet</strong><br>确保Pod的副本在集群的一组节点上运行。</p>
+</li>
+<li><p><strong>Deployment</strong><br>一个管理副本应用程序的API对象</p>
+</li>
+<li><p><strong>Dynamic Volume Provision</strong><br>允许用户请求自动创建存储卷。</p>
+</li>
+<li><p><strong>etcd</strong><br>一致且高度可用的键值存储，用作Kubernetes所有集群数据的备份存储。</p>
+</li>
+<li><p><strong>Helm Chart</strong><br>可以使用Helm工具管理的预配置Kubernetes资源包。</p>
+</li>
+<li><p><strong>Horizontal Pod Autoscaler</strong><br>一个API资源，可根据目标CPU利用率或自定义的指标自动调整Pod副本数。</p>
+</li>
+<li><p><strong>Image</strong><br>一个容器的存储实例，其中包含运行一个应用程序需要的一组软件。</p>
+</li>
+<li><p><strong>Ingress</strong><br>一个管理集群中服务的外部访问的API对象，通常是HTTP。</p>
+</li>
+<li><p><strong>Init Container</strong><br>一个或多个初始化容器，必须在任意应用程序容器运行之前完成运行。</p>
+</li>
+<li><p><strong>Istio</strong><br>一个开放平台，提供统一的方式来继承微服务，管理流量，实施策略和聚合遥测数据。</p>
+</li>
+<li><p><strong>Job</strong><br>运行完成的 有限/一批 任务。</p>
+</li>
+<li><p><strong>Kops</strong><br>一个命令行工具，可帮助你创建，销毁，升级和维护生产级，号可以性的Kubernetes集群。</p>
+</li>
+<li><p><strong>Kubeadm</strong><br>一个快速安装Kubernetes和设置安全集群的工具。</p>
+</li>
+<li><p><strong>Kubectl</strong><br>用于与Kubernetes APIServer通信的命令行工具。</p>
+</li>
+<li><p><strong>Kubelet</strong><br>在集群的每个节点上运行的Agent。它确保容器运行在Pod中。</p>
+</li>
+<li><p><strong>Kubernetes API</strong><br>通过RESTful接口提供Kubernetes功能的应用程序，用于存储集群的状态。</p>
+</li>
+<li><p><strong>Label</strong><br>标记与用户有意义且相关的标识属性的对象。</p>
+</li>
+<li><p><strong>Minikube</strong><br>一个在本地运行Kubernetes的工具。</p>
+</li>
+<li><p><strong>Name</strong><br>客户端提供的字符串，用于引用资源URL中的对象。如<code>/api/vi/pods/some-name</code>.</p>
+</li>
+<li><p><strong>Namespace</strong><br>一个抽象概念，用于Kubernetes支持同一物理集群上的多个虚拟集群。</p>
+</li>
+<li><p><strong>Network Policy</strong><br>允许Pod组如何与其它网络端点进行通信的规范。</p>
+</li>
+<li><p><strong>Node</strong><br>节点是Kubernetes中的一个工作机器。</p>
+</li>
+<li><p><strong>Persistent Volume</strong><br>一个表示集群中一块存储的API对象。</p>
+</li>
+<li><p><strong>Persistent Volume Claim</strong><br>声明定义在一个PersistentVolume中的存储资源，以便可以作为一个volume挂载到容器中。</p>
+</li>
+<li><p><strong>Pod</strong><br>最小和最简单的Kubernetes对象。Pod表示集群上一组正在运行的容器。</p>
+</li>
+<li><p><strong>Pod Security Policy</strong><br>启用Pod创建和更新的细粒度授权。</p>
+</li>
+<li><p><strong>PodPreset</strong><br>一个API对象，在创建时将信息(secrets, volume, env var…)注入到Pod中。</p>
+</li>
+<li><p><strong>RBAC（role-basesd access control)</strong><br>管理授权决策，允许管理员通过Kubernetes API动态配置访问策略。</p>
+</li>
+<li><p><strong>ReplicaSet</strong><br>副本集是下一代副本控制器。</p>
+</li>
+<li><p><strong>Resource Quotas</strong><br>提供限制每个命名空间的聚合资源消耗的约束。</p>
+</li>
+<li><p><strong>Reviemer</strong><br>在项目的某些部分检查代码质量和正确性的人。</p>
+</li>
+<li><p><strong>Secret</strong><br>存储敏感信息，如密码，token…</p>
+</li>
+<li><p><strong>Security Context</strong><br><code>securityContext</code>字段定义Pod或容器的权限和访问控制设置，包括运行时UID和GID。</p>
+</li>
+<li><p><strong>Selector</strong><br>允许用户根据label过滤资源列表。</p>
+</li>
+<li><p><strong>Service</strong><br>一个API对象，描述如何访问应用程序，并可以描述端口和负载均衡器。</p>
+</li>
+<li><p><strong>Service Account</strong><br>为运行在Pod中的进程提供一个标识。</p>
+</li>
+<li><p><strong>Service Catalog</strong><br>一个扩展API，允许Kubernetes集群中运行的应用程序能够轻松使用外部托管软件，如数据库存储服务。</p>
+</li>
+<li><p><strong>StatefulSet</strong><br>管理一组Pods的部署和伸缩，并提供有关这些Pod的排序和唯一性的保证。</p>
+</li>
+<li><p><strong>UID</strong><br>Kubernetes系统生成的一个字符串，用于唯一标识对象。</p>
+</li>
+<li><p><strong>Volume</strong><br>一个包含数据的目录，可供Pod中的容器访问。</p>
+</li>
+<li><p><strong>Volume Plugin</strong><br>卷插件可在Pod中集成存储。</p>
+</li>
+<li><p><strong>kube-apiserver</strong><br>一个Master组件，用于暴露Kubernetes API。它是Kubernetes控制面的前端。</p>
+</li>
+<li><p><strong>kube-controller-manager</strong><br>一个Master组件，用于运行控制器。</p>
+</li>
+<li><p><strong>kube-proxy</strong><br>运行在集群中的每一个节点上的网络代理。</p>
+</li>
+<li><p><strong>kube-scheduler</strong><br>Master上的组件，用于监测未创建节点新创建的Pod，并选择一个节点供其运行。</p>
+</li>
+</ul>
 <h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><p>Kubernetes 所需的各种二进制组件, 用于提供齐全的功能。</p>
 <p><br><br><br></p>
 <h3 id="Master组件"><a href="#Master组件" class="headerlink" title="Master组件"></a>Master组件</h3><p>Master组件提供的集群控制。<br>Master组件可在集群中任何节点上运行。然而，为了简单，通常在一台机器上启动所有Master组件，并且不会在此机器上运行用户容器。<br>可使用多个机器的设置来构建<strong>高可用性能集群</strong>。</p>
@@ -541,7 +686,7 @@
 </li>
 </ul>
 <p>插件是实现集群功能的Pod和Service。addon管理器用于创建和维护附加资源。</p>
-<p>DNS: 所有k8s集群都应该具有cluster dns。它是一个DNS服务器，为Kubernetes服务提供DNS记录。Kubernetes启动的容器自动将DNS服务器包含在DNS搜索中。<br>集群层面日志机制负责将容器的日志数据保存到一个集中的日志存储中，改存储能够提供搜索和浏览接口。</p>
+<p>DNS: 所有k8s集群都应该具有cluster dns。它是一个DNS服务器，为Kubernetes服务提供DNS记录。Kubernetes启动的容器自动将DNS服务器包含在DNS搜索中。<br>集群层面日志机制负责将容器的日志数据保存到一个集中的日志存储中，该存储能够提供搜索和浏览接口。</p>
 <p><br></p>
 <h3 id="节点组件"><a href="#节点组件" class="headerlink" title="节点组件"></a>节点组件</h3><p>节点(node)组件在每个节点上运行，维护运行的pod并提供Kubernetes运行时环境。</p>
 <p>节点组件：</p>
@@ -617,7 +762,7 @@
 <h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><p>标签其实是一对<code>key/value</code>，被关联到对象上。标签能够标识对象的特殊特点。每个对象可拥有多个标签，但key必须唯一。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&quot;labels&quot;: &#123;</span><br><span class="line">  &quot;key1&quot; : &quot;value1&quot;,</span><br><span class="line">  &quot;key2&quot; : &quot;value2&quot;,</span><br><span class="line">  &quot;keyN&quot; : &quot;valueN&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#栗子</span><br><span class="line">&quot;release&quot; : &quot;stable&quot;</span><br><span class="line">&quot;environment&quot; : &quot;dev&quot;</span><br><span class="line">&quot;track&quot; : &quot;daily&quot;</span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
-<h2 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h2><p>默认情况下，容器中的文件时非持久化的。Kubernetes Volume用于解决如下问题：</p>
+<h2 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h2><p>默认情况下，容器中的文件是非持久化的。Kubernetes Volume用于解决如下问题：</p>
 <ul>
 <li>容器挂掉后，kubelet重启它时，文件会丢失</li>
 <li>当pod中同时运行多个容器，容器间需要共享文件时</li>
@@ -650,7 +795,7 @@
 <h2 id="annotation"><a href="#annotation" class="headerlink" title="annotation"></a>annotation</h2><p>Kubernetes可使用annotation(注释)将任何非标识metadata附加到对象。它也由<code>key/value</code>组成。<br>Annotations不会被Kubernetes直接使用，其主要目的是方便用户阅读查找。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;annotations&quot;: &#123;</span><br><span class="line">  &quot;key1&quot; : &quot;value1&quot;,</span><br><span class="line">  &quot;key2&quot; : &quot;value2&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
-<h2 id="node"><a href="#node" class="headerlink" title="node"></a>node</h2><p><code>node</code>是Kubernetes的工作节点，以前称为<code>minion</code>。也就是集群中的一台主机。每个节点都有用于运行<code>pods</code>的必要服务，并由master组件管理。<br>节点上的服务包括<code>docker</code>, <code>kubelet</code>, ‘kube-proxy’。</p>
+<h2 id="node"><a href="#node" class="headerlink" title="node"></a>node</h2><p><code>node</code>是Kubernetes的工作节点，以前称为<code>minion</code>。也就是集群中的一台主机。每个节点都有用于运行<code>pods</code>的必要服务，并由master组件管理。<br>节点上的服务包括<code>docker</code>, <code>kubelet</code>, <code>kube-proxy</code>。</p>
 <p><br></p>
 <h3 id="节点状态"><a href="#节点状态" class="headerlink" title="节点状态"></a>节点状态</h3><p>一个节点的状态包含以下信息：</p>
 <ul>
@@ -798,14 +943,16 @@
 <h3 id="pod-preset"><a href="#pod-preset" class="headerlink" title="pod preset"></a>pod preset</h3><p><br><br><br></p>
 <h3 id="pod服务质量等级"><a href="#pod服务质量等级" class="headerlink" title="pod服务质量等级"></a>pod服务质量等级</h3><p><br><br><br></p>
 <h3 id="pod优先级和抢占"><a href="#pod优先级和抢占" class="headerlink" title="pod优先级和抢占"></a>pod优先级和抢占</h3><p><br><br><br></p>
-<h2 id="副本集"><a href="#副本集" class="headerlink" title="副本集"></a>副本集</h2><p>Kubernetes ReplicaSet(RS)是Replication Controller(RC)的升级版本。<br>虽然副本集可以独立使用，但它主要被部署(Deployment)用作pod机制的创建、删除和更新。当使用部署时，你不必担心创建pod的副本集，因为可通过部署实现管理。<br>副本集能确保运行指定数量的pod。然而，部署是一个更高层次的概念，我们建议你使用管理来管理副本集。这意味着你可能永远不需要操作副本集对象，而是使用部署替代管理。</p>
+<h2 id="副本集"><a href="#副本集" class="headerlink" title="副本集"></a>副本集</h2><p>Replica Sets</p>
+<p>Kubernetes ReplicaSet(RS)是Replication Controller(RC)的升级版本。<br>虽然副本集可以独立使用，但它主要被部署(Deployment)用作pod机制的创建、删除和更新。当使用部署时，你不必担心创建pod的副本集，因为可通过部署实现管理。<br>副本集能确保运行指定数量的pod。然而，部署是一个更高层次的概念，我们建议你使用管理来管理副本集。这意味着你可能永远不需要操作副本集对象，而是使用部署替代管理。</p>
 <p><br></p>
 <p>栗子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: extensions/v1beta1</span><br><span class="line">kind: ReplicaSet</span><br><span class="line">metadata:</span><br><span class="line">  name: frontend</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      tier: frontend</span><br><span class="line">    matchExpressions:</span><br><span class="line">      - &#123;key: tier, operator: In, values: [frontend]&#125;</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: guestbook</span><br><span class="line">        tier: frontend</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: php-redis</span><br><span class="line">        image: gcr.io/google_samples/gb-frontend:v3</span><br><span class="line">        resources:</span><br><span class="line">          requests:</span><br><span class="line">            cpu: 100m</span><br><span class="line">            memory: 100Mi</span><br><span class="line">        env:</span><br><span class="line">        - name: GET_HOSTS_FROM</span><br><span class="line">          value: dns</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 80</span><br></pre></td></tr></table></figure>
 <p>创建并查看：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl create -f frontend.yaml</span><br><span class="line">replicaset &quot;frontend&quot; created</span><br><span class="line">$ kubectl describe rs/frontend</span><br><span class="line">Name:          frontend</span><br><span class="line">Namespace:     default</span><br><span class="line">Image(s):      gcr.io/google_samples/gb-frontend:v3</span><br><span class="line">Selector:      tier=frontend,tier in (frontend)</span><br><span class="line">Labels:        app=guestbook,tier=frontend</span><br><span class="line">Replicas:      3 current / 3 desired</span><br><span class="line">Pods Status:   3 Running / 0 Waiting / 0 Succeeded / 0 Failed</span><br><span class="line">No volumes.</span><br><span class="line">Events:</span><br><span class="line">  FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message</span><br><span class="line">  ---------    --------    -----    ----                -------------    --------    ------            -------</span><br><span class="line">  1m           1m          1        &#123;replicaset-controller &#125;             Normal      SuccessfulCreate  Created pod: frontend-qhloh</span><br><span class="line">  1m           1m          1        &#123;replicaset-controller &#125;             Normal      SuccessfulCreate  Created pod: frontend-dnjpy</span><br><span class="line">  1m           1m          1        &#123;replicaset-controller &#125;             Normal      SuccessfulCreate  Created pod: frontend-9si5l</span><br><span class="line">$ kubectl get pods</span><br><span class="line">NAME             READY     STATUS    RESTARTS   AGE</span><br><span class="line">frontend-9si5l   1/1       Running   0          1m</span><br><span class="line">frontend-dnjpy   1/1       Running   0          1m</span><br><span class="line">frontend-qhloh   1/1       Running   0          1m</span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>一个部署控制器(Deployment Controller)为pod和副本集提供了声明式更新。<br>你只需要在部署中描述你想要的目标状态是什么，部署控制器就会帮你将pod和副本集的实际状态改变到你的目标状态。你可以定义一个全新的部署来创建副本集，或删除已有的部署并创建一个新的来替换。</p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>Deployment</p>
+<p>一个部署控制器(Deployment Controller)为pod和副本集提供了声明式更新。<br>你只需要在部署中描述你想要的目标状态是什么，部署控制器就会帮你将pod和副本集的实际状态改变到你的目标状态。你可以定义一个全新的部署来创建副本集，或删除已有的部署并创建一个新的来替换。</p>
 <p>你不应该管理由Deployment部署的副本集。所有用例都应该通过操作Deployment对象来覆盖。</p>
 <p><br></p>
 <p>以下是部署的典型用例：</p>
@@ -815,7 +962,7 @@
 <li>回滚到之前的部署版本</li>
 <li>伸缩部署</li>
 <li>暂停部署使用部署状态</li>
-<li>清理就得副本集</li>
+<li>清理旧的副本集</li>
 </ul>
 <h3 id="创建部署"><a href="#创建部署" class="headerlink" title="创建部署"></a>创建部署</h3><p><br><br><br></p>
 <h3 id="更新部署"><a href="#更新部署" class="headerlink" title="更新部署"></a>更新部署</h3><p><br><br><br></p>
@@ -849,11 +996,17 @@
 <li><p>孤儿<br>删除对象时，不自动删除它的Dependent。这些Dependent就被称作孤儿。垃圾收集器在删除了所有 “Blocking” 状态的 Dependent（对象的 ownerReference.blockOwnerDeletion=true）之后，它会删除 Owner 对象。</p>
 </li>
 </ul>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h1><p>Tutorials</p>
+<p>教程展示了如何实现比单个任务更大的目标(task)。</p>
 <p><br></p>
 <hr>
 <p><br><br><br></p>
-<h1 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h1><p>安装Kubernetes和配置Kubernetes集群。</p>
-
+<h1 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h1><p>安装Kubernetes和配置Kubernetes cluster。</p>
+<p><br></p>
+<h2 id="使用kubeadm引导集群"><a href="#使用kubeadm引导集群" class="headerlink" title="使用kubeadm引导集群"></a>使用kubeadm引导集群</h2>
       
     </div>
     
@@ -978,7 +1131,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1065,7 +1218,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">1.1.</span> <span class="nav-text">组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Master组件"><span class="nav-number">1.1.1.</span> <span class="nav-text">Master组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点组件"><span class="nav-number">1.1.2.</span> <span class="nav-text">节点组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">1.2.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#names"><span class="nav-number">1.3.</span> <span class="nav-text">names</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#namespace"><span class="nav-number">1.4.</span> <span class="nav-text">namespace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#label"><span class="nav-number">1.5.</span> <span class="nav-text">label</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volume"><span class="nav-number">1.6.</span> <span class="nav-text">volume</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#annotation"><span class="nav-number">1.7.</span> <span class="nav-text">annotation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node"><span class="nav-number">1.8.</span> <span class="nav-text">node</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节点状态"><span class="nav-number">1.8.1.</span> <span class="nav-text">节点状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理"><span class="nav-number">1.8.2.</span> <span class="nav-text">管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点通信"><span class="nav-number">1.8.3.</span> <span class="nav-text">节点通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pod"><span class="nav-number">1.9.</span> <span class="nav-text">pod</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pod安全策略"><span class="nav-number">1.9.1.</span> <span class="nav-text">pod安全策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod生命周期"><span class="nav-number">1.9.2.</span> <span class="nav-text">pod生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init容器"><span class="nav-number">1.9.3.</span> <span class="nav-text">init容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置pod的资源"><span class="nav-number">1.9.4.</span> <span class="nav-text">设置pod的资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod-preset"><span class="nav-number">1.9.5.</span> <span class="nav-text">pod preset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod服务质量等级"><span class="nav-number">1.9.6.</span> <span class="nav-text">pod服务质量等级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod优先级和抢占"><span class="nav-number">1.9.7.</span> <span class="nav-text">pod优先级和抢占</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副本集"><span class="nav-number">1.10.</span> <span class="nav-text">副本集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">1.11.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建部署"><span class="nav-number">1.11.1.</span> <span class="nav-text">创建部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新部署"><span class="nav-number">1.11.2.</span> <span class="nav-text">更新部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回滚部署"><span class="nav-number">1.11.3.</span> <span class="nav-text">回滚部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暂停和恢复部署"><span class="nav-number">1.11.4.</span> <span class="nav-text">暂停和恢复部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伸缩部署"><span class="nav-number">1.11.5.</span> <span class="nav-text">伸缩部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署状态"><span class="nav-number">1.11.6.</span> <span class="nav-text">部署状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理策略"><span class="nav-number">1.11.7.</span> <span class="nav-text">清理策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写Deployment-spec"><span class="nav-number">1.11.8.</span> <span class="nav-text">编写Deployment spec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替代部署"><span class="nav-number">1.11.9.</span> <span class="nav-text">替代部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副本控制器"><span class="nav-number">1.12.</span> <span class="nav-text">副本控制器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StatefulSet"><span class="nav-number">1.13.</span> <span class="nav-text">StatefulSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务"><span class="nav-number">1.14.</span> <span class="nav-text">服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集"><span class="nav-number">1.15.</span> <span class="nav-text">垃圾收集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装和配置"><span class="nav-number">2.</span> <span class="nav-text">安装和配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标准词汇"><span class="nav-number">1.1.</span> <span class="nav-text">标准词汇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">1.2.</span> <span class="nav-text">组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Master组件"><span class="nav-number">1.2.1.</span> <span class="nav-text">Master组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点组件"><span class="nav-number">1.2.2.</span> <span class="nav-text">节点组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">1.3.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#names"><span class="nav-number">1.4.</span> <span class="nav-text">names</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#namespace"><span class="nav-number">1.5.</span> <span class="nav-text">namespace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#label"><span class="nav-number">1.6.</span> <span class="nav-text">label</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volume"><span class="nav-number">1.7.</span> <span class="nav-text">volume</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#annotation"><span class="nav-number">1.8.</span> <span class="nav-text">annotation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node"><span class="nav-number">1.9.</span> <span class="nav-text">node</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节点状态"><span class="nav-number">1.9.1.</span> <span class="nav-text">节点状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理"><span class="nav-number">1.9.2.</span> <span class="nav-text">管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点通信"><span class="nav-number">1.9.3.</span> <span class="nav-text">节点通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pod"><span class="nav-number">1.10.</span> <span class="nav-text">pod</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pod安全策略"><span class="nav-number">1.10.1.</span> <span class="nav-text">pod安全策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod生命周期"><span class="nav-number">1.10.2.</span> <span class="nav-text">pod生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init容器"><span class="nav-number">1.10.3.</span> <span class="nav-text">init容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置pod的资源"><span class="nav-number">1.10.4.</span> <span class="nav-text">设置pod的资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod-preset"><span class="nav-number">1.10.5.</span> <span class="nav-text">pod preset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod服务质量等级"><span class="nav-number">1.10.6.</span> <span class="nav-text">pod服务质量等级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod优先级和抢占"><span class="nav-number">1.10.7.</span> <span class="nav-text">pod优先级和抢占</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副本集"><span class="nav-number">1.11.</span> <span class="nav-text">副本集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">1.12.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建部署"><span class="nav-number">1.12.1.</span> <span class="nav-text">创建部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新部署"><span class="nav-number">1.12.2.</span> <span class="nav-text">更新部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回滚部署"><span class="nav-number">1.12.3.</span> <span class="nav-text">回滚部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暂停和恢复部署"><span class="nav-number">1.12.4.</span> <span class="nav-text">暂停和恢复部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伸缩部署"><span class="nav-number">1.12.5.</span> <span class="nav-text">伸缩部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署状态"><span class="nav-number">1.12.6.</span> <span class="nav-text">部署状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理策略"><span class="nav-number">1.12.7.</span> <span class="nav-text">清理策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写Deployment-spec"><span class="nav-number">1.12.8.</span> <span class="nav-text">编写Deployment spec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替代部署"><span class="nav-number">1.12.9.</span> <span class="nav-text">替代部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副本控制器"><span class="nav-number">1.13.</span> <span class="nav-text">副本控制器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StatefulSet"><span class="nav-number">1.14.</span> <span class="nav-text">StatefulSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务"><span class="nav-number">1.15.</span> <span class="nav-text">服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集"><span class="nav-number">1.16.</span> <span class="nav-text">垃圾收集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#教程"><span class="nav-number">2.</span> <span class="nav-text">教程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装和配置"><span class="nav-number">3.</span> <span class="nav-text">安装和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用kubeadm引导集群"><span class="nav-number">3.1.</span> <span class="nav-text">使用kubeadm引导集群</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1097,7 +1250,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 268.9k</span>
+  <span class="post-count"> 字数: 313.7k</span>
 </div>
 
 

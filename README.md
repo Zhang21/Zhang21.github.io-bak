@@ -2,7 +2,13 @@
 
 ---
 
+> ps
+> 我用Docker构建了Hexo环境的image: `centos7+git+nodejs`
+> `docker pull zhang21/hexo:init`
+
+
 <br>
+
 
 # 参考文档
 

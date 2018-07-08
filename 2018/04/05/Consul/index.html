@@ -101,10 +101,12 @@
 <meta property="og:site_name" content="风继续吹">
 <meta property="og:description" content="参考：  https://www.consul.io/intro/index.html https://www.consul.io/docs/ Consul Template: https://www.hashicorp.com/blog/introducing-consul-template  环境：  CentOS7x86_64 Consul v1.2.0">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-29T10:12:04.000Z">
+<meta property="og:image" content="https://zhang21.github.io/images/consul-arch-420ce04a.png">
+<meta property="og:updated_time" content="2018-07-06T01:45:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Consul">
 <meta name="twitter:description" content="参考：  https://www.consul.io/intro/index.html https://www.consul.io/docs/ Consul Template: https://www.hashicorp.com/blog/introducing-consul-template  环境：  CentOS7x86_64 Consul v1.2.0">
+<meta name="twitter:image" content="https://zhang21.github.io/images/consul-arch-420ce04a.png">
 
 
 
@@ -336,7 +338,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-06T09:45:59+08:00">
+                2018-07-06
+              </time>
             
           </span>
 
@@ -402,7 +416,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  8,497
+                  13,459
                 </span>
               
 
@@ -570,6 +584,149 @@
 <p><br><br><br></p>
 <hr>
 <p><br></p>
+<h1 id="内部详情"><a href="#内部详情" class="headerlink" title="内部详情"></a>内部详情</h1><p>Consul Internals</p>
+<p>介绍Consul内部详情。</p>
+<p><br></p>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>Architecture</p>
+<p><br></p>
+<h3 id="词汇表"><a href="#词汇表" class="headerlink" title="词汇表"></a>词汇表</h3><p>Glossary</p>
+<ul>
+<li>Agent</li>
+<li>Client</li>
+<li>Server</li>
+<li>Datacenter</li>
+<li>Consensus</li>
+<li>Gossip<ul>
+<li>LAN Geossip</li>
+<li>WAN Geossip</li>
+</ul>
+</li>
+<li>RPC</li>
+</ul>
+<p><br></p>
+<p><img src="/images/consul-arch-420ce04a.png" alt="Consul"></p>
+<p><br><br><br></p>
+<h2 id="Consensus协议"><a href="#Consensus协议" class="headerlink" title="Consensus协议"></a>Consensus协议</h2><p>Consul使用consensus(共识) protocol来提供一致性(consistency)，它基于<strong>Raft</strong>(In search of an Understandable Consensus Algorithm)</p>
+<p><br></p>
+<h3 id="Raft协议"><a href="#Raft协议" class="headerlink" title="Raft协议"></a>Raft协议</h3><p>Raft是基于Paxos的共识算法。</p>
+<p>Raft的一些关键术语：</p>
+<ul>
+<li><p>Log<br>The primary unit of work in a Raft system is a log entry.</p>
+</li>
+<li><p>FSM(Finite State Machine)<br>An FSM(有限状态机) is a collection of finite states with transitions between them.</p>
+</li>
+<li><p>Peer set<br>The peer set(对等集) is the set of all members participating in log replication.</p>
+</li>
+<li><p>Quorum<br>A quorum(仲裁) is a majority of members from a peer set: for a set of size n, quorum requires at least (n/2)+1 members. </p>
+</li>
+<li><p>Committed Entry<br>An entry is considered committed when it is durably stored on a quorum of nodes.</p>
+</li>
+<li><p>Leader<br>At any given time, the peer set elects a single node to be the leader.</p>
+</li>
+</ul>
+<p><br></p>
+<p>Raft节点总是处于如下三种状态之一：</p>
+<ul>
+<li>follower(追随者)</li>
+<li>candidate(候选者)</li>
+<li>leader(领导者)</li>
+</ul>
+<p>所有节点最初都是作为follower开始的。在这种状态下，节点可接受leader的日志条目并投票。如果一段时间内没有收到任何条目，则节点会自我提升到candidate。<br>在candidate状态下，节点请求来自对等节点的投票。如果候选人获得仲裁(quorum)的票数，那么它将被提升为leader。<br>leader必须接受新的日志条目并复制给其它所有follower。另外，如果陈旧读取不可接受，则所有查询也必须在leader上执行。</p>
+<p>一旦集群具有leader，它就能够接受新的日志条目。Client可以请求leader添加新的日志条目。然后，leader将条目持久化，并尝试复制到仲裁的follower。一旦日志条目被认为提交(committed)，它就可以应用于有限状态机(FSM)。<br>显然，允许复制日志以无限制的方式增长是不可取的。Raft提供了一种机制，可通过快照(snapshot)当前状态并压缩日志。<br>达成共识是容错的，直到法定人数可用。<br>建议为每个数据中心配置3-5台Consul Server。3个节点的Raft集群可以容忍单个节点故障，5个节点的Raft集群可以容忍2个节点故障。这可最大限制提高可用性。</p>
+<p><br></p>
+<h3 id="Raft-in-Consul"><a href="#Raft-in-Consul" class="headerlink" title="Raft in Consul"></a>Raft in Consul</h3><p>只有Consul Server节点参与Raft，并且是对等集的一部分。所有的Client节点都将请求转发给Server。</p>
+<p>当启动的时候，单个Consul Server进入<strong>bootstrap</strong>模式，此模式允许它进行自我选举为leader。leader选出后，可以以一致性和安全性的方式将其它Server添加到对等集，之后，就可以禁用bootstrap模式。<br>由于所有的Server作为对等集的一部分参与，因此他们都知道当前的leader。当一个RPC请求到达了non-leader Server时，请求被转发给leader。</p>
+<ul>
+<li>如果RPC是查询(query)类型，意味着它是只读的，则leader根据FSM的当前状态生成结果</li>
+<li>如果RPC是事务(transaction)类型，意味着它是可修改的，则leader生成新的日志条目并使用Raft应用它</li>
+</ul>
+<p>提交日志条目并将其应用于FSM后，事务就完成了。</p>
+<p>由于Raft副本的性质，性能对网络延迟很敏感。因此，每个数据中心选择一个独立的leader并维护一个不相交的对等集。数据由数据中心分区，每个leader仅负责其数据中心中的数据。</p>
+<p><br></p>
+<h3 id="一致性模式"><a href="#一致性模式" class="headerlink" title="一致性模式"></a>一致性模式</h3><p>Consistency Modes</p>
+<p>虽然对副本日志的所有写入都通过Raft，但读取却更加灵活。<br>Consul支持3种不同的读取一致性模式：</p>
+<ul>
+<li>default</li>
+<li>consistent</li>
+<li>stale</li>
+</ul>
+<p><br></p>
+<h3 id="部署表"><a href="#部署表" class="headerlink" title="部署表"></a>部署表</h3><table>
+<thead>
+<tr>
+<th>Servers</th>
+<th>Quorum Size</th>
+<th>Failere Tolerance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4</td>
+<td>2</td>
+</tr>
+<tr>
+<td>7</td>
+<td>4</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h2 id="Gossip协议"><a href="#Gossip协议" class="headerlink" title="Gossip协议"></a>Gossip协议</h2><p>Consul 使用gossip协议来管理成员并向集群发送广播信息。所有这些都通过Serf Library提供。</p>
+<p><br></p>
+<h3 id="Goossip-in-Consul"><a href="#Goossip-in-Consul" class="headerlink" title="Goossip in Consul"></a>Goossip in Consul</h3><p>Consul使用两个不同的gossip pools:</p>
+<ul>
+<li>LAN pool</li>
+<li>WAN pool</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="网络坐标"><a href="#网络坐标" class="headerlink" title="网络坐标"></a>网络坐标</h2><p>Network Coordinates</p>
+<p>Consul使用网络层层析系统来计算集群中节点的网络坐标。这些坐标允许使用非常简单的计算在任意两个节点之间估计网络往返时间。所有这些都通过使用Serf Library。</p>
+<p><br></p>
+<h3 id="Consul中的网络坐标"><a href="#Consul中的网络坐标" class="headerlink" title="Consul中的网络坐标"></a>Consul中的网络坐标</h3><p>Network Coordinates in Consul</p>
+<p>网络坐标在Consul中有多种表现方式：</p>
+<ul>
+<li><code>consul rtt</code></li>
+<li>Catalog/Health endpoints</li>
+<li>Prepared query</li>
+<li>Coordinate endpoint</li>
+</ul>
+<p><br></p>
+<h3 id="使用坐标"><a href="#使用坐标" class="headerlink" title="使用坐标"></a>使用坐标</h3><p>一旦你有了两个节点的坐标，则计算它们间的往返时间是很简单的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;Coord&quot;: &#123;</span><br><span class="line">    &quot;Adjustment&quot;: 0.1,</span><br><span class="line">    &quot;Error&quot;: 1.5,</span><br><span class="line">    &quot;Height&quot;: 0.02,</span><br><span class="line">    &quot;Vec&quot;: [0.34,0.68,0.003,0.01,0.05,0.1,0.34,0.06]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h2><p>Sessions</p>
+<p>consul提供了一个用于构建分布式锁的会话机制。会话充当节点、健康检查和K/V数据之间的监听层。</p>
+<p><br></p>
+<h3 id="会话设计"><a href="#会话设计" class="headerlink" title="会话设计"></a>会话设计</h3><p><br><br><br></p>
+<hr>
+<p><br></p>
 <h1 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h1><h2 id="启动和停止"><a href="#启动和停止" class="headerlink" title="启动和停止"></a>启动和停止</h2><p>Consul Agent是Consul的核心进程。它维护成员关系信息，注册服务，运行检查，响应查询…<br>Consul Agent必须运行在在Consul集群的每个节点上。</p>
 <p>Agent有两种运行模式：</p>
 <ul>
@@ -637,7 +794,7 @@
 <p><strong>可连接的服务查找</strong><br>Connect-Capable Service Lookups.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;service&gt;.connect.&lt;domain&gt;</span><br></pre></td></tr></table></figure>
 <p><br></p>
-<p><strong>Caching</strong><br>默认情况下，Consul服务的所有DNS结果都会设置一个为0的TTL。这回禁用DNS结果的缓存。但，很多情况下，缓存对性能和伸缩性都是可去的。</p>
+<p><strong>Caching</strong><br>默认情况下，Consul服务的所有DNS结果都会设置一个为0的TTL。这会禁用DNS结果的缓存。但，很多情况下，缓存对性能和伸缩性都是可取的。</p>
 <p><br></p>
 <p><strong>WAN地址转换</strong><br>默认情况下，Consul DNS查询将会返回一个节点的本地地址。如果你需要外部地址，则可使用<code>advertise-wan</code>和<code>translate_wan_addrs</code>选项来配置此行为。</p>
 <p><br><br><br></p>
@@ -680,8 +837,8 @@
 <h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>配置文件不仅用于设置代理，还用于提供检查和服务定义。</p>
 <p>配置文件选项和命令行参数稍微有点不一样。<br>使用<code>consul agent -h</code>查看具体配置项。</p>
 <p>栗子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#开始栗子</span><br><span class="line">vim /etc/consul.d/service.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">&quot;bind_addr&quot;: &quot;192.168.1.11&quot;,</span><br><span class="line">&quot;client_addr&quot;: &quot;0.0.0.0&quot;,</span><br><span class="line">&quot;datacenter&quot;: &quot;zhang&quot;,</span><br><span class="line">&quot;data_dir&quot;: &quot;/var/lib/consul&quot;,</span><br><span class="line">&quot;log_level&quot;: &quot;WARN&quot;,</span><br><span class="line">&quot;node_name&quot;: &quot;zhang21&quot;,</span><br><span class="line">&quot;server&quot;: true,</span><br><span class="line">&quot;enable_syslog&quot;: true,</span><br><span class="line">&quot;ui&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#集群配置</span><br><span class="line">vim /etc/consul.d/service.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">	&quot;bind_addr&quot;: &quot;xxx&quot;;</span><br><span class="line">	&quot;client_addr&quot;: &quot;0.0.0.0&quot;;</span><br><span class="line">	&quot;datacenter&quot;: &quot;zhang&quot;;</span><br><span class="line">	&quot;data_dir&quot;: &quot;/var/lib/consul&quot;;</span><br><span class="line">	&quot;encrypt&quot;: &quot;a1b8vAA2==@xyz&quot;,</span><br><span class="line">	&quot;log_level&quot;: &quot;WARN&quot;,</span><br><span class="line">	&quot;node_name&quot;: &quot;zhang21&quot;,</span><br><span class="line">	&quot;node_id&quot;: &quot;zhang21&quot;,</span><br><span class="line">	&quot;server&quot;: true,</span><br><span class="line">	&quot;enable_syslog&quot;: true,</span><br><span class="line">	&quot;ui&quot;: true,</span><br><span class="line">	&quot;retry_interval&quot;: 20s,</span><br><span class="line">	&quot;retry_join&quot;: [</span><br><span class="line">		&quot;consul.domain.internal&quot;,</span><br><span class="line">		&quot;10.0.1.2:8301&quot;,</span><br><span class="line">		&quot;[::1]:8301&quot;</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#开始栗子</span><br><span class="line">vim /etc/consul.d/single.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">&quot;bind_addr&quot;: &quot;192.168.1.11&quot;,</span><br><span class="line">&quot;bootstrap&quot;: true,</span><br><span class="line">&quot;client_addr&quot;: &quot;0.0.0.0&quot;,</span><br><span class="line">&quot;datacenter&quot;: &quot;zhang&quot;,</span><br><span class="line">&quot;data_dir&quot;: &quot;/var/lib/consul&quot;,</span><br><span class="line">&quot;log_level&quot;: &quot;WARN&quot;,</span><br><span class="line">&quot;node_name&quot;: &quot;zhang21&quot;,</span><br><span class="line">&quot;server&quot;: true,</span><br><span class="line">&quot;enable_syslog&quot;: true,</span><br><span class="line">&quot;ui&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#集群配置</span><br><span class="line">vim /etc/consul.d/cluster.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">	&quot;bind_addr&quot;: &quot;xxx&quot;,</span><br><span class="line">	&quot;bootstrap_expect&quot;: 2,</span><br><span class="line">	&quot;client_addr&quot;: &quot;0.0.0.0&quot;,</span><br><span class="line">	&quot;datacenter&quot;: &quot;zhang&quot;,</span><br><span class="line">	&quot;data_dir&quot;: &quot;/var/lib/consul&quot;,</span><br><span class="line">	&quot;encrypt&quot;: &quot;a1b8vAA2==@xyz&quot;,</span><br><span class="line">	&quot;log_level&quot;: &quot;WARN&quot;,</span><br><span class="line">	&quot;node_name&quot;: &quot;zhang21&quot;,</span><br><span class="line">	&quot;node_id&quot;: &quot;zhang21&quot;,</span><br><span class="line">	&quot;server&quot;: true,</span><br><span class="line">	&quot;enable_syslog&quot;: true,</span><br><span class="line">	&quot;ui&quot;: true,</span><br><span class="line">	&quot;retry_interval&quot;: 20s,</span><br><span class="line">	&quot;retry_join&quot;: [</span><br><span class="line">		&quot;consul.domain.internal&quot;,</span><br><span class="line">		&quot;10.0.1.2:8301&quot;,</span><br><span class="line">		&quot;[::1]:8301&quot;</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h2 id="服务定义"><a href="#服务定义" class="headerlink" title="服务定义"></a>服务定义</h2><p>服务发现的主要目标之一是提供可用服务的目录(catalog)。为此，Agent提供了一种简单的服务定义格式来声明服务的可用性，并可能将其与健康检查相关联。如果健康检查与服务关联，则认为它是应用程序级别。</p>
 <p><br></p>
@@ -714,7 +871,7 @@
 <p>检查名称自动生成为: <code>service:&lt;service-id&gt;</code>，如果有多个服务检查注册，生成的id为： <code>service:&lt;service:-id&gt;:&lt;num&gt;</code>，num是从1开始递增的数字。</p>
 <p><br></p>
 <p>栗子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/consul.d/redis.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;service&quot;: &#123;</span><br><span class="line">    &quot;name&quot;: &quot;redis&quot;,</span><br><span class="line">    &quot;tags&quot;: [&quot;primary&quot;],</span><br><span class="line">    &quot;address&quot;: &quot;&quot;,</span><br><span class="line">    &quot;meta&quot;: &#123;</span><br><span class="line">      &quot;meta&quot;: &quot;for my service&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;port&quot;: 8000,</span><br><span class="line">    &quot;enable_tag_override&quot;: false,</span><br><span class="line">    &quot;checks&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;args&quot;: [&quot;/usr/local/bin/check_redis.py&quot;],</span><br><span class="line">        &quot;interval&quot;: &quot;10s&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;connect&quot;: &#123;</span><br><span class="line">      &quot;native&quot;: false,</span><br><span class="line">      &quot;proxy&quot;: &#123;</span><br><span class="line">        &quot;command&quot;: [],</span><br><span class="line">        &quot;config&quot;: &#123;&#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/consul.d/redis.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;service&quot;: &#123;</span><br><span class="line">        &quot;name&quot;: &quot;redis&quot;,</span><br><span class="line">        &quot;id&quot;: &quot;redis01&quot;,</span><br><span class="line">        &quot;tags&quot;: [</span><br><span class="line">            &quot;master&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;address&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">        &quot;port&quot;: 6379,</span><br><span class="line">        &quot;meta&quot;: &#123;</span><br><span class="line">            &quot;meta&quot;: &quot;service definition for redis&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;enable_tag_override&quot;: false,</span><br><span class="line"></span><br><span class="line">        &quot;check&quot;: &#123;</span><br><span class="line">            &quot;id&quot;: &quot;redisTCP&quot;,</span><br><span class="line">            &quot;name&quot;: &quot;redis service check&quot;,</span><br><span class="line">            &quot;tcp&quot;: &quot;localhost:6379&quot;,</span><br><span class="line">            &quot;interval&quot;: &quot;10s&quot;,</span><br><span class="line">            &quot;timeout&quot;: &quot;1s&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h3 id="多个服务定义"><a href="#多个服务定义" class="headerlink" title="多个服务定义"></a>多个服务定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;services&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;id&quot;: &quot;red0&quot;,</span><br><span class="line">      &quot;name&quot;: &quot;redis&quot;,</span><br><span class="line">      &quot;tags&quot;: [</span><br><span class="line">        &quot;primary&quot;</span><br><span class="line">      ],</span><br><span class="line">      &quot;address&quot;: &quot;&quot;,</span><br><span class="line">      &quot;port&quot;: 6000,</span><br><span class="line">      &quot;checks&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;args&quot;: [&quot;/bin/check_redis&quot;, &quot;-p&quot;, &quot;6000&quot;],</span><br><span class="line">          &quot;interval&quot;: &quot;5s&quot;,</span><br><span class="line">          &quot;ttl&quot;: &quot;20s&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;id&quot;: &quot;red1&quot;,</span><br><span class="line">      &quot;name&quot;: &quot;redis&quot;,</span><br><span class="line">      &quot;tags&quot;: [</span><br><span class="line">        &quot;delayed&quot;,</span><br><span class="line">        &quot;secondary&quot;</span><br><span class="line">      ],</span><br><span class="line">      &quot;address&quot;: &quot;&quot;,</span><br><span class="line">      &quot;port&quot;: 7000,</span><br><span class="line">      &quot;checks&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;args&quot;: [&quot;/bin/check_redis&quot;, &quot;-p&quot;, &quot;7000&quot;],</span><br><span class="line">          &quot;interval&quot;: &quot;30s&quot;,</span><br><span class="line">          &quot;ttl&quot;: &quot;60s&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
@@ -773,6 +930,346 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;checks&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;id&quot;: &quot;chk1&quot;,</span><br><span class="line">      &quot;name&quot;: &quot;mem&quot;,</span><br><span class="line">      &quot;args&quot;: [&quot;/bin/check_mem&quot;, &quot;-limit&quot;, &quot;256MB&quot;],</span><br><span class="line">      &quot;interval&quot;: &quot;5s&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;id&quot;: &quot;chk2&quot;,</span><br><span class="line">      &quot;name&quot;: &quot;/health&quot;,</span><br><span class="line">      &quot;http&quot;: &quot;http://localhost:5000/health&quot;,</span><br><span class="line">      &quot;interval&quot;: &quot;15s&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;id&quot;: &quot;chk3&quot;,</span><br><span class="line">      &quot;name&quot;: &quot;cpu&quot;,</span><br><span class="line">      &quot;script&quot;: &quot;/bin/check_cpu&quot;,</span><br><span class="line">      &quot;interval&quot;: &quot;10s&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h2 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h2><p>Encryption</p>
+<p>Consul Agent支持加密所有流量。有两个独立的加密系统：</p>
+<ul>
+<li>gossip流量</li>
+<li>RPC</li>
+</ul>
+<p><br></p>
+<h3 id="gossip加密"><a href="#gossip加密" class="headerlink" title="gossip加密"></a>gossip加密</h3><p>启用geossip加密只需要你在启动Consul Agent时设置加密密钥(encryption key)。密钥是16Bytes的Base64编码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">consul keygen</span><br><span class="line">FDGDpW55oCYJlh555Es1gA==</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vim /etc/consul.d/cluster.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;encrypt&quot;: &quot;FDGDpW55oCYJlh555Es1gA==&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>consul集群的所有节点必须共享相同的加密密钥！</p>
+<p><br></p>
+<h3 id="RPC加密"><a href="#RPC加密" class="headerlink" title="RPC加密"></a>RPC加密</h3><p>Consul支持使用TLS来验证Server和Client之间的真实性。它们之间使用由证书机构颁发的密钥对，你可以自己生成CA。</p>
+<p><br><br><br></p>
+<h2 id="Telemetry"><a href="#Telemetry" class="headerlink" title="Telemetry"></a>Telemetry</h2><p>Consul Agent收集有关不同库和子系统的各种运行时指标。这些指标以10s为间隔进行汇总，并保留1min。<br>查看这些数据，你需要向Consul进程发送信号：</p>
+<ul>
+<li>Unix: USR1</li>
+<li>Windows: BREAK</li>
+</ul>
+<p>Consul收到信号后，它将当前的遥测(telemetry)信息转储到Agent’s STDERR。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#USR1 10</span><br><span class="line">kill -10 $&#123;consul-pid&#125;</span><br></pre></td></tr></table></figure>
+<p>详情: <a href="https://www.consul.io/docs/agent/telemetry.html" target="_blank" rel="noopener">https://www.consul.io/docs/agent/telemetry.html</a></p>
+<p><br><br><br></p>
+<h2 id="Watches"><a href="#Watches" class="headerlink" title="Watches"></a>Watches</h2><p>watches是一种指定检测更新的数据视图的方式。检测到更新，将调用外部处理程序。<br>watch使用HTTP API中的blocking query，Agent自动进行适当的API调用已检测更新，并在数据视图更新时通知处理程序。<br>watch可以配置为Agent configuration的一部分，watch也可以在Agent之外启动。</p>
+<p><br></p>
+<h3 id="处理程序"><a href="#处理程序" class="headerlink" title="处理程序"></a>处理程序</h3><p>监测配置指定要监测的数据视图，更新视图后，将调用指定的处理程序(Handler)。外部程序可为可执行程序(executable)或HTTP endpoint。</p>
+<ul>
+<li><strong>可执行程序</strong><br>可执行处理程序从stdin读取json信息，此外<code>CONSUL_INDEX</code>环境变量将被设置为Consul Index写入stdout。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;key&quot;,</span><br><span class="line">  &quot;key&quot;: &quot;foo/bar/baz&quot;,</span><br><span class="line">  &quot;handler_type&quot;: &quot;script&quot;,</span><br><span class="line">  &quot;args&quot;: [&quot;/usr/bin/my-service-handler.sh&quot;, &quot;-redis&quot;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#在consul v1.0以后，args数组被添加，以便可在没有shell的情况下运行处理程序</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<ul>
+<li><strong>HTTP endpoint</strong><br>当watch被调用时发送HTTP请求给HTTP处理程序。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;key&quot;,</span><br><span class="line">  &quot;key&quot;: &quot;foo/bar/baz&quot;,</span><br><span class="line">  &quot;handler_type&quot;: &quot;http&quot;,</span><br><span class="line">  &quot;http_handler_config&quot;: &#123;</span><br><span class="line">    &quot;path&quot;:&quot;https://localhost:8000/watch&quot;,</span><br><span class="line">    &quot;method&quot;: &quot;POST&quot;,</span><br><span class="line">    &quot;header&quot;: &#123;&quot;x-foo&quot;:[&quot;bar&quot;, &quot;baz&quot;]&#125;,</span><br><span class="line">    &quot;timeout&quot;: &quot;10s&quot;,</span><br><span class="line">    &quot;tls_skip_verify&quot;: false</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="全局参数"><a href="#全局参数" class="headerlink" title="全局参数"></a>全局参数</h3><p>Global Parameters</p>
+<ul>
+<li>datacenter</li>
+<li>token</li>
+<li>args</li>
+<li>handler</li>
+</ul>
+<p><br></p>
+<h3 id="Watch类型"><a href="#Watch类型" class="headerlink" title="Watch类型"></a>Watch类型</h3><ul>
+<li>key</li>
+<li>keyprefix</li>
+<li>services</li>
+<li>nodes</li>
+<li>service</li>
+<li>checks</li>
+<li>event</li>
+</ul>
+<p><br></p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">consul watch -type service -service redis</span><br><span class="line"></span><br><span class="line">consul watch -type checks -service redis</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">#key</span><br><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;key&quot;,</span><br><span class="line">  &quot;key&quot;: &quot;foo/bar/baz&quot;,</span><br><span class="line">  &quot;args&quot;: [&quot;/usr/bin/my-service-handler.sh&quot;, &quot;-redis&quot;]</span><br><span class="line">&#125;</span><br><span class="line">#or</span><br><span class="line">consul watch -type=key -key=foo/bar/baz /usr/bin/my-key-handler.sh</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#keyprefix</span><br><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;keyprefix&quot;,</span><br><span class="line">  &quot;prefix&quot;: &quot;foo/&quot;,</span><br><span class="line">  &quot;args&quot;: [&quot;/usr/bin/my-service-handler.sh&quot;, &quot;-redis&quot;]</span><br><span class="line">&#125;</span><br><span class="line">#or</span><br><span class="line">consul watch -type=keyprefix -prefix=foo/ /usr/bin/my-prefix-handler.sh</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#services</span><br><span class="line">&#123;</span><br><span class="line">  &quot;redis&quot;: []</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#nodes</span><br><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;Node&quot;: &quot;node1&quot;,</span><br><span class="line">	&quot;Address&quot;: &quot;192.168.1.11&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;Node&quot;: &quot;node2&quot;,</span><br><span class="line">	&quot;Address&quot;: &quot;xxx&quot;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#service</span><br><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;service&quot;,</span><br><span class="line">  &quot;service&quot;: &quot;redis&quot;,</span><br><span class="line">  &quot;args&quot;: [&quot;/usr/bin/my-service-handler.sh&quot;, &quot;-redis&quot;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#check</span><br><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;Node&quot;: &quot;foobar&quot;,</span><br><span class="line">    &quot;CheckID&quot;: &quot;service:redis&quot;,</span><br><span class="line">    &quot;Name&quot;: &quot;Service &apos;redis&apos; check&quot;,</span><br><span class="line">    &quot;Status&quot;: &quot;passing&quot;,</span><br><span class="line">    &quot;Notes&quot;: &quot;&quot;,</span><br><span class="line">    &quot;Output&quot;: &quot;&quot;,</span><br><span class="line">    &quot;ServiceID&quot;: &quot;redis&quot;,</span><br><span class="line">    &quot;ServiceName&quot;: &quot;redis&quot;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#event</span><br><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;event&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;web-deploy&quot;,</span><br><span class="line">  &quot;args&quot;: [&quot;/usr/bin/my-service-handler.sh&quot;, &quot;-web-deploy&quot;]</span><br><span class="line">&#125;</span><br><span class="line">#or</span><br><span class="line">consul watch -type=event -name=web-deploy /usr/bin/my-deploy-handler.sh -web-deploy</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="指南"><a href="#指南" class="headerlink" title="指南"></a>指南</h1><p>Consul Guide</p>
+<p>本节提供了Consul各种常见的操作指南。</p>
+<p>如下：</p>
+<ul>
+<li><p><strong>ACLs</strong><br>Consul访问控制列表，该功能用于控制对资源的访问。</p>
+</li>
+<li><p><strong>Adding/Removing Servers</strong><br>从集群中安全地添加和删除Consul Server，这应该小心操作。</p>
+</li>
+<li><p><strong>Autopilot</strong><br>为Consul Server提供自动友好操作的管理。</p>
+</li>
+<li><p><strong>Bootstrapping</strong><br>引导新的数据中心，包括安全地添加初始化Consul Server。</p>
+</li>
+<li><p><strong>Consul with Container</strong><br>在容器内运行Consul Cluster。</p>
+</li>
+<li><p><strong>DNS Caching</strong><br>为DNS查询缓存启用TTLS</p>
+</li>
+<li><p><strong>DNS Forwarding</strong><br>从BIND转发DNS查询到Consul</p>
+</li>
+<li><p><strong>External Services</strong><br>注册外部服务。允许在Consul框架内使用第三方服务。</p>
+</li>
+<li><p><strong>Federation</strong><br>配置Consul以支持多个数据中心。</p>
+</li>
+<li><p><strong>Geo Failover</strong><br>用准备好的查询来实现服务的地理故障转移。</p>
+</li>
+<li><p><strong>Leader Election</strong><br>使用Consul构建Client端的领导选举。</p>
+</li>
+<li><p><strong>Network Segments</strong><br>配置Consul使用网段-支持部分LAN连接。</p>
+</li>
+<li><p><strong>Outage Recovery</strong><br>恢复因Server故障而无法使用的集群。</p>
+</li>
+<li><p><strong>Semaphore</strong><br>使用KV存储实现一个信号量</p>
+</li>
+<li><p><strong>Sentinel</strong><br>使用哨兵模式在Consul中执行策略。</p>
+</li>
+<li><p><strong>Server Performance</strong><br>Consul Server的最低要求以及生产环境中运行Consul Server的指南。</p>
+</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="ACLs"><a href="#ACLs" class="headerlink" title="ACLs"></a>ACLs</h2><p>Consul提供可选的访问控制列表系统，用于控制对数据和API的访问。它依赖于规则的token.</p>
+<p>访问控制列表旨在提供易于使用，快速执行和灵活的新策略。</p>
+<p><br></p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><strong>ACL Tokens</strong><br>访问控制列表系统基于token(令牌)，由Consul操作者通过 Consul ACL API进行管理。<br>如果没有提供token，则会自动关联与特殊的可配置匿名令牌(anonymous token)的规则。</p>
+<p>每个token具有：</p>
+<ul>
+<li>ID</li>
+<li>name</li>
+<li>type<ul>
+<li>client</li>
+<li>management</li>
+</ul>
+</li>
+<li>rule set(规则集)</li>
+</ul>
+<p><br></p>
+<p><strong>ACL Rules and Scope</strong><br>token绑定到一组规则，用于控制令牌可以访问的Consul资源。可在白名单(whitelist)/黑名单(blacklist)下定义策略，这取决于默认策略<code>acl_default_policy</code>的值。</p>
+<p>构建规则的ACL策略：</p>
+<ul>
+<li><p>agent<br>用于Agent API</p>
+</li>
+<li><p>event<br>用于Event API</p>
+</li>
+<li><p>key<br>用于KV Store API</p>
+</li>
+<li><p>keyring<br>用于Keyring API</p>
+</li>
+<li><p>node<br>用于Catalog API, Health API, Prepare Query API, Network Coordinate API， Agent API</p>
+</li>
+<li><p>operator<br>用于Operator API</p>
+</li>
+<li><p>query<br>用于Prepared Query API</p>
+</li>
+<li><p>service<br>Catalog API, Health API, Prepared Query API, Agent API</p>
+</li>
+<li><p>session<br>用于Session API</p>
+</li>
+</ul>
+<p>由于Consul snapshots实际上包含ACL token，因此Snapshot API需要一个管理token进行快照操作。</p>
+<p>ACL策略不包括如下资源：</p>
+<ul>
+<li>Status API</li>
+<li>Catalog API</li>
+</ul>
+<p><br></p>
+<p><strong>ACL Datacenter</strong><br>必须使用<code>acl_datacenter</code>配置所有节点(client/server)来启用ACL强制实施，但同时也是权威数据中心。Consul依靠RPC转发来支持多数据中心(multi-datacenter)。但是，由于可以跨数据中心边界发出请求，因此ACL令牌必须在全局范围内有效。为避免一致性问题，单个数据中心被视为具有权威性，并存储规范的令牌集。</p>
+<p><br><br><br></p>
+<h3 id="配置ACLs"><a href="#配置ACLs" class="headerlink" title="配置ACLs"></a>配置ACLs</h3><p>使用多个配置项配置ACL：</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>Server</th>
+<th>Client</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>acl_datacenter</code></td>
+<td>required</td>
+<td>required</td>
+<td>为ACL定义权威Consul数据中心来启用ACL的主控制</td>
+</tr>
+<tr>
+<td><code>acl_default_policy</code></td>
+<td>可选</td>
+<td>n/a</td>
+<td>定义白名单或黑名单模式</td>
+</tr>
+<tr>
+<td><code>acl_down_policy</code></td>
+<td>可选</td>
+<td>可选</td>
+<td>定义ACL数据中心脱机时执行的操作</td>
+</tr>
+<tr>
+<td><code>acl_ttl</code></td>
+<td>可选</td>
+<td>可选</td>
+<td>定义缓存ACL的生存时间</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>配置特殊令牌，允许引导ACL系统或在特殊情况下访问Consul：</p>
+<table>
+<thead>
+<tr>
+<th>特殊令牌</th>
+<th>Server</th>
+<th>Client</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>acl_agent_master_token</code></td>
+<td>可选</td>
+<td>可选</td>
+<td>当ACL数据中心不可用或Server脱机时，可用于访问Agent API</td>
+</tr>
+<tr>
+<td><code>acl_agent_token</code></td>
+<td>可选</td>
+<td>可选</td>
+<td>用于Agent内部操作</td>
+</tr>
+<tr>
+<td><code>acl_master_token</code></td>
+<td>required</td>
+<td>n/a</td>
+<td>用于引导ACL系统</td>
+</tr>
+<tr>
+<td><code>acl_token</code></td>
+<td>可选</td>
+<td>可选</td>
+<td>用于未提供token的客户端请求的默认令牌。这通常配置为对服务的只读访问权限，以便在Agent上启用DNS发现</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>ACL Agent Master Token</strong><br>由于<code>acl_agent_master_token</code>旨在Consul Server不可用时使用，因此其策略在Agent本地管理，并且不需要通过ACL API在Consul Server上定义token。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">agent &quot;&lt;node name of agent&gt;&quot; &#123;</span><br><span class="line">  policy = &quot;write&quot;</span><br><span class="line">&#125;</span><br><span class="line">node &quot;&quot; &#123;</span><br><span class="line">  policy = &quot;read&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>ACL Agent Token</strong><br><code>acl_agent_token</code>是一个特殊令牌，用于Agent的内部操作。用于Agent的如下操作：</p>
+<ul>
+<li>使用Catalog API更新Agent的节点条目</li>
+<li>执行反熵同步</li>
+<li>执行<code>consul_exec</code>命令时，读写KV存储库的特殊<code>_rexec部分</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">node &quot;node1&quot; &#123;</span><br><span class="line">  policy = &quot;write&quot;</span><br><span class="line">&#125;</span><br><span class="line">service &quot;&quot; &#123;</span><br><span class="line">  policy = &quot;read&quot;</span><br><span class="line">&#125;</span><br><span class="line">key &quot;_rexec&quot; &#123;</span><br><span class="line">  policy = &quot;write&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>任何一个可在Agent上注册的服务，service策略需要读访问权限。</p>
+<p><br><br><br></p>
+<h3 id="引导ACLs"><a href="#引导ACLs" class="headerlink" title="引导ACLs"></a>引导ACLs</h3><p>Bootstrapping ACLs</p>
+<p>在新集群上引导ACLs需要几个步骤：</p>
+<p><strong>Enable ACLs on the Consul Servers</strong><br>引导ACLs的第一步便是在ACL数据中心的Consul Server上启用ACLs，配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;acl_datacenter&quot;: &quot;dc1&quot;,</span><br><span class="line">  &quot;acl_master_token&quot;: &quot;123abc!@#,</span><br><span class="line">  &quot;acl_default_policy&quot;: &quot;deny&quot;,</span><br><span class="line">  &quot;acl_down_policy&quot;: &quot;deny&quot;,</span><br><span class="line">  &quot;acl_down_policy&quot;: &quot;extend-cache&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Create an Agent Token</strong><br>使用ACL API和上一步中设置的ACL Master Token创建令牌：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">curl --request PUT --header &quot;X-Consul-Token: 123abc!@#&quot; --data \</span><br><span class="line">&apos;&#123;</span><br><span class="line">   &quot;Name&quot;: &quot;Agent Token&quot;,</span><br><span class="line">   &quot;Type&quot;: &quot;client&quot;,</span><br><span class="line">   &quot;Rules&quot;: &quot;node \&quot;\&quot; &#123; policy = \&quot;write\&quot;&#125; service \&quot;\&quot; &#123; policy = \&quot;read\&quot; &#125;&quot;</span><br><span class="line">&#125;&apos; http://127.0.0.1:8500/v1/acl/create</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">返回的值便是新创建的token</span><br><span class="line">&#123;&quot;ID&quot;: &quot;xxxxxxxxxxxxxx&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>返回的值便是新创建的token。将这个值添加到Consul Server配置中，并重启Server：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;acl_datacenter&quot;: &quot;dc1&quot;,</span><br><span class="line">  &quot;acl_master_token&quot;: &quot;123abc!@#,</span><br><span class="line">  &quot;acl_default_policy&quot;: &quot;deny&quot;,</span><br><span class="line">  &quot;acl_down_policy&quot;: &quot;deny&quot;,</span><br><span class="line">  &quot;acl_down_policy&quot;: &quot;extend-cache&quot;,</span><br><span class="line">  &quot;acl_agent_token&quot;: &quot;xxxxxxxxxxxxxxxx&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或使用API导入token：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl --request PUT --header &quot;X-Consul-Token: 123abc!@#&quot; --data \</span><br><span class="line">&apos;&#123;</span><br><span class="line">   &quot;Token&quot;: &quot;xxxxxxxxxxxxx&quot;</span><br><span class="line">&#125;&apos; http://127.0.0.1:8500/v1/agent/token/acl_agent_token</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Enable ACLs on the Consul Clients</strong><br>还需再Agent上配置ACL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;acl_datacenter&quot;: &quot;dc1&quot;,</span><br><span class="line">  &quot;acl_down_policy&quot;: &quot;extend-cache&quot;,</span><br><span class="line">  &quot;acl_agent_token&quot;: &quot;前面的acl_agent_token&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#或使用API</span><br><span class="line">curl \</span><br><span class="line">    --request PUT \</span><br><span class="line">    --header &quot;X-Consul-Token: abc123!@#&quot; \</span><br><span class="line">    --data \</span><br><span class="line">&apos;&#123;</span><br><span class="line">  &quot;Token&quot;: &quot;xxxxxxxxxxxx&quot;</span><br><span class="line">&#125;&apos; http://127.0.0.1:8500/v1/agent/token/acl_agent_token</span><br></pre></td></tr></table></figure>
+<p>使用由Server创建的相同ACL Agent token，因为它不是特定于任何节点或前缀集。建议每个Client获取一个ACL agent token，该令牌具有对自己的节点名称前缀的节点有写入权限，以及针对预期在该Client上注册的服务前缀的读权限。</p>
+<p><br></p>
+<p><strong>Set an Anonymous Policy (Optional)</strong><br>此时，ACL已通过配置的ACL agent token进行引导，但还没有配置其它策略。<br>甚至像<code>consul members</code>这样的基本操作也会受到ACL默认策略<code>deny</code>的限制。</p>
+<p>如果我们提供上面的Token，则能够看到具体信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONSUL_HTTP_TOKEN=xxxxxxxx consul members</span><br></pre></td></tr></table></figure>
+<p>匿名令牌：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">curl \</span><br><span class="line">    --request PUT \</span><br><span class="line">    --header &quot;X-Consul-Token: 123abc!@#&quot; \</span><br><span class="line">    --data \</span><br><span class="line">&apos;&#123;</span><br><span class="line">  &quot;ID&quot;: &quot;anonymous&quot;,</span><br><span class="line">  &quot;Type&quot;: &quot;client&quot;,</span><br><span class="line">  &quot;Rules&quot;: &quot;node \&quot;\&quot; &#123; policy = \&quot;read\&quot; &#125;&quot;</span><br><span class="line">&#125;&apos; http://127.0.0.1:8500/v1/acl/update</span><br></pre></td></tr></table></figure>
+<p>某个服务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">curl \</span><br><span class="line">    --request PUT \</span><br><span class="line">    --header &quot;X-Consul-Token: 123abc!@#&quot; \</span><br><span class="line">    --data \</span><br><span class="line">&apos;&#123;</span><br><span class="line">  &quot;ID&quot;: &quot;anonymous&quot;,</span><br><span class="line">  &quot;Type&quot;: &quot;client&quot;,</span><br><span class="line">  &quot;Rules&quot;: &quot;node \&quot;\&quot; &#123; policy = \&quot;read\&quot; &#125; service \&quot;consul\&quot; &#123; policy = \&quot;read\&quot; &#125;&quot;</span><br><span class="line">&#125;&apos; http://127.0.0.1:8500/v1/acl/update</span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<p><strong>Set Agent-Specific Default Tokens (Optional)</strong><br>匿名令牌的替代方法是<code>acl_token</code>配置项。</p>
+<p><br></p>
+<p><strong>Create Tokens for UI Use (Optional)</strong><br>如果你使用具有限制性ACL策略的Consul UI，UI将无法使用匿名ACL令牌完整运行。<br>建议使用特定于UI的ACL令牌，可以在Web浏览器绘画期间在UI中设置该令牌对进口进行认证。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">curl \</span><br><span class="line">    --request PUT \</span><br><span class="line">    --header &quot;X-Consul-Token: 123abc!@#&quot; \</span><br><span class="line">    --data \</span><br><span class="line">&apos;&#123;</span><br><span class="line">  &quot;Name&quot;: &quot;UI Token&quot;,</span><br><span class="line">  &quot;Type&quot;: &quot;client&quot;,</span><br><span class="line">  &quot;Rules&quot;: &quot;key \&quot;\&quot; &#123; policy = \&quot;write\&quot; &#125; node \&quot;\&quot; &#123; policy = \&quot;read\&quot; &#125; service \&quot;\&quot; &#123; policy = \&quot;read\&quot; &#125;&quot;</span><br><span class="line">&#125;&apos; http://127.0.0.1:8500/v1/acl/create</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><p>Rule Specification</p>
+<p>ACL系统的和核心部分是规则语言，用于描述必须强制执行的策略。<br>使用基于前缀的规则，最具体的前缀匹配决定了操作。<br>使用HCL配置语言来指定规则，规则可定义多个策略。<br>ACL API运行使用HCL或JSON来定义规则部分的内容。</p>
+<p>策略有以下集中处理方式：</p>
+<ul>
+<li>read</li>
+<li>write(读写)</li>
+<li>deny</li>
+</ul>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># These control access to the key/value store.</span><br><span class="line">key &quot;&quot; &#123;</span><br><span class="line">  policy = &quot;read&quot;</span><br><span class="line">&#125;</span><br><span class="line">key &quot;foo/&quot; &#123;</span><br><span class="line">  policy = &quot;write&quot;</span><br><span class="line">&#125;</span><br><span class="line">key &quot;foo/private/&quot; &#123;</span><br><span class="line">  policy = &quot;deny&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># This controls access to cluster-wide Consul operator information.</span><br><span class="line">operator = &quot;read&quot;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Agent Rules</strong><br>Agent策略控制对Agent API中实用程序操作的访问。<br>Agent规则通过节点名称，使用欧冠最长前缀匹配规则。</p>
+<p>Agent rules栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">agent &quot;&quot; &#123;</span><br><span class="line">  policy = &quot;read&quot;</span><br><span class="line">&#125;</span><br><span class="line">agent &quot;foo&quot; &#123;</span><br><span class="line">  policy = &quot;write&quot;</span><br><span class="line">&#125;</span><br><span class="line">agent &quot;bar&quot; &#123;</span><br><span class="line">  policy = &quot;deny&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上，对具有空前缀的任何节点可读，对以foo开头的节点名进行读写，拒绝以bar开头的节点名。</p>
+<p><br></p>
+<p><strong>Event Rules</strong><br>事件策略控制对事件API中事件操作的访问。<br>事件规则由它们事件名称的前缀，使用最长匹配规则。</p>
+<p>Event rules栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">event &quot;&quot; &#123;</span><br><span class="line">  policy = &quot;read&quot;</span><br><span class="line">&#125;</span><br><span class="line">event &quot;deploy&quot; &#123;</span><br><span class="line">  policy = &quot;write&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Key/Value Rules</strong><br>键值策略控制对KV API中的键值存储操作的访问。</p>
+<p>Key规则栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">key &quot;&quot; &#123;</span><br><span class="line">  policy = &quot;read&quot;</span><br><span class="line">&#125;</span><br><span class="line">key &quot;foo&quot; &#123;</span><br><span class="line">  policy = &quot;write&quot;</span><br><span class="line">&#125;</span><br><span class="line">key &quot;bar&quot; &#123;</span><br><span class="line">  policy = &quot;deny&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>List Policy for Keys</strong><br>一个新的键列表策略，只有在通过布尔配置参数<code>acl_enable_key_list_policy</code>选择时才会强制执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">key &quot;&quot; &#123;</span><br><span class="line"> policy = &quot;deny&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">key &quot;bar&quot; &#123;</span><br><span class="line"> policy = &quot;list&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">key &quot;baz&quot; &#123;</span><br><span class="line"> policy = &quot;read&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Kerring Rules</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keyring = &quot;write&quot;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Node Rules</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">node &quot;&quot; &#123;</span><br><span class="line">  policy = &quot;read&quot;</span><br><span class="line">&#125;</span><br><span class="line">node &quot;app&quot; &#123;</span><br><span class="line">  policy = &quot;write&quot;</span><br><span class="line">&#125;</span><br><span class="line">node &quot;admin&quot; &#123;</span><br><span class="line">  policy = &quot;deny&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Operator Rules</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">operator = &quot;read&quot;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Prepared Query Rules</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">query &quot;&quot; &#123;</span><br><span class="line">  policy = &quot;read&quot;</span><br><span class="line">&#125;</span><br><span class="line">query &quot;foo&quot; &#123;</span><br><span class="line">  policy = &quot;write&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="引导数据中心"><a href="#引导数据中心" class="headerlink" title="引导数据中心"></a>引导数据中心</h2><p>Bootstrapping a Datacenter</p>
+<p>在Consul集群可以开始为请求提供服务之前，必须选在Server节点作为leader。Bootstrapping是将这些初始Server节点加入集群的过程。</p>
+<p>建议的引导方式是使用<code>-bootstrap-expect</code>配置项。此配置项告知Consul预期的Server节点数，并在有许多Server可用时自动引导。为了防止不一致和脑裂情况(多个Server认为自己是leader)，所有Server应该指定相同的<code>-bootstrap-expect</code>，或根本不指定任何值。只有指定值的Server才会尝试引导集群。为了防止脑裂情况，Server不会选举自己作为leader。</p>
+<p>推荐每个数据中心使用3或5台Server。不建议使用单个服务器部署数据中心。</p>
+<p>加入一个集群:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#On NodeB</span><br><span class="line">consul join NodeA</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h3><p>要触发选举leader，必须将这些机器连接在一起并创建一个集群。</p>
+<ul>
+<li>使用<code>-join</code>和<code>start_join</code>选项手动指定机器列表</li>
+<li>使用<code>-retry-join</code>选项手动指定机器列表</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="leader选举"><a href="#leader选举" class="headerlink" title="leader选举"></a>leader选举</h2><p>使用Consul构建客户端的领导选举。</p>
+<p>有多种方式建立领导选举，我们将专注于Consul sessions。会话允许我们构建一个可以优雅地处理故障的系统。</p>
+<p><br></p>
+<p><strong>协调节点</strong><br>Contending Nodes</p>
+<p>假设一组节点试图称为给定服务的领导者，参与的所有节点应该就给定的键进行协调。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">servece/&lt;service name&gt;/leader</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>首先创建会话：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X PUT &apos;&#123; &quot;Name&quot;: &quot;dbservice&quot; &#125;&apos; http://localhost:8500/v1/session/create</span><br><span class="line"></span><br><span class="line">这回返回一个JSON对象的session ID</span><br></pre></td></tr></table></figure>
+<p>下一步是使用<code>?acquirre=&lt;session&gt;</code>查询参数的KV条目上的PUT方法从此节点获取给定键的会话。<code>PUT</code>的<code>&lt;body&gt;</code>应该是表示本地节点的JSON对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -X PUT -d &lt;body&gt; http://localhost:8500/v1/kv/&lt;key&gt;?acquire=&lt;session&gt;</span><br><span class="line"></span><br><span class="line">如果返回true，则已获得锁定，并且本地节点时领导者</span><br><span class="line">如果返回false，则某个其它节点已获取锁定</span><br></pre></td></tr></table></figure>
+<p>通过对<code>&lt;key&gt;</code>的阻塞查询来监视更改，如果注意到<code>&lt;key&gt;</code>的session是空白的，那么就没有领导者，我们应该重新锁定获取。<br>如果领导是自愿下台，这应该通过简单地释放锁来完成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X PUT http://localhost:8500/v1/kv/&lt;key&gt;?release=&lt;session&gt;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>发现一个领导者</strong><br>Discovering a Leader</p>
+<p>关于领导者选举的另一种常见做法是节点希望识别给定服务的领导者。<br>与领导者选举一样，所有参与的节点都应该同意用于协调的密钥(key)。</p>
+<p>Client有一个非常简单的角色，它们只需阅读<code>&lt;key&gt;</code>来发现当前的领导者是谁:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  http://localhost:8500/v1/kv/&lt;key&gt;</span><br></pre></td></tr></table></figure>
+<p>如果密钥没有关联的话，就没有领导者。<br>你可查询<code>/v1/session/info</code>获取session详细信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:8500/v1/session/info/xxxxxxxxxxx</span><br></pre></td></tr></table></figure>
+<p>Client还应使用阻塞查询来查看密钥的更改，如果领导者退出或失败将清除与密钥相关联的会话。当选出新的领导者时，密钥值也将更新。</p>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><p>文档链接: <a href="https://www.consul.io/api/index.html" target="_blank" rel="noopener">https://www.consul.io/api/index.html</a></p>
+<p>Consul的主要接口是RESTful HTTP API。API可对node，service，check，configuration…执行基本的CRUD操作。</p>
+<p><strong>版本前缀</strong><br>Version Prefix</p>
+<p>所有API路由都以<code>/v1/</code>为前缀，这适用于v1 API。</p>
 <p><br><br><br></p>
 <hr>
 <p><br></p>
@@ -850,8 +1347,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/05/网站运维/" rel="next" title="《网站运维》读书笔记">
-                <i class="fa fa-chevron-left"></i> 《网站运维》读书笔记
+              <a href="/2018/03/27/Docker/" rel="next" title="Docker">
+                <i class="fa fa-chevron-left"></i> Docker
               </a>
             
           </div>
@@ -949,7 +1446,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1036,7 +1533,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Consul是什么"><span class="nav-number">1.1.</span> <span class="nav-text">Consul是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consul用例"><span class="nav-number">1.2.</span> <span class="nav-text">Consul用例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consul基础架构"><span class="nav-number">1.3.</span> <span class="nav-text">Consul基础架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速开始"><span class="nav-number">2.</span> <span class="nav-text">快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Consul"><span class="nav-number">2.1.</span> <span class="nav-text">安装Consul</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行consul-agent"><span class="nav-number">2.2.</span> <span class="nav-text">运行consul-agent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动agent"><span class="nav-number">2.2.1.</span> <span class="nav-text">启动agent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consul成员"><span class="nav-number">2.2.2.</span> <span class="nav-text">Consul成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止agent"><span class="nav-number">2.2.3.</span> <span class="nav-text">停止agent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册服务"><span class="nav-number">2.3.</span> <span class="nav-text">注册服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义一个服务"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义一个服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询服务"><span class="nav-number">2.3.2.</span> <span class="nav-text">查询服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新服务"><span class="nav-number">2.3.3.</span> <span class="nav-text">更新服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consul集群"><span class="nav-number">2.4.</span> <span class="nav-text">Consul集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动agents"><span class="nav-number">2.4.1.</span> <span class="nav-text">启动agents</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加入集群"><span class="nav-number">2.5.</span> <span class="nav-text">加入集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在启动时自动加入集群"><span class="nav-number">2.5.1.</span> <span class="nav-text">在启动时自动加入集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询节点"><span class="nav-number">2.5.2.</span> <span class="nav-text">查询节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离开集群"><span class="nav-number">2.5.3.</span> <span class="nav-text">离开集群</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#健康检查"><span class="nav-number">2.6.</span> <span class="nav-text">健康检查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义检查"><span class="nav-number">2.6.1.</span> <span class="nav-text">定义检查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查健康状态"><span class="nav-number">2.7.</span> <span class="nav-text">检查健康状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KV数据"><span class="nav-number">2.8.</span> <span class="nav-text">KV数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用法"><span class="nav-number">2.8.1.</span> <span class="nav-text">用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web界面"><span class="nav-number">2.9.</span> <span class="nav-text">Web界面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Agent"><span class="nav-number">3.</span> <span class="nav-text">Agent</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动和停止"><span class="nav-number">3.1.</span> <span class="nav-text">启动和停止</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS接口"><span class="nav-number">3.2.</span> <span class="nav-text">DNS接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">3.3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端口"><span class="nav-number">3.3.1.</span> <span class="nav-text">端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可重新加载的配置"><span class="nav-number">3.3.2.</span> <span class="nav-text">可重新加载的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">3.3.3.</span> <span class="nav-text">配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务定义"><span class="nav-number">3.4.</span> <span class="nav-text">服务定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务定义-1"><span class="nav-number">3.4.1.</span> <span class="nav-text">服务定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多个服务定义"><span class="nav-number">3.4.2.</span> <span class="nav-text">多个服务定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查定义"><span class="nav-number">3.5.</span> <span class="nav-text">检查定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义检查-1"><span class="nav-number">3.5.1.</span> <span class="nav-text">定义检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查脚本"><span class="nav-number">3.5.2.</span> <span class="nav-text">检查脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化健康检查状态"><span class="nav-number">3.5.3.</span> <span class="nav-text">初始化健康检查状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定服务检查"><span class="nav-number">3.5.4.</span> <span class="nav-text">绑定服务检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义多个检查"><span class="nav-number">3.5.5.</span> <span class="nav-text">定义多个检查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加密"><span class="nav-number">3.6.</span> <span class="nav-text">加密</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#consul-template"><span class="nav-number">4.</span> <span class="nav-text">consul-template</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">4.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用法-1"><span class="nav-number">4.2.</span> <span class="nav-text">用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行"><span class="nav-number">4.2.1.</span> <span class="nav-text">命令行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件-1"><span class="nav-number">4.2.2.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板语法"><span class="nav-number">4.2.3.</span> <span class="nav-text">模板语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#API函数"><span class="nav-number">4.2.3.1.</span> <span class="nav-text">API函数</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Consul是什么"><span class="nav-number">1.1.</span> <span class="nav-text">Consul是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consul用例"><span class="nav-number">1.2.</span> <span class="nav-text">Consul用例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consul基础架构"><span class="nav-number">1.3.</span> <span class="nav-text">Consul基础架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速开始"><span class="nav-number">2.</span> <span class="nav-text">快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Consul"><span class="nav-number">2.1.</span> <span class="nav-text">安装Consul</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行consul-agent"><span class="nav-number">2.2.</span> <span class="nav-text">运行consul-agent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动agent"><span class="nav-number">2.2.1.</span> <span class="nav-text">启动agent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consul成员"><span class="nav-number">2.2.2.</span> <span class="nav-text">Consul成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止agent"><span class="nav-number">2.2.3.</span> <span class="nav-text">停止agent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册服务"><span class="nav-number">2.3.</span> <span class="nav-text">注册服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义一个服务"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义一个服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询服务"><span class="nav-number">2.3.2.</span> <span class="nav-text">查询服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新服务"><span class="nav-number">2.3.3.</span> <span class="nav-text">更新服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consul集群"><span class="nav-number">2.4.</span> <span class="nav-text">Consul集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动agents"><span class="nav-number">2.4.1.</span> <span class="nav-text">启动agents</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加入集群"><span class="nav-number">2.5.</span> <span class="nav-text">加入集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在启动时自动加入集群"><span class="nav-number">2.5.1.</span> <span class="nav-text">在启动时自动加入集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询节点"><span class="nav-number">2.5.2.</span> <span class="nav-text">查询节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离开集群"><span class="nav-number">2.5.3.</span> <span class="nav-text">离开集群</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#健康检查"><span class="nav-number">2.6.</span> <span class="nav-text">健康检查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义检查"><span class="nav-number">2.6.1.</span> <span class="nav-text">定义检查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查健康状态"><span class="nav-number">2.7.</span> <span class="nav-text">检查健康状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KV数据"><span class="nav-number">2.8.</span> <span class="nav-text">KV数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用法"><span class="nav-number">2.8.1.</span> <span class="nav-text">用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web界面"><span class="nav-number">2.9.</span> <span class="nav-text">Web界面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部详情"><span class="nav-number">3.</span> <span class="nav-text">内部详情</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构"><span class="nav-number">3.1.</span> <span class="nav-text">架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#词汇表"><span class="nav-number">3.1.1.</span> <span class="nav-text">词汇表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consensus协议"><span class="nav-number">3.2.</span> <span class="nav-text">Consensus协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Raft协议"><span class="nav-number">3.2.1.</span> <span class="nav-text">Raft协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Raft-in-Consul"><span class="nav-number">3.2.2.</span> <span class="nav-text">Raft in Consul</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一致性模式"><span class="nav-number">3.2.3.</span> <span class="nav-text">一致性模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署表"><span class="nav-number">3.2.4.</span> <span class="nav-text">部署表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gossip协议"><span class="nav-number">3.3.</span> <span class="nav-text">Gossip协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Goossip-in-Consul"><span class="nav-number">3.3.1.</span> <span class="nav-text">Goossip in Consul</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络坐标"><span class="nav-number">3.4.</span> <span class="nav-text">网络坐标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Consul中的网络坐标"><span class="nav-number">3.4.1.</span> <span class="nav-text">Consul中的网络坐标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用坐标"><span class="nav-number">3.4.2.</span> <span class="nav-text">使用坐标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#会话"><span class="nav-number">3.5.</span> <span class="nav-text">会话</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#会话设计"><span class="nav-number">3.5.1.</span> <span class="nav-text">会话设计</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Agent"><span class="nav-number">4.</span> <span class="nav-text">Agent</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动和停止"><span class="nav-number">4.1.</span> <span class="nav-text">启动和停止</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS接口"><span class="nav-number">4.2.</span> <span class="nav-text">DNS接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">4.3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端口"><span class="nav-number">4.3.1.</span> <span class="nav-text">端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可重新加载的配置"><span class="nav-number">4.3.2.</span> <span class="nav-text">可重新加载的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">4.3.3.</span> <span class="nav-text">配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务定义"><span class="nav-number">4.4.</span> <span class="nav-text">服务定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务定义-1"><span class="nav-number">4.4.1.</span> <span class="nav-text">服务定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多个服务定义"><span class="nav-number">4.4.2.</span> <span class="nav-text">多个服务定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查定义"><span class="nav-number">4.5.</span> <span class="nav-text">检查定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义检查-1"><span class="nav-number">4.5.1.</span> <span class="nav-text">定义检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查脚本"><span class="nav-number">4.5.2.</span> <span class="nav-text">检查脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化健康检查状态"><span class="nav-number">4.5.3.</span> <span class="nav-text">初始化健康检查状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定服务检查"><span class="nav-number">4.5.4.</span> <span class="nav-text">绑定服务检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义多个检查"><span class="nav-number">4.5.5.</span> <span class="nav-text">定义多个检查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加密"><span class="nav-number">4.6.</span> <span class="nav-text">加密</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gossip加密"><span class="nav-number">4.6.1.</span> <span class="nav-text">gossip加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPC加密"><span class="nav-number">4.6.2.</span> <span class="nav-text">RPC加密</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Telemetry"><span class="nav-number">4.7.</span> <span class="nav-text">Telemetry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Watches"><span class="nav-number">4.8.</span> <span class="nav-text">Watches</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#处理程序"><span class="nav-number">4.8.1.</span> <span class="nav-text">处理程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局参数"><span class="nav-number">4.8.2.</span> <span class="nav-text">全局参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Watch类型"><span class="nav-number">4.8.3.</span> <span class="nav-text">Watch类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#指南"><span class="nav-number">5.</span> <span class="nav-text">指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ACLs"><span class="nav-number">5.1.</span> <span class="nav-text">ACLs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">5.1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置ACLs"><span class="nav-number">5.1.2.</span> <span class="nav-text">配置ACLs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引导ACLs"><span class="nav-number">5.1.3.</span> <span class="nav-text">引导ACLs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规则"><span class="nav-number">5.1.4.</span> <span class="nav-text">规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引导数据中心"><span class="nav-number">5.2.</span> <span class="nav-text">引导数据中心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建集群"><span class="nav-number">5.2.1.</span> <span class="nav-text">创建集群</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#leader选举"><span class="nav-number">5.3.</span> <span class="nav-text">leader选举</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#API"><span class="nav-number">6.</span> <span class="nav-text">API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#consul-template"><span class="nav-number">7.</span> <span class="nav-text">consul-template</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">7.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用法-1"><span class="nav-number">7.2.</span> <span class="nav-text">用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行"><span class="nav-number">7.2.1.</span> <span class="nav-text">命令行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件-1"><span class="nav-number">7.2.2.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板语法"><span class="nav-number">7.2.3.</span> <span class="nav-text">模板语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#API函数"><span class="nav-number">7.2.3.1.</span> <span class="nav-text">API函数</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1068,7 +1565,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 268.9k</span>
+  <span class="post-count"> 字数: 313.7k</span>
 </div>
 
 

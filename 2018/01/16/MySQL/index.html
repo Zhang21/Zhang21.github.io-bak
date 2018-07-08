@@ -103,7 +103,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/Mysql/MySQL.png">
 <meta property="og:image" content="https://zhang21.github.io/images/MySQL/20180301101009.jpg">
-<meta property="og:updated_time" content="2018-06-28T09:59:09.000Z">
+<meta property="og:updated_time" content="2018-07-06T10:07:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL">
 <meta name="twitter:description" content="参考：  MySQL5.7参考文档： https://dev.mysql.com/doc/refman/5.7/en/   环境：  CentOS7.x86_64 MySQL5.7">
@@ -339,7 +339,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-06T18:07:37+08:00">
+                2018-07-06
+              </time>
             
           </span>
 
@@ -405,7 +417,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  14,913
+                  18,308
                 </span>
               
 
@@ -599,7 +611,7 @@
 <p><br><br><br></p>
 <hr>
 <p><br></p>
-<h1 id="安装和升级MySQL"><a href="#安装和升级MySQL" class="headerlink" title="安装和升级MySQL"></a>安装和升级MySQL</h1><ul>
+<h1 id="安装和升级"><a href="#安装和升级" class="headerlink" title="安装和升级"></a>安装和升级</h1><ul>
 <li>mysql-repo: <a href="http://repo.mysql.com/" target="_blank" rel="noopener">http://repo.mysql.com/</a></li>
 <li>yum-repo: <a href="http://repo.mysql.com/yum/" target="_blank" rel="noopener">http://repo.mysql.com/yum/</a></li>
 </ul>
@@ -2187,6 +2199,529 @@
 <li><p>mysqlslap<br>Load Emulation Client</p>
 </li>
 </ul>
+<p><br></p>
+<h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><p>mysql是一个具有输入编辑功能的SQL shell。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql <span class="comment">--host= --port= --user= --password db_name</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#SQL文件</span><br><span class="line">#SQL语句以 ;或\g或\G结束</span><br><span class="line">mysql db_name &lt; script.sql &gt; output.tab</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="mysql选项"><a href="#mysql选项" class="headerlink" title="mysql选项"></a>mysql选项</h3><p>MySQL支持很多选项。这些选项可以写入配置文件的<code>[mysql]</code>和<code>[client]</code>组中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql --help</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="mysql命令"><a href="#mysql命令" class="headerlink" title="mysql命令"></a>mysql命令</h3><p>mysql将你发出的每个SQL语句发送到要执行的Server。如下为mysql自己解释的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; help;</span><br><span class="line"></span><br><span class="line">List of all MySQL commands:</span><br><span class="line">Note that all text commands must be first on line and end with &apos;;&apos;</span><br><span class="line">?         (\?) Synonym for `help&apos;.</span><br><span class="line">charset</span><br><span class="line">clear     (\c) Clear the current input statement.</span><br><span class="line">connect   (\r) Reconnect to the server. Optional arguments are db and host.</span><br><span class="line">delimiter (\d) Set statement delimiter.</span><br><span class="line">edit      (\e) Edit command with $EDITOR.</span><br><span class="line">ego       (\G) Send command to mysql server, display result vertically.</span><br><span class="line">exit      (\q) Exit mysql. Same as quit.</span><br><span class="line">go        (\g) Send command to mysql server.</span><br><span class="line">help      (\h) Display this help.</span><br><span class="line">nopager   (\n) Disable pager, print to stdout.</span><br><span class="line">notee     (\t) Don&apos;t write into outfile.</span><br><span class="line">pager     (\P) Set PAGER [to_pager]. Print the query results via PAGER.</span><br><span class="line">print     (\p) Print current command.</span><br><span class="line">prompt    (\R) Change your mysql prompt.</span><br><span class="line">quit      (\q) Quit mysql.</span><br><span class="line">rehash    (\#) Rebuild completion hash.</span><br><span class="line">source    (\.) Execute an SQL script file. Takes a file name as an argument.</span><br><span class="line">status    (\s) Get status information from the server.</span><br><span class="line">system    (\!) Execute a system shell command.</span><br><span class="line">tee       (\T) Set outfile [to_outfile]. Append everything into given outfile.</span><br><span class="line">use       (\u) Use another database. Takes database name as argument.</span><br><span class="line">charset   (\C) Switch to another charset. Might be needed for processing binlog with multi-byte charsets.</span><br><span class="line">warnings  (\W) Show warnings after every statement.</span><br><span class="line">nowarning (\w) Don&apos;t show warnings after every statement.</span><br><span class="line">resetconnection(\x) Clean session context.</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>修改MySQL提示符</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#shell</span><br><span class="line">export MYSQL_PS1=&quot;(\u@\h) [\d]&gt; &quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#mysql</span><br><span class="line">mysql --prompt=&quot;(\u@\h) [\d]&gt; &quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#配置文件</span><br><span class="line">[mysql]</span><br><span class="line">prompt=(\\u@\\h) [\\d]&gt;\\_</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#mysql prompt</span><br><span class="line">mysql&gt; prompt (\u@\h) [\d]&gt;\_</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="mysql服务端帮助"><a href="#mysql服务端帮助" class="headerlink" title="mysql服务端帮助"></a>mysql服务端帮助</h3><p>mysql Server-Side Help</p>
+<p>如果给<code>help</code>命令提供一个参数，mysql将其用作搜索字符串，以从MySQL参考手册的内容访问服务端帮助。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; help me</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql&gt; help contents</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql&gt; help logs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql&gt; help rep%</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="从文本文件执行SQL语句"><a href="#从文本文件执行SQL语句" class="headerlink" title="从文本文件执行SQL语句"></a>从文本文件执行SQL语句</h3><p>mysql忽略文件开头的Unicode字节顺序标记(BOM)字符。BOM的存在不会导致MySQL更改其默认字符集(charset)。因此，请使用<code>--default-char-set</code>选项。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#shell</span><br><span class="line">mysql db_name &lt; test_file</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql&gt; source file_name</span><br><span class="line">mysql&gt; \. file_name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#显示进度信息</span><br><span class="line">SELECT &apos;&lt;info_to_display&gt;&apos; AS &apos; &apos;;</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="MySQL管理和实用程序"><a href="#MySQL管理和实用程序" class="headerlink" title="MySQL管理和实用程序"></a>MySQL管理和实用程序</h2><ul>
+<li><p>inochecksum<br>Offline InnoDB File Checksum Utility</p>
+</li>
+<li><p>myisam_ftdump<br>Display Full-Text Index information</p>
+</li>
+<li><p>myisamchk<br>MyISAM Table-Maintenance Utility</p>
+</li>
+<li><p>myisamlog<br>Display MyISAM Log File Contents</p>
+</li>
+<li><p>myisampack<br>Generate Compressed, Read-Only MyISAM Tables</p>
+</li>
+<li><p>mysql_config_editor<br>MySQL Configuration Utility</p>
+</li>
+<li><p>mysqlbinlog<br>Utility for Processing Binary Log Files</p>
+</li>
+<li><p>mysqldumpslow<br>Summarize Slow Query Log Files</p>
+</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="mysql开发实用程序"><a href="#mysql开发实用程序" class="headerlink" title="mysql开发实用程序"></a>mysql开发实用程序</h2><ul>
+<li><p><code>mysql_config</code><br>Display Options for Compiling Clients</p>
+</li>
+<li><p><code>my_print_defaults</code><br>Display Options from Option Files</p>
+</li>
+<li><p><code>resolve_stack_dump</code><br>Resolve Numeric Stack Trace Dump to Symbols</p>
+</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="杂项程序"><a href="#杂项程序" class="headerlink" title="杂项程序"></a>杂项程序</h2><p>Miscellaneous Programs</p>
+<ul>
+<li><p><code>lz4_decompress</code><br>Decompress mysqlpump LZ4-Compressed Output</p>
+</li>
+<li><p><code>perror</code><br>Explain Error Codes</p>
+</li>
+<li><p><code>replace</code><br>A String-Replacement Utility</p>
+</li>
+<li><p><code>resolveip</code><br>Resolve Host name to IP Address or Vice Versa</p>
+</li>
+<li><p><code>zlib_decompress</code><br>Decompress mysqlpump ZLIB-Compressed Output</p>
+</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="MySQL环境变量"><a href="#MySQL环境变量" class="headerlink" title="MySQL环境变量"></a>MySQL环境变量</h2><p>这些环境变量直接或间接的被MySQL使用。</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AUTHENTICATION_LDAP_CLIENT_LOG</td>
+<td>Client-side LDAP authentication logging level.</td>
+</tr>
+<tr>
+<td>AUTHENTICATION_PAM_LOG</td>
+<td>PAM authentication plugin debug logging settings.</td>
+</tr>
+<tr>
+<td>CC</td>
+<td>The name of your C compiler (for running CMake).</td>
+</tr>
+<tr>
+<td>CXX</td>
+<td>The name of your C++ compiler (for running CMake).</td>
+</tr>
+<tr>
+<td>CC</td>
+<td>The name of your C compiler (for running CMake).</td>
+</tr>
+<tr>
+<td>DBI_USER</td>
+<td>The default user name for Perl DBI.</td>
+</tr>
+<tr>
+<td>DBI_TRACE</td>
+<td>Trace options for Perl DBI.</td>
+</tr>
+<tr>
+<td>HOME</td>
+<td>The default path for the mysql history file is $HOME/.mysql_history.</td>
+</tr>
+<tr>
+<td>LD_RUN_PATH</td>
+<td>Used to specify the location of libmysqlclient.so.</td>
+</tr>
+<tr>
+<td>LIBMYSQL_ENABLE_CLEARTEXT_PLUGIN</td>
+<td>Enable mysql_clear_password authentication plugin; see Section 6.5.1.6, “Client-Side Cleartext Pluggable Authentication”.</td>
+</tr>
+<tr>
+<td>LIBMYSQL_PLUGIN_DIR</td>
+<td>Directory in which to look for client plugins.</td>
+</tr>
+<tr>
+<td>LIBMYSQL_PLUGINS</td>
+<td>Client plugins to preload.</td>
+</tr>
+<tr>
+<td>MYSQL_DEBUG</td>
+<td>Debug trace options when debugging.</td>
+</tr>
+<tr>
+<td>MYSQL_GROUP_SUFFIX</td>
+<td>Option group suffix value (like specifying –defaults-group-suffix).</td>
+</tr>
+<tr>
+<td>MYSQL_HISTFILE</td>
+<td>The path to the mysql history file. If this variable is set, its value overrides the default for $HOME/.mysql_history.</td>
+</tr>
+<tr>
+<td>MYSQL_HISTIGNORE</td>
+<td>Patterns specifying statements that mysql should not log to $HOME/.mysql_history, or syslog if –syslog is given.</td>
+</tr>
+<tr>
+<td>MYSQL_HOME</td>
+<td>The path to the directory in which the server-specific my.cnf file resides.</td>
+</tr>
+<tr>
+<td>MYSQL_HOST</td>
+<td>The default host name used by the mysql command-line client.</td>
+</tr>
+<tr>
+<td>MYSQL_OPENSSL_UDF_DH_BITS_THRESHOLD</td>
+<td>Maximum key length for CREATE_DH_PARAMETERS(). See Section 12.18.2, “Enterprise Encryption Usage and Examples”.</td>
+</tr>
+<tr>
+<td>MYSQL_OPENSSL_UDF_DSA_BITS_THRESHOLD</td>
+<td>Maximum DSA key length for CREATE_ASYMMETRIC_PRIV_KEY(). See Section 12.18.2, “Enterprise Encryption Usage and Examples”.</td>
+</tr>
+<tr>
+<td>MYSQL_OPENSSL_UDF_RSA_BITS_THRESHOLD</td>
+<td>Maximum RSA key length for CREATE_ASYMMETRIC_PRIV_KEY(). See Section 12.18.2, “Enterprise Encryption Usage and Examples”.</td>
+</tr>
+<tr>
+<td>MYSQL_PS1</td>
+<td>The command prompt to use in the mysql command-line client.</td>
+</tr>
+<tr>
+<td>MYSQL_PWD</td>
+<td>The default password when connecting to mysqld. Using this is insecure. See Section 6.1.2.1, “End-User Guidelines for Password Security”.</td>
+</tr>
+<tr>
+<td>MYSQL_TCP_PORT</td>
+<td>The default TCP/IP port number.</td>
+</tr>
+<tr>
+<td>MYSQL_TEST_LOGIN_FILE</td>
+<td>The name of the .mylogin.cnf login path file.</td>
+</tr>
+<tr>
+<td>MYSQL_TEST_TRACE_CRASH</td>
+<td>Whether the test protocol trace plugin crashes clients. See note following table.</td>
+</tr>
+<tr>
+<td>MYSQL_TEST_TRACE_DEBUG</td>
+<td>Whether the test protocol trace plugin produces output. See note following table.</td>
+</tr>
+<tr>
+<td>MYSQL_UNIX_PORT</td>
+<td>The default Unix socket file name; used for connections to localhost.</td>
+</tr>
+<tr>
+<td>MYSQLX_TCP_PORT</td>
+<td>The X Plugin default TCP/IP port number.</td>
+</tr>
+<tr>
+<td>MYSQLX_UNIX_PORT</td>
+<td>The X Plugin default Unix socket file name; used for connections to localhost.</td>
+</tr>
+<tr>
+<td>PATH</td>
+<td>Used by the shell to find MySQL programs.</td>
+</tr>
+<tr>
+<td>PKG_CONFIG_PATH</td>
+<td>Location of mysqlclient.pc pkg-config file. See note following table.</td>
+</tr>
+<tr>
+<td>TMPDIR</td>
+<td>The directory in which temporary files are created.</td>
+</tr>
+<tr>
+<td>TZ</td>
+<td>This should be set to your local time zone. See Section B.5.3.7, “Time Zone Problems”.</td>
+</tr>
+<tr>
+<td>UMASK</td>
+<td>The user-file creation mode when creating files. See note following table.</td>
+</tr>
+<tr>
+<td>UMASK_DIR</td>
+<td>The user-directory creation mode when creating directories. See note following table.</td>
+</tr>
+<tr>
+<td>USER</td>
+<td>The default user name on Windows when connecting to mysqld.</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="MySQL-Server管理"><a href="#MySQL-Server管理" class="headerlink" title="MySQL Server管理"></a>MySQL Server管理</h1><h2 id="MySQL-Server-1"><a href="#MySQL-Server-1" class="headerlink" title="MySQL Server"></a>MySQL Server</h2><p>mysqld is the MySQL Server.<br>并非所有的MySQL Server二进制文件和配置都支持所有的存储引擎。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#查看帮助</span><br><span class="line">mysqld --verbose --help</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#运行Server的环境变量</span><br><span class="line">mysql&gt; SHOW VARIABLES;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#运行Server的状态</span><br><span class="line">mysql&gt; SHOW STATUS;</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="MySQL数据目录"><a href="#MySQL数据目录" class="headerlink" title="MySQL数据目录"></a>MySQL数据目录</h2><p>由MySQL管理的信息存储在称为数据目录的目录下。</p>
+<ul>
+<li>数据目录子目录：每个子目录都是数据库目录对应于Server管理的数据库<ul>
+<li>mysql</li>
+<li>performance_schema</li>
+<li>sys</li>
+<li>数据库</li>
+</ul>
+</li>
+<li>日志文件由Server写入</li>
+<li>innoDB表空间和日志文件</li>
+<li>自动生成的SSL/RSA证书和密钥文件</li>
+<li>Server PID</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="mysql数据库"><a href="#mysql数据库" class="headerlink" title="mysql数据库"></a>mysql数据库</h2><p>The mysql System Database</p>
+<p>The mysql database is the system database.它的表中存储了MySQL Server运行时需要的信息。</p>
+<p><br></p>
+<p><strong>授权系统表</strong><br>如下这些系统表包含了用户账户和权限的授权信息。</p>
+<ul>
+<li><p>user<br>User accounts, global privileges, and other non-privilege columns.</p>
+</li>
+<li><p>db<br>Database-level privileges.</p>
+</li>
+<li><p>tables_priv<br>Table-level privileges.</p>
+</li>
+<li><p>columns_priv<br>Column-level privileges.</p>
+</li>
+<li><p>procs_priv<br>Stored procedure and function privileges.</p>
+</li>
+<li><p>proxies_priv<br>Proxy-user privileges.</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>对象信息系统表</strong><br>如下这些系统表包含了存储程序，用户定义函数和服务器端插件的信息。</p>
+<ul>
+<li><p>event<br>关于Event Scheduler事件的信息</p>
+</li>
+<li><p>func<br>用户定义函数的信息</p>
+</li>
+<li><p>plugin<br>服务器端的插件的信息</p>
+</li>
+<li><p>proc<br>有关存储过程和函数的信息</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>日志系统表</strong><br>Server使用如下系统表记录日志。日志表使用CSV存储引擎。</p>
+<ul>
+<li><p>general_log<br>一般查询日志表</p>
+</li>
+<li><p>slow_log<br>慢查询日志表</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>服务器端帮助系统表</strong><br>如下系统表包含了服务器端帮助信息。</p>
+<ul>
+<li><p>help_category<br>Information about help categories.</p>
+</li>
+<li><p>help_keyword<br>Keywords associated with help topics.</p>
+</li>
+<li><p>help_relation<br>Mappings between help keywords and topics.</p>
+</li>
+<li><p>help_topic<br>Help topic contents.</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>时区系统表</strong><br>如下系统表包含了时区信息。</p>
+<ul>
+<li><p>time_zone<br>Time zone IDs and whether they use leap seconds.</p>
+</li>
+<li><p>time_zone_leap_second<br>When leap seconds occur.</p>
+</li>
+<li><p>time_zone_name<br>Mappings between time zone IDs and names.</p>
+</li>
+<li><p>time_zone_transition, time_zone_tansition_type<br>Time zone descriptions.</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>副本系统表</strong><br>Server使用如下这些系统表来提供副本服务。这些表使用InnoDB存储引擎。</p>
+<ul>
+<li><p>gtid_executed<br>Table for storing GTID values.</p>
+</li>
+<li><p>ndb_binlog_index<br>Binary log information for NDB Cluster replication.</p>
+</li>
+<li><p>slave_master_info, slave_relay_log_info, slave_worker_info<br>Used to store replication information on slave servers.</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>优化器系统表</strong><br>如下系统表用于优化。</p>
+<ul>
+<li><p>innodb_index_stats, innodb_table_stats<br>Used for InnoDB persistent optimizer statistics</p>
+</li>
+<li><p>server_cost, engine_cost<br>The optimizer cost model uses tables that contain cost estimate information about operations that occur during query execution.</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>杂项系统表</strong></p>
+<ul>
+<li>audit_log_filter, audit_log_user</li>
+<li>firewall_users, firewall_whitelist</li>
+<li>servers</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="MySQL-Server-Logs"><a href="#MySQL-Server-Logs" class="headerlink" title="MySQL Server Logs"></a>MySQL Server Logs</h2><p>MySQL Server提供如下几种日志：</p>
+<ul>
+<li><p>Error log<br>启动、运行或停止mysqld遇到的问题</p>
+</li>
+<li><p>General query log<br>建立Client连接和从Client收到的语句</p>
+</li>
+<li><p>Binary log<br>更改数据的语句</p>
+</li>
+<li><p>Relay log<br>从replication master server收到的数据更改</p>
+</li>
+<li><p>Slow query log<br>执行时间超过<code>long_query_time</code>秒的查询</p>
+</li>
+<li><p>DDL(Metadata) log<br>由DDL语句执行的元数据操作</p>
+</li>
+</ul>
+<p><br></p>
+<p>默认情况下，不启用任何日志。</p>
+<p>如果启用了这些日志，MySQL Server可以灵活地控制一般查询日志和慢查询日志的输出目的地——它可为日志文件或<code>mysql</code>数据库中的<code>general_log</code>和<code>slow_log</code>表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#--log-output</span><br><span class="line">#它的值可为TABLE/FILE/NONE</span><br><span class="line">#--general-log, --slow-query-log</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#TABLE和FILE</span><br><span class="line">mysqld --log-output=TABLE,FILE --general-log=msyql.general_log --slow-query-log=mysql.slow_log</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#or</span><br><span class="line">[mysqld]</span><br><span class="line">log_output=</span><br><span class="line">general_log=</span><br><span class="line">slow_query_log=</span><br></pre></td></tr></table></figure>
+<p>查看两个日志表的标准格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SHOW CREATE TABLE mysql.general_log;</span><br><span class="line">SHOW CREATE TABLE mysql.slow_log;</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="错误日志"><a href="#错误日志" class="headerlink" title="错误日志"></a>错误日志</h3><p>The Error Log</p>
+<p>错误日志包含mysqld启动和关闭时间的记录。它还包含诊断信息。</p>
+<p><br></p>
+<p><strong>Unix/Unix-Like OS</strong><br>使用<code>mysqld --log-error</code>选项来将错误日志写入控制台(stderr)或文件。</p>
+<p>如果未指定文件名，则默认为数据目录下的<code>host_name.err</code>文件。<br>YUM或APT包安装，则配置的错误日志文件为<code>--log-error=/var/log/mysqld.log</code>。</p>
+<p><br></p>
+<p><strong>将错误日志记录到系统日志</strong><br>Error Logging to the System Log</p>
+<p>使用如下系统变量：</p>
+<ul>
+<li><p><code>log_syslog</code><br>启用此变量将错误日志发送到系统日志</p>
+</li>
+<li><p><code>log_syslog_facility</code><br>syslog消息的默认设置时daemon。设置此变量以指定其它工具。</p>
+</li>
+<li><p><code>log_syslog_include_pid</code><br>是否在syslog输出中包含Server的PID。</p>
+</li>
+<li><p><code>log_syslog_tag</code><br>在syslog消息中添加一个tag。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msyqld --log_syslog=</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>错误日志过滤</strong><br>Error Log Filtering</p>
+<p><code>log_error_verbosity</code>变量控制错误日志的详细程度。值如下：</p>
+<ul>
+<li><p>1<br>error only</p>
+</li>
+<li><p>2<br>errors, warning</p>
+</li>
+<li><p>3(默认)<br>errors, warnings, notes</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>错误日志消息格式</strong><br>Error Log Message Format</p>
+<p>错误日志中包含的ID是mysqld中负责编写消息的线程的ID。这表示Server的哪部分生成了消息。<br><code>log_timestamps</code>变量控制写入错误日志的时区和时间格式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --log-timestamps=</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>错误日志文件刷新</strong><br>Error Log File Flushing and Renaming</p>
+<p>如果你使用<code>FLUSH_ERROR_LOGS</code>, <code>FLUSH_LOGS</code>或<code>mysqladmin flush-logs</code>刷新日志，Server将关闭并重新打开它正在写的任何错误日志文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv host_name.err host_name.err-old</span><br><span class="line">mysqladmin flush-logs</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="一般查询日志"><a href="#一般查询日志" class="headerlink" title="一般查询日志"></a>一般查询日志</h3><p>The General Query Log</p>
+<p>一般查询日志是mysqld执行操作的记录。当Client连接或断开时，Server将此信息写入日志，并记录从Client收到的每个SQL语句。<br>mysqld按照接收的顺序而不是执行顺序将语句写入日志。</p>
+<p>默认情况下，一般查询日志是禁用的。<br>指定初始化查询日志状态<code>--general_log={0|1}</code>。<code>1</code>启用，<code>0</code>禁用。<br>指定日志文件名<code>--general-log-file=file-name</code>.如果未指定，默认为数据目录下<code>host_name.log</code>，除非指定了其它路径。<br>指定日志文件位置<code>--log-output=</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysqld --log-output=&apos;/var/log/mysql&apos; --general-log=1 --general-log-file=&apos;general.log&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">shell&gt; mv host_name.log host_name-old.log</span><br><span class="line">shell&gt; mysqladmin flush-logs</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="二进制日志"><a href="#二进制日志" class="headerlink" title="二进制日志"></a>二进制日志</h3><p>The Binary Log</p>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="安全-1"><a href="#安全-1" class="headerlink" title="安全"></a>安全</h1><p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="备份和恢复"><a href="#备份和恢复" class="headerlink" title="备份和恢复"></a>备份和恢复</h1><p>Backup and Recovery</p>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><p>Optimization</p>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="语言结构"><a href="#语言结构" class="headerlink" title="语言结构"></a>语言结构</h1><p>Language Structure</p>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="字符集和编码"><a href="#字符集和编码" class="headerlink" title="字符集和编码"></a>字符集和编码</h1><p>Character Sets, Collations, Unicode</p>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h1 id="数据类型-1"><a href="#数据类型-1" class="headerlink" title="数据类型"></a>数据类型</h1><p>Data Type</p>
+<p>MySQL支持多种类型的SQL数据类型：</p>
+<ul>
+<li>numeric</li>
+<li>date/time</li>
+<li>string<ul>
+<li>character</li>
+<li>byre</li>
+</ul>
+</li>
+<li>JSON</li>
+</ul>
+<p><br></p>
+<p>数据类型描述使用如下约定：</p>
+<ul>
+<li><code>M</code>表示整数类型的最大显示宽度</li>
+<li><code>D</code>适用于浮点和定点类型，并指示小数点后面的位数</li>
+<li><code>fsp</code>适用于TIME, DATATIME, TIMESTAMP类型，表示小数点的秒精度</li>
+<li>方括号<code>[]</code>表示类型定义的可选部分</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h2><p>Numberic type</p>
+<p>如果为数字列指定<code>ZEROFILL</code>，MySQL会自动将<code>UNSIGNED</code>属性添加到列中。</p>
+<p>数字数据类型允许<code>UNSIGNED</code>(无符号)属性，也允许<code>SIGNED</code>(符号)。默认情况下，这些数据类型是<code>SIGNED</code>，因此<code>SINGED</code>属性不起作用。</p>
+<p><br></p>
+<ul>
+<li><p>BIT<br>A bit-value type.(1-64)</p>
+</li>
+<li><p>TINYINT<br>A very small integer.<br>有符号范围: <code>-128 to 127</code>, 无符号范围: <code>0-255</code></p>
+</li>
+<li><p>BOOL</p>
+</li>
+<li><p>SMALLINT<br>A small integer.<br>有符号范围: <code>-32768 to 32767</code>, 无符号范围: <code>0-65535</code></p>
+</li>
+<li><p>MEDIUMINT<br>A medium-sized integer.<br>有符号范围: <code>-8388608 to 8388607</code>, 无符号范围: <code>0-16777215</code></p>
+</li>
+<li><p>INT<br>A normal-size integer.<br>有符号范围: <code>-2147483648 to 2147483647</code>, 无符号范围: <code>0- 4294967295</code></p>
+</li>
+<li><p>INTERGER<br>此类型是INT的同义词。</p>
+</li>
+<li><p>BIGINT<br>A large integer.<br>符号范围: <code>-9223372036854775808 to 9223372036854775807</code>, 无符号范围: <code>0 to 18446744073709551615</code><br><code>SERIAL</code>是<code>BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE</code>的别名。</p>
+</li>
+<li><p>DECIMAL/DEC</p>
+</li>
+<li><p>FLOAT<br>A small(单精度) floating-point number.<br>允许的值为: -3.402823466E+38 to -1.175494351E-38, 0, and 1.175494351E-38 to 3.402823466E+38</p>
+</li>
+<li><p>DOUBLE<br>A normal-size(双精度) floating-point number.<br>允许值为: -1.7976931348623157E+308 to -2.2250738585072014E-308, 0, and 2.2250738585072014E-308 to 1.7976931348623157E+308</p>
+</li>
+<li><p>FLOAT<br>A floating-point number.</p>
+</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="日期和时间"><a href="#日期和时间" class="headerlink" title="日期和时间"></a>日期和时间</h2><p>Date and Time Type</p>
+<p>MySQL允许的TIME, DATETIME, TIMESTAMP值的小数，精度高达微秒(小数点后6位)。</p>
+<ul>
+<li><p>DATE<br>A date.<br>支持范围: <code>1000-01-01</code>到<code>9999-12-31</code>。<br>MySQL以<code>YYYY-MM-DD</code>格式显示DATE值，但允许使用字符串或数字将值分配给DATE列。</p>
+</li>
+<li><p>DATETIME<br>A date and time combination.<br>支持范围: <code>1001-01-01 00:00:00.000000</code>到<code>9999-12-31 23:59:59.999999</code>。<br>MySQL以<code>YYYY-MM-DD HH:MM:SS.[fraction]</code>的格式显示DATETIME值，同样允许字符串或数字将值分配给DATETIME列。</p>
+</li>
+<li><p>TIMESTAMP<br>A timestamp.<br>支持范围: <code>1970-01-01 00:00:01.000000</code>UTC到<code>2038-01-19 03:14:07.999999</code>UTC<br>TIMESTAMP值存储为自纪元<code>1970-01-01 00:00:01.000000 UTC</code>以来的秒数，这也叫原子时间。</p>
+</li>
+<li><p>TIME<br>A time.<br>支持范围: <code>-838:59:59.000000</code> to <code>838:59:59.000000</code><br>MySQL以<code>HH:MM:SS[.fraction]</code>的格式显示TIME值，但允许使用字符串或数字将值分配给TIME列。</p>
+</li>
+<li><p>YEAR<br>A year in four-digit format.<br>MySQL以<code>YYYY</code>格式显示YEAR值，但允许使用字符串或数字将值分配给YEAR列。</p>
+</li>
+</ul>
+<p><br><br><br></p>
+<hr>
+<p><br></p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>String Type</p>
+<p>在某些情况下，MySQL可能会使用<code>CREATE TABLE</code>或<code>ALTER TABLE</code>语句更改字符串的类型。</p>
+<p><strong>CHARACTER SET/CHARSET</strong><br>指定字符集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t</span><br><span class="line">(</span><br><span class="line">    c1 <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8,</span><br><span class="line">    c2 <span class="built_in">TEXT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> latin1 <span class="keyword">COLLATE</span> latin1_general_cs</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<ul>
+<li><p>CHAR<br>一个固定长度的字符串，在存储时使用用空格填充指定长度。<br>VARCHAR的有效最大长度取决于最大行大小(65535字节)和使用的字符集。</p>
+</li>
+<li><p>VARCHAR<br>一个可变长度的字符串。</p>
+</li>
+<li><p>BINARY<br>BINARY类似于CHAR，但存储二进制字节字符串而不是非二进制字符串。</p>
+</li>
+<li><p>VARBINARY</p>
+</li>
+<li><p>TINYBLOB<br>A BLOB column with a maximum length of 255 (2^8 − 1) bytes.</p>
+</li>
+<li><p>TINYTEXT<br>A TEXT column with a maximum length of 255 (2^8 − 1) characters.</p>
+</li>
+<li><p>BLOB<br>A BLOB column with a maximum length of 65,535 (2^16 − 1) bytes.</p>
+</li>
+<li><p>TEXT<br>A TEXT column with a maximum length of 65,535 (2^16 − 1) characters.</p>
+</li>
+<li><p>MEDIUMBLOB<br>A BLOB column with a maximum length of 16,777,215 (2^24 − 1) bytes.</p>
+</li>
+<li><p>MEDIUMTEXT<br>A TEXT column with a maximum length of 16,777,215 (2^24 − 1) characters.</p>
+</li>
+<li><p>LONGBLOB<br>A BLOB column with a maximum length of 4,294,967,295 or 4GB (2^32 − 1) bytes.</p>
+</li>
+<li><p>LONGTEXT<br>A TEXT column with a maximum length of 4,294,967,295 or 4GB (2^32 − 1) characters.</p>
+</li>
+<li><p>ENUM<br>An enumeration.</p>
+</li>
+<li><p>SET<br>A set.</p>
+</li>
+</ul>
 
       
     </div>
@@ -2316,7 +2851,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2403,7 +2938,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#序言"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">2.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于此手册"><span class="nav-number">2.1.</span> <span class="nav-text">关于此手册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据库管理系统"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL数据库管理系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL介绍"><span class="nav-number">2.2.1.</span> <span class="nav-text">MySQL介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL主要特点"><span class="nav-number">2.2.2.</span> <span class="nav-text">MySQL主要特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Internals-and-Portability"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">Internals and Portability</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据类型"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态和功能"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">状态和功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展性和限制"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">扩展性和限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地化"><span class="nav-number">2.2.2.6.</span> <span class="nav-text">本地化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端和工具"><span class="nav-number">2.2.2.7.</span> <span class="nav-text">客户端和工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL历史"><span class="nav-number">2.2.3.</span> <span class="nav-text">MySQL历史</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL5-7新特色"><span class="nav-number">2.3.</span> <span class="nav-text">MySQL5.7新特色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7新功能"><span class="nav-number">2.3.1.</span> <span class="nav-text">MySQL5.7新功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中过期的功能"><span class="nav-number">2.3.2.</span> <span class="nav-text">MySQL5.7中过期的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中移除的功能"><span class="nav-number">2.3.3.</span> <span class="nav-text">MySQL5.7中移除的功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7"><span class="nav-number">2.4.</span> <span class="nav-text">Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL信息源"><span class="nav-number">2.5.</span> <span class="nav-text">MySQL信息源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL站点"><span class="nav-number">2.5.1.</span> <span class="nav-text">MySQL站点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装和升级MySQL"><span class="nav-number">3.</span> <span class="nav-text">安装和升级MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用安装指南"><span class="nav-number">3.1.</span> <span class="nav-text">通用安装指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装哪个发行版和MySQL版本"><span class="nav-number">3.1.1.</span> <span class="nav-text">安装哪个发行版和MySQL版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何获取MySQL"><span class="nav-number">3.1.2.</span> <span class="nav-text">如何获取MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用MD5校验和或GnuPG验证程序完整性"><span class="nav-number">3.1.3.</span> <span class="nav-text">使用MD5校验和或GnuPG验证程序完整性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#验证MD5校验和"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">验证MD5校验和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用GnuPG进行签名检查"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">使用GnuPG进行签名检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用RPM进行签名检查"><span class="nav-number">3.1.3.3.</span> <span class="nav-text">使用RPM进行签名检查</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装布局"><span class="nav-number">3.1.4.</span> <span class="nav-text">安装布局</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Unix-Linux上使用通用二进制文件安装MySQL"><span class="nav-number">3.2.</span> <span class="nav-text">在Unix/Linux上使用通用二进制文件安装MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Linux上安装MySQL"><span class="nav-number">3.3.</span> <span class="nav-text">在Linux上安装MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在Linux上使用Yum-Repository安装MySQL"><span class="nav-number">3.3.1.</span> <span class="nav-text">在Linux上使用Yum Repository安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在Linux上使用Oracle提供的RPM包安装MySQL"><span class="nav-number">3.3.2.</span> <span class="nav-text">在Linux上使用Oracle提供的RPM包安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用systemd管理MySQL-Server"><span class="nav-number">3.3.3.</span> <span class="nav-text">用systemd管理MySQL Server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#systemd综述"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">systemd综述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为MySQL配置systemd"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">为MySQL配置systemd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用systemd配置多个MySQL实例"><span class="nav-number">3.3.3.3.</span> <span class="nav-text">使用systemd配置多个MySQL实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从mysqld-safe迁移到systemd"><span class="nav-number">3.3.3.4.</span> <span class="nav-text">从mysqld_safe迁移到systemd</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从源码安装MySQL"><span class="nav-number">3.4.</span> <span class="nav-text">从源码安装MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用于源码安装的MySQL布局"><span class="nav-number">3.4.1.</span> <span class="nav-text">用于源码安装的MySQL布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用标准源码发行版安装MySQL"><span class="nav-number">3.4.2.</span> <span class="nav-text">使用标准源码发行版安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用开发源码树安装MySQL"><span class="nav-number">3.4.3.</span> <span class="nav-text">使用开发源码树安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL源码配置选项"><span class="nav-number">3.4.4.</span> <span class="nav-text">MySQL源码配置选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理MySQL编译问题"><span class="nav-number">3.4.5.</span> <span class="nav-text">处理MySQL编译问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装之后的设置和测试"><span class="nav-number">3.5.</span> <span class="nav-text">安装之后的设置和测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化数据目录"><span class="nav-number">3.5.1.</span> <span class="nav-text">初始化数据目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用mysqld手动初始化数据目录"><span class="nav-number">3.5.1.1.</span> <span class="nav-text">使用mysqld手动初始化数据目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用mysql-install-db初始化数据目录"><span class="nav-number">3.5.1.2.</span> <span class="nav-text">使用mysql_install_db初始化数据目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Starting-the-Server"><span class="nav-number">3.5.2.</span> <span class="nav-text">Starting the Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Testing-the-Server"><span class="nav-number">3.5.3.</span> <span class="nav-text">Testing the Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保护初始化MySQL账户"><span class="nav-number">3.5.4.</span> <span class="nav-text">保护初始化MySQL账户</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级或降级MySQL"><span class="nav-number">3.6.</span> <span class="nav-text">升级或降级MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#升级MySQL"><span class="nav-number">3.6.1.</span> <span class="nav-text">升级MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL升级策略"><span class="nav-number">3.6.1.1.</span> <span class="nav-text">MySQL升级策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过MySQL-Yum-Repository进行升级"><span class="nav-number">3.6.1.2.</span> <span class="nav-text">通过MySQL Yum Repository进行升级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过直接下载RPM包升级MySQL"><span class="nav-number">3.6.1.3.</span> <span class="nav-text">通过直接下载RPM包升级MySQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql降级"><span class="nav-number">3.6.2.</span> <span class="nav-text">mysql降级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重建或修复表或索引"><span class="nav-number">3.6.3.</span> <span class="nav-text">重建或修复表或索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制MySQL数据库到其他机器"><span class="nav-number">3.6.4.</span> <span class="nav-text">复制MySQL数据库到其他机器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tutorial"><span class="nav-number">4.</span> <span class="nav-text">Tutorial</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#连接和断开服务器"><span class="nav-number">4.1.</span> <span class="nav-text">连接和断开服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入查询"><span class="nav-number">4.2.</span> <span class="nav-text">输入查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建和使用数据库"><span class="nav-number">4.3.</span> <span class="nav-text">创建和使用数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建和选择数据库"><span class="nav-number">4.3.1.</span> <span class="nav-text">创建和选择数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建表"><span class="nav-number">4.3.2.</span> <span class="nav-text">创建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将数据载入表格"><span class="nav-number">4.3.3.</span> <span class="nav-text">将数据载入表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从表中检索信息"><span class="nav-number">4.3.4.</span> <span class="nav-text">从表中检索信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询所有数据"><span class="nav-number">4.3.4.1.</span> <span class="nav-text">查询所有数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询特定行"><span class="nav-number">4.3.4.2.</span> <span class="nav-text">查询特定行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询特定列"><span class="nav-number">4.3.4.3.</span> <span class="nav-text">查询特定列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行排序"><span class="nav-number">4.3.4.4.</span> <span class="nav-text">行排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日期计算"><span class="nav-number">4.3.4.5.</span> <span class="nav-text">日期计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用NULL值"><span class="nav-number">4.3.4.6.</span> <span class="nav-text">使用NULL值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模式匹配"><span class="nav-number">4.3.4.7.</span> <span class="nav-text">模式匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行数计算"><span class="nav-number">4.3.4.8.</span> <span class="nav-text">行数计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用多个表"><span class="nav-number">4.3.4.9.</span> <span class="nav-text">使用多个表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取数据库和表的信息"><span class="nav-number">4.4.</span> <span class="nav-text">获取数据库和表的信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在批处理下使用mysql"><span class="nav-number">4.5.</span> <span class="nav-text">在批处理下使用mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见查询"><span class="nav-number">4.6.</span> <span class="nav-text">常见查询</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL程序"><span class="nav-number">5.</span> <span class="nav-text">MySQL程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL程序概述"><span class="nav-number">5.1.</span> <span class="nav-text">MySQL程序概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用MySQL程序"><span class="nav-number">5.2.</span> <span class="nav-text">使用MySQL程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用MySQL程序"><span class="nav-number">5.2.1.</span> <span class="nav-text">调用MySQL程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接到MySQL-Server"><span class="nav-number">5.2.2.</span> <span class="nav-text">连接到MySQL Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">5.2.3.</span> <span class="nav-text">配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Server"><span class="nav-number">5.3.</span> <span class="nav-text">MySQL Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysqld"><span class="nav-number">5.3.1.</span> <span class="nav-text">mysqld</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-safe"><span class="nav-number">5.3.2.</span> <span class="nav-text">mysql_safe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-server"><span class="nav-number">5.3.3.</span> <span class="nav-text">mysql.server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysqld-multi"><span class="nav-number">5.3.4.</span> <span class="nav-text">mysqld_multi</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL安装相关程序"><span class="nav-number">5.4.</span> <span class="nav-text">MySQL安装相关程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#com-err"><span class="nav-number">5.4.1.</span> <span class="nav-text">com_err</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-install-db"><span class="nav-number">5.4.2.</span> <span class="nav-text">mysql_install_db</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-plugin"><span class="nav-number">5.4.3.</span> <span class="nav-text">mysql_plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-secure-installation"><span class="nav-number">5.4.4.</span> <span class="nav-text">mysql_secure_installation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-ssl-rsa-setup"><span class="nav-number">5.4.5.</span> <span class="nav-text">mysql_ssl_rsa_setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-tzinfo-to-sql"><span class="nav-number">5.4.6.</span> <span class="nav-text">mysql_tzinfo_to_sql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#msyql-upgrade"><span class="nav-number">5.4.7.</span> <span class="nav-text">msyql_upgrade</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL客户端程序"><span class="nav-number">5.5.</span> <span class="nav-text">MySQL客户端程序</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#序言"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">2.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于此手册"><span class="nav-number">2.1.</span> <span class="nav-text">关于此手册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据库管理系统"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL数据库管理系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL介绍"><span class="nav-number">2.2.1.</span> <span class="nav-text">MySQL介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL主要特点"><span class="nav-number">2.2.2.</span> <span class="nav-text">MySQL主要特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Internals-and-Portability"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">Internals and Portability</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据类型"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态和功能"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">状态和功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展性和限制"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">扩展性和限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地化"><span class="nav-number">2.2.2.6.</span> <span class="nav-text">本地化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端和工具"><span class="nav-number">2.2.2.7.</span> <span class="nav-text">客户端和工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL历史"><span class="nav-number">2.2.3.</span> <span class="nav-text">MySQL历史</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL5-7新特色"><span class="nav-number">2.3.</span> <span class="nav-text">MySQL5.7新特色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7新功能"><span class="nav-number">2.3.1.</span> <span class="nav-text">MySQL5.7新功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中过期的功能"><span class="nav-number">2.3.2.</span> <span class="nav-text">MySQL5.7中过期的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中移除的功能"><span class="nav-number">2.3.3.</span> <span class="nav-text">MySQL5.7中移除的功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7"><span class="nav-number">2.4.</span> <span class="nav-text">Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL信息源"><span class="nav-number">2.5.</span> <span class="nav-text">MySQL信息源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL站点"><span class="nav-number">2.5.1.</span> <span class="nav-text">MySQL站点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装和升级"><span class="nav-number">3.</span> <span class="nav-text">安装和升级</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用安装指南"><span class="nav-number">3.1.</span> <span class="nav-text">通用安装指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装哪个发行版和MySQL版本"><span class="nav-number">3.1.1.</span> <span class="nav-text">安装哪个发行版和MySQL版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何获取MySQL"><span class="nav-number">3.1.2.</span> <span class="nav-text">如何获取MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用MD5校验和或GnuPG验证程序完整性"><span class="nav-number">3.1.3.</span> <span class="nav-text">使用MD5校验和或GnuPG验证程序完整性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#验证MD5校验和"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">验证MD5校验和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用GnuPG进行签名检查"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">使用GnuPG进行签名检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用RPM进行签名检查"><span class="nav-number">3.1.3.3.</span> <span class="nav-text">使用RPM进行签名检查</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装布局"><span class="nav-number">3.1.4.</span> <span class="nav-text">安装布局</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Unix-Linux上使用通用二进制文件安装MySQL"><span class="nav-number">3.2.</span> <span class="nav-text">在Unix/Linux上使用通用二进制文件安装MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Linux上安装MySQL"><span class="nav-number">3.3.</span> <span class="nav-text">在Linux上安装MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在Linux上使用Yum-Repository安装MySQL"><span class="nav-number">3.3.1.</span> <span class="nav-text">在Linux上使用Yum Repository安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在Linux上使用Oracle提供的RPM包安装MySQL"><span class="nav-number">3.3.2.</span> <span class="nav-text">在Linux上使用Oracle提供的RPM包安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用systemd管理MySQL-Server"><span class="nav-number">3.3.3.</span> <span class="nav-text">用systemd管理MySQL Server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#systemd综述"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">systemd综述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为MySQL配置systemd"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">为MySQL配置systemd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用systemd配置多个MySQL实例"><span class="nav-number">3.3.3.3.</span> <span class="nav-text">使用systemd配置多个MySQL实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从mysqld-safe迁移到systemd"><span class="nav-number">3.3.3.4.</span> <span class="nav-text">从mysqld_safe迁移到systemd</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从源码安装MySQL"><span class="nav-number">3.4.</span> <span class="nav-text">从源码安装MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用于源码安装的MySQL布局"><span class="nav-number">3.4.1.</span> <span class="nav-text">用于源码安装的MySQL布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用标准源码发行版安装MySQL"><span class="nav-number">3.4.2.</span> <span class="nav-text">使用标准源码发行版安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用开发源码树安装MySQL"><span class="nav-number">3.4.3.</span> <span class="nav-text">使用开发源码树安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL源码配置选项"><span class="nav-number">3.4.4.</span> <span class="nav-text">MySQL源码配置选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理MySQL编译问题"><span class="nav-number">3.4.5.</span> <span class="nav-text">处理MySQL编译问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装之后的设置和测试"><span class="nav-number">3.5.</span> <span class="nav-text">安装之后的设置和测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化数据目录"><span class="nav-number">3.5.1.</span> <span class="nav-text">初始化数据目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用mysqld手动初始化数据目录"><span class="nav-number">3.5.1.1.</span> <span class="nav-text">使用mysqld手动初始化数据目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用mysql-install-db初始化数据目录"><span class="nav-number">3.5.1.2.</span> <span class="nav-text">使用mysql_install_db初始化数据目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Starting-the-Server"><span class="nav-number">3.5.2.</span> <span class="nav-text">Starting the Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Testing-the-Server"><span class="nav-number">3.5.3.</span> <span class="nav-text">Testing the Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保护初始化MySQL账户"><span class="nav-number">3.5.4.</span> <span class="nav-text">保护初始化MySQL账户</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级或降级MySQL"><span class="nav-number">3.6.</span> <span class="nav-text">升级或降级MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#升级MySQL"><span class="nav-number">3.6.1.</span> <span class="nav-text">升级MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL升级策略"><span class="nav-number">3.6.1.1.</span> <span class="nav-text">MySQL升级策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过MySQL-Yum-Repository进行升级"><span class="nav-number">3.6.1.2.</span> <span class="nav-text">通过MySQL Yum Repository进行升级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过直接下载RPM包升级MySQL"><span class="nav-number">3.6.1.3.</span> <span class="nav-text">通过直接下载RPM包升级MySQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql降级"><span class="nav-number">3.6.2.</span> <span class="nav-text">mysql降级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重建或修复表或索引"><span class="nav-number">3.6.3.</span> <span class="nav-text">重建或修复表或索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制MySQL数据库到其他机器"><span class="nav-number">3.6.4.</span> <span class="nav-text">复制MySQL数据库到其他机器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tutorial"><span class="nav-number">4.</span> <span class="nav-text">Tutorial</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#连接和断开服务器"><span class="nav-number">4.1.</span> <span class="nav-text">连接和断开服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入查询"><span class="nav-number">4.2.</span> <span class="nav-text">输入查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建和使用数据库"><span class="nav-number">4.3.</span> <span class="nav-text">创建和使用数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建和选择数据库"><span class="nav-number">4.3.1.</span> <span class="nav-text">创建和选择数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建表"><span class="nav-number">4.3.2.</span> <span class="nav-text">创建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将数据载入表格"><span class="nav-number">4.3.3.</span> <span class="nav-text">将数据载入表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从表中检索信息"><span class="nav-number">4.3.4.</span> <span class="nav-text">从表中检索信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询所有数据"><span class="nav-number">4.3.4.1.</span> <span class="nav-text">查询所有数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询特定行"><span class="nav-number">4.3.4.2.</span> <span class="nav-text">查询特定行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询特定列"><span class="nav-number">4.3.4.3.</span> <span class="nav-text">查询特定列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行排序"><span class="nav-number">4.3.4.4.</span> <span class="nav-text">行排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日期计算"><span class="nav-number">4.3.4.5.</span> <span class="nav-text">日期计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用NULL值"><span class="nav-number">4.3.4.6.</span> <span class="nav-text">使用NULL值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模式匹配"><span class="nav-number">4.3.4.7.</span> <span class="nav-text">模式匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行数计算"><span class="nav-number">4.3.4.8.</span> <span class="nav-text">行数计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用多个表"><span class="nav-number">4.3.4.9.</span> <span class="nav-text">使用多个表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取数据库和表的信息"><span class="nav-number">4.4.</span> <span class="nav-text">获取数据库和表的信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在批处理下使用mysql"><span class="nav-number">4.5.</span> <span class="nav-text">在批处理下使用mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见查询"><span class="nav-number">4.6.</span> <span class="nav-text">常见查询</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL程序"><span class="nav-number">5.</span> <span class="nav-text">MySQL程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL程序概述"><span class="nav-number">5.1.</span> <span class="nav-text">MySQL程序概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用MySQL程序"><span class="nav-number">5.2.</span> <span class="nav-text">使用MySQL程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用MySQL程序"><span class="nav-number">5.2.1.</span> <span class="nav-text">调用MySQL程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接到MySQL-Server"><span class="nav-number">5.2.2.</span> <span class="nav-text">连接到MySQL Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">5.2.3.</span> <span class="nav-text">配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Server"><span class="nav-number">5.3.</span> <span class="nav-text">MySQL Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysqld"><span class="nav-number">5.3.1.</span> <span class="nav-text">mysqld</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-safe"><span class="nav-number">5.3.2.</span> <span class="nav-text">mysql_safe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-server"><span class="nav-number">5.3.3.</span> <span class="nav-text">mysql.server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysqld-multi"><span class="nav-number">5.3.4.</span> <span class="nav-text">mysqld_multi</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL安装相关程序"><span class="nav-number">5.4.</span> <span class="nav-text">MySQL安装相关程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#com-err"><span class="nav-number">5.4.1.</span> <span class="nav-text">com_err</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-install-db"><span class="nav-number">5.4.2.</span> <span class="nav-text">mysql_install_db</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-plugin"><span class="nav-number">5.4.3.</span> <span class="nav-text">mysql_plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-secure-installation"><span class="nav-number">5.4.4.</span> <span class="nav-text">mysql_secure_installation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-ssl-rsa-setup"><span class="nav-number">5.4.5.</span> <span class="nav-text">mysql_ssl_rsa_setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-tzinfo-to-sql"><span class="nav-number">5.4.6.</span> <span class="nav-text">mysql_tzinfo_to_sql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#msyql-upgrade"><span class="nav-number">5.4.7.</span> <span class="nav-text">msyql_upgrade</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL客户端程序"><span class="nav-number">5.5.</span> <span class="nav-text">MySQL客户端程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql"><span class="nav-number">5.6.</span> <span class="nav-text">mysql</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql选项"><span class="nav-number">5.6.1.</span> <span class="nav-text">mysql选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql命令"><span class="nav-number">5.6.2.</span> <span class="nav-text">mysql命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql服务端帮助"><span class="nav-number">5.6.3.</span> <span class="nav-text">mysql服务端帮助</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从文本文件执行SQL语句"><span class="nav-number">5.6.4.</span> <span class="nav-text">从文本文件执行SQL语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL管理和实用程序"><span class="nav-number">5.7.</span> <span class="nav-text">MySQL管理和实用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql开发实用程序"><span class="nav-number">5.8.</span> <span class="nav-text">mysql开发实用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#杂项程序"><span class="nav-number">5.9.</span> <span class="nav-text">杂项程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL环境变量"><span class="nav-number">5.10.</span> <span class="nav-text">MySQL环境变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-Server管理"><span class="nav-number">6.</span> <span class="nav-text">MySQL Server管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Server-1"><span class="nav-number">6.1.</span> <span class="nav-text">MySQL Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据目录"><span class="nav-number">6.2.</span> <span class="nav-text">MySQL数据目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql数据库"><span class="nav-number">6.3.</span> <span class="nav-text">mysql数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Server-Logs"><span class="nav-number">6.4.</span> <span class="nav-text">MySQL Server Logs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#错误日志"><span class="nav-number">6.4.1.</span> <span class="nav-text">错误日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般查询日志"><span class="nav-number">6.4.2.</span> <span class="nav-text">一般查询日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制日志"><span class="nav-number">6.4.3.</span> <span class="nav-text">二进制日志</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安全-1"><span class="nav-number">7.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备份和恢复"><span class="nav-number">8.</span> <span class="nav-text">备份和恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化"><span class="nav-number">9.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语言结构"><span class="nav-number">10.</span> <span class="nav-text">语言结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符集和编码"><span class="nav-number">11.</span> <span class="nav-text">字符集和编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型-1"><span class="nav-number">12.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数字"><span class="nav-number">12.1.</span> <span class="nav-text">数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期和时间"><span class="nav-number">12.2.</span> <span class="nav-text">日期和时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">12.3.</span> <span class="nav-text">字符串</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -2435,7 +2970,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 268.9k</span>
+  <span class="post-count"> 字数: 313.7k</span>
 </div>
 
 
