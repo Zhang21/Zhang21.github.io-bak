@@ -2,12 +2,13 @@
 
 ---
 
-> ps
-> 我用Docker构建了Hexo环境的image: `centos7+git+nodejs`
-> `docker pull zhang21/hexo:init`
+> ps: <br>
+> 我用Docker构建了一个Hexo环境的image: `centos7+git+nodejs` <br>
+> 使用方法: `docker pull zhang21/hexo:init`
 
 
-<br>
+<br/>
+<br/>
 
 
 # 参考文档

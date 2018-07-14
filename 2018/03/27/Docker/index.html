@@ -2280,7 +2280,7 @@
 <h3 id="配置和运行Docker"><a href="#配置和运行Docker" class="headerlink" title="配置和运行Docker"></a>配置和运行Docker</h3><p><strong>配置docker daemon</strong></p>
 <ul>
 <li>使用json配置文件</li>
-<li>使用<code>dockerd --flage</code></li>
+<li>使用<code>dockerd --flag</code></li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;debug&quot;: true,</span><br><span class="line">  &quot;tls&quot;: true,</span><br><span class="line">  &quot;tlscert&quot;: &quot;/var/docker/server.pem&quot;,</span><br><span class="line">  &quot;tlskey&quot;: &quot;/var/docker/serverkey.pem&quot;,</span><br><span class="line">  &quot;hosts&quot;: [&quot;tcp://192.168.59.3:2376&quot;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#或</span><br><span class="line">dockerd --debug \</span><br><span class="line">  --tls=true \</span><br><span class="line">  --tlscert=/var/docker/server.pem \</span><br><span class="line">  --tlskey=/var/docker/serverkey.pem \</span><br><span class="line">  --host tcp://192.168.59.3:2376</span><br></pre></td></tr></table></figure>
 <p><br></p>
@@ -3144,7 +3144,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 313.7k</span>
+  <span class="post-count"> 字数: 316.2k</span>
 </div>
 
 
