@@ -93,19 +93,19 @@
 
 
 
-<meta name="description" content="参考：  Kubernetes: https://zh.wikipedia.org/wiki/Kubernetes 官方文档: https://kubernetes.io/cn/docs/ 中文文档: http://docs.kubernetes.org.cn/ GitHub: https://github.com/kubernetes/kubernetes  环境：  CentOSx86_64">
+<meta name="description" content="参考：  Kubernetes: https://zh.wikipedia.org/wiki/Kubernetes 官方文档: https://kubernetes.io/docs/ 中文文档: http://docs.kubernetes.org.cn/ GitHub: https://github.com/kubernetes/kubernetes  环境：  CentOSx86_64 Kub">
 <meta name="keywords" content="Kubernetes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kubernetes">
 <meta property="og:url" content="https://zhang21.github.io/2018/06/26/Kubernetes/index.html">
 <meta property="og:site_name" content="风继续吹">
-<meta property="og:description" content="参考：  Kubernetes: https://zh.wikipedia.org/wiki/Kubernetes 官方文档: https://kubernetes.io/cn/docs/ 中文文档: http://docs.kubernetes.org.cn/ GitHub: https://github.com/kubernetes/kubernetes  环境：  CentOSx86_64">
+<meta property="og:description" content="参考：  Kubernetes: https://zh.wikipedia.org/wiki/Kubernetes 官方文档: https://kubernetes.io/docs/ 中文文档: http://docs.kubernetes.org.cn/ GitHub: https://github.com/kubernetes/kubernetes  环境：  CentOSx86_64 Kub">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/K8s/Kubernetes_logo.png">
-<meta property="og:updated_time" content="2018-07-04T07:39:02.000Z">
+<meta property="og:updated_time" content="2018-07-20T11:07:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kubernetes">
-<meta name="twitter:description" content="参考：  Kubernetes: https://zh.wikipedia.org/wiki/Kubernetes 官方文档: https://kubernetes.io/cn/docs/ 中文文档: http://docs.kubernetes.org.cn/ GitHub: https://github.com/kubernetes/kubernetes  环境：  CentOSx86_64">
+<meta name="twitter:description" content="参考：  Kubernetes: https://zh.wikipedia.org/wiki/Kubernetes 官方文档: https://kubernetes.io/docs/ 中文文档: http://docs.kubernetes.org.cn/ GitHub: https://github.com/kubernetes/kubernetes  环境：  CentOSx86_64 Kub">
 <meta name="twitter:image" content="https://zhang21.github.io/images/K8s/Kubernetes_logo.png">
 
 
@@ -348,8 +348,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-04T15:39:02+08:00">
-                2018-07-04
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-20T19:07:54+08:00">
+                2018-07-20
               </time>
             
           </span>
@@ -416,7 +416,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  7,223
+                  11,214
                 </span>
               
 
@@ -444,7 +444,7 @@
         <p>参考：</p>
 <ul>
 <li>Kubernetes: <a href="https://zh.wikipedia.org/wiki/Kubernetes" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/Kubernetes</a></li>
-<li>官方文档: <a href="https://kubernetes.io/cn/docs/" target="_blank" rel="noopener">https://kubernetes.io/cn/docs/</a></li>
+<li>官方文档: <a href="https://kubernetes.io/docs/" target="_blank" rel="noopener">https://kubernetes.io/docs/</a></li>
 <li>中文文档: <a href="http://docs.kubernetes.org.cn/" target="_blank" rel="noopener">http://docs.kubernetes.org.cn/</a></li>
 <li>GitHub: <a href="https://github.com/kubernetes/kubernetes" target="_blank" rel="noopener">https://github.com/kubernetes/kubernetes</a></li>
 </ul>
@@ -1002,6 +1002,211 @@
 <h1 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h1><p>Tutorials</p>
 <p>教程展示了如何实现比单个任务更大的目标(task)。</p>
 <p><br></p>
+<h2 id="k8s基本"><a href="#k8s基本" class="headerlink" title="k8s基本"></a>k8s基本</h2><p><br></p>
+<h3 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h3><p>本教程提供了Kubernetes集群编排系统基础知识的介绍。</p>
+<p>你将学到：</p>
+<ul>
+<li>在集群上部署容器化服务</li>
+<li>伸缩部署</li>
+<li>使用新软件版本更新容器化应用程序</li>
+<li>调试容器化应用程序</li>
+</ul>
+<p><br></p>
+<p><strong>k8s能为你做什么？</strong><br>容器化有助于打包软件以实现这些目标，是应用程序能够以简单快速的方式发布和更新，而无需停机。k8s可帮助你确保这些容器化应用程序随时随地运行，并帮助它们找到运行所需的资源。</p>
+<p><br></p>
+<p><strong>k8s 基础模块</strong></p>
+<ol>
+<li>创建(create)一个k8s集群</li>
+<li>部署(deploy)应用程序</li>
+<li>探索(explore)应用程序</li>
+<li>公开(expose)展示应用程序</li>
+<li>伸缩(scale)应用程序</li>
+<li>升级(update)应用程序</li>
+</ol>
+<p><br><br><br></p>
+<h3 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h3><p>Create a Cluseter</p>
+<p>有几种方式创建k8s集群：</p>
+<ul>
+<li>minikube(自动部署)</li>
+<li>kubeadm(自动部署)</li>
+<li>软件包(建议初学者使用此方式)</li>
+</ul>
+<p><br></p>
+<h4 id="使用minikube创建集群"><a href="#使用minikube创建集群" class="headerlink" title="使用minikube创建集群"></a>使用minikube创建集群</h4><p>Using Minikube to Create a Cluster</p>
+<p>目标：</p>
+<ul>
+<li>了解k8s集群是什么</li>
+<li>了解Minikube是什么</li>
+<li>启动一个k8s集群</li>
+</ul>
+<p><br></p>
+<p><strong>k8s 集群</strong><br>k8s协调一个高度可用的计算机集群，它们连接起来作为一个单元工作 。<br>k8s以更有效的方式自动化跨集群分发和调整应用程序容器。</p>
+<p>k8s集群包含两种类型的资源：</p>
+<ul>
+<li>Master</li>
+<li>Nodes</li>
+</ul>
+<p>Master负责管理集群。它协调集群中的所有活动。<br>Node是工作主机。每个节点有一个Kubelet的Agent，负责管理节点并与Master(API)通信。此外，节点上还应有处理容器操作的工具(如Docker)。生成环境的k8s集群至少有三个节点。<br>用户可通过k8s API直接与集群进行交互。</p>
+<p><br></p>
+<p>使用Minikube部署集群: <a href="https://github.com/kubernetes/minikube" target="_blank" rel="noopener">https://github.com/kubernetes/minikube</a><br>Minikube是一个工具，它运行一个单节点的k8s集群供开发用户使用。</p>
+<p><strong>Linux平台</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装</span></span><br><span class="line">curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 &amp;&amp; \</span><br><span class="line">chmod +x minikube &amp;&amp; \</span><br><span class="line">sudo mv minikube /usr/<span class="built_in">local</span>/bin/</span><br><span class="line"></span><br><span class="line">curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/linux/amd64/kubectl &amp;&amp; \</span><br><span class="line">chmod +x kubectl &amp;&amp; \</span><br><span class="line">sudo mv kubectl /usr/<span class="built_in">local</span>/bin/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">minikube version</span><br><span class="line">minikube start</span><br><span class="line"></span><br><span class="line">kubectl version</span><br><span class="line">kubectl cluster-info</span><br><span class="line">kubectl get nodes</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="kubeadm创建集群"><a href="#kubeadm创建集群" class="headerlink" title="kubeadm创建集群"></a>kubeadm创建集群</h4><p><br><br><br></p>
+<h4 id="使用软件包创建集群"><a href="#使用软件包创建集群" class="headerlink" title="使用软件包创建集群"></a>使用软件包创建集群</h4><p>请定义相应的防火墙规则！</p>
+<p><strong>k8s集群组件</strong></p>
+<ul>
+<li>etcd</li>
+<li>flannel</li>
+<li>kube-apiserver</li>
+<li>kube-controller-manager</li>
+<li>kube-scheduler</li>
+<li>kubelet</li>
+<li>kube-proxy</li>
+</ul>
+<p><br></p>
+<p><strong>Master</strong></p>
+<ul>
+<li>etcd</li>
+<li>flannel</li>
+<li>kube-apiserver</li>
+<li>kube-controller-manager</li>
+<li>kube-scheduler</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#epel</span></span><br><span class="line">yum install -y etcd flannel kubernetes-master</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#cd /etc/kubernetes</span></span><br><span class="line"><span class="comment">#apiserver  config  controller-manager  scheduler</span></span><br><span class="line"><span class="comment">#修改监听地址</span></span><br><span class="line">vim apiserver</span><br><span class="line">KUBE_API_ADDRESS=<span class="string">"--insecure-bind-address=0.0.0.0"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#可先使用默认值</span></span><br><span class="line">vim /etc/etcd/etcd.conf</span><br><span class="line">vim /etc/sysconfig/flanneld</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置后启动</span></span><br><span class="line">systemctl start etcd kube-apiserver kube-controller-manager kube-scheduler</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#创建，不然会报错</span></span><br><span class="line">etcdctl mk /atomic.io/network/config <span class="string">'&#123;"Network":"10.254.0.0/16"&#125;'</span></span><br><span class="line">systemctl start flanneld</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#具体参数请根据实际情况来配置</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Node</strong></p>
+<ul>
+<li>flannel</li>
+<li>kubelet</li>
+<li>kube-porxy</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#epel</span></span><br><span class="line">yum install -y flannel kubernetes-node</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#ls /etc/kubertes</span></span><br><span class="line"><span class="comment">#config  kubelet  proxy</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置etcd的地址</span></span><br><span class="line">vim /etc/sysconfig/flanneld</span><br><span class="line">FLANNEL_ETCD_ENDPOINTS=<span class="string">"http://master:2379</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">vim /etc/kubernertes/config</span></span><br><span class="line"><span class="string">KUBE_MASTER="</span>--master=http://master:8080<span class="string">"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#修改kubelet地址</span></span><br><span class="line"><span class="string">KUBELET_ADDRESS="</span>--address=node_addr<span class="string">"</span></span><br><span class="line"><span class="string">KUBELET_HOSTNAME="</span>--hostname-override=node_addr<span class="string">"</span></span><br><span class="line"><span class="string">KUBELET_API_SERVER="</span>--api-servers=http://master:8080<span class="string">"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#配置后启动</span></span><br><span class="line"><span class="string">systemctl start flanneld kube-proxy kubelet</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#具体参数请根据实际情况来配置</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>验证集群</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#Master</span><br><span class="line">#kubectl安装如前</span><br><span class="line">kubectl get nodes</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="部署应用程序"><a href="#部署应用程序" class="headerlink" title="部署应用程序"></a>部署应用程序</h3><p>Deploy an APP</p>
+<p><br></p>
+<h4 id="使用kubectl创建部署"><a href="#使用kubectl创建部署" class="headerlink" title="使用kubectl创建部署"></a>使用kubectl创建部署</h4><p>Using kubectl to create a Deployment</p>
+<p>目标：</p>
+<ul>
+<li>了解应用程序部署</li>
+<li>在k8s上使用<code>kubectl</code>部署你的第一个应用程序</li>
+</ul>
+<p><br></p>
+<p><strong>k8s Deployments</strong><br>一旦运行了k8s集群，就可在其上部署容器化应用程序。为此，你需要创建Kubernetes Deployment configuration。它指示k8s 如何创建和更新应用程序实例。创建部署后，k8s master将应用程序实例调度到各个node上。<br>创建应用程序实例后，Kubernetes Deployment Controller会持续监控这些实例。如果主机节点上的实例关闭或删除，Deployment Controller会替换它。这提供了一种自我修复(self-healing)机制来解决机器故障或维护。</p>
+<p><br></p>
+<p><strong>部署应用程序</strong><br>可使用<code>kubectl</code>(使用k8s api与集群交互)来创建和管理Deployment。下面有一些关于使用kubectl在k8s集群上创建和管理Deployment的基础命令。</p>
+<p>创建部署时，你需要指定应用程序的容器镜像(image)，以及要运行的副本数(replicas)。你可在以后改变这些信息来更新你的部署。</p>
+<p>栗子：<br>第一个部署，k8s使用一个Docker容器的<code>Node.js</code>应用程序包。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">kubectl version</span><br><span class="line">#client</span><br><span class="line">#server</span><br><span class="line"></span><br><span class="line">kubectl get nodes</span><br><span class="line"></span><br><span class="line">#创建名为k8s-bootcamp的deployment</span><br><span class="line">kubectl run kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1 --port=8080</span><br><span class="line">#这是国内镜像: docker.io/jocatalin/kubernetes-bootcamp:v1</span><br><span class="line"></span><br><span class="line">kubectl get deployments</span><br><span class="line">NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE                                                     │</span><br><span class="line">kubenetes-bootcamp   1         1        1           1          1h</span><br><span class="line">#表示 希望副本数，当前副本数，最新副本数，可用副本数</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#由于pod被封装在集群私网，没有对外开放</span><br><span class="line">#proxy将通信转发到集群内私网</span><br><span class="line">kubectl proxy</span><br><span class="line">curl http://localhost:8081/version</span><br><span class="line">curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/proxy/</span><br><span class="line">#Hello Kubernetes bootcamp!</span><br></pre></td></tr></table></figure>
+<p>此处我遇到一个错误，<code>replicats unavailable</code>:<br>原因是拉取的镜像在谷歌云上，无法访问<gcr.io>，拉取失败所以导致部署失败。<br>gcr(google container Registry)</gcr.io></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#查看部署信息</span><br><span class="line"> kubectl get deployment kubernetes-bootcamp -o yaml</span><br><span class="line">    message: &apos;unable to create pods: No API token found for service account &quot;default&quot;,</span><br><span class="line">      retry after the token is automatically created and added to the service account&apos;</span><br><span class="line">    reason: FailedCreate</span><br><span class="line">    status: &quot;True&quot;</span><br><span class="line">    type: ReplicaFailure</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kubectl get deployments</span><br><span class="line">NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">kubernetes-bootcamp   1         0         0            0           33m</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kubectl describe deployments kubernetes-bootcamp</span><br><span class="line">Replicas:               1 desired | 0 updated | 0 total | 0 available | 1 unavailable</span><br><span class="line">StrategyType:           RollingUpdate</span><br><span class="line">ReplicaFailure   True    FailedCreate</span><br></pre></td></tr></table></figure>
+<p>针对<strong>unable to create pods: No API token found for service account “default”</strong>这个问题，需要修改kube-apiserver配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#去掉 KUBE_ADMISSION_CONTROL中的SecurityContextDeny,ServiceAccount</span><br><span class="line">KUBE_ADMISSION_CONTROL=&quot;--admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,ResourceQuota&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#重启kube-apiserver</span><br><span class="line">systemctl restart kube-apiserver</span><br><span class="line"></span><br><span class="line">#之后查看副本数就正常了</span><br><span class="line">kubectl get deployments</span><br><span class="line">NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">kubernetes-bootcamp   1         1         1            0           8m</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#这里available还是0</span><br><span class="line">kubectl get pods</span><br><span class="line">NAME                                  READY     STATUS              RESTARTS   AGE</span><br><span class="line">kubernetes-bootcamp-390780338-6x48n   0/1       ContainerCreating   0          21h</span><br><span class="line">#pod处于创建状态</span><br><span class="line"></span><br><span class="line">#查看详情</span><br><span class="line">kubectl describe pods</span><br><span class="line">#错误信息</span><br><span class="line">  Warning  FailedSync  4m (x258 over 21h)   kubelet, 192.168.31.159  Error syncing pod, skipping: failed to &quot;StartContainer&quot; for &quot;POD&quot; with ErrImagePull: &quot;image pull failed for registry.access.redhat.com/rhel7/pod-infrastructure:latest, this may be because there are no credentials on this request.  details: (open /etc/docker/certs.d/registry.access.redhat.com/redhat-ca.crt: no such file or directory)&quot;</span><br><span class="line">  Warning  FailedSync  9s (x5728 over 21h)  kubelet, 192.168.31.159  Error syncing pod, skipping: failed to &quot;StartContainer&quot; for &quot;POD&quot; with ImagePullBackOff: &quot;Back-off pulling image \&quot;registry.access.redhat.com/rhel7/pod-infrastructure:latest\&quot;&quot;</span><br><span class="line"></span><br><span class="line">#在node上查看此文件，发现它指向了一个空链接</span><br><span class="line">#并不存在/etc/rhsm目录</span><br><span class="line">ll /etc/docker/certs.d/registry.access.redhat.com/redhat-ca.crt</span><br><span class="line">lrwxrwxrwx. 1 root root 27 7月  16 16:58 /etc/docker/certs.d/registry.access.redhat.com/redhat-ca.crt -&gt; /etc/rhsm/ca/redhat-uep.pem</span><br><span class="line"></span><br><span class="line">#在node安装此rhsm</span><br><span class="line">yum search rhsm</span><br><span class="line">#python-rhsm-certificates.x86_64</span><br><span class="line">#python-rhsm.x86_64</span><br><span class="line">yum install -y python-rhsm.x86_64 python-rhsm-certificates.x86_64</span><br><span class="line">#之后在node上手动拉取下image便可看到pod正常运行</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="探索应用程序"><a href="#探索应用程序" class="headerlink" title="探索应用程序"></a>探索应用程序</h3><p>Explore Your App</p>
+<p><br></p>
+<h4 id="查看Pods和Nodes"><a href="#查看Pods和Nodes" class="headerlink" title="查看Pods和Nodes"></a>查看Pods和Nodes</h4><p>目标：</p>
+<ul>
+<li>了解k8s Pods</li>
+<li>了解k8s Nodes</li>
+<li>部署应用的故障解决(troubleshoot)</li>
+</ul>
+<p><br></p>
+<p><strong>k8s Pods</strong><br>当你创建一个部署时，k8s创建了一个pod来托管你的应用程序实例。pod是k8s的一个抽象，表示一组(一个/多个)应用程序容器，以及这些容器的共享资源。<br>pod有一个唯一的IP地址，甚至是同一节点上的pod。pod中的容器共享IP地址和端口，始终位于同一位置并共同调度，并在同一节点上共享上下文中运行。<br>这些资源包括：</p>
+<ul>
+<li>共享存储(volumes)</li>
+<li>网络(唯一的集群内ip)</li>
+<li>运行容器的相关信息</li>
+</ul>
+<p><br></p>
+<p><strong>Nodes</strong><br>pod总是运行在node上，一个node上可运行多个pod。每个node由master管理，master自动处理在node上调度pod。<br>node至少运行如下组件：</p>
+<ul>
+<li>kubelet</li>
+<li>container runtime(如docker)</li>
+</ul>
+<p><br></p>
+<p><strong>Troubleshooting with kubectl</strong><br>最常用的<code>kubectl</code>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#列出资源</span><br><span class="line">kubectl get</span><br><span class="line">#kubectl get nodes</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#某个资源的详细信息</span><br><span class="line">kubectl describe</span><br><span class="line">#kubectl describe deployments kubernetes-bootcamp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#pod中容器日志</span><br><span class="line">kubectl logs</span><br><span class="line">#kubectl logs $pod --since=1h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#在pod的容器执行命令</span><br><span class="line">kubectl exec</span><br><span class="line">#kubectl ecec $pod env</span><br><span class="line">#kubectl exec -it $pod /bin/bash</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="公开展示应用程序"><a href="#公开展示应用程序" class="headerlink" title="公开展示应用程序"></a>公开展示应用程序</h3><p>Expose Your App Publicly</p>
+<p><br></p>
+<h4 id="使用服务来展示应用程序"><a href="#使用服务来展示应用程序" class="headerlink" title="使用服务来展示应用程序"></a>使用服务来展示应用程序</h4><p>Using a Service to Expose Your App</p>
+<p>目标：</p>
+<ul>
+<li>了解k8s中的服务(service)</li>
+<li>理解labels和LabelSelector对象如何关联服务</li>
+<li>使用服务将应用程序展示在集群外部</li>
+</ul>
+<p><br></p>
+<p><strong>k8s Service</strong><br>事实上，pods有一个生命周期。当工作node死亡，node上运行的pods也会丢失。ReplicationController可以通过创建新的Pod来动态地将集群驱动会所需状态，以使应用程序保持运行。<br>k8s的服务是一个抽象概念，它定义了一组逻辑Pod和一个访问pods的策略。服务使用YAML或JSON来定义。由一组pods所构成的服务通常由LabelSelector来确定。<br>尽管每个Pod都有一个唯一的IP地址，但如果没有服务，这些IP就不会在集群外公开。<br>通过指定ServeceSpec中的type，可以不同方式公开服务:</p>
+<ul>
+<li><p>ClusterIP(默认方式)<br>在集群内部IP公开服务，只可内部访问</p>
+</li>
+<li><p>NodePort<br>使用NAT在集群的指定节点上公开服务</p>
+</li>
+<li><p>LoadBalancer<br>创建一个外部负载均衡器，并给服务分配一个外部IP</p>
+</li>
+<li><p>ExternalName<br>通过返回带有名称的CNAME(k8s-dns)记录，使用任意名称公开服务</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>Services和Labels</strong><br>服务使用labels和selectors匹配一组pod这是一个允许对k8s的对象进行逻辑操作的分组原语。<br>Label是附件到对象的键/值对，随时随地可修改。有多种方式可使用：</p>
+<ul>
+<li>指定用于开发(development)、测试(test)、生产(procuct)的对象</li>
+<li>嵌入版本tag</li>
+<li>使用tag对对象进行分类</li>
+</ul>
+<p><br></p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods</span><br><span class="line">#NAME                                  READY     STATUS    RESTARTS   AGE</span><br><span class="line">#kubernetes-bootcamp-390780338-6x48n   1/1       Running   0          22h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kubectl get services</span><br><span class="line">#NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE</span><br><span class="line">#kubernetes   ClusterIP   10.254.0.1   &lt;none&gt;        443/TCP   1d</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#公开展示应用程序</span><br><span class="line">kubectl expose deployment/kubernetes-bootcamp --type=&quot;NodePort&quot; --port 8080</span><br><span class="line">#service &quot;kubernetes-bootcamp&quot; exposed</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kubectl get services</span><br><span class="line">#NAME                  TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE</span><br><span class="line">#kubernetes            ClusterIP   10.254.0.1     &lt;none&gt;        443/TCP          1d</span><br><span class="line">#kubernetes-bootcamp   NodePort    10.254.11.76   &lt;none&gt;        8080:31514/TCP   2m</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kubectl describe services/kubernetes-bootcamp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kubectl describe deployment</span><br><span class="line">#Labels:                 run=kubernetes-bootcamp</span><br><span class="line">#使用label查询</span><br><span class="line">kubectl get pods -l run=kubernetes-bootcamp</span><br><span class="line">kubectl get services -l run=kubernetes-bootcamp</span><br><span class="line">#使用label删除</span><br><span class="line">kubectl delete service -l run=kubernetes-bootcamp</span><br><span class="line"></span><br><span class="line">kubectl describe pods kubernetes-bootcamp-390780338-6x48n</span><br><span class="line"></span><br><span class="line">kubectl exec -it kubernetes-bootcamp-390780338-6x48n /bin/bash</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="扩展应用程序"><a href="#扩展应用程序" class="headerlink" title="扩展应用程序"></a>扩展应用程序</h3><p>Scale Your App</p>
+<p>Running Multiple Instances of Your App</p>
+<p>目标：</p>
+<ul>
+<li>使用<code>kubectl</code>伸缩应用程序</li>
+</ul>
+<p><br></p>
+<p><strong>伸缩应用程序</strong><br>前面通过部署创建的服务仅有一个pod，当遇到流量激增，我们便需要扩展应用程序。<br>通过更改部署中的副本数来完成扩展。</p>
+<p>扩展部署将确保使用可用资源(available resource)创建新的pod并将其调度到node。k8s支持Pod的自动伸缩，缩放到0(也就是没有pod)也是可能的，它将终止指定部署的所有Pod。<br>对应用程序运行多个实例需要一种方法将流量分配给所有这些实例。服务有集成的负载均衡器(load-blancer)，可将网络流量分配到公开部署的所有Pod。服务将使用endpoint持续监控运行的Pod，以确保网络流量发送到可用的Pods。</p>
+<p>一旦运行的应用程序有了多个实例，你就可以在不停机(downtime)的情况下执行滚动更新(rolling update)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deployments</span><br><span class="line">#1个</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#扩展实例</span><br><span class="line">kubectl scale deployments/kubernetes-bootcamp --replicas=4</span><br><span class="line">#deployment.extensions &quot;kubernetes-bootcamp&quot; scaled</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kubectl get deployments</span><br><span class="line">#4个</span><br><span class="line">kubectl get pods -o wide</span><br><span class="line">#4个</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kubectl describe deployment/kubernetes-bootcamp</span><br><span class="line">kubectl describe services/kubernetes-bootcamp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#缩放实例</span><br><span class="line">kubectl scale deployments/kubernetes-bootcamp --replicas=2</span><br><span class="line">#deployment.extensions &quot;kubernetes-bootcamp&quot; scaled</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kubectl get deployments</span><br><span class="line">#2个</span><br><span class="line"></span><br><span class="line">#有两个pods正在关闭中</span><br><span class="line">kubectl get pods -o wide</span><br><span class="line">NAME                                  READY     STATUS        RESTARTS   AGE       IP            NODE</span><br><span class="line">kubernetes-bootcamp-390780338-1zgvs   1/1       Terminating   0          7m        10.254.76.5   192.168.31.159</span><br><span class="line">kubernetes-bootcamp-390780338-6x48n   1/1       Running       0          2d        10.254.76.2   192.168.31.159</span><br><span class="line">kubernetes-bootcamp-390780338-bqztg   1/1       Running       0          7m        10.254.76.4   192.168.31.159</span><br><span class="line">kubernetes-bootcamp-390780338-hkwfd   1/1       Terminating   0          7m        10.254.76.3   192.168.31.159</span><br><span class="line"></span><br><span class="line">#关闭完成</span><br><span class="line">kubectl get pods -o wide</span><br><span class="line">NAME                                  READY     STATUS    RESTARTS   AGE       IP            NODE</span><br><span class="line">kubernetes-bootcamp-390780338-6x48n   1/1       Running   0          2d        10.254.76.2   192.168.31.159</span><br><span class="line">kubernetes-bootcamp-390780338-bqztg   1/1       Running   0          15m       10.254.76.4   192.168.31.159</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="升级应用程序"><a href="#升级应用程序" class="headerlink" title="升级应用程序"></a>升级应用程序</h3><p>Update your App<br>Performing a Rolling Update</p>
+<p>目标：</p>
+<ul>
+<li>使用<code>kubectl</code>执行滚动升级</li>
+</ul>
+<p><br></p>
+<p><strong>滚动更新</strong><br>用户希望应用程序始终可用，可发人员可能会多次部署新版本应用程序。在k8s中，这都可以通过滚动更新(rolling update)完成。<br>滚动更新允许通过使用新的实例逐步更新Pod来实现部署的更新，而不需停机(downtime)。新的Pod将在具有可用资源的node上进行调度。<br>在k8s中，更新是版本化的，任何部署更新都可以恢复到以前的版本。</p>
+<p>与应用程序扩展类似，服务在更新期间仅会将流量负载均衡到可用的Pod(应用实例)。</p>
+<p>滚动更新允许以下操作：</p>
+<ul>
+<li>将应用程序从一个环境推到另一个环境</li>
+<li>回滚(rollback)到之前的版本</li>
+<li>无需停机的持续集成(CI)和持续交付(CD)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deployments</span><br><span class="line">kubectl get pods</span><br><span class="line">#2个</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#更新镜像</span><br><span class="line">kubectl set image deployments/kubernetes-bootcamp  kubernetes-bootcamp=docker.io/jocatalin/kubernetes-bootcamp:v2</span><br><span class="line">deployment.apps &quot;kubernetes-bootcamp&quot; image updated</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line">kubectl get pods</span><br><span class="line">NAME                                  READY     STATUS        RESTARTS   AGE</span><br><span class="line">kubernetes-bootcamp-390780338-6x48n   1/1       Terminating   0          3d</span><br><span class="line">kubernetes-bootcamp-390780338-bqztg   1/1       Terminating   0          38m</span><br><span class="line">kubernetes-bootcamp-472176051-m6h1q   1/1       Running       0          29s</span><br><span class="line">kubernetes-bootcamp-472176051-z4wqs   1/1       Running       0          29s</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line">kubectl get pods</span><br><span class="line">NAME                                  READY     STATUS    RESTARTS   AGE</span><br><span class="line">kubernetes-bootcamp-472176051-m6h1q   1/1       Running   0          42s</span><br><span class="line">kubernetes-bootcamp-472176051-z4wqs   1/1       Running   0          42s</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#检查回滚状态</span><br><span class="line">kubectl rollout status deployments/kubernetes-bootcamp</span><br><span class="line">deployment &quot;kubernetes-bootcamp&quot; successfully rolled out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#更新</span><br><span class="line">kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=docker.io/jocatalin/kubernetes-bootcamp:v10</span><br><span class="line">deployment.apps &quot;kubernetes-bootcamp&quot; image updated</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#有错</span><br><span class="line">kubectl get deployments</span><br><span class="line">NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">kubernetes-bootcamp   2         3         2            1           3d</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#有错</span><br><span class="line">kubectl get pods</span><br><span class="line">NAME                                  READY     STATUS             RESTARTS   AGE</span><br><span class="line">kubernetes-bootcamp-384357858-7kjx1   0/1       ErrImagePull       0          2m</span><br><span class="line">kubernetes-bootcamp-384357858-t0wmt   0/1       ImagePullBackOff   0          2m</span><br><span class="line">kubernetes-bootcamp-472176051-m6h1q   1/1       Running            0          9m</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#</span><br><span class="line">kubectl describe pods</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#回滚</span><br><span class="line">kubectl rollout undo deployments/kubernetes-bootcamp</span><br><span class="line">deployment.apps &quot;kubernetes-bootcamp&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#查看</span><br><span class="line">kubectl get pods</span><br><span class="line">kubectl decribe pods</span><br><span class="line">#Image:          docker.io/jocatalin/kubernetes-bootcamp:v2</span><br><span class="line">#回到了V2版</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p><br><br><br></p>
+<h2 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h2><p>Configuration</p>
+<p><br></p>
+<p><strong>目标(Objective)</strong></p>
+<ul>
+<li>创建ConfigMap</li>
+<li>使用ConfigMap创建Pod规范</li>
+<li>创建Pod</li>
+<li>验证配置是否正确应用</li>
+</ul>
+<p><br></p>
+<p><strong>开始之前</strong><br>需要有k8s集群，并且安装了<code>kubectl</code>命令行工具。</p>
+<p><br></p>
+<p><strong>栗子：使用ConfigMap配置Redis</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#Master</span><br><span class="line">#创建redis的ConfigMap</span><br><span class="line">kubectl create configmap redis-config --from-file=xxx/redis-config</span><br><span class="line">kubectl get configmap redis-config -o yaml</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#创建redis-pod.yaml文件</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: redis</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name: redis</span><br><span class="line">    image: kubernetes/redis:v1</span><br><span class="line">    env:</span><br><span class="line">    - name: MASTER</span><br><span class="line">      value: &quot;true&quot;</span><br><span class="line">    ports:</span><br><span class="line">    - containerPort: 6379</span><br><span class="line">    resources:</span><br><span class="line">      limits:</span><br><span class="line">        cpu: &quot;0.1&quot;</span><br><span class="line">    volumeMounts:</span><br><span class="line">    - mountPath: /redis-master-data</span><br><span class="line">      name: data</span><br><span class="line">    - mountPath: /redis-master</span><br><span class="line">      name: config</span><br><span class="line">  volumes:</span><br><span class="line">    - name: data</span><br><span class="line">      emptyDir: &#123;&#125;</span><br><span class="line">    - name: config</span><br><span class="line">      configMap:</span><br><span class="line">        name: redis-config</span><br><span class="line">        items:</span><br><span class="line">        - key: redis-config</span><br><span class="line">          path: redis.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#创建pod</span><br><span class="line">kubectl create -f /etc/k8s/pods/config/redis-pod.yaml</span><br></pre></td></tr></table></figure>
+<p><br></p>
 <hr>
 <p><br><br><br></p>
 <h1 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h1><p>安装Kubernetes和配置Kubernetes cluster。</p>
@@ -1045,6 +1250,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/19/Fluentd/" rel="prev" title="Fluentd">
+                Fluentd <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -1131,7 +1340,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1142,7 +1351,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1153,7 +1362,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1218,7 +1427,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标准词汇"><span class="nav-number">1.1.</span> <span class="nav-text">标准词汇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">1.2.</span> <span class="nav-text">组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Master组件"><span class="nav-number">1.2.1.</span> <span class="nav-text">Master组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点组件"><span class="nav-number">1.2.2.</span> <span class="nav-text">节点组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">1.3.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#names"><span class="nav-number">1.4.</span> <span class="nav-text">names</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#namespace"><span class="nav-number">1.5.</span> <span class="nav-text">namespace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#label"><span class="nav-number">1.6.</span> <span class="nav-text">label</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volume"><span class="nav-number">1.7.</span> <span class="nav-text">volume</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#annotation"><span class="nav-number">1.8.</span> <span class="nav-text">annotation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node"><span class="nav-number">1.9.</span> <span class="nav-text">node</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节点状态"><span class="nav-number">1.9.1.</span> <span class="nav-text">节点状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理"><span class="nav-number">1.9.2.</span> <span class="nav-text">管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点通信"><span class="nav-number">1.9.3.</span> <span class="nav-text">节点通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pod"><span class="nav-number">1.10.</span> <span class="nav-text">pod</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pod安全策略"><span class="nav-number">1.10.1.</span> <span class="nav-text">pod安全策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod生命周期"><span class="nav-number">1.10.2.</span> <span class="nav-text">pod生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init容器"><span class="nav-number">1.10.3.</span> <span class="nav-text">init容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置pod的资源"><span class="nav-number">1.10.4.</span> <span class="nav-text">设置pod的资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod-preset"><span class="nav-number">1.10.5.</span> <span class="nav-text">pod preset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod服务质量等级"><span class="nav-number">1.10.6.</span> <span class="nav-text">pod服务质量等级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod优先级和抢占"><span class="nav-number">1.10.7.</span> <span class="nav-text">pod优先级和抢占</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副本集"><span class="nav-number">1.11.</span> <span class="nav-text">副本集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">1.12.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建部署"><span class="nav-number">1.12.1.</span> <span class="nav-text">创建部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新部署"><span class="nav-number">1.12.2.</span> <span class="nav-text">更新部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回滚部署"><span class="nav-number">1.12.3.</span> <span class="nav-text">回滚部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暂停和恢复部署"><span class="nav-number">1.12.4.</span> <span class="nav-text">暂停和恢复部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伸缩部署"><span class="nav-number">1.12.5.</span> <span class="nav-text">伸缩部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署状态"><span class="nav-number">1.12.6.</span> <span class="nav-text">部署状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理策略"><span class="nav-number">1.12.7.</span> <span class="nav-text">清理策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写Deployment-spec"><span class="nav-number">1.12.8.</span> <span class="nav-text">编写Deployment spec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替代部署"><span class="nav-number">1.12.9.</span> <span class="nav-text">替代部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副本控制器"><span class="nav-number">1.13.</span> <span class="nav-text">副本控制器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StatefulSet"><span class="nav-number">1.14.</span> <span class="nav-text">StatefulSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务"><span class="nav-number">1.15.</span> <span class="nav-text">服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集"><span class="nav-number">1.16.</span> <span class="nav-text">垃圾收集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#教程"><span class="nav-number">2.</span> <span class="nav-text">教程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装和配置"><span class="nav-number">3.</span> <span class="nav-text">安装和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用kubeadm引导集群"><span class="nav-number">3.1.</span> <span class="nav-text">使用kubeadm引导集群</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标准词汇"><span class="nav-number">1.1.</span> <span class="nav-text">标准词汇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">1.2.</span> <span class="nav-text">组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Master组件"><span class="nav-number">1.2.1.</span> <span class="nav-text">Master组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点组件"><span class="nav-number">1.2.2.</span> <span class="nav-text">节点组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">1.3.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#names"><span class="nav-number">1.4.</span> <span class="nav-text">names</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#namespace"><span class="nav-number">1.5.</span> <span class="nav-text">namespace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#label"><span class="nav-number">1.6.</span> <span class="nav-text">label</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volume"><span class="nav-number">1.7.</span> <span class="nav-text">volume</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#annotation"><span class="nav-number">1.8.</span> <span class="nav-text">annotation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node"><span class="nav-number">1.9.</span> <span class="nav-text">node</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节点状态"><span class="nav-number">1.9.1.</span> <span class="nav-text">节点状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理"><span class="nav-number">1.9.2.</span> <span class="nav-text">管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点通信"><span class="nav-number">1.9.3.</span> <span class="nav-text">节点通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pod"><span class="nav-number">1.10.</span> <span class="nav-text">pod</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pod安全策略"><span class="nav-number">1.10.1.</span> <span class="nav-text">pod安全策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod生命周期"><span class="nav-number">1.10.2.</span> <span class="nav-text">pod生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init容器"><span class="nav-number">1.10.3.</span> <span class="nav-text">init容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置pod的资源"><span class="nav-number">1.10.4.</span> <span class="nav-text">设置pod的资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod-preset"><span class="nav-number">1.10.5.</span> <span class="nav-text">pod preset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod服务质量等级"><span class="nav-number">1.10.6.</span> <span class="nav-text">pod服务质量等级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pod优先级和抢占"><span class="nav-number">1.10.7.</span> <span class="nav-text">pod优先级和抢占</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副本集"><span class="nav-number">1.11.</span> <span class="nav-text">副本集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">1.12.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建部署"><span class="nav-number">1.12.1.</span> <span class="nav-text">创建部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新部署"><span class="nav-number">1.12.2.</span> <span class="nav-text">更新部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回滚部署"><span class="nav-number">1.12.3.</span> <span class="nav-text">回滚部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暂停和恢复部署"><span class="nav-number">1.12.4.</span> <span class="nav-text">暂停和恢复部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伸缩部署"><span class="nav-number">1.12.5.</span> <span class="nav-text">伸缩部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署状态"><span class="nav-number">1.12.6.</span> <span class="nav-text">部署状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理策略"><span class="nav-number">1.12.7.</span> <span class="nav-text">清理策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写Deployment-spec"><span class="nav-number">1.12.8.</span> <span class="nav-text">编写Deployment spec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替代部署"><span class="nav-number">1.12.9.</span> <span class="nav-text">替代部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副本控制器"><span class="nav-number">1.13.</span> <span class="nav-text">副本控制器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StatefulSet"><span class="nav-number">1.14.</span> <span class="nav-text">StatefulSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务"><span class="nav-number">1.15.</span> <span class="nav-text">服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集"><span class="nav-number">1.16.</span> <span class="nav-text">垃圾收集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#教程"><span class="nav-number">2.</span> <span class="nav-text">教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#k8s基本"><span class="nav-number">2.1.</span> <span class="nav-text">k8s基本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#综述"><span class="nav-number">2.1.1.</span> <span class="nav-text">综述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建集群"><span class="nav-number">2.1.2.</span> <span class="nav-text">创建集群</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用minikube创建集群"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">使用minikube创建集群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kubeadm创建集群"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">kubeadm创建集群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用软件包创建集群"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">使用软件包创建集群</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署应用程序"><span class="nav-number">2.1.3.</span> <span class="nav-text">部署应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用kubectl创建部署"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">使用kubectl创建部署</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索应用程序"><span class="nav-number">2.1.4.</span> <span class="nav-text">探索应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看Pods和Nodes"><span class="nav-number">2.1.4.1.</span> <span class="nav-text">查看Pods和Nodes</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#公开展示应用程序"><span class="nav-number">2.1.5.</span> <span class="nav-text">公开展示应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用服务来展示应用程序"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">使用服务来展示应用程序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展应用程序"><span class="nav-number">2.1.6.</span> <span class="nav-text">扩展应用程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级应用程序"><span class="nav-number">2.1.7.</span> <span class="nav-text">升级应用程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">2.2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-1"><span class="nav-number">2.3.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装和配置"><span class="nav-number">3.</span> <span class="nav-text">安装和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用kubeadm引导集群"><span class="nav-number">3.1.</span> <span class="nav-text">使用kubeadm引导集群</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1250,7 +1459,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 316.2k</span>
+  <span class="post-count"> 字数: 323.1k</span>
 </div>
 
 
