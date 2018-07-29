@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="风继续吹">
 <meta property="og:description" content="环境:  CentOS7x86_64 Python3.5  参考:  Python教程: https://docs.python.org/3.5/tutorial/index.html Python词汇表: https://docs.python.org/3.5/glossary.html Python语言参考: https://docs.python.org/3.5/reference/inde">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-18T06:33:54.000Z">
+<meta property="og:updated_time" content="2018-07-23T10:04:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python">
 <meta name="twitter:description" content="环境:  CentOS7x86_64 Python3.5  参考:  Python教程: https://docs.python.org/3.5/tutorial/index.html Python词汇表: https://docs.python.org/3.5/glossary.html Python语言参考: https://docs.python.org/3.5/reference/inde">
@@ -346,8 +346,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-18T14:33:54+08:00">
-                2018-07-18
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-23T18:04:29+08:00">
+                2018-07-23
               </time>
             
           </span>
@@ -414,7 +414,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  32,528
+                  32,535
                 </span>
               
 
@@ -1313,7 +1313,7 @@
 <h3 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h3><p>Creating Virtual Environments</p>
 <p>用于创建和管理虚拟环境额模块称为<code>venv</code>.它通常会为你安装最新版本的Python，你也可以选择Python版本。</p>
 <p>激活虚拟环境后，会改变提示符并修改环境，以便提供特定的Python版本。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#创建虚拟环境</span><br><span class="line">python3 -m venv /tmp/pythonVenv</span><br><span class="line"></span><br><span class="line">#激活</span><br><span class="line">source /tmp/pythonVenv/vin/activate</span><br><span class="line">(pythonVenv) [zhang@zhang21 ~]$</span><br><span class="line"></span><br><span class="line">(pythonVenv) [zhang@zhang21 ~]$ python</span><br><span class="line">&gt;&gt;&gt; import sys</span><br><span class="line">&gt;&gt;&gt; sys.path</span><br><span class="line">[&apos;&apos;, &apos;/usr/lib64/python34.zip&apos;, &apos;/usr/lib64/python3.4&apos;, &apos;/usr/lib64/python3.4/plat-linux&apos;, &apos;/usr/lib64/python3.4/lib-dynload&apos;, &apos;/tmp/pythonVenv/lib64/python3.4/site-packages&apos;, &apos;/tmp/pythonVenv/lib/python3.4/site-packages&apos;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#创建虚拟环境</span><br><span class="line">python3 -m venv /tmp/pythonVenv</span><br><span class="line"></span><br><span class="line">#激活</span><br><span class="line">source /tmp/pythonVenv/bin/activate</span><br><span class="line">(pythonVenv) [zhang@zhang21 ~]$</span><br><span class="line"></span><br><span class="line">(pythonVenv) [zhang@zhang21 ~]$ python</span><br><span class="line">&gt;&gt;&gt; import sys</span><br><span class="line">&gt;&gt;&gt; sys.path</span><br><span class="line">[&apos;&apos;, &apos;/usr/lib64/python34.zip&apos;, &apos;/usr/lib64/python3.4&apos;, &apos;/usr/lib64/python3.4/plat-linux&apos;, &apos;/usr/lib64/python3.4/lib-dynload&apos;, &apos;/tmp/pythonVenv/lib64/python3.4/site-packages&apos;, &apos;/tmp/pythonVenv/lib/python3.4/site-packages&apos;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#退出</span><br><span class="line">deactivate</span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h3 id="pip包管理"><a href="#pip包管理" class="headerlink" title="pip包管理"></a>pip包管理</h3><p>你可以使用pip程序进行搜索、安装、升级和移除软件包。pip程序默认从<pypi.org>安装软件包。</pypi.org></p>
 <p><code>pip freeze</code> 以requirements的格式输出已安装软件包。这很重要。</p>
@@ -2916,7 +2916,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 323.1k</span>
+  <span class="post-count"> 字数: 332.4k</span>
 </div>
 
 
