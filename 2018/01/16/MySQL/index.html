@@ -101,13 +101,13 @@
 <meta property="og:site_name" content="风继续吹">
 <meta property="og:description" content="参考：  MySQL5.7参考文档： https://dev.mysql.com/doc/refman/5.7/en/   环境：  CentOS7.x86_64 MySQL5.7">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://zhang21.github.io/images/Mysql/MySQL.png">
+<meta property="og:image" content="https://zhang21.github.io/images/MySQL/MySQL.png">
 <meta property="og:image" content="https://zhang21.github.io/images/MySQL/20180301101009.jpg">
-<meta property="og:updated_time" content="2018-07-06T10:07:37.000Z">
+<meta property="og:updated_time" content="2018-08-01T03:38:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL">
 <meta name="twitter:description" content="参考：  MySQL5.7参考文档： https://dev.mysql.com/doc/refman/5.7/en/   环境：  CentOS7.x86_64 MySQL5.7">
-<meta name="twitter:image" content="https://zhang21.github.io/images/Mysql/MySQL.png">
+<meta name="twitter:image" content="https://zhang21.github.io/images/MySQL/MySQL.png">
 
 
 
@@ -349,8 +349,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-06T18:07:37+08:00">
-                2018-07-06
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-01T11:38:45+08:00">
+                2018-08-01
               </time>
             
           </span>
@@ -459,7 +459,7 @@
 <h1 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h1><p>MySQL官网： <a href="https://www.mysql.com/" target="_blank" rel="noopener">https://www.mysql.com/</a></p>
 <p>由于MySQL5.7和以前版本之间的许多功能和其他差异，因此此手册不太适用于之前的老版本。之前的版本请参考MySQL相关版本的手册。</p>
 <p><br></p>
-<p><img src="/images/Mysql/MySQL.png" alt="MySQL"></p>
+<p><img src="/images/MySQL/MySQL.png" alt="MySQL"></p>
 <p><br><br><br></p>
 <hr>
 <p><br></p>
@@ -1807,172 +1807,89 @@
 <p><br></p>
 <p><strong>MySQL安装中有多个不同的程序：</strong></p>
 <ul>
-<li><strong>mysqld</strong><ul>
-<li>SQL daemon, MySQL Server, <strong>mysqld</strong>是执行大部分工作的主要程序</li>
-</ul>
+<li><p><strong>mysqld</strong><br>SQL daemon, MySQL Server, <strong>mysqld</strong>是执行大部分工作的主要程序</p>
 </li>
-<li><strong>mysqld_safe</strong><ul>
-<li>服务器启动脚本</li>
-<li>mysqld_safe尝试去启动mysqld</li>
-</ul>
+<li><p><strong>mysqld_safe</strong><br>服务器启动脚本<br><code>mysqld_safe</code>尝试去启动<code>mysqld</code></p>
 </li>
-<li><strong>mysql.server</strong><ul>
-<li>服务器启动脚本</li>
-<li>此脚本用于System V系统，包含启动特定运行级别的系统服务脚本</li>
-<li>它调用mysqld_safe来启动MySQL Server</li>
-</ul>
+<li><p><strong>mysql.server</strong><br>服务器启动脚本<br>此脚本用于<code>System V</code>系统，包含启动特定运行级别的系统服务脚本<br>它调用<code>mysqld_safe</code>来启动MySQL Server</p>
 </li>
-<li><strong>mysql_multi</strong><ul>
-<li>可启动和关闭安装在系统上的多个服务器的启动脚本</li>
-</ul>
+<li><p><strong>mysql_multi</strong><br>可启动和关闭安装在系统上的多个服务器的启动脚本</p>
 </li>
-<li><strong>comp_err</strong><ul>
-<li>在MySQL build/installation过程中使用</li>
-<li>从错误源文件中编译错误消息文件</li>
-</ul>
+<li><p><strong>comp_err</strong><br>在MySQL build/installation过程中使用<br>从错误源文件中编译错误消息文件</p>
 </li>
-<li><strong>mysql_install_db</strong><ul>
-<li>初始化MySQL(数据目录，授权表，并设置InnoDB系统表空间)</li>
-<li>通常用于首次安装MySQL时</li>
-</ul>
+<li><p><strong>mysql_install_db</strong><br>初始化MySQL(数据目录，授权表，并设置InnoDB系统表空间)<br>通常用于首次安装MySQL时</p>
 </li>
-<li><strong>mysql_plugin</strong><ul>
-<li>配置MySQL Server插件</li>
-</ul>
+<li><p><strong>mysql_plugin</strong><br>配置MySQL Server插件</p>
 </li>
-<li><strong>mysql_secure_installation</strong><ul>
-<li>能够提高MySQL安装的安全性</li>
-</ul>
+<li><p><strong>mysql_secure_installation</strong><br>能够提高MySQL安装的安全性</p>
 </li>
-<li><strong>mysql_ssl_rsa_setup</strong><ul>
-<li>如果这些文佳丢失，改程序会创建支持安全连接所需的SSL证书和密钥文件以及RSA密钥对文件</li>
-</ul>
+<li><p><strong>mysql_ssl_rsa_setup</strong><br>如果这些文件丢失，该程序会创建支持安全连接所需的SSL证书和密钥文件以及RSA密钥对文件</p>
 </li>
-<li><strong>mysql_tzinfo_to_sql</strong><ul>
-<li>从mysql数据库中加载时区表</li>
-</ul>
+<li><p><strong>mysql_tzinfo_to_sql</strong><br>从mysql数据库中加载时区表</p>
 </li>
-<li><strong>mysql_upgrade</strong><ul>
-<li>在MySQL升级操作后使用</li>
-<li>它检查表的不兼容性并在必要时修复它们，并用更新版的MySQL的任何更改来更新授权表</li>
-</ul>
+<li><p><strong>mysql_upgrade</strong><br>在MySQL升级操作后使用<br>它检查表的不兼容性并在必要时修复它们，并用更新版的MySQL的任何更改来更新授权表</p>
 </li>
-<li><strong>mysql</strong><ul>
-<li>交互式输入SQL语句的命令行工具</li>
-<li>或执行一个批处理模式的文件</li>
-</ul>
+<li><p><strong>mysql</strong><br>交互式输入SQL语句的命令行工具<br>或执行一个批处理模式的文件</p>
 </li>
-<li><strong>mysqladmin</strong><ul>
-<li>执行管理操作的客户端</li>
-<li>如创建或删除数据库，重新加载授权表，刷新表的磁盘…</li>
-<li>也可用获取服务器版本、状态、进程信息</li>
-</ul>
+<li><p><strong>mysqladmin</strong><br>执行管理操作的客户端<br>如创建或删除数据库，重新加载授权表，刷新表的磁盘…<br>也可用获取服务器版本、状态、进程信息</p>
 </li>
-<li><strong>mysqlcheck</strong><ul>
-<li>表格客户端</li>
-<li>用于检查、修复、分析和优化表格</li>
-</ul>
+<li><p><strong>mysqlcheck</strong><br>表格客户端<br>用于检查、修复、分析和优化表格</p>
 </li>
-<li><strong>mysqldump</strong><ul>
-<li>将MySQL数据库转储为SQL、文本或XML文件的客户端</li>
-</ul>
+<li><p><strong>mysqldump</strong><br>将MySQL数据库转储为SQL、文本或XML文件的客户端</p>
 </li>
-<li><strong>mysqlimport</strong><ul>
-<li>使用<code>LOAD DATA INFILE</code>将文本文件导入各自表格的客户端</li>
-</ul>
+<li><p><strong>mysqlimport</strong><br>使用<code>LOAD DATA INFILE</code>将文本文件导入各自表格的客户端</p>
 </li>
-<li><strong>mysqlpump</strong><ul>
-<li>将MySQL数据库转转储为SQL文件的客户端</li>
-</ul>
+<li><p><strong>mysqlpump</strong><br>将MySQL数据库转转储为SQL文件的客户端</p>
 </li>
-<li><strong>mysqlsh</strong><ul>
-<li>用于MySQL Server的高级命令行客户端和代码编辑器</li>
-<li>除了SQL外，MySQL Shell还为JS和Python提供了脚本功能</li>
-</ul>
+<li><p><strong>mysqlsh</strong><br>用于MySQL Server的高级命令行客户端和代码编辑器<br>除了SQL外，MySQL Shell还为JS和Python提供了脚本功能</p>
 </li>
-<li><strong>mysqlshow</strong><ul>
-<li>显示有关数据库、表、列和索引的信息的客户端</li>
-</ul>
+<li><p><strong>mysqlshow</strong><br>显示有关数据库、表、列和索引的信息的客户端</p>
 </li>
-<li><strong>mysqlslap</strong><ul>
-<li>用于模拟MySQL Server的客户端负载并报告每个阶段的时间</li>
-</ul>
+<li><p><strong>mysqlslap</strong><br>用于模拟MySQL Server的客户端负载并报告每个阶段的时间</p>
 </li>
 </ul>
 <p><br></p>
 <p><strong>MySQL管理和实用程序：</strong></p>
 <ul>
-<li><strong>innochecksum</strong><ul>
-<li>InnoDB脱机文件校验和程序</li>
-</ul>
+<li><p><strong>innochecksum</strong><br>InnoDB脱机文件校验和程序</p>
 </li>
-<li><strong>myisam_ftdump</strong><ul>
-<li>在MyISAM表中显示有关全文索信息</li>
-</ul>
+<li><p><strong>myisam_ftdump</strong><br>在MyISAM表中显示有关全文索信息</p>
 </li>
-<li><strong>myisamchk</strong><ul>
-<li>描述，检查，优化和修复MyISAM表</li>
-</ul>
+<li><p><strong>myisamchk</strong><br>描述，检查，优化和修复MyISAM表</p>
 </li>
-<li><strong>myisamlog</strong><ul>
-<li>处理MyISAM日志文件</li>
-</ul>
+<li><p><strong>myisamlog</strong><br>处理MyISAM日志文件</p>
 </li>
-<li><strong>myisampack</strong><ul>
-<li>压缩MyISAM表以生成更小的只读表</li>
-</ul>
+<li><p><strong>myisampack</strong><br>压缩MyISAM表以生成更小的只读表</p>
 </li>
-<li><strong>mysql_config_editor</strong><ul>
-<li>能够将认证凭证存储在名为安全的加密登录路径文件中</li>
-</ul>
+<li><p><strong>mysql_config_editor</strong><br>能够将认证凭证存储在名为安全的加密登录路径文件中</p>
 </li>
-<li><strong>mysqlbinlog</strong><ul>
-<li>从二进制日志中读取语句</li>
-</ul>
+<li><p><strong>mysqlbinlog</strong><br>从二进制日志中读取语句</p>
 </li>
-<li><strong>mysqldumpslow</strong><ul>
-<li>读取和总结慢查询日志内容</li>
-</ul>
+<li><p><strong>mysqldumpslow</strong><br>读取和总结慢查询日志内容</p>
 </li>
 </ul>
 <p><br></p>
 <p><strong>MySQL程序开发实用程序：</strong></p>
 <ul>
-<li><strong>mysql_config</strong><ul>
-<li>一个shell脚本，用于在编译MySQL程序是生产所需的选项值</li>
-</ul>
+<li><p><strong>mysql_config</strong><br>一个shell脚本，用于在编译MySQL程序是生产所需的选项值</p>
 </li>
-<li><strong>my_print_defaults：</strong><ul>
-<li>显示选项文件的选项组中存在哪些选项</li>
-</ul>
+<li><p><strong>my_print_defaults：</strong><br>显示选项文件的选项组中存在哪些选项</p>
 </li>
-<li><strong>resolve_stack_dump</strong><ul>
-<li>将数值堆栈跟踪转储解析为符号</li>
-</ul>
+<li><p><strong>resolve_stack_dump</strong><br>将数值堆栈跟踪转储解析为符号</p>
 </li>
 </ul>
 <p><br></p>
 <p><strong>杂项(Miscellaneous)工具：</strong></p>
 <ul>
-<li><strong>lz4_decompress</strong><ul>
-<li>解压缩使用LZ4压缩格式的mysqldump输出</li>
-</ul>
+<li><p><strong>lz4_decompress</strong><br>解压缩使用LZ4压缩格式的mysqldump输出</p>
 </li>
-<li><strong>perror</strong><ul>
-<li>显示系统或MySQL错误代码含义</li>
-</ul>
+<li><p><strong>perror</strong><br>显示系统或MySQL错误代码含义</p>
 </li>
-<li><strong>replace</strong><ul>
-<li>再输入文本中执行字符串替换</li>
-</ul>
+<li><p><strong>replace</strong><br>再输入文本中执行字符串替换</p>
 </li>
-<li><strong>resolveip</strong><ul>
-<li>将主机名解析为IP地址，反之亦然</li>
-</ul>
+<li><p><strong>resolveip</strong><br>将主机名解析为IP地址，反之亦然</p>
 </li>
-<li><strong>zlib_decompress</strong><ul>
-<li>解压缩使用ZLIB压缩格式的mysqldump输出</li>
-</ul>
+<li><p><strong>zlib_decompress</strong><br>解压缩使用ZLIB压缩格式的mysqldump输出</p>
 </li>
 </ul>
 <p><br></p>
@@ -2862,7 +2779,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2873,7 +2790,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2970,7 +2887,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 332.4k</span>
+  <span class="post-count"> 字数: 341.5k</span>
 </div>
 
 
