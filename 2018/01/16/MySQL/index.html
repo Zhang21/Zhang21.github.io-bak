@@ -103,7 +103,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/MySQL/MySQL.png">
 <meta property="og:image" content="https://zhang21.github.io/images/MySQL/20180301101009.jpg">
-<meta property="og:updated_time" content="2018-08-01T03:38:45.000Z">
+<meta property="og:updated_time" content="2018-09-10T10:05:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL">
 <meta name="twitter:description" content="参考：  MySQL5.7参考文档： https://dev.mysql.com/doc/refman/5.7/en/   环境：  CentOS7.x86_64 MySQL5.7">
@@ -349,8 +349,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-01T11:38:45+08:00">
-                2018-08-01
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T18:05:26+08:00">
+                2018-09-10
               </time>
             
           </span>
@@ -417,7 +417,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  18,308
+                  23,835
                 </span>
               
 
@@ -2516,7 +2516,601 @@
 <p><br><br><br></p>
 <hr>
 <p><br></p>
-<h1 id="安全-1"><a href="#安全-1" class="headerlink" title="安全"></a>安全</h1><p><br><br><br></p>
+<h1 id="安全-1"><a href="#安全-1" class="headerlink" title="安全"></a>安全</h1><p>Security</p>
+<p>当考虑MySQL安装中的安全性时，你应该考虑各种可能的主题以及他们如何影响MySQL Server和相关应用程序的安全性:</p>
+<ul>
+<li>影响安全性的一般因素。包括选择好的密码，不向用户授予不必要的权限，防止SQL注入和数据损坏来确保应用程序的安全性…</li>
+<li>安装本身的安全性。应保护数据文件，日志文件和安装的所有应用程序文件，以确保未经授权方无法读写这些文件…</li>
+<li>数据库系统本身的访问控制和安全性。包括允许访问数据库中使用的数据库，视图和存储应用程序的用户和数据库…</li>
+<li>安全相关插件提供的功能…</li>
+<li>MySQL和你的系统的网络安全性。安全性还与用户的授权有关，但你可能希望限制MySQL，使其仅在本地主机上可用，或者在一组有限的其它主机上可用…</li>
+<li>确保你备份了足够和适当的数据库文件，配置和日志文件。还要确保你已准备好恢复解决方案，并测试是否能够从备份种恢复信息…</li>
+</ul>
+<p><br></p>
+<h2 id="一般安全问题"><a href="#一般安全问题" class="headerlink" title="一般安全问题"></a>一般安全问题</h2><p>General Security Issues</p>
+<p>本节介绍了要注意的一般安全问题，以及如何使MySQL安装更安全，防止攻击或滥用。</p>
+<p><br></p>
+<h3 id="安全指南"><a href="#安全指南" class="headerlink" title="安全指南"></a>安全指南</h3><p>Security Guidelines</p>
+<p>在连接了Internet的计算机上使用MySQL的任何人都应阅读本节，以避免最常见的安全错误。<br>在讨论安全性时，有必要考虑完全保护整个服务器主机免受所有类型的攻击：窃听，更改，拒绝服务…</p>
+<p>MySQL使用基于访问控制列表(ACL)的安全性，来处理用户可以尝试执行的所有连接、查询和其它操作。MySQL Client和Server之间SSL加密连接。</p>
+<p>当运行MySQL时，遵循以下准则：</p>
+<ul>
+<li><p>不要让任何人(root除外)访问<code>mysql.user</code>数据表，这很关键。</p>
+</li>
+<li><p>了解MySQL访问权限系统的工作原理。使用<code>GRANT</code>和<code>REVOKE</code>语句来控制对MySQL的访问。不要授予超出必要的权限，永远不要授予所有主机权限。<br>如果你能够在不被要求输入密码的情况下成功连接到MySQL Server，则任何人都可以以具有完全权限的root用户身份连接到MySQL Server。请重新查看MySQL安装说明，特别注意有关设置root密码的信息。<br>检查哪些账户拥有访问权限，并移除不必要的权限。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#测试</span><br><span class="line">mysql -u root</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#访问权限</span><br><span class="line">SHOW GRANTS;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#移除权限</span><br><span class="line">#help REVOKE</span><br><span class="line">REVOKE</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>不要在数据库中存储明文密码。如果计算机被攻击，入侵者可以获得完整的密码列表并使用他们。相反，使用一些HASH函数并存储散列值。</p>
+</li>
+<li><p>不要从字典中选择密码，即不要使用简单和常规密码。存在某些破解密码的程序能计算你的密码。</p>
+</li>
+<li><p>启用防火墙。这可以保护你免受大部分漏洞攻击。将MySQL放在防火墙后面或DMZ。<br>使用端口扫描软件(如nmap)扫描主机端口。MySQL默认使用3306端口。不应从不受信任的主机访问此端口。测试你的端口安全性：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[zhang@zhang21 ~]$ telnet zhang21 3306</span><br><span class="line">Trying 192.168.31.119...</span><br><span class="line">Connected to zhang21.</span><br><span class="line">Escape character is &apos;^]&apos;.</span><br><span class="line">@Host &apos;zhang21&apos; is not allowed to connect to this MySQL serverConnection closed by foreign host.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[zhang@zhang21 ~]$ telnet localhost 3306</span><br><span class="line">Trying ::1...</span><br><span class="line">Connected to localhost.</span><br><span class="line">Escape character is &apos;^]&apos;.</span><br><span class="line">J</span><br><span class="line">5.7.22</span><br><span class="line">[cqo3I  @kX@n#I\mysql_native_password</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>访问MySQL的应用程序不应该信任用户输入的任何数据，应该使用适当的防御性编程技术编写。</p>
+</li>
+<li><p>不要通过Internet传输普通数据(未加密)。请使用SSL或SSH加密协议。MySQL支持内部SSL连接；或是使用SSH端口转发为通信创建加密隧道。</p>
+</li>
+<li><p>学习使用<code>tcpdump</code>和<code>strings</code>使用程序。<br>可使用如下命令来检查MySQL数据流是否加密:</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -l -i eth0 -w - src or dst port 3306 | strings</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="密码安全"><a href="#密码安全" class="headerlink" title="密码安全"></a>密码安全</h3><p>Keeping Passwords Secure</p>
+<p>密码出现在MySQL的多个上下文中。此解提供了一些准则，使用户和管理员能够保护这些密码的安全性，并避免暴露这些密码。还讨论了MySQL如何在内部使用密码散列以及可用来强制执行更严格密码的插件。</p>
+<p><br></p>
+<h4 id="密码安全用户指南"><a href="#密码安全用户指南" class="headerlink" title="密码安全用户指南"></a>密码安全用户指南</h4><p>End-User Guidelines for Password Security</p>
+<p>MySQL用户应使用以下准则来保证密码安全。当运行Client连接到MySQL server时，不建议以公开的方式来指定你的密码。</p>
+<ul>
+<li>使用<code>mysql_config_editor</code>实用程序，它可将身份认证凭据存储在名为<code>.mylogin.cnf</code>的加密登录路径文件中。</li>
+<li>使用<code>-pPASSWD</code>或<code>--password=PASSWD</code>选项</li>
+<li>使用<code>-p</code>或<code>--password</code>选项不指定值</li>
+<li>将密码存储到配置文件</li>
+<li>将密码存储到<code>MYSQL_PWD</code>环境变量</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#强烈不推荐</span></span><br><span class="line"><span class="comment">#这虽然方便却不安全</span></span><br><span class="line">mysql -u user -pPASSWD db_name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#推荐</span></span><br><span class="line"><span class="comment">#但这适用于交互式</span></span><br><span class="line">mysql -u user -p db_name</span><br><span class="line">Enter password: xxx</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#写入配置文件</span></span><br><span class="line">chmod 600 ~/.my.cnf</span><br><span class="line">vim ~/.my.cnf</span><br><span class="line"></span><br><span class="line">[client]</span><br><span class="line">password=xxx</span><br><span class="line"></span><br><span class="line">mysql --defaults-file=~/.my.cnf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#指定MySQL密码环境变量的方法非常不安全，不应该使用</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>在Unix上，MySQL Client将执行语句的记录写入历史文件。默认情况下，此文件为<code>~/.mysql_history</code>。密码可以在SQL语句中以纯文本形式写入(如<code>CREATE USER</code>, <code>ALTER USER</code>)，如果使用了这些语句，它们将被记录到历史文件中。要保证此文件的安全，请使用限制访问模式。</p>
+<p>如果命令解释器程序配置为维护历史记录，则保存命令的任何文件都将包含在命令行中输入的MySQL密码。如bash下的<code>~/.bash_history</code>。</p>
+<p><br><br><br></p>
+<h4 id="密码安全管理员指南"><a href="#密码安全管理员指南" class="headerlink" title="密码安全管理员指南"></a>密码安全管理员指南</h4><p>Administrator Guidelines for Password Security</p>
+<p>MySQL数据库管理员应使用以下准则来保证密码安全：</p>
+<ul>
+<li>MySQL在<code>mysql.user</code>表中存储用户账户密码。永远不要向任何非管理账户授予此表的访问权限</li>
+<li>账户密码可以过期，以便用户必须重置密码</li>
+<li><code>validate_password</code>插件可用于对可接受的密码强制实施策略</li>
+<li>应该保护可能写入密码的日志文件等文件</li>
+</ul>
+<p><br><br><br></p>
+<h4 id="密码和日志"><a href="#密码和日志" class="headerlink" title="密码和日志"></a>密码和日志</h4><p>Passwords and Logging</p>
+<p>密码可在SQL语句中以纯文本形式写入，如<code>CREATE USET</code>, <code>GRANT</code>, <code>SET PASSWORD</code>和调用<code>PASSWORD()</code>函数的语句。如果MySQL Server记录了这些语句，那么访问日志的任何人都可以看到密码。</p>
+<p>语句记录避免以明文形式为以下语句编写密码：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> ... <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> ...</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> ... <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> ...</span><br><span class="line"><span class="keyword">GRANT</span> ... <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> ...</span><br><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> ...</span><br><span class="line"><span class="keyword">SLAVE</span> <span class="keyword">START</span> ... <span class="keyword">PASSWORD</span> = ...</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">SERVER</span> ... OPTIONS(... <span class="keyword">PASSWORD</span> ...)</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">SERVER</span> ... OPTIONS(... <span class="keyword">PASSWORD</span> ...)</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>对于常规查询日志，可通过使用<code>--log-raw</code>选项启动Server来抑制密码重写。出于安全原因，此选项不建议用于生产环境。处于诊断目的，查看Server收到的语句的确切文本可能很有用。<br>审计日志插件生成的审计日志文件的内容未加密。出于安全原因，应将此文件写入只有MySQL Server和用户才能访问的目录，并且有正当理由查看目录。<br>只有在需要纯文本密码时才会进行密码重写，对于具有期望密码散列语法的语句，不会发生重写。<br>要保护日志文件免受不必要的暴露，请将他们放在限制访问Server和管理员的目录中。<br>副本集slave将复制副本集master的密码存储在主信息存储库中，它可以是文件或表。确保只能由管理员访问此库。</p>
+<p>使用受限的访问模式来保护包含日志表或密码的日志文件的数据库备份。</p>
+<p><br><br><br></p>
+<h4 id="密码散列"><a href="#密码散列" class="headerlink" title="密码散列"></a>密码散列</h4><p>Password Hashing in MySQL</p>
+<p>MySQL在<code>mysql.user</code>数据表中列出用户账户。可以为每个MySQL账户分配一个密码，尽管用户表不存储明文密码，而是存储密码的散列值。</p>
+<p>MySQL在Client/Server通信的两个阶段中使用密码：</p>
+<ul>
+<li>当客户端尝试连接到Server时，有一个初始身份认证步骤，其中客户端必须提供密码，该密码的散列值与<code>mysql.user</code>用户表中存储的散列值相匹配</li>
+<li>客户端连接之后，它可以(如果有足够权限)设置或更改<code>mysql.user</code>用户表中账户的密码的散列值。客户端可通过使用<code>PASSWORD()</code>函数来生成密码散列，或使用密码生成语句(<code>CREATE USER</code>, <code>GRANT</code>, <code>SET PASSWORD</code>)来完成此操作。</li>
+</ul>
+<p>换句话说，Server在客户端首次尝试连接时在身份认证期间检查散列值。如果连接的客户端调用<code>PASSWORD()</code>函数，或使用密码生成语句来设置/更改密码，则Server会生成散列值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">help PASSWORD;</span><br><span class="line">#This function is deprecated as of MySQL 5.7.6 and will be removed in a future MySQL release</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#The Original (Pre-4.1) Hashing Method</span><br><span class="line">#原始散列方法产生一个16Byte的字符串</span><br><span class="line">mysql&gt; SELECT PASSWORD(&apos;mypass&apos;);</span><br><span class="line">+--------------------+</span><br><span class="line">| PASSWORD(&apos;mypass&apos;) |</span><br><span class="line">+--------------------+</span><br><span class="line">| 6f8c114b58f2ce9e   |</span><br><span class="line">+--------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#The 4.1 Hashing Method</span><br><span class="line">#MySQL4.1引入了密码散列，提供了更好的安全性并降低了密码被截获的风险</span><br><span class="line">#生成更长的41Byte的散列值</span><br><span class="line">mysql&gt; SELECT PASSWORD(&apos;mypass&apos;);</span><br><span class="line">+-------------------------------------------+</span><br><span class="line">| PASSWORD(&apos;mypass&apos;)                        |</span><br><span class="line">+-------------------------------------------+</span><br><span class="line">| *6C8989366EAF75BB670AD8EA7A7FC1176A95CEF4 |</span><br><span class="line">+-------------------------------------------+</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>散列方法的兼容性问题</strong><br>Compatibility Issues Related to Hashing Methods</p>
+<p><br><br><br></p>
+<h3 id="使MySQL安全抵御攻击者"><a href="#使MySQL安全抵御攻击者" class="headerlink" title="使MySQL安全抵御攻击者"></a>使MySQL安全抵御攻击者</h3><p>Making MySQL Secure Against Attackers</p>
+<p>连接到MySQL server时，应使用密码。密码在连接时不会以明文形式传输。所有其它信息都以文本形式传输，对任何能够看到连接的人都可读。如果连接通过不信任的网络，则可以使用压缩协议使流量更难以解密。你还可以使用MySQL的内部SSL支持来使连接更安全。或者，使用SSH在MySQL server和client之间获得加密的TCP/IP连接。</p>
+<p>要使得MySQL系统安全，你应该强烈考虑以下建议：</p>
+<ul>
+<li>要求所有MySQL账户都有密码</li>
+<li>确保只有Unix用户账户对数据库目录具有读写权限，它是用于运行mysqld的账户</li>
+<li>永远不要以root用户运行MySQL server，应该使用普通的非特权用户运行</li>
+<li>MySQL用户账户和Unix系统账户没有关联</li>
+<li>不要对非管理员用户授予<code>FILE</code>权限，具有此权限的用户都可使用mysqld daemon的权限在文件系统的任何位置编写文件，同样也可读取文件，并将文件载入数据库</li>
+<li>不要对非管理员用户授予<code>PROCESS</code>或<code>SUPER</code>权限(可用于终止连接，修改系统变量…)</li>
+<li>不允许对表使用符号链接</li>
+<li>安全地存储程序和视图</li>
+<li>如果不信任DNS，则应在授权表中使用IP地址而非主机名</li>
+<li>如果想要限制单个账户的连接数，可在mysqld中配置<code>max_user_connection</code>变量</li>
+<li>如果插件目录对server可写，这可修改它为只读</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#服务</span><br><span class="line">cat /usr/lib/systemd/system/mysqld.service</span><br><span class="line">[Service]</span><br><span class="line">User=mysql</span><br><span class="line">Group=mysql</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#或配置文件</span><br><span class="line">/etc/my.cnf</span><br><span class="line">[mysqld]</span><br><span class="line">user=mysql</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#查看当前正在执行的语句</span><br><span class="line">msyql&gt; SHOW PROCESSLIST;</span><br><span class="line">+----+------+-----------+-------+---------+------+----------+------------------+</span><br><span class="line">| Id | User | Host      | db    | Command | Time | State    | Info             |</span><br><span class="line">+----+------+-----------+-------+---------+------+----------+------------------+</span><br><span class="line">| 18 | root | localhost | mysql | Query   |    0 | starting | SHOW PROCESSLIST |</span><br><span class="line">+----+------+-----------+-------+---------+------+----------+------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Disabling symbolic-links is recommended to prevent assorted security risks</span><br><span class="line">cat /etc/my.cnf</span><br><span class="line">symbolic-links=0</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="安全相关的mysqld选项和变量"><a href="#安全相关的mysqld选项和变量" class="headerlink" title="安全相关的mysqld选项和变量"></a>安全相关的mysqld选项和变量</h3><p>Security-Related mysqld Options and Variables</p>
+<p>下表显示了影响安全性的mysqld的选项和系统变量:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Cmd-Line</th>
+<th>Option File</th>
+<th>System Var</th>
+<th>Status Var</th>
+<th>Var Scope</th>
+<th>Dynamic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>allow-suspicious-udfs</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>automatic_sp_privileges</td>
+<td></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+<td>Global</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>chroot</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>des-key-file</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>local_infile</td>
+<td></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+<td>Global</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>old_passwords</td>
+<td></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+<td>Both</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>safe-user-create</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>secure-auth</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+<td>Global</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>- Variable: secure_auth</td>
+<td></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+<td>Global</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>secure-file-priv</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+<td>Global</td>
+<td>No</td>
+</tr>
+<tr>
+<td>- Variable: secure_file_priv</td>
+<td></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+<td>Global</td>
+<td>No</td>
+</tr>
+<tr>
+<td>skip-grant-tables</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>skip-name-resolve</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+<td>Global</td>
+<td>No</td>
+</tr>
+<tr>
+<td>- Variable: skip_name_resolve</td>
+<td></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+<td>Global</td>
+<td>No</td>
+</tr>
+<tr>
+<td>skip-networking</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+<td>Global</td>
+<td>No</td>
+</tr>
+<tr>
+<td>- Variable: skip_networking</td>
+<td></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+<td>Global</td>
+<td>No</td>
+</tr>
+<tr>
+<td>skip-show-database</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+<td>Global</td>
+<td>No</td>
+</tr>
+<tr>
+<td>- Variable: skip_show_database</td>
+<td></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+<td>Global</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h3 id="以普通用户运行MySQL"><a href="#以普通用户运行MySQL" class="headerlink" title="以普通用户运行MySQL"></a>以普通用户运行MySQL</h3><p>How to Run MySQL as a Normal User</p>
+<p>在Linux上，使用MySQL-repo、RPM包、Debian包来安装MySQL。MySQL server mysqld默认是由操作系统的mysql用户来启动。</p>
+<p>对于使用<code>.tar.gz</code>包进行的安装，你需要修改为non-root用户。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">chown -R user_name /path/to/mysql/datadir</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vim /etc/my.cnf</span><br><span class="line">[mysqld]</span><br><span class="line">user=user_name</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="LOAD-DATA-LOCAL的安全问题"><a href="#LOAD-DATA-LOCAL的安全问题" class="headerlink" title="LOAD DATA LOCAL的安全问题"></a><code>LOAD DATA LOCAL</code>的安全问题</h3><p><code>LOAD DATA</code>语句可以载入主机上的文件。</p>
+<p>这有两个潜在的安全问题：</p>
+<ul>
+<li>从Client到Server的文件传输是由MySQL server启动。理论上，server可告诉client传输server选择的文件而不是<code>LOAD DATA</code>语句中client指定的文件。这样，server可以访问client端用户可访问的任何文件。</li>
+<li>在client从web server连接的Web环境中，用户可使用<code>LOAD DATA LOCAL</code>来读取Web server进程具有访问权限的任何文件。</li>
+</ul>
+<p>为了避免<code>LOAD DATA</code>问题，客户端应该避免使用<code>LOCAL</code>。为避免连接到不受信任的Server，Client可通过<code>--ssl-mode=xxx</code>选项和相应的CA证书建立安全的连接。</p>
+<p><br></p>
+<p>要是管理员和应用程序能够管理本地数据加载功能，<code>LOCAL</code>配置的工作方式如下：</p>
+<ul>
+<li><p>On the server side<br><code>local_infile</code>系统变量控制服务器端的<code>LOCAL</code>功能。默认启用<code>local_infile</code>。</p>
+</li>
+<li><p>On the client side<br><code>ENABLED_LOCAL_INFILE</code> CMake选项控制MySQL Client Library的已编译的默认<code>LOCAL</code>功能。<br>使用C API的客户端程序可通过调用<code>mysql_options()</code>来启用/禁用<code>MYSQL_OPT_LOCAL_INFILE</code>。<br>对于mysql Client，默认禁止本地数据载入。使用<code>--local-infile=1/0</code><br>对于mysqlimport client，默认禁用本地数据载入。使用<code>--local=1/0</code></p>
+</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="客户端程序安全指南"><a href="#客户端程序安全指南" class="headerlink" title="客户端程序安全指南"></a>客户端程序安全指南</h3><p>Client Programming Security Guidelines</p>
+<p>访问MySQL的应用程序不应该信任用户输入的任何数据，用户可以尝试通过在Web表单，URL或构建的任何应用程序中输入特殊字符序列来欺骗你。如果用户输入<code>DROP DATABASE mysql;</code>类似语句，请确保你的应用程序保持安全，这是一个极端栗子。<br>有时人们会认为，如果数据库只包含公开可用的数据，则无需受到保护。这是不正确的。即使允许在数据库中显示任何行，你仍应该防止拒绝服务攻击。</p>
+<p>检查清单：</p>
+<ul>
+<li>启用更严格的SQL模式以告知server对其接收的数据做更多限制</li>
+<li>注意单/双引号</li>
+<li>通过添加<code>%22(&quot;), %23(&quot;), %27(&#39;)</code>来修改动态URLs</li>
+<li>动态修改URL中的数据类型</li>
+<li>尝试输入字符、空格和特殊符号，而不是 数字</li>
+<li>将数据传递给MySQL前检查数据大小</li>
+<li>使用不同于管理员的用户将应用程序连接到数据库</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="访问权限系统"><a href="#访问权限系统" class="headerlink" title="访问权限系统"></a>访问权限系统</h2><p>The MySQL Access Privilege System</p>
+<p>MySQL权限系统的主要功能就是对从给定主机连接的用户进行身份认证，并将用户与数据库的权限(<code>SELECT, INSERT, UPDATE, DELETE</code>)相关联。其它功能包含匿名用户(anonymous user)和MySQL特定功能的授权。</p>
+<p>有些事情你无法使用MySQL权限系统：</p>
+<ul>
+<li>你无法明确指定拒绝给定用户访问</li>
+<li>你无法指定用户创建/删除表的权限，但不能指定创建/删除数据库自身</li>
+<li>适用于账户全局性的密码</li>
+</ul>
+<p><br></p>
+<p>MySQL权限系统的用户接口(user interface)由： <code>CREATE USER, GRANT, REVOKE</code>语句组成。</p>
+<p>在内部，Server将权限信息存储在<code>mysql</code>数据库的授权表中。MySQL server在启动时将这些表内容读入内存，并根据授权表的内存中的副本建立访问控制决策。<br>MySQL权限系统确保所有用户只能执行允许的操作。作为用户，当你连接到MySQL server时，你的身份由你连接的主机和你指定的用户名决定。在连接后，系统会根据你的身份和要执行的操作授予权限。<br>MySQL会识别你的主机名和用户名，因为没有理由认为给定的用户名属于所有主机上的同一个人。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SHOW GRANTS;</span><br><span class="line"></span><br><span class="line">SHOW GRANTS FOR &apos;joe&apos;@&apos;office.example.com&apos;;</span><br><span class="line">SHOW GRANTS FOR &apos;joe&apos;@&apos;home.example.com&apos;;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>当运行客户端程序连接到server时，MySQL访问控制包含两个阶段：</p>
+<ol>
+<li>server根据你的身份来接受/拒绝连接，以及你是否可通过提供正确的密码来验证你的身份</li>
+<li>假设你可以连接，server会检查你发出的每个语句，以确定是否有足够的权限来执行它</li>
+</ol>
+<p><br><br><br></p>
+<h3 id="MySQL提供的权限"><a href="#MySQL提供的权限" class="headerlink" title="MySQL提供的权限"></a>MySQL提供的权限</h3><p>Privileges Provided by MySQL</p>
+<p>授予MySQL账户的权限决定了账户可以指定的操作。MySQL权限在它们适用的上下文和不同操作级别上有所不同：</p>
+<ul>
+<li>管理员权限(Administrative privileges)允许用户管理MySQL Server的操作。这些权限是全局的，因为它们不是特定于特定数据库</li>
+<li>数据库权限(privileges for database)适用于数据库及其中的所有对象。可以为特定数据库或全局赋予这些权限，以便它们适用于所有数据库</li>
+<li>数据库对象权限(privileges for database object)，如表，索引，视图…</li>
+</ul>
+<p><br><br><br></p>
+<h4 id="可用权限"><a href="#可用权限" class="headerlink" title="可用权限"></a>可用权限</h4><p>Summary of Available Privileges</p>
+<p>下表显示了<code>GRANT</code>和<code>REVOKE</code>语句中使用的权限名称，以及每个权限关联的列名和权限适用的上下文:</p>
+<table>
+<thead>
+<tr>
+<th>Privilege</th>
+<th>Grant Table Column</th>
+<th>Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALL [PRIVILEGES]</td>
+<td>Synonym for “all privileges”</td>
+<td>Server administration</td>
+</tr>
+<tr>
+<td>ALTER</td>
+<td>Alter_priv</td>
+<td>Tables</td>
+</tr>
+<tr>
+<td>ALTER ROUTINE</td>
+<td>Alter_routine_priv</td>
+<td>Stored routines</td>
+</tr>
+<tr>
+<td>CREATE</td>
+<td>Create_priv</td>
+<td>Databases, tables, or indexes</td>
+</tr>
+<tr>
+<td>CREATE ROUTINE</td>
+<td>Create_routine_priv</td>
+<td>Stored routines</td>
+</tr>
+<tr>
+<td>CREATE TABLESPACE</td>
+<td>Create_tablespace_priv</td>
+<td>Server administration</td>
+</tr>
+<tr>
+<td>CREATE TEMPORARY TABLES</td>
+<td>Create_tmp_table_priv</td>
+<td>Tables</td>
+</tr>
+<tr>
+<td>CREATE USER</td>
+<td>Create_user_priv</td>
+<td>Server administration</td>
+</tr>
+<tr>
+<td>CREATE VIEW</td>
+<td>Create_view_priv</td>
+<td>Views</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>Delete_priv</td>
+<td>Tables</td>
+</tr>
+<tr>
+<td>DROP</td>
+<td>Drop_priv</td>
+<td>Databases, tables, or views</td>
+</tr>
+<tr>
+<td>EVENT</td>
+<td>Event_priv</td>
+<td>Databases</td>
+</tr>
+<tr>
+<td>EXECUTE</td>
+<td>Execute_priv</td>
+<td>Stored routines</td>
+</tr>
+<tr>
+<td>FILE</td>
+<td>File_priv</td>
+<td>File access on server host</td>
+</tr>
+<tr>
+<td>GRANT OPTION</td>
+<td>Grant_priv</td>
+<td>Databases, tables, or stored routines</td>
+</tr>
+<tr>
+<td>INDEX</td>
+<td>Index_priv</td>
+<td>Tables</td>
+</tr>
+<tr>
+<td>INSERT</td>
+<td>Insert_priv</td>
+<td>Tables or columns</td>
+</tr>
+<tr>
+<td>LOCK TABLES</td>
+<td>Lock_tables_priv</td>
+<td>Databases</td>
+</tr>
+<tr>
+<td>PROCESS</td>
+<td>Process_priv</td>
+<td>Server administration</td>
+</tr>
+<tr>
+<td>PROXY</td>
+<td>See proxies_priv</td>
+<td>table  Server administration</td>
+</tr>
+<tr>
+<td>REFERENCES</td>
+<td>References_priv</td>
+<td>Databases or tables</td>
+</tr>
+<tr>
+<td>RELOAD</td>
+<td>Reload_priv</td>
+<td>Server administration</td>
+</tr>
+<tr>
+<td>REPLICATION CLIENT</td>
+<td>Repl_client_priv</td>
+<td>Server administration</td>
+</tr>
+<tr>
+<td>REPLICATION SLAVE</td>
+<td>Repl_slave_priv</td>
+<td>Server administration</td>
+</tr>
+<tr>
+<td>SELECT</td>
+<td>Select_priv</td>
+<td>Tables or columns</td>
+</tr>
+<tr>
+<td>SHOW DATABASES</td>
+<td>Show_db_priv</td>
+<td>Server administration</td>
+</tr>
+<tr>
+<td>SHOW VIEW</td>
+<td>Show_view_priv</td>
+<td>Views</td>
+</tr>
+<tr>
+<td>SHUTDOWN</td>
+<td>Shutdown_priv</td>
+<td>Server administration</td>
+</tr>
+<tr>
+<td>SUPER</td>
+<td>Super_priv</td>
+<td>Server administration</td>
+</tr>
+<tr>
+<td>TRIGGER</td>
+<td>Trigger_priv</td>
+<td>Tables</td>
+</tr>
+<tr>
+<td>UPDATE</td>
+<td>Update_priv</td>
+<td>Tables or columns</td>
+</tr>
+<tr>
+<td>USAGE</td>
+<td>Synonym for “no privileges”</td>
+<td>Server administration</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h4 id="授权指南"><a href="#授权指南" class="headerlink" title="授权指南"></a>授权指南</h4><p>Privilege-Granting Guidelines</p>
+<p>最好只向账户授权它所需要的权限，在授予<code>FILE</code>和管理权限时应特别小心:</p>
+<ul>
+<li><code>FILE</code>： 可在MySQL Server主机上读取的任何文件读入数据库表</li>
+<li><code>GRANT OPTION</code>： 使用户能够将其权限授权其他用户。具有不同权限且具有<code>GRANT OPTION</code>权限的两个用户可以组合权限</li>
+<li><code>ALTER</code>: 可通过重命名表来破坏权限系统</li>
+<li><code>SHUTDOWN</code>： 通过终止Server完全拒绝向其它用户提供服务</li>
+<li><code>PROCESS</code>： 用于查看当前正在执行的语句的纯文本，包括设置和更改密码的语句</li>
+<li><code>SUPER</code>： 用于终止其它会话或更改服务器的运行方式</li>
+<li>为mysql系统数据本自身授予的权限可用于更改密码和其它访问权限信息：<ul>
+<li>密码以加密方式存储，因此恶意用户无法简单地读取明文密码。然而，具有对<code>mysql.user</code>表<code>authentication_string</code>列具有写权限的用户可以更改账户密码，然后进行登录</li>
+<li>为mysql系统数据库授予<code>INSERT</code>或<code>UPDATE</code>权限允许用户添加或修改现有权限</li>
+<li>mysql系统数据库的<code>DROP</code>权限使用户能够访问远程权限表，甚至是数据库本身</li>
+</ul>
+</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="授权表"><a href="#授权表" class="headerlink" title="授权表"></a>授权表</h3><p>Grant Tables</p>
+<p>mysql系统数据库包含多个授权表，其中包含有关用户账户及其拥有的权限信息。<br>mysql数据库表包含的授权信息：</p>
+<ul>
+<li><code>user</code>: 用户账户，全局权限，其它非权限列</li>
+<li><code>db</code>: 数据库级别权限</li>
+<li><code>tables_priv</code>：表级别权限</li>
+<li><code>columns_priv</code>： 列级别权限</li>
+<li><code>procs_priv</code>： 存储过程和功能权限</li>
+<li><code>proxies_priv</code>： 代理用户权限</li>
+</ul>
+<p>每个授权表包含的列范围和列权限：</p>
+<ul>
+<li>列范围确定表中每行的范围</li>
+<li>列权限指示表中行授予的权限</li>
+</ul>
+<p>Server以下列方式使用授权表：</p>
+<ul>
+<li><code>user</code>表范围列确定是拒绝还是允许传入连接</li>
+<li><code>db</code>表范围列确定哪些用户可以从哪些主机上访问数据库</li>
+<li><code>tables_priv</code>和<code>columns_priv</code>表更精细，它们适用于表级别和列级别</li>
+<li><code>procs_priv</code>表用于存储的例程</li>
+<li><code>proxies_priv</code>表指示哪些用户可以充当其它用户的代理，以及用户是否可以将<code>PROXY</code>权限授予其它用户</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="指定账户名"><a href="#指定账户名" class="headerlink" title="指定账户名"></a>指定账户名</h3><p>Specifying Account Names</p>
+<p>MySQL账户名由用户名和主机名组成。这样可以为具有相同名称且可以从不同主机连接的用户创建账户。</p>
+<p>在SQL语句中，账户名称遵循以下规则：</p>
+<ul>
+<li>账户名语法为: <code>username@hostname</code></li>
+<li>仅包含用户名的账户相当于<code>username@%</code></li>
+<li>注意反引号、单引号、双引号</li>
+<li>引号的正确用法: <code>&#39;username&#39;@&#39;hostname&#39;</code></li>
+</ul>
+<p>MySQL使用单独的用户名和主机名部分将账户名称存储到mysql系统数据库的授权表中：</p>
+<ul>
+<li><code>user</code>表包含每个账户的一行，<code>user.User</code>，<code>user.Host</code>列存储用户名和主机名，此表还指示了账户具有哪些全局权限</li>
+<li>其它授权表指示账户对数据库和库中对象的权限，这些表也有<code>User, Host</code>列来存储用户名和主机名</li>
+<li>处于访问检查的目的，User value区分大小写，Host value不区分大小写</li>
+</ul>
+<p><br></p>
+<p>用户名和主机名还具有某些特殊值或通配符约定，如下:<br>账户名的用户名部分是非空白值，或者是与任何用户名匹配的空值。具有空白用户名的账户是匿名用户(anonymous user)。在SQL语句中指定一个匿名用户，使用带引号的空用户名，如<code>&#39;&#39;@&#39;localhost&#39;</code>。</p>
+<p>账户名的主机名部分可以采用多种形式，并允许使用通配符：</p>
+<ul>
+<li><p>host value可以是主机名或IP地址(ipv4, ipv6)</p>
+</li>
+<li><p>主机名或IP地址值中允许使用<code>%</code>和<code>_</code>通配符。<br>例如，主机值<code>%</code>匹配任何主机名，如<code>%.mysql.com</code>匹配<code>mysql.com</code>域中的任何主机。</p>
+</li>
+<li><p>对于IPv4地址，可以给出网络掩码以指示用于网络号的地址位数</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;test&apos;@&apos;198.51.100.0/255.255.255.0；</span><br></pre></td></tr></table></figure>
+<p>Server使用系统DNS解析程序为客户端主机名或IP地址返回的值，意味着你应该使用DNS使用的相同格式指定的账户主机值。</p>
+<p><br><br><br></p>
+<h3 id="连接验证"><a href="#连接验证" class="headerlink" title="连接验证"></a>连接验证</h3><p>Access Control, Stage 1: Connection Verification</p>
+<p><br><br><br></p>
 <hr>
 <p><br></p>
 <h1 id="备份和恢复"><a href="#备份和恢复" class="headerlink" title="备份和恢复"></a>备份和恢复</h1><p>Backup and Recovery</p>
@@ -2542,7 +3136,7 @@
 <li>date/time</li>
 <li>string<ul>
 <li>character</li>
-<li>byre</li>
+<li>byte</li>
 </ul>
 </li>
 <li>JSON</li>
@@ -2768,7 +3362,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2790,7 +3384,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">48</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2855,7 +3449,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#序言"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">2.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于此手册"><span class="nav-number">2.1.</span> <span class="nav-text">关于此手册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据库管理系统"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL数据库管理系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL介绍"><span class="nav-number">2.2.1.</span> <span class="nav-text">MySQL介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL主要特点"><span class="nav-number">2.2.2.</span> <span class="nav-text">MySQL主要特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Internals-and-Portability"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">Internals and Portability</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据类型"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态和功能"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">状态和功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展性和限制"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">扩展性和限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地化"><span class="nav-number">2.2.2.6.</span> <span class="nav-text">本地化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端和工具"><span class="nav-number">2.2.2.7.</span> <span class="nav-text">客户端和工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL历史"><span class="nav-number">2.2.3.</span> <span class="nav-text">MySQL历史</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL5-7新特色"><span class="nav-number">2.3.</span> <span class="nav-text">MySQL5.7新特色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7新功能"><span class="nav-number">2.3.1.</span> <span class="nav-text">MySQL5.7新功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中过期的功能"><span class="nav-number">2.3.2.</span> <span class="nav-text">MySQL5.7中过期的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中移除的功能"><span class="nav-number">2.3.3.</span> <span class="nav-text">MySQL5.7中移除的功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7"><span class="nav-number">2.4.</span> <span class="nav-text">Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL信息源"><span class="nav-number">2.5.</span> <span class="nav-text">MySQL信息源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL站点"><span class="nav-number">2.5.1.</span> <span class="nav-text">MySQL站点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装和升级"><span class="nav-number">3.</span> <span class="nav-text">安装和升级</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用安装指南"><span class="nav-number">3.1.</span> <span class="nav-text">通用安装指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装哪个发行版和MySQL版本"><span class="nav-number">3.1.1.</span> <span class="nav-text">安装哪个发行版和MySQL版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何获取MySQL"><span class="nav-number">3.1.2.</span> <span class="nav-text">如何获取MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用MD5校验和或GnuPG验证程序完整性"><span class="nav-number">3.1.3.</span> <span class="nav-text">使用MD5校验和或GnuPG验证程序完整性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#验证MD5校验和"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">验证MD5校验和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用GnuPG进行签名检查"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">使用GnuPG进行签名检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用RPM进行签名检查"><span class="nav-number">3.1.3.3.</span> <span class="nav-text">使用RPM进行签名检查</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装布局"><span class="nav-number">3.1.4.</span> <span class="nav-text">安装布局</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Unix-Linux上使用通用二进制文件安装MySQL"><span class="nav-number">3.2.</span> <span class="nav-text">在Unix/Linux上使用通用二进制文件安装MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Linux上安装MySQL"><span class="nav-number">3.3.</span> <span class="nav-text">在Linux上安装MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在Linux上使用Yum-Repository安装MySQL"><span class="nav-number">3.3.1.</span> <span class="nav-text">在Linux上使用Yum Repository安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在Linux上使用Oracle提供的RPM包安装MySQL"><span class="nav-number">3.3.2.</span> <span class="nav-text">在Linux上使用Oracle提供的RPM包安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用systemd管理MySQL-Server"><span class="nav-number">3.3.3.</span> <span class="nav-text">用systemd管理MySQL Server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#systemd综述"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">systemd综述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为MySQL配置systemd"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">为MySQL配置systemd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用systemd配置多个MySQL实例"><span class="nav-number">3.3.3.3.</span> <span class="nav-text">使用systemd配置多个MySQL实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从mysqld-safe迁移到systemd"><span class="nav-number">3.3.3.4.</span> <span class="nav-text">从mysqld_safe迁移到systemd</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从源码安装MySQL"><span class="nav-number">3.4.</span> <span class="nav-text">从源码安装MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用于源码安装的MySQL布局"><span class="nav-number">3.4.1.</span> <span class="nav-text">用于源码安装的MySQL布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用标准源码发行版安装MySQL"><span class="nav-number">3.4.2.</span> <span class="nav-text">使用标准源码发行版安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用开发源码树安装MySQL"><span class="nav-number">3.4.3.</span> <span class="nav-text">使用开发源码树安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL源码配置选项"><span class="nav-number">3.4.4.</span> <span class="nav-text">MySQL源码配置选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理MySQL编译问题"><span class="nav-number">3.4.5.</span> <span class="nav-text">处理MySQL编译问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装之后的设置和测试"><span class="nav-number">3.5.</span> <span class="nav-text">安装之后的设置和测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化数据目录"><span class="nav-number">3.5.1.</span> <span class="nav-text">初始化数据目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用mysqld手动初始化数据目录"><span class="nav-number">3.5.1.1.</span> <span class="nav-text">使用mysqld手动初始化数据目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用mysql-install-db初始化数据目录"><span class="nav-number">3.5.1.2.</span> <span class="nav-text">使用mysql_install_db初始化数据目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Starting-the-Server"><span class="nav-number">3.5.2.</span> <span class="nav-text">Starting the Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Testing-the-Server"><span class="nav-number">3.5.3.</span> <span class="nav-text">Testing the Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保护初始化MySQL账户"><span class="nav-number">3.5.4.</span> <span class="nav-text">保护初始化MySQL账户</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级或降级MySQL"><span class="nav-number">3.6.</span> <span class="nav-text">升级或降级MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#升级MySQL"><span class="nav-number">3.6.1.</span> <span class="nav-text">升级MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL升级策略"><span class="nav-number">3.6.1.1.</span> <span class="nav-text">MySQL升级策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过MySQL-Yum-Repository进行升级"><span class="nav-number">3.6.1.2.</span> <span class="nav-text">通过MySQL Yum Repository进行升级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过直接下载RPM包升级MySQL"><span class="nav-number">3.6.1.3.</span> <span class="nav-text">通过直接下载RPM包升级MySQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql降级"><span class="nav-number">3.6.2.</span> <span class="nav-text">mysql降级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重建或修复表或索引"><span class="nav-number">3.6.3.</span> <span class="nav-text">重建或修复表或索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制MySQL数据库到其他机器"><span class="nav-number">3.6.4.</span> <span class="nav-text">复制MySQL数据库到其他机器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tutorial"><span class="nav-number">4.</span> <span class="nav-text">Tutorial</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#连接和断开服务器"><span class="nav-number">4.1.</span> <span class="nav-text">连接和断开服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入查询"><span class="nav-number">4.2.</span> <span class="nav-text">输入查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建和使用数据库"><span class="nav-number">4.3.</span> <span class="nav-text">创建和使用数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建和选择数据库"><span class="nav-number">4.3.1.</span> <span class="nav-text">创建和选择数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建表"><span class="nav-number">4.3.2.</span> <span class="nav-text">创建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将数据载入表格"><span class="nav-number">4.3.3.</span> <span class="nav-text">将数据载入表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从表中检索信息"><span class="nav-number">4.3.4.</span> <span class="nav-text">从表中检索信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询所有数据"><span class="nav-number">4.3.4.1.</span> <span class="nav-text">查询所有数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询特定行"><span class="nav-number">4.3.4.2.</span> <span class="nav-text">查询特定行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询特定列"><span class="nav-number">4.3.4.3.</span> <span class="nav-text">查询特定列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行排序"><span class="nav-number">4.3.4.4.</span> <span class="nav-text">行排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日期计算"><span class="nav-number">4.3.4.5.</span> <span class="nav-text">日期计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用NULL值"><span class="nav-number">4.3.4.6.</span> <span class="nav-text">使用NULL值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模式匹配"><span class="nav-number">4.3.4.7.</span> <span class="nav-text">模式匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行数计算"><span class="nav-number">4.3.4.8.</span> <span class="nav-text">行数计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用多个表"><span class="nav-number">4.3.4.9.</span> <span class="nav-text">使用多个表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取数据库和表的信息"><span class="nav-number">4.4.</span> <span class="nav-text">获取数据库和表的信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在批处理下使用mysql"><span class="nav-number">4.5.</span> <span class="nav-text">在批处理下使用mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见查询"><span class="nav-number">4.6.</span> <span class="nav-text">常见查询</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL程序"><span class="nav-number">5.</span> <span class="nav-text">MySQL程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL程序概述"><span class="nav-number">5.1.</span> <span class="nav-text">MySQL程序概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用MySQL程序"><span class="nav-number">5.2.</span> <span class="nav-text">使用MySQL程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用MySQL程序"><span class="nav-number">5.2.1.</span> <span class="nav-text">调用MySQL程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接到MySQL-Server"><span class="nav-number">5.2.2.</span> <span class="nav-text">连接到MySQL Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">5.2.3.</span> <span class="nav-text">配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Server"><span class="nav-number">5.3.</span> <span class="nav-text">MySQL Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysqld"><span class="nav-number">5.3.1.</span> <span class="nav-text">mysqld</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-safe"><span class="nav-number">5.3.2.</span> <span class="nav-text">mysql_safe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-server"><span class="nav-number">5.3.3.</span> <span class="nav-text">mysql.server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysqld-multi"><span class="nav-number">5.3.4.</span> <span class="nav-text">mysqld_multi</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL安装相关程序"><span class="nav-number">5.4.</span> <span class="nav-text">MySQL安装相关程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#com-err"><span class="nav-number">5.4.1.</span> <span class="nav-text">com_err</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-install-db"><span class="nav-number">5.4.2.</span> <span class="nav-text">mysql_install_db</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-plugin"><span class="nav-number">5.4.3.</span> <span class="nav-text">mysql_plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-secure-installation"><span class="nav-number">5.4.4.</span> <span class="nav-text">mysql_secure_installation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-ssl-rsa-setup"><span class="nav-number">5.4.5.</span> <span class="nav-text">mysql_ssl_rsa_setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-tzinfo-to-sql"><span class="nav-number">5.4.6.</span> <span class="nav-text">mysql_tzinfo_to_sql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#msyql-upgrade"><span class="nav-number">5.4.7.</span> <span class="nav-text">msyql_upgrade</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL客户端程序"><span class="nav-number">5.5.</span> <span class="nav-text">MySQL客户端程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql"><span class="nav-number">5.6.</span> <span class="nav-text">mysql</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql选项"><span class="nav-number">5.6.1.</span> <span class="nav-text">mysql选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql命令"><span class="nav-number">5.6.2.</span> <span class="nav-text">mysql命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql服务端帮助"><span class="nav-number">5.6.3.</span> <span class="nav-text">mysql服务端帮助</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从文本文件执行SQL语句"><span class="nav-number">5.6.4.</span> <span class="nav-text">从文本文件执行SQL语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL管理和实用程序"><span class="nav-number">5.7.</span> <span class="nav-text">MySQL管理和实用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql开发实用程序"><span class="nav-number">5.8.</span> <span class="nav-text">mysql开发实用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#杂项程序"><span class="nav-number">5.9.</span> <span class="nav-text">杂项程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL环境变量"><span class="nav-number">5.10.</span> <span class="nav-text">MySQL环境变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-Server管理"><span class="nav-number">6.</span> <span class="nav-text">MySQL Server管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Server-1"><span class="nav-number">6.1.</span> <span class="nav-text">MySQL Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据目录"><span class="nav-number">6.2.</span> <span class="nav-text">MySQL数据目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql数据库"><span class="nav-number">6.3.</span> <span class="nav-text">mysql数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Server-Logs"><span class="nav-number">6.4.</span> <span class="nav-text">MySQL Server Logs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#错误日志"><span class="nav-number">6.4.1.</span> <span class="nav-text">错误日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般查询日志"><span class="nav-number">6.4.2.</span> <span class="nav-text">一般查询日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制日志"><span class="nav-number">6.4.3.</span> <span class="nav-text">二进制日志</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安全-1"><span class="nav-number">7.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备份和恢复"><span class="nav-number">8.</span> <span class="nav-text">备份和恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化"><span class="nav-number">9.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语言结构"><span class="nav-number">10.</span> <span class="nav-text">语言结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符集和编码"><span class="nav-number">11.</span> <span class="nav-text">字符集和编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型-1"><span class="nav-number">12.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数字"><span class="nav-number">12.1.</span> <span class="nav-text">数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期和时间"><span class="nav-number">12.2.</span> <span class="nav-text">日期和时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">12.3.</span> <span class="nav-text">字符串</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#序言"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">2.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于此手册"><span class="nav-number">2.1.</span> <span class="nav-text">关于此手册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据库管理系统"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL数据库管理系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL介绍"><span class="nav-number">2.2.1.</span> <span class="nav-text">MySQL介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL主要特点"><span class="nav-number">2.2.2.</span> <span class="nav-text">MySQL主要特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Internals-and-Portability"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">Internals and Portability</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据类型"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态和功能"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">状态和功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展性和限制"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">扩展性和限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地化"><span class="nav-number">2.2.2.6.</span> <span class="nav-text">本地化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端和工具"><span class="nav-number">2.2.2.7.</span> <span class="nav-text">客户端和工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL历史"><span class="nav-number">2.2.3.</span> <span class="nav-text">MySQL历史</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL5-7新特色"><span class="nav-number">2.3.</span> <span class="nav-text">MySQL5.7新特色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7新功能"><span class="nav-number">2.3.1.</span> <span class="nav-text">MySQL5.7新功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中过期的功能"><span class="nav-number">2.3.2.</span> <span class="nav-text">MySQL5.7中过期的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL5-7中移除的功能"><span class="nav-number">2.3.3.</span> <span class="nav-text">MySQL5.7中移除的功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-and-Status-Variables-and-Options-Added-Deprecated-or-Removed-in-MySQL-5-7"><span class="nav-number">2.4.</span> <span class="nav-text">Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 5.7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL信息源"><span class="nav-number">2.5.</span> <span class="nav-text">MySQL信息源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL站点"><span class="nav-number">2.5.1.</span> <span class="nav-text">MySQL站点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装和升级"><span class="nav-number">3.</span> <span class="nav-text">安装和升级</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用安装指南"><span class="nav-number">3.1.</span> <span class="nav-text">通用安装指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装哪个发行版和MySQL版本"><span class="nav-number">3.1.1.</span> <span class="nav-text">安装哪个发行版和MySQL版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何获取MySQL"><span class="nav-number">3.1.2.</span> <span class="nav-text">如何获取MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用MD5校验和或GnuPG验证程序完整性"><span class="nav-number">3.1.3.</span> <span class="nav-text">使用MD5校验和或GnuPG验证程序完整性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#验证MD5校验和"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">验证MD5校验和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用GnuPG进行签名检查"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">使用GnuPG进行签名检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用RPM进行签名检查"><span class="nav-number">3.1.3.3.</span> <span class="nav-text">使用RPM进行签名检查</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装布局"><span class="nav-number">3.1.4.</span> <span class="nav-text">安装布局</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Unix-Linux上使用通用二进制文件安装MySQL"><span class="nav-number">3.2.</span> <span class="nav-text">在Unix/Linux上使用通用二进制文件安装MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Linux上安装MySQL"><span class="nav-number">3.3.</span> <span class="nav-text">在Linux上安装MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在Linux上使用Yum-Repository安装MySQL"><span class="nav-number">3.3.1.</span> <span class="nav-text">在Linux上使用Yum Repository安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在Linux上使用Oracle提供的RPM包安装MySQL"><span class="nav-number">3.3.2.</span> <span class="nav-text">在Linux上使用Oracle提供的RPM包安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用systemd管理MySQL-Server"><span class="nav-number">3.3.3.</span> <span class="nav-text">用systemd管理MySQL Server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#systemd综述"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">systemd综述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为MySQL配置systemd"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">为MySQL配置systemd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用systemd配置多个MySQL实例"><span class="nav-number">3.3.3.3.</span> <span class="nav-text">使用systemd配置多个MySQL实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从mysqld-safe迁移到systemd"><span class="nav-number">3.3.3.4.</span> <span class="nav-text">从mysqld_safe迁移到systemd</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从源码安装MySQL"><span class="nav-number">3.4.</span> <span class="nav-text">从源码安装MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用于源码安装的MySQL布局"><span class="nav-number">3.4.1.</span> <span class="nav-text">用于源码安装的MySQL布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用标准源码发行版安装MySQL"><span class="nav-number">3.4.2.</span> <span class="nav-text">使用标准源码发行版安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用开发源码树安装MySQL"><span class="nav-number">3.4.3.</span> <span class="nav-text">使用开发源码树安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL源码配置选项"><span class="nav-number">3.4.4.</span> <span class="nav-text">MySQL源码配置选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理MySQL编译问题"><span class="nav-number">3.4.5.</span> <span class="nav-text">处理MySQL编译问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装之后的设置和测试"><span class="nav-number">3.5.</span> <span class="nav-text">安装之后的设置和测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化数据目录"><span class="nav-number">3.5.1.</span> <span class="nav-text">初始化数据目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用mysqld手动初始化数据目录"><span class="nav-number">3.5.1.1.</span> <span class="nav-text">使用mysqld手动初始化数据目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用mysql-install-db初始化数据目录"><span class="nav-number">3.5.1.2.</span> <span class="nav-text">使用mysql_install_db初始化数据目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Starting-the-Server"><span class="nav-number">3.5.2.</span> <span class="nav-text">Starting the Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Testing-the-Server"><span class="nav-number">3.5.3.</span> <span class="nav-text">Testing the Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保护初始化MySQL账户"><span class="nav-number">3.5.4.</span> <span class="nav-text">保护初始化MySQL账户</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级或降级MySQL"><span class="nav-number">3.6.</span> <span class="nav-text">升级或降级MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#升级MySQL"><span class="nav-number">3.6.1.</span> <span class="nav-text">升级MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL升级策略"><span class="nav-number">3.6.1.1.</span> <span class="nav-text">MySQL升级策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过MySQL-Yum-Repository进行升级"><span class="nav-number">3.6.1.2.</span> <span class="nav-text">通过MySQL Yum Repository进行升级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过直接下载RPM包升级MySQL"><span class="nav-number">3.6.1.3.</span> <span class="nav-text">通过直接下载RPM包升级MySQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql降级"><span class="nav-number">3.6.2.</span> <span class="nav-text">mysql降级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重建或修复表或索引"><span class="nav-number">3.6.3.</span> <span class="nav-text">重建或修复表或索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制MySQL数据库到其他机器"><span class="nav-number">3.6.4.</span> <span class="nav-text">复制MySQL数据库到其他机器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tutorial"><span class="nav-number">4.</span> <span class="nav-text">Tutorial</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#连接和断开服务器"><span class="nav-number">4.1.</span> <span class="nav-text">连接和断开服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入查询"><span class="nav-number">4.2.</span> <span class="nav-text">输入查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建和使用数据库"><span class="nav-number">4.3.</span> <span class="nav-text">创建和使用数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建和选择数据库"><span class="nav-number">4.3.1.</span> <span class="nav-text">创建和选择数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建表"><span class="nav-number">4.3.2.</span> <span class="nav-text">创建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将数据载入表格"><span class="nav-number">4.3.3.</span> <span class="nav-text">将数据载入表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从表中检索信息"><span class="nav-number">4.3.4.</span> <span class="nav-text">从表中检索信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询所有数据"><span class="nav-number">4.3.4.1.</span> <span class="nav-text">查询所有数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询特定行"><span class="nav-number">4.3.4.2.</span> <span class="nav-text">查询特定行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询特定列"><span class="nav-number">4.3.4.3.</span> <span class="nav-text">查询特定列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行排序"><span class="nav-number">4.3.4.4.</span> <span class="nav-text">行排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日期计算"><span class="nav-number">4.3.4.5.</span> <span class="nav-text">日期计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用NULL值"><span class="nav-number">4.3.4.6.</span> <span class="nav-text">使用NULL值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模式匹配"><span class="nav-number">4.3.4.7.</span> <span class="nav-text">模式匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行数计算"><span class="nav-number">4.3.4.8.</span> <span class="nav-text">行数计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用多个表"><span class="nav-number">4.3.4.9.</span> <span class="nav-text">使用多个表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取数据库和表的信息"><span class="nav-number">4.4.</span> <span class="nav-text">获取数据库和表的信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在批处理下使用mysql"><span class="nav-number">4.5.</span> <span class="nav-text">在批处理下使用mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见查询"><span class="nav-number">4.6.</span> <span class="nav-text">常见查询</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL程序"><span class="nav-number">5.</span> <span class="nav-text">MySQL程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL程序概述"><span class="nav-number">5.1.</span> <span class="nav-text">MySQL程序概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用MySQL程序"><span class="nav-number">5.2.</span> <span class="nav-text">使用MySQL程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用MySQL程序"><span class="nav-number">5.2.1.</span> <span class="nav-text">调用MySQL程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接到MySQL-Server"><span class="nav-number">5.2.2.</span> <span class="nav-text">连接到MySQL Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">5.2.3.</span> <span class="nav-text">配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Server"><span class="nav-number">5.3.</span> <span class="nav-text">MySQL Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysqld"><span class="nav-number">5.3.1.</span> <span class="nav-text">mysqld</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-safe"><span class="nav-number">5.3.2.</span> <span class="nav-text">mysql_safe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-server"><span class="nav-number">5.3.3.</span> <span class="nav-text">mysql.server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysqld-multi"><span class="nav-number">5.3.4.</span> <span class="nav-text">mysqld_multi</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL安装相关程序"><span class="nav-number">5.4.</span> <span class="nav-text">MySQL安装相关程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#com-err"><span class="nav-number">5.4.1.</span> <span class="nav-text">com_err</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-install-db"><span class="nav-number">5.4.2.</span> <span class="nav-text">mysql_install_db</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-plugin"><span class="nav-number">5.4.3.</span> <span class="nav-text">mysql_plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-secure-installation"><span class="nav-number">5.4.4.</span> <span class="nav-text">mysql_secure_installation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-ssl-rsa-setup"><span class="nav-number">5.4.5.</span> <span class="nav-text">mysql_ssl_rsa_setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-tzinfo-to-sql"><span class="nav-number">5.4.6.</span> <span class="nav-text">mysql_tzinfo_to_sql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#msyql-upgrade"><span class="nav-number">5.4.7.</span> <span class="nav-text">msyql_upgrade</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL客户端程序"><span class="nav-number">5.5.</span> <span class="nav-text">MySQL客户端程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql"><span class="nav-number">5.6.</span> <span class="nav-text">mysql</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql选项"><span class="nav-number">5.6.1.</span> <span class="nav-text">mysql选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql命令"><span class="nav-number">5.6.2.</span> <span class="nav-text">mysql命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql服务端帮助"><span class="nav-number">5.6.3.</span> <span class="nav-text">mysql服务端帮助</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从文本文件执行SQL语句"><span class="nav-number">5.6.4.</span> <span class="nav-text">从文本文件执行SQL语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL管理和实用程序"><span class="nav-number">5.7.</span> <span class="nav-text">MySQL管理和实用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql开发实用程序"><span class="nav-number">5.8.</span> <span class="nav-text">mysql开发实用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#杂项程序"><span class="nav-number">5.9.</span> <span class="nav-text">杂项程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL环境变量"><span class="nav-number">5.10.</span> <span class="nav-text">MySQL环境变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-Server管理"><span class="nav-number">6.</span> <span class="nav-text">MySQL Server管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Server-1"><span class="nav-number">6.1.</span> <span class="nav-text">MySQL Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据目录"><span class="nav-number">6.2.</span> <span class="nav-text">MySQL数据目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql数据库"><span class="nav-number">6.3.</span> <span class="nav-text">mysql数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Server-Logs"><span class="nav-number">6.4.</span> <span class="nav-text">MySQL Server Logs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#错误日志"><span class="nav-number">6.4.1.</span> <span class="nav-text">错误日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般查询日志"><span class="nav-number">6.4.2.</span> <span class="nav-text">一般查询日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制日志"><span class="nav-number">6.4.3.</span> <span class="nav-text">二进制日志</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安全-1"><span class="nav-number">7.</span> <span class="nav-text">安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一般安全问题"><span class="nav-number">7.1.</span> <span class="nav-text">一般安全问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安全指南"><span class="nav-number">7.1.1.</span> <span class="nav-text">安全指南</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#密码安全"><span class="nav-number">7.1.2.</span> <span class="nav-text">密码安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#密码安全用户指南"><span class="nav-number">7.1.2.1.</span> <span class="nav-text">密码安全用户指南</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#密码安全管理员指南"><span class="nav-number">7.1.2.2.</span> <span class="nav-text">密码安全管理员指南</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#密码和日志"><span class="nav-number">7.1.2.3.</span> <span class="nav-text">密码和日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#密码散列"><span class="nav-number">7.1.2.4.</span> <span class="nav-text">密码散列</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使MySQL安全抵御攻击者"><span class="nav-number">7.1.3.</span> <span class="nav-text">使MySQL安全抵御攻击者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全相关的mysqld选项和变量"><span class="nav-number">7.1.4.</span> <span class="nav-text">安全相关的mysqld选项和变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以普通用户运行MySQL"><span class="nav-number">7.1.5.</span> <span class="nav-text">以普通用户运行MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LOAD-DATA-LOCAL的安全问题"><span class="nav-number">7.1.6.</span> <span class="nav-text">LOAD DATA LOCAL的安全问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端程序安全指南"><span class="nav-number">7.1.7.</span> <span class="nav-text">客户端程序安全指南</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问权限系统"><span class="nav-number">7.2.</span> <span class="nav-text">访问权限系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL提供的权限"><span class="nav-number">7.2.1.</span> <span class="nav-text">MySQL提供的权限</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可用权限"><span class="nav-number">7.2.1.1.</span> <span class="nav-text">可用权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#授权指南"><span class="nav-number">7.2.1.2.</span> <span class="nav-text">授权指南</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#授权表"><span class="nav-number">7.2.2.</span> <span class="nav-text">授权表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定账户名"><span class="nav-number">7.2.3.</span> <span class="nav-text">指定账户名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接验证"><span class="nav-number">7.2.4.</span> <span class="nav-text">连接验证</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备份和恢复"><span class="nav-number">8.</span> <span class="nav-text">备份和恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化"><span class="nav-number">9.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语言结构"><span class="nav-number">10.</span> <span class="nav-text">语言结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符集和编码"><span class="nav-number">11.</span> <span class="nav-text">字符集和编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型-1"><span class="nav-number">12.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数字"><span class="nav-number">12.1.</span> <span class="nav-text">数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期和时间"><span class="nav-number">12.2.</span> <span class="nav-text">日期和时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">12.3.</span> <span class="nav-text">字符串</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -2887,7 +3481,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 341.5k</span>
+  <span class="post-count"> 字数: 395.2k</span>
 </div>
 
 
