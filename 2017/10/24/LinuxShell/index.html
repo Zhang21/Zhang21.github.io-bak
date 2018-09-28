@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://zhang21.github.io/images/vim.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Utf8webgrowth.png">
 <meta property="og:image" content="https://zhang21.github.io/images/unicode.png">
-<meta property="og:updated_time" content="2018-08-30T01:27:20.000Z">
+<meta property="og:updated_time" content="2018-09-21T02:47:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell">
 <meta name="twitter:description" content="参考：  《Linux Shell脚本攻略》 《鸟哥的Linux私房菜》">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-30T09:27:20+08:00">
-                2018-08-30
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-21T10:47:37+08:00">
+                2018-09-21
               </time>
             
           </span>
@@ -418,7 +418,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  32,842
+                  33,580
                 </span>
               
 
@@ -3062,7 +3062,7 @@
 <li><code>pgrep</code>, look up or signal processes based on name and other attributes.</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ps命令</span></span><br><span class="line"><span class="comment">#-f, 显示更多进程信息</span></span><br><span class="line">ps -f</span><br><span class="line"></span><br><span class="line"><span class="comment">#-e,every; -a,all</span></span><br><span class="line">ps -ef</span><br><span class="line">ps -ax</span><br><span class="line"></span><br><span class="line"><span class="comment">#-o, 指定想要的列</span></span><br><span class="line">ps -e -o parameter1,parameter2...</span><br><span class="line">ps -eo comm,pcpu,pmem</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#pccpu	CPU占用率</span></span><br><span class="line"><span class="comment">#pid	进程ID</span></span><br><span class="line"><span class="comment">#ppid	父进程ID</span></span><br><span class="line"><span class="comment">#pmem	内存使用率</span></span><br><span class="line"><span class="comment">#comm	命令名</span></span><br><span class="line"><span class="comment">#cmd	简单命令</span></span><br><span class="line"><span class="comment">#user	启动进程的用户</span></span><br><span class="line"><span class="comment">#nice	优先级</span></span><br><span class="line"><span class="comment">#time	累积的CPU时间</span></span><br><span class="line"><span class="comment">#etime	进程启动后度过的时间</span></span><br><span class="line"><span class="comment">#tty	所关联的TTY设备</span></span><br><span class="line"><span class="comment">#euid	有效用户ID</span></span><br><span class="line"><span class="comment">#stat	进程状态</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#--sort,根据参数对ps输出进行排序</span></span><br><span class="line"><span class="comment">#+升序，-降序</span></span><br><span class="line">ps -eo comm,pcpu,pmem --sort -pcpu</span><br><span class="line">ps -eo comm,pcpu,pmem --sort -pcpu,+pmem</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#-C, 给定命令全名找出PID</span></span><br><span class="line">ps -C cmd -o comm,pid</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#-u, 指定有效用户列表</span></span><br><span class="line"><span class="comment">#-U, 指定真实用户列表</span></span><br><span class="line">ps -u root -U zhang -o user,pcpu</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#-t, 用TTY过滤输出</span></span><br><span class="line">ps -t TTY1,TTY2...</span><br><span class="line">ps -t pts/0,pts/1 -ef</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#-L, 显示进程相关信息</span></span><br><span class="line"><span class="comment">#LWP线程ID， NLWP线程数量</span></span><br><span class="line">ps -efL</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#pgrep命令, 获得一个特定命令的PID列表</span></span><br><span class="line"><span class="comment">#它只需要命令的一部分即可</span></span><br><span class="line">pgrep cmd</span><br><span class="line">pgre inotif</span><br><span class="line">pgrep bas</span><br><span class="line"></span><br><span class="line"><span class="comment">#-d, 指定定界符</span></span><br><span class="line">pgrep rsync -d <span class="string">":"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#-u, 指定进程的用户</span></span><br><span class="line">pgrep -u root,zhang rsync</span><br><span class="line"></span><br><span class="line"><span class="comment">#-c, 返回匹配的进程数量</span></span><br><span class="line">pgrep -c rsync</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#top命令</span></span><br><span class="line">top</span><br></pre></td></tr></table></figure>
-<p><br></p>
+<p><br><br><br></p>
 <h2 id="杀死进程以及发送响应信息-kill-killall-trap"><a href="#杀死进程以及发送响应信息-kill-killall-trap" class="headerlink" title="杀死进程以及发送响应信息(kill+killall+trap)"></a>杀死进程以及发送响应信息(<code>kill+killall+trap</code>)</h2><p>在Unix-Like环境中与进程有关的一个重要概念就是信号。<br>信号是一种进程间通信机制，它用来中断运行的进程以执行某些操作。终止程序也是通过使用信号技术来实现的。</p>
 <p>像<code>ctrl+C</code>,<code>ctrl+Z</code>这种作业都属于信号。</p>
 <ul>
@@ -3070,8 +3070,42 @@
 <li><code>trap</code> 命令用来处理所接收的信号;</li>
 <li><code>killall</code> 以名字方式来杀死进程.</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#列出所有可用信号</span></span><br><span class="line"><span class="built_in">kill</span> -l</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#-s, 发送信号</span></span><br><span class="line"><span class="comment">#信号名称和信号数都可以</span></span><br><span class="line"><span class="built_in">kill</span> -信号数 PID</span><br><span class="line"><span class="built_in">kill</span> -s SIGNAL PID</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#常用信号</span></span><br><span class="line"><span class="comment">#SIGHUP 1 --对控制进程或终端进行挂起检测(hangup detection);</span></span><br><span class="line"><span class="comment">#SIGINT 2 --当按下ctrl+c时发送该信号;</span></span><br><span class="line"><span class="comment">#SIGKILL 9 --强行杀死进程;</span></span><br><span class="line"><span class="comment">#SIGTERM 15 --终止进程;</span></span><br><span class="line"><span class="comment">#SIGTSTP 20 --当按下crtl+z时发送该信号.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#killall, 通过命令名终止进程</span></span><br><span class="line">killall -s SIGNAL PName</span><br><span class="line">killall -信号数 PName</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#trap, 捕捉并响应信号</span></span><br><span class="line"><span class="built_in">trap</span> <span class="string">'signal-handler-func'</span> SIGNAL LIST</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#列出所有可用信号</span></span><br><span class="line"><span class="built_in">kill</span> -l</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#-s, 发送信号</span></span><br><span class="line"><span class="comment">#信号名称和信号数都可以</span></span><br><span class="line"><span class="built_in">kill</span> -信号数 PID</span><br><span class="line"><span class="built_in">kill</span> -s SIGNAL PID</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#常用信号</span></span><br><span class="line"><span class="comment">#SIGHUP   1    终端断线(对控制进程或终端进行挂起检测(hangup detection))</span></span><br><span class="line"><span class="comment">#SIGINT   2    中断(当按下Ctrl+C时发送该信号)</span></span><br><span class="line"><span class="comment">#SIGQUIT  3    退出(同Ctrl+\)</span></span><br><span class="line"><span class="comment">#SIGKILL  9    强制终止(强行杀死进程)</span></span><br><span class="line"><span class="comment">#SIGTERM  15   终止进程</span></span><br><span class="line"><span class="comment">#SIGCONT  18   继续(与STOP相反，fg/bg命令)</span></span><br><span class="line"><span class="comment">#SIGTST0P 19   暂停(当按下crtl+z时发送该信号)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#killall, 通过命令名终止进程</span></span><br><span class="line">killall -s SIGNAL PName</span><br><span class="line">killall -信号数 PName</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#trap, 捕捉并响应信号</span></span><br><span class="line"><span class="built_in">trap</span> <span class="string">'signal-handler-func'</span> SIGNAL LIST</span><br></pre></td></tr></table></figure>
 <p><br></p>
+<p><strong>kill信号详解</strong><br>参考: <a href="https://www.imooc.com/article/48534" target="_blank" rel="noopener">https://www.imooc.com/article/48534</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ kill -l</span><br><span class="line"> 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL       5) SIGTRAP</span><br><span class="line"> 6) SIGABRT      7) SIGBUS       8) SIGFPE       9) SIGKILL     10) SIGUSR1</span><br><span class="line">11) SIGSEGV     12) SIGUSR2     13) SIGPIPE     14) SIGALRM     15) SIGTERM</span><br><span class="line">16) SIGSTKFLT   17) SIGCHLD     18) SIGCONT     19) SIGSTOP     20) SIGTSTP</span><br><span class="line">21) SIGTTIN     22) SIGTTOU     23) SIGURG      24) SIGXCPU     25) SIGXFSZ</span><br><span class="line">26) SIGVTALRM   27) SIGPROF     28) SIGWINCH    29) SIGIO       30) SIGPWR</span><br><span class="line">31) SIGSYS      34) SIGRTMIN    35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3</span><br><span class="line">38) SIGRTMIN+4  39) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8</span><br><span class="line">43) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13</span><br><span class="line">48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13 52) SIGRTMAX-12</span><br><span class="line">53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7</span><br><span class="line">58) SIGRTMAX-6  59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2</span><br><span class="line">63) SIGRTMAX-1  64) SIGRTMAX</span><br></pre></td></tr></table></figure>
+<p>Linux信号列表：</p>
+<ul>
+<li><code>SIGHUP 1</code>:  A 终端挂起或者控制进程终止</li>
+<li><code>SIGINT 2</code>:  A 键盘中断（如break键被按下）</li>
+<li><code>SIGQUIT 3</code>:  C 键盘的退出键被按下</li>
+<li><code>SIGILL 4</code>:  C 非法指令</li>
+<li><code>SIGABRT 6</code>:  C 由abort(3)发出的退出指令</li>
+<li><code>SIGFPE 8</code>:  C 浮点异常</li>
+<li><code>SIGKILL 9</code>:  AEF Kill信号</li>
+<li><code>SIGSEGV 11</code>:  C 无效的内存引用</li>
+<li><code>SIGPIPE 13</code>:  A 管道破裂: 写一个没有读端口的管道</li>
+<li><code>SIGALRM 14</code>:  A 由alarm(2)发出的信号</li>
+<li><code>SIGTERM 15</code>:  A 终止信号</li>
+<li><code>SIGUSR1 30,10,16</code>:  A 用户自定义信号1</li>
+<li><code>SIGUSR2 31,12,17</code>:  A 用户自定义信号2</li>
+<li><code>SIGCHLD 20,17,18</code>:  B 子进程结束信号</li>
+<li><code>SIGCONT 19,18,25</code>:  进程继续（曾被停止的进程）</li>
+<li><code>SIGSTOP 17,19,23</code>:  DEF 终止进程</li>
+<li><code>SIGTSTP 18,20,24</code>:  D 控制终端（tty）上按下停止键</li>
+<li><code>SIGTTIN 21,21,26</code>:  D 后台进程企图从控制终端读</li>
+<li><code>SIGTTOU 22,22,27</code>:  D 后台进程企图从控制终端写</li>
+</ul>
+<p>处理动作中的字母含义：</p>
+<ul>
+<li><code>A</code>: 缺省的动作是终止进程</li>
+<li><code>B</code>: 缺省的动作是忽略此信号，将该信号丢弃，不做处理</li>
+<li><code>C</code>: 缺省的动作是终止进程并进行内核映像转储（dump core），内核映像转储是指将进程数据在内存的映像和进程在内核结构中的部分内容以一定格式转储到文件系统，并且进程退出执行，这样做的好处是为程序员 提供了方便，使得他们可以得到进程当时执行时的数据值，允许他们确定转储的原因，并且可以调试他们的程序。</li>
+<li><code>D</code>: 缺省的动作是停止进程，进入停止状况以后还能重新进行下去，一般是在调试的过程中（例如ptrace系统调用）</li>
+<li><code>E</code>: 信号不能被捕获</li>
+<li><code>F</code>: 信号不能被忽略</li>
+</ul>
+<p><br><br><br></p>
 <h2 id="which-whereis-file-whatis与平均负载"><a href="#which-whereis-file-whatis与平均负载" class="headerlink" title="which, whereis, file, whatis与平均负载"></a><code>which</code>, <code>whereis</code>, <code>file</code>, <code>whatis</code>与平均负载</h2><p><code>which</code> hows the full path of (shell) commands。找出某个命令的位置;<br><code>whereis</code> locate the binary, source, and manual page files for a command。不仅返回命令路径，还能打印命令手册的位置以及命令源代码路径;<br><code>file</code> determine file type。用来确定文件类型;<br><code>whatis</code> display manual page descriptions。输出简短描述信息;<br>平均负载(load average),是系统运行总负载量的一个重要参数。它指明了系统中可运行进程总量的平均值。平均负载由三个值来指定，第一个指明1分钟内的平均值，第二个指明5分钟内的平均值，第三个指明15分钟内的平均值。</p>
 <ul>
 <li>单核CPU，类似于单车道，负载在 0.00-1.00 之间正常；</li>
@@ -3158,7 +3192,7 @@
 <p><br><br><br></p>
 <h2 id="iptables"><a href="#iptables" class="headerlink" title="iptables"></a>iptables</h2><p>iptables/ip6tables — administration tool for IPv4/IPv6 packet filtering and NAT</p>
 <p>切记谨慎使用iptables命令，特别是在远程连接的时候。<br>规则是有顺序的，规则的顺序很重要。当规则顺序排列错误时，会产生很严重的错误。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">iptables --help</span><br><span class="line"></span><br><span class="line">-t&lt;表&gt;： 指定要操纵的表</span><br><span class="line"></span><br><span class="line">-A &lt;链&gt;： 向规则链中添加条目</span><br><span class="line">-I &lt;链&gt;： 向规则链中插入条目</span><br><span class="line">#请注意-A与-I，这两者的插入顺序是不一致的，-I顺序更高</span><br><span class="line">-D &lt;链&gt;： 从规则链中删除条目</span><br><span class="line"></span><br><span class="line">-R： 替换规则链中的条目</span><br><span class="line">-L： 显示规则链中已有的条目</span><br><span class="line">-F： 清楚规则链中已有的条目</span><br><span class="line">-Z： 清空规则链中的数据包计算器和字节计数器</span><br><span class="line">-X： 删除用户定义的链</span><br><span class="line">-N： 创建新的用户自定义规则链</span><br><span class="line">-P： 定义规则链中的默认目标</span><br><span class="line">-h： 显示帮助信息</span><br><span class="line">-p： 指定要匹配的数据包协议类型</span><br><span class="line">-s： 指定要匹配的数据包源ip地址</span><br><span class="line">-j&lt;目标&gt;： 指定要跳转的目标</span><br><span class="line">-i&lt;网络接口&gt;： 指定数据包进入本机的网络接口</span><br><span class="line">-o&lt;网络接口&gt;： 指定数据包要离开本机所使用的网络接口</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">iptables --help</span><br><span class="line"></span><br><span class="line">-t&lt;表&gt;： 指定要操纵的表，默认为filter</span><br><span class="line"></span><br><span class="line">-P： 设置默认策略</span><br><span class="line"></span><br><span class="line">-A &lt;链&gt;： 在规则链的末尾中添加条目</span><br><span class="line">-I &lt;链&gt;： 在规则链的头部中插入条目</span><br><span class="line">#请注意-A与-I，这两者的插入顺序是不一致的，-I顺序更高</span><br><span class="line">-D &lt;链&gt;： 从规则链中删除条目</span><br><span class="line">-R： 替换规则链中的条目</span><br><span class="line"></span><br><span class="line">-L： 显示规则链中已有的条目</span><br><span class="line">-F： 清楚规则链中已有的条目</span><br><span class="line">-Z： 清空规则链中的数据包计算器和字节计数器</span><br><span class="line">-X： 删除用户定义的链</span><br><span class="line">-N： 创建新的用户自定义规则链</span><br><span class="line"></span><br><span class="line">-p： 指定要匹配的数据包协议类型(tcp, udp, icmp...)</span><br><span class="line"></span><br><span class="line">-s： 指定要匹配的数据包源ip地址(ip/mask, !ip)</span><br><span class="line">-d： 匹配 目标地址</span><br><span class="line">--sport： 匹配源端口号</span><br><span class="line">--dport： 匹配目的端口号</span><br><span class="line"></span><br><span class="line">-i&lt;网络接口&gt;： 指定数据包进入本机的网络接口</span><br><span class="line">-o&lt;网络接口&gt;： 指定数据包要离开本机所使用的网络接口</span><br><span class="line"></span><br><span class="line">-j target： 指定要跳转的目标</span><br><span class="line">-m match： 扩展匹配</span><br><span class="line">-g chain： jump to chain with no return</span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h3 id="表格-链-动作"><a href="#表格-链-动作" class="headerlink" title="表格/链/动作"></a>表格/链/动作</h3><p>为什么称为iptables? 因为此软件里面有多个表格(table)，每个表格定义了自己的默认策略和规则，且每个表格的用途都不相同。</p>
 <p><strong>表(Table)</strong></p>
@@ -3217,7 +3251,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#屏蔽单个IP的命令</span></span><br><span class="line">iptables -I INPUT -s 123.45.6.7 -j DROP</span><br><span class="line"></span><br><span class="line"><span class="comment">#封整个段即从123.0.0.1到123.255.255.254的命令</span></span><br><span class="line">iptables -I INPUT -s 123.0.0.0/8 -j DROP</span><br></pre></td></tr></table></figure>
 <p><br></p>
 <p><strong>查看规则</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#推荐使用iptables-save</span></span><br><span class="line">iptables-save</span><br><span class="line"></span><br><span class="line"><span class="comment">#备份和恢复</span></span><br><span class="line">iptables-save &gt;1.txt &amp;&amp; iptables-restore &lt;1.txt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">iptables  -L  -n</span><br><span class="line">iptables -L -n --line-numbers</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#推荐使用iptables-save</span></span><br><span class="line">iptables-save</span><br><span class="line"></span><br><span class="line"><span class="comment">#备份和恢复</span></span><br><span class="line">iptables-save &gt;/etc/sysconfig/iptables</span><br><span class="line">iptables-restore &lt;/etc/sysconfig/iptables</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">iptables  -L  -n</span><br><span class="line">iptables -L -n --line-numbers</span><br></pre></td></tr></table></figure>
 <p><br></p>
 <p><strong>删除已添加规则</strong></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">iptables -L -n --line-numbers</span><br><span class="line"></span><br><span class="line">iptables -D INPUT 5</span><br><span class="line">iptables -D OUTPUT 3</span><br></pre></td></tr></table></figure>
@@ -3226,7 +3260,7 @@
 <p><br><br><br></p>
 <hr>
 <p><br></p>
-<h1 id="分屏显示"><a href="#分屏显示" class="headerlink" title="分屏显示"></a>分屏显示</h1><p>tmux — terminal multiplexer</p>
+<h1 id="分屏显示"><a href="#分屏显示" class="headerlink" title="分屏显示"></a>分屏显示</h1><p><code>tmux</code>命令 — terminal multiplexer</p>
 <ul>
 <li>上下分屏: <code>ctrl+b -&gt; &quot;</code></li>
 <li>左右分屏： <code>ctrl_b -&gt; %</code></li>
@@ -3365,7 +3399,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -3387,7 +3421,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -3484,7 +3518,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 395.2k</span>
+  <span class="post-count"> 字数: 415.0k</span>
 </div>
 
 

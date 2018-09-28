@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Prometheus,Monitoring," />
+  <meta name="keywords" content="Monitoring,Prometheus," />
 
 
 
@@ -94,7 +94,7 @@
 
 
 <meta name="description" content="参考：  Prometheus文档： https://prometheus.io/docs GitHub: https://github.com/prometheus/  环境：  CentOS7x86_64 Prometheus v2.3">
-<meta name="keywords" content="Prometheus,Monitoring">
+<meta name="keywords" content="Monitoring,Prometheus">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Prometheus">
 <meta property="og:url" content="https://zhang21.github.io/2018/09/11/Prometheus/index.html">
@@ -103,10 +103,13 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/Prometheus/prometheus.jpg">
 <meta property="og:image" content="https://zhang21.github.io/images/Prometheus/architecture.png">
-<meta property="og:image" content="https://zhang21.github.io/images/Promethues/9090.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Prometheus/9090.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Prometheus/expression01.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Prometheus/expression02.png">
-<meta property="og:updated_time" content="2018-09-12T01:18:43.000Z">
+<meta property="og:image" content="https://zhang21.github.io/images/Prometheus/grafana_prometheus.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Prometheus/grafana_login.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Prometheus/add_prometheus_datasource.png">
+<meta property="og:updated_time" content="2018-09-14T09:43:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Prometheus">
 <meta name="twitter:description" content="参考：  Prometheus文档： https://prometheus.io/docs GitHub: https://github.com/prometheus/  环境：  CentOS7x86_64 Prometheus v2.3">
@@ -352,8 +355,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-12T09:18:43+08:00">
-                2018-09-12
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-14T17:43:11+08:00">
+                2018-09-14
               </time>
             
           </span>
@@ -420,7 +423,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,465
+                  3,094
                 </span>
               
 
@@ -497,11 +500,88 @@
 <h3 id="什么时候不适合"><a href="#什么时候不适合" class="headerlink" title="什么时候不适合"></a>什么时候不适合</h3><p>When does it not fit?</p>
 <p>Prometheus重视可靠性。即使在系统故障情况下，你也可以随时查看有关系统的可用统计信息。如果你需要100%的准确度，Prometheus不是一个好的选择，你可能需要使用其它系统。</p>
 <p><br><br><br><br><br></p>
+<h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>步骤：</p>
+<ul>
+<li>下载</li>
+<li>配置</li>
+<li>运行</li>
+<li>使用表达式浏览器</li>
+<li>使用图形接口</li>
+<li>监控其它目标</li>
+</ul>
+<p><br><br><br><br><br></p>
 <h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><p>GLOSSARY</p>
+<ul>
+<li><p><strong>Alert</strong><br>是Prometheus正在开火的警报规则的结果。警报从Prometheus发送到AlterManger。</p>
+</li>
+<li><p><strong>Alertmanager</strong><br>接收警报，将它们聚合成组，删除重复数据，应用静音、限制，然后发送电子邮件等通知。</p>
+</li>
+<li><p><strong>Bridge</strong><br>是一个从Client Library中获取样本并将它们暴露给 non-Prometheus 监控系统的组件。例如，Python、Java、Go…客户端可将指标导出到Graphite。</p>
+</li>
+<li><p><strong>Client library</strong><br>是某种语言的库(Go, Java, Python…)，可以直接检测代码，编写自定义收集器以从其它系统中收集指标并将指标公开给Prometheus。</p>
+</li>
+<li><p><strong>Collector</strong><br>是表示一组度量标准的 exporter 的一部分。如果它是直接检测的一部分，则可以是单个度量，如果是从另一个系统提取度量，则可以是许多度量。</p>
+</li>
+<li><p><strong>Direct instrumentation</strong><br>作为源代码程序的一部分内联添加的检测。</p>
+</li>
+<li><p><strong>Endpoint</strong></p>
+</li>
+<li><p><strong>Exporter</strong><br>是一个公开Prometheus指标的程序，通常将 non-prometheus 格式的指标转换为 Prometheus 支持的格式。</p>
+</li>
+<li><p><strong>Instance</strong><br>唯一标识作业中目标的标签</p>
+</li>
+<li><p><strong>Job</strong><br>具有相同目的的目标集合</p>
+</li>
+<li><p><strong>Notification</strong><br>代表一组多个警报</p>
+</li>
+<li><p><strong>Promdash</strong><br>原生Prometheus仪表盘构建器。它已被弃用，并被 Grafana 取代</p>
+</li>
+<li><p><strong>Prometheus</strong><br>通常指的是Prometheus System的核心程序，也可指整个监控系统。</p>
+</li>
+<li><p><strong>PromQL</strong><br>Prometheus Query Language</p>
+</li>
+<li><p><strong>Pushgateway</strong><br>持续从批量作业中最新推出的指标</p>
+</li>
+<li><p><strong>Remote Read</strong><br>允许从其它系统透明读取时间序列作为查询的一部分</p>
+</li>
+<li><p><strong>Remote Read Adapter</strong><br>并非所有系统都支持远程读取。远程读取适配器便是用于此。</p>
+</li>
+<li><p><strong>Remote Read Endpoint</strong><br>Prometheus进行远程读取时的对象</p>
+</li>
+<li><p><strong>Remote Write</strong><br>允许动态地将采集的样本发送到其它系统</p>
+</li>
+<li><p><strong>Remote Write Adapter</strong></p>
+</li>
+<li><p><strong>Remote Write Endpoint</strong></p>
+</li>
+<li><p><strong>Sample</strong><br>时间序列中某个时间点的单个值，Prometheus中，每个样本都包含一个<code>float64</code>和<code>ms</code>精度的时间戳。</p>
+</li>
+<li><p><strong>Silence</strong><br>防止报警</p>
+</li>
+<li><p><strong>Target</strong><br>抓取对象的定义</p>
+</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><p>faq: <a href="https://prometheus.io/docs/introduction/faq/" target="_blank" rel="noopener">https://prometheus.io/docs/introduction/faq/</a></p>
 <p><br><br><br></p>
 <hr>
 <p><br><br><br></p>
-<h1 id="PROMETHEUS"><a href="#PROMETHEUS" class="headerlink" title="PROMETHEUS"></a>PROMETHEUS</h1><p><br></p>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>CONCEPTS</p>
+<p><br></p>
+<h2 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h2><p>Data model</p>
+<p>Prometheus从根本上将所有数据存储为<strong>时间序列(time series)</strong>: 属于同一指标和同一标记维度的带时间戳值的流。除了存储时间序列，Prometheus还可以临时生成时间序列作为查询的结果。</p>
+<p><br><br><br></p>
+<h3 id="指标名称和标签"><a href="#指标名称和标签" class="headerlink" title="指标名称和标签"></a>指标名称和标签</h3><p>Metric names and labels</p>
+<p>每个时间序列都是有<strong>指标名称(metric name)</strong>和一组键值对(也称为<strong>标签(label)</strong>)来唯一标识。</p>
+<p>指标名称： 可能包含ASCII字母，下划线，冒号。它必须匹配正则: <code>[a-zA-Z_:][a-zA-Z0-9_:]*</code>。<br>标签启用Prometheus的维度数据模型：</p>
+<p><br><br><br><br><br></p>
+<h2 id="指标类型"><a href="#指标类型" class="headerlink" title="指标类型"></a>指标类型</h2><p>metric types</p>
+<p><br><br><br><br><br></p>
+<h2 id="工作和实例"><a href="#工作和实例" class="headerlink" title="工作和实例"></a>工作和实例</h2><p>Job and Instance</p>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="Prometheus"><a href="#Prometheus" class="headerlink" title="Prometheus"></a>Prometheus</h1><p><br></p>
 <h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>GETTING STARTED</p>
 <p>本节介绍如何安装，配置，使用Prometheus的简单例子。你将在本地安装和运行Prometheus，将其配置为自我填充和示例应用程序，然后使用查询，规则和图表来使用收集的序列数据。</p>
 <p><br></p>
@@ -514,7 +594,7 @@
 <p><br></p>
 <p><strong>启动</strong><br>启动后，可访问9090端口查看状态。可访问<code>localhost:9090/metrics</code>查看有关自身的相关指标。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd prometheus-2.3.2.linux-amd64</span><br><span class="line">./prometheus --config.file=&quot;prometheus.yml&quot;</span><br></pre></td></tr></table></figure>
-<p><img src="/images/Promethues/9090.png" alt="9090"></p>
+<p><img src="/images/Prometheus/9090.png" alt="9090"></p>
 <p><br></p>
 <p><strong>使用表达式浏览器</strong><br>让我们看一下Prometheus收集的一些数据。要使用Prometheus的内建表达式浏览器(expression browser)，请跳转到<code>http://localhost:9090/graph</code>并选择<code>Graph -&gt; Console</code>，在其中输入表达式。<br>绘制表达式图形同样在此操作。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#表达式</span><br><span class="line">prometheus_target_interval_length_seconds</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#表达式</span><br><span class="line">prometheus_target_interval_length_seconds&#123;quantile=&quot;0.99&quot;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#计算返回的时间序列数</span><br><span class="line">count(prometheus_target_interval_length_seconds)</span><br></pre></td></tr></table></figure>
@@ -535,7 +615,103 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">global:</span><br><span class="line">  scrape_interval:     15s # By default, scrape targets every 15 seconds.</span><br><span class="line">  evaluation_interval: 15s # Evaluate rules every 15 seconds.</span><br><span class="line"></span><br><span class="line">  # Attach these extra labels to all timeseries collected by this Prometheus instance.</span><br><span class="line">  external_labels:</span><br><span class="line">    monitor: &apos;codelab-monitor&apos;</span><br><span class="line"></span><br><span class="line">rule_files:</span><br><span class="line">  - &apos;prometheus.rules.yml&apos;</span><br><span class="line"></span><br><span class="line">scrape_configs:</span><br><span class="line">  - job_name: &apos;prometheus&apos;</span><br><span class="line"></span><br><span class="line">    # Override the global default and scrape targets from this job every 5 seconds.</span><br><span class="line">    scrape_interval: 5s</span><br><span class="line"></span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [&apos;localhost:9090&apos;]</span><br><span class="line"></span><br><span class="line">  - job_name:       &apos;example-random&apos;</span><br><span class="line"></span><br><span class="line">    # Override the global default and scrape targets from this job every 5 seconds.</span><br><span class="line">    scrape_interval: 5s</span><br><span class="line"></span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [&apos;localhost:8091&apos;, &apos;localhost:8092&apos;]</span><br><span class="line">        labels:</span><br><span class="line">          group: &apos;production&apos;</span><br><span class="line"></span><br><span class="line">      - targets: [&apos;localhost:9093&apos;]</span><br><span class="line">        labels:</span><br><span class="line">          group: &apos;canary&apos;</span><br></pre></td></tr></table></figure>
 <p>重启Prometheus，使用<code>job_service:rpc_durations_seconds_count:avg_rate5m</code> metric验证。</p>
 <p><br><br><br></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><br></p>
+<h3 id="使用预编译的二进制文件"><a href="#使用预编译的二进制文件" class="headerlink" title="使用预编译的二进制文件"></a>使用预编译的二进制文件</h3><p><br><br><br></p>
+<h3 id="使用源码"><a href="#使用源码" class="headerlink" title="使用源码"></a>使用源码</h3><p><br><br><br></p>
+<h3 id="使用Docker"><a href="#使用Docker" class="headerlink" title="使用Docker"></a>使用Docker</h3><p>所有的Prometheus服务都可以作为 Docker image 来使用。<br>Prometheus image 使用 volume 来存储实际的指标。对于生产部署，强烈建议使用 Data Volume Container 来升级数据的管理。</p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#bind-mount</span><br><span class="line">docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus.yml  prom/prometheus</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#volume</span><br><span class="line">docker run -p 9090:9090 -v /promethe-data  prom/prometheus  --config.file=/prometheus-data/prometheus.yml</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>自定义镜像</strong></p>
+<p>Dockerfile:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM prom/prometheus</span><br><span class="line">ADD prometheus.yml /etc/prometheus/</span><br><span class="line">xxx</span><br></pre></td></tr></table></figure>
+<p>构建：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t my-prometheus .</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="使用配置管理系统"><a href="#使用配置管理系统" class="headerlink" title="使用配置管理系统"></a>使用配置管理系统</h3><ul>
+<li>Ansible</li>
+<li>Chef</li>
+<li>Puppet</li>
+<li>SaltStack</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>Configuration</p>
+<p>Prometheus通过命令行标志(flag)和配置文件进行配置。使用<code>./prometheus -h</code>查看所有命令行标志。<br>Prometheus可在运行时重新加载配置。</p>
+<p><br></p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>configuration file: <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/" target="_blank" rel="noopener">https://prometheus.io/docs/prometheus/latest/configuration/configuration/</a></p>
+<p>使用<code>--config.file</code>标志指定配置文件。配置文件使用<code>YAML</code>格式。</p>
+<p>一个配置文件栗子:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="comment"># How frequently to scrape targets by default.</span></span><br><span class="line">  <span class="string">[</span> <span class="attr">scrape_interval:</span> <span class="string">&lt;duration&gt;</span> <span class="string">| default = 1m ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  # How long until a scrape request times out.</span></span><br><span class="line"><span class="string">  [ scrape_timeout: &lt;duration&gt; | default = 10s ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  # How frequently to evaluate rules.</span></span><br><span class="line"><span class="string">  [ evaluation_interval: &lt;duration&gt; | default = 1m ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  # The labels to add to any time series or alerts when communicating with</span></span><br><span class="line"><span class="string">  # external systems (federation, remote storage, Alertmanager).</span></span><br><span class="line"><span class="string"></span><span class="attr">  external_labels:</span></span><br><span class="line">    <span class="string">[</span> <span class="string">&lt;labelname&gt;:</span> <span class="string">&lt;labelvalue&gt;</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Rule files specifies a list of globs. Rules and alerts are read from</span></span><br><span class="line"><span class="comment"># all matching files.</span></span><br><span class="line"><span class="attr">rule_files:</span></span><br><span class="line">  <span class="string">[</span> <span class="bullet">-</span> <span class="string">&lt;filepath_glob&gt;</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># A list of scrape configurations.</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="string">[</span> <span class="bullet">-</span> <span class="string">&lt;scrape_config&gt;</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Alerting specifies settings related to the Alertmanager.</span></span><br><span class="line"><span class="attr">alerting:</span></span><br><span class="line"><span class="attr">  alert_relabel_configs:</span></span><br><span class="line">    <span class="string">[</span> <span class="bullet">-</span> <span class="string">&lt;relabel_config&gt;</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"><span class="attr">  alertmanagers:</span></span><br><span class="line">    <span class="string">[</span> <span class="bullet">-</span> <span class="string">&lt;alertmanager_config&gt;</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Settings related to the remote write feature.</span></span><br><span class="line"><span class="attr">remote_write:</span></span><br><span class="line">  <span class="string">[</span> <span class="bullet">-</span> <span class="string">&lt;remote_write&gt;</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Settings related to the remote read feature.</span></span><br><span class="line"><span class="attr">remote_read:</span></span><br><span class="line">  <span class="string">[</span> <span class="bullet">-</span> <span class="string">&lt;remote_read&gt;</span> <span class="string">...</span> <span class="string">]</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>各个配置项：</p>
+<ul>
+<li><code>scrape_config</code></li>
+<li><code>tls_config</code></li>
+<li><code>azure_sd_config</code></li>
+<li><code>consul_sd_config</code></li>
+<li><code>dns_sd_config</code></li>
+<li><code>ec2_sd_config</code></li>
+<li><code>openstack_sd_config</code></li>
+<li><code>file_sd_config</code></li>
+<li><code>gce_sd_config</code></li>
+<li><code>kubernetes_sd_config</code></li>
+<li><code>marathon_sd_config</code></li>
+<li><code>nerve_sd_config</code></li>
+<li><code>serverset_sd_config</code></li>
+<li><code>triton_sd_config</code></li>
+<li><code>static_config</code></li>
+<li><code>relabel_config</code></li>
+<li><code>metric_relabel_configs</code></li>
+<li><code>alert_relabel_configs</code></li>
+<li><code>alertmanager_config</code></li>
+<li><code>remote_write</code></li>
+<li><code>remote_read</code></li>
+</ul>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h1><p>Visualization</p>
+<p><br></p>
+<h2 id="表达式浏览器"><a href="#表达式浏览器" class="headerlink" title="表达式浏览器"></a>表达式浏览器</h2><p>Expression browser</p>
+<p>表达其浏览器在 Prometheus Server 的 <code>/graph</code> 处。<br>对于图形，请使用 Grafana 或 Console template。</p>
+<p><br><br><br><br><br></p>
+<h2 id="Grafana"><a href="#Grafana" class="headerlink" title="Grafana"></a>Grafana</h2><p>Grafana: <a href="https://grafana.com/" target="_blank" rel="noopener">https://grafana.com/</a></p>
+<p>Grafana，美丽的分析和监控的开放平台，时序分析的开源那软件。</p>
+<p>Grafana 支持查询 Prometheus。如下是一个Grafana仪表盘，用于查询Prometheus的数据：</p>
+<p><img src="/images/Prometheus/grafana_prometheus.png" alt=""></p>
+<p><br></p>
+<h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><p>完整的安装说明，请查看Grafana Docs。</p>
+<p><br></p>
+<h4 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h4><p><strong>RPM</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#sudo yum install &lt;rpm package url&gt;</span><br><span class="line">sudo yum install https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.1.4-1.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<p><strong>repo</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[grafana]</span><br><span class="line">name=grafana</span><br><span class="line">baseurl=https://packagecloud.io/grafana/stable/el/7/$basearch</span><br><span class="line">repo_gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://packagecloud.io/gpg.key https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana</span><br><span class="line">sslverify=1</span><br><span class="line">sslcacert=/etc/pki/tls/certs/ca-bundle.crt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sudo yum install -y grafana</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#启动</span><br><span class="line">systemctl start grafana-server</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#命令行工具</span><br><span class="line">grafana-cli</span><br></pre></td></tr></table></figure>
+<p><strong>包详情</strong></p>
+<ul>
+<li>Installs binary to <code>/usr/sbin/grafana-server</code></li>
+<li>Copies init.d script to <code>/etc/init.d/grafana-server</code></li>
+<li>Installs default file (environment vars) to <code>/etc/sysconfig/grafana-server</code></li>
+<li>Copies configuration file to <code>/etc/grafana/grafana.ini</code></li>
+<li>Installs systemd service (if systemd is available) name <code>grafana-server.service</code></li>
+<li>The default configuration uses a log file at <code>/var/log/grafana/grafana.log</code></li>
+<li>The default configuration specifies an sqlite3 database at <code>/var/lib/grafana/grafana.db</code></li>
+</ul>
+<p><br></p>
+<p><strong>二进制tar文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Download and unpack Grafana from binary tar (adjust version as appropriate).</span><br><span class="line">curl -L -O https://grafanarel.s3.amazonaws.com/builds/grafana-2.5.0.linux-x64.tar.gz</span><br><span class="line">tar zxf grafana-2.5.0.linux-x64.tar.gz</span><br><span class="line"></span><br><span class="line"># Start Grafana.</span><br><span class="line">cd grafana-2.5.0/</span><br><span class="line">./bin/grafana-server web</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#基础栗子</span><br><span class="line">docker run -d -p 3000:3000 grafana/grafana</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#配置化</span><br><span class="line">docker run \</span><br><span class="line">  -d \</span><br><span class="line">  -p 3000:3000 \</span><br><span class="line">  --name=grafana \</span><br><span class="line">  -e &quot;GF_SERVER_ROOT_URL=http://grafana.server.name&quot; \</span><br><span class="line">  -e &quot;GF_SECURITY_ADMIN_PASSWORD=secret&quot; \</span><br><span class="line">  grafana/grafana:version</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#默认环境变量值</span><br><span class="line">GF_PATHS_CONFIG	/etc/grafana/grafana.ini</span><br><span class="line">GF_PATHS_DATA	/var/lib/grafana</span><br><span class="line">GF_PATHS_HOME	/usr/share/grafana</span><br><span class="line">GF_PATHS_LOGS	/var/log/grafana</span><br><span class="line">GF_PATHS_PLUGINS	/var/lib/grafana/plugins</span><br><span class="line">GF_PATHS_PROVISIONING	/etc/grafana/provisioning</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>默认情况下，访问<code>http://localhost:3000</code>来访问Grafana。默认登录的用户名和密码： <code>admin/admin</code>。</p>
+<p><img src="/images/Prometheus/grafana_login.png" alt="Grafana"></p>
+<p><br></p>
+<p><strong>创建Prometheus数据源</strong></p>
+<p><img src="/images/Prometheus/add_prometheus_datasource.png" alt=""></p>
+<p><br></p>
+<p><strong>创建Prometheus图表</strong></p>
+<p><br><br><br><br><br></p>
+<h2 id="Console-template"><a href="#Console-template" class="headerlink" title="Console template"></a>Console template</h2><p>控制台模板允许使用Go templating language创建任意控制台。这些都是从Prometheus Server提供的。</p>
+
       
     </div>
     
@@ -552,9 +728,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Prometheus/" rel="tag"># Prometheus</a>
-          
             <a href="/tags/Monitoring/" rel="tag"># Monitoring</a>
+          
+            <a href="/tags/Prometheus/" rel="tag"># Prometheus</a>
           
         </div>
       
@@ -576,6 +752,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/13/Grafana/" rel="prev" title="Grafana">
+                Grafana <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -662,7 +842,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -684,7 +864,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -749,7 +929,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Prometheus是什么"><span class="nav-number">1.1.1.</span> <span class="nav-text">Prometheus是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么时候适合"><span class="nav-number">1.1.2.</span> <span class="nav-text">什么时候适合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么时候不适合"><span class="nav-number">1.1.3.</span> <span class="nav-text">什么时候不适合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#术语"><span class="nav-number">1.2.</span> <span class="nav-text">术语</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PROMETHEUS"><span class="nav-number">2.</span> <span class="nav-text">PROMETHEUS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#入门"><span class="nav-number">2.1.</span> <span class="nav-text">入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.2.</span> <span class="nav-text">安装</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Prometheus是什么"><span class="nav-number">1.1.1.</span> <span class="nav-text">Prometheus是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么时候适合"><span class="nav-number">1.1.2.</span> <span class="nav-text">什么时候适合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么时候不适合"><span class="nav-number">1.1.3.</span> <span class="nav-text">什么时候不适合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步"><span class="nav-number">1.2.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#术语"><span class="nav-number">1.3.</span> <span class="nav-text">术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">1.4.</span> <span class="nav-text">FAQ</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据模型"><span class="nav-number">2.1.</span> <span class="nav-text">数据模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#指标名称和标签"><span class="nav-number">2.1.1.</span> <span class="nav-text">指标名称和标签</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指标类型"><span class="nav-number">2.2.</span> <span class="nav-text">指标类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作和实例"><span class="nav-number">2.3.</span> <span class="nav-text">工作和实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Prometheus"><span class="nav-number">3.</span> <span class="nav-text">Prometheus</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#入门"><span class="nav-number">3.1.</span> <span class="nav-text">入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">3.2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用预编译的二进制文件"><span class="nav-number">3.2.1.</span> <span class="nav-text">使用预编译的二进制文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用源码"><span class="nav-number">3.2.2.</span> <span class="nav-text">使用源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Docker"><span class="nav-number">3.2.3.</span> <span class="nav-text">使用Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用配置管理系统"><span class="nav-number">3.2.4.</span> <span class="nav-text">使用配置管理系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">3.3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">3.3.1.</span> <span class="nav-text">配置文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可视化"><span class="nav-number">4.</span> <span class="nav-text">可视化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表达式浏览器"><span class="nav-number">4.1.</span> <span class="nav-text">表达式浏览器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grafana"><span class="nav-number">4.2.</span> <span class="nav-text">Grafana</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-1"><span class="nav-number">4.2.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CentOS"><span class="nav-number">4.2.1.1.</span> <span class="nav-text">CentOS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker"><span class="nav-number">4.2.1.2.</span> <span class="nav-text">Docker</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">4.2.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Console-template"><span class="nav-number">4.3.</span> <span class="nav-text">Console template</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -781,7 +961,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 395.2k</span>
+  <span class="post-count"> 字数: 415.0k</span>
 </div>
 
 

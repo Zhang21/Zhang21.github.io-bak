@@ -428,7 +428,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  34,697
+                  34,767
                 </span>
               
 
@@ -702,7 +702,7 @@
 <p><br></p>
 <p><strong>使用Docker ID登录：</strong></p>
 <p>如果没有Docker账户，请先注册 <cloud.docker.com>。</cloud.docker.com></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker login</span><br><span class="line"></span><br><span class="line">docker login -u zhang21</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">docker login</span><br><span class="line"></span><br><span class="line">docker login -u zhang21</span><br><span class="line"></span><br><span class="line">#时候docker login认证过后，会有~/.docker/config.json文件，里面包含了docker认证信息</span><br><span class="line">#k8s可使用此信息添加secret</span><br><span class="line"></span><br><span class="line">cat ~/.docker/config.json</span><br><span class="line">&#123;</span><br><span class="line">        &quot;auths&quot;: &#123;</span><br><span class="line">                &quot;https://index.docker.io/v1/&quot;: &#123;</span><br><span class="line">                        &quot;auth&quot;: &quot;base64encoding&quot;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;HttpHeaders&quot;: &#123;</span><br><span class="line">                &quot;User-Agent&quot;: &quot;Docker-Client/18.03.1-ce (linux)&quot;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 <p><br></p>
 <p><strong>标记image：</strong></p>
 <p>使用<code>username/repository:tag</code>将本地image与registry中的repository相关联。tag是可选的，但推荐使用tag。因为它是注册管理机构用于为Docker image提供版本的机制。为该内容提供一个有意义的repository和tag，例如<code>get-started:part2</code>。</p>
@@ -3025,7 +3025,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -3047,7 +3047,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -3144,7 +3144,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 395.2k</span>
+  <span class="post-count"> 字数: 415.0k</span>
 </div>
 
 
