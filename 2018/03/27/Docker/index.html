@@ -428,7 +428,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  34,767
+                  34,815
                 </span>
               
 
@@ -1076,9 +1076,9 @@
 <p><br></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">COPY  &lt;sourch&gt;  &lt;destination&gt;</span><br><span class="line"></span><br><span class="line">#或</span><br><span class="line">COPY  [&quot;&lt;source1&gt;&quot;, ... &quot;&lt;destination&gt;&quot;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#栗子</span><br><span class="line">COPY package.json /usr/src/app/</span><br><span class="line">COPY hom* /mydir/</span><br><span class="line">COPY hom?.txt /mydir/</span><br></pre></td></tr></table></figure>
 <p><br></p>
-<h3 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h3><p><code>ADD</code>,更高级的复制文件。<br><code>ADD</code>和<code>COPY</code>的格式和性质基本一致，但增加了一些功能。<br>尽可能的使用<code>COPY</code>，因为<code>COPY</code>的语义很明确，就是复制文件而已，而<code>ADD</code>则包含了更复杂的功能，其行为也不一定很清晰。<br>最适合<code>ADD</code>的场合，就是所提及的需要自动解压缩的场合。</p>
-<p>因此在<code>COPY</code>和<code>ADD</code>指令中选择的时候，可以遵循这样的原则，所有的文件复制均使用<code>COPY</code>指令，仅在需要自动解压缩的场合使用<code>ADD</code>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM scratch</span><br><span class="line"></span><br><span class="line">ADD abc.tar.gz / &amp;&amp; \</span><br><span class="line">    http://example.com/big.tar.xz /usr/src/things/ &amp;&amp; \</span><br><span class="line">RUN tar -xJf /usr/src/things/big.tar.xz -C /usr/src/things</span><br><span class="line">RUN make -C /usr/src/things all</span><br></pre></td></tr></table></figure>
+<h3 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h3><p><code>ADD</code>是更高级的复制文件。<br><code>ADD</code>和<code>COPY</code>的格式和性质基本一致，但增加了一些功能。<code>ADD</code>支持通过URL从远程服务器读取资源，但对远程的压缩包没有解压缩功能。<br>尽可能的使用<code>COPY</code>，因为<code>COPY</code>的语义很明确，就是复制文件而已，而<code>ADD</code>则包含了更复杂的功能，其行为也不一定很清晰。<br>最适合<code>ADD</code>的场合，就是所提及的需要自动解压缩的场合。</p>
+<p>因此在<code>COPY</code>和<code>ADD</code>指令中选择的时候，可以遵循这样的原则，所有的文件复制均使用<code>COPY</code>指令，仅在需要自动解压缩或远程资源的场合使用<code>ADD</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FROM scratch</span><br><span class="line"></span><br><span class="line">ADD ADD http://foo.com/bar.go /tmp/main.go</span><br><span class="line"></span><br><span class="line">ADD abc.tar.gz / &amp;&amp; \</span><br><span class="line">    http://example.com/big.tar.xz /usr/src/things/ &amp;&amp; \</span><br><span class="line">RUN tar -xJf /usr/src/things/big.tar.xz -C /usr/src/things</span><br><span class="line">RUN make -C /usr/src/things all</span><br></pre></td></tr></table></figure>
 <p><br></p>
 <h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><p><code>CMD</code>，容器启动命令。用于运行镜像中包含的软件以及任何参数。</p>
 <p>也有两个格式：</p>
@@ -3025,7 +3025,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">55</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -3047,7 +3047,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">74</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -3135,7 +3135,7 @@
         <div class="copyright" >
   
   &copy;  2017 &mdash; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -3144,7 +3144,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 486.6k</span>
+  <span class="post-count"> 字数: 527.2k</span>
 </div>
 
 

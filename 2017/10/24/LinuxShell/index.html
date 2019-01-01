@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://zhang21.github.io/images/vim.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Utf8webgrowth.png">
 <meta property="og:image" content="https://zhang21.github.io/images/unicode.png">
-<meta property="og:updated_time" content="2018-09-21T02:47:37.000Z">
+<meta property="og:updated_time" content="2018-12-14T08:20:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell">
 <meta name="twitter:description" content="参考：  《Linux Shell脚本攻略》 《鸟哥的Linux私房菜》">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-21T10:47:37+08:00">
-                2018-09-21
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-14T16:20:37+08:00">
+                2018-12-14
               </time>
             
           </span>
@@ -418,7 +418,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  33,580
+                  33,918
                 </span>
               
 
@@ -2637,6 +2637,8 @@
 <p><br></p>
 <h2 id="查找文件差异并进行修补"><a href="#查找文件差异并进行修补" class="headerlink" title="查找文件差异并进行修补"></a>查找文件差异并进行修补</h2><p>diff - compare files line by line</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#补丁文件(patch file)</span></span><br><span class="line"><span class="comment">#diff命令可以生成差异文件</span></span><br><span class="line"></span><br><span class="line">diff -u file1 file2	<span class="comment">#一体化形式输出</span></span><br><span class="line">diff -u file1 file2 &gt; diff.patch</span><br><span class="line">patch -p1 file1 &lt; diff.patch	<span class="comment">#得到file2</span></span><br><span class="line">patch -p1 file2 &lt; diff.patch	<span class="comment">#得到file1</span></span><br><span class="line">patch -R file1 &lt; diff.patch; patch -R file2 &lt; diff.patch	<span class="comment">#还原</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#diff也能够以递归的形式作用于目录，它对目录中所有内容生成差异输出</span></span><br><span class="line">diff -Naur dir1 dir2</span><br><span class="line"><span class="comment">#-N将所有确实文件视为空文件， -a将所有文件视为文本文件</span></span><br><span class="line"><span class="comment">#-u生成一体化输出， -r遍历目录下所有文件</span></span><br></pre></td></tr></table></figure>
+<p>栗子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">'1\n1\n1\n1'</span> &gt; /tmp/1.txt</span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">'1\n1\n0\n1'</span> &gt; /tmp/2.txt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#比较</span></span><br><span class="line">diff -u 1.txt 2.txt</span><br><span class="line">--- 1.txt       2018-12-14 16:08:36.457495835 +0800</span><br><span class="line">+++ 2.txt       2018-12-14 16:08:37.574495820 +0800</span><br><span class="line">@@ -1,4 +1,4 @@</span><br><span class="line"> 1</span><br><span class="line"> 1</span><br><span class="line">-1</span><br><span class="line">+0</span><br><span class="line"> 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#解释</span></span><br><span class="line">--- 1.txt       2018-12-14 16:08:36.457495835 +0800</span><br><span class="line">+++ 2.txt       2018-12-14 16:08:37.574495820 +0800</span><br><span class="line"><span class="comment">#第一部分，是文件的基本信息</span></span><br><span class="line"><span class="comment">#---表示变动前的文件</span></span><br><span class="line"><span class="comment">#+++表示变动后的文件</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@@ -1,4 +1,4 @@</span><br><span class="line"><span class="comment">#第二部分，变动的位置用两个@作为起首和结束。</span></span><br><span class="line"><span class="comment">#-号表示第一个文件(1.txt), 1表示第一行，4表示连续四行。也就是第一个文件从第一行开始连续四行</span></span><br><span class="line"><span class="comment">#+号表示第二个文件(2.txt), 1表示第一行，4表示连续四行。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> 1</span><br><span class="line"> 1</span><br><span class="line">-1</span><br><span class="line">+0</span><br><span class="line"> 1</span><br><span class="line"><span class="comment">#第三部分表示变动的具体内容</span></span><br><span class="line"><span class="comment">#除了有变动的那些行以外，也是上下文各显示3行。它将两个文件的上下文合并显示在一起，所以称为合并显示</span></span><br><span class="line"><span class="comment">#每一行最前面的标志位，空表示无变动，减号表示第一个文件删除的行，加号表示第二个文件新增的行</span></span><br></pre></td></tr></table></figure>
 <p><br></p>
 <h2 id="head与tail"><a href="#head与tail" class="headerlink" title="head与tail"></a><code>head</code>与<code>tail</code></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">head file1; tail file1	<span class="comment">#head与tail默认打印10行</span></span><br><span class="line">head -n 5 file1; tail -n 6 file1	<span class="comment">#指定行数</span></span><br><span class="line">head -n -5 file1	<span class="comment">#打印除了最后5行外所有行</span></span><br><span class="line">tail -n +(5+1) file1	<span class="comment">#打印除了开始5行外所有行</span></span><br><span class="line"></span><br><span class="line">tail -f /var/<span class="built_in">log</span>/nginx/access.log	<span class="comment">#--follow，动态关注文件</span></span><br></pre></td></tr></table></figure>
 <p><br></p>
@@ -3310,7 +3312,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/25/wireshark/" rel="prev" title="Wireshark">
+              <a href="/2017/10/25/Wireshark/" rel="prev" title="Wireshark">
                 Wireshark <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -3399,7 +3401,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">55</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -3421,7 +3423,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">74</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -3509,7 +3511,7 @@
         <div class="copyright" >
   
   &copy;  2017 &mdash; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -3518,7 +3520,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 486.6k</span>
+  <span class="post-count"> 字数: 527.2k</span>
 </div>
 
 

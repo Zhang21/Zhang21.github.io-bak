@@ -96,10 +96,10 @@
 <meta name="keywords" content="Wireshark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Wireshark">
-<meta property="og:url" content="https://zhang21.github.io/2017/10/25/wireshark/index.html">
+<meta property="og:url" content="https://zhang21.github.io/2017/10/25/Wireshark/index.html">
 <meta property="og:site_name" content="风继续吹">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-08T14:35:07.522Z">
+<meta property="og:updated_time" content="2018-12-13T09:37:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Wireshark">
 
@@ -131,7 +131,7 @@
 
 
 
-  <link rel="canonical" href="https://zhang21.github.io/2017/10/25/wireshark/"/>
+  <link rel="canonical" href="https://zhang21.github.io/2017/10/25/Wireshark/"/>
 
 
 
@@ -298,7 +298,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2017/10/25/wireshark/">
+    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2017/10/25/Wireshark/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhang21">
@@ -343,8 +343,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-10-08T22:35:07+08:00">
-                2018-10-08
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-13T17:37:13+08:00">
+                2018-12-13
               </time>
             
           </span>
@@ -380,9 +380,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/10/25/wireshark/#comments" itemprop="discussionUrl">
+                <a href="/2017/10/25/Wireshark/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/10/25/wireshark/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/10/25/Wireshark/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -411,7 +411,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  300
+                  340
                 </span>
               
 
@@ -528,6 +528,10 @@
 <p><br></p>
 <p>栗子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#ip</span><br><span class="line">ip.addr == 1.1.1.1</span><br><span class="line">ip.src == 1.1.1.1 and ip.dst == 2.2.2.2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#port</span><br><span class="line">tcp.port == 80</span><br><span class="line">tcp.dstport == 80</span><br><span class="line">tcp.flag.syn == 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#pro</span><br><span class="line">arp</span><br><span class="line">not icmp</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><p>Wireshark也可以分析HTTPS加密的包，但你需要用证书将包先解密。<br>在Edit-&gt;Preferences-&gt;Protocol-&gt;SSL选项填写相关信息进行解密。</p>
 
       
     </div>
@@ -657,7 +661,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">55</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -679,7 +683,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">74</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -744,7 +748,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#过滤语法"><span class="nav-number">1.</span> <span class="nav-text">过滤语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抓包过滤"><span class="nav-number">1.1.</span> <span class="nav-text">抓包过滤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示过滤"><span class="nav-number">1.2.</span> <span class="nav-text">显示过滤</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#过滤语法"><span class="nav-number">1.</span> <span class="nav-text">过滤语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抓包过滤"><span class="nav-number">1.1.</span> <span class="nav-text">抓包过滤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示过滤"><span class="nav-number">1.2.</span> <span class="nav-text">显示过滤</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS"><span class="nav-number">2.</span> <span class="nav-text">HTTPS</span></a></li></ol></div>
             
 
           </div>
@@ -767,7 +771,7 @@
         <div class="copyright" >
   
   &copy;  2017 &mdash; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -776,7 +780,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 486.6k</span>
+  <span class="post-count"> 字数: 527.2k</span>
 </div>
 
 
@@ -931,8 +935,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://zhang21.github.io/2017/10/25/wireshark/';
-          this.page.identifier = '2017/10/25/wireshark/';
+          this.page.url = 'https://zhang21.github.io/2017/10/25/Wireshark/';
+          this.page.identifier = '2017/10/25/Wireshark/';
           this.page.title = 'Wireshark';
         };
         var d = document, s = d.createElement('script');
