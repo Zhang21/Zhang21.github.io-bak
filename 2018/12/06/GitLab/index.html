@@ -105,6 +105,7 @@
 <meta property="og:image" content="https://zhang21.github.io/images/GitLab/active-active-diagram.png">
 <meta property="og:image" content="https://zhang21.github.io/images/GitLab/active-passive-diagram.png">
 <meta property="og:image" content="https://zhang21.github.io/images/GitLab/backup_hrz.png">
+<meta property="og:image" content="https://zhang21.github.io/images/GitLab/cicd_pipeline_infograph.png">
 <meta property="og:image" content="https://zhang21.github.io/images/GitLab/Register_Runner.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Disable_SharedRunner.png">
 <meta property="og:image" content="https://zhang21.github.io/images/GitLab/Register_SpecificRunner.png">
@@ -114,7 +115,7 @@
 <meta property="og:image" content="https://zhang21.github.io/images/GitLab/Lock_Runner.png">
 <meta property="og:image" content="https://zhang21.github.io/images/GitLab/Protected_Runner.png">
 <meta property="og:image" content="https://zhang21.github.io/images/GitLab/Tagged_Runner.png">
-<meta property="og:updated_time" content="2018-12-29T05:58:17.000Z">
+<meta property="og:updated_time" content="2019-02-01T06:19:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GitLab">
 <meta name="twitter:description" content="参考:  维基百科 GitLab文档: https://docs.gitlab.com/   版本:  GitLib-CE: v11.6.0 GitLab-Runner: v11.6.0">
@@ -360,8 +361,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-29T13:58:17+08:00">
-                2018-12-29
+              <time title="更新于" itemprop="dateModified" datetime="2019-02-01T14:19:54+08:00">
+                2019-02-01
               </time>
             
           </span>
@@ -428,7 +429,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  34,027
+                  39,126
                 </span>
               
 
@@ -477,11 +478,11 @@
 <p><br><br><br></p>
 <hr>
 <p><br><br><br></p>
-<h1 id="用户文档"><a href="#用户文档" class="headerlink" title="用户文档"></a>用户文档</h1><p>User docs</p>
+<h1 id="User"><a href="#User" class="headerlink" title="User"></a>User</h1><p>User docs</p>
 <p><br><br><br></p>
 <hr>
 <p><br><br><br></p>
-<h1 id="管理员文档"><a href="#管理员文档" class="headerlink" title="管理员文档"></a>管理员文档</h1><p>Administrator documentation</p>
+<h1 id="Admin"><a href="#Admin" class="headerlink" title="Admin"></a>Admin</h1><p>Administrator documentation</p>
 <p><br></p>
 <h2 id="安装和维护"><a href="#安装和维护" class="headerlink" title="安装和维护"></a>安装和维护</h2><p>Installing and maintaining GitLab</p>
 <p><br></p>
@@ -1688,8 +1689,106 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Installations from source</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sudo service gitlab restart</span><br></pre></td></tr></table></figure>
 <p><br><br><br><br><br></p>
 <h3 id="更新-1"><a href="#更新-1" class="headerlink" title="更新"></a>更新</h3><p>Updating GitLab</p>
-<p><br><br><br><br><br><br><br></p>
-<h3 id="升级或降级"><a href="#升级或降级" class="headerlink" title="升级或降级"></a>升级或降级</h3><p>Upgrading or downgrading GitLab</p>
+<p><br></p>
+<h4 id="GitLab版本和维护策略"><a href="#GitLab版本和维护策略" class="headerlink" title="GitLab版本和维护策略"></a>GitLab版本和维护策略</h4><p>GitLab versions and maintenance policy: Understand GitLab versions and releases (Major, Minor, Patch, Security), as well as update recommendations.</p>
+<p>GitLab releases:</p>
+<ul>
+<li>Major version: 主要版本，重要内容</li>
+<li>Minor verson: 次要版本，小功能</li>
+<li>Patch number: 补丁，fix bug</li>
+<li>Security: 安全，临时添加的安全补丁</li>
+</ul>
+<p><br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#栗子</span><br><span class="line">GitLab v10.5.7</span><br><span class="line"></span><br><span class="line">#10 represents major version</span><br><span class="line">#5 represents minor version</span><br><span class="line">#7 represents patch number</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>升级建议:</strong></p>
+<p>GitLab鼓励每个人运行最新的稳定版本(latest stable release)，以确保您可以轻松升级到最安全，功能最丰富的GitLab体验。<br>如果您无法遵循GitLab的月度发布周期，则需要考虑几种情况：</p>
+<p>在一个主要版本(Major)中升级补丁版本(Patch)和次要版本(Minor)被认为是安全的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#Upgrade the patch version:</span><br><span class="line">8.9.0 -&gt; 8.9.7</span><br><span class="line">8.9.0 -&gt; 8.9.1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#Upgrade the minor version:</span><br><span class="line">8.9.4 -&gt; 8.12.3</span><br><span class="line">9.2.3 -&gt; 9.5.5</span><br></pre></td></tr></table></figure>
+<p>升级主要版本需要多加小心。GitLab无法保证主要版本之间的升级是无缝的。<br>GitLab建议您首先升级到主要版本中的最新可用次要版本。通过执行此操作，您可以解决可能会在下一个主要版本中更改行为的任何弃用消息。</p>
+<table>
+<thead>
+<tr>
+<th>Latest stable version</th>
+<th>Your version</th>
+<th>Recommended upgrade path</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>9.4.5</code></td>
+<td><code>8.13.4</code></td>
+<td><code>8.13.4</code> -&gt; <code>8.17.7</code> -&gt; <code>9.4.5</code></td>
+<td><code>8.17.7</code> is the last version in version 8</td>
+</tr>
+<tr>
+<td><code>10.1.4</code></td>
+<td><code>8.13.4</code></td>
+<td><code>8.13.4</code> -&gt; <code>8.17.7</code> -&gt; <code>9.5.10</code> -&gt; <code>10.1.4</code></td>
+<td><code>8.17.7</code> is the last version in version 8, 9.5.10 is the last version in version 9</td>
+</tr>
+<tr>
+<td><code>11.3.4</code></td>
+<td><code>8.13.4</code></td>
+<td><code>8.13.4</code> -&gt; <code>8.17.7</code> -&gt; <code>9.5.10</code> -&gt; <code>10.8.7</code> -&gt; <code>11.3.4</code></td>
+<td><code>8.17.7</code> is the last version in version 8, 9.5.10 is the last version in version 9, 10.8.7 is the last version in version 10</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h4 id="更新GitLab"><a href="#更新GitLab" class="headerlink" title="更新GitLab"></a>更新GitLab</h4><p>Update GitLab: Update guides to upgrade your installation to a new version.</p>
+<p>根据安装方式与GitLab版本，有多种升级方法：</p>
+<ul>
+<li>Omnibus packages</li>
+<li>Source installation</li>
+<li>Docker installation</li>
+</ul>
+<p><br></p>
+<h5 id="使用软件包的方式进行更新"><a href="#使用软件包的方式进行更新" class="headerlink" title="使用软件包的方式进行更新"></a>使用软件包的方式进行更新</h5><p>Updating GitLab installed with the Omnibus GitLab package</p>
+<p><br></p>
+<p><strong>特定版本:</strong></p>
+<ul>
+<li>GitLab 11</li>
+<li>GitLab 10</li>
+<li>GitLab 8</li>
+<li>GitLab 7</li>
+<li>GitLab 6</li>
+</ul>
+<p><br></p>
+<p><strong>升级方法:</strong></p>
+<ul>
+<li>使用官方Repo</li>
+<li>手动下载Package</li>
+</ul>
+<p><br></p>
+<p><strong>零停机更新(Zero downtime updates)</strong></p>
+<blockquote>
+<p>注意：这仅适用于GitLab 9.1.0或更高版本。</p>
+</blockquote>
+<p>地址: <a href="https://docs.gitlab.com/omnibus/update/README.html#zero-downtime-updates" target="_blank" rel="noopener">https://docs.gitlab.com/omnibus/update/README.html#zero-downtime-updates</a></p>
+<p><br></p>
+<p><strong>降级(Downgrading):</strong></p>
+<blockquote>
+<p>注意：本指南假定您在要还原的版本下创建了备份存档。</p>
+</blockquote>
+<p>步骤：</p>
+<ul>
+<li>Download the package of a target version</li>
+<li>Stop GitLab</li>
+<li>Install the old package</li>
+<li>Reconfigure GitLab</li>
+<li>Restoring the backup</li>
+<li>Starting GitLab</li>
+</ul>
+<p><br><br><br></p>
+<h4 id="其它项的更新"><a href="#其它项的更新" class="headerlink" title="其它项的更新"></a>其它项的更新</h4><ul>
+<li>MySQL to PostgreSQL</li>
+<li>PostgreSQL to MySQL</li>
+<li>更新失败之后从备份文件进行还原</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h3 id="CE-EE"><a href="#CE-EE" class="headerlink" title="CE-EE"></a>CE-EE</h3><p>Upgrading or downgrading GitLab</p>
 <ul>
 <li>Upgrade from GitLab CE to GitLab EE</li>
 <li>Downgrade from GitLab EE to GitLab CE</li>
@@ -1783,10 +1882,83 @@
 <hr>
 <p><br><br><br></p>
 <h2 id="项目设置"><a href="#项目设置" class="headerlink" title="项目设置"></a>项目设置</h2><p>Project settings</p>
+<p><br></p>
+<h3 id="Repo检查"><a href="#Repo检查" class="headerlink" title="Repo检查"></a>Repo检查</h3><p>Repository checks: Periodic Git repository checks.</p>
+<blockquote>
+<p>在GitLab 8.7中引入。它默认关闭，因为它仍会导致过多的误报。</p>
+</blockquote>
+<p>Git有一个内置机制<code>git fsck</code>，用于验证提交到存储库的所有数据的完整性。GitLab管理员可以通过管理面板下的项目页面触发对项目的检查。检查以异步方式运行，因此可能需要几分钟才能在项目管理页面上显示检查结果。如果检查失败，您可以在<code>repocheck.log</code>下的管理日志页面上看到它们的输出。</p>
+<p><br></p>
+<p><strong>定期检查(Periodic checks)</strong></p>
+<p>启用后，GitLab会定期对所有项目存储库和wiki存储库运行存储库检查，以检测数据损坏。一个项目每月检查不超过一次。如果任何项目未通过其存储库检查，则所有GitLab管理员都将收到有关该情况的电子邮件通知。\</p>
+<p><br></p>
+<p><strong>禁用</strong></p>
+<p>可在管理员面板上禁用定期检查。</p>
+<p><br></p>
+<p><strong>检查失败</strong></p>
+<p>如果某个存储库检查失败，你应该在<code>repocheck.log</code>查找错误信息:</p>
+<ul>
+<li>管理员面板</li>
+<li>磁盘日志文件<ul>
+<li><code>/var/log/gitlab/gitlab-rails</code> for Omnibus installations</li>
+<li><code>/home/git/gitlab/log</code> for installations from source</li>
+</ul>
+</li>
+</ul>
+<p>如果由于某种原因定期检查导致大量错误警报，您可以在管理员设置里来选择清除所有存储库检查状态。</p>
+<p><br><br><br><br><br></p>
+<h3 id="Repo存储路径"><a href="#Repo存储路径" class="headerlink" title="Repo存储路径"></a>Repo存储路径</h3><p>Repository storage paths: Manage the paths used to store repositories.</p>
+<p><strong>GitLab允许您定义多个存储库存储路径，以在多个挂载点之间分配存储负载。</strong></p>
+<p><strong>注意:</strong></p>
+<ul>
+<li>您必须至少有一个名为<code>default</code>的存储路径</li>
+<li>路径以键值对进行定义</li>
+<li>目标目录及其任何子路径都不能是符号链接</li>
+<li>目标目录不能是制定路径的子目录，因为不能嵌套</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#栗子</span><br><span class="line">default:</span><br><span class="line">  path: /mnt/git-storage-1</span><br><span class="line">storage2:</span><br><span class="line">  path: /mnt/git-storage-2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#错误栗子</span><br><span class="line">default:</span><br><span class="line">  path: /mnt/git-storage-1</span><br><span class="line">storage2:</span><br><span class="line">  path: /mnt/git-storage-1/git-storage-2 # &lt;- NOT OK because of nesting</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="配置GitLab"><a href="#配置GitLab" class="headerlink" title="配置GitLab"></a>配置GitLab</h4><blockquote>
+<p><strong>注意:</strong><br>为了使备份正常工作，存储路径不能是挂载点，GitLab用户应具有路径父目录的正确权限。在Omnibus GitLab中，这是自动处理的，但对于Source Code安装，您应该格外小心。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gitlab.rb</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git_data_dirs(&#123;</span><br><span class="line">  &quot;default&quot; =&gt; &#123; &quot;path&quot; =&gt; &quot;/var/opt/gitlab/git-data&quot; &#125;,</span><br><span class="line">  &quot;nfs&quot; =&gt; &#123; &quot;path&quot; =&gt; &quot;/mnt/nfs/git-data&quot; &#125;,</span><br><span class="line">  &quot;cephfs&quot; =&gt; &#123; &quot;path&quot; =&gt; &quot;/mnt/cephfs/git-data&quot; &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">#Omnibus将存储库数据存储在git-data/repositories子目录下</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="选择新项目存储库的存储位置"><a href="#选择新项目存储库的存储位置" class="headerlink" title="选择新项目存储库的存储位置"></a>选择新项目存储库的存储位置</h4><p>设置了多个存储路径后，可在Admin下Application Setting选择新项目的存储路径。<br>从GitLab 8.13.4开始，可以选择多个路径。新项目将随机放置在其中一个选定路径上。</p>
+<p><br><br><br><br><br></p>
+<h3 id="Repo存储靶任务"><a href="#Repo存储靶任务" class="headerlink" title="Repo存储靶任务"></a>Repo存储靶任务</h3><p>Repository storage rake tasks: A collection of rake tasks to list and migrate existing projects and attachments associated with it from Legacy storage to Hashed storage</p>
+<p>以下靶任务(rake task)，可用于帮助您列出现有项目以及与之关联的附件，从旧存储到新的Hashed存储类型。</p>
+<p><br></p>
+<h4 id="将现有项目迁移到哈希存储"><a href="#将现有项目迁移到哈希存储" class="headerlink" title="将现有项目迁移到哈希存储"></a>将现有项目迁移到哈希存储</h4><p>Migrate existing projects to Hashed storage</p>
+<p>在迁移现有项目之前，还应为新项目启用哈希/散列存储。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Omnibus</span></span><br><span class="line">sudo gitlab-rake gitlab:storage:migrate_to_hashed</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># to migrate any non migrated project from ID 20 to 50.</span></span><br><span class="line"><span class="built_in">export</span> ID_FROM=20 </span><br><span class="line"><span class="built_in">export</span> ID_TO=50</span><br></pre></td></tr></table></figure>
+<p>你可在<code>Admin &gt; Monitoring &gt; Background jobs</code>里面进行查看。</p>
+<p>在它达到零之后，您可以通过运行以下命令来确认已迁移每个项目。如果您认为有必要，可以再次运行此迁移脚本以安排缺少的项目。</p>
+<p><br><br><br></p>
+<h4 id="列出旧版存储的项目"><a href="#列出旧版存储的项目" class="headerlink" title="列出旧版存储的项目"></a>列出旧版存储的项目</h4><p>List projects on Legacy storage</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取旧项目存储摘要</span></span><br><span class="line"><span class="comment">#Ominibus</span></span><br><span class="line">sudo gitlab-rake gitlab:storage:legacy_projects</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#列出项目使用的旧存储</span></span><br><span class="line"><span class="comment">#Ominibus</span></span><br><span class="line">sudo gitlab-rake gitlab:storage:list_legacy_projects</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="列出哈希散列上的项目"><a href="#列出哈希散列上的项目" class="headerlink" title="列出哈希散列上的项目"></a>列出哈希散列上的项目</h4><p>List projects on Hashed storage</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用哈希存储的项目的简单摘要</span></span><br><span class="line"><span class="comment">#Ominibus</span></span><br><span class="line">sudo gitlab-rake gitlab:storage:hashed_projects</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#列出项目使用的散列存储</span></span><br><span class="line"><span class="comment">#Ominibus</span></span><br><span class="line">sudo gitlab-rake gitlab:storage:list_hashed_projects</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="列出旧版存储上的附件"><a href="#列出旧版存储上的附件" class="headerlink" title="列出旧版存储上的附件"></a>列出旧版存储上的附件</h4><p>List attachments on Legacy storage</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用旧版存储的附件的简单摘要</span></span><br><span class="line"><span class="comment">#Ominibus</span></span><br><span class="line">sudo gitlab-rake gitlab:storage:legacy_attachments</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#列出使用旧版存储的项目附件</span></span><br><span class="line"><span class="comment">#Ominibus</span></span><br><span class="line">sudo gitlab-rake gitlab:storage:list_legacy_attachments</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<p>####列出哈希存储上的附件</p>
+<p>List attachments on Hashed storage</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用哈希存储的附件的简单摘要</span></span><br><span class="line"><span class="comment">#Ominibus</span></span><br><span class="line">sudo gitlab-rake gitlab:storage:hashed_attachments</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#列出使用哈希存储的项目附件</span></span><br><span class="line"><span class="comment">#Ominibus</span></span><br><span class="line">sudo gitlab-rake gitlab:storage:list_hashed_attachments</span><br></pre></td></tr></table></figure>
+<p><br><br><br><br><br></p>
+<h3 id="限制Repo大小"><a href="#限制Repo大小" class="headerlink" title="限制Repo大小"></a>限制Repo大小</h3><p>Limit repository size: Set a hard limit for your repositories’ size</p>
+<blockquote>
+<p>Introduced in GitLab Enterprise Edition 8.12.</p>
+</blockquote>
+<p>GitLab实例中的存储库可能会快速增长，尤其是在使用LFS时。它们的大小可以指数级增长，并且可以非常快速地耗尽您的存储设备。为了避免这种情况发生，您可以为存储库的大小设置硬限制。<br>可以全局，按组或按项目设置此限制，每个项目限制具有最高优先级。</p>
+<p>只有GitLab管理员才能设置这些限制。将限制设置为0表示没有限制。</p>
+<p>到目前为止，无法检查新项目的第一次推送的大小，因此第一次推送将允许您上传超过限制规定，但每次后续推送都将被拒绝。但是，LFS对象可以在第一次推送时检查，如果它们的大小总和超过允许的最大存储库大小，则会被拒绝。</p>
 <p><br><br><br></p>
 <hr>
 <p><br><br><br></p>
 <h2 id="CI"><a href="#CI" class="headerlink" title="CI"></a>CI</h2><p>Continuous Integration settings</p>
+<p><img src="/images/GitLab/cicd_pipeline_infograph.png" alt=""></p>
 <p><br></p>
 <h3 id="启用-禁用CICD"><a href="#启用-禁用CICD" class="headerlink" title="启用/禁用CICD"></a>启用/禁用CICD</h3><p>Enable/disable GitLab CI/CD: Enable or disable GitLab CI/CD for your instance.</p>
 <p>您可以在站点范围内禁用GitLab CI/CD，方法是修改配置文件。</p>
@@ -2313,8 +2485,7 @@
 </blockquote>
 <p>Auto Code Quality使用<code>Code Quality image</code>对当前代码运行静态分析和其他代码检查。报告已创建，并作为工件上传，您可以在以后下载和检查。<br>源分支和目标分支之间的任何差异也会显示在合并请求窗口小部件中。</p>
 <p><br></p>
-<p>#####　Auto SAST</p>
-<blockquote>
+<h5 id="Auto-SAST"><a href="#Auto-SAST" class="headerlink" title="Auto SAST"></a>Auto SAST</h5><blockquote>
 <p>GitLab ULTIMATE GOLD</p>
 </blockquote>
 <p>Static Application Security Testing(SAST)使用<code>SAST Docker image</code>对当前代码运行静态分析并检查潜在的安全问题。创建报告后，它将作为工件上载，您可以在以后下载和检查。</p>
@@ -2329,8 +2500,7 @@
 </blockquote>
 <p>License Management使用<code>License Management Docker image</code>搜索项目依赖项以获取其许可证。创建报告后，它将作为工件上载，您可以在以后下载和检查。</p>
 <p><br></p>
-<p>#####　Auto Container Scanning</p>
-<blockquote>
+<h5 id="Auto-Container-Scanning"><a href="#Auto-Container-Scanning" class="headerlink" title="Auto Container Scanning"></a>Auto Container Scanning</h5><blockquote>
 <p>GitLab ULTIMATE</p>
 </blockquote>
 <p>容器的漏洞静态分析使用<code>Clair</code>在Docker image上运行静态分析并检查潜在的安全问题。创建报告后，它将作为工件上载，您可以在以后下载和检查。</p>
@@ -2528,13 +2698,578 @@
 <p><strong>高级副本变量设置(Advanced replica variables setup)</strong></p>
 <p>除了上面提到的两个与副本相关的生产变量之外，您还可以将其它变量用于不同的环境。</p>
 <p><br><br><br></p>
-<p>####　目前支持的语言</p>
-<p>Currently supported languages</p>
+<h4 id="目前支持的语言"><a href="#目前支持的语言" class="headerlink" title="目前支持的语言"></a>目前支持的语言</h4><p>Currently supported languages</p>
 <p>从GitLab 10.0开始，支持的构建包是：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">heroku-buildpack-multi</span>     <span class="string">v1.0.0</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">heroku-buildpack-ruby</span>      <span class="string">v168</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">heroku-buildpack-nodejs</span>    <span class="string">v99</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">heroku-buildpack-clojure</span>   <span class="string">v77</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">heroku-buildpack-python</span>    <span class="string">v99</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">heroku-buildpack-java</span>      <span class="string">v53</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">heroku-buildpack-gradle</span>    <span class="string">v23</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">heroku-buildpack-scala</span>     <span class="string">v78</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">heroku-buildpack-play</span>      <span class="string">v26</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">heroku-buildpack-php</span>       <span class="string">v122</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">heroku-buildpack-go</span>        <span class="string">v72</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">heroku-buildpack-erlang</span>    <span class="string">fa17af9</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">buildpack-nginx</span>            <span class="string">v8</span></span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h3 id="Auto-DevOps-template"><a href="#Auto-DevOps-template" class="headerlink" title="Auto DevOps template"></a>Auto DevOps template</h3><p>各种模板: <a href="https://gitlab.com/gitlab-org/gitlab-ce/tree/master/lib/gitlab/ci/templates" target="_blank" rel="noopener">https://gitlab.com/gitlab-org/gitlab-ce/tree/master/lib/gitlab/ci/templates</a></p>
 <p>在项目也可选择新建<code>.gitlab-ci.yml</code>模板文件，然后根据需要就行适当的修改。</p>
+<p><br><br><br><br><br></p>
+<h3 id="CI-CD环境变量"><a href="#CI-CD环境变量" class="headerlink" title="CI/CD环境变量"></a><code>CI/CD</code>环境变量</h3><p>CI/CD Variables - Learn how to use variables defined in your <code>.gitlab-ci.yml</code> or the ones defined in your project’s settings</p>
+<p>当从GitLab CI接收作业时，Runner准备构建环境。首先，设置预定义变量列表<strong>predefined variables</strong>（环境变量）和用户定义变量列表<strong>user-defined variables</strong>。</p>
+<p><br><br><br></p>
+<h4 id="变量优先级"><a href="#变量优先级" class="headerlink" title="变量优先级"></a>变量优先级</h4><p>Priority of variables</p>
+<p>变量可以被覆盖，并且它们按此顺序优先于彼此：</p>
+<ol>
+<li>Trigger variables / scheduled pipeline variables</li>
+<li>Project-level variables / protected variables</li>
+<li>Group-level variables / protected variables</li>
+<li>YAML-defined job-level variables</li>
+<li>YAML-defined global variables</li>
+<li>Deployment variables</li>
+<li>Predefined variables</li>
+</ol>
+<p><br><br><br></p>
+<h4 id="不支持的变量"><a href="#不支持的变量" class="headerlink" title="不支持的变量"></a>不支持的变量</h4><p>在某些情况下，某些变量无法在<code>.gitlab-ci.yml</code>定义的上下文中使用——如在<code>script</code>下定义的变量。</p>
+<p><br><br><br></p>
+<h4 id="预定义变量"><a href="#预定义变量" class="headerlink" title="预定义变量"></a>预定义变量</h4><p>Predefined variables (Environment variables)</p>
+<blockquote>
+<p><strong>注意：</strong><br>从<code>GitLab 9.0</code>开始，我们已经弃用了一些变量。阅读<code>9.0</code>重命名部分以找出它们的替代品。强烈建议您使用新变量，因为我们将在以后的GitLab版本中删除旧变量。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>GitLab</th>
+<th>Runner</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ARTIFACT_DOWNLOAD_ATTEMPTS</code></td>
+<td>8.15</td>
+<td>1.9</td>
+<td>Number of attempts to download artifacts running a job</td>
+</tr>
+<tr>
+<td><code>CI</code></td>
+<td>all</td>
+<td>0.4</td>
+<td>Mark that job is executed in CI environment</td>
+</tr>
+<tr>
+<td><code>CI_COMMIT_BEFORE_SHA</code></td>
+<td>11.2</td>
+<td>all</td>
+<td>The previous latest commit present on a branch before a push request.</td>
+</tr>
+<tr>
+<td><code>CI_COMMIT_DESCRIPTION</code></td>
+<td>10.8</td>
+<td>all</td>
+<td>The description of the commit: the message without first line, if the title is shorter than 100 characters; full message in other case.</td>
+</tr>
+<tr>
+<td><code>CI_COMMIT_MESSAGE</code></td>
+<td>10.8</td>
+<td>all</td>
+<td>The full commit message.</td>
+</tr>
+<tr>
+<td><code>CI_COMMIT_REF_NAME</code></td>
+<td>9.0</td>
+<td>all</td>
+<td>The branch or tag name for which project is built</td>
+</tr>
+<tr>
+<td><code>CI_COMMIT_REF_SLUG</code></td>
+<td>9.0</td>
+<td>all</td>
+<td>$CI_COMMIT_REF_NAME lowercased, shortened to 63 bytes, and with everything except 0-9 and a-z replaced with -. No leading / trailing -. Use in URLs, host names and domain names.</td>
+</tr>
+<tr>
+<td><code>CI_COMMIT_SHA</code></td>
+<td>9.0</td>
+<td>all</td>
+<td>The commit revision for which project is built</td>
+</tr>
+<tr>
+<td><code>CI_COMMIT_SHORT_SHA</code></td>
+<td>11.7</td>
+<td>all</td>
+<td>The first eight characters of CI_COMMIT_SHA</td>
+</tr>
+<tr>
+<td><code>CI_COMMIT_TAG</code></td>
+<td>9.0</td>
+<td>0.5</td>
+<td>The commit tag name. Present only when building tags.</td>
+</tr>
+<tr>
+<td><code>CI_COMMIT_TITLE</code></td>
+<td>10.8</td>
+<td>all</td>
+<td>The title of the commit - the full first line of the message</td>
+</tr>
+<tr>
+<td><code>CI_CONFIG_PATH</code></td>
+<td>9.4</td>
+<td>0.5</td>
+<td>The path to CI config file. Defaults to .gitlab-ci.yml</td>
+</tr>
+<tr>
+<td><code>CI_DEBUG_TRACE</code></td>
+<td>all</td>
+<td>1.7</td>
+<td>Whether debug tracing is enabled</td>
+</tr>
+<tr>
+<td><code>CI_DEPLOY_PASSWORD</code></td>
+<td>10.8</td>
+<td>all</td>
+<td>Authentication password of the GitLab Deploy Token, only present if the Project has one related.</td>
+</tr>
+<tr>
+<td><code>CI_DEPLOY_USER</code></td>
+<td>10.8</td>
+<td>all</td>
+<td>Authentication username of the GitLab Deploy Token, only present if the Project has one related.</td>
+</tr>
+<tr>
+<td><code>CI_DISPOSABLE_ENVIRONMENT</code></td>
+<td>all</td>
+<td>10.1</td>
+<td>Marks that the job is executed in a disposable environment (something that is created only for this job and disposed of/destroyed after the execution - all executors except shell and ssh). If the environment is disposable, it is set to true, otherwise it is not defined at all.</td>
+</tr>
+<tr>
+<td><code>CI_ENVIRONMENT_NAME</code></td>
+<td>8.15</td>
+<td>all</td>
+<td>The name of the environment for this job</td>
+</tr>
+<tr>
+<td><code>CI_ENVIRONMENT_SLUG</code></td>
+<td>8.15</td>
+<td>all</td>
+<td>A simplified version of the environment name, suitable for inclusion in DNS, URLs, Kubernetes labels, etc.</td>
+</tr>
+<tr>
+<td><code>CI_ENVIRONMENT_URL</code></td>
+<td>9.3</td>
+<td>all</td>
+<td>The URL of the environment for this job</td>
+</tr>
+<tr>
+<td><code>CI_JOB_ID</code></td>
+<td>9.0</td>
+<td>all</td>
+<td>The unique id of the current job that GitLab CI uses internally</td>
+</tr>
+<tr>
+<td><code>CI_JOB_MANUAL</code></td>
+<td>8.12</td>
+<td>all</td>
+<td>The flag to indicate that job was manually started</td>
+</tr>
+<tr>
+<td><code>CI_JOB_NAME</code></td>
+<td>9.0</td>
+<td>0.5</td>
+<td>The name of the job as defined in .gitlab-ci.yml</td>
+</tr>
+<tr>
+<td><code>CI_JOB_STAGE</code></td>
+<td>9.0</td>
+<td>0.5</td>
+<td>The name of the stage as defined in .gitlab-ci.yml</td>
+</tr>
+<tr>
+<td><code>CI_JOB_TOKEN</code></td>
+<td>9.0</td>
+<td>1.2</td>
+<td>Token used for authenticating with the GitLab Container Registry and downloading dependent repositories</td>
+</tr>
+<tr>
+<td><code>CI_JOB_URL</code></td>
+<td>11.1</td>
+<td>0.5</td>
+<td>Job details URL</td>
+</tr>
+<tr>
+<td><code>CI_MERGE_REQUEST_ID</code></td>
+<td>11.6</td>
+<td>all</td>
+<td>The ID of the merge request if it’s pipelines for merge requests</td>
+</tr>
+<tr>
+<td><code>CI_MERGE_REQUEST_IID</code></td>
+<td>11.6</td>
+<td>all</td>
+<td>The IID of the merge request if it’s pipelines for merge requests</td>
+</tr>
+<tr>
+<td><code>CI_MERGE_REQUEST_PROJECT_ID</code></td>
+<td>11.6</td>
+<td>all</td>
+<td>The ID of the project of the merge request if it’s pipelines for merge requests</td>
+</tr>
+<tr>
+<td><code>CI_MERGE_REQUEST_PROJECT_PATH</code></td>
+<td>11.6</td>
+<td>all</td>
+<td>The path of the project of the merge request if it’s pipelines for merge requests (e.g. namespace/awesome-project)</td>
+</tr>
+<tr>
+<td><code>CI_MERGE_REQUEST_PROJECT_URL</code></td>
+<td>11.6</td>
+<td>all</td>
+<td>The URL of the project of the merge request if it’s pipelines for merge requests (e.g. <a href="http://192.168.10.15:3000/namespace/awesome-project" target="_blank" rel="noopener">http://192.168.10.15:3000/namespace/awesome-project</a>)</td>
+</tr>
+<tr>
+<td><code>CI_MERGE_REQUEST_REF_PATH</code></td>
+<td>11.6</td>
+<td>all</td>
+<td>The ref path of the merge request if it’s pipelines for merge requests. (e.g. refs/merge-requests/1/head)</td>
+</tr>
+<tr>
+<td><code>CI_MERGE_REQUEST_SOURCE_BRANCH_NAME</code></td>
+<td>11.6</td>
+<td>all</td>
+<td>The source branch name of the merge request if it’s pipelines for merge requests</td>
+</tr>
+<tr>
+<td>CI_MERGE_REQUEST_SOURCE_PROJECT_ID</td>
+<td>11.6</td>
+<td>all</td>
+<td>The ID of the source project of the merge request if it’s pipelines for merge requests</td>
+</tr>
+<tr>
+<td>CI_MERGE_REQUEST_SOURCE_PROJECT_PATH</td>
+<td>11.6</td>
+<td>all</td>
+<td>The path of the source project of the merge request if it’s pipelines for merge requests</td>
+</tr>
+<tr>
+<td>CI_MERGE_REQUEST_SOURCE_PROJECT_URL</td>
+<td>11.6</td>
+<td>all</td>
+<td>The URL of the source project of the merge request if it’s pipelines for merge requests</td>
+</tr>
+<tr>
+<td>CI_MERGE_REQUEST_TARGET_BRANCH_NAME</td>
+<td>11.6</td>
+<td>all</td>
+<td>The target branch name of the merge request if it’s pipelines for merge requests</td>
+</tr>
+<tr>
+<td>CI_NODE_INDEX</td>
+<td>11.5</td>
+<td>all</td>
+<td>Index of the job in the job set. If the job is not parallelized, this variable is not set.</td>
+</tr>
+<tr>
+<td>CI_NODE_TOTAL</td>
+<td>11.5</td>
+<td>all</td>
+<td>Total number of instances of this job running in parallel. If the job is not parallelized, this variable is set to 1.</td>
+</tr>
+<tr>
+<td>CI_API_V4_URL</td>
+<td>11.7</td>
+<td>all</td>
+<td>The GitLab API v4 root URL</td>
+</tr>
+<tr>
+<td>CI_PIPELINE_ID</td>
+<td>8.10</td>
+<td>all</td>
+<td>The unique id of the current pipeline that GitLab CI uses internally</td>
+</tr>
+<tr>
+<td>CI_PIPELINE_IID</td>
+<td>11.0</td>
+<td>all</td>
+<td>The unique id of the current pipeline scoped to project</td>
+</tr>
+<tr>
+<td>CI_PIPELINE_SOURCE</td>
+<td>10.0</td>
+<td>all</td>
+<td>Indicates how the pipeline was triggered. Possible options are: push, web, trigger, schedule, api, and pipeline. For pipelines created before GitLab 9.5, this will show as unknown</td>
+</tr>
+<tr>
+<td>CI_PIPELINE_TRIGGERED</td>
+<td>all</td>
+<td>all</td>
+<td>The flag to indicate that job was triggered</td>
+</tr>
+<tr>
+<td>CI_PIPELINE_URL</td>
+<td>11.1</td>
+<td>0.5</td>
+<td>Pipeline details URL</td>
+</tr>
+<tr>
+<td>CI_PROJECT_DIR</td>
+<td>all</td>
+<td>all</td>
+<td>The full path where the repository is cloned and where the job is run</td>
+</tr>
+<tr>
+<td>CI_PROJECT_ID</td>
+<td>all</td>
+<td>all</td>
+<td>The unique id of the current project that GitLab CI uses internally</td>
+</tr>
+<tr>
+<td>CI_PROJECT_NAME</td>
+<td>8.10</td>
+<td>0.5</td>
+<td>The project name that is currently being built (actually it is project folder name)</td>
+</tr>
+<tr>
+<td>CI_PROJECT_NAMESPACE</td>
+<td>8.10</td>
+<td>0.5</td>
+<td>The project namespace (username or groupname) that is currently being built</td>
+</tr>
+<tr>
+<td>CI_PROJECT_PATH</td>
+<td>8.10</td>
+<td>0.5</td>
+<td>The namespace with project name</td>
+</tr>
+<tr>
+<td>CI_PROJECT_PATH_SLUG</td>
+<td>9.3</td>
+<td>all</td>
+<td>$CI_PROJECT_PATH lowercased and with everything except 0-9 and a-z replaced with -. Use in URLs and domain names.</td>
+</tr>
+<tr>
+<td>CI_PROJECT_URL</td>
+<td>8.10</td>
+<td>0.5</td>
+<td>The HTTP address to access project</td>
+</tr>
+<tr>
+<td>CI_PROJECT_VISIBILITY</td>
+<td>10.3</td>
+<td>all</td>
+<td>The project visibility (internal, private, public)</td>
+</tr>
+<tr>
+<td>CI_REGISTRY</td>
+<td>8.10</td>
+<td>0.5</td>
+<td>If the Container Registry is enabled it returns the address of GitLab’s Container Registry</td>
+</tr>
+<tr>
+<td>CI_REGISTRY_IMAGE</td>
+<td>8.10</td>
+<td>0.5</td>
+<td>If the Container Registry is enabled for the project it returns the address of the registry tied to the specific project</td>
+</tr>
+<tr>
+<td>CI_REGISTRY_PASSWORD</td>
+<td>9.0</td>
+<td>all</td>
+<td>The password to use to push containers to the GitLab Container Registry</td>
+</tr>
+<tr>
+<td>CI_REGISTRY_USER</td>
+<td>9.0</td>
+<td>all</td>
+<td>The username to use to push containers to the GitLab Container Registry</td>
+</tr>
+<tr>
+<td>CI_REPOSITORY_URL</td>
+<td>9.0</td>
+<td>all</td>
+<td>The URL to clone the Git repository</td>
+</tr>
+<tr>
+<td>CI_RUNNER_DESCRIPTION</td>
+<td>8.10</td>
+<td>0.5</td>
+<td>The description of the runner as saved in GitLab</td>
+</tr>
+<tr>
+<td>CI_RUNNER_EXECUTABLE_ARCH</td>
+<td>all</td>
+<td>10.6</td>
+<td>The OS/architecture of the GitLab Runner executable (note that this is not necessarily the same as the environment of the executor)</td>
+</tr>
+<tr>
+<td>CI_RUNNER_ID</td>
+<td>8.10</td>
+<td>0.5</td>
+<td>The unique id of runner being used</td>
+</tr>
+<tr>
+<td>CI_RUNNER_REVISION</td>
+<td>all</td>
+<td>10.6</td>
+<td>GitLab Runner revision that is executing the current job</td>
+</tr>
+<tr>
+<td>CI_RUNNER_TAGS</td>
+<td>8.10</td>
+<td>0.5</td>
+<td>The defined runner tags</td>
+</tr>
+<tr>
+<td>CI_RUNNER_VERSION</td>
+<td>all</td>
+<td>10.6</td>
+<td>GitLab Runner version that is executing the current job</td>
+</tr>
+<tr>
+<td>CI_SERVER</td>
+<td>all</td>
+<td>all</td>
+<td>Mark that job is executed in CI environment</td>
+</tr>
+<tr>
+<td>CI_SERVER_NAME</td>
+<td>all</td>
+<td>all</td>
+<td>The name of CI server that is used to coordinate jobs</td>
+</tr>
+<tr>
+<td>CI_SERVER_REVISION</td>
+<td>all</td>
+<td>all</td>
+<td>GitLab revision that is used to schedule jobs</td>
+</tr>
+<tr>
+<td>CI_SERVER_VERSION</td>
+<td>all</td>
+<td>all</td>
+<td>GitLab version that is used to schedule jobs</td>
+</tr>
+<tr>
+<td>CI_SERVER_VERSION_MAJOR</td>
+<td>11.4</td>
+<td>all</td>
+<td>GitLab version major component</td>
+</tr>
+<tr>
+<td>CI_SERVER_VERSION_MINOR</td>
+<td>11.4</td>
+<td>all</td>
+<td>GitLab version minor component</td>
+</tr>
+<tr>
+<td>CI_SERVER_VERSION_PATCH</td>
+<td>11.4</td>
+<td>all</td>
+<td>GitLab version patch component</td>
+</tr>
+<tr>
+<td>CI_SHARED_ENVIRONMENT</td>
+<td>all</td>
+<td>10.1</td>
+<td>Marks that the job is executed in a shared environment (something that is persisted across CI invocations like shell or ssh executor). If the environment is shared, it is set to true, otherwise it is not defined at all.</td>
+</tr>
+<tr>
+<td>GET_SOURCES_ATTEMPTS</td>
+<td>8.15</td>
+<td>1.9</td>
+<td>Number of attempts to fetch sources running a job</td>
+</tr>
+<tr>
+<td>GITLAB_CI</td>
+<td>all</td>
+<td>all</td>
+<td>Mark that job is executed in GitLab CI environment</td>
+</tr>
+<tr>
+<td>GITLAB_USER_EMAIL</td>
+<td>8.12</td>
+<td>all</td>
+<td>The email of the user who started the job</td>
+</tr>
+<tr>
+<td>GITLAB_USER_ID</td>
+<td>8.12</td>
+<td>all</td>
+<td>The id of the user who started the job</td>
+</tr>
+<tr>
+<td>GITLAB_USER_LOGIN</td>
+<td>10.0</td>
+<td>all</td>
+<td>The login username of the user who started the job</td>
+</tr>
+<tr>
+<td>GITLAB_USER_NAME</td>
+<td>10.0</td>
+<td>all</td>
+<td>The real name of the user who started the job</td>
+</tr>
+<tr>
+<td>RESTORE_CACHE_ATTEMPTS</td>
+<td>8.15</td>
+<td>1.9</td>
+<td>Number of attempts to restore the cache running a job</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>GitLab 9.0 renaming</strong></p>
+<table>
+<thead>
+<tr>
+<th>8.x name</th>
+<th>9.0+ name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CI_BUILD_ID</td>
+<td>CI_JOB_ID</td>
+</tr>
+<tr>
+<td>CI_BUILD_REF</td>
+<td>CI_COMMIT_SHA</td>
+</tr>
+<tr>
+<td>CI_BUILD_TAG</td>
+<td>CI_COMMIT_TAG</td>
+</tr>
+<tr>
+<td>CI_BUILD_BEFORE_SHA</td>
+<td>CI_COMMIT_BEFORE_SHA</td>
+</tr>
+<tr>
+<td>CI_BUILD_REF_NAME</td>
+<td>CI_COMMIT_REF_NAME</td>
+</tr>
+<tr>
+<td>CI_BUILD_REF_SLUG</td>
+<td>CI_COMMIT_REF_SLUG</td>
+</tr>
+<tr>
+<td>CI_BUILD_NAME</td>
+<td>CI_JOB_NAME</td>
+</tr>
+<tr>
+<td>CI_BUILD_STAGE</td>
+<td>CI_JOB_STAGE</td>
+</tr>
+<tr>
+<td>CI_BUILD_REPO</td>
+<td>CI_REPOSITORY_URL</td>
+</tr>
+<tr>
+<td>CI_BUILD_TRIGGERED</td>
+<td>CI_PIPELINE_TRIGGERED</td>
+</tr>
+<tr>
+<td>CI_BUILD_MANUAL</td>
+<td>CI_JOB_MANUAL</td>
+</tr>
+<tr>
+<td>CI_BUILD_TOKEN</td>
+<td>CI_JOB_TOKEN</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h4 id="gitlab-ci-yml定义的变量"><a href="#gitlab-ci-yml定义的变量" class="headerlink" title=".gitlab-ci.yml定义的变量"></a><code>.gitlab-ci.yml</code>定义的变量</h4><p>GitLab CI允许您添加在构建环境中设置的<code>.gitlab-ci.yml</code>变量。因此，变量保存在存储库中，它们用于存储非敏感项目配置。</p>
+<p><br><br><br></p>
+<h4 id="组-库级别变量"><a href="#组-库级别变量" class="headerlink" title="组/库级别变量"></a>组/库级别变量</h4><p>这个变量在Web UI上进行配置。</p>
 <p><br><br><br><br><br></p>
 <h3 id="gitlab-ci-yml配置"><a href="#gitlab-ci-yml配置" class="headerlink" title=".gitlab-ci.yml配置"></a><code>.gitlab-ci.yml</code>配置</h3><p>使用<code>.gitlab-ci.yml</code>配置你的Jobs，该文件是GitLab Runner用来管理项目作业的文件。</p>
 <p><br></p>
@@ -2709,7 +3444,7 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">stages:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">build</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">test</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">deploy</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#首先，build阶段的所有作业都是并行执行的</span></span><br><span class="line"><span class="comment">#如果build阶段的所有作业都成功，则test阶段的作业将并行执行</span></span><br><span class="line"><span class="comment">#如果test阶段的所有作业都成功，则deploy阶段的作业将并行执行</span></span><br><span class="line"><span class="comment">#如果deploy阶段的所有作业都成功，则commit将被标记为passwd</span></span><br><span class="line"><span class="comment">#如果任何先前的作业失败，则commit被标记为failed，并且不执行其他阶段的作业</span></span><br></pre></td></tr></table></figure>
 <p>有两个边缘案例值得注意：</p>
 <ul>
-<li>如果在<code>.gitlab-ci.yml</code>文件中没有定义<code>stages</code>，<code>build</code>、test<code>和</code>deploy`用作默认情况允许的作业阶段；</li>
+<li>如果在<code>.gitlab-ci.yml</code>文件中没有定义<code>stages</code>，<code>build</code>、<code>test</code>和<code>deploy</code>用作默认情况允许的作业阶段；</li>
 <li>如果作业未指定<code>stage</code>，则为作业分配<code>test</code>阶段</li>
 </ul>
 <p><br><br><br></p>
@@ -2827,8 +3562,8 @@
 </ul>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#variables关键字用于定义变量表达式</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  script:</span> <span class="string">cap</span> <span class="string">staging</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="attr">    refs:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">branches</span></span><br><span class="line"><span class="attr">    variables:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$RELEASE</span> <span class="string">==</span> <span class="string">"staging"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$STAGING</span></span><br></pre></td></tr></table></figure>
 <p><br></p>
-<p>-<code>only: changes</code></p>
 <ul>
+<li><code>only: changes</code></li>
 <li><code>except: changes</code></li>
 </ul>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#是否应该根据git push事件修改的文件来创建作业</span></span><br><span class="line"><span class="string">docker</span> <span class="attr">build:</span></span><br><span class="line"><span class="attr">  script:</span> <span class="string">docker</span> <span class="string">build</span> <span class="bullet">-t</span> <span class="attr">my-image:$CI_COMMIT_REF_SLUG</span> <span class="string">.</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="attr">    changes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">Dockerfile</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">docker/scripts/*</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">dockerfiles/**/*</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">more_scripts/*.&#123;rb,py,sh&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#这个例子中，只要有上面几个文件或文件夹内的内容发生了commit push</span></span><br></pre></td></tr></table></figure>
@@ -2836,8 +3571,7 @@
 <h4 id="tags-1"><a href="#tags-1" class="headerlink" title="tags"></a><code>tags</code></h4><p><code>tags</code>从允许运行此项目的所有Runner中选择特定Runner。在注册Runner期间，您可以指定Runner的tag。<br><code>tags</code>允许你使用分配了特定标签的Runner运行作业。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">job:</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">ruby</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">postgres</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#栗子</span></span><br><span class="line"><span class="string">windows</span> <span class="attr">job:</span></span><br><span class="line"><span class="attr">  stage:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">windows</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">Hello,</span> <span class="string">%USERNAME%!</span></span><br><span class="line"></span><br><span class="line"><span class="string">osx</span> <span class="attr">job:</span></span><br><span class="line"><span class="attr">  stage:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">osx</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"Hello, $USER!"</span></span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
-<p>####　<code>allow_failure</code></p>
-<p><code>allow_failure</code>允许作业失败而不会影响CI套件的其余部分。除手动作业外，默认值为<code>false</code>。<br>启用并且作业失败后，作业将在UI中显示橙色警告。但是，管道的逻辑流程将认为作业成功/通过，并且不会被阻止。假设所有其它作业都成功，作业的阶段及其管道将显示相同的橙色警告。但是，关联的提交将被标记为<code>passed</code>，而不会发出警告。</p>
+<h4 id="allow-failure"><a href="#allow-failure" class="headerlink" title="allow_failure"></a><code>allow_failure</code></h4><p><code>allow_failure</code>允许作业失败而不会影响CI套件的其余部分。除手动作业外，默认值为<code>false</code>。<br>启用并且作业失败后，作业将在UI中显示橙色警告。但是，管道的逻辑流程将认为作业成功/通过，并且不会被阻止。假设所有其它作业都成功，作业的阶段及其管道将显示相同的橙色警告。但是，关联的提交将被标记为<code>passed</code>，而不会发出警告。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">job1:</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">execute_script_that_will_fail</span></span><br><span class="line"><span class="attr">  allow_failure:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">job2:</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">execute_script_that_will_succeed</span></span><br><span class="line"></span><br><span class="line"><span class="attr">job3:</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">deploy_to_staging</span></span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h4 id="when"><a href="#when" class="headerlink" title="when"></a><code>when</code></h4><p><code>when</code>用于实现在发生故障或尽管失败时运行的作业，它有以下值:</p>
@@ -3104,7 +3838,7 @@
 <p><br></p>
 <p><strong>兼容性图表(Compatibility chart)</strong></p>
 <p>GitLab Runner的版本应该与GitLab同步。如果存在版本差异，则功能可能无法使用或无法正常工作。</p>
-<p><br><br><br><br><br><br><br></p>
+<p><br><br><br><br><br></p>
 <h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><p>Install GitLab Runner</p>
 <ul>
 <li>Install using GitLab’s repository for Debian/Ubuntu/CentOS/RedHat (preferred)</li>
@@ -3137,7 +3871,7 @@
 <p><br><br><br><br><br></p>
 <h3 id="k8s"><a href="#k8s" class="headerlink" title="k8s"></a>k8s</h3><p><br><br><br><br><br></p>
 <h3 id="Autoscale"><a href="#Autoscale" class="headerlink" title="Autoscale"></a>Autoscale</h3><p><br><br><br><br><br></p>
-<h2 id="注册Runner"><a href="#注册Runner" class="headerlink" title="注册Runner"></a>注册Runner</h2><p>Register GitLab Runner</p>
+<h2 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h2><p>Register GitLab Runner</p>
 <p>安装GitLab Runner后，需要将其注册到GitLab。注册Runner是将Runner与GitLab实例绑定的过程。</p>
 <p><br></p>
 <p><strong>要求(Requirements)</strong>，在注册Runner之前，你需要：</p>
@@ -3438,10 +4172,572 @@
 </tbody>
 </table>
 <p><br><br><br><br><br></p>
-<h3 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h3><p><br><br><br><br><br></p>
-<h3 id="Docker-1"><a href="#Docker-1" class="headerlink" title="Docker"></a>Docker</h3><p><br><br><br><br><br></p>
-<h3 id="K8s"><a href="#K8s" class="headerlink" title="K8s"></a>K8s</h3><p><br><br><br><br><br><br><br></p>
+<h3 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h3><p>Shell executor 是一个简单的执行程序，它允许您在运行Runner的机器上本地执行构建。它支持可以安装Runner的所有系统。这意味着它可使用Bash和PowerShell。</p>
+<p>在Bash中，在<code>gitlab-runner command</code>命令之后加上<code>--user</code>，表示使用非特权用户运行。</p>
+<p><br></p>
+<p>源项目被切换到: <code>&lt;working-directory&gt;/builds/&lt;short-token&gt;/&lt;concurrent-id&gt;/&lt;namespace&gt;/&lt;project-name&gt;</code><br>项目的缓存放于: <code>&lt;working-directory&gt;/cache/&lt;namespace&gt;/&lt;project-name&gt;</code></p>
+<p>这些都在GitLab-runner的配置: <code>/etc/gitlab-runner/atom.config.toml</code></p>
+<p><br></p>
+<p><strong>以非特权用户运行(Running as unprivileged user)</strong></p>
+<p>在Linux上(rpm/dpk)，安装程序将尝试使用<code>gitlab_ci_multi_runner</code>用户(如果找到)；如果找不到，它将创建一个<code>gitlab-runner</code>用户并改为使用它。<br>然后，所有shell build都将使用<code>gitlab-runner</code>或<code>gitlab_ci_multi_runner</code>用户执行。</p>
+<p><br></p>
+<p>在某些场景中，您的构建可能需要访问某些特权资源，例如Docker Engine或VirtualBox。在这种情况下，您需要将gitlab-runner用户添加到相应的组：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">usermod -aG docker gitlab-runner</span><br><span class="line">usermod -aG vboxusers gitlab-runner</span><br></pre></td></tr></table></figure>
+<p><br><br><br><br><br></p>
+<h3 id="Docker-1"><a href="#Docker-1" class="headerlink" title="Docker"></a>Docker</h3><p>The Docker executor</p>
+<p>文档: <a href="https://docs.gitlab.com/runner/executors/docker.html" target="_blank" rel="noopener">https://docs.gitlab.com/runner/executors/docker.html</a></p>
+<p><br><br><br><br><br></p>
+<h3 id="K8s"><a href="#K8s" class="headerlink" title="K8s"></a>K8s</h3><p>The Kubernetes executor</p>
+<p>文档: <a href="https://docs.gitlab.com/runner/executors/kubernetes.html" target="_blank" rel="noopener">https://docs.gitlab.com/runner/executors/kubernetes.html</a></p>
+<p><br><br><br><br><br><br><br></p>
 <h2 id="高级配置"><a href="#高级配置" class="headerlink" title="高级配置"></a>高级配置</h2><p>Advanced Configuration</p>
+<p><br></p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>Advanced configuration options Learn how to use the TOML configuration file that GitLab Runner uses.</p>
+<p>GitLab Runner配置使用TOML格式，配置文件可能在如下位置:</p>
+<ul>
+<li><code>/etc/gitlab-runner/config.toml</code></li>
+<li><code>~/.gitlab-runner/config.toml</code></li>
+<li><code>./config.toml</code></li>
+</ul>
+<p><br></p>
+<h4 id="global部分"><a href="#global部分" class="headerlink" title="global部分"></a>global部分</h4><p>这定义了GitLab Runner的全局配置。</p>
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>concurrent</code></td>
+<td>限制全局可以同时运行多少个作业，0并不意味着无限制</td>
+</tr>
+<tr>
+<td><code>log_level</code></td>
+<td>日志级别(debug, info, warn, error, fatal, panic)</td>
+</tr>
+<tr>
+<td><code>log_format</code></td>
+<td>日志格式(runner, text, json)</td>
+</tr>
+<tr>
+<td><code>check_interval</code></td>
+<td>定义新作业检查之间的间隔长度(s)。默认值为3，如果设置为0或更低，将使用默认值</td>
+</tr>
+<tr>
+<td><code>sentry_dsn</code></td>
+<td>启用追踪所有系统级错误</td>
+</tr>
+<tr>
+<td><code>listen_address</code></td>
+<td><code>host:port</code>，Prometheus应该在其上进行监听</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong><code>check_interval</code> 如何工作:</strong></p>
+<p>如果<code>config.toml</code>配置文件中有多个<code>[[runner]]</code>(称之为worker)，那么GitLab请求之间的间隔比人们预期的要频繁。GitLab Runner包含一个循环，该循环不断地为worker针对其配置的GitLab实例调度请求。</p>
+<p><br><br><br></p>
+<h4 id="session-server-部分"><a href="#session-server-部分" class="headerlink" title="[session_server]部分"></a><code>[session_server]</code>部分</h4><p><code>[session_server]</code>是系统运行程序级别的配置，因此应该在根级别指定，而不是每个执行器指定，即它应该在<code>[[runners]]</code>部分之外。session server允许用户与Runner负责的作业进行交互。<br>如果想要禁用<code>[session_server]</code>部分，删掉它即可。</p>
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>listen_address</code></td>
+<td>用于session server的内部URL</td>
+</tr>
+<tr>
+<td><code>advertise_address</code></td>
+<td>向GitLab公开的用于访问Runner的URL</td>
+</tr>
+<tr>
+<td><code>session_timeout</code></td>
+<td>作业完成后，会话可以在多长时间内保持活动状态(默认1800s)</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h4 id="runners-部分"><a href="#runners-部分" class="headerlink" title="[[runners]]部分"></a><code>[[runners]]</code>部分</h4><p>如下定义了Runner entry:</p>
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Runner的描述</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>GitLab URL</td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td>Runner指定的token</td>
+</tr>
+<tr>
+<td><code>tls-ca-file</code></td>
+<td>HTTPS的CA证书</td>
+</tr>
+<tr>
+<td><code>tls-cert-file</code></td>
+<td>HTTP的S端证书</td>
+</tr>
+<tr>
+<td><code>tls-key-file</code></td>
+<td>HTTPS的S端Key</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>限制此token可同时处理的作业数，0为不限制</td>
+</tr>
+<tr>
+<td><code>executor</code></td>
+<td>执行器</td>
+</tr>
+<tr>
+<td><code>shell</code></td>
+<td>用于生成脚本的shell的名称</td>
+</tr>
+<tr>
+<td><code>builds_dir</code></td>
+<td>构建将存储在所选执行器的上下文中的目录(local, docker, ssh)</td>
+</tr>
+<tr>
+<td><code>cache_dir</code></td>
+<td>构建缓存将存储在所选执行器的上下文中的目录(local, docker, ssh)</td>
+</tr>
+<tr>
+<td><code>environment</code></td>
+<td>附加或覆盖环境变量</td>
+</tr>
+<tr>
+<td><code>request_concurrency</code></td>
+<td>限制GitLab新作业的并发请求数（默认值为1）</td>
+</tr>
+<tr>
+<td><code>output_limit</code></td>
+<td>最大构建日志大小(默认4096KB)</td>
+</tr>
+<tr>
+<td><code>pre_clone_script</code></td>
+<td>在克隆Git存储库之前要在Runner上执行的命令</td>
+</tr>
+<tr>
+<td><code>pre_build_script</code></td>
+<td>克隆Git存储库之后但在执行构建之前要在Runner上执行的命令</td>
+</tr>
+<tr>
+<td><code>post_build_script</code></td>
+<td>在执行构建之后但在执行<code>after_script</code>之前在Runner上执行的命令</td>
+</tr>
+<tr>
+<td><code>clone_url</code></td>
+<td>覆盖GitLab实例的URL</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong><code>clone_url</code>怎样工作:</strong></p>
+<p>如果GitLab实例公开给Runner无法使用的URL，则可以配置<code>clone_url</code>。</p>
+<p><br><br><br></p>
+<p>####　EXECUTORS</p>
+<ul>
+<li>shell</li>
+<li>docker</li>
+<li>docker-ssh</li>
+<li>ssh</li>
+<li>parallels</li>
+<li>virtualbox</li>
+<li>docker+machine</li>
+<li>docker-ssh+machine</li>
+<li>kubernetes</li>
+</ul>
+<p><br><br><br></p>
+<h4 id="SHELLS"><a href="#SHELLS" class="headerlink" title="SHELLS"></a>SHELLS</h4><ul>
+<li>bash</li>
+<li>sh</li>
+<li>cmd</li>
+<li>powershell</li>
+</ul>
+<p><br><br><br></p>
+<p>####　<code>[runners.docker]</code>部分</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>指定Docker endpoint (默认 <code>$DOCKER_HOST</code>或<code>unix:///var/run/docker.sock</code>)</td>
+</tr>
+<tr>
+<td><code>hostname</code></td>
+<td>为Docker容器指定主机名</td>
+</tr>
+<tr>
+<td><code>runtime</code></td>
+<td>为Docker容器指定一个运行环境</td>
+</tr>
+<tr>
+<td><code>tls_cert_path</code></td>
+<td>证书路径</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>使用此镜像进行构建</td>
+</tr>
+<tr>
+<td><code>memory</code></td>
+<td>容器内存限制</td>
+</tr>
+<tr>
+<td><code>memory_swap</code></td>
+<td>总内存限制</td>
+</tr>
+<tr>
+<td><code>memory_reservation</code></td>
+<td>容器内存soft limit</td>
+</tr>
+<tr>
+<td><code>oom_kill_disable</code></td>
+<td>容器OOM后也不kill进程</td>
+</tr>
+<tr>
+<td><code>cpuset_cpus</code></td>
+<td>容器使用的CPU</td>
+</tr>
+<tr>
+<td><code>cpus</code></td>
+<td>CPU数量</td>
+</tr>
+<tr>
+<td><code>dns</code></td>
+<td>容器使用的DNS列表</td>
+</tr>
+<tr>
+<td><code>dns_search</code></td>
+<td>DNS搜索域列表</td>
+</tr>
+<tr>
+<td><code>privileged</code></td>
+<td>特权容器</td>
+</tr>
+<tr>
+<td><code>disable_entrypoint_overwrite</code></td>
+<td>禁用镜像端点覆盖</td>
+</tr>
+<tr>
+<td><code>userns_mode</code></td>
+<td>启用usernamespace重映射选项时，为容器设置usernamespace模式</td>
+</tr>
+<tr>
+<td><code>cap_add</code></td>
+<td>向容器添加其他Linux功能</td>
+</tr>
+<tr>
+<td><code>cap_drop</code></td>
+<td>从容器中移除其他Linux功能</td>
+</tr>
+<tr>
+<td><code>security_opt</code></td>
+<td>设置安全选项(key: value)</td>
+</tr>
+<tr>
+<td><code>devices</code></td>
+<td>与容器共享其他主机设备</td>
+</tr>
+<tr>
+<td><code>cache_dir</code></td>
+<td>指定缓存目录</td>
+</tr>
+<tr>
+<td><code>disable_cache</code></td>
+<td>禁用缓存</td>
+</tr>
+<tr>
+<td><code>network_mode</code></td>
+<td>将容器添加到一个自定义的网络</td>
+</tr>
+<tr>
+<td><code>wait_for_services_timeout</code></td>
+<td>等待docker的时间，0为禁用(默认30)</td>
+</tr>
+<tr>
+<td><code>volumes</code></td>
+<td>docker挂载卷</td>
+</tr>
+<tr>
+<td><code>extra_hosts</code></td>
+<td>指定应在容器环境中定义的主机</td>
+</tr>
+<tr>
+<td><code>shm_size</code></td>
+<td>指定镜像共享的内存大小(Byte))</td>
+</tr>
+<tr>
+<td><code>volumes_from</code></td>
+<td>指定从其它容器继承的卷(格式: `\<container name\="">[:\&lt;ro</container></td>
+<td>rw>]`)</td>
+</tr>
+<tr>
+<td><code>volume_driver</code></td>
+<td>指定容器使用的卷的驱动</td>
+</tr>
+<tr>
+<td><code>links</code></td>
+<td>指定与其建立链接的容器</td>
+</tr>
+<tr>
+<td><code>services</code></td>
+<td>指定使用build运行的其它服务</td>
+</tr>
+<tr>
+<td><code>allowed_images</code></td>
+<td>指定可在<code>.gitlab-ci.ym</code>l中指定的通配符图像列表</td>
+</tr>
+<tr>
+<td><code>allowed_services</code></td>
+<td>指定可在<code>.gitlab-ci.yml</code>中指定的通配符服务列表</td>
+</tr>
+<tr>
+<td><code>pull_policy</code></td>
+<td>指定镜像拉取策略</td>
+</tr>
+<tr>
+<td><code>sysctls</code></td>
+<td>指定sysctl options</td>
+</tr>
+<tr>
+<td><code>helper_image</code></td>
+<td>覆盖用于克隆repos和上载工件的默认帮助程序镜像</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h4 id="runners-parallels-部分"><a href="#runners-parallels-部分" class="headerlink" title="[runners.parallels]部分"></a><code>[runners.parallels]</code>部分</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>base_name</code></td>
+<td>将克隆的Parallels VM的名称</td>
+</tr>
+<tr>
+<td><code>template_name</code></td>
+<td>Parallels VM链接模板的自定义名称</td>
+</tr>
+<tr>
+<td><code>disable_snapshots</code></td>
+<td>如果禁用，则在构建之后将摧毁VM</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h4 id="runners-virtualbox-部分"><a href="#runners-virtualbox-部分" class="headerlink" title="[runners.virtualbox]部分"></a><code>[runners.virtualbox]</code>部分</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>base_name</code></td>
+<td>要克隆的VirtualBox VM的名称</td>
+</tr>
+<tr>
+<td><code>base_snapshot</code></td>
+<td>要从中创建链接克隆的VM的特定快照的名称或UUID</td>
+</tr>
+<tr>
+<td><code>disable_snapshots</code></td>
+<td>如果禁用，则在构建之后将摧毁VM</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h4 id="runners-ssh-部分"><a href="#runners-ssh-部分" class="headerlink" title="[runners.ssh]部分"></a><code>[runners.ssh]</code>部分</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>指定主机</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>指定端口</td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td>指定用户</td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>指定密码</td>
+</tr>
+<tr>
+<td><code>identity_file</code></td>
+<td>指定私钥</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h4 id="runners-machine-部分"><a href="#runners-machine-部分" class="headerlink" title="[runners.machine]部分"></a><code>[runners.machine]</code>部分</h4><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IdleCount</code></td>
+<td>Number of machines, that need to be created and waiting in Idle state.</td>
+</tr>
+<tr>
+<td><code>IdleTime</code></td>
+<td>Time (in seconds) for machine to be in Idle state before it is removed.</td>
+</tr>
+<tr>
+<td><code>OffPeakPeriods</code></td>
+<td>Time periods when the scheduler is in the OffPeak mode. An array of cron-style patterns (described below).</td>
+</tr>
+<tr>
+<td><code>OffPeakTimezone</code></td>
+<td>Time zone for the times given in OffPeakPeriods. A timezone string like Europe/Berlin (defaults to the locale system setting of the host if omitted or empty).</td>
+</tr>
+<tr>
+<td><code>OffPeakIdleCount</code></td>
+<td>Like IdleCount, but for Off Peak time periods.</td>
+</tr>
+<tr>
+<td><code>OffPeakIdleTime</code></td>
+<td>Like IdleTime, but for Off Peak time mperiods.</td>
+</tr>
+<tr>
+<td><code>MaxBuilds</code></td>
+<td>Builds count after which machine will be removed.</td>
+</tr>
+<tr>
+<td><code>MachineName</code></td>
+<td>Name of the machine. It must contain %s, which will be replaced with a unique machine identifier.</td>
+</tr>
+<tr>
+<td><code>MachineDriver</code></td>
+<td>Docker Machine driver to use</td>
+</tr>
+<tr>
+<td><code>MachineOptions</code></td>
+<td>Docker Machine options</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h4 id="runners-cache-部分"><a href="#runners-cache-部分" class="headerlink" title="[runners.cache]部分"></a><code>[runners.cache]</code>部分</h4><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Type</code></td>
+<td>string</td>
+<td>One of: <code>s3</code>, <code>gcs</code></td>
+</tr>
+<tr>
+<td><code>Path</code></td>
+<td>string</td>
+<td>Name of the path to prepend to the cache URL</td>
+</tr>
+<tr>
+<td><code>Shared</code></td>
+<td>boolean</td>
+<td>Enables cache sharing between runners, <code>false</code> by default</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+<h4 id="runners-kubernetes-部分"><a href="#runners-kubernetes-部分" class="headerlink" title="[runners.kubernetes]部分"></a><code>[runners.kubernetes]</code>部分</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>k8s master url</td>
+</tr>
+<tr>
+<td><code>cert_file</code></td>
+<td>k8s master认证证书</td>
+</tr>
+<tr>
+<td><code>key_file</code></td>
+<td>k8s master 私钥</td>
+</tr>
+<tr>
+<td><code>ca_file</code></td>
+<td>k8s master CA</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>当未指定时，用于构建的默认docker镜像</td>
+</tr>
+<tr>
+<td><code>namespace</code></td>
+<td>命名空间</td>
+</tr>
+<tr>
+<td><code>privileged</code></td>
+<td>特权容器(true/false)</td>
+</tr>
+<tr>
+<td><code>node_selector</code></td>
+<td>节点选择器</td>
+</tr>
+<tr>
+<td><code>image_pull_secrets</code></td>
+<td>镜像拉取秘钥</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br><br><br></p>
+<h3 id="自签名证书"><a href="#自签名证书" class="headerlink" title="自签名证书"></a>自签名证书</h3><p>Use self-signed certificates Configure certificates that are used to verify TLS peer when connecting to the GitLab server.</p>
+<p>这允许在注册runner时解决由未知权限问题签名的证书(<code>x509</code>)。</p>
+<p><br></p>
+<p><strong>支持自签名的证书:</strong></p>
+<ol>
+<li>默认情况下： GitLab Runner读取系统存储的证书并根据存储在系统中的CA验证GitLab服务器</li>
+<li>GitLab Runner从预定义文件中读取PEM（不支持DER格式）证书: 如<code>/etc/gitlab-runner/certs/</code></li>
+<li>GitLab Runner在注册期间和<code>[[runners]]</code>部分下的<code>config.toml</code>配置中公开<code>tls-ca-file</code>选项，允许您指定带证书的自定义文件。每当Runner尝试访问GitLab服务器时，都会读取此文件。</li>
+</ol>
 
       
     </div>
@@ -3577,7 +4873,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-count">60</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -3599,7 +4895,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">74</span>
+                <span class="site-state-item-count">83</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -3664,7 +4960,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用户文档"><span class="nav-number">1.</span> <span class="nav-text">用户文档</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管理员文档"><span class="nav-number">2.</span> <span class="nav-text">管理员文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装和维护"><span class="nav-number">2.1.</span> <span class="nav-text">安装和维护</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.1.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#包安装"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">包安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置域名或URL"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">配置域名或URL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从non-root用户载入配置"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">从non-root用户载入配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将Git数据存储在备用目录中"><span class="nav-number">2.1.1.4.</span> <span class="nav-text">将Git数据存储在备用目录中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#禁用用户和组的账号管理"><span class="nav-number">2.1.1.5.</span> <span class="nav-text">禁用用户和组的账号管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#禁用存储目录管理"><span class="nav-number">2.1.1.6.</span> <span class="nav-text">禁用存储目录管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#仅在挂载给定文件系统后启动Omnibus-GitLab服务"><span class="nav-number">2.1.1.7.</span> <span class="nav-text">仅在挂载给定文件系统后启动Omnibus-GitLab服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置运行时目录"><span class="nav-number">2.1.1.8.</span> <span class="nav-text">配置运行时目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在安装期间禁用自动缓存清理"><span class="nav-number">2.1.1.9.</span> <span class="nav-text">在安装期间禁用自动缓存清理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其它"><span class="nav-number">2.1.1.10.</span> <span class="nav-text">其它</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新"><span class="nav-number">2.1.2.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用"><span class="nav-number">2.1.3.</span> <span class="nav-text">高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#架构"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">架构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.1.4.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置时区"><span class="nav-number">2.1.4.1.</span> <span class="nav-text">配置时区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#系统钩子"><span class="nav-number">2.1.4.2.</span> <span class="nav-text">系统钩子</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Hook请求"><span class="nav-number">2.1.4.2.1.</span> <span class="nav-text">Hook请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tag事件"><span class="nav-number">2.1.4.2.2.</span> <span class="nav-text">Tag事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Merge请求事件"><span class="nav-number">2.1.4.2.3.</span> <span class="nav-text">Merge请求事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#库更新事件"><span class="nav-number">2.1.4.2.4.</span> <span class="nav-text">库更新事件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全"><span class="nav-number">2.1.4.3.</span> <span class="nav-text">安全</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#密码长度"><span class="nav-number">2.1.4.3.1.</span> <span class="nav-text">密码长度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#限制SSH秘钥和长度"><span class="nav-number">2.1.4.3.2.</span> <span class="nav-text">限制SSH秘钥和长度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#机架攻击"><span class="nav-number">2.1.4.3.3.</span> <span class="nav-text">机架攻击</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置"><span class="nav-number">2.1.4.3.4.</span> <span class="nav-text">设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过Redis冲机架攻击中移除阻止的IP"><span class="nav-number">2.1.4.3.5.</span> <span class="nav-text">通过Redis冲机架攻击中移除阻止的IP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Webhooks和不安全的内部Web服务"><span class="nav-number">2.1.4.3.6.</span> <span class="nav-text">Webhooks和不安全的内部Web服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#信息独占性"><span class="nav-number">2.1.4.3.7.</span> <span class="nav-text">信息独占性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重置root密码"><span class="nav-number">2.1.4.3.8.</span> <span class="nav-text">重置root密码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解锁锁定的用户"><span class="nav-number">2.1.4.3.9.</span> <span class="nav-text">解锁锁定的用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用户文件上传"><span class="nav-number">2.1.4.3.10.</span> <span class="nav-text">用户文件上传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#管理CRIME漏洞"><span class="nav-number">2.1.4.3.11.</span> <span class="nav-text">管理CRIME漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#强制双重认证"><span class="nav-number">2.1.4.3.12.</span> <span class="nav-text">强制双重认证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注册时用户邮件确认"><span class="nav-number">2.1.4.3.13.</span> <span class="nav-text">注册时用户邮件确认</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计、检查和ping"><span class="nav-number">2.1.4.4.</span> <span class="nav-text">统计、检查和ping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#轮询配置"><span class="nav-number">2.1.4.5.</span> <span class="nav-text">轮询配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GitLab-Page"><span class="nav-number">2.1.4.6.</span> <span class="nav-text">GitLab Page</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#依赖"><span class="nav-number">2.1.4.6.1.</span> <span class="nav-text">依赖</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环境变量"><span class="nav-number">2.1.4.7.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插件"><span class="nav-number">2.1.4.8.</span> <span class="nav-text">插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规范性"><span class="nav-number">2.1.4.9.</span> <span class="nav-text">规范性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义GitLab外观"><span class="nav-number">2.1.4.10.</span> <span class="nav-text">自定义GitLab外观</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#维护GitLab"><span class="nav-number">2.1.5.</span> <span class="nav-text">维护GitLab</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#靶任务"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">靶任务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#备份"><span class="nav-number">2.1.5.1.1.</span> <span class="nav-text">备份</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#恢复"><span class="nav-number">2.1.5.1.2.</span> <span class="nav-text">恢复</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其它备份策略"><span class="nav-number">2.1.5.1.3.</span> <span class="nav-text">其它备份策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#完整性检查"><span class="nav-number">2.1.5.1.4.</span> <span class="nav-text">完整性检查</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#清理"><span class="nav-number">2.1.5.1.5.</span> <span class="nav-text">清理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命名空间"><span class="nav-number">2.1.5.1.6.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LDAP"><span class="nav-number">2.1.5.1.7.</span> <span class="nav-text">LDAP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一般维护和自检"><span class="nav-number">2.1.5.1.8.</span> <span class="nav-text">一般维护和自检</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用户管理"><span class="nav-number">2.1.5.1.9.</span> <span class="nav-text">用户管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Webhooks"><span class="nav-number">2.1.5.1.10.</span> <span class="nav-text">Webhooks</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#批量导入git库"><span class="nav-number">2.1.5.1.11.</span> <span class="nav-text">批量导入git库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#上传"><span class="nav-number">2.1.5.1.12.</span> <span class="nav-text">上传</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作"><span class="nav-number">2.1.5.2.</span> <span class="nav-text">操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#清理陈旧的Redis回话"><span class="nav-number">2.1.5.2.1.</span> <span class="nav-text">清理陈旧的Redis回话</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#移动库"><span class="nav-number">2.1.5.2.2.</span> <span class="nav-text">移动库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Sidekiq-MemoryKiller"><span class="nav-number">2.1.5.2.3.</span> <span class="nav-text">Sidekiq MemoryKiller</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Unicorn"><span class="nav-number">2.1.5.2.4.</span> <span class="nav-text">Unicorn</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加快SSH操作"><span class="nav-number">2.1.5.2.5.</span> <span class="nav-text">加快SSH操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件系统性能基准测试"><span class="nav-number">2.1.5.2.6.</span> <span class="nav-text">文件系统性能基准测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重启"><span class="nav-number">2.1.5.3.</span> <span class="nav-text">重启</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新-1"><span class="nav-number">2.1.6.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级或降级"><span class="nav-number">2.1.7.</span> <span class="nav-text">升级或降级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平台集成"><span class="nav-number">2.2.</span> <span class="nav-text">平台集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集成Mattermost"><span class="nav-number">2.2.1.</span> <span class="nav-text">集成Mattermost</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集成PlantUML"><span class="nav-number">2.2.2.</span> <span class="nav-text">集成PlantUML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集成Web终端"><span class="nav-number">2.2.3.</span> <span class="nav-text">集成Web终端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户设置和权限"><span class="nav-number">2.3.</span> <span class="nav-text">用户设置和权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Libravatar"><span class="nav-number">2.3.1.</span> <span class="nav-text">Libravatar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册限制"><span class="nav-number">2.3.2.</span> <span class="nav-text">注册限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问限制"><span class="nav-number">2.3.3.</span> <span class="nav-text">访问限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#认证和授权"><span class="nav-number">2.3.4.</span> <span class="nav-text">认证和授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传入电子邮件"><span class="nav-number">2.3.5.</span> <span class="nav-text">传入电子邮件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目设置"><span class="nav-number">2.4.</span> <span class="nav-text">项目设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CI"><span class="nav-number">2.5.</span> <span class="nav-text">CI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启用-禁用CICD"><span class="nav-number">2.5.1.</span> <span class="nav-text">启用/禁用CICD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CI-CD-admin设置"><span class="nav-number">2.5.2.</span> <span class="nav-text">CI/CD admin设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jobs-artifacts"><span class="nav-number">2.5.3.</span> <span class="nav-text">Jobs artifacts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Job-traces"><span class="nav-number">2.5.4.</span> <span class="nav-text">Job traces</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据流"><span class="nav-number">2.5.4.1.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改工作踪迹本地位置"><span class="nav-number">2.5.4.2.</span> <span class="nav-text">修改工作踪迹本地位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将踪迹上传到对象存储"><span class="nav-number">2.5.4.3.</span> <span class="nav-text">将踪迹上传到对象存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何将归档的作业踪迹迁移到对象存储"><span class="nav-number">2.5.4.4.</span> <span class="nav-text">如何将归档的作业踪迹迁移到对象存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何删除作业踪迹"><span class="nav-number">2.5.4.5.</span> <span class="nav-text">如何删除作业踪迹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#新的实时踪迹架构"><span class="nav-number">2.5.4.6.</span> <span class="nav-text">新的实时踪迹架构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置GitLab-Runner"><span class="nav-number">2.5.5.</span> <span class="nav-text">配置GitLab Runner</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Runner的状态"><span class="nav-number">2.5.5.1.</span> <span class="nav-text">Runner的状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册共享的Runner"><span class="nav-number">2.5.5.2.</span> <span class="nav-text">注册共享的Runner</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册特定的Runner"><span class="nav-number">2.5.5.3.</span> <span class="nav-text">注册特定的Runner</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册一个组Runner"><span class="nav-number">2.5.5.4.</span> <span class="nav-text">注册一个组Runner</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁定特定Runner"><span class="nav-number">2.5.5.5.</span> <span class="nav-text">锁定特定Runner</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将Runner分配给另外的项目"><span class="nav-number">2.5.5.6.</span> <span class="nav-text">将Runner分配给另外的项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#受保护的Runner"><span class="nav-number">2.5.5.7.</span> <span class="nav-text">受保护的Runner</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#手动清理Runner缓存"><span class="nav-number">2.5.5.8.</span> <span class="nav-text">手动清理Runner缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共享Runner如何选择作业"><span class="nav-number">2.5.5.9.</span> <span class="nav-text">共享Runner如何选择作业</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有效地使用共享Runner"><span class="nav-number">2.5.5.10.</span> <span class="nav-text">有效地使用共享Runner</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tags"><span class="nav-number">2.5.5.11.</span> <span class="nav-text">tags</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共享Runner的管道配额"><span class="nav-number">2.5.5.12.</span> <span class="nav-text">共享Runner的管道配额</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Auto-DevOps"><span class="nav-number">2.5.6.</span> <span class="nav-text">Auto DevOps</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#综述"><span class="nav-number">2.5.6.1.</span> <span class="nav-text">综述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与应用程序平台和PaaS相比较"><span class="nav-number">2.5.6.2.</span> <span class="nav-text">与应用程序平台和PaaS相比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特性"><span class="nav-number">2.5.6.3.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖-1"><span class="nav-number">2.5.6.4.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动化运维基本域"><span class="nav-number">2.5.6.5.</span> <span class="nav-text">自动化运维基本域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用多个k8s集群"><span class="nav-number">2.5.6.6.</span> <span class="nav-text">使用多个k8s集群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启用-禁用Auto-DevOps"><span class="nav-number">2.5.6.7.</span> <span class="nav-text">启用/禁用Auto DevOps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动化运维的阶段"><span class="nav-number">2.5.6.8.</span> <span class="nav-text">自动化运维的阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Build"><span class="nav-number">2.5.6.8.1.</span> <span class="nav-text">Auto Build</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Test"><span class="nav-number">2.5.6.8.2.</span> <span class="nav-text">Auto Test</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Code-Quality"><span class="nav-number">2.5.6.8.3.</span> <span class="nav-text">Auto Code Quality</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Dependency-Scanning"><span class="nav-number">2.5.6.8.4.</span> <span class="nav-text">Auto Dependency Scanning</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-License-Management"><span class="nav-number">2.5.6.8.5.</span> <span class="nav-text">Auto License Management</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Review-Apps"><span class="nav-number">2.5.6.8.6.</span> <span class="nav-text">Auto Review Apps</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-DAST"><span class="nav-number">2.5.6.8.7.</span> <span class="nav-text">Auto DAST</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Browser-Performance-Testing"><span class="nav-number">2.5.6.8.8.</span> <span class="nav-text">Auto Browser Performance Testing</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Deploy"><span class="nav-number">2.5.6.8.9.</span> <span class="nav-text">Auto Deploy</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Monitoring"><span class="nav-number">2.5.6.8.10.</span> <span class="nav-text">Auto Monitoring</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义"><span class="nav-number">2.5.6.9.</span> <span class="nav-text">自定义</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Custom-buildpacks"><span class="nav-number">2.5.6.9.1.</span> <span class="nav-text">Custom buildpacks</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Custom-Dockerfile"><span class="nav-number">2.5.6.9.2.</span> <span class="nav-text">Custom Dockerfile</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Custom-Helm-Chart"><span class="nav-number">2.5.6.9.3.</span> <span class="nav-text">Custom Helm Chart</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Customizing-gitlab-ci-yml"><span class="nav-number">2.5.6.9.4.</span> <span class="nav-text">Customizing .gitlab-ci.yml</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PostgreSQL"><span class="nav-number">2.5.6.9.5.</span> <span class="nav-text">PostgreSQL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Environment-variables"><span class="nav-number">2.5.6.9.6.</span> <span class="nav-text">Environment variables</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Auto-DevOps-template"><span class="nav-number">2.5.7.</span> <span class="nav-text">Auto DevOps template</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gitlab-ci-yml配置"><span class="nav-number">2.5.8.</span> <span class="nav-text">.gitlab-ci.yml配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Jobs"><span class="nav-number">2.5.8.1.</span> <span class="nav-text">Jobs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#extends"><span class="nav-number">2.5.8.2.</span> <span class="nav-text">extends</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pages"><span class="nav-number">2.5.8.3.</span> <span class="nav-text">pages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#image-and-services"><span class="nav-number">2.5.8.4.</span> <span class="nav-text">image and services</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#before-script-and-after-script"><span class="nav-number">2.5.8.5.</span> <span class="nav-text">before_script and after_script</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stages"><span class="nav-number">2.5.8.6.</span> <span class="nav-text">stages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stage"><span class="nav-number">2.5.8.7.</span> <span class="nav-text">stage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#types"><span class="nav-number">2.5.8.8.</span> <span class="nav-text">types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#script"><span class="nav-number">2.5.8.9.</span> <span class="nav-text">script</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#only和except-简单"><span class="nav-number">2.5.8.10.</span> <span class="nav-text">only和except(简单)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#only和except-复杂"><span class="nav-number">2.5.8.11.</span> <span class="nav-text">only和except(复杂)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tags-1"><span class="nav-number">2.5.8.12.</span> <span class="nav-text">tags</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#when"><span class="nav-number">2.5.8.13.</span> <span class="nav-text">when</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#environment"><span class="nav-number">2.5.8.14.</span> <span class="nav-text">environment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dynamic-environments"><span class="nav-number">2.5.8.15.</span> <span class="nav-text">Dynamic environments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cache"><span class="nav-number">2.5.8.16.</span> <span class="nav-text">cache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#artifacts"><span class="nav-number">2.5.8.17.</span> <span class="nav-text">artifacts</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dependencies"><span class="nav-number">2.5.8.18.</span> <span class="nav-text">dependencies</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#coverage"><span class="nav-number">2.5.8.19.</span> <span class="nav-text">coverage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#retry"><span class="nav-number">2.5.8.20.</span> <span class="nav-text">retry</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#parallel"><span class="nav-number">2.5.8.21.</span> <span class="nav-text">parallel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#include"><span class="nav-number">2.5.8.22.</span> <span class="nav-text">include</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#variables"><span class="nav-number">2.5.8.23.</span> <span class="nav-text">variables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊YAML功能"><span class="nav-number">2.5.8.24.</span> <span class="nav-text">特殊YAML功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Hidden-keys-jobs"><span class="nav-number">2.5.8.24.1.</span> <span class="nav-text">Hidden keys (jobs)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Anchors"><span class="nav-number">2.5.8.24.2.</span> <span class="nav-text">Anchors</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitLab-CI-CD栗子"><span class="nav-number">2.5.9.</span> <span class="nav-text">GitLab CI/CD栗子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git配置项"><span class="nav-number">2.6.</span> <span class="nav-text">Git配置项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自定Git-hooks"><span class="nav-number">2.6.1.</span> <span class="nav-text">自定Git hooks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-1"><span class="nav-number">2.6.1.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链式hook"><span class="nav-number">2.6.1.2.</span> <span class="nav-text">链式hook</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义错误信息"><span class="nav-number">2.6.1.3.</span> <span class="nav-text">自定义错误信息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git-LFS"><span class="nav-number">2.6.2.</span> <span class="nav-text">Git LFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Housekeeping"><span class="nav-number">2.6.3.</span> <span class="nav-text">Housekeeping</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Automatic-housekeeping"><span class="nav-number">2.6.3.1.</span> <span class="nav-text">Automatic housekeeping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Manual-housekeeping"><span class="nav-number">2.6.3.2.</span> <span class="nav-text">Manual housekeeping</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git协议"><span class="nav-number">2.6.4.</span> <span class="nav-text">Git协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监控"><span class="nav-number">2.7.</span> <span class="nav-text">监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#故障排除"><span class="nav-number">2.8.</span> <span class="nav-text">故障排除</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Runner"><span class="nav-number">3.</span> <span class="nav-text">Runner</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-1"><span class="nav-number">3.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Repository"><span class="nav-number">3.1.1.</span> <span class="nav-text">Repository</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动安装"><span class="nav-number">3.1.2.</span> <span class="nav-text">手动安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker"><span class="nav-number">3.1.3.</span> <span class="nav-text">Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s"><span class="nav-number">3.1.4.</span> <span class="nav-text">k8s</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Autoscale"><span class="nav-number">3.1.5.</span> <span class="nav-text">Autoscale</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册Runner"><span class="nav-number">3.2.</span> <span class="nav-text">注册Runner</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GNU-Linux"><span class="nav-number">3.2.1.</span> <span class="nav-text">GNU/Linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单行注册命令"><span class="nav-number">3.2.2.</span> <span class="nav-text">单行注册命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行器"><span class="nav-number">3.3.</span> <span class="nav-text">执行器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择执行器"><span class="nav-number">3.3.1.</span> <span class="nav-text">选择执行器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不清楚该选择哪个执行器"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">不清楚该选择哪个执行器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#兼容性"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">兼容性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shell"><span class="nav-number">3.3.2.</span> <span class="nav-text">Shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-1"><span class="nav-number">3.3.3.</span> <span class="nav-text">Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#K8s"><span class="nav-number">3.3.4.</span> <span class="nav-text">K8s</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级配置"><span class="nav-number">3.4.</span> <span class="nav-text">高级配置</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#User"><span class="nav-number">1.</span> <span class="nav-text">User</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Admin"><span class="nav-number">2.</span> <span class="nav-text">Admin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装和维护"><span class="nav-number">2.1.</span> <span class="nav-text">安装和维护</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.1.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#包安装"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">包安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置域名或URL"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">配置域名或URL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从non-root用户载入配置"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">从non-root用户载入配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将Git数据存储在备用目录中"><span class="nav-number">2.1.1.4.</span> <span class="nav-text">将Git数据存储在备用目录中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#禁用用户和组的账号管理"><span class="nav-number">2.1.1.5.</span> <span class="nav-text">禁用用户和组的账号管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#禁用存储目录管理"><span class="nav-number">2.1.1.6.</span> <span class="nav-text">禁用存储目录管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#仅在挂载给定文件系统后启动Omnibus-GitLab服务"><span class="nav-number">2.1.1.7.</span> <span class="nav-text">仅在挂载给定文件系统后启动Omnibus-GitLab服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置运行时目录"><span class="nav-number">2.1.1.8.</span> <span class="nav-text">配置运行时目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在安装期间禁用自动缓存清理"><span class="nav-number">2.1.1.9.</span> <span class="nav-text">在安装期间禁用自动缓存清理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其它"><span class="nav-number">2.1.1.10.</span> <span class="nav-text">其它</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新"><span class="nav-number">2.1.2.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用"><span class="nav-number">2.1.3.</span> <span class="nav-text">高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#架构"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">架构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.1.4.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置时区"><span class="nav-number">2.1.4.1.</span> <span class="nav-text">配置时区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#系统钩子"><span class="nav-number">2.1.4.2.</span> <span class="nav-text">系统钩子</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Hook请求"><span class="nav-number">2.1.4.2.1.</span> <span class="nav-text">Hook请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tag事件"><span class="nav-number">2.1.4.2.2.</span> <span class="nav-text">Tag事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Merge请求事件"><span class="nav-number">2.1.4.2.3.</span> <span class="nav-text">Merge请求事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#库更新事件"><span class="nav-number">2.1.4.2.4.</span> <span class="nav-text">库更新事件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全"><span class="nav-number">2.1.4.3.</span> <span class="nav-text">安全</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#密码长度"><span class="nav-number">2.1.4.3.1.</span> <span class="nav-text">密码长度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#限制SSH秘钥和长度"><span class="nav-number">2.1.4.3.2.</span> <span class="nav-text">限制SSH秘钥和长度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#机架攻击"><span class="nav-number">2.1.4.3.3.</span> <span class="nav-text">机架攻击</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置"><span class="nav-number">2.1.4.3.4.</span> <span class="nav-text">设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过Redis冲机架攻击中移除阻止的IP"><span class="nav-number">2.1.4.3.5.</span> <span class="nav-text">通过Redis冲机架攻击中移除阻止的IP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Webhooks和不安全的内部Web服务"><span class="nav-number">2.1.4.3.6.</span> <span class="nav-text">Webhooks和不安全的内部Web服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#信息独占性"><span class="nav-number">2.1.4.3.7.</span> <span class="nav-text">信息独占性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重置root密码"><span class="nav-number">2.1.4.3.8.</span> <span class="nav-text">重置root密码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解锁锁定的用户"><span class="nav-number">2.1.4.3.9.</span> <span class="nav-text">解锁锁定的用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用户文件上传"><span class="nav-number">2.1.4.3.10.</span> <span class="nav-text">用户文件上传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#管理CRIME漏洞"><span class="nav-number">2.1.4.3.11.</span> <span class="nav-text">管理CRIME漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#强制双重认证"><span class="nav-number">2.1.4.3.12.</span> <span class="nav-text">强制双重认证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注册时用户邮件确认"><span class="nav-number">2.1.4.3.13.</span> <span class="nav-text">注册时用户邮件确认</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计、检查和ping"><span class="nav-number">2.1.4.4.</span> <span class="nav-text">统计、检查和ping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#轮询配置"><span class="nav-number">2.1.4.5.</span> <span class="nav-text">轮询配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GitLab-Page"><span class="nav-number">2.1.4.6.</span> <span class="nav-text">GitLab Page</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#依赖"><span class="nav-number">2.1.4.6.1.</span> <span class="nav-text">依赖</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环境变量"><span class="nav-number">2.1.4.7.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插件"><span class="nav-number">2.1.4.8.</span> <span class="nav-text">插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规范性"><span class="nav-number">2.1.4.9.</span> <span class="nav-text">规范性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义GitLab外观"><span class="nav-number">2.1.4.10.</span> <span class="nav-text">自定义GitLab外观</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#维护GitLab"><span class="nav-number">2.1.5.</span> <span class="nav-text">维护GitLab</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#靶任务"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">靶任务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#备份"><span class="nav-number">2.1.5.1.1.</span> <span class="nav-text">备份</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#恢复"><span class="nav-number">2.1.5.1.2.</span> <span class="nav-text">恢复</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其它备份策略"><span class="nav-number">2.1.5.1.3.</span> <span class="nav-text">其它备份策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#完整性检查"><span class="nav-number">2.1.5.1.4.</span> <span class="nav-text">完整性检查</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#清理"><span class="nav-number">2.1.5.1.5.</span> <span class="nav-text">清理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命名空间"><span class="nav-number">2.1.5.1.6.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LDAP"><span class="nav-number">2.1.5.1.7.</span> <span class="nav-text">LDAP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一般维护和自检"><span class="nav-number">2.1.5.1.8.</span> <span class="nav-text">一般维护和自检</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用户管理"><span class="nav-number">2.1.5.1.9.</span> <span class="nav-text">用户管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Webhooks"><span class="nav-number">2.1.5.1.10.</span> <span class="nav-text">Webhooks</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#批量导入git库"><span class="nav-number">2.1.5.1.11.</span> <span class="nav-text">批量导入git库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#上传"><span class="nav-number">2.1.5.1.12.</span> <span class="nav-text">上传</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作"><span class="nav-number">2.1.5.2.</span> <span class="nav-text">操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#清理陈旧的Redis回话"><span class="nav-number">2.1.5.2.1.</span> <span class="nav-text">清理陈旧的Redis回话</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#移动库"><span class="nav-number">2.1.5.2.2.</span> <span class="nav-text">移动库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Sidekiq-MemoryKiller"><span class="nav-number">2.1.5.2.3.</span> <span class="nav-text">Sidekiq MemoryKiller</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Unicorn"><span class="nav-number">2.1.5.2.4.</span> <span class="nav-text">Unicorn</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加快SSH操作"><span class="nav-number">2.1.5.2.5.</span> <span class="nav-text">加快SSH操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件系统性能基准测试"><span class="nav-number">2.1.5.2.6.</span> <span class="nav-text">文件系统性能基准测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重启"><span class="nav-number">2.1.5.3.</span> <span class="nav-text">重启</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新-1"><span class="nav-number">2.1.6.</span> <span class="nav-text">更新</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GitLab版本和维护策略"><span class="nav-number">2.1.6.1.</span> <span class="nav-text">GitLab版本和维护策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新GitLab"><span class="nav-number">2.1.6.2.</span> <span class="nav-text">更新GitLab</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用软件包的方式进行更新"><span class="nav-number">2.1.6.2.1.</span> <span class="nav-text">使用软件包的方式进行更新</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其它项的更新"><span class="nav-number">2.1.6.3.</span> <span class="nav-text">其它项的更新</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CE-EE"><span class="nav-number">2.1.7.</span> <span class="nav-text">CE-EE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平台集成"><span class="nav-number">2.2.</span> <span class="nav-text">平台集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集成Mattermost"><span class="nav-number">2.2.1.</span> <span class="nav-text">集成Mattermost</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集成PlantUML"><span class="nav-number">2.2.2.</span> <span class="nav-text">集成PlantUML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集成Web终端"><span class="nav-number">2.2.3.</span> <span class="nav-text">集成Web终端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户设置和权限"><span class="nav-number">2.3.</span> <span class="nav-text">用户设置和权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Libravatar"><span class="nav-number">2.3.1.</span> <span class="nav-text">Libravatar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册限制"><span class="nav-number">2.3.2.</span> <span class="nav-text">注册限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问限制"><span class="nav-number">2.3.3.</span> <span class="nav-text">访问限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#认证和授权"><span class="nav-number">2.3.4.</span> <span class="nav-text">认证和授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传入电子邮件"><span class="nav-number">2.3.5.</span> <span class="nav-text">传入电子邮件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目设置"><span class="nav-number">2.4.</span> <span class="nav-text">项目设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Repo检查"><span class="nav-number">2.4.1.</span> <span class="nav-text">Repo检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repo存储路径"><span class="nav-number">2.4.2.</span> <span class="nav-text">Repo存储路径</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置GitLab"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">配置GitLab</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择新项目存储库的存储位置"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">选择新项目存储库的存储位置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repo存储靶任务"><span class="nav-number">2.4.3.</span> <span class="nav-text">Repo存储靶任务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将现有项目迁移到哈希存储"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">将现有项目迁移到哈希存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列出旧版存储的项目"><span class="nav-number">2.4.3.2.</span> <span class="nav-text">列出旧版存储的项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列出哈希散列上的项目"><span class="nav-number">2.4.3.3.</span> <span class="nav-text">列出哈希散列上的项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列出旧版存储上的附件"><span class="nav-number">2.4.3.4.</span> <span class="nav-text">列出旧版存储上的附件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制Repo大小"><span class="nav-number">2.4.4.</span> <span class="nav-text">限制Repo大小</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CI"><span class="nav-number">2.5.</span> <span class="nav-text">CI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启用-禁用CICD"><span class="nav-number">2.5.1.</span> <span class="nav-text">启用/禁用CICD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CI-CD-admin设置"><span class="nav-number">2.5.2.</span> <span class="nav-text">CI/CD admin设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jobs-artifacts"><span class="nav-number">2.5.3.</span> <span class="nav-text">Jobs artifacts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Job-traces"><span class="nav-number">2.5.4.</span> <span class="nav-text">Job traces</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据流"><span class="nav-number">2.5.4.1.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改工作踪迹本地位置"><span class="nav-number">2.5.4.2.</span> <span class="nav-text">修改工作踪迹本地位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将踪迹上传到对象存储"><span class="nav-number">2.5.4.3.</span> <span class="nav-text">将踪迹上传到对象存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何将归档的作业踪迹迁移到对象存储"><span class="nav-number">2.5.4.4.</span> <span class="nav-text">如何将归档的作业踪迹迁移到对象存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何删除作业踪迹"><span class="nav-number">2.5.4.5.</span> <span class="nav-text">如何删除作业踪迹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#新的实时踪迹架构"><span class="nav-number">2.5.4.6.</span> <span class="nav-text">新的实时踪迹架构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置GitLab-Runner"><span class="nav-number">2.5.5.</span> <span class="nav-text">配置GitLab Runner</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Runner的状态"><span class="nav-number">2.5.5.1.</span> <span class="nav-text">Runner的状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册共享的Runner"><span class="nav-number">2.5.5.2.</span> <span class="nav-text">注册共享的Runner</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册特定的Runner"><span class="nav-number">2.5.5.3.</span> <span class="nav-text">注册特定的Runner</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册一个组Runner"><span class="nav-number">2.5.5.4.</span> <span class="nav-text">注册一个组Runner</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁定特定Runner"><span class="nav-number">2.5.5.5.</span> <span class="nav-text">锁定特定Runner</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将Runner分配给另外的项目"><span class="nav-number">2.5.5.6.</span> <span class="nav-text">将Runner分配给另外的项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#受保护的Runner"><span class="nav-number">2.5.5.7.</span> <span class="nav-text">受保护的Runner</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#手动清理Runner缓存"><span class="nav-number">2.5.5.8.</span> <span class="nav-text">手动清理Runner缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共享Runner如何选择作业"><span class="nav-number">2.5.5.9.</span> <span class="nav-text">共享Runner如何选择作业</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有效地使用共享Runner"><span class="nav-number">2.5.5.10.</span> <span class="nav-text">有效地使用共享Runner</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tags"><span class="nav-number">2.5.5.11.</span> <span class="nav-text">tags</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共享Runner的管道配额"><span class="nav-number">2.5.5.12.</span> <span class="nav-text">共享Runner的管道配额</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Auto-DevOps"><span class="nav-number">2.5.6.</span> <span class="nav-text">Auto DevOps</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#综述"><span class="nav-number">2.5.6.1.</span> <span class="nav-text">综述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与应用程序平台和PaaS相比较"><span class="nav-number">2.5.6.2.</span> <span class="nav-text">与应用程序平台和PaaS相比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特性"><span class="nav-number">2.5.6.3.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖-1"><span class="nav-number">2.5.6.4.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动化运维基本域"><span class="nav-number">2.5.6.5.</span> <span class="nav-text">自动化运维基本域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用多个k8s集群"><span class="nav-number">2.5.6.6.</span> <span class="nav-text">使用多个k8s集群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启用-禁用Auto-DevOps"><span class="nav-number">2.5.6.7.</span> <span class="nav-text">启用/禁用Auto DevOps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动化运维的阶段"><span class="nav-number">2.5.6.8.</span> <span class="nav-text">自动化运维的阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Build"><span class="nav-number">2.5.6.8.1.</span> <span class="nav-text">Auto Build</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Test"><span class="nav-number">2.5.6.8.2.</span> <span class="nav-text">Auto Test</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Code-Quality"><span class="nav-number">2.5.6.8.3.</span> <span class="nav-text">Auto Code Quality</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-SAST"><span class="nav-number">2.5.6.8.4.</span> <span class="nav-text">Auto SAST</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Dependency-Scanning"><span class="nav-number">2.5.6.8.5.</span> <span class="nav-text">Auto Dependency Scanning</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-License-Management"><span class="nav-number">2.5.6.8.6.</span> <span class="nav-text">Auto License Management</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Container-Scanning"><span class="nav-number">2.5.6.8.7.</span> <span class="nav-text">Auto Container Scanning</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Review-Apps"><span class="nav-number">2.5.6.8.8.</span> <span class="nav-text">Auto Review Apps</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-DAST"><span class="nav-number">2.5.6.8.9.</span> <span class="nav-text">Auto DAST</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Browser-Performance-Testing"><span class="nav-number">2.5.6.8.10.</span> <span class="nav-text">Auto Browser Performance Testing</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Deploy"><span class="nav-number">2.5.6.8.11.</span> <span class="nav-text">Auto Deploy</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Auto-Monitoring"><span class="nav-number">2.5.6.8.12.</span> <span class="nav-text">Auto Monitoring</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义"><span class="nav-number">2.5.6.9.</span> <span class="nav-text">自定义</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Custom-buildpacks"><span class="nav-number">2.5.6.9.1.</span> <span class="nav-text">Custom buildpacks</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Custom-Dockerfile"><span class="nav-number">2.5.6.9.2.</span> <span class="nav-text">Custom Dockerfile</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Custom-Helm-Chart"><span class="nav-number">2.5.6.9.3.</span> <span class="nav-text">Custom Helm Chart</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Customizing-gitlab-ci-yml"><span class="nav-number">2.5.6.9.4.</span> <span class="nav-text">Customizing .gitlab-ci.yml</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PostgreSQL"><span class="nav-number">2.5.6.9.5.</span> <span class="nav-text">PostgreSQL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Environment-variables"><span class="nav-number">2.5.6.9.6.</span> <span class="nav-text">Environment variables</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目前支持的语言"><span class="nav-number">2.5.6.10.</span> <span class="nav-text">目前支持的语言</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Auto-DevOps-template"><span class="nav-number">2.5.7.</span> <span class="nav-text">Auto DevOps template</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CI-CD环境变量"><span class="nav-number">2.5.8.</span> <span class="nav-text">CI/CD环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#变量优先级"><span class="nav-number">2.5.8.1.</span> <span class="nav-text">变量优先级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不支持的变量"><span class="nav-number">2.5.8.2.</span> <span class="nav-text">不支持的变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#预定义变量"><span class="nav-number">2.5.8.3.</span> <span class="nav-text">预定义变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gitlab-ci-yml定义的变量"><span class="nav-number">2.5.8.4.</span> <span class="nav-text">.gitlab-ci.yml定义的变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组-库级别变量"><span class="nav-number">2.5.8.5.</span> <span class="nav-text">组/库级别变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gitlab-ci-yml配置"><span class="nav-number">2.5.9.</span> <span class="nav-text">.gitlab-ci.yml配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Jobs"><span class="nav-number">2.5.9.1.</span> <span class="nav-text">Jobs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#extends"><span class="nav-number">2.5.9.2.</span> <span class="nav-text">extends</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pages"><span class="nav-number">2.5.9.3.</span> <span class="nav-text">pages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#image-and-services"><span class="nav-number">2.5.9.4.</span> <span class="nav-text">image and services</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#before-script-and-after-script"><span class="nav-number">2.5.9.5.</span> <span class="nav-text">before_script and after_script</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stages"><span class="nav-number">2.5.9.6.</span> <span class="nav-text">stages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stage"><span class="nav-number">2.5.9.7.</span> <span class="nav-text">stage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#types"><span class="nav-number">2.5.9.8.</span> <span class="nav-text">types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#script"><span class="nav-number">2.5.9.9.</span> <span class="nav-text">script</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#only和except-简单"><span class="nav-number">2.5.9.10.</span> <span class="nav-text">only和except(简单)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#only和except-复杂"><span class="nav-number">2.5.9.11.</span> <span class="nav-text">only和except(复杂)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tags-1"><span class="nav-number">2.5.9.12.</span> <span class="nav-text">tags</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#allow-failure"><span class="nav-number">2.5.9.13.</span> <span class="nav-text">allow_failure</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#when"><span class="nav-number">2.5.9.14.</span> <span class="nav-text">when</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#environment"><span class="nav-number">2.5.9.15.</span> <span class="nav-text">environment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dynamic-environments"><span class="nav-number">2.5.9.16.</span> <span class="nav-text">Dynamic environments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cache"><span class="nav-number">2.5.9.17.</span> <span class="nav-text">cache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#artifacts"><span class="nav-number">2.5.9.18.</span> <span class="nav-text">artifacts</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dependencies"><span class="nav-number">2.5.9.19.</span> <span class="nav-text">dependencies</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#coverage"><span class="nav-number">2.5.9.20.</span> <span class="nav-text">coverage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#retry"><span class="nav-number">2.5.9.21.</span> <span class="nav-text">retry</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#parallel"><span class="nav-number">2.5.9.22.</span> <span class="nav-text">parallel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#include"><span class="nav-number">2.5.9.23.</span> <span class="nav-text">include</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#variables"><span class="nav-number">2.5.9.24.</span> <span class="nav-text">variables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊YAML功能"><span class="nav-number">2.5.9.25.</span> <span class="nav-text">特殊YAML功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Hidden-keys-jobs"><span class="nav-number">2.5.9.25.1.</span> <span class="nav-text">Hidden keys (jobs)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Anchors"><span class="nav-number">2.5.9.25.2.</span> <span class="nav-text">Anchors</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitLab-CI-CD栗子"><span class="nav-number">2.5.10.</span> <span class="nav-text">GitLab CI/CD栗子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git配置项"><span class="nav-number">2.6.</span> <span class="nav-text">Git配置项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自定Git-hooks"><span class="nav-number">2.6.1.</span> <span class="nav-text">自定Git hooks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-1"><span class="nav-number">2.6.1.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链式hook"><span class="nav-number">2.6.1.2.</span> <span class="nav-text">链式hook</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义错误信息"><span class="nav-number">2.6.1.3.</span> <span class="nav-text">自定义错误信息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git-LFS"><span class="nav-number">2.6.2.</span> <span class="nav-text">Git LFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Housekeeping"><span class="nav-number">2.6.3.</span> <span class="nav-text">Housekeeping</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Automatic-housekeeping"><span class="nav-number">2.6.3.1.</span> <span class="nav-text">Automatic housekeeping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Manual-housekeeping"><span class="nav-number">2.6.3.2.</span> <span class="nav-text">Manual housekeeping</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git协议"><span class="nav-number">2.6.4.</span> <span class="nav-text">Git协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监控"><span class="nav-number">2.7.</span> <span class="nav-text">监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#故障排除"><span class="nav-number">2.8.</span> <span class="nav-text">故障排除</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Runner"><span class="nav-number">3.</span> <span class="nav-text">Runner</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-1"><span class="nav-number">3.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Repository"><span class="nav-number">3.1.1.</span> <span class="nav-text">Repository</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动安装"><span class="nav-number">3.1.2.</span> <span class="nav-text">手动安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker"><span class="nav-number">3.1.3.</span> <span class="nav-text">Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s"><span class="nav-number">3.1.4.</span> <span class="nav-text">k8s</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Autoscale"><span class="nav-number">3.1.5.</span> <span class="nav-text">Autoscale</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册"><span class="nav-number">3.2.</span> <span class="nav-text">注册</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GNU-Linux"><span class="nav-number">3.2.1.</span> <span class="nav-text">GNU/Linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单行注册命令"><span class="nav-number">3.2.2.</span> <span class="nav-text">单行注册命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行器"><span class="nav-number">3.3.</span> <span class="nav-text">执行器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择执行器"><span class="nav-number">3.3.1.</span> <span class="nav-text">选择执行器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不清楚该选择哪个执行器"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">不清楚该选择哪个执行器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#兼容性"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">兼容性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shell"><span class="nav-number">3.3.2.</span> <span class="nav-text">Shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-1"><span class="nav-number">3.3.3.</span> <span class="nav-text">Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#K8s"><span class="nav-number">3.3.4.</span> <span class="nav-text">K8s</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级配置"><span class="nav-number">3.4.</span> <span class="nav-text">高级配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">3.4.1.</span> <span class="nav-text">配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#global部分"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">global部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#session-server-部分"><span class="nav-number">3.4.1.2.</span> <span class="nav-text">[session_server]部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#runners-部分"><span class="nav-number">3.4.1.3.</span> <span class="nav-text">[[runners]]部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SHELLS"><span class="nav-number">3.4.1.4.</span> <span class="nav-text">SHELLS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#runners-parallels-部分"><span class="nav-number">3.4.1.5.</span> <span class="nav-text">[runners.parallels]部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#runners-virtualbox-部分"><span class="nav-number">3.4.1.6.</span> <span class="nav-text">[runners.virtualbox]部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#runners-ssh-部分"><span class="nav-number">3.4.1.7.</span> <span class="nav-text">[runners.ssh]部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#runners-machine-部分"><span class="nav-number">3.4.1.8.</span> <span class="nav-text">[runners.machine]部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#runners-cache-部分"><span class="nav-number">3.4.1.9.</span> <span class="nav-text">[runners.cache]部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#runners-kubernetes-部分"><span class="nav-number">3.4.1.10.</span> <span class="nav-text">[runners.kubernetes]部分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自签名证书"><span class="nav-number">3.4.2.</span> <span class="nav-text">自签名证书</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -3696,7 +4992,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 527.2k</span>
+  <span class="post-count"> 字数: 581.5k</span>
 </div>
 
 

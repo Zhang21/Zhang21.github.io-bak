@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://zhang21.github.io/images/Nginx/Nginx001.jpg">
 <meta property="og:image" content="https://zhang21.github.io/images/Nginx/Nginx002.jpg">
 <meta property="og:image" content="https://zhang21.github.io/images/Nginx/auth.png">
-<meta property="og:updated_time" content="2018-08-13T02:48:33.000Z">
+<meta property="og:updated_time" content="2019-01-09T08:03:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx">
 <meta name="twitter:description" content="参考：  Nginx官方文档 Nginx-Wikipedia Nginx-repo  环境：  CentOS7x86_64; Nginx1.12.1     Nginx介绍Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 HTTP, HTTPS, SMTP, POP3, IMAP 的协议连接。基于BSD-like协议发行，支持多">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-13T10:48:33+08:00">
-                2018-08-13
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-09T16:03:04+08:00">
+                2019-01-09
               </time>
             
           </span>
@@ -418,7 +418,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  14,296
+                  14,386
                 </span>
               
 
@@ -915,7 +915,11 @@
 <h3 id="rewrite实例"><a href="#rewrite实例" class="headerlink" title="rewrite实例"></a>rewrite实例</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">	log_format main xxxx;</span><br><span class="line">	rewrite_log on;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">    	root /var/www/zhang;</span><br><span class="line">        location / &#123;</span><br><span class="line">        	error_log logs/rewrite.log notice;</span><br><span class="line">            rewrite <span class="string">'^/images/([a-z]&#123;2&#125;)/([a-z0-9]&#123;5&#125;)/(.*)\.(png|jpg|gif)'</span>/data?file=<span class="variable">$3</span>.<span class="variable">$4</span>;</span><br><span class="line">            <span class="built_in">set</span> <span class="variable">$image_file</span> <span class="variable">$3</span>;</span><br><span class="line">            <span class="built_in">set</span> <span class="variable">$image_type</span> <span class="variable">$4</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /data &#123;</span><br><span class="line">        	access_log logs/images.log main;</span><br><span class="line">            root /data/images;</span><br><span class="line">            type_file /<span class="variable">$arg_file</span> /images404.html;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">		location = /image404.html &#123;</span><br><span class="line">        	<span class="built_in">return</span> 404 <span class="string">"Image Not Found\n"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><br></p>
 <h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2><p><br></p>
-<h3 id="添加用户密码验证"><a href="#添加用户密码验证" class="headerlink" title="添加用户密码验证"></a>添加用户密码验证</h3><p>有时需要为我们的网站设置访问账号和密码权限。</p>
+<h3 id="添加用户密码验证"><a href="#添加用户密码验证" class="headerlink" title="添加用户密码验证"></a>添加用户密码验证</h3><ul>
+<li>参考: <a href="https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/" target="_blank" rel="noopener">https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/</a></li>
+</ul>
+<p><br></p>
+<p>有时需要为我们的网站设置访问账号和密码权限。<br>注意，此密码需要使用加密软件生成，直接写入密码的明文无效。</p>
 <p>具体为这两个参数：</p>
 <ul>
 <li><code>auth_basic</code><ul>
@@ -929,9 +933,12 @@
 </li>
 </ul>
 <p>栗子：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/nginx/conf.d</span><br><span class="line">vim test.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">location / &#123;</span><br><span class="line">	auth_basic <span class="string">"Zhang"</span>;</span><br><span class="line">    auth_basic_user_file /etc/nginx/nginx.auth;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vim /etc/nginx/nginx.auth</span><br><span class="line"></span><br><span class="line"><span class="comment">#user:passwd</span></span><br><span class="line">zhang:zhang</span><br><span class="line"><span class="built_in">test</span>:<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<p><img src="/images/Nginx/auth.png" alt=""></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/nginx/conf.d</span><br><span class="line">vim test.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">location / &#123;</span><br><span class="line">	auth_basic <span class="string">"nginx auth test"</span>;</span><br><span class="line">    auth_basic_user_file /etc/nginx/.auth;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置用户密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#Verify that apache2-utils (Debian, Ubuntu) or httpd-tools (RHEL/CentOS/Oracle Linux) is installed.</span><br><span class="line">yum install -y httpd-tools</span><br><span class="line"></span><br><span class="line">#htpasswd file username</span><br><span class="line">htpasswd .auth  user1</span><br><span class="line">New password:</span><br><span class="line">Re-type new password:</span><br><span class="line">Adding password for user user1</span><br><span class="line"></span><br><span class="line">#查看加密密码</span><br><span class="line">cat .auth</span><br><span class="line">user1:$apr1$NIOeayen$hTAvJ5ZTwUHE6Hm1MiF920</span><br></pre></td></tr></table></figure>
 <p><br></p>
+<p><img src="/images/Nginx/auth.png" alt=""></p>
+<p><br><br><br></p>
 <h3 id="限制IP访问"><a href="#限制IP访问" class="headerlink" title="限制IP访问"></a>限制IP访问</h3><ul>
 <li>allow</li>
 <li>deny</li>
@@ -1682,7 +1689,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-count">60</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1704,7 +1711,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">74</span>
+                <span class="site-state-item-count">83</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1801,7 +1808,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 527.2k</span>
+  <span class="post-count"> 字数: 581.5k</span>
 </div>
 
 
