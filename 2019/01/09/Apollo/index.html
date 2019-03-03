@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://zhang21.github.io/images/Apollo/Apollo.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Apollo/apollo-deployment.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Apollo/apollo_arch.jpg">
-<meta property="og:updated_time" content="2019-01-10T10:10:42.000Z">
+<meta property="og:updated_time" content="2019-02-28T01:47:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Apollo">
 <meta name="twitter:description" content="参考:  Apollo官方文档: https://github.com/ctripcorp/apollo/wiki   环境:  Apollo v1.2 Docker v1.18 K8s v1.11">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-10T18:10:42+08:00">
-                2019-01-10
+              <time title="更新于" itemprop="dateModified" datetime="2019-02-28T09:47:39+08:00">
+                2019-02-28
               </time>
             
           </span>
@@ -418,7 +418,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  758
+                  1,483
                 </span>
               
 
@@ -485,7 +485,7 @@
 <li>将数据库和注册地址写入<code>config/application-github.properties</code>配置文件</li>
 </ul>
 <p>官方是写入<code>Dockerfile</code>中作为环境变量，然后通过<code>entrypoint.sh</code>进行相应的替换。我直接将其写入此配置文件，并删除<code>entrypoint.sh</code>。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">spring.datasource.url</span> <span class="string">=</span> <span class="attr">jdbc:mysql://&#123;mysql-ip&#125;:&#123;mysql-port&#125;/&#123;mysql-db&#125;?characterEncoding=utf8</span></span><br><span class="line"><span class="string">spring.datasource.username</span> <span class="string">=</span> <span class="string">user</span></span><br><span class="line"><span class="string">spring.datasource.password</span> <span class="string">=</span> <span class="string">passwd</span></span><br><span class="line"><span class="string">eureka.service.url</span> <span class="string">=</span> <span class="attr">http://&#123;service-name&#125;.&#123;namespace&#125;.svc.cluster.local:8080/eureka/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">spring.datasource.url</span> <span class="string">=</span> <span class="attr">jdbc:mysql://&#123;mysql-ip&#125;:&#123;mysql-port&#125;/&#123;mysql-db&#125;?characterEncoding=utf8</span></span><br><span class="line"><span class="string">spring.datasource.username</span> <span class="string">=</span> <span class="string">user</span></span><br><span class="line"><span class="string">spring.datasource.password</span> <span class="string">=</span> <span class="string">passwd</span></span><br><span class="line"><span class="string">eureka.service.url</span> <span class="string">=</span> <span class="attr">http://&#123;service-name&#125;.&#123;namespace&#125;.svc.cluster.local:8080/eureka/</span></span><br><span class="line"><span class="comment"># 如果环境跨VPC，还需要指定公网地址的 HomePageUrl</span></span><br><span class="line"><span class="comment"># eureka.instance.homePageUrl = http://ELB:PORT</span></span><br><span class="line"><span class="comment"># 或 在启动命名指定: -Dapollo.configService=http://config-service的公网IP:端口来跳过meta service的服务发现</span></span><br><span class="line"><span class="comment"># 如果不指定的话，则默认使用获取的内部地址，这无法正常访问</span></span><br></pre></td></tr></table></figure>
 <p><br></p>
 <ul>
 <li>portal服务的默认环境是DEV，请注意</li>
@@ -503,6 +503,30 @@
 <li>登录Web UI后可修改配置</li>
 </ul>
 <p>如组织里面的部门名，管理员等等参数，在系统参数里面更新<code>Key</code>对应的<code>Value</code>。<br>具体这个Key可参考文档 —— <a href="https://github.com/ctripcorp/apollo/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97#213-%E8%B0%83%E6%95%B4%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener">调整服务端配置</a></p>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h1><p>具体信息可以查看官方文档，然后根据官方文档给出的栗子做一些修改。</p>
+<p><br></p>
+<h2 id="apollo-config"><a href="#apollo-config" class="headerlink" title="apollo-config"></a>apollo-config</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ls -l</span><br><span class="line">apollo-configservice.conf</span><br><span class="line">apollo-configservice.jar</span><br><span class="line">config/</span><br><span class="line">Dockerfile</span><br><span class="line">k8s-apollo-config-web-test.yaml</span><br><span class="line">README.md</span><br><span class="line">scripts/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ls config/</span><br><span class="line">application-github.properties</span><br><span class="line">app.properties</span><br><span class="line"></span><br><span class="line">ls scripts/</span><br><span class="line">startup-kubernetes.sh</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>Dockerfile</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">FROM openjdk:8-jre-alpine3.8</span><br><span class="line"></span><br><span class="line">RUN \</span><br><span class="line">    echo &quot;http://mirrors.aliyun.com/alpine/v3.8/main&quot; &gt; /etc/apk/repositories &amp;&amp; \</span><br><span class="line">    echo &quot;http://mirrors.aliyun.com/alpine/v3.8/community&quot; &gt;&gt; /etc/apk/repositories &amp;&amp; \</span><br><span class="line">    apk update upgrade &amp;&amp; \</span><br><span class="line">    apk add --no-cache procps curl bash tzdata &amp;&amp; \</span><br><span class="line">    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; \</span><br><span class="line">    echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; \</span><br><span class="line">    mkdir -p /apollo-config-server</span><br><span class="line"></span><br><span class="line">COPY . /apollo-config-server/</span><br><span class="line"></span><br><span class="line">EXPOSE 8080</span><br><span class="line"></span><br><span class="line">CMD [&quot;/apollo-config-server/scripts/startup-kubernetes.sh&quot;]</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>config/</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># app.properties不用修改</span><br><span class="line">#  application-github.properties</span><br><span class="line"># DataSource</span><br><span class="line">spring.datasource.url = jdbc:mysql://host:port/configdbwebtest?characterEncoding=utf8</span><br><span class="line">spring.datasource.username = user</span><br><span class="line">spring.datasource.password = passwd</span><br><span class="line">eureka.service.url = http://xxx.svc.cluster.local:8080/eureka/</span><br><span class="line"># 扩公网的话请修改 HomePageUrl</span><br><span class="line"># config-web-test service homepage ELB</span><br><span class="line"># eureka.instance.homePageUrl = http://ELB:PORT</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>scripts/</strong></p>
+<p><code>startup-kubernetes.sh</code> 这个文件，文件名你也可以随便修改。<br>有些值既可以写在这里面，也可以配置成环境变量(Dockerfile， 或k8s yaml)<br>这里把 <code>APOLLO_CONFIG_SERVICE_NAME</code> 配置成 k8s yaml 里的环境变量 <code>xxx.apollo-test.svc.cluster.local</code>（即 k8s service）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">SERVICE_NAME=apollo-configservice</span><br><span class="line"><span class="comment">## Adjust log dir if necessary</span></span><br><span class="line">LOG_DIR=/opt/logs/apollo-config-server</span><br><span class="line"><span class="comment">## Adjust server port if necessary</span></span><br><span class="line">SERVER_PORT=8080</span><br><span class="line"></span><br><span class="line">SERVER_URL=<span class="string">"http://<span class="variable">$&#123;APOLLO_CONFIG_SERVICE_NAME&#125;</span>:<span class="variable">$&#123;SERVER_PORT&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Adjust memory settings if necessary</span></span><br><span class="line"><span class="comment">#export JAVA_OPTS="-Xms6144m -Xmx6144m -Xss256k -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=384m -XX:NewSize=4096m -XX:MaxNewSize=4096m -XX:SurvivorRatio=8"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Only uncomment the following when you are using server jvm</span></span><br><span class="line"><span class="comment">#export JAVA_OPTS="$JAVA_OPTS -server -XX:-ReduceInitialCardMarks"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########### The following is the same for configservice, adminservice, portal ###########</span></span><br><span class="line"><span class="built_in">export</span> JAVA_OPTS=<span class="string">"<span class="variable">$JAVA_OPTS</span> -XX:+UseParNewGC -XX:ParallelGCThreads=4 -XX:MaxTenuringThreshold=9 -XX:+UseConcMarkSweepGC -XX:+DisableExplicitGC -XX:+UseCMSInitiatingOccupancyOnly -XX:+ScavengeBeforeFullGC -XX:+UseCMSCompactAtFullCollection -XX:+CMSParallelRemarkEnabled -XX:CMSFullGCsBeforeCompaction=9 -XX:CMSInitiatingOccupancyFraction=60 -XX:+CMSClassUnloadingEnabled -XX:SoftRefLRUPolicyMSPerMB=0 -XX:+CMSPermGenSweepingEnabled -XX:CMSInitiatingPermOccupancyFraction=70 -XX:+ExplicitGCInvokesConcurrent -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationConcurrentTime -XX:+PrintHeapAtGC -XX:+UseGCLogFileRotation -XX:+HeapDumpOnOutOfMemoryError -XX:-OmitStackTraceInFastThrow -Duser.timezone=Asia/Shanghai -Dclient.encoding.override=UTF-8 -Dfile.encoding=UTF-8 -Djava.security.egd=file:/dev/./urandom"</span></span><br><span class="line"><span class="built_in">export</span> JAVA_OPTS=<span class="string">"<span class="variable">$JAVA_OPTS</span> -Dserver.port=<span class="variable">$SERVER_PORT</span> -Dlogging.file=<span class="variable">$LOG_DIR</span>/<span class="variable">$SERVICE_NAME</span>.log -Xloggc:<span class="variable">$LOG_DIR</span>/gc.log -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=5M -XX:HeapDumpPath=<span class="variable">$LOG_DIR</span>/HeapDumpOnOutOfMemoryError/"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#logs to /std/out</span></span><br><span class="line"><span class="comment">#export JAVA_OPTS="$JAVA_OPTS -Dserver.port=$SERVER_PORT"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$(date)</span> ==== Starting ==== \n"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> `dirname <span class="variable">$0</span>`/..</span><br><span class="line">chmod 755 <span class="variable">$SERVICE_NAME</span><span class="string">".jar"</span></span><br><span class="line">./<span class="variable">$SERVICE_NAME</span><span class="string">".jar"</span> start</span><br><span class="line"></span><br><span class="line">rc=$?;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$rc</span> != 0 ]];</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$(date)</span> Failed to start <span class="variable">$SERVICE_NAME</span>.jar, return code: <span class="variable">$rc</span>"</span></span><br><span class="line">    <span class="built_in">exit</span> <span class="variable">$rc</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">tail -f /dev/null</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>apollo-configservice.conf</strong></p>
+<p>这个也不需要做什么修改，看个人情况。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MODE=service</span><br><span class="line">PID_FOLDER=.</span><br><span class="line">LOG_FOLDER=/opt/logs/apollo-config-server</span><br></pre></td></tr></table></figure>
+<p><br><br><br><br><br></p>
+<h2 id="apollo-admin"><a href="#apollo-admin" class="headerlink" title="apollo-admin"></a>apollo-admin</h2><p>这个其实和 <code>apollo-config</code> 差不多配置，只是修改一些配置项。</p>
+<p><br><br><br><br><br></p>
+<h2 id="apollo-portal"><a href="#apollo-portal" class="headerlink" title="apollo-portal"></a>apollo-portal</h2><p>这个也和上面差不多，只是修改一些配置项。</p>
 
       
     </div>
@@ -636,7 +660,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -658,7 +682,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">83</span>
+                <span class="site-state-item-count">96</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -723,7 +747,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意事项"><span class="nav-number">2.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意事项"><span class="nav-number">2.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#栗子"><span class="nav-number">3.</span> <span class="nav-text">栗子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#apollo-config"><span class="nav-number">3.1.</span> <span class="nav-text">apollo-config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apollo-admin"><span class="nav-number">3.2.</span> <span class="nav-text">apollo-admin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apollo-portal"><span class="nav-number">3.3.</span> <span class="nav-text">apollo-portal</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -755,7 +779,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 581.5k</span>
+  <span class="post-count"> 字数: 645.7k</span>
 </div>
 
 
