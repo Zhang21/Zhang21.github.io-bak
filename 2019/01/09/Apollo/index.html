@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://zhang21.github.io/images/Apollo/Apollo.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Apollo/apollo-deployment.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Apollo/apollo_arch.jpg">
-<meta property="og:updated_time" content="2019-02-28T01:47:39.000Z">
+<meta property="og:updated_time" content="2019-03-07T06:51:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Apollo">
 <meta name="twitter:description" content="参考:  Apollo官方文档: https://github.com/ctripcorp/apollo/wiki   环境:  Apollo v1.2 Docker v1.18 K8s v1.11">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-02-28T09:47:39+08:00">
-                2019-02-28
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-07T14:51:17+08:00">
+                2019-03-07
               </time>
             
           </span>
@@ -418,7 +418,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,483
+                  1,875
                 </span>
               
 
@@ -471,38 +471,55 @@
 <p><img src="/images/Apollo/apollo_arch.jpg" alt=""></p>
 <p><br><br><br><br><br></p>
 <h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><ul>
-<li>为不同环境创建不同数据库</li>
+<li><strong>为不同环境创建不同数据库</strong></li>
 </ul>
 <p>官方已经给出了创建数据库的sql语句，一个<code>portadb</code>, 多个<code>configdb-project-env</code>。我们需要修改数据库名，为不同的环境建立不同的数据库，所以需要在使用官方sql的时候把数据库名修改为自定义的即可，这样创建的各个环境数据库的表结构都是一样的。</p>
 <p><br></p>
 <ul>
-<li>配置了一个环境变量，它也就是部署服务的集群内访问地址(不在同一VPC可能需要外部访问地址)</li>
+<li><strong>配置了一个环境变量，它也就是部署服务的集群内访问地址(不在同一VPC可能需要外部访问地址)</strong></li>
 </ul>
 <p>官方是写入了Dockerfile里面作为环境变量，我是将其写入k8s yaml中的环境变量。当然，也可以写入启动脚本中。<br>以下配置，随便用哪一个。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Dockerfile中</span></span><br><span class="line"><span class="string">ENV</span> <span class="string">APOLLO_CONFIG_SERVICE_NAME="&#123;service-name&#125;.&#123;namespace&#125;.svc.cluster.local"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#k8s yaml container中</span></span><br><span class="line"><span class="attr">          env:</span></span><br><span class="line"><span class="attr">            - name:</span> <span class="string">APOLLO_CONFIG_SERVICE_NAME</span></span><br><span class="line"><span class="attr">              value:</span> <span class="string">&#123;service_name&#125;.&#123;namespace&#125;.svc.cluster.local</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#启动脚本</span></span><br><span class="line"><span class="comment">#scripts/startup-kubernetes.sh</span></span><br><span class="line"><span class="comment">#SERVER_URL="http://$&#123;APOLLO_ADMIN_SERVICE_NAME&#125;:$&#123;SERVER_PORT&#125;"</span></span><br><span class="line"><span class="string">SERVER_URL="http://&#123;service_name&#125;.&#123;namespace&#125;.svc.cluster.local:$&#123;SERVER_PORT&#125;"</span></span><br></pre></td></tr></table></figure>
 <p><br></p>
 <ul>
-<li>将数据库和注册地址写入<code>config/application-github.properties</code>配置文件</li>
+<li><strong>将数据库和注册地址写入<code>config/application-github.properties</code>配置文件</strong></li>
 </ul>
 <p>官方是写入<code>Dockerfile</code>中作为环境变量，然后通过<code>entrypoint.sh</code>进行相应的替换。我直接将其写入此配置文件，并删除<code>entrypoint.sh</code>。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">spring.datasource.url</span> <span class="string">=</span> <span class="attr">jdbc:mysql://&#123;mysql-ip&#125;:&#123;mysql-port&#125;/&#123;mysql-db&#125;?characterEncoding=utf8</span></span><br><span class="line"><span class="string">spring.datasource.username</span> <span class="string">=</span> <span class="string">user</span></span><br><span class="line"><span class="string">spring.datasource.password</span> <span class="string">=</span> <span class="string">passwd</span></span><br><span class="line"><span class="string">eureka.service.url</span> <span class="string">=</span> <span class="attr">http://&#123;service-name&#125;.&#123;namespace&#125;.svc.cluster.local:8080/eureka/</span></span><br><span class="line"><span class="comment"># 如果环境跨VPC，还需要指定公网地址的 HomePageUrl</span></span><br><span class="line"><span class="comment"># eureka.instance.homePageUrl = http://ELB:PORT</span></span><br><span class="line"><span class="comment"># 或 在启动命名指定: -Dapollo.configService=http://config-service的公网IP:端口来跳过meta service的服务发现</span></span><br><span class="line"><span class="comment"># 如果不指定的话，则默认使用获取的内部地址，这无法正常访问</span></span><br></pre></td></tr></table></figure>
 <p><br></p>
 <ul>
-<li>portal服务的默认环境是DEV，请注意</li>
+<li><strong>portal服务的默认环境是DEV，请注意</strong></li>
 </ul>
 <p>如果配置的第一个环境并不是DEV，请记得先修改数据库中的这个值，不然portal读取config, admin会失败。<br><code>portaldb.serverconfig</code>的<code>apollo.portal.envs</code>这个key，多个环境使用<code>,</code>分割，后面可以在UI上配置。其它环境请修改为其它环境名。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> serverconfig <span class="keyword">SET</span> <span class="keyword">Value</span>=<span class="string">'uat'</span> <span class="keyword">WHERE</span> <span class="keyword">Key</span>=<span class="string">'apollo.portal.envs'</span>;</span><br></pre></td></tr></table></figure>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">config/apollo-env.properties</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#dev.meta=http://DEV_META_SERVICE_NAME:8080</span></span><br><span class="line"><span class="comment">#fat.meta=http://TEST_ALPHA_META_SERVICE_NAME:8080</span></span><br><span class="line"><span class="comment">#uat.meta=http://TEST_BETA_META_SERVICE_NAME:8080</span></span><br><span class="line"><span class="comment">#pro.meta=http://PROD_META_SERVICE_NAME:8080</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#某个环境的config</span></span><br><span class="line"><span class="string">uat.meta=http://&#123;service-name&#125;.&#123;namespace&#125;.svc.cluster.local:8080</span></span><br></pre></td></tr></table></figure>
 <p><br></p>
 <ul>
-<li>将日志输出到标准输出<code>/dev/stdout</code></li>
+<li><strong>将日志输出到标准输出<code>/dev/stdout</code></strong></li>
 </ul>
 <p>由于我是运行在容器中，所以需要将日志输出到标准输出。</p>
 <p><br></p>
 <ul>
-<li>登录Web UI后可修改配置</li>
+<li><strong>登录Web UI后可修改配置</strong></li>
 </ul>
 <p>如组织里面的部门名，管理员等等参数，在系统参数里面更新<code>Key</code>对应的<code>Value</code>。<br>具体这个Key可参考文档 —— <a href="https://github.com/ctripcorp/apollo/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97#213-%E8%B0%83%E6%95%B4%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener">调整服务端配置</a></p>
+<p><br></p>
+<ul>
+<li><strong>每个环境下有多个config/admin</strong></li>
+</ul>
+<p>请注意，每个环境只有一个数据库，也就是这几个服务都要连接同一个configdb，这点请注意。<br>后面还需要修改ConfigDB.ServerConfig表，每个环境的都需要单独配置。这里的<code>eureka.service.url</code>  - Eureka服务Url要来修改。</p>
+<blockquote>
+<p>ps: 官方文档<br>不管是apollo-configservice还是apollo-adminservice都需要向eureka服务注册，所以需要配置eureka服务地址。 按照目前的实现，apollo-configservice本身就是一个eureka服务，所以只需要填入apollo-configservice的地址即可，如有多个，用逗号分隔（注意不要忘了/eureka/后缀）。<br>需要注意的是每个环境只填入自己环境的eureka服务地址，比如FAT的apollo-configservice是1.1.1.1:8080和2.2.2.2:8080，UAT的apollo-configservice是3.3.3.3:8080和4.4.4.4:8080，PRO的apollo-configservice是5.5.5.5:8080和6.6.6.6:8080，那么：<br>在FAT环境的ApolloConfigDB.ServerConfig表中设置eureka.service.url为：<br><a href="http://1.1.1.1:8080/eureka/,http://2.2.2.2:8080/eureka/" target="_blank" rel="noopener">http://1.1.1.1:8080/eureka/,http://2.2.2.2:8080/eureka/</a><br>在UAT环境的ApolloConfigDB.ServerConfig表中设置eureka.service.url为：<br><a href="http://3.3.3.3:8080/eureka/,http://4.4.4.4:8080/eureka/" target="_blank" rel="noopener">http://3.3.3.3:8080/eureka/,http://4.4.4.4:8080/eureka/</a><br>在PRO环境的ApolloConfigDB.ServerConfig表中设置eureka.service.url为：<br><a href="http://5.5.5.5:8080/eureka/,http://6.6.6.6:8080/eureka/" target="_blank" rel="noopener">http://5.5.5.5:8080/eureka/,http://6.6.6.6:8080/eureka/</a></p>
+</blockquote>
+<p>更过详情请查看官方文档！</p>
+<p><br></p>
+<p>假如UAT环境下有:</p>
+<ul>
+<li>config-cd, config-bj, config-gz</li>
+<li>admin-cd, admin-bj, admin-gz</li>
+</ul>
+<p>他们需要向这三个Eureka(cd, bj, gz)注册。</p>
+<p>之后查看config:8080地址，便可以看到这几个地址的信息；在Portal集群信息里面，也可看到有三个CONFIG，三个ADMIN。</p>
 <p><br><br><br></p>
 <hr>
 <p><br><br><br></p>
@@ -660,7 +677,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-count">78</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -682,7 +699,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">96</span>
+                <span class="site-state-item-count">115</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -779,7 +796,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 645.7k</span>
+  <span class="post-count"> 字数: 704.8k</span>
 </div>
 
 

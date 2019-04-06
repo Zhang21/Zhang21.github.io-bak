@@ -1730,8 +1730,8 @@
 <p>示例显示了如何使用其它标准顶部匹配类型将特定 salt pillar data 传递给具有不同属性的minions:</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#grains matcher</span></span><br><span class="line"><span class="attr">dev:</span></span><br><span class="line">  <span class="string">'os:Debian'</span><span class="string">:</span></span><br><span class="line"><span class="attr">    - match:</span> <span class="string">grain</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">servers</span></span><br></pre></td></tr></table></figure>
 <p><code>/srv/pillar/packages.sls</code>, 所有minions都具有<code>company</code>这个键值对</p>
-<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> grains['os'] == 'RedHat' %&#125;</span></span><br><span class="line">apache: httpd</span><br><span class="line">git: git</span><br><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">elif</span></span> grains['os'] == 'Debian' %&#125;</span></span><br><span class="line">apache: apache2</span><br><span class="line">git: git-core</span><br><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span></span><br><span class="line"></span><br><span class="line">company: Foo Industries</span><br></pre></td></tr></table></figure>
-<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apache:</span><br><span class="line">  pkg.installed:</span><br><span class="line">    - name: <span class="template-variable">&#123;&#123; pillar['apache'] &#125;&#125;</span></span><br><span class="line">git:</span><br><span class="line">  pkg.installed:</span><br><span class="line">    - name: <span class="template-variable">&#123;&#123; pillar['git'] &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> grains['os'] == 'RedHat' %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml">apache: httpd</span></span><br><span class="line"><span class="xml">git: git</span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">elif</span></span> grains['os'] == 'Debian' %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml">apache: apache2</span></span><br><span class="line"><span class="xml">git: git-core</span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">company: Foo Industries</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">apache:</span></span><br><span class="line"><span class="xml">  pkg.installed:</span></span><br><span class="line"><span class="xml">    - name: </span><span class="template-variable">&#123;&#123; pillar['apache'] &#125;&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml">git:</span></span><br><span class="line"><span class="xml">  pkg.installed:</span></span><br><span class="line"><span class="xml">    - name: </span><span class="template-variable">&#123;&#123; pillar['git'] &#125;&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h3 id="动态Pillar环境"><a href="#动态Pillar环境" class="headerlink" title="动态Pillar环境"></a>动态Pillar环境</h3><p>DYNAMIC PILLAR ENVIRONMENTS</p>
 <p>如果在 <code>pillar_roots</code> 中指定了环境 <code>__env__</code>，在 <code>pillar_roots</code> 中未明确指定的所有环境都将映射到 <code>__env__</code> 中的目录。这使得人们可以使用基于 dynamic git branch 的环境来处理 state/pillar 文件，并使用相同的基于文件的pillar应用于所有环境。</p>
@@ -1790,9 +1790,9 @@
 </ul>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#pillar嵌套栗子</span></span><br><span class="line"><span class="attr">foo:</span></span><br><span class="line"><span class="attr">  bar:</span></span><br><span class="line"><span class="attr">    baz:</span> <span class="string">qux</span></span><br></pre></td></tr></table></figure>
 <p>从SLS公式或模板中提取是这样的:</p>
-<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-variable">&#123;&#123; pillar['foo']['bar']['baz'] &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="template-variable">&#123;&#123; pillar['foo']['bar']['baz'] &#125;&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
 <p>使用新的 <code>pillar.get</code> 函数可以安全地收集数据并设置默认值，如果值不可用，则允许模板回退。这使得处理嵌套结构变得更加容易。</p>
-<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-variable">&#123;&#123; salt['pillar.get']('foo:bar:baz', 'qux') &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="template-variable">&#123;&#123; salt['pillar.get']('foo:bar:baz', 'qux') &#125;&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
 <p><br><br><br></p>
 <h3 id="在CLI设置pillar数据"><a href="#在CLI设置pillar数据" class="headerlink" title="在CLI设置pillar数据"></a>在CLI设置pillar数据</h3><p>SETTING PILLAR DATA AT THE COMMAND LINE</p>
 <blockquote>
@@ -3068,8 +3068,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/28/个人尊严/" rel="prev" title="个人尊严">
-                个人尊严 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/26/Ansible/" rel="prev" title="Ansible">
+                Ansible <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -3157,7 +3157,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-count">78</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -3179,7 +3179,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">96</span>
+                <span class="site-state-item-count">115</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -3276,7 +3276,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 645.7k</span>
+  <span class="post-count"> 字数: 704.8k</span>
 </div>
 
 
