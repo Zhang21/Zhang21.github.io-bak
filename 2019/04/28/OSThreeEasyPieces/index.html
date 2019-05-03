@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux,OperatingSystem,操作系统,Optimization,性能优化," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="参考:  OS Three Easy Pieces: https://book.douban.com/subject/19973015/ OSTEP: http://pages.cs.wisc.edu/~remzi/OSTEP/   环境:  ELRH7x86_64">
+<meta name="keywords" content="Linux,OperatingSystem,操作系统,Optimization,性能优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OSTEP">
+<meta property="og:url" content="https://zhang21.github.io/2019/04/28/OSThreeEasyPieces/index.html">
+<meta property="og:site_name" content="风继续吹">
+<meta property="og:description" content="参考:  OS Three Easy Pieces: https://book.douban.com/subject/19973015/ OSTEP: http://pages.cs.wisc.edu/~remzi/OSTEP/   环境:  ELRH7x86_64">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-30T09:32:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OSTEP">
+<meta name="twitter:description" content="参考:  OS Three Easy Pieces: https://book.douban.com/subject/19973015/ OSTEP: http://pages.cs.wisc.edu/~remzi/OSTEP/   环境:  ELRH7x86_64">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang21.github.io/2019/04/28/OSThreeEasyPieces/"/>
+
+
+
+
+
+  <title>OSTEP | 风继续吹</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风继续吹</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Yesterday, you said tomorrow!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2019/04/28/OSThreeEasyPieces/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang21">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/leslie.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风继续吹">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OSTEP</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-28T08:59:12+08:00">
+                2019-04-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-30T17:32:38+08:00">
+                2019-04-30
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/28/OSThreeEasyPieces/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/04/28/OSThreeEasyPieces/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6,176
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考:</p>
+<ul>
+<li>OS Three Easy Pieces: <a href="https://book.douban.com/subject/19973015/" target="_blank" rel="noopener">https://book.douban.com/subject/19973015/</a></li>
+<li>OSTEP: <a href="http://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank" rel="noopener">http://pages.cs.wisc.edu/~remzi/OSTEP/</a></li>
+</ul>
+<p><br></p>
+<p>环境:</p>
+<ul>
+<li>ELRH7x86_64</li>
+</ul>
+<p><br><br><br></p>
+<hr>
+<a id="more"></a>
+<p><br><br><br></p>
+<h1 id="操作系统介绍"><a href="#操作系统介绍" class="headerlink" title="操作系统介绍"></a>操作系统介绍</h1><p>Introduction to Operating Systems</p>
+<p>如果你正在攻读本科操作系统课程，你应该已经知道计算机程序运行时的想法。如果没有，这本书将很难。</p>
+<p>那么，程序运行时会发生什么呢？<br>好吧，正在运行的程序做了一件非常简单的事情: <strong>它执行指令(it executes instructions)</strong>。<br>每秒都有成千上万次，处理器从内存(mem)中取出(fetch)指令，对其进行解码(decode)——即确定这是哪条指令，并执行它。完成此指令后，进程将继续执行下一条指令，以此类推，直到程序最终完成。</p>
+<p>刚刚描述了<strong>冯-诺依曼计算模型(Von Neumann model of computing)</strong>的基础知识。在本书中，我们将学习在程序运行的同时，还有许多其它的东西在运行，其主要目标是使系统易于使用。</p>
+<p>事实上，有一大堆软件负责使应用程序运行变得容易，允许程序共享内存(share mem)，使程序与设备交互…该软件主体称为<strong>操作系统(Operating System)</strong>，它负责确保系统操作以易于使用的方式正确有效地运行。</p>
+<p>操作系统执行此操作的主要方式是通过我们称为<strong>虚拟化(Virtualization)</strong>的通用技术。也就是说，操作系统采用<strong>物理资源(Physical Resource)</strong>(如处理器，内存，磁盘)并将其转换为更通用，功能强大且易于使用的虚拟形式。因此，我们有时将操作系统称为<strong>虚拟机(Virtual Machine)</strong>。</p>
+<blockquote>
+<p><strong>问题的关键: 如何虚拟化资源</strong><br>本书的一个核心问题：操作系统如何虚拟化资源？操作系统为什么要虚拟化资源——它使得系统更易于使用。因此，我们关注：操作系统使用什么机制和策略来实现虚拟化？操作系统如何有效地进行操作？需要什么硬件支持？</p>
+</blockquote>
+<p><br></p>
+<p>当然，为了告诉用户操作系统做什么，从而利用虚拟机的功能(如运行程序、分配内存、访问文件…)，操作系统还提供了一些可调用的接口(API)。事实上，典型的操作系统会<strong>导出(Export)</strong>数百个可供应用程序访问的<strong>系统调用(System Call)</strong>。<br>由于操作系统提供这些系统调用来运行程序、访问内存和设备、以及其它相关操作，有时也会说操作系统为应用程序提供了一个<strong>标准库(Standard Library)</strong>。</p>
+<p>最后，因为虚拟化允许多个程序运行(共享CPU)，并且许多程序同时(Concurrently)访问它们自己的指令和数据(共享内存)，以及许多程序访问设备(共享磁盘等)，操作系统有时被称为<strong>资源管理器(Resource Manager)</strong>。每个CPU、MEM、DISK都是系统的资源。因此，操作系统的角色是管理这些资源，有效或公平地执行。</p>
+<p><br><br><br></p>
+<h2 id="虚拟化CPU"><a href="#虚拟化CPU" class="headerlink" title="虚拟化CPU"></a>虚拟化CPU</h2><p>Virtualizing the CPU</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Code That Loops and Prints (cpu.c)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"common.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"usage: cpu &lt;string&gt;\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">char</span> *str = argv[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        Spin(<span class="number">1</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, str);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>上图的程序，它所做的只是调用<code>Spin()</code>——这是一个重复检查时间的函数。<br>接下来我们具有单个处理器的系统上编译和运行它:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编译</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 此处遇到两个错误</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1. cpu.c:(.text+0xe0)：对‘pthread_create’未定义的引用</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. cpu.c:(.text+0x127)：对‘pthread_join’未定义的引用</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 网上方法: 在编译时需要添加 -lpthread 参数来使用 libpthread.a 库进行编译</span></span><br><span class="line">gcc -o cpu cpu.c -Wall -lpthread</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行</span></span><br><span class="line">./cpu "ABC"</span><br><span class="line">ABC</span><br><span class="line">ABC</span><br><span class="line">...</span><br><span class="line"><span class="meta">#</span><span class="bash"> 需手动终止</span></span><br><span class="line">Ctrl+C</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>现在让程序复杂一点:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">./cpu A &amp;  ./cpu B &amp;  ./cpu C &amp;  ./cpu D &amp;</span><br><span class="line"></span><br><span class="line">[1] 7353</span><br><span class="line">[2] 7354</span><br><span class="line">[3] 7355</span><br><span class="line">[4] 7356</span><br><span class="line">A</span><br><span class="line">B</span><br><span class="line">D</span><br><span class="line">C</span><br><span class="line">A</span><br><span class="line">B</span><br><span class="line">D</span><br><span class="line">C</span><br><span class="line">A</span><br><span class="line">C</span><br><span class="line">B</span><br><span class="line">D</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>现在事情变得更有趣了。即使只有一个处理器，但不知何故，所有四个程序都在同时运行！这种魔力是如何发生的呢？</p>
+<p>事实证明，操作系统在硬件的帮助下负责这种<strong>错觉(illusion)</strong>——即系统具有大量虚拟CPU的错觉。将单个CPU转换为看似无限数量的CPU，从而允许许多程序看起来像是一次运行，这就是我们所说的虚拟化CPU，这是本书第一部分的重点。</p>
+<p>当然，要运行程序并停止它，以及告诉操作系统运行哪些程序，需要使用一些接口(API)来将你的需求传递给操作系统。实际上，它们是大多数用于与操作系统交互的主要方式。</p>
+<p>你可能还注意到，一次运行多个程序会引发各种新问题。如，如果两个程序需要在特定时间运行，哪个应该运行。这些问题由操作系统的策略来回答，策略在操作系统中的许多不同位置用户回答这些类型的问题。</p>
+<p><br><br><br></p>
+<h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>Virtualizing Memory</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A Program that Accesses Memory (mem.c)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"common.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> *p = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)); <span class="comment">// a1</span></span><br><span class="line">    assert(p != <span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"(%d) memory address of p: %08x\n"</span>,</span><br><span class="line">        getpid(), (<span class="keyword">unsigned</span>) p); <span class="comment">// a2</span></span><br><span class="line">    *p = <span class="number">0</span>; <span class="comment">// a3</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        Spin(<span class="number">1</span>);</span><br><span class="line">        *p = *p + <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"(%d) p: %d\n"</span>, getpid(), *p); <span class="comment">// a4</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>现在让我们考虑一下<strong>内存(memory)</strong>。现代机器提供的物理内存的模型非常简单。内存只是一个<strong>字节数组(a array of bytes)</strong>。要读取内存，必须指定一个地址才能访问存储在那里的数据。要写入或更新(write/update)内存，还必须指定要写入数据的给定地址。</p>
+<p>程序运行时始终访问内存。程序的所有数据结构保存在内存中，并通过各种指令访问它们，如<code>loads</code>, <code>stores</code>或其它在执行工作时访问内存的显式指令。不要忘记程序的每条指令也在内存中，每次<strong>取(fetch)指令</strong>时访问内存。</p>
+<p>让我们来看下通过调用<code>malloc()</code>来分配一些内存的上面那个程序:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">./mem</span><br><span class="line">(6941) memory address of p: 01f13010</span><br><span class="line">(6941) p: 1</span><br><span class="line">(6941) p: 2</span><br><span class="line">^C</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 该程序做了几件事。首先，它分配一些内存(a1)。然后，它打印出内存的地址(a2)，然后将数字零放入新分配的存储器的第一个插槽(a3)。最后，它循环，延迟1秒并递增存储在p中保存的地址的值。它还打出程序的PID。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Running The Memory Program Multiple Times</span></span><br><span class="line">./mem &amp; ./mem &amp;</span><br><span class="line">[1] 7544</span><br><span class="line">[2] 7545</span><br><span class="line">(7544) memory address of p: 012f3010</span><br><span class="line">(7545) memory address of p: 006cf010</span><br><span class="line">(7544) p: 1</span><br><span class="line">(7545) p: 1</span><br><span class="line">(7544) p: 2</span><br><span class="line">(7545) p: 2</span><br><span class="line">(7544) p: 3</span><br><span class="line">(7545) p: 3</span><br></pre></td></tr></table></figure>
+<p>实际上，这正是这里发生的事情，因为操作系统正在虚拟化内存。每个进程都访问自己的<strong>私有虚拟地址空间(private virtual address space)</strong>(有时也称为地址空间)，操作系统以某种方式将其映射到计算机的物理内存中。一个正在运行的程序中的内存引用不会影响其它进程的地址空间。就运行程序而言，它具有物理内存。然而，现实是物理内存是由操作系统管理的共享资源。</p>
+<p><br><br><br><br><br></p>
+<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p>Concurrency</p>
+<p>本书另一个主题是<strong>并发性(concurrency)</strong>。使用这个术语来指代同一程序中同时处理多个事件(即并发)。并发问题首先出现在操作系统自身，如前面的虚拟化程序，操作系统同时处理多个事情。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AMulti-threaded Program (threads.c)</span></span><br><span class="line"></span><br><span class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"common.h"</span></span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">volatile</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">int</span> loops;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">void</span> *<span class="title">worker</span><span class="params">(<span class="keyword">void</span> *arg)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">int</span> i;</span><br><span class="line">     <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; loops; i++) &#123;</span><br><span class="line">         counter++;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">int</span></span><br><span class="line"> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span><br><span class="line"> &#123;</span><br><span class="line">     <span class="keyword">if</span> (argc != <span class="number">2</span>) &#123;</span><br><span class="line">     <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"usage: threads &lt;value&gt;\n"</span>);</span><br><span class="line">     <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">     &#125;</span><br><span class="line">     loops = atoi(argv[<span class="number">1</span>]);</span><br><span class="line">     <span class="keyword">pthread_t</span> p1, p2;</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">"Initial value : %d\n"</span>, counter);</span><br><span class="line"></span><br><span class="line">     Pthread_create(&amp;p1, <span class="literal">NULL</span>, worker, <span class="literal">NULL</span>);</span><br><span class="line">     Pthread_create(&amp;p2, <span class="literal">NULL</span>, worker, <span class="literal">NULL</span>);</span><br><span class="line">     Pthread_join(p1, <span class="literal">NULL</span>);</span><br><span class="line">     Pthread_join(p2, <span class="literal">NULL</span>);</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">"Final value : %d\n"</span>, counter);</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// &gt;本程序使用Pthread create()创建两个线程</span></span><br><span class="line"><span class="comment">// 你可将线程视为与其它函数相同的内存空间中运行的函数，一次使用多个函数</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<blockquote>
+<p><strong>如何构建正确的并发程序?</strong><br>当同一个内存空间中有许多并发执行的线程时，我们如何构建一个正常工作的程序？操作系统需要哪些原语？硬件提供哪些机制？如何使用它们来解决并发问题？</p>
+</blockquote>
+<p><br></p>
+<p>运行:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">./threads</span><br><span class="line">usage: threads &lt;value&gt;</span><br><span class="line"></span><br><span class="line">./threads 1000</span><br><span class="line">Initial value : 0</span><br><span class="line">Final value : 2000</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 看看更高的值</span></span><br><span class="line">./threads 10000</span><br><span class="line">Initial value : 0</span><br><span class="line">Final value : 17726</span><br><span class="line"></span><br><span class="line">./threads 10000</span><br><span class="line">Initial value : 0</span><br><span class="line">Final value : 18741</span><br><span class="line"></span><br><span class="line">./threads 10000</span><br><span class="line">Initial value : 0</span><br><span class="line">Final value : 20000</span><br></pre></td></tr></table></figure>
+<p>上面出现了既正常又奇怪的结果。这些结果与指令的执行方式有关。不幸的是，上面程序的一个关键部分，共享计数器递增，需要三个指令：</p>
+<ul>
+<li>一个用于将计数器的值从内存加载到寄存器；</li>
+<li>一个用于递增；</li>
+<li>一个用于将其存储回内存。</li>
+</ul>
+<p>因为这三个指令不是原子地执行(一次全部执行)，所以会发生奇怪的事。</p>
+<p><br><br><br><br><br></p>
+<h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><p>Persistence</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Program That Does I/O (io.c)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> fd = open(<span class="string">"/tmp/file"</span>, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);</span><br><span class="line">    assert(fd &gt; <span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">int</span> rc = write(fd, <span class="string">"hello world\n"</span>, <span class="number">13</span>);</span><br><span class="line">    assert(rc == <span class="number">13</span>);</span><br><span class="line">    close(fd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>第三个主题是<strong>持久化(persistence)</strong>。在系统内存中，数据很容易丢失，因为如DRAM的设备是以易失的方式存储值。当断电或系统奔溃时，内存中的任何数据都会丢失。因此，我们需要硬件和软件能够持久存储数据。硬件以某种I/O设备的形式出现。</p>
+<p>通常，操作系统中管理磁盘的软件被称为<strong>文件系统(file system)</strong>。它负责将用户创建的任何文件以可靠和有效的方式存储在磁盘上。</p>
+<p>与操作系统为CPU何MEM提供的抽象不同，操作系统不回位每个应用程序创建专用的虚拟化磁盘。相反，它假设用户经常想要共享文件中的信息。</p>
+<p>来看下上面的代码，它打开<code>/tmp/file</code>文件，并将<code>hello world</code>写入文件。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./io</span><br><span class="line"></span><br><span class="line">cat /tmp/file</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<blockquote>
+<p><strong>如何持久存储数据？</strong><br>文件系统是负责管理持久化数据的操作系统的一部分。正确地处理需要哪些技术呢？面对硬件和软件故障，如何实现可靠性？</p>
+</blockquote>
+<p>要完成此任务，程序会对操作系统进行三次调用。这些系统调用被路由到称为文件系统的操作系统部分，然后处理请求并向用户返回某种错误代码。</p>
+<ul>
+<li>第一，调用<code>open()</code>打开文件；</li>
+<li>第二，调用<code>write()</code>将数据写入文件；</li>
+<li>第三，调用<code>close()</code>关闭文件。</li>
+</ul>
+<p>你可能想知道操作系统为了写入磁盘而执行的操作。文件系统必须完成相当多的工作，首先确定这些新数据将驻留在磁盘上的哪个位置，然后在文件系统维护的各种结构中跟踪它。这样做需要向底层存储设备发出I/O请求，以读取现有结构或更新它们。<br>任何编写设备驱动程序的人都知道，让设备代表你做某事是一个复杂和详细的过程。它需要深入了解低级设备接口及其确切语义。幸运的是，操作系统提供了一个的标准和简单的方式——通过系统调用(system call)访问设备。因此，操作系统有时被视为<strong>标准库(standard library)</strong>。</p>
+<p>为了处理写入期间系统崩溃的问题，大多数文件系统都包含某种复杂的写入协议。(如journaling或copy-on-write)。仔细写入磁盘以确保在写入序列期间发生故障时，系统之后可以恢复到合理的状态。为了使不同额公共操作高效，文件系统采用许多不同的数据结构和访问方法，从简单的列表到复杂的BTREE。</p>
+<p><br><br><br><br><br></p>
+<h2 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h2><p>Design Goals</p>
+<p>现在我们知道了操作系统实际上做了什么：它使用物理资源(CPU, MEM, DISK…)，并虚拟化它们。它处理与并发相关的棘手的问题。它可以持久存储文件，从而使它们长期安全。最基本的目标是建立一些抽象，以使系统方便和易于使用。抽象是我们计算机科学中所做的一切的基础。</p>
+<p>设计和实现操作系统的一个目标是提供<strong>高性能(High Performance)</strong>；另一个目标是尽量减少操作系统的<strong>开销(overhead)</strong>。虚拟化和使操作系统易于使用是值得的，但不是不惜任何代价。因此，我们必须提供虚拟化和其它操作系统功能，而无需过多开销。这些开销以多种形式出现：额外时间、额外空间。</p>
+<p>另一个目标是在应用程序之间，以及操作系统和应用程序之间提供<strong>保护(Protection)</strong>。由于我们系统多个程序同时运行，所有希望确保每一个程序的恶意或偶然的不良行为不会伤害到其它程序或操作系统。保护操作系统的主要核心原则始操作系统的<strong>隔离(Isolation)</strong>。将进程彼此隔离是保护的关键，因此是操作系统必须做的大部分工作的基础。</p>
+<p>操作系统必须不间断地运行，当它失败时，系统上运行的所有应用程序也会失败。由于这种依赖性，操作系统通常努力提供<strong>高度可靠性(high degree of reliability)</strong>。随着操作系统越来越复杂，构建可靠的操作系统是一个相当大的挑战，这也是一个确切的研究性问题。</p>
+<p>其它目标也是有意义的:</p>
+<ul>
+<li><strong>能源效率</strong>：在绿色世界中越发重要；</li>
+<li><strong>安全</strong>：对恶意应用程序的安全性至关重要；</li>
+<li><strong>可移植性</strong>：随着操作系统在越来越小的设备上运行，可移植性也变得很重要。</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="一些历史"><a href="#一些历史" class="headerlink" title="一些历史"></a>一些历史</h2><p>Some History</p>
+<p>让我们简单介绍下操作系统的发展过程。与人类构建的任何系统一样，随着时间的推移，操作系统中积累了许多好的想法。</p>
+<p><br></p>
+<h3 id="Early-Operating-Systems-Just-Libraries"><a href="#Early-Operating-Systems-Just-Libraries" class="headerlink" title="Early Operating Systems: Just Libraries"></a>Early Operating Systems: Just Libraries</h3><p>一开始，操作系统并没有做太多。基本上，它只是一组常用函数库(function library)。</p>
+<p>通常，在这些旧的主机系统上，一个程序由人工控制运行一次。许多你认为的现代操作系统将执行的大部分操作是由人工执行的。如果你和操作员很好，则他可以将你的工作移动到队列的前面。<br>这种计算方式称为<strong>批处理(batch processing)</strong>，因为设置了很多作业，然后由人工以批处理的方式运行。到目前为止，计算机并没有以<strong>交互式(interactive)</strong>方式使用。因为成本：让用户坐在电脑面前使用它太昂贵了，因为大多数时候它只是闲置，而每小时需要花费数十万美元。</p>
+<p><br><br><br></p>
+<h3 id="Beyond-Libraries-Protection"><a href="#Beyond-Libraries-Protection" class="headerlink" title="Beyond Libraries: Protection"></a>Beyond Libraries: Protection</h3><p>作为一个简单的常用服务库，操作系统在管理机器方面发挥了中心角色的作用。其中一个重要的方面是认识到运行操作系统自身的代码是特殊的。它控制了设备，因此应该与正常的应用程序代码区别对待。<br>为什么这样？设想一下，如果你允许任何应用程序可以从磁盘的任何地方读取，隐私的概念就会消失，因为任何程序都可以读取任何文件。因此，实现文件系统作为一个库是没有任何意义的。</p>
+<p>因此，<strong>系统调用(system call)</strong>的想法产生了。这里的想法是添加一对特殊的硬件指令和硬件状态，以便将操作系统转换为更正式、受控制的流程，而不是将操作系统例程(routine)作为库提供(你只需要进行过程调用以访问它们)。</p>
+<p><strong>系统调用(system call)</strong>和<strong>过程调用(procedure call)</strong>之间的关键区别在于，系统调用将控制转移到中，同时提高<strong>硬件权限级别(hardware privilege level)</strong>。用户应用程序在所谓的<strong>用户模式(user mode)</strong>下运行，这意味着硬件限制应用程序可以执行的操作。例如，以用户模式运行的应用程序通常不能发起对磁盘的I/O请求，但可以访问物理内存页面或在网络上发送数据包。<br>当启动系统调用时，硬件将控制转移到预先指定的陷阱处理程序(trap handler)，并同时将特权级别提升到<strong>内核模式(kernel mode)</strong>。在内核模式下，操作系统可以完全访问系统的硬件，因此可以执行如启动I/O请求等操作。当操作系统完成对服务的请求时，它通过特殊返回陷阱指令(return-from-trap instrction)将控制权传递给用户，该指令恢复到用户模式，同事将控制权传递回应用程序停止的位置。</p>
+<p><br><br><br></p>
+<h3 id="The-Era-of-Multiprogramming"><a href="#The-Era-of-Multiprogramming" class="headerlink" title="The Era of Multiprogramming"></a>The Era of Multiprogramming</h3><p>操作系统真正起飞的时代是超大型计算时代，即minicomputer时代。成本的下降影响了使用者和开发者，从而使计算机系统更加有趣和美好。</p>
+<p>特别是，由于希望更好地利用机器资源，<strong>多程序设计(multiprogramming)</strong>变得司空见惯。操作系统不是一次只运行一个作业，而是将大量作业加载到内存中并在它们之间快速切换，从而提高CPU利用率。这种切换特别重要，因为I/O设备很慢，而CPU很快。在I/O正在服务时让CPU等待程序是在浪费CPU时间。相反，为什么不切换到另一个工作运行呢？</p>
+<p>在存在I/O和中断的情况下支持多程序设计和重叠的愿望迫使操作系统的概念开发沿着多个方向进行创新。内存保存等问题变得很重要，我们不希望一个程序能够访问另一个程序的内存。了解如何处理多程序设计引入的并发问题也很关键，尽管存在中断，确保操作系统正常运行是一项巨大的挑战。</p>
+<p>当时一个主要的进步是Unix操作系统的引入。Unix从不同的操作系统获得了很多好主意，但使它们更简单易用。很快，这个团队向世界各地的人们发送了包含Unix源代码的磁带，随后有许多人加入到了这个项目中来。</p>
+<p><br><br><br></p>
+<h3 id="The-Modern-Era"><a href="#The-Modern-Era" class="headerlink" title="The Modern Era"></a>The Modern Era</h3><p>除了minicomputer之外，还出现了一种更便宜、速度更快的新机器，我们今天称之为PC(personal computer)。</p>
+<p>不幸的是，对于操作系统而言，PC最初代表了一个巨大的飞跃，因为早期的系统忘记了在minicomputer时代学到的经验教训。例如，早期的操作系统，如DOS(the Disk Operating System, from Microsoft)，并不认为内存保护很重要。因此，恶意(或编程不佳)的应用程序可能会乱写内存。第一代Mac OS采用合作方式进行作业调度。因此，一个意外陷入无限循环的线程可以接管整个系统，迫使重启。这一代系统中缺少的操作系统功能的痛苦太多了…</p>
+<p>幸运的是，经过几年的苦难，微机操作系统的旧功能开始找到它们的方式进入桌面系统。例如，Mac OS X/Mac OS的核心是Unix，包含了人们对这种成熟系统所期望的所有功能。Windows同样采用了计算历史中的许多好主意，特别是从Windows NT开始，这是Microsoft OS技术的一次重大飞跃。即便是今天的手机也运行这操作系统(如Linux)，这些操作系统更像是1970s年代的微型机，而不是1980s年代的PC。</p>
+<p><br></p>
+<blockquote>
+<p>旁白：<strong>Unix的重要性</strong><br>在操作系统的历史中，很难夸大Unix的重要性。受其它早期系统的影响，Unix汇集了许多伟大的想法，并使得系统既简单又强大。<br>贝尔实验室的基础Unix是构建小型且强大程序的统一原则，这些程序可以连接在一起形成更大的工作流。shell提供了mete-level programing，当你输入命令，它将程序串联起来以完成更大的任务变得很容易。<br>Unix环境对编程人员和开发人员都很友好，同时也为C编程语言提供了编译器。编程人员可以轻松编写自己的程序并共享它们，这使得Unix非常受欢迎。它还是免费的。<br>同样重要的是代码的可读性和可访问性。拥有一个用C编写的漂亮的小内核(kernel)并邀请别人试玩、添加新的酷的功能。<br>不幸的是，随着公司试图主张版权并从中获利，Unix的传播速度便有所放缓。许多公司都有自己的变体，如SunOS、HPUX…贝尔实验室和其它玩家之间的法律纠纷在Unix上投下了一片乌云，许多人想知道它是否能够活下来，特别是在Windows被引入并占据了PC市场的大部分时…</p>
+</blockquote>
+<p><br></p>
+<blockquote>
+<p>旁白：<strong>然后来了Linux</strong>(ASIDE: AND THEN CAME LINUX)<br>对于Unix，幸运的是，一位名叫<strong>Linus Torvalds</strong>的年轻芬兰Hacker决定编写它自己的Unix版本，该版本大量借用原始系统背后的原则和思想，但不是来自代码库，因此避免了合法性问题。他获得了世界各地许多人的帮助，利用了已经存在的复杂的GNU工具，很快Linux就诞生了(以及现代开源软件运动)。<br>随着互联网时代的带来，大多数公司(如Google、Amazon、Facebook..)选择运行Linux，因为它是免费的，可以随时修改以满足自己的实际需求。随着智能手机成为一个占主导地位的面向用户的平台，由于许多相同的原因，Linux也在那里找到了一个据点(Android)。</p>
+</blockquote>
+<p><br><br><br></p>
+<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>Summary</p>
+<p>因此，我们介绍了操作系统。今天的操作系统相对易于使用，而你今天使用的几乎所有操作系统都受到将在本书中讨论的发展的影响。<br>不幸的是，书中不会介绍的很详细。例如，网络代码、图形设备、安全性。</p>
+<p>但是，我们将介绍许多重要的主题，包括CPU和MEM的虚拟化知识，并发性以及通过设备和文件系统的持久性。别担心，虽然有很多方面可以覆盖，但大部分内容都非常酷，而且在路的尽头，你将对计算机系统的真正工作方式有了新的认识。现在开始吧！</p>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="虚拟化"><a href="#虚拟化" class="headerlink" title="虚拟化"></a>虚拟化</h1><p>Virtualization</p>
+<p>包括以下章节:</p>
+<ul>
+<li>A Dialogue on Virtualization</li>
+<li>The Abstraction: The Process</li>
+<li>Interlude: Process API</li>
+<li>Mechanism: Limited Direct Execution</li>
+<li>CPU Scheduling</li>
+<li>Scheduling: The Multi-Level Feedback Queue</li>
+<li>Scheduling: Proportional Share</li>
+<li>Multi-CPU Scheduling</li>
+<li>Summary Dialogue on CPU Virtualization</li>
+</ul>
+<ul>
+<li>A Dialogue on Memory Virtualization</li>
+<li>The Abstraction: Address Spaces</li>
+<li>Interlude: Memory API</li>
+<li>Mechanism: Address Translation</li>
+<li>Segmentation</li>
+<li>Free-Space Management</li>
+<li>Paging</li>
+<li>Paging: Faster Translations</li>
+<li>Paging: Smaller Tables</li>
+<li>Beyond Physical Memory: Swapping Mechanisms</li>
+<li>Beyond Physical Memory: Swapping Policies</li>
+<li>Complete Virtual Memory Systems</li>
+<li>Summary Dialogue on Memory Virtualization</li>
+</ul>
+<p><br><br><br></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/OperatingSystem/" rel="tag"># OperatingSystem</a>
+          
+            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+            <a href="/tags/Optimization/" rel="tag"># Optimization</a>
+          
+            <a href="/tags/性能优化/" rel="tag"># 性能优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/26/Istio/" rel="next" title="Istio">
+                <i class="fa fa-chevron-left"></i> Istio
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/leslie.jpg"
+              alt="Zhang21" />
+          
+            <p class="site-author-name" itemprop="name">Zhang21</p>
+            <p class="site-description motion-element" itemprop="description">踏踏实实谋发展</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">130</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f13278e94ecb" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-circle-o"></i>简书</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Zhang21" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:elite_zhang21@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/Zhang21_" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+<br>
+<!--����������������ⲿ����,auto=1��ʾ�Զ�����-->
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=411315632&auto=0&height=66"></iframe>
+
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统介绍"><span class="nav-number">1.</span> <span class="nav-text">操作系统介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟化CPU"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟化CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存"><span class="nav-number">1.2.</span> <span class="nav-text">虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发"><span class="nav-number">1.3.</span> <span class="nav-text">并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化"><span class="nav-number">1.4.</span> <span class="nav-text">持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计目标"><span class="nav-number">1.5.</span> <span class="nav-text">设计目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些历史"><span class="nav-number">1.6.</span> <span class="nav-text">一些历史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Early-Operating-Systems-Just-Libraries"><span class="nav-number">1.6.1.</span> <span class="nav-text">Early Operating Systems: Just Libraries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beyond-Libraries-Protection"><span class="nav-number">1.6.2.</span> <span class="nav-text">Beyond Libraries: Protection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Era-of-Multiprogramming"><span class="nav-number">1.6.3.</span> <span class="nav-text">The Era of Multiprogramming</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Modern-Era"><span class="nav-number">1.6.4.</span> <span class="nav-text">The Modern Era</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">1.6.5.</span> <span class="nav-text">摘要</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟化"><span class="nav-number">2.</span> <span class="nav-text">虚拟化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang21</span>
+
+<!--字数统计-->
+  <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> 字数: 758.4k</span>
+</div>
+
+
+  
+</div>
+
+
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Zhang21.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://zhang21.github.io/2019/04/28/OSThreeEasyPieces/';
+          this.page.identifier = '2019/04/28/OSThreeEasyPieces/';
+          this.page.title = 'OSTEP';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Zhang21.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
