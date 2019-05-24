@@ -62,6 +62,14 @@ tags:
 
 ![](/images/Apollo/apollo_arch.jpg)
 
+<br/>
+
+**多区域部署Apollo：**
+
+由于Apollo各组件之间并没有使用认证，所以如果通过公网跨区域则一定注意使用安全访问控制策略，添加白名单。
+
+![](/images/Apollo/apolloRegions.png)
+
 
 
 <br/>

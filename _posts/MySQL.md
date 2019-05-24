@@ -10056,7 +10056,13 @@ A set.
 
 
 
-# MySQL必知必会
+
+
+
+
+
+
+# 必知必会
 
 [MySQL Crash Course](https://book.douban.com/subject/3354490/)
 
@@ -10256,6 +10262,228 @@ DBMS可分为两类:
 <br/>
 <br/>
 <br/>
+
+
+
+
+## 条件判断语句
+
+- `IF`语句
+- `CASE`语句
+
+
+<br/>
+
+
+### IF
+
+- `IF FUNCTION`
+- `IF STATEMENT`
+
+```sql
+HELP IF STATEMENT;
+
+IF search_condition THEN statement_list
+    [ELSEIF search_condition THEN statement_list] ...
+    [ELSE statement_list]
+END IF
+
+-- 栗子
+CREATE PROCEDURE test1
+BEGIN
+  IF score >= 90 THEN
+    SELECT score, 'A';
+  ELSEIF score<90  AND socre>=80 THEN
+    SELECT score, 'B'
+  ELSEIF socre<80 AND score>=70 THEN
+    SELECT score, 'C'
+  ELSEIF score<70 AND score>=60 THEN
+    SELECT socre, 'D'
+  ELSE
+    SELECT score, 'E'
+  END IF;
+END;
+
+
+
+
+HELP IF FUNCTION;
+IF(expr1,expr2,expr3)
+
+-- 栗子
+SELECT IF(1>2,2,3);
++-------------+
+| IF(1>2,2,3) |
++-------------+
+|           3 |
++-------------+
+
+```
+
+
+
+<br/>
+<br/>
+
+
+
+### CASE
+
+- `CASE OPERATOR`
+- `CASE STATEMENT`
+
+```sql
+HELP CASE OPERATOR;
+
+CASE value WHEN [compare_value] THEN result [WHEN [compare_value] THEN
+result ...] [ELSE result] END
+
+CASE WHEN [condition] THEN result [WHEN [condition] THEN result ...]
+[ELSE result] END
+
+-- 栗子
+SELECT CASE 1 WHEN 1 THEN 'one'
+              WHEN 2 THEN 'two'
+              ELSE 'more'
+       END;
+-- one
+
+
+
+HELP CASE STATEMENT;
+
+CASE case_value
+    WHEN when_value THEN statement_list
+    [WHEN when_value THEN statement_list] ...
+    [ELSE statement_list]
+END CASE
+
+-- 或
+CASE
+    WHEN search_condition THEN statement_list
+    [WHEN search_condition THEN statement_list] ...
+    [ELSE statement_list]
+END CASE
+
+-- 栗子
+CREATE PROCEDURE p()
+BEGIN
+  DECLARE v INT DEFAULT 1;
+
+  CASE v
+    WHEN 2 THEN SELECT v;
+    WHEN 3 THEN SELECT 0;
+    ELSE
+      BEGIN
+      END;
+  END CASE;
+END;
+```
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+
+
+
+## 循环语句
+
+- `WHILE`语句
+- `REPEAT`语句
+- `LOOP`语句
+
+
+<br/>
+
+
+### WHILE
+
+```sql
+HELP WHILE;
+
+[begin_label:] WHILE search_condition DO
+    statement_list
+END WHILE [end_label]
+
+-- 栗子
+CREATE PROCEDURE dowhile()
+BEGIN
+  DECLARE v1 INT DEFAULT 5;
+
+  WHILE v1 > 0 DO
+    SET v1 = v1 - 1;
+  END WHILE;
+END;
+```
+
+
+
+<br/>
+<br/>
+
+
+
+### REPEAT
+
+```sql
+HELP REPEAT;
+
+[begin_label:] REPEAT
+    statement_list
+UNTIL search_condition
+END REPEAT [end_label]
+
+-- 栗子
+CREATE PROCEDURE dorepeat(p1 INT)
+BEGIN
+  SET @x = 0;
+  REPEAT
+    SET @x = @x + 1;
+  UNTIL @x > p1 END REPEAT;
+END;
+```
+
+
+
+<br/>
+<br/>
+
+
+
+### LOOP
+
+```sql
+HELP LOOP;
+
+[begin_label:] LOOP
+    statement_list
+END LOOP [end_label]
+
+-- 栗子
+CREATE PROCEDURE doiterate(p1 INT)
+BEGIN
+  label1: LOOP
+    SET p1 = p1 + 1;
+    IF p1 < 10 THEN
+      ITERATE label1;
+    END IF;
+    LEAVE label1;
+  END LOOP label1;
+  SET @x = p1;
+END;
+```
+
+
+
+
+<br/>
+<br/>
+<br/>
+
 
 
 
@@ -11120,7 +11348,7 @@ FROM table1;
 
 
 
-## 使用数据处理函数
+## 数据处理函数
 
 本章介绍什么是函数，MySQL支持何种函数，以及如何使用这些函数。
 
@@ -12819,6 +13047,1404 @@ RENAME TABLE oldname1 TO newname1,
 <br/>
 <br/>
 <br/>
+
+
+
+
+## 视图
+
+本章将介绍视图是什么，它们怎样工作，何时使用它们。
+
+
+<br/>
+
+
+### 视图
+
+**不建议对视图进行更新，因为视图主要用于数据检索，而非更改。**
+
+**视图(view)**是虚拟的表。与包含数据的表不一样，视图只包含使用时动态检索数据的查询。
+
+来看个栗子:
+```sql
+/* 任何需要这个数据的人都必须理解相关表的结构，
+   并且知道如何查询和对表进行联结。 */
+SELECT cust_name, cust_contact
+FROM customers, orders, orderitems
+WHERE customers.cust_id = orders.cust_id
+  AND orderitems.order_num = orders.order_num
+  AND prod_id = 'TNT2';
+
+/* 假如把整个查询包装成一个名为productcustomers的虚拟表，则可轻松检索出相同的数据。
+   作为视图，它不包含表中应该有的任何列或数据，它包含的是一个SQL查询。 */
+SELECT cust_name, cust_contact
+FROM productcustomers
+WHERE prod_id = 'TNT2';
+```
+
+
+<br/>
+
+
+#### 为什么使用视图
+
+视图的常见应用:
+- 重用SQL语句；
+- 简化复杂的SQL操作。在编写查询后，可以方便地重用它而不必知道它的基本查询细节；
+- 使用表的组成部分而不是整个表；
+- 保护数据。可以给用户授予表的特定部分的访问权限而不是整个表的访问权限；
+- 更改数据格式和表示。视图可返回与底层表的标识和格式不同的数据。
+
+在视图创建之后，可以用与表基本相同的方式利用它们。可以对视图执行`SELECT`操作，过滤和排序，将视图联结到其它视图或表，甚至还能添加和更新数据。
+
+重要的是知道视图仅仅是用来查看存储在别处的数据的一种设施。视图本身不包含数据，因此它们返回的数据是从其它表中检索出来的。在添加或更改这些表中的数据时，视图将返回改变过的数据。
+
+> 性能问题
+> 因为视图不包含数据，所以每次使用视图时，都必须处理查询执行时所需的任一个检索。如果你用多个联结和过滤创建了复杂的视图或嵌套了视图，可能会发现性能下降得很厉害。因此，在部署使用了大量视图的应用前，应该进行测试。
+
+
+<br/>
+<br/>
+
+
+#### 视图的规则和限制
+
+视图创建和使用的一些最常见的规则和限制:
+- 视图必须唯一命名(不能与其它视图或表同名)；
+- 对于可以创建的视图数目没有限制；
+- 为了创建视图，必须具有足够的访问权限；
+- 视图可以嵌套，即可从其它视图中检索数据的查询来构造一个视图；
+- `ORDER BY`可用在视图中，但如果该视图检索数据`SELECT`中也含有`ORDER BY`，那么该视图中的`ORDER BY`将被覆盖；
+- 视图不能索引，也不能有关联的触发器或默认值；
+- 视图可以和表一起使用。
+
+
+
+<br/>
+<br/>
+
+
+
+### 使用视图
+
+- 使用`CREATE VIEW viewName`创建视图；
+- 使用`SHOW CREATE VIEW viewName`查看创建视图的语句；
+- 使用`DROP VIEW viewName`删除视图；
+- 更新视图时，可以先用`DROP`再用`CREATE`，也可以直接使用`CREATE OR REPLACE VIEW`。
+
+
+
+<br/>
+<br/>
+
+
+
+### 利用视图简化复杂的联结
+
+视图最常见的应用之一是隐藏复杂的SQL，这通常会涉及联结。
+
+```sql
+-- 这是不使用AS会报错
+CREATE VIEW productcustomers AS
+SELECT cust_name, cust_contact, prod_id
+FROM customers, orders, orderitems
+WHERE customers.cust_id = order.cust_id
+  AND orderitems.order_num = orders.order_num;
+
+
+# 查看视图
+SHOW VIEW productcustomers;
+
+# 此视图包含上面检索出来的三列内容
+DESCRIBE productcustomers;
+SHOW COLUMNS FROM productcustomers;
+
+
+# 检索的结果也是这三列
+SELECT * FROM productcustomers;
+# 这里注意，如果创建视图中使用的源表数据发生更新或变动，则视图也会相应的发生改变
+```
+
+
+<br/>
+
+
+#### 用视图重新格式化检索出的数据
+
+视图的另一常见用途是重新格式化检索出的数据。
+
+```sql
+-- 例如要经常使用拼接列
+SELECT Concat(RTrim(name), '(', RTrim(contry), ')') AS title
+FROM table1
+ORDER BY name;
+
+-- 不必在每次需要时执行联结，创建一个视图每次需要时使用它即可
+CREATE VIEW viewLocation AS
+SELECT Concat(RTrim(name), '(', RTrim(country), ')') AS title
+FROM table1
+ORDER BY name;
+
+-- 检索
+SELECT *
+FROM viewLocation;
+```
+
+
+<br/>
+<br/>
+
+
+#### 使用视图过滤不想要的数据
+
+视图对于应用普通的`WHERE`子句也很有用。
+
+如果从视图检索数据时使用了`WHERE`子句，则两组`WHERE`子句(传递给视图的和视图自身的)将自动组合。
+
+```sql
+-- 栗子
+CREATE VIEW customerEmailList AS
+SELECT id, name, email
+FROM table1
+WHERE email IS NOT NULL;
+
+
+SELECT *
+FROM customerEmailList
+WHERE id = 111;
+```
+
+
+<br/>
+<br/>
+
+
+#### 使用视图与计算字段
+
+视图对于简化计算字段的使用特别有用。
+
+```sql
+-- 栗子
+CREATE VIEW viewTotal AS
+SELECT id,
+       num,
+       quantity,
+       item_price,
+       quantity*item_price AS total_price
+FROM table1;
+
+SELECT *
+FROM viewTotal
+WHERE id = 123;
+```
+
+
+<br/>
+<br/>
+
+
+#### 更新视图
+
+通常，视图是可更新的(即对它使用`INSERT`, `UPDATE`, `DELETE`)。更新一个视图将更新其基表。如果你对视图增加或删除行，实际上是对其基表增加或删除行。
+
+但是，并非所有视图都是可更新的。如果MySQL不能正确地确定被更新的基数据，则不允许更新、插入和删除。如果视图定义中有以下操作:
+- 分组(`GROUP BY, HAVING`)；
+- 联结；
+- 子查询；
+- 并；
+- 聚集函数(`MIN(), COUNT()...`)；
+- `DICTINCT`;
+- 导出(计算)列。
+
+**不建议对视图进行更新，因为视图主要用于数据检索，而非更改。**
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+
+
+
+## 存储过程
+
+本章介绍什么是存储过程，为什么要使用存储过程以及如何使用存储过程...
+
+
+<br/>
+
+
+### 存储过程
+
+迄今为止，使用的大多数SQL语句都是以针对一个/多个表的单条语句。并非所有操作都这么简单，经常会有一个完整的操作需要多条语句才能完成。
+
+可以创建**存储过程**。存储过程简答来说，就是为以后的使用而保存的一条或多条MySQL语句的集合。可将其视为批文件，虽然它们的作用不仅限于批处理。
+
+
+
+<br/>
+<br/>
+
+
+
+### 为什么要使用存储过程
+
+使用它的一些主要理由:
+- 通过把处理封装在容易使用的单元中，简化复杂的操作；
+- 由于不要求反复建立一系列处理步骤，这保证了数据的完整性；
+- 简化对变动的管理；
+- 提高性能；
+- 存在一些职能用在单个请求中的MySQL元素和特性，存储过程可以使用它们来编写功能更强更灵活的代码；
+- 一般来说，存储过程的编写比基本SQL语句更复杂，编写存储过程需要更高的技能，更丰富的经验；
+- 你可能没有创建存储过程的安全访问权限。
+
+MySQL将编写存储过程与执行存储过程的安全和访问分开来。即使你没有权限编写存储过程，也可在适当的时候执行别的存储过程。
+
+
+
+<br/>
+<br/>
+
+
+
+### 使用存储过程
+
+使用存储过程需要知道如何执行和创建它们。
+
+
+<br/>
+
+
+#### 创建存储过程
+
+```sql
+-- HELP CREATE PROCEDURE;
+CREATE PROCEDURE procedureTest()
+BEGIN
+  SELECT Avg(price) AS priceAvg
+  FROM table1;
+END;
+# BEGIN, END语句用来限定存储过程体
+```
+
+<br>
+
+**注意**
+MySQL命令行的分隔符，如果使用MySQL命令行实用程序，请仔细阅读此说明。
+
+默认的MySQL语句分隔符为`;`，MySQL命令行实用程序也是用`;`作为语句分隔符。如果命令行实用程序要解释存储过程自身内的`;`字符，则它们最终不会成为存储过程的成分，这会使存储过程的SQL出现语法错误。
+解决办法是临时修改命令行实用程序的语句分隔符。
+
+```sql
+-- 除了\(转义字符)，其它都可作为语句分隔符
+-- 临时修改MySQL分隔符
+DELIMITER //
+
+CREATE PROCEDURE procedureTest()
+BEGIN
+  SELECT Avg(price) AS priceAvg
+  FROM table1;
+END //
+
+-- 恢复MySQL默认分隔符
+DELIMITER ;
+```
+
+
+<br/>
+<br/>
+
+
+#### 执行存储过程
+
+`CALL`语句接受存储过程以及需要传递给它的参数。
+
+存储过程实际上是一种函数，所以后面需要有括号`()`。
+
+```sql
+-- 栗子
+CALL procedureTest();
+
+```
+
+
+<br/>
+<br/>
+
+
+#### 删除存储过程
+
+```sql
+-- 如果过程不存在，则删除会产生一个错误
+DROP PROCEDURE procedureTest;
+
+```
+
+
+<br/>
+<br/>
+
+
+#### 使用参数
+
+一般，存储过程并不显示结果，而是把结果返回给你指定的变量。
+变量是内存中一个特定的位置，用来临时存储数据。MySQL的变量都必须以`@`开始。
+
+MySQL支持三种类型的参数:
+- `IN`，传递给存储过程
+- `OUT`，从存储过程传出
+- `INOUT`，对存储过程传入和传出
+
+```sql
+-- 此存储过程接受三个参数
+CREATE PROCEDURE procedureTest2(
+  OUT pl DECIMAL(8, 2),
+  OUT ph DECIMAL(8, 2),
+  OUT pa DECIMAL(8, 2)
+)
+BEGIN
+  SELECT Min(price) INTO pl FROM table1;
+  SELECT Max(price) INTO ph FROM table1;
+  SELECT Avg(price) INTO pa FROM table1;
+END;
+
+
+-- 执行
+CALL procedureTest2(@pricelow,
+                    @pricehigh,
+                    @priceaverage);
+SELECT @pricelow, @pricehigh, @priceaverage;
+
+
+
+-- 另一个栗子
+CREATE PROCEDURE orderTotal(
+  IN onumer INT,
+  OUT ototal DECIMA(8, 2)
+)
+BEGIN
+  SELECT Sum(item_price*quantity)
+  FROM orderitems
+  WHERE order_num = onumber
+  INTO ototal;
+END;
+
+-- 执行
+CALL orderTotal(12345, @total);
+SELECT @total;
+```
+
+
+<br/>
+<br/>
+
+
+#### 建立智能存储过程
+
+在存储过程内包含业务规则和智能处理时，它们的威力才真正显现出来。
+
+```sql
+# 栗子
+/* Name: ordertotal
+   Parameter: onumber = order number
+              taxable = 0 if not taxable, 1 if taxable
+              ototal = order total variable */
+
+CREATE PROCEDURE ordertotal(
+  IN onumber INT,
+  IN taxable BOOLEAN,  #布尔值1(true), 0(false)
+  OUT ototal DECIMAL(8 , 2)
+) COMMENT 'Obtain order total, optinally adding tax.'
+BEGIN
+  -- Declare variable for total
+  DECLARE total DECIMAL(8, 2);
+  -- Declare tax percentage
+  DECLARE taxrate INT DEFAULT 6;
+
+  -- Get the order total
+  SELECT Sum(item_price*quantity)
+  FROM orderitems
+  WHERE order_num = onumber
+  INTO total;
+
+  -- Is this taxable?
+  IF taxable THEN
+    -- Yes, so add taxrate to the total
+    SELECT total+(total/100*taxrate) INTO total;
+  END IF;
+
+  -- And finally, save to out varible
+  SELECT total INTO ototal;
+END;
+
+
+-- 执行
+CALL ordertotal(12345, 0, @total);
+SELECT @total;
+```
+
+
+<br/>
+<br/>
+
+
+#### 检查存储过程
+
+```sql
+-- 显示创建存储过程
+SHOW CREATE PROCEDUTE xxx;
+
+
+-- 获得存储过程详细信息
+SHOW PROCEDURE STATUS;
+SHOW PROCEDURE STATUS LIKE 'procedureTest1';
+```
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+
+
+
+## 游标
+
+本章将介绍任何是游标，如何使用游标。
+
+
+<br/>
+
+
+### 游标
+
+MySQL检索操作返回一组称为结果集的行。但没有办法得到某些行，也不存在每次一行地处理所有行的简单方法。
+有时，需要在检索出来的行中前进或后退一行或多行。这就是使用游标(cursor)的原因。
+
+**游标(cursor)**，是一个存储在MySQL服务器上的数据库查询，它不是一条`SELECT`语句，而是被该语句检索出来的结果集。在存储了游标之后，应用程序可以根据需要滚动或浏览其中的数据。
+游标主要用于交互式应用，其中用户需要滚动屏幕上的数据，并对其数据进行浏览或做出更改。
+不像其它DBMS，MySQL的游标只能用于存储过程(和函数)。
+
+
+
+<br/>
+<br/>
+
+
+
+### 使用游标
+
+使用游标的几个明确步骤:
+- 在使用游标前，必须声明它(`DECLARE`)。此过程并没有检索数据，它只是定义要使用的`SELECT`语句；
+- 一旦声明后，必须打开(`OPEN`)游标以供使用。此过程用前面定义的`SELECT`把数据检索出来；
+- 对于填有数据的游标，根据需要取出各行；
+- 在结束游标使用时，必须关闭(`CLOSE`)游标。
+
+
+<br/>
+
+
+#### 创建游标
+
+`DECLARE`语句创建游标，并定义相应的`SELECT`语句，根据需要带`WHERE`和其它子句。
+
+```sql
+-- 游标栗子
+
+CREATE PROCEDURE procedureTest()
+BEGIN
+  DECLARE numberCursor CURSOR
+  FOR
+  SELECT number FROM table1;
+END;
+```
+
+
+<br/>
+<br/>
+
+
+#### 打开和关闭游标
+
+```sql
+-- 打开游标
+-- 在处理OPEN语句时执行查询，存储检索出的数据以供浏览和滚动
+OPEN numberCursor;
+
+-- 关闭游标
+-- CLOSE释放游标使用的所有内部内存和资源，因此在每个游标不再需要时都应该关闭
+CLOSE numberCursor;
+
+-- 一个游标关闭后，如果没有重新打开，则不能使用它
+```
+
+如果你不明确关闭游标，MySQL将会在到达`END`语句是自动关闭它。
+
+```sql
+-- 此存储过程声明、打开和关闭一个游标，但对检索出的数据什么也没做。
+
+CREATE PROCEDURE procedureTest()
+BEGIN
+  DECLARE numberCursor CURSOR
+  FOR
+  SELECT number FROM table1;
+
+  -- OPEN
+  OPEN numberCursor;
+
+  -- CLOSE
+  CLOSE numberCursor;
+END;
+
+```
+
+
+<br/>
+<br/>
+
+
+#### 使用游标数据
+
+游标打开后，可使用`FETCH`语句分别访问它的每一行。它指定检索什么数据，检索出的数据存储在什么地方。它还向前移动游标的内部行指针，是下一条`FETCH`语句检索下一行。
+
+```sql
+CREATE PROCEDURE procedureTest()
+BEGIN
+  DECLARE o INT;
+  DECLARE numberCursor CURSOR
+  FOR
+  SELECT number FROM table1;
+
+  OPEN numberCursor;
+
+  FETCH numberCursor INTO o;
+
+  CLOSE numberCursor;
+END;
+```
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+
+
+
+## 触发器
+
+本章介绍什么是触发器，为什么要使用触发器，如何使用触发器。
+
+
+<br/>
+
+
+### 介绍
+
+MySQL语句在需要时被执行，存储过程也是如此。但是，如果你想要某条语句(某些语句)在事件发生时自动执行，怎么办？例如:
+
+- 检查每次新增的电话号码格式是否正确
+- 检查大小写
+- 每卖出一个产品时，都从库存中减去订购的数量
+- 无论何时删除一行，都在某个存档表中保留一个副本
+
+这些例子的共同之处是它们都需要在某个表发生更改时自动处理。这确切地说就是**触发器(trigger)**。
+触发器是MySQL响应一下任意语句而自动执行的一条MySQL语句(或位于`BEGIN`和`END`语句之间的一组语句):
+
+- `DELETE`
+- `INSERT`
+- `UPDATE`
+
+其它MySQL语句不支持触发器。
+
+**只有表才支持触发器。**
+
+
+
+<br/>
+<br/>
+
+
+
+### 创建触发器
+
+创建触发器时，需要给出4条信息:
+
+- 唯一的触发器名；
+- 触发器关联的表；
+- 触发器应该响应的活动(`DELETE`, `INSERT`, `UPDATE`)；
+- 触发器何时执行(BEFORE或AFTER)。
+
+```sql
+-- HELP CREATE TRIGGER;
+CREATE TRIGGER triggerTest   -- 创建新触发器
+  AFTER INSERT ON table1     -- 触发器将在INSERT 表table1成功执行后执行
+  FOR EACH ROW               -- 对每个插入行执行
+  SELECT 'table1 added' INTO @triggerInfo;    -- 对每个插入显示一次，MySQL v5+ 需要使用变量来实现
+
+
+# 查看
+SHOW TRIGGERS;
+```
+
+
+
+<br/>
+<br/>
+
+
+
+### 删除触发器
+
+触发器不能更新或覆盖。为了修改一个触发器，必须先删除然后重新创建。
+
+```sql
+DROP TRIGGER triggerTest;
+```
+
+
+
+<br/>
+<br/>
+
+
+
+### 使用触发器
+
+三种触发器:
+- INSERT
+- UPDATE
+- DELETE
+
+
+<br/>
+
+
+#### INSERT触发器
+
+INSERT触发器在`INSERT`语句执行之前(`BEFORE`)或之后(`AFTER`)执行。
+
+- 在INSERT触发器代码内，可引用一个名为NEW的虚拟表，访问被插入的行；
+- 在BEFORE INSERT触发器中，NEW中的值也可被更新(允许更改被插入的值)；
+- 对于`AUTO_INCREMENT`列，NEW在INSERT执行之前包含0，在`INSERT`执行之后包含新的自动生成值。
+
+
+<br/>
+<br/>
+
+
+#### UPDATE触发器
+
+UPDATE触发器在`UPDATE`语句执行之前或之后执行。
+
+- 在UPDATE触发器代码中，你可引用一个名为OLD的虚拟表访问以前(`UPDATE`语句前)的值，引用一个名为NEW的虚拟表访问新更新的值；
+- 在BEFORE UPDATE触发器中，NEW中的值也可被更新(允许更改将要用于`UPDATE`语句的值)；
+- OLD中的值全都是只读的，不能更新。
+
+```sql
+-- 以下保证name总为大写
+CREATE TRIGGER updateTable1
+  BEFORE UPDATE ON table1
+  FOR EACH ROW
+  SET NEW.name = UPPER(NEW.name)
+
+
+-- 测试
+UPDATE table1
+SET name = 'NAme1'
+WHER id = 1;
+
+SELECT name
+FROM table1
+WHERE id = 1;
++-------+
+| name  |
++-------+
+| NAME1 |
++-------+
+```
+
+
+<br/>
+<br/>
+
+
+#### DELETE触发器
+
+DELETE触发器在`DELETE`语句执行之前或之后执行。
+
+- 在DELETE触发器代码内，你可引用一个名为OLD的虚拟表，访问被删除的行；
+- OLD中的值全都是只读的，不能更新。
+
+```sql
+-- 使用OLD保存将要被删除的行到一个备份表
+-- 你需要创建一个与table1相同列的table1BAK表
+DELIMITER //
+
+CREATE TRIGGER deletetable1
+  BEFORE DELETE ON table1
+  FOR EACH ROW
+BEGIN
+  INSERT INTO table1BAK(id, name, date)
+  VALUES(OLD.id, OLD.name, OLD.date);
+END //
+
+DELIMITER ;
+```
+
+
+<br/>
+<br/>
+
+
+#### 小技巧
+
+- 创建触发器可能需要特殊的安全访问权限，但是，触发器的执行是自动的。如果INSERT, UPDATE, DELETE能够执行，则触发器也能执行；
+- 应该使用触发器来保证数据的一致性(大小写、格式...)；
+- 触发器的一种非常有意义的使用是创建审计跟踪；
+- MySQL触发器中不支持`CALL`语句，这表示触发器不能调用存储过程。
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+
+
+
+## 事务处理
+
+本章介绍什么是事务处理，如何利用`COMMIT`和`ROLLBACK`语句来管理事务处理。
+
+
+<br/>
+
+
+### 介绍
+
+并非所有存储引擎都支持事务处理。
+MyISAM不支持明确的事务处理管理 ，而InnoDB支持。
+
+**事务处理(transaction processing)**，可以用来维护数据库的完整性，它保证成批的MySQL操作要么完全执行，要么完全不执行。
+
+事务处理的几个术语:
+
+- **事务(transaction)**，指一组SQL语句；
+- **回退(rollback)**，指撤销指定SQL语句；
+- **提交(commit)**，指将未存储的SQL语句结果写入数据库表；
+- **保留点(savepoint)**，指事务处理中设置的临时占位符(placeholder)，你可以对它发布回退(与回退整个事务处理不同)。
+
+
+
+<br/>
+<br/>
+
+
+
+### 控制事务处理
+
+管理事务处理的关键在于将SQL语句组分解为逻辑块，并明确规定数据很是应该回退，何时不应该回退。
+
+```sql
+-- 标识事务的开始
+START TRANSACTION;
+```
+
+
+<br/>
+<br/>
+
+
+#### 使用ROLLBACK
+
+MySQL的`ROLLBACK`命令用来回退(撤销)MySQL语句。它只能在一个事务处理内使用。
+事务处理可用来管理`INSERT`, `UPDATE`和`DELETE`语句。你不能回退`CREATE`或`DROP`操作。
+
+```sql
+SELECT * FROM talbe1;  -- 显示该表不为空
+START TRANSACTION;     -- 开始事务处理
+DELETE FROM table1;    -- 删除整个表内容
+SELECT * FROM table1;  -- 检索空表
+ROLLBACK;              -- 回退开始事务之后的所有语句
+SELECT * FROM table1;  -- 检索表，所有信息又回来了
+```
+
+隐含地事务关闭。
+当`COMMIT`或`ROLLBACK`语句执行后，事务会自动关闭。
+
+
+<br/>
+<br/>
+
+
+#### 使用COMMIT
+
+一般的MySQL语句都是直接针对数据库表执行和编写的。这就是所谓的**隐含提交(implicit commit)**，即提交操作是自动进行的。
+
+但在事务处理块中，提交不会隐含地进行。为进行明确的提交，使用`COMMIT`语句。
+
+```sql
+START TRANSACTION;
+DELETE FROM table1 WHERE id = 2010;
+DELETE FROM table2 WHERE id = 2010;
+COMMIT;    -- 仅在不出错时写入更改，如果其中一条语句出错，则DELETE不会提交，即它自动撤销。
+```
+
+
+<br/>
+<br/>
+
+
+#### 使用SAVEPOINT
+
+简单的`ROLLBACK`和`COMMIT`语句就可以写入或撤销整个事务处理。更复杂的事务处理可能需要部分提交或回退。
+
+为了支持回退部分事务处理，必须能在事务处理块中何时的位置放置占位符。这样，如果需要回退，则可回退到某个占位符。
+这些占位符称为**保留点**。
+
+```sql
+-- 创建占位符
+-- 使用唯一名字，以便知道回退到何处
+SAVEPOINT detele1;
+```
+
+保留点越多越好，这样便能进行灵活地回退。
+保留点在事务处理完成(COMMIT或ROLLBACK)后自动释放。也可使用`RELEASE SAVEPOINT`明确地释放保留点。
+
+
+<br/>
+<br/>
+
+
+#### 更改默认提交行为
+
+默认的MySQL行为是自动提交所有更改。
+
+```sql
+-- 你可以设置MySQL不自动提交
+-- autocommit标志决定是否自动提交更改，不管有没有COMMIT语句
+SET autocommit=0;
+```
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+
+
+
+## 字符集和校对
+
+本章介绍MySQL处理不同字符集和语言的基础知识。
+
+
+<br/>
+
+
+### 字符集和校对顺序
+
+数据库被用来存储和检索数据。不同的语言和字符集需要以不同的方式存储和检索。因此，MySQL需要适应不同的字符集，适应不同的排序和检索数据的方法。
+
+重要术语:
+
+- **字符集**，为字母和符号的集合；
+- **编码**，为某个字符集成员的内部表示；
+- **校对**，为规定字符如何比较的指令。
+
+
+
+<br/>
+<br/>
+
+
+
+### 使用字符集和校对顺序
+
+MySQL支持众多的字符集。不同的表、不同的列口可以指定不同的字符集。
+
+```sql
+-- 查看完整的字符集
+SHOW CHARACTER SET;
+
+SHOW CHARACTER SET LIK 'utf8%';
++---------+---------------+--------------------+--------+
+| Charset | Description   | Default collation  | Maxlen |
++---------+---------------+--------------------+--------+
+| utf8    | UTF-8 Unicode | utf8_general_ci    |      3 |
+| utf8mb4 | UTF-8 Unicode | utf8mb4_general_ci |      4 |
++---------+---------------+--------------------+--------+
+
+
+-- 默认字符集
+SHOW VARIABLES LIKE 'character%';
++--------------------------+----------------------------+
+| Variable_name            | Value                      |
++--------------------------+----------------------------+
+| character_set_client     | utf8                       |
+| character_set_connection | utf8                       |
+| character_set_database   | latin1                     |
+| character_set_filesystem | binary                     |
+| character_set_results    | utf8                       |
+| character_set_server     | latin1                     |
+| character_set_system     | utf8                       |
+| character_sets_dir       | /usr/share/mysql/charsets/ |
++--------------------------+----------------------------+
+
+
+-- 默认校对
+SHOW VARIABLES LIKE 'collation%';
++----------------------+-------------------+
+| Variable_name        | Value             |
++----------------------+-------------------+
+| collation_connection | utf8_general_ci   |
+| collation_database   | latin1_swedish_ci |
+| collation_server     | latin1_swedish_ci |
++----------------------+-------------------+
+```
+
+<br>
+
+为表和列指定字符集:
+
+```sql
+-- 栗子
+CREATE TABLE tableTest(
+  c1 INT,
+  c2 VARCHAR(10),
+  C3 VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_general_ci
+) DEFAULT CHARACTER SET utf8mb4 COLLATE hebrew_general_ci;
+```
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+
+
+
+## 安全管理
+
+本章将介绍mysql的访问控制和用户管理。
+
+
+<br/>
+
+
+### 访问控制
+
+尽量权限最小化。
+除非必要，尽量不要使用`root`进行登录。不该在日常的MySQL操作中使用`root`用户。
+
+
+
+<br/>
+<br/>
+
+
+
+### 管理用户
+
+注意理解MySQL中用户和账户的概念，账户为用户加权限。
+
+```sql
+-- mysql.user表包含所用账户信息
+SELECT user FROM mysql.user;
+```
+
+
+<br/>
+
+
+#### 创建用户
+
+```sql
+-- 新建用户
+CREATE USER user1 IDENTIFIED BY 'user1-passwd';
+
+-- 重命名用户
+RENAME USER user1 TO User1;
+
+```
+
+
+<br/>
+<br/>
+
+
+#### 删除用户
+
+```sql
+-- 删除用户账号及权限
+DROP USER User1;
+```
+
+
+
+<br/>
+<br/>
+
+
+
+#### 设置权限
+
+新创建的用户没有分配权限，它们能登录MySQL，但不能看到数据。
+
+`GRANT`至少需要以下信息:
+
+- 要授予的权限；
+- 被授予访问权限的库或表；
+- 用户名。
+
+<br>
+
+`GRANT`和`REVOKE`可在几个层次上控制访问权限:
+
+- 整个Server，使用`GRANT ALL`和`REVOKE ALL`;
+- 整个Database，使用`ON db.*`;
+- 特定的表，使用`ON db.tableName`;
+- 特定的列;
+- 特定的存储过程。
+
+<br>
+
+详细权限:
+
+| 权限 | 描述 |
+| - | - |
+| `ALL` | 除`GRANT OPTION`外的所有权限 |
+| `ALTER` | 修改表 |
+| `ALTER ROUNTINE` | 修改和删除存储过程 |
+| `CREATE` | 创建表 |
+| `CREATE ROUTINE` | 创建存储过程 |
+| `CREATE TEMPORARY TABLE` | 创建临时表 |
+| `CREATE USER` | 创建、删除、重名用户和解除所有权限 |
+| `CREATE VIEW` | 创建视图 |
+| `DELETE` | 删除 |
+| `DROP` | 删除表 |
+| `EXECUTE` | 使用`CALL`和存储过程 |
+| `FILE` | 使用`SELECT INTO OUTFILE`和`LOAD DATA INFILE` |
+| `GRANT OPTION` | 使用`GRANT`和`REVOKE` |
+| `INDEX` | 创建和删除索引 |
+| `INSERT` | 插入
+| `LOCK TABLES` | 锁表 |
+| `PROCESS` | 使用`SHOW FULL PROCESSLIST` |
+| `RELOAD` | 使用`FLUSH` |
+| `REPLICATION CLIENT` | 服务器位置的访问 |
+| `REPLICATION SLAVE` | 由复制从属使用 |
+| `SELECT` | 检索权限 |
+| `SHOW DATABASES` | 查看数据库 |
+| `SHOW VIEW` | 查看视图 |
+| `SHUTDOWN` | 关闭MySQL |
+| `SUPER` | 使用`CHANGE MASTER, KILL, LOGS, PURGE, MASTER, SET GLOBAL`的超级权限 |
+| `UPDATE` | 更新 |
+| `USAGE` | 无访问权限 |
+
+<br>
+
+```sql
+-- 查看用户权限
+SHOW GRANTS FOR User1;
++-----------------------------------+
+| Grants for User1@%                |
++-----------------------------------+
+| GRANT USAGE ON *.* TO 'User1'@'%' |
++-----------------------------------+
+
+
+-- 添加权限
+-- HELP GRANT;
+-- 如果未指定主机，默认为%
+GRANT SELECT ON testDB.* TO 'User1'@'localhost';
+-- 多个权限
+GRANT SELECT, INSERT ON testDB.user1T TO 'User1'@'localhost';
+
+
+-- 解除权限
+-- HELP REVOKE
+REVOKE SELECT ON testDB.* FROM 'User1'@'localhost';
+```
+
+
+<br/>
+<br/>
+
+
+#### 修改密码
+
+```sql
+-- 修改指定用户密码
+SET PASSWORD FOR User1 = Password('User-passwd');
+
+-- 不指定用户名，则修改自己密码
+SET PASSWORD = Password('My-passwd');
+```
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+
+
+
+## 数据库维护
+
+本章介绍常见的数据库维护。
+
+
+<br/>
+
+
+### 备份数据
+
+可能的解决方案:
+
+- `mysqldump`实用程序来备份；
+- 可使用MySQL的`BACKUP TABLE`或`SELECT INTO OUTFILE`转储所有数据到某个外部文件，此外部文件必须不存在。使用`RESTORE TABLE`来还原。
+
+为保证所有数据都被写到磁盘，可能需要在备份前刷新(`FLUSH TABLES`)。
+
+
+
+<br/>
+<br/>
+
+
+
+### 进行数据库维护
+
+应该知道的一些语句:
+
+- `ANALYZE TABLE`，用来检查表键是否正确；
+- `CHECK TABLE`，用来针对许多问题对表进行检查:
+- 如果MyISAM表访问产生不正确和不一致的结果，可能需要用`REPAIR TABLE`来修复相应的表。这条语句不应该经常使用；
+- 如果bong一个表中删除大量数据，应该使用`OPTIMIZE TABLE`来回收所用的空间，从而优化表的性能。
+
+```sql
+ANALYZE TABLE mysql.user;
++------------+---------+----------+----------+
+| Table      | Op      | Msg_type | Msg_text |
++------------+---------+----------+----------+
+| mysql.user | analyze | status   | OK       |
++------------+---------+----------+----------+
+
+
+CHECK TABLE mysql.user;
++------------+-------+----------+----------------------------------------------------------+
+| Table      | Op    | Msg_type | Msg_text                                                 |
++------------+-------+----------+----------------------------------------------------------+
+| mysql.user | check | warning  | 2 clients are using or haven't closed the table properly |
+| mysql.user | check | status   | OK                                                       |
++------------+-------+----------+----------------------------------------------------------+
+```
+
+
+<br/>
+<br/>
+
+
+
+### 诊断启动问题
+
+在排除系统启动问题时，首先应该用手动启动Server。使用以下几个重要的mysqld命令行选项:
+
+- `--help`
+- `--safe-mode`，装载减去某些最佳配置的Server；
+- `--verbose`，显示全文本消息；
+- `--version`，显示版本信息
+
+
+
+<br/>
+<br/>
+
+
+
+### 查看日志
+
+主要日志有:
+
+- 错误日志，可用`--log-error`命令行选项更改；
+- 查询日志，可用`--log`命令行选项更改；
+- 二进制日志， 可用`--log-bin`命令行选项更改；
+- 慢查询日志，可用`--log-slow-queries`命令行选项更改。
+
+在使用日志时，可使用`FLUSH LOGS`语句来刷新和重新开始所有日志文件。
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+
+
+
+## 改善性能
+
+本章将学习与MySQL性能有关的某些要点。
+
+
+<br/>
+
+
+与性能相关的一些要点:
+
+- 硬件；
+- MySQL配置
+  - `SHOW VARIABLES;`
+  - `SHOW STATUS;`
+- 查看所有MySQL活动进程, `SHOW PROCESSLIST;`
+- 可终止某个特定的进程，`KILL $mysql-pid`;
+- 使用联结、并、子查询等查询方式，找出最佳的查询方法；
+- 使用`EXPLAIN`语句让MySQL解释他将如何执行一条`SELECT`语句；
+- 一般来说，存储过程比一条条地执行MySQL语句快；
+- 应该总使用正确的数据类型；
+- 绝不要检索比需求还有多的数据；
+- 有的操作支持一个可选的`DELAYED`关键字；
+- 在导入数据时，应该关闭自动提交。你可能还想删除索引，然后在导入完成后再重建索引；
+- 必须索引数据库表以改善数据检索的性能；
+- 索引改善数据检索的性能，但损害数据插入、删除和更新的性能；
+- `LIKE`很慢，一般来说，最好使用`FULLTEXT`而不是`LIKE`；
+- 数据库是不断变化的实体。之前优化好了，之后可能也会面目全非了；
+- 记得查看MySQL官方文档。
+
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+
+
+
+## 数据类型
+
+本章介绍MySQL中不同的数据类型。
+
+
+<br/>
+
+
+### 串
+
+最常用的数据类型是串，有两种基本串类型:
+
+- **定长串**：接受长度固定的字符串，其长度是在创建表时指定的。CHAR属于定长串类型；
+- **变长串**：存储可变长度的文本。有些具有最大定长，有些则是完全变长的。不管哪种，只有指定的数据得到保存(额外的数据不保存)，TEXT数据变长串类型。
+
+既然变长数据类型这样灵活，为什么还要使用定长数据类型？
+因为**性能**。MySQL处理定长列远比处理变长列快的多。此外，MySQL不允许对变长列(或列的可变部分)进行索引。这会极大影响性能。
+
+<br>
+
+不管使用何种形式的串数据类型，请使用引号。
+
+
+| 数据类型 | 描述 |
+| - | - |
+| `CHAR` | 1-255个字符的定长串。它的长度必须在创建时指定，否则MySQL假定为`CHAR(1)` |
+| `ENUM` | 接受最多6K个串组成的一个预定义集合的某个串 |
+| `LONGTEXT` | 与TEXT相同，但最大长度为4GB |
+| `MEDIUMTEXT` | 与TEXT相同，但最大长度为16K |
+| `SET` | 接受最多64个串组成的一个预定义集合的零个或多个串 |
+| `TEXT` | 最大长度为64K的变长文本 |
+| `TINYTEXT` | 与TEXT相同，但最大长度为255字节 |
+| `VARCHAR` | 长度可变，最大不超过255字节。如果指定`VARCHAR(n)`，则可存储0-n个字符的变长串 |
+
+<br>
+
+你可能会认为电话号码和邮政编码等应该存储在数值字段中，但是，这样做确是不可取的。如果邮政编码为`01234`，则保存的数值为`1234`，实际上丢失了一位数字。
+需遵守的基本规则是，如果是数值计算，则应该存储在数值类型中；如果作为字符串使用，则应该保存在串数据类型中。
+
+
+
+<br/>
+<br/>
+
+
+
+### 数值数据类型
+
+数据数据类型存储数值。
+注意**有符号**和**无符号(UNSIGNED)**也会影响存储范围。
+
+
+| 数据类型 | 描述 |
+| - | - |
+| `BIT` | 位字段，1-64位 |
+| `BIGINT` | 整数值，64位。有符号和无符号范围不同 |
+| `BOOLEAN` | 布尔值，0或1 |
+| `DECIMAL` | 精度可变的浮点数 |
+| `DOUBLE` | 双精度浮点数 |
+| `FLOAT` | 单精度浮点数 |
+| `INT(INTEGER)` | 整数值，32位。有符号和无符号范围不同 |
+| `MEDIUMINT` | 整数值，24位。有符合和无符号范围不同 |
+| `REAL` | 4字节的浮点值 |
+| `SMALLINT` | 整数值，16位。有符号和无符号范围不同 |
+| `TINYINT` | 整数值，8位。有符号和无符号范围不同 |
+
+<br>
+
+数值不使用引号。
+MySQL中没有专门存储货币的数据类型，一般情况下使用`DECIMA(8, 2)`。
+
+
+
+<br/>
+<br/>
+
+
+
+### 日期和时间类型
+
+MySQL使用专门的数据类型来存存储日期和时间。
+
+| 数据类型 | 描述 |
+| - | - |
+| `DATE` | 日期格式为`YYYY-MM-DD` |
+| `DATETIME` | DATE和TIME的组合 |
+| `TIMESTAMP` | 功能呢DATETIME相同，但范围较小 |
+| `TIME` | 时间格式为`HH:MM:SS` |
+| `YEAR` | 2位数字，表示70(1970)-69(2069)，不推荐 <br> 4位数字，表示1901-2155年，推荐 |
+
+
+
+<br/>
+<br/>
+
+
+
+### 二进制数据类型
+
+二进制数据类型可以存储任何数据，如图像、多媒体、字处理文档...
+
+| 数据类型 | 描述 |
+| - | - |
+| `BLOB` | 最大长度位64KB |
+| `MEDIUMBLOB` | 最大长度为16MB |
+| `LONGBLOB` | 最大长度位4GB |
+| `TINYBLOB` | 最大长度位255字节 |
+
 
 
 

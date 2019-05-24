@@ -4024,6 +4024,186 @@ Python使用错误处理的`termination`模型：异常处理程序可找出发�
 [The import system](https://docs.python.org/3.6/reference/import.html)
 
 
+通过**导入(import)**，一个模块中的Python代码可以访问另一个模块中的Python代码。`import`语句是调用导入机制的最常用方法，但它不是唯一的方法。`importlib.import_module()`和內建`__import__()`等函数也可用于导入机制。
+
+`import`语句结合了两个操作，它搜索命名模块，然后将搜索结果绑定到本地范围中的名称。`import`语句的搜索操作定义为使用适当的参数调用`__import__()`函数。`__import__()`的返回值用于执行`import`语句的名称绑定操作。
+
+对`__import__()`的直接调用仅执行模块搜索，如果找到，则执行模块创建操作。虽然可能会发生某些副作用，如导入父包...但只有`import`语句执行名称绑定操作。
+
+当调用`__import__()`作为`import`语句的一部分时，将调用标准的内置`__import__()`。调用导入系统的其它机制可选择颠覆`__import__()`并使用自己的解决方案来实现导入语义。
+
+首次导入模块时，Python会搜索模块。如果找到，它会创建一个模块对象，并对其进行初始化。如果找不到名称模块，则引发`ModuleNotFoundError`异常(No module named 'xxx')。Python在调用导入机制时实现了搜索命名模块的各种策略，可以修改和扩展这些策略。
+
+
+<br/>
+<br/>
+
+
+### importlib
+
+`importlib`模块提供了一个丰富的API，用于与导入系统进行交互。
+
+
+
+<br/>
+<br/>
+
+
+
+### Packages
+
+Python只有一种类型的模块对象，所有模块都属于这种类型，无论模块是用Python、C还是其它方式实现。为了帮助组织模块并提供命名层次结构，Python有一个**包(package)**的概念。
+
+你可将包视为文件系统上的目录，将模块视为目录中的文件。处于此文档的目的，我们将使用这种方便的类比。包是按层次结构组织的，包本身可能包含子包以及常规模块。
+需要记住的是，所有包都是模块，但并非所有模块都是包。换句话说，包是一种特殊的模块。具体来说，任何包含`__path__`属性的模块都被视为包。
+
+Python定义了两种类型的包：
+
+- Regular Packages
+- Namespace packages
+
+
+<br/>
+<br/>
+
+
+#### Regular packages
+
+常规包是Python v3.2及更早版本中存在的传统的包。常规包通常实现为包含`__init__.py`文件的目录。导入常规包时，将隐式地执行此`__init__.py`文件，并且它定义的对象将绑定到包命名空间的名称。`__init__.py`文件可以包含与任何其它模块可以包含的相同的Python代码，并且Python将在导入模块时向模块添加一些其它属性。
+
+```
+# 栗子
+# 导入parent.one将隐式地执行parent/__init__.py和parent/one/__init__.py
+parent/
+    __init__.py
+    one/
+        __init__.py
+    two/
+        __init__.py
+    three/
+        __init__.py
+```
+
+
+<br/>
+<br/>
+
+
+#### Namespace packages
+
+命名空间包是各个部分的组合，其中每个部分为父包提供子包。它可位于文件系统某个位置上，也可在zip文件、网络或Python导入期间其它位置。命名空间包可能/可能不(may or may not)直接对应于系统上得对象，它们可能是没有具体表示的虚拟模块。
+
+命名空间包不使用普通列表作为其`__path__`属性。它们使用自定义可迭代类型，如果其父包的路径发生更改，它将在该包的下一次导入尝试时自动执行对包部分的新搜索。
+
+使用命名空间包，没有`parent/__init__.py`文件。实际上，在导入搜索期间可能会找到多个父目录，其中每个目录由不同的部分提供。因此，`parent/one`可能不在物理上位于`parent/two`旁边。在这种情况下，Python就会为顶级父包创建一个命名空间包。
+
+
+
+<br/>
+<br/>
+
+
+
+### Searching
+
+要开始**搜素(search)**，Python需要导入模块的完全限定名称。此名称可能来自`import`语句或其它导入函数的各种参数。
+
+
+<br/>
+<br/>
+
+
+#### 模块缓存
+
+The module cache
+
+导入期间检查的第一个位置是`sys.modules`。此映射用作先前已导入的所有模块的缓存，包括中间路径。因此，如果先前导入了`a.b.c`，则`sys.modules`将包含`a, a.b, a.b.c`的条目。每个键的值都是相应的模块对象。
+
+在导入期间，将在`sys.modules`中查找模块名称。如果存在，则关联的值是满足导入的模块，并且该过程完成。但是，如果值为`None`，则引发`ModuleNotFoundError`异常。如果缺少模块名称，Python将继续搜索模块。
+
+`sys.modules`是可写的。删除key可能不会破坏关联的模块，但它会使命名模块的缓存条目无效，导致Python在下次导入时重新搜索命名模块。key也可以分配`None`，强制下次导入模块导致`ModuleNotFoundError`异常。
+
+请注意，就好像你保留对模块对象的引用，使其在`sys.modules`中的缓存条目无效，然后重新导入命名模块，两个模块对象将不同。相比之下，`importlib.reload()`将重用相同的模块对象，只需重新运行模块的代码即可重新初始化模块内容。
+
+
+<br/>
+<br/>
+
+
+#### 查找器和载入器
+
+Finders and loaders
+
+如果在`sys.modules`中找不到指定的模块，则调用Python的导入协议来**查找(find)**和**加载(load)**模块。该协议有两个概念对象。实现这两个接口的对象称为导入器，当它发现可以加载所请求的模块时，它们会自行返回。
+
+- **查找器(finder)**：查找器的工作是确定它是否可以使用它所知道的任何策略找到命名模块。
+- **加载器(loader)**
+
+Python包含了许多默认查找器和导入器。第一个知道如何定位內建模块，第二个知道如何定位冻结模块。第三个默认查找器搜索模块的导入路径。
+导入机制是可扩展的，因此可以添加新的查找器以扩展模块搜索的范围。
+
+查找器实际上并没有加载模块。如果它可以找到命名模块，则返回模块规范、模块的导入相关信息的封装，然后导入机器在加载模块时使用。
+
+
+<br/>
+<br/>
+
+
+#### Import hooks
+
+导入机制设计为可扩展，它的主要机制是**导入钩子(import hooks)**。它有两种类型：
+
+- **Meta hooks**：在进行任何其它导入之前，在导入处理开始时调用元钩子，而不是使用`sys.modules`缓存查找。这允许云钩子覆盖`sys.path`、冻结模块甚至内置模块。
+- **Path hooks**：导入路径钩子作为`sys.path`处理的一部分在遇到其关联路径时被调用。
+
+
+
+<br/>
+<br/>
+
+
+
+### 载入
+
+Loading
+
+如果找到模块规范，导入机制将在加载模块时使用它。
+
+```python
+module = None
+if spec.loader is not None and hasattr(spec.loader, 'create_module'):
+    # It is assumed 'exec_module' will also be defined on the loader.
+    module = spec.loader.create_module(spec)
+if module is None:
+    module = ModuleType(spec.name)
+# The import-related module attributes get set here:
+_init_module_attrs(spec, module)
+
+if spec.loader is None:
+    if spec.submodule_search_locations is not None:
+        # namespace package
+        sys.modules[spec.name] = module
+    else:
+        # unsupported
+        raise ImportError
+elif not hasattr(spec.loader, 'exec_module'):
+    module = spec.loader.load_module(spec.name)
+    # Set __loader__ and __package__ if missing.
+else:
+    sys.modules[spec.name] = module
+    try:
+        spec.loader.exec_module(module)
+    except BaseException:
+        try:
+            del sys.modules[spec.name]
+        except KeyError:
+            pass
+        raise
+return sys.modules[spec.name]
+```
+
+
+
 
 
 

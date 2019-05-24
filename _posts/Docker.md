@@ -29,6 +29,7 @@ categories: DevOps
 ---
 
 <br/>
+<br/>
 
 
 
@@ -6505,4 +6506,272 @@ splunk日志驱动将容器日志发送到Splunk Enterprise和Splunk Clound的HT
 
 
 ### 安全
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br/>
+<br/>
+
+---
+
+<br/>
+<br/>
+
+
+
+
+
+
+
+
+
+# CGroup
+
+
+参考:
+
+- [wiki](https://zh.wikipedia.org/wiki/Cgroups)
+- [DOCKER基础技术：LINUX CGROUP](https://coolshell.cn/articles/17049.html)
+- [CGroup 介绍、应用实例及原理描述](https://www.ibm.com/developerworks/cn/linux/1506_cgroup/index.html)
+- [linux cgroup 简介](https://cizixs.com/2017/08/25/linux-cgroup/)
+- [Linux资源管理之cgroups简介](https://tech.meituan.com/2015/03/31/cgroups.html)
+
+
+<br/>
+<br/>
+
+
+## 简介
+
+CGroup(Linux Control Groups)，是Linux内核的一个功能，用来限制、控制与分离一个进程组群的资源(CPU, Mem, Disk I/O...)。你可以监控你配置的CGroup，拒绝CGroup访问某些资源，甚至在运行的系统中动态配置CGroup。
+
+
+CGroup的一个设计目标是为不同的应用情况提供统一的结构，从控制单一进程(nice)到操作系统层虚拟化(OpenVZ, Linux-VServer, LXC)。CGroup提供:
+- **资源限制(Resource limitation)**：限制资源使用；
+- **优先级(Prioritization)**：控制优先级；
+- **结算(Accounting)**：用来衡量系统确实把多少资源用到适合的目的上；
+- **控制(Control)**：冻结组或检查点和重启动。
+
+<br>
+
+![](/images/Docker/Linux_kernel_unified_hierarchy_cgroups_and_systemd.png)
+
+<br>
+
+使用CGroup，系统管理员可更具体地控制对系统资源的分配、优化顺序、拒绝、管理和监控。可更好地根据任务和用户分配硬件资源，提高总体效率。
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+
+
+
+## 核心概念
+
+
+CGroup需要考虑如何抽象**进程**和**资源**这两种概念，同时如何组织自己的结构。它有几个非常重要的核心概念:
+
+- **任务(task)**：系统中运行的实体，一般指进程；
+- **子系统(subsystem)**：具体的资源控制器，控制某个特定的资源使用；
+  - **blkio(Block IO)**：限制块设备的I/O速率；
+  - **cpu**：限制调度器分配的CPU使用率；
+  - **cpuacct(CPU Accounting)**：生成cgroup中任务使用CPU的报告；
+  - **cpuset(CPU Set)**：为cgroup中的进程分配单独的cpu节点或者内存节点，也就是哪些CPU和MEM上；
+  - **devices**：允许或者拒绝cgroup中任务对设备的访问；
+  - **freezer**：挂起或者恢复cgroup中的任务；
+  - **hugetlb**：主要针对于HugeTLB系统进行限制，这是一个大页文件系统；
+  - **memory**：限制cgroup中任务使用内存的量，并自动生成任务当前内存的使用情况报告；
+  - **net_cls(Network Classifier)**：为cgroup中的报文设置特定的classid标志，这样Linux流量控制(traffic control)程序可对其数据包进行控制；
+  - **ns(namespace)**：可使不同cgroups下面的进程使用不同的 namespace；
+  - **net_prio(Network Priority)**：对每个网络接口设置报文的优先级；
+  - **perf_event**：识别任务的 cgroup 成员，可以用来做性能分析；
+- **控制组(CGroup)**：一组任务和子系统的关联关系，表示对这些任务进行怎样的资源管理策略。
+- **层级(hierarchy)**：一系列CGroup组成的树形结构。每个节点都是一个CGroup，CGroup可以有多个子节点，子节点默认会继承父节点的属性。
+
+<br>
+
+相互关系:
+
+- 每次在系统中创建新层级时，该系统中的所有任务都是那个层级的默认cgroup(称为根(root))的初始成员；
+- 一个子系统最多只能附加到一个层级；
+- 一个层级可以附加到多个子系统；
+- 一个任务可以是多个CGroup的成员，但是这些CGroup必须在不同的层级；
+- 系统中的进程(任务)创建子进程(任务)时，该子任务自动成为其父进程所在CGroup的程序，也就是继承。
+
+
+![](/images/Docker/CGroup_Hierrchy.png)
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+
+
+
+## 文件系统
+
+
+Linux使用了多种数据结构在内核中实现了CGroup的配置，关联了进程和CGroups节点。CGroup提供了一个CGroup虚拟文件系统(VFS, Virtual File System)，作为进行分组管理和各子系统设置的用户接口。要使用CGroup，必须挂载CGroup文件系统。这时通过挂载选项指定使用哪个子系统。
+
+VFS通用文件模型中包含的四中元数据结构:
+
+- **超级块对象(superblock object)**：用于存放已经注册的文件系统的信息。比如ext2，ext3等这些基础的磁盘文件系统，还有用于读写socket的socket文件系统，以及当前的用于读写cgroups配置信息的 cgroups 文件系统等；
+- **索引节点对象(inode object)**：用于存放具体文件的信息。对于一般的磁盘文件系统而言，inode 节点中一般会存放文件在硬盘中的存储块等信息；对于socket文件系统，inode会存放socket的相关属性，而对于cgroups这样的特殊文件系统，inode会存放与 cgroup 节点相关的属性信息。这里面比较重要的一个部分是一个叫做 inode_operations 的结构体，这个结构体定义了在具体文件系统中创建文件，删除文件等的具体实现；
+- **文件对象(file object)**：一个文件对象表示进程内打开的一个文件，文件对象是存放在进程的文件描述符表里面的。同样这个文件中比较重要的部分是一个叫 file_operations 的结构体，这个结构体描述了具体的文件系统的读写实现。当进程在某一个文件描述符上调用读写操作时，实际调用的是 file_operations 中定义的方法。 对于普通的磁盘文件系统，file_operations 中定义的就是普通的块设备读写操作；对于socket文件系统，file_operations 中定义的就是 socket 对应的 send/recv 等操作；而对于cgroups这样的特殊文件系统，file_operations中定义的就是操作 cgroup 结构体等具体的实现；
+- **目录项对象(dentry object)**：在每个文件系统中，内核在查找某一个路径中的文件时，会为内核路径上的每一个分量都生成一个目录项对象，通过目录项对象能够找到对应的 inode 对象，目录项对象一般会被缓存，从而提高内核查找速度。
+
+<br>
+
+CGroup支持的文件类型:
+
+| 文件 | R/W | 用途 |
+| - | - | - |
+| Release_agent | RW | 删除分组时执行的命令，这个文件只存在于根分组 |
+| Notify_on_release | RW | 设置是否执行release_agent，为1时执行 |
+| Tasks | RW | 属于分组的线程TID列表 |
+| Cgroup.procs | R | 属于分组的进程PID列表 |
+| Cgroup.event_control | RW | 监视状态变化和分组删除事件的配置文件 |
+
+
+
+
+
+
+
+
+
+
+
+
+<br/>
+<br/>
+
+---
+
+<br/>
+<br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Namespace
+
+参考:
+
+- [docker 容器基础技术：linux namespace 简介](https://cizixs.com/2017/08/29/linux-namespace/)
+- [DOCKER基础技术：LINUX NAMESPACE](https://coolshell.cn/articles/17010.html)
+
+
+<br/>
+<br/>
+
+
+## 介绍
+
+**Linux Namespace**是Linux提供的一种内核级别环境(资源)隔离机制，用来让运行在同一个操作系统上的进程互相不会干扰。
+
+Namespace的目的就是隔离。某个Namespace里面的进程就只能看到该Namespace的信息，无法看到该Namespace之外的信息，无法看到其它Namespace里面的信息。各个Namespace中的进程根本感觉不到对方的存在。
+
+Linux内核提供的Namespace:
+
+| Namespace | `clone()`使用的flag | 隔离的资源 |
+| - | - | - |
+| CGroup | `CLONE_NEWCGROUP` | CGroup根目录 |
+| IPC | `CLONE_NEWIPC` | System V IPC，POSIX 消息队列 |
+| Network | `CLONE_NEWNET` | 网络设备、协议栈、端口等 |
+| Mount | `CLONE_NEWNS` | 挂载点 |
+| PID | `CLONE_NEWPID` | 进程 ID |
+| User | `CLONE_NEWUSER` | 用户和组 ID |
+| UTS | `CLONE_NEWUTS` | 主机名和域名 |
+
+<br>
+
+主要是三个子系统调用:
+
+- `clone()`：实现线程的系统调用，用来创建一个新的进程，并可以通过设计上述参数达到隔离。
+- `unshare()`：使某进程脱离某个namespace
+- `setns()`：把某进程加入到某个namespace
+
+<br>
+
+每个进程都有一个`/proc/${pid}/ns`目录，里面保存了该进程所在对应Namespace的链接。
+
+```sh
+sudo ls -l /proc/8734/ns
+total 0
+lrwxrwxrwx. 1 root root 0 4月  24 10:49 ipc -> ipc:[4026531839]
+lrwxrwxrwx. 1 root root 0 4月  24 10:49 mnt -> mnt:[4026531840]
+lrwxrwxrwx. 1 root root 0 4月  24 10:49 net -> net:[4026531956]
+lrwxrwxrwx. 1 root root 0 4月  24 10:49 pid -> pid:[4026531836]
+lrwxrwxrwx. 1 root root 0 4月  24 10:49 user -> user:[4026531837]
+lrwxrwxrwx. 1 root root 0 4月  24 10:49 uts -> uts:[4026531838]
+```
+
+每个文件对应于Namespace的文件描述符，方括号里的值是Namespace的inode。如果两个进程所在的Namespace一样，那么它们列出来的inode也是一样的。
+
+**inode**是指在许多Unix-Like系统中的一种数据结构。每个inode保存了文件系统中的一个文件系统对象（包括文件、目录、设备文件、socket、管道, 等等）的元信息数据，但不包括数据内容或者文件名。
+inode这个命名的来源可能是文件系统的存储组织为一个扁平数组，分层目录信息使用一个数作为文件系统这个扁平数组的索引值（index）。
+
+
+
+
+
+
+
+
+
+
+
+
 

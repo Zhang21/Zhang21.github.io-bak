@@ -1,11 +1,12 @@
+---
 title: Test-My-Site
 date: 2017-08-30 16:02:43
-update:
+mathjax: true
 tags: Test
 categories: Test
-
-
 ---
+
+
 
 - [ ] Monday
 - [ ] Tuesday

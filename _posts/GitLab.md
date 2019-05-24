@@ -3906,6 +3906,17 @@ Continuous Integration settings
 <br/>
 
 
+### MR规范
+
+![](/images/GitLab/MRSpec.png)
+
+
+
+<br/>
+<br/>
+
+
+
 ### 启用/禁用CICD
 
 Enable/disable GitLab CI/CD: Enable or disable GitLab CI/CD for your instance.
