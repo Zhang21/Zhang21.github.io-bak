@@ -181,7 +181,7 @@ social:
 
 ```sh
 /blog/themes/next/layout/_macro/sidabar.swig文件中
-`{% include '../_custom/sidebar.swig' %}代码上面`
+{% include '../_custom/sidebar.swig' %}代码上面
 ![](/images/163music1.png)
 ![](/images/163music2.png)
 ```
@@ -191,10 +191,14 @@ social:
 
 **有关MathJax支持:**
 
-修改主题配置`_config.yml`文件: `参考MathJax选项`
+参考如下，记得在文章属性中添加`mathjax: true`。
+
+- <https://github.com/hexojs/hexo/issues/3425>
+- <https://ranmaosong.github.io/2017/11/29/hexo-support-mathjax/>
 
 
 <br/>
+
 
 **有关添加统计:**
 
