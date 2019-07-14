@@ -112,7 +112,8 @@
 <meta property="og:image" content="https://zhang21.github.io/images/OSTEP/rr77.png">
 <meta property="og:image" content="https://zhang21.github.io/images/OSTEP/incorporatingIO78.png">
 <meta property="og:image" content="https://zhang21.github.io/images/OSTEP/incorporatingIO79.png">
-<meta property="og:updated_time" content="2019-05-23T02:37:47.000Z">
+<meta property="og:image" content="https://zhang21.github.io/images/OSTEP/mlfq81.png">
+<meta property="og:updated_time" content="2019-06-19T01:40:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OSTEP">
 <meta name="twitter:description" content="参考:  OS Three Easy Pieces: https://book.douban.com/subject/19973015/ OSTEP: http://pages.cs.wisc.edu/~remzi/OSTEP/   环境:  ELRH7x86_64">
@@ -217,6 +218,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
@@ -243,16 +254,6 @@
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
-            
-            站点地图
           </a>
         </li>
       
@@ -366,8 +367,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-23T10:37:47+08:00">
-                2019-05-23
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-19T09:40:32+08:00">
+                2019-06-19
               </time>
             
           </span>
@@ -433,7 +434,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  23,810
+                  24,801
                 </span>
               
 
@@ -1357,6 +1358,32 @@
 <p>我们介绍了调度背后的基本思想，并开发了两类方法。第一个运行剩余的最短作业，从而优化周转时间；第二个在所有作业之间交替运行，从而优化响应时间。两者都有好有坏，在系统中需要一个权衡。我们还看到了如何将I/O合并到调度中，但仍然没有解决操作系统基本无法看到未来的问题。<br>不久我们将通过构建一个使用最近过去预测未来的调度程序，来了解如何克服这个问题。此调度程序称为<strong>多级反馈队列(multi-level feedback queue)</strong>，它是下一章的主题。</p>
 <p><br><br><br><br><br></p>
 <h2 id="多级反馈队列"><a href="#多级反馈队列" class="headerlink" title="多级反馈队列"></a>多级反馈队列</h2><p><a href="http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-sched-mlfq.pdf" target="_blank" rel="noopener">Scheduling: The Multi-Level Feedback Queue</a></p>
+<p>在本章中，我们将解决一种最著名的调度算法问题，称为<strong>多级反馈队列(MLFQ, Multi-level Feedback Queue)</strong>。多级反馈队列调度程序获得了图灵奖(Turing Award)。随后，调度程序经过多年的改进，完成了现代操作系统中的一些实现。</p>
+<p>多级反馈队列试图解决的根本问题是双重的：</p>
+<ul>
+<li>首先，它希望优化周转时间(turnaround time)。这是通过先运行较短的作业来完成。不幸的是，操作系统通常不知道作业运行的时间长短，这这是SJF, STCF等算法所需要的；</li>
+<li>其次，它希望系统能够对交互式用户的敏感响应，从而最大限度地缩短响应时间。不幸的是，像RR这样的算法会缩短响应时间，但对于周转时间来说却很糟糕。</li>
+</ul>
+<p>因此，问题是：鉴于我们通过对进行一无所知，如何构建调度程序来实现这些目标？在系统运行时，调度程序如何了解正在运行的作业的特征，从而做出更好的调度决策？</p>
+<p><br></p>
+<blockquote>
+<p><strong>如何在没有完美知识的情况下安排调度？</strong><br>如何设计一个调度程序，既可以最大限度地缩短交互式作业的响应时间，又可以在不事先了解作业长度的情况下做大限度地缩短周转时间？<br><br><br>多级反馈队列是从学习过去预测未来的系统的一个很好的栗子。这些方法在操作系统中很常见。当工具具有行为阶段并且因此可预测时，这种方法起作用。当然，必须小心使用这些技术，因为它们很容易出错，并且驱使系统做出比没有任何知识的情况更糟糕的决策。</p>
+</blockquote>
+<p><br><br><br></p>
+<h3 id="基本规则"><a href="#基本规则" class="headerlink" title="基本规则"></a>基本规则</h3><p>Basic Rule</p>
+<p>为了构建这样的调度程序(scheduler)，在本章中我们将描述多级反馈队列背后的基本算法。虽然许多实施的MLFQ的细节不同，但大多数方法都是相似的。</p>
+<p>在我们的处理中，MLFQ有许多不同的队列(queue)，每个队列分配不同的优先级(priority level)。在任何给定时间，准备运行的作业都在单个队列中。MLFQ使用优先级来决定在给定时间应该运行哪个作业：选择具有较高优先级的作业来运行。</p>
+<p>当然，在给定队列上可能有多个作业，因此具有相同的优先级。在这种情况下，我们将在这些作业中使用轮询调度(round-robin scheduling)。<br>因此，我们得出了MLFQ的前两个基本规则：</p>
+<ul>
+<li>Rule 1: If <code>Priority(A) &gt; Priority(B)</code>, A runs (B doesn’t)；</li>
+<li>Rule 2: If <code>Priority(A) = Priority(B</code>), A and B run in RR。</li>
+</ul>
+<p><br></p>
+<p>因此，MLFQ调度的关键在于调度程序如何设置优先级。MLFQ不是为每个作业提供固定的优先级，而是根据其观察到的行为(observed behavior)改变(varies)作业的优先级。<br>例如，如果作业在等待键盘输入是反复放弃CPU，MLFQ将保持其高优先级，因为这是交互式进程的行为方式。相反，如果作业长时间集中使用CPU，MLFQ将降低其优先级。通过这种方式，MLFQ将尝试在进程运行时了解进程，从而使用作业历史(history)来预测其未来(future)行为。</p>
+<p>一个特定时刻可能的队列可能如下图这样。在此图中，作业(A和B)处于最高优先级，作业C处于中间，作业D处于最低优先级。<br>当然，只显示某些队列的静态快照并不能真正让你了解MLFQ的工作原理。我们需要的是了解作业优先级如何随时间变化。</p>
+<p><img src="/images/OSTEP/mlfq81.png" alt></p>
+<p><br><br><br></p>
+<h3 id="如何改变优先级"><a href="#如何改变优先级" class="headerlink" title="如何改变优先级"></a>如何改变优先级</h3><p>How To Change Priority</p>
 
       
     </div>
@@ -1573,7 +1600,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统介绍"><span class="nav-number">1.</span> <span class="nav-text">操作系统介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟化CPU"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟化CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存"><span class="nav-number">1.2.</span> <span class="nav-text">虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发"><span class="nav-number">1.3.</span> <span class="nav-text">并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化"><span class="nav-number">1.4.</span> <span class="nav-text">持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计目标"><span class="nav-number">1.5.</span> <span class="nav-text">设计目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些历史"><span class="nav-number">1.6.</span> <span class="nav-text">一些历史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Early-Operating-Systems-Just-Libraries"><span class="nav-number">1.6.1.</span> <span class="nav-text">Early Operating Systems: Just Libraries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beyond-Libraries-Protection"><span class="nav-number">1.6.2.</span> <span class="nav-text">Beyond Libraries: Protection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Era-of-Multiprogramming"><span class="nav-number">1.6.3.</span> <span class="nav-text">The Era of Multiprogramming</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Modern-Era"><span class="nav-number">1.6.4.</span> <span class="nav-text">The Modern Era</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">1.6.5.</span> <span class="nav-text">摘要</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟化"><span class="nav-number">2.</span> <span class="nav-text">虚拟化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">2.1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个进程"><span class="nav-number">2.1.1.</span> <span class="nav-text">一个进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Process-API"><span class="nav-number">2.1.2.</span> <span class="nav-text">Process API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程创建"><span class="nav-number">2.1.3.</span> <span class="nav-text">进程创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程状态"><span class="nav-number">2.1.4.</span> <span class="nav-text">进程状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">2.1.5.</span> <span class="nav-text">数据结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程API"><span class="nav-number">2.2.</span> <span class="nav-text">进程API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fork系统调用"><span class="nav-number">2.2.1.</span> <span class="nav-text">fork系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wait系统调用"><span class="nav-number">2.2.2.</span> <span class="nav-text">wait系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exec系统调用"><span class="nav-number">2.2.3.</span> <span class="nav-text">exec系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Motivating-The-API"><span class="nav-number">2.2.4.</span> <span class="nav-text">Motivating The API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程控制和用户"><span class="nav-number">2.2.5.</span> <span class="nav-text">进程控制和用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有用的工具"><span class="nav-number">2.2.6.</span> <span class="nav-text">有用的工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要-1"><span class="nav-number">2.2.7.</span> <span class="nav-text">摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接执行"><span class="nav-number">2.3.</span> <span class="nav-text">直接执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本技术：有限的直接执行"><span class="nav-number">2.3.1.</span> <span class="nav-text">基本技术：有限的直接执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1：受限制的操作"><span class="nav-number">2.3.2.</span> <span class="nav-text">问题1：受限制的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题2：在进程间切换"><span class="nav-number">2.3.3.</span> <span class="nav-text">问题2：在进程间切换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#合作方法：等待系统调用"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">合作方法：等待系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非合作方法：操作系统取得控制权"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">非合作方法：操作系统取得控制权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保存和恢复上下文"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">保存和恢复上下文</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#担心并发？"><span class="nav-number">2.3.4.</span> <span class="nav-text">担心并发？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要-2"><span class="nav-number">2.3.5.</span> <span class="nav-text">摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调度"><span class="nav-number">2.4.</span> <span class="nav-text">调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工作负载假设"><span class="nav-number">2.4.1.</span> <span class="nav-text">工作负载假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度指标"><span class="nav-number">2.4.2.</span> <span class="nav-text">调度指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先进先出"><span class="nav-number">2.4.3.</span> <span class="nav-text">先进先出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最短作业优先"><span class="nav-number">2.4.4.</span> <span class="nav-text">最短作业优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最短完成时间优先"><span class="nav-number">2.4.5.</span> <span class="nav-text">最短完成时间优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应时间指标"><span class="nav-number">2.4.6.</span> <span class="nav-text">响应时间指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#轮询"><span class="nav-number">2.4.7.</span> <span class="nav-text">轮询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并I-O"><span class="nav-number">2.4.8.</span> <span class="nav-text">合并I/O</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要-3"><span class="nav-number">2.4.9.</span> <span class="nav-text">摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多级反馈队列"><span class="nav-number">2.5.</span> <span class="nav-text">多级反馈队列</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统介绍"><span class="nav-number">1.</span> <span class="nav-text">操作系统介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟化CPU"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟化CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存"><span class="nav-number">1.2.</span> <span class="nav-text">虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发"><span class="nav-number">1.3.</span> <span class="nav-text">并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化"><span class="nav-number">1.4.</span> <span class="nav-text">持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计目标"><span class="nav-number">1.5.</span> <span class="nav-text">设计目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些历史"><span class="nav-number">1.6.</span> <span class="nav-text">一些历史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Early-Operating-Systems-Just-Libraries"><span class="nav-number">1.6.1.</span> <span class="nav-text">Early Operating Systems: Just Libraries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beyond-Libraries-Protection"><span class="nav-number">1.6.2.</span> <span class="nav-text">Beyond Libraries: Protection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Era-of-Multiprogramming"><span class="nav-number">1.6.3.</span> <span class="nav-text">The Era of Multiprogramming</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Modern-Era"><span class="nav-number">1.6.4.</span> <span class="nav-text">The Modern Era</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">1.6.5.</span> <span class="nav-text">摘要</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟化"><span class="nav-number">2.</span> <span class="nav-text">虚拟化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">2.1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个进程"><span class="nav-number">2.1.1.</span> <span class="nav-text">一个进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Process-API"><span class="nav-number">2.1.2.</span> <span class="nav-text">Process API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程创建"><span class="nav-number">2.1.3.</span> <span class="nav-text">进程创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程状态"><span class="nav-number">2.1.4.</span> <span class="nav-text">进程状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">2.1.5.</span> <span class="nav-text">数据结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程API"><span class="nav-number">2.2.</span> <span class="nav-text">进程API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fork系统调用"><span class="nav-number">2.2.1.</span> <span class="nav-text">fork系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wait系统调用"><span class="nav-number">2.2.2.</span> <span class="nav-text">wait系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exec系统调用"><span class="nav-number">2.2.3.</span> <span class="nav-text">exec系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Motivating-The-API"><span class="nav-number">2.2.4.</span> <span class="nav-text">Motivating The API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程控制和用户"><span class="nav-number">2.2.5.</span> <span class="nav-text">进程控制和用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有用的工具"><span class="nav-number">2.2.6.</span> <span class="nav-text">有用的工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要-1"><span class="nav-number">2.2.7.</span> <span class="nav-text">摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接执行"><span class="nav-number">2.3.</span> <span class="nav-text">直接执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本技术：有限的直接执行"><span class="nav-number">2.3.1.</span> <span class="nav-text">基本技术：有限的直接执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1：受限制的操作"><span class="nav-number">2.3.2.</span> <span class="nav-text">问题1：受限制的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题2：在进程间切换"><span class="nav-number">2.3.3.</span> <span class="nav-text">问题2：在进程间切换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#合作方法：等待系统调用"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">合作方法：等待系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非合作方法：操作系统取得控制权"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">非合作方法：操作系统取得控制权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保存和恢复上下文"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">保存和恢复上下文</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#担心并发？"><span class="nav-number">2.3.4.</span> <span class="nav-text">担心并发？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要-2"><span class="nav-number">2.3.5.</span> <span class="nav-text">摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调度"><span class="nav-number">2.4.</span> <span class="nav-text">调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工作负载假设"><span class="nav-number">2.4.1.</span> <span class="nav-text">工作负载假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度指标"><span class="nav-number">2.4.2.</span> <span class="nav-text">调度指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先进先出"><span class="nav-number">2.4.3.</span> <span class="nav-text">先进先出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最短作业优先"><span class="nav-number">2.4.4.</span> <span class="nav-text">最短作业优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最短完成时间优先"><span class="nav-number">2.4.5.</span> <span class="nav-text">最短完成时间优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应时间指标"><span class="nav-number">2.4.6.</span> <span class="nav-text">响应时间指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#轮询"><span class="nav-number">2.4.7.</span> <span class="nav-text">轮询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并I-O"><span class="nav-number">2.4.8.</span> <span class="nav-text">合并I/O</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要-3"><span class="nav-number">2.4.9.</span> <span class="nav-text">摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多级反馈队列"><span class="nav-number">2.5.</span> <span class="nav-text">多级反馈队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本规则"><span class="nav-number">2.5.1.</span> <span class="nav-text">基本规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何改变优先级"><span class="nav-number">2.5.2.</span> <span class="nav-text">如何改变优先级</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1605,7 +1632,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 792.9k</span>
+  <span class="post-count"> 字数: 810.0k</span>
 </div>
 
 

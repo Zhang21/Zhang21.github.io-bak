@@ -93,21 +93,29 @@
 
 
 
-<meta name="description" content="参考：  Kong GitHub: https://github.com/Kong/kong Kong Docs: https://docs.konghq.com/   环境：  ELRH7x86_64 Kong v1.1 Docker CE v18.09 K8s v1.11">
+<meta name="description" content="参考：  Kong GitHub: https://github.com/Kong/kong Kong Docs: https://docs.konghq.com/   环境：  ELRH7x86_64 Kong v1.2 Docker CE v18.09 K8s v1.11">
 <meta name="keywords" content="Service Mesh,API,APIGateway,MicroService">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kong">
 <meta property="og:url" content="https://zhang21.github.io/2019/05/08/Kong/index.html">
 <meta property="og:site_name" content="风继续吹">
-<meta property="og:description" content="参考：  Kong GitHub: https://github.com/Kong/kong Kong Docs: https://docs.konghq.com/   环境：  ELRH7x86_64 Kong v1.1 Docker CE v18.09 K8s v1.11">
+<meta property="og:description" content="参考：  Kong GitHub: https://github.com/Kong/kong Kong Docs: https://docs.konghq.com/   环境：  ELRH7x86_64 Kong v1.2 Docker CE v18.09 K8s v1.11">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang21.github.io/images/Kong/kongLogo.png">
 <meta property="og:image" content="https://zhang21.github.io/images/Kong/kong-architecture.jpg">
 <meta property="og:image" content="https://zhang21.github.io/images/Kong/kong-simple.png">
-<meta property="og:updated_time" content="2019-05-24T09:14:28.000Z">
+<meta property="og:image" content="https://zhang21.github.io/images/Kong/greendeployment.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Kong/bluedeployment.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Kong/abtesting.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Kong/canarydeployment.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Kong/KongK8sIngress.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Kong/KongK8sIngress2.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Kong/KongK8sIngress3.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Kong/kong-kubernetes-ingress-controller.png">
+<meta property="og:updated_time" content="2019-06-24T10:00:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kong">
-<meta name="twitter:description" content="参考：  Kong GitHub: https://github.com/Kong/kong Kong Docs: https://docs.konghq.com/   环境：  ELRH7x86_64 Kong v1.1 Docker CE v18.09 K8s v1.11">
+<meta name="twitter:description" content="参考：  Kong GitHub: https://github.com/Kong/kong Kong Docs: https://docs.konghq.com/   环境：  ELRH7x86_64 Kong v1.2 Docker CE v18.09 K8s v1.11">
 <meta name="twitter:image" content="https://zhang21.github.io/images/Kong/kongLogo.png">
 
 
@@ -209,6 +217,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
@@ -235,16 +253,6 @@
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
-            
-            站点地图
           </a>
         </li>
       
@@ -358,8 +366,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-24T17:14:28+08:00">
-                2019-05-24
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-24T18:00:19+08:00">
+                2019-06-24
               </time>
             
           </span>
@@ -425,7 +433,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  14,871
+                  27,493
                 </span>
               
 
@@ -459,7 +467,7 @@
 <p>环境：</p>
 <ul>
 <li>ELRH7x86_64</li>
-<li>Kong v1.1</li>
+<li>Kong v1.2</li>
 <li>Docker CE v18.09</li>
 <li>K8s v1.11</li>
 </ul>
@@ -1075,6 +1083,516 @@
 </ul>
 <p><br><br><br></p>
 <h3 id="匹配优先级"><a href="#匹配优先级" class="headerlink" title="匹配优先级"></a>匹配优先级</h3><p>Matching priorities</p>
+<p>路由可以基于其<code>hosts, paths, methods</code>字段定义匹配规则。要使Kong匹配到路由的传入请求，必须满足所有现有字段。但是，通过允许两个或多个路由配置包含相同值的字段，Kong允许相当大的灵活性。当发生这种情况时，Kong应用优先级规则(priority rule)。</p>
+<p>规则是：<strong>在评估请求时，Kong将首先尝试匹配具有最多规则(most rules)的路由</strong>。</p>
+<p>例如，如果两个路由配置如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"hosts"</span>: [<span class="string">"example.com"</span>],</span><br><span class="line">    <span class="attr">"service"</span>: &#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"..."</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"hosts"</span>: [<span class="string">"example.com"</span>],</span><br><span class="line">    <span class="attr">"methods"</span>: [<span class="string">"POST"</span>],</span><br><span class="line">    <span class="attr">"service"</span>: &#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"..."</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二个路由有<code>hosts, methods</code>字段，因此它将首先由Kong评估。通过这样做，我们避免了第一个用于第二个路由的<strong>阴影(shadow)</strong>调用。</p>
+<p>看看请求匹配的规则：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 匹配第一个路由</span><br><span class="line">GET / HTTP/1.1</span><br><span class="line">Host: example.com</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 匹配第二个路由</span><br><span class="line">POST / HTTP/1.1</span><br><span class="line">Host: example.com</span><br></pre></td></tr></table></figure>
+<p>遵循这个逻辑，如果第三个路由配置了<code>hosts, methods, uris</code>字段，则它将首先由Kong评估。</p>
+<p><br><br><br></p>
+<h3 id="代理行为"><a href="#代理行为" class="headerlink" title="代理行为"></a>代理行为</h3><p>Proxying behavior</p>
+<p>上面的代理规则详细地说明了Kong如何将传入请求转发到你的上游服务。下面来详细说明Kong与HTTP请求与注册路由匹配(match)的时间与请求的实际转发(forwarding)之间内部发生的情况。</p>
+<p><br></p>
+<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><p>Load balancing</p>
+<p>Kong实现负载均衡功能，以跨上游服务实例池来分发代理请求。<br>详情参考后面负载均衡详情。</p>
+<p><br><br><br></p>
+<h4 id="插件执行"><a href="#插件执行" class="headerlink" title="插件执行"></a>插件执行</h4><p>Plugins execution</p>
+<p>Kong可通过插件(plugins)进行扩展，这些插件将将自己钩(hook)在代理请求的请求/响应的生命周期中。插件可在你的环境中执行各种操作，或在代理请求上进行转换。</p>
+<p>可将插件配置为<strong>全局(globally)</strong>或特定(specific)路由和服务运行。在这两种情况下，你都必须通过Admin API创建插件配置。<br>一旦路由匹配，Kong将运行与这些实体中的任何一个相关联的插件。在路由上配置的插件在服务上配置的插件之前运行。</p>
+<p>详细信息参考插件开发指南。</p>
+<p><br><br><br></p>
+<h4 id="超时"><a href="#超时" class="headerlink" title="超时"></a>超时</h4><p>Proxying/upstream timeouts</p>
+<p>一旦Kong执行了所有必要的逻辑（包括插件），它就可以将请求转发给你的上游服务。这通过Nginx的<code>ngx_http_proxy_module</code>模块完成。你可通过以下服务的属性为Kong和给定上游之间的连接配置超时：</p>
+<ul>
+<li><code>upstream_connect_timeout</code>：定义建立与上游服务的连接的超时时间，以毫秒(ms)为单位，默认60000</li>
+<li><code>upstream_send_timeout</code>：定义用于向上游服务发送请求的两个连续写入操作之间的超时时间，以毫秒(ms)为单位，默认60000</li>
+<li><code>upstream_read_timeout</code>：定义用于接收来自上游服务的两个连续读取操作之间的超时时间，以毫秒(ms)为单位，默认60000</li>
+</ul>
+<p>Kong将通过<code>HTTP/1.1</code>发送请求，并设置以下Header：</p>
+<ul>
+<li><code>Host: &lt;your_upstream_host&gt;</code></li>
+<li><code>Connection: keep-alive</code>，允许重用上游连接</li>
+<li><code>X-Real-IP: &lt;remote_addr&gt;</code>，其中<code>$remote_addr</code>是与<code>ngx_http_core_module</code>模块提供的名称相同的变量。请注意，<code>$remote_addr</code>可能被<code>ngx_http_realip_module</code>覆盖</li>
+<li><code>X-Forwarded-For: &lt;address&gt;</code>，其中<code>&lt;address&gt;</code>是由附加到请求头的<code>ngx_http_realip_module</code>提供的<code>$realip_remote_addr</code>的内容，其名称相同</li>
+<li><code>X-Forwarded-Proto: &lt;protocol&gt;</code>，其中<code>&lt;protocol&gt;</code>是客户端使用的协议。在<code>$realip_remote_addr</code>是可信地址之一的情况下，如果提供，则转发具有相同名称的请求头。否则，将使用<code>ngx_http_core_module</code>提供的<code>$scheme</code>变量的值</li>
+<li><code>X-Forwarded-Host: &lt;host&gt;</code>，其中<code>&lt;host&gt;</code>是客户端发送的主机名。在<code>$realip_remote_addr</code>是可信地址之一的情况下，如果提供，则转发具有相同名称的请求头。否则，将使用<code>ngx_http_core_module</code>提供的<code>$host</code>变量的值</li>
+<li><code>X-Forwarded-Port: &lt;port&gt;</code>，其中<code>&lt;port&gt;</code>是接受请求的服务器的端口。在<code>$realip_remote_addr</code>是可信地址之一的情况下，如果提供，则转发具有相同名称的请求头。否则，将使用<code>ngx_http_core_module</code>提供的<code>$server_port</code>变量的值</li>
+</ul>
+<p>所有其它请求头都由Kong转发。</p>
+<p>使用WebSocket协议时会出现一个例外。如果这样，Kong将设置以下Header以允许升级客户端和上有服务之间的协议：</p>
+<ul>
+<li><code>Connection: Upgrade</code></li>
+<li><code>Upgrade: websocket</code></li>
+</ul>
+<p><br><br><br></p>
+<h4 id="错误和重试"><a href="#错误和重试" class="headerlink" title="错误和重试"></a>错误和重试</h4><p>Errors and retries</p>
+<p>每当代理期间发生错误时，Kong将使用底层的Nginx重试机制将请求传递个下一个上游。</p>
+<p>这里有两个可配置的元素：</p>
+<ul>
+<li>重试次数：可使用<code>retries</code>属性为每个服务配置</li>
+<li>是什么构成错误：Kong使用Nginx默认值，这意味着与服务器建立连接，向其传递请求/读取响应 Header时发生错误或超时</li>
+</ul>
+<p><br><br><br></p>
+<h4 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h4><p>Response</p>
+<p>Kong接收来自上游服务的响应，并以流(stream)的方式将其发送回下游客户端。此时，Kong将执行添加到路由或服务的后续插件，这些插件在<code>header_filter</code>阶段实现一个钩子。<br>一旦执行了所有已注册插件的<code>header_filter</code>阶段，Kong将添加以下Header，并将完整的header集发送到客户端：</p>
+<ul>
+<li><code>Via: kong/x.x.x</code>，其中<code>x.x.x</code>是Kong使用的版本</li>
+<li><code>X-Kong-Proxy-Latency: &lt;latency&gt;</code>，其中<code>&lt;latency&gt;</code>是Kong收到客户端请求和向上游服务发送请求之间的时间(ms为单位)</li>
+<li><code>X-Kong-Upstream-Latency: &lt;latency&gt;</code>，其中<code>&lt;latency&gt;</code>是Kong等待上游服务响应的第一个字节的时间(ms为单位)</li>
+</ul>
+<p>将Header发送到客户端后，Kong将开始为实现<code>body_filter</code>钩子的路由或服务之星已注册的插件。由于Nginx的流媒体特性，可多次调用此钩子。</p>
+<p><br><br><br></p>
+<h3 id="后备路由"><a href="#后备路由" class="headerlink" title="后备路由"></a>后备路由</h3><p>Configuring a fallback Route</p>
+<p>作为一个实际的用例和Kong的代理功能所提供的灵活性的栗子，让我们尝试实现一个<strong>后备路由(fallback route)</strong>，这样为了避免Kong响应HTTP <code>4O4 no route found</code>，我们可以捕获这样的请求并将它们代理到特殊的上游服务，或者向其应用插件。</p>
+<p>一个后备路由的栗子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"paths"</span>: [<span class="string">"/"</span>],</span><br><span class="line">    <span class="attr">"service"</span>: &#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"..."</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>任何向Kong发出的HTTP请求实际上都会匹配此路由，因为所有URI都以根字符(<code>/</code>)为前缀。最长的URL路径首先由Kong评估，因此<code>/</code>路径将由Kong最后评估，并有效地提供后备路由，仅作为最后的手段。然后，你可将流量发送到特殊服务或在此路由上应用任何插件。</p>
+<p><br><br><br></p>
+<h3 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h3><p>Configuring SSL for a Route</p>
+<p>Kong提供了一种基于每个连接动态(dynamically)提供SSL证书的方式。SSL证书由<strong>core</strong>直接处理，并可通过Admin API进行配置。通过TLS连接到Kong的客户端必须支持Server Name Indication(SNI)扩展才能使用此功能。</p>
+<p>SSL证书由Kong Admin API中的两个资源处理：</p>
+<ul>
+<li><code>/certificates</code>，存储密钥(key)和证书(certificate)</li>
+<li><code>/snis</code>，将注册的证书与Server Name Indication相关联</li>
+</ul>
+<p><br></p>
+<p>以下是在给定路由上配置SSL证书的方法:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过Admin API上传证书和密钥</span></span><br><span class="line"><span class="comment"># snis表单参数，直接插入SNI并将其上传的证书与其关联</span></span><br><span class="line">curl -i -X POST http://localhost:8001/certificates \</span><br><span class="line">    -F <span class="string">"cert=@/path/to/cert.pem"</span> \</span><br><span class="line">    -F <span class="string">"key=@/path/to/cert.key"</span> \</span><br><span class="line">    -F <span class="string">"snis=ssl-example.com,other-ssl-example.com"</span></span><br><span class="line">HTTP/1.1 201 Created</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>现在必须在Kong内注册以下路由。一个简单的栗子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -i -X POST http://localhost:8001/routes \</span><br><span class="line">    -d <span class="string">'hosts=ssl-example.com,other-ssl-example.com'</span> \</span><br><span class="line">    -d <span class="string">'service.id=d54da06c-d69f-4910-8896-915c63c270cd'</span></span><br><span class="line">HTTP/1.1 201 Created</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>你现在可以期望Kong通过HTTPS提供路由：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -i https://localhost:8443/ \</span><br><span class="line">  -H <span class="string">"Host: ssl-example.com"</span></span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>建立连接并协商SSL握手时，如果客户端发送<code>ssl-example.com</code>作为SNI扩展的一部分，Kong将提供先前配置的<code>cert.pem</code>证书。 </p>
+<p><br></p>
+<h4 id="限制客户端协议"><a href="#限制客户端协议" class="headerlink" title="限制客户端协议"></a>限制客户端协议</h4><p>Restricting the client protocol (HTTP/HTTPS/TCP/TLS)</p>
+<p>路由有一个<code>protocols</code>属性，以限制它们应该监听的客户端协议。此属性接受一组值:</p>
+<ul>
+<li><code>http/https</code></li>
+<li><code>tcp/tls</code></li>
+</ul>
+<p>具有<code>http</code>和<code>https</code>的路由将接受两种协议中的流量：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"hosts"</span>: [<span class="string">"..."</span>],</span><br><span class="line">    <span class="attr">"paths"</span>: [<span class="string">"..."</span>],</span><br><span class="line">    <span class="attr">"methods"</span>: [<span class="string">"..."</span>],</span><br><span class="line">    <span class="attr">"protocols"</span>: [<span class="string">"http"</span>, <span class="string">"https"</span>],</span><br><span class="line">    <span class="attr">"service"</span>: &#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"..."</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>未指定协议的路由默认为<code>[&quot;http&quot;, &quot;https&quot;]</code>。</p>
+<p>但是，仅使用<code>https</code>的路由只接受通过<code>https</code>的流量。如果以前从信任的IP发生SSL终止(termination)，它也会接受未加密的流量。当请求来自<code>trusted_ip</code>中配置的IP并且如果设置了<code>X-Forwarded-Proto: https</code> Header头时，SSL终止被认为是有效：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"hosts"</span>: [<span class="string">"..."</span>],</span><br><span class="line">    <span class="attr">"paths"</span>: [<span class="string">"..."</span>],</span><br><span class="line">    <span class="attr">"methods"</span>: [<span class="string">"..."</span>],</span><br><span class="line">    <span class="attr">"protocols"</span>: [<span class="string">"https"</span>],</span><br><span class="line">    <span class="attr">"service"</span>: &#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"..."</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果上述路由与请求匹配，但该请求是没有有效的先前SSL终止的纯文本(plain-text)，则Kong响应：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 426 Upgrade Required</span><br><span class="line">Content-Type: application/json; charset=utf-8</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Upgrade: TLS/1.2, HTTP/1.1</span><br><span class="line">Server: kong/x.y.z</span><br><span class="line"></span><br><span class="line">&#123;&quot;message&quot;:&quot;Please use HTTPS protocol&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>从Kong v1.0开始，可以使用<code>protocols</code>属性中的<code>tcp</code>为原始TCP(不一定是HTTP)连接创建路由：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"hosts"</span>: [<span class="string">"..."</span>],</span><br><span class="line">    <span class="attr">"paths"</span>: [<span class="string">"..."</span>],</span><br><span class="line">    <span class="attr">"methods"</span>: [<span class="string">"..."</span>],</span><br><span class="line">    <span class="attr">"protocols"</span>: [<span class="string">"tcp"</span>],</span><br><span class="line">    <span class="attr">"service"</span>: &#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"..."</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样，可使用<code>tls</code>值创建接受原始TLS流量(不一定是HTTPS)的路由：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;hosts&quot;: [&quot;...&quot;],</span><br><span class="line">    &quot;paths&quot;: [&quot;...&quot;],</span><br><span class="line">    &quot;methods&quot;: [&quot;...&quot;],</span><br><span class="line">    &quot;protocols&quot;: [&quot;tls&quot;],</span><br><span class="line">    &quot;service&quot;: &#123;</span><br><span class="line">        &quot;id&quot;: &quot;...&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>仅具有TLS的路由仅接受通过TLS的流量。</p>
+<p>也可同时接受<code>tcp</code>和<code>tls</code>：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"hosts"</span>: [<span class="string">"..."</span>],</span><br><span class="line">    <span class="attr">"paths"</span>: [<span class="string">"..."</span>],</span><br><span class="line">    <span class="attr">"methods"</span>: [<span class="string">"..."</span>],</span><br><span class="line">    <span class="attr">"protocols"</span>: [<span class="string">"tcp"</span>, <span class="string">"tls"</span>],</span><br><span class="line">    <span class="attr">"service"</span>: &#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"..."</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h3><p>Proxy WebSocket traffic</p>
+<p>由于底层的Nginx实现，Kong支持WebSocket流量。如果希望通过Kong在客户端和上游服务之间建立WebSocket连接，则必须建立WebSocket握手。这是通过HTTP Upgrade mechanism 完成的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 栗子，客户端对Kong的请求</span><br><span class="line">GET / HTTP/1.1</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Host: my-websocket-api.com</span><br><span class="line">Upgrade: WebSocket</span><br></pre></td></tr></table></figure>
+<p>这使Kong将<code>Connection</code>和<code>Upgrade</code> header转发到上游服务，而不是由于标准HTTP proxy的逐跳(hop-by-hop)特性而将其解除。</p>
+<p><br></p>
+<h4 id="WebSocket和TLS"><a href="#WebSocket和TLS" class="headerlink" title="WebSocket和TLS"></a>WebSocket和TLS</h4><p>Kong将在其各自的<code>http</code>和<code>https</code>端口接受<code>ws</code>和<code>wss</code>连接。要从客户端强制执行TLS联结，请见路由的<code>protocols</code>属性设置为仅<code>https</code>。</p>
+<p>将服务设置为指向上游WebSocket服务时，应仔细选择要在Kong和上游之间使用的协议。如果要使用TLS（<code>wss</code>），则必须使用上游WebSocket服务定义的服务<code>protocol</code>属性中的<code>https</code>协议和正确的端口(<code>443</code>)。要在没有TLS(<code>ws</code>)的情况下进行连接，则应在<code>protocol</code>中使用<code>http</code>协议和端口(<code>80</code>)。</p>
+<p><br><br><br><br><br></p>
+<h2 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h2><p><a href="https://docs.konghq.com/1.1.x/auth/" target="_blank" rel="noopener">Authentication Reference</a></p>
+<p>到上游服务(API/Microservice)的流量通常是由各种<strong>Kong 认证插件(authentication plugins)</strong>的应用程序和配置来控制。</p>
+<p><br><br><br></p>
+<h3 id="通用认证"><a href="#通用认证" class="headerlink" title="通用认证"></a>通用认证</h3><p>Generic authentication</p>
+<p>最常见的情况是要求认证并且不允许任何未经认证的请求的访问。为此，可以使用任何认证插件。这些插件的通用流程如下：</p>
+<ol>
+<li>将认证插件应用于服务(service)或全局(global)</li>
+<li>创建一个<strong>消费者(consumer)</strong>实体</li>
+<li>为消费者提供特定认证方法(authentication method)的认证凭据(authentication credential)</li>
+<li>现在每当有请求(request)进入时，Kong都会检查凭据，如果请求无法验证，它将阻止请求，或在Header中添加消费者和凭据的详细信息并转发请求</li>
+</ol>
+<p>上面的通用流程并不总是适用，例如在使用LDAP等外部认证时，则不会添加消费者，并且只会在转发的Header中添加凭据。</p>
+<p><br><br><br></p>
+<h3 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h3><p>Consumers</p>
+<p>理解消费者最简单的方法是将它们一对一地映射到用户(one-on-one to user)。然而，对Kong来说这并不重要。消费者的核心原则是你可以将插件附加到它们，从而定制请求行为。（例如，为每个移动应用的版本定义一个消费者，Android消费者、IOS消费者…）</p>
+<p>这对Kong来说是一个不透明的概念，因此它们被称为<strong>消费者(consumer)</strong>而不是<strong>用户(user)</strong>。</p>
+<p><br><br><br></p>
+<h3 id="匿名访问"><a href="#匿名访问" class="headerlink" title="匿名访问"></a>匿名访问</h3><p>Anonymous Access</p>
+<p>Kong能够配置给定服务以允许<strong>身份认证(Authentication)</strong>和<strong>匿名访问(Anonymous Access)</strong>。你可以使用此配置向具有低速率限制(rate-limit)的匿名用户授予访问权限，并授予对具有更高速率限制的认证的用户的访问权限。</p>
+<p>要配置这样的服务，首先应用你选择的身份认证插件，然后创建一个新的消费者来表示匿名用户，然后配置身份认证插件以允许匿名访问。</p>
+<p>栗子:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. Create an example Service and a Route</span></span><br><span class="line">curl -i -X POST \</span><br><span class="line">   --url http://localhost:8001/services/ \</span><br><span class="line">   --data <span class="string">'name=example-service'</span> \</span><br><span class="line">   --data <span class="string">'url=http://mockbin.org/request'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Add a route to the Service:</span></span><br><span class="line">curl -i -X POST \</span><br><span class="line">   --url http://localhost:8001/services/example-service/routes \</span><br><span class="line">   --data <span class="string">'paths[]=/auth-sample'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># http://localhost:8000/auth-sample</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Configure the key-auth Plugin for your Service</span></span><br><span class="line">curl -i -X POST \</span><br><span class="line">   --url http://localhost:8001/services/example-service/plugins/ \</span><br><span class="line">   --data <span class="string">'name=key-auth'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意插件id，后面会用到</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Verify that the key-auth plugin is properly configured</span></span><br><span class="line">curl -i -X GET \</span><br><span class="line">   --url http://localhost:8000/auth-sample</span><br><span class="line"></span><br><span class="line"><span class="comment"># May be 403 Forbidden</span></span><br><span class="line">HTTP/1.1 403 Forbidden</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"message"</span>: <span class="string">"No API key found in headers or querystring"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. Create an anonymous Consumer</span></span><br><span class="line"><span class="comment"># Kong代理的每个请求都必须与消费者关联</span></span><br><span class="line">curl -i -X POST \</span><br><span class="line">   --url http://localhost:8001/consumers/ \</span><br><span class="line">   --data <span class="string">"username=anonymous_users"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建响应</span></span><br><span class="line">HTTP/1.1 201 Created</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"username"</span>: <span class="string">"anonymous_users"</span>,</span><br><span class="line">  <span class="string">"created_at"</span>: 1428555626000,</span><br><span class="line">  <span class="string">"id"</span>: <span class="string">"bbdf1c48-19dc-4ab7-cae0-ff4f59d87dc9"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意消费者id，后面需要</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. Enable anonymous access</span></span><br><span class="line">curl -i -X PATCH \</span><br><span class="line">   --url http://localhost:8001/plugins/&lt;your-plugin-id&gt; \</span><br><span class="line">   --data <span class="string">"config.anonymous=&lt;your-consumer-id&gt;"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. Check anonymous access</span></span><br><span class="line">curl -i -X GET \</span><br><span class="line">   --url http://localhost:8000/auth-sample</span><br><span class="line"></span><br><span class="line"><span class="comment"># 响应（Mockbin）</span></span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="string">"headers"</span>: &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="string">"x-consumer-id"</span>: <span class="string">"713c592c-38b8-4f5b-976f-1bd2b8069494"</span>,</span><br><span class="line">    <span class="string">"x-consumer-username"</span>: <span class="string">"anonymous_users"</span>,</span><br><span class="line">    <span class="string">"x-anonymous-consumer"</span>: <span class="string">"true"</span>,</span><br><span class="line">    ...</span><br><span class="line">  &#125;,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="多个认证"><a href="#多个认证" class="headerlink" title="多个认证"></a>多个认证</h3><p>Multiple Authentication</p>
+<p>Kong支持给定服务的多个身份认证插件，允许不同客户端使用不同的身份认证方法来访问给定的服务或路由。</p>
+<p>在评估多个身份认证凭据时，可将认证插件的行为设置为逻辑<code>AND</code>或逻辑<code>OR</code>。关键行为是<code>config.anonymous</code>属性：</p>
+<ul>
+<li><p><code>config.anonymous</code>未设置<br>如果未设置此属性，则认证插件将始终执行身份认证。如果未经过认证，则返回<code>40x</code>响应。当调用多个认证插件时，这会产生逻辑<code>AND</code>。</p>
+</li>
+<li><p><code>config.anonymous</code>设置为有效的消费者ID<br>在这种情况下，认证插件只会在尚未经过身份认证的情况下执行认证。认证失败时，让不会返回<code>40x</code>响应，而是将匿名消费者设置为消费者。当调用多个认证插件时，这会导致逻辑<code>OR</code>加上<code>anonymous access</code>。</p>
+</li>
+</ul>
+<p><br></p>
+<p>注意:</p>
+<ul>
+<li>必须为匿名访问配置所有认证插件，或不配置任何认证插件。如果它们是混合的，则并未是不确定的；</li>
+<li>使用<code>AND</code>方法时，最后执行的插件将是传递给上游服务的设置凭据。使用<code>OR</code>方法时，它将成为第一个成功验证消费者的插件，或者是将设置其配置的匿名消费者的最后一个插件；</li>
+<li>以<code>AND</code>方式使用OAuth2插件时，用于请求令牌(token)等的OAuth端点也需要其它已配置的认证插件进行身份认证。</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="负载均衡-1"><a href="#负载均衡-1" class="headerlink" title="负载均衡"></a>负载均衡</h2><p><a href="https://docs.konghq.com/1.1.x/loadbalancing/" target="_blank" rel="noopener">Loadbalancing reference</a></p>
+<p>Kong提供了多种方式将请求负载均衡到多个后端服务：</p>
+<ul>
+<li><strong>基于DNS</strong>的方法</li>
+<li>动态的<strong>环均衡器</strong>(ring-balancer)，它还允许服务注册，而无需DNS服务器</li>
+</ul>
+<p><br></p>
+<h3 id="基于DNS"><a href="#基于DNS" class="headerlink" title="基于DNS"></a>基于DNS</h3><p>DNS-based loadbalancing</p>
+<p>使用基于DNS的负载均衡时，后端服务的注册是在Kong之外完成的，而Kong只接收来自DNS服务器的更新。</p>
+<p>如果名称解析为多个IP地址，则使用包含主机名（而不是IP地址）的<code>host</code>定义的每个服务将自动使用基于DNS的负载均衡，前提是主机名未解析为<code>upstream</code>名称或你的DNS hosts。</p>
+<p>DNS记录<code>ttl</code>确定刷新信息的频率。当<code>ttl</code>为0时，将使用自己的DNS查询解析每个请求。虽然这会有性能损失，但更新/更改的延迟将非常低。</p>
+<p><br></p>
+<h4 id="A记录"><a href="#A记录" class="headerlink" title="A记录"></a>A记录</h4><p>A记录包含一个或多个IP地址。因此，当主机名解析为A记录时，每个后端服务必须具有自己的IP地址。</p>
+<p>由于没有<code>weight</code>(权重)信息，所有条目在负载均衡器中被视为相等的权重，并且均衡器将直接转发轮询(straight forward round-robin)。</p>
+<p><br><br><br></p>
+<h4 id="SRV记录"><a href="#SRV记录" class="headerlink" title="SRV记录"></a>SRV记录</h4><p>SRV记录包含其所有IP地址的权重和端口信息。后端服务可通过IP地址和端口号的唯一组合来识别。因此，单个IP地址可以在不同的端口上托管同一个服务的多个实例。</p>
+<p>由于<code>weight</code>(权重)信息可用，每个条目将在负载均衡器中获取自己的权重，并执行加权轮询(weighted round-robin)。</p>
+<p>同样，任何给定的端口信息都将被来自DNS Server的端口信息覆盖。如果服务具有<code>host=myhost.com, port=123</code>，并且<code>myhost.com</code>被解析为<code>127.0.0.1:456</code>的SRV记录，则该请求将代理到<code>http://127.0.0.1:456/somepath</code>，因为端口<code>123</code>被4<code>56</code>覆盖了。</p>
+<p><br><br><br></p>
+<h4 id="DNS优先级"><a href="#DNS优先级" class="headerlink" title="DNS优先级"></a>DNS优先级</h4><p>DNS解析器将按顺序开始解析以下记录类型：</p>
+<ol>
+<li>The last successful type previously resolved</li>
+<li>SRV record</li>
+<li>A record</li>
+<li>CNAME record</li>
+</ol>
+<p>此顺序可通过<code>dns_order</code>配置属性进行配置。</p>
+<p><br><br><br></p>
+<h4 id="DNS注意事项"><a href="#DNS注意事项" class="headerlink" title="DNS注意事项"></a>DNS注意事项</h4><ul>
+<li>每当刷新DNS记录时，都会生成一个列表以正确处理权重。</li>
+<li>某些nameserver不返回所有条目(由于UDP包大小)，给定的Kong节点将仅使用nameserver提供的少数上游服务实例。在这种情况下，上游实例池可能会不一致地加载，因为由于nameserver提供的信息有限，Kong节点实际上没有意识到某些实例。要减轻这种使用，请使用其它nameserver，使用IP地址而不是名称，或确保使用足够的Kong节点仍然使用上游服务。</li>
+<li>当nameserver返回<code>3 name error</code>错误时，那是对Kong的有效响应。如果这是意外，请首先验证正在查询的正确名称，然后在检查你的nameserver的配置。</li>
+<li>从DNS记录（A/SRV）初始选择IP地址不是随机的。因此，当使用<code>ttl</code>为0的记录时，nameserver应该随机化记录条目。</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="Ring-balancer"><a href="#Ring-balancer" class="headerlink" title="Ring-balancer"></a>Ring-balancer</h3><p>当使用<strong>环均衡器</strong>时，Kong将处理后端服务的添加(add)和移除(remove)，并且不需要DNS更新。Kong将担任服务注册。可以使用单个HTTP请求添加/删除节点，并立即开始/停止接收流量</p>
+<p>配置环均衡器是通过<code>upstream</code>和<code>target</code>目标实例完成的：</p>
+<ul>
+<li><code>target</code>：带有后端服务所在端口的IP地址或主机名。每个目标都有一个附加的<code>weight</code>以指示它获得的相对负载。IP地址可以是IPv4或IPv6格式。</li>
+<li><code>upstream</code>：可在路由<code>host</code>字段中使用的虚拟主机名。例如名为<code>weather.v2.service</code>的上游，将获得来自具有<code>host=weather.v2.service</code>的服务的所有请求。</li>
+</ul>
+<p><br></p>
+<h4 id="Upstream"><a href="#Upstream" class="headerlink" title="Upstream"></a>Upstream</h4><p>每个上游都有自己的环均衡器。每个<code>upstream</code>都可以附加许多<code>target</code>条目，代理到虚拟主机名的请求将在目标上进行负载均衡。换均衡器具有预定数量的插槽(slot)，并且基于目标权重，插槽被分配给上游的目标。</p>
+<p>可使用Admin API上的简单HTTP请求来添加/移除目标。这个操作相对便宜，更改上游本身更加昂贵，因为当插槽数量发生变化时需要重建均衡器。</p>
+<p>自动重建均衡器的唯一情况是清理目标历史记录时，除此之外，它只会在变化时重建。</p>
+<p>在均衡器上有位置（from 1 to <code>slots</code>），它们随机分布(randomly distributed)在环上。随机性是在运行时调用环均衡器所必需的。轮子上的简单轮询将在目标上提供分布均匀的加权轮询，同时在 插入/删除 目标时也具有廉价操作。</p>
+<p>每个目标使用的插槽数量应该(至少)为100，以确保插槽的正确分布。例如，对于预期最多8个目标，上游应定义至少<code>slots=800</code>，即使初识设置仅具有两个目标。</p>
+<p>这里的权衡是，插槽数越多，随机分布越好，但更改成本越高(添加/删除目标)。</p>
+<p><br><br><br></p>
+<h4 id="Target"><a href="#Target" class="headerlink" title="Target"></a>Target</h4><p>由于上游(upstream)维护更改的历史记录，因此只能添加目标，不能修改或删除目标。要更改目标，只需为目标添加新条目，然后更改权重(weight)值。最后一个条目是将要使用的条目，因此，设置<code>weight=0</code>将禁用目标，从而有效地将其从均衡器中删除。</p>
+<p>当非活动条目(inactive entries)比活动条目(active)多10倍时，将自动清理目标(target)。清理将涉及重建均衡器，因此仅比添加目标条目更昂贵。</p>
+<p>目标也可以具有主机名（而不是IP地址）。在这种情况下，名称将被解析，所有找到的条目将单独添加到环形均衡器。如，添加<code>api.host.com:123, weight=100</code>。注意，权重用于单个条目，而不是整个。</p>
+<p>如果它解析为SRV记录，那么DNS中的端口和权重字段也将被拾取，并且将覆盖给定的端口和权重。</p>
+<p>均衡器将遵守DNS记录的<code>ttl</code>设定并重新查询(requery)和更新到期的均衡器。</p>
+<p><br><br><br></p>
+<h4 id="均衡算法"><a href="#均衡算法" class="headerlink" title="均衡算法"></a>均衡算法</h4><p>Balancing algorithms</p>
+<p>默认情况下，环均衡器(ringn-balancer)将使用加权轮询方案(weighted-round-robin scheme)。替代方案是使用基于哈希(hash)的算法。哈希的输入可以是<code>none</code>, <code>consumer</code>, <code>ip</code>, <code>header</code>, <code>cookie</code>。当设置为<code>none</code>时，将使用加权轮询方案，并禁用哈希。<br>有两个选项，primary和fallback，以防主要失败。</p>
+<p>不同的哈希选项：</p>
+<ul>
+<li><code>none</code>，不使用哈希，而是使用加权轮询（default）。</li>
+<li><code>consumer</code>，使用消费者ID作为哈希输入。如果没有可用的消费者ID，则将回退到凭据ID。</li>
+<li><code>ip</code>，远程IP地址用作输入。使用此选项时，请查看用于确定实际IP的配置设置。</li>
+<li><code>header</code>，使用指定的header作为哈希的输入。</li>
+<li><code>cookie</code>，使用指定路径的指定cookie作为哈希的输入。如果请求中不存在cookie，则响应将设置该cookie。</li>
+</ul>
+<p>哈希算法基于<strong>一致性哈希</strong>(consistent-hashing)，确保通过更改目标(add, remove, fail, weight)修改均衡器时，只有最小数量的哈希损失发生。这将最大化上游缓存命中(cache hits)。</p>
+<p><br><br><br></p>
+<h4 id="均衡警告"><a href="#均衡警告" class="headerlink" title="均衡警告"></a>均衡警告</h4><p>Balancing caveats</p>
+<p>环均衡器设计用于单个节点以及集群。对于加权轮询算法没有太大的区别，但当使用基于哈希的算法时，重要的是所有节点构建完全相同的环均衡器以确保它们全部相同。为此，必须以确定的方式构建均衡器。</p>
+<ul>
+<li>不要再均衡器中使用主机名，因为均衡器 可能/将 慢慢发散，DNS ttl仅具有第二精度，并且更新由实际请求名称确定。最重要的一些NameServer没有返回所有条目的为题，这加剧了这个问题。因此，在Kong集群中使用哈希方法时，仅通过其IP地址添加目标(target)实体，而不是通过名称添加目标实体。</li>
+<li>在选择哈希输入时，请确保输入具有足够的方差(variance)以获得分布均匀的哈希。哈希值将使用CRC-32摘要计算。</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="蓝绿部署"><a href="#蓝绿部署" class="headerlink" title="蓝绿部署"></a>蓝绿部署</h3><p>Blue-Green Deployments</p>
+<p>使用环均衡器可以轻松地为服务编排<strong>蓝绿部署</strong>(blue-green deployment)。切换目标基础结构仅需要服务上的<code>PATCH</code>请求，以更改其<code>host</code>值。</p>
+<p><br></p>
+<p>设置<code>Blue</code>环境，运行 v1 的服务地址：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create an upstream</span></span><br><span class="line">curl -X POST http://kong:8001/upstreams \</span><br><span class="line">    --data <span class="string">"name=address.v1.service"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># add two targets to the upstream</span></span><br><span class="line">curl -X POST http://kong:8001/upstreams/address.v1.service/targets \</span><br><span class="line">    --data <span class="string">"target=192.168.34.15:80"</span></span><br><span class="line">    --data <span class="string">"weight=100"</span></span><br><span class="line">curl -X POST http://kong:8001/upstreams/address.v1.service/targets \</span><br><span class="line">    --data <span class="string">"target=192.168.34.16:80"</span></span><br><span class="line">    --data <span class="string">"weight=50"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># create a Service targeting the Blue upstream</span></span><br><span class="line">curl -X POST http://kong:8001/services/ \</span><br><span class="line">    --data <span class="string">"name=address-service"</span> \</span><br><span class="line">    --data <span class="string">"host=address.v1.service"</span> \</span><br><span class="line">    --data <span class="string">"path=/address"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># finally, add a Route as an entry-point into the Service</span></span><br><span class="line">curl -X POST http://kong:8001/services/address-service/routes/ \</span><br><span class="line">    --data <span class="string">"hosts[]=address.mydomain.com"</span></span><br></pre></td></tr></table></figure>
+<p>主机头设置为<code>address.mydomain.com</code>的请求由Kong代理到两个定义的目标： 2/3的请求将转到<code>http://192.168.34.15:80/address</code>(weight=100)，1/3的请求将转到<code>http://192.168.34.16:80/address</code>(weight=50)。</p>
+<p><br></p>
+<p>在部署服务的v2之前，设置<code>Green</code>环境：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create a new Green upstream for address service v2</span></span><br><span class="line">curl -X POST http://kong:8001/upstreams \</span><br><span class="line">    --data <span class="string">"name=address.v2.service"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># add targets to the upstream</span></span><br><span class="line">curl -X POST http://kong:8001/upstreams/address.v2.service/targets \</span><br><span class="line">    --data <span class="string">"target=192.168.34.17:80"</span></span><br><span class="line">    --data <span class="string">"weight=100"</span></span><br><span class="line">curl -X POST http://kong:8001/upstreams/address.v2.service/targets \</span><br><span class="line">    --data <span class="string">"target=192.168.34.18:80"</span></span><br><span class="line">    --data <span class="string">"weight=100"</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>要激活蓝/绿开关，只需要更新服务：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Switch the Service from Blue to Green upstream, v1 -&gt; v2</span></span><br><span class="line">curl -X PATCH http://kong:8001/services/address-service \</span><br><span class="line">    --data <span class="string">"host=address.v2.service"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 主机头为address.mydomain.com的传入请求现在由Kong代理到新目标</span></span><br><span class="line"><span class="comment"># 1/2的请求将转至http://192.168.34.17:80/address(weight=100)</span></span><br><span class="line"><span class="comment"># 另外1/2将转至`http://192.168.34.18:80/address`(weight=100)</span></span><br></pre></td></tr></table></figure>
+<p>与往常一样，通过Kong Admin API进行的更改是动态的，并将立即生效。不需要重载或重启，也不会丢弃正在进行的请求。</p>
+<p><br><br><br></p>
+<h3 id="金丝雀发布"><a href="#金丝雀发布" class="headerlink" title="金丝雀发布"></a>金丝雀发布</h3><p>Canary Releases</p>
+<p>使用环均衡器，可以精确调整目标权重，从而实现平稳、受控的金丝雀发布(canary release)。</p>
+<p><br></p>
+<p>两个简单栗子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># first target at 1000</span></span><br><span class="line">curl -X POST http://kong:8001/upstreams/address.v2.service/targets \</span><br><span class="line">    --data <span class="string">"target=192.168.34.17:80"</span></span><br><span class="line">    --data <span class="string">"weight=1000"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># second target at 0</span></span><br><span class="line">curl -X POST http://kong:8001/upstreams/address.v2.service/targets \</span><br><span class="line">    --data <span class="string">"target=192.168.34.18:80"</span></span><br><span class="line">    --data <span class="string">"weight=0"</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>通过重复请求，但每次都改变权重，流量将慢慢地路由到另一个目标。例如，将其设置为<code>10%</code>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># first target at 900</span></span><br><span class="line">curl -X POST http://kong:8001/upstreams/address.v2.service/targets \</span><br><span class="line">    --data <span class="string">"target=192.168.34.17:80"</span></span><br><span class="line">    --data <span class="string">"weight=900"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># second target at 100</span></span><br><span class="line">curl -X POST http://kong:8001/upstreams/address.v2.service/targets \</span><br><span class="line">    --data <span class="string">"target=192.168.34.18:80"</span></span><br><span class="line">    --data <span class="string">"weight=100"</span></span><br></pre></td></tr></table></figure>
+<p>通过Kong Admin API进行的更改是动态的，并将立即生效。不需要重新加载或重新启动，也不会丢弃正在进行的请求。</p>
+<p><br><br><br><br><br></p>
+<h2 id="蓝绿部署-AB测试-金丝雀发布"><a href="#蓝绿部署-AB测试-金丝雀发布" class="headerlink" title="蓝绿部署/AB测试/金丝雀发布"></a>蓝绿部署/AB测试/金丝雀发布</h2><p><a href="https://blog.christianposta.com/deploy/blue-green-deployments-a-b-testing-and-canary-releases/" target="_blank" rel="noopener">Blue-green Deployments, A/B Testing, and Canary Releases</a></p>
+<p>许多团队对<strong>DevOps</strong>越来越感兴趣，这里面就涉及到了热部署(hot deployments)、回滚(rollbacks)…</p>
+<p>亚马逊等已经实施了十年以上的蓝绿部署，它是一种安全、经过验证的方法。但A/B测试呢？金丝雀测试呢？对于MicroService、DevOps和cloud-Native，这里阐述一下它们的不同之处。</p>
+<p><br></p>
+<h3 id="蓝绿部署-1"><a href="#蓝绿部署-1" class="headerlink" title="蓝绿部署"></a>蓝绿部署</h3><p>Blue Green Deployments</p>
+<p>它基本上是一种以可预测的方式(predictable manner)发布应用程序的技术，目标是减少与发布相关的任何停机时间。这是在发布之前准备应用程序的快速方法，如果你发现问题，也可以快速回滚。</p>
+<p>简单地说，你有两个相同的环境。</p>
+<p>绿环境：</p>
+<p><img src="/images/Kong/greendeployment.png" alt></p>
+<p>现在，你准备对应用程序进行更改并将其升级为v2，你将在蓝环境中执行此操作。</p>
+<p><img src="/images/Kong/bluedeployment.png" alt></p>
+<p>你可以监控因发布而导致的任何异常。如果一切都好，你最终可以关闭绿环境并使用它来发布任何新版本。如果异常，亦可以通过负载均衡器切换回来以快速回滚的绿环境。</p>
+<p><br><br><br></p>
+<h3 id="A-B测试"><a href="#A-B测试" class="headerlink" title="A/B测试"></a>A/B测试</h3><p>A/B Testing</p>
+<p>A/B测试不是蓝绿部署。它是一种在应用程序中测试功能的方法，出于各种原因(如可用性、流行性、吸引性…)，以及这些因素如何影响底线。它通常与应用程序的UI部分相关联，但当然后端服务需要可用于执行此操作。你可以使用应用程序级别的开关、静态开关以及金丝雀发布来实现此功能。</p>
+<p><img src="/images/Kong/abtesting.png" alt></p>
+<p>蓝绿部署和A/B测试之间的区别在于A/B测试用于测量应用程序中的功能。</p>
+<p><br><br><br></p>
+<h3 id="金丝雀发布-1"><a href="#金丝雀发布-1" class="headerlink" title="金丝雀发布"></a>金丝雀发布</h3><p>Canary releases</p>
+<p>金丝雀发布是一种将新版本的应用程序发送到生产环境中的方式。它扮演金丝雀的角色，以了解它将如何执行。这是另一种发布策略，它可以环境这样一个事实，即无论你在较低环境中进行的测试水平如何，仍会在生产中遇到一些错误。金丝雀发布允许你在完全释放扳机之前测试水域。</p>
+<p><img src="/images/Kong/canarydeployment.png" alt></p>
+<p>你获得的反馈速度越快，部署失败的速度就越快，或谨慎行事。</p>
+<p><br><br><br><br><br></p>
+<h2 id="健康检查和熔断器"><a href="#健康检查和熔断器" class="headerlink" title="健康检查和熔断器"></a>健康检查和熔断器</h2><p><a href="https://docs.konghq.com/1.1.x/health-checks-circuit-breakers/" target="_blank" rel="noopener">Health Checks and Circuit Breakers Reference</a></p>
+<p>你可以使用Kong 环均衡器代理API，通过添加包含一个或多个目标实体的上游实体进行配置，每个目标指向不同的IP和端口。环均衡器将平衡各种目标之间的负载，并且基于上游配置，将对目标执行健康检查，将判断它们是否健康，无论它们是否响应。然后，环均衡器仅将流量路由到健康目标。</p>
+<p>Kong支持两种健康检查，可单独使用或结合使用：</p>
+<ul>
+<li><strong>主动检测(active checks)</strong>，定期请求目标中的特定HTTP/HTTPS端点，并根据其响应确定目标的运行状况；</li>
+<li><strong>被动检测(passive checks)（也称为熔断器）</strong>，Kong分析正在进行的代理流量，并根据其行为响应请求确定目标的运行状况。</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="健康与不健康"><a href="#健康与不健康" class="headerlink" title="健康与不健康"></a>健康与不健康</h3><p>Healthy and unhealthy targets</p>
+<p>健康检查功能的目的是为给定的Kong节点动态地将目标标记为健康或不健康。没有集群范围内的健康信息同步：每个Kong节点分别确定其目标的健康状况。这是可取的，因为在给定端点，一个Kong节点可能能够成功连接到目标而另一个Kong节点不能到达它：第一个节点将认为它是健康的，而另一个节点将其标记为不健康并开始将流量路由到上游的其它目标。</p>
+<p>活动探测（主动健康检查）或代理请求（被动健康检查）会生成用于确定目标是健康还是不健康的数据。请求可能会产生<code>TCP error、timeout</code>, <code>HTTP status code</code>。基于此信息，健康检查器更新一些列内部计数器：</p>
+<ul>
+<li>如果返回的状态码是一个配置为<strong>健康(healthy)</strong>的状态码，它将递增目标的<strong>成功(Successes)</strong>计数器并清除其它计数器；</li>
+<li>如果连接失败，它将递增目标的<strong>TCP failures</strong>计数器并清除<strong>Successes</strong>计数器；</li>
+<li>如果超时，它将递增目标的<strong>超时(timeouts)</strong>计数器并清除<strong>Successes</strong>计数器；</li>
+<li>如果返回的HTTP状态码是配置为<strong>不健康(unhealthy)</strong>的状态码，它将递增<code>HTTP failures</code>计数器并清除<strong>Successes</strong>计数器。</li>
+</ul>
+<p>如果任何<code>TCP failures</code>, <code>HTTP failures</code>, <code>timeouts</code>计数器达到其配置的阈值，则目标将被标记为不健康。<br>如果<code>Successes</code>计数器达到其配置的阈值，则目标将标记为健康。</p>
+<p>HTTP状态码的列表是健康或不健康，并且每个计数器的各个阈值可以基于每个上游进行配置。下面的栗子中，我们有一个上游实体的配置示例。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"service.v1.xyz"</span>,</span><br><span class="line">    <span class="attr">"healthchecks"</span>: &#123;</span><br><span class="line">        <span class="attr">"active"</span>: &#123;</span><br><span class="line">            <span class="attr">"concurrency"</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">"healthy"</span>: &#123;</span><br><span class="line">                <span class="attr">"http_statuses"</span>: [ <span class="number">200</span>, <span class="number">302</span> ],</span><br><span class="line">                <span class="attr">"interval"</span>: <span class="number">0</span>,</span><br><span class="line">                <span class="attr">"successes"</span>: <span class="number">0</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"http_path"</span>: <span class="string">"/"</span>,</span><br><span class="line">            <span class="attr">"timeout"</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="attr">"unhealthy"</span>: &#123;</span><br><span class="line">                <span class="attr">"http_failures"</span>: <span class="number">0</span>,</span><br><span class="line">                <span class="attr">"http_statuses"</span>: [ <span class="number">429</span>, <span class="number">404</span>, <span class="number">500</span>, <span class="number">501</span>,</span><br><span class="line">                                   <span class="number">502</span>, <span class="number">503</span>, <span class="number">504</span>, <span class="number">505</span> ],</span><br><span class="line">                <span class="attr">"interval"</span>: <span class="number">0</span>,</span><br><span class="line">                <span class="attr">"tcp_failures"</span>: <span class="number">0</span>,</span><br><span class="line">                <span class="attr">"timeouts"</span>: <span class="number">0</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"passive"</span>: &#123;</span><br><span class="line">            <span class="attr">"healthy"</span>: &#123;</span><br><span class="line">                <span class="attr">"http_statuses"</span>: [ <span class="number">200</span>, <span class="number">201</span>, <span class="number">202</span>, <span class="number">203</span>,</span><br><span class="line">                                   <span class="number">204</span>, <span class="number">205</span>, <span class="number">206</span>, <span class="number">207</span>,</span><br><span class="line">                                   <span class="number">208</span>, <span class="number">226</span>, <span class="number">300</span>, <span class="number">301</span>,</span><br><span class="line">                                   <span class="number">302</span>, <span class="number">303</span>, <span class="number">304</span>, <span class="number">305</span>,</span><br><span class="line">                                   <span class="number">306</span>, <span class="number">307</span>, <span class="number">308</span> ],</span><br><span class="line">                <span class="attr">"successes"</span>: <span class="number">0</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"unhealthy"</span>: &#123;</span><br><span class="line">                <span class="attr">"http_failures"</span>: <span class="number">0</span>,</span><br><span class="line">                <span class="attr">"http_statuses"</span>: [ <span class="number">429</span>, <span class="number">500</span>, <span class="number">503</span> ],</span><br><span class="line">                <span class="attr">"tcp_failures"</span>: <span class="number">0</span>,</span><br><span class="line">                <span class="attr">"timeouts"</span>: <span class="number">0</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"slots"</span>: <span class="number">10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果上游的所有目标都不健康，Kong将以<code>503 Service Unavailable</code>响应上游请求。</p>
+<p>注意：</p>
+<ul>
+<li>健康检查操作仅在活跃目标(acti)上运行，不会修改Kong数据库中目标的活动状态；</li>
+<li>不健康的目标不会从负载均衡器中移除，因此在使用HASH算法时不会对均衡器布局产生任何影响；</li>
+<li><code>DNS caveats</code>和<code>balancer caveats</code>也适用于健康检查。如果为目标使用主机名，请确保DNS服务器始终返回名称的完整IP地址集，并且不限制响应。如果不这样做可能导致健康检查无法执行。</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="健康检查类型"><a href="#健康检查类型" class="headerlink" title="健康检查类型"></a>健康检查类型</h3><p><br></p>
+<h4 id="主动检查"><a href="#主动检查" class="headerlink" title="主动检查"></a>主动检查</h4><p>Active health checks</p>
+<p>顾名思义，主动检查会主动探索目标健康。当在上游实体中启用活动运行状况检查时，Kong将定期向上游的每个目标配置得路径发送HTTP/HTTPS请求。这允许Kong根据结果自动启用和禁用均衡器中的目标。</p>
+<p>当目标健康或不健康时，可以单独配置主动健康检查的周期性。如果其中的一个<code>interval</code>值设置为0，则在相应的方案中禁用检查。当两者都为0时，将完全禁用主动健康检查。</p>
+<blockquote>
+<p><strong>注意：</strong><br>主动健康检查目前仅支持HTTP/HTTPS目标。它们不适用于分配给上游协议属性为<code>TCP</code>或<code>TLS</code>。</p>
+</blockquote>
+<p><br><br><br></p>
+<h4 id="被动检查-熔断器"><a href="#被动检查-熔断器" class="headerlink" title="被动检查(熔断器)"></a>被动检查(熔断器)</h4><p>Passive health checks (circuit breakers)</p>
+<p>被动健康检查(熔断器)，是根据Kong（HTTP/HTTPS/TCP）代理的请求执行的检查，不会产生额外的流量。当目标变得无响应时，被动检查程序将检测到该目标，并将目标标记为不健康。环均衡器将开始条多此目标，因此不再将流量路由到该目标。</p>
+<p>一旦目标的问题解决了，并且它已准备好再次接收流量，Kong管理员可以通过Admin API端点手动通知健康检查器应该再次启用目标：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -i -X POST http://localhost:8001/upstreams/my_upstream/targets/10.1.2.3:1234/healthy</span><br><span class="line">HTTP/1.1 204 No Content</span><br></pre></td></tr></table></figure>
+<p>此命令将在集群内广播消息，以便将<code>healthy</code>状态传播到整个Kong集群。这将导致Kong节点重置在Kong节点的所有工作程序中运行的健康检查程序的运行状况计数器，从而允许环均衡器再次将流量路由到目标。<br>被动检查的优点是不是产生额外的流量，但是它们无法再自动将目标标记为健康：电路以损坏，并且管理员需要再次重新启用目标。</p>
+<p><br><br><br></p>
+<h3 id="利弊"><a href="#利弊" class="headerlink" title="利弊"></a>利弊</h3><p>Summary of pros and cons</p>
+<ul>
+<li>主动健康检查可在环均衡器再次恢复健康时自动重启环均衡器中的目标。被动健康检查则不能。</li>
+<li>被动健康检查不会为目标产生额外的流量。主动健康检查会。</li>
+<li>主动健康检查器要求在目标中具有可靠状态响应的已知的URL，以将其配置探测端点(probe endpoint)。被动模式不要求这样配置。</li>
+<li>通过为主动健康检查程序提供自定义的探测端点，应用程序可确定自己的运行状态指标并生成由Kong使用的状态码。即使目标继续提供对被动健康检查其看起来健康的流量，它也能够响应具有故障状态的主动探测，基本上要求放心接收新的流量。</li>
+</ul>
+<p>可以组合这两种模式。例如，启用被动检查根据其流量监控目标的健康状态，并仅在目标运行状态不佳时使用主动检查，以便自动重新启用它。</p>
+<p><br><br><br></p>
+<h3 id="启用和禁用健康检查"><a href="#启用和禁用健康检查" class="headerlink" title="启用和禁用健康检查"></a>启用和禁用健康检查</h3><p><br></p>
+<h4 id="启用主动检查"><a href="#启用主动检查" class="headerlink" title="启用主动检查"></a>启用主动检查</h4><p>Enabling active health checks</p>
+<p>要启用主动健康检查，你需要在Upstream对象配置中指定<code>healthchecks.active</code>下的配置项。你需要指定必要的信息，以便Kong可以对目标执行定期探测，以及如何解释结果信息。</p>
+<p>你可使用<code>healthchecks.active.type</code>字段指定执行哪种探测（HTTP/HTTPS），或者只测试与给定主机和端口的连接是否成功（TCP）。</p>
+<p>要配置探针，你需要指定：</p>
+<ul>
+<li><code>healthchecks.active.http_path</code>： 默认为根目录(<code>/</code>)</li>
+<li><code>healthchecks.active.timeout</code>： 默认为1s</li>
+<li><code>healthchecks.active.concurrency</code>： 同时检查的目标数</li>
+</ul>
+<p>对于运行的探针，你还需要指定间隔值：</p>
+<ul>
+<li><code>healthchecks.active.healthy.interval</code>： 值为0，表示不执行健康目标的主动探测</li>
+<li><code>healthchecks.active.unhealthy.interval</code>： 值为0，表示不执行不健康目标的主动探测</li>
+</ul>
+<p>如果使用HTTPS健康检查，则还可以指定一下字段：</p>
+<ul>
+<li><code>healthchecks.active.https_verify_certificate</code>： 是否检查远程主机的SSL证书的有效性</li>
+<li><code>healthchecks.active.https_sni</code>： 使用SNI的主机名验证</li>
+</ul>
+<p>最后，你需要通过设置健康计数器上的各种阈值来配置Kong应该如何解释探测器，一旦达到该阈值将触发状态改变。计数器阈值字段：</p>
+<ul>
+<li><code>healthchecks.active.healthy.successes</code></li>
+<li><code>healthchecks.active.healthy.http_statuses</code></li>
+<li><code>healthchecks.active.unhealthy.tcp_failures</code></li>
+<li><code>healthchecks.active.unhealthy.timeouts</code></li>
+<li><code>healthchecks.active.unhealthy.http_failures</code></li>
+</ul>
+<p><br><br><br></p>
+<h4 id="启用被动检查"><a href="#启用被动检查" class="headerlink" title="启用被动检查"></a>启用被动检查</h4><p>Enabling passive health checks</p>
+<p>被动健康检查不具有探测功能，因为它们通过解释从目标流出的持续流量来工作。这意味着要启用被动检查，你只需要配置其计数器阈值：</p>
+<ul>
+<li><code>healthchecks.passive.healthy.successes</code></li>
+<li><code>healthchecks.passive.healthy.http_statuses</code></li>
+<li><code>healthchecks.passive.unhealthy.tcp_failures</code></li>
+<li><code>healthchecks.passive.unhealthy.timeouts</code></li>
+<li><code>healthchecks.passive.unhealthy.http_failures</code></li>
+</ul>
+<p><br><br><br></p>
+<h4 id="禁用健康检查"><a href="#禁用健康检查" class="headerlink" title="禁用健康检查"></a>禁用健康检查</h4><p>Disabling health checks</p>
+<p>在<code>healthchecks</code>配置中指定的所有计数器阈值和间隔中，将值设置为0意味着禁用该字段代表的功能。将探测间隔设置为0会禁用探针。同样，你可通过将其计数器阈值设置为0来禁用某些类型的检查。</p>
+<p><br><br><br><br><br></p>
+<h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><p><a href="https://docs.konghq.com/1.2.x/clustering/" target="_blank" rel="noopener">Clustering Reference</a></p>
+<p>Kong集群允许你通过添加更过计算机来处理更多的传入情趣，从而水平扩展系统。它们将共享相同的配置，因为它们指向同一个数据库。指向同一数据存储区(same datastore)的Kong Node将成为同一Kong集群的一部分。</p>
+<p>你需要在Kong集群前安装负载均衡器，以便在可用节点之间分配流量。</p>
+<p><br><br><br></p>
+<h3 id="集群能做些什么"><a href="#集群能做些什么" class="headerlink" title="集群能做些什么"></a>集群能做些什么</h3><p>What a Kong cluster does and doesn’t do</p>
+<p>拥有Kong集群并不意味着你的客户流量将在Kong节点之间进行负载均衡。你仍然需要在Kong节点前安装负载均衡器来分配流量。相反，Kong集群意味着这些节点将共享相同的配置。</p>
+<p>出于性能原因，Kong在代理请求时避免数据库连接，并将数据库的内容缓存在内存中。缓存的实体包括<code>Services, Routes, Consumers, Plugins, Credentials...</code>，由于这些值在内存中，因此通过其中一个节点的Admin API进行的任何更改都需要传播到其它节点。</p>
+<p><br><br><br></p>
+<h3 id="单节点集群"><a href="#单节点集群" class="headerlink" title="单节点集群"></a>单节点集群</h3><p>Single node Kong clusters</p>
+<p>连接到数据库(PgSQL/Cassandra)的单个Kong节点创建一个节点的Kong集群。通过此节点的Admin API应用的任何更改都将立即生效。</p>
+<p><br><br><br></p>
+<h3 id="多节点集群"><a href="#多节点集群" class="headerlink" title="多节点集群"></a>多节点集群</h3><p>Multiple nodes Kong clusters</p>
+<p>在多节点的Kong集群中，连接到同一个数据库的其它节点不会立即被通知（如节点A删除了某个服务）。虽然此服务不再存在于数据库中（它被节点A删除），但它仍然在节点B的内存中。</p>
+<p>所有节点执行定期后台作业以与可能由其它节点触发的更改进行同步。通过以下方式配置此作业的频率： <code>db_update_frequency</code>（(default: 5s）。每个频率时间，所有正在运行的Kong节点将轮询数据库以进行任何更新，并在必要时从其缓存中清除(purge)相关实体。</p>
+<p>如果节点A删除了某个服务，则此更改在节点B中将无效，直到节点B的下一次数据库轮询。<br>这使得Kong集群最终保持一致(eventually consistent)。</p>
+<p><br><br><br></p>
+<h3 id="关于缓存"><a href="#关于缓存" class="headerlink" title="关于缓存"></a>关于缓存</h3><p>What is being cached?</p>
+<p>所有核心实体（如Services, Routes, Plugins, Consumers, Credentials…)都由Kong缓存在内存中，并依赖于通过轮询机制进行的无效更新。<br>除此之外，Kong还缓存了<code>database misses</code>。这意味着如果你配置没有插件的服务，Kong将缓存此信息。</p>
+<p><br><br><br></p>
+<h3 id="配置数据库缓存"><a href="#配置数据库缓存" class="headerlink" title="配置数据库缓存"></a>配置数据库缓存</h3><p>How to configure database caching?</p>
+<p>你可以在Kong配置文件中配置3个属性，最重要的一个是<code>db_update_frequency</code>，它确定Kong节点在性能与一致性权衡方面的位置。<br>Kong提供了一致性的默认值，以便让你在避免意外的同事试验其聚类功能。在准备生产环境设置时，应考虑调整这些值以确保遵守性能约束。</p>
+<ul>
+<li><code>db_update_frequency</code>，(default: 5s)</li>
+<li><code>db_update_propagation</code>，(default: 0s)</li>
+<li><code>db_cache_ttl</code>，(default: 0s)</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="通过Admin-API与Cache进行交互"><a href="#通过Admin-API与Cache进行交互" class="headerlink" title="通过Admin API与Cache进行交互"></a>通过Admin API与Cache进行交互</h3><p>Interacting with the cache via the Admin API</p>
+<p>出于某些原因，你希望调查缓存的值，或手动使缓存的值无效（hit/miss），则可通过Admin API <code>/cache</code>端点执行此操作。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Inspect a cached value</span></span><br><span class="line">GET /cache/&#123;cache_key&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Purge a cached value</span></span><br><span class="line">DELETE /cache/&#123;cache_key&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Purge a node’s cache</span></span><br><span class="line">DELETE /cache</span><br></pre></td></tr></table></figure>
+<p><br><br><br><br><br></p>
+<h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p><a href="https://docs.konghq.com/1.2.x/logging/" target="_blank" rel="noopener">Logging Reference</a></p>
+<p>日志级别在Kong的配置文件中配置。有以下几种日志级别：</p>
+<ul>
+<li><code>debug</code></li>
+<li><code>info</code></li>
+<li><code>notice</code>，默认和建议使用的日志级别。</li>
+<li><code>warn</code></li>
+<li><code>error</code></li>
+<li><code>crit</code></li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="网络和防火墙"><a href="#网络和防火墙" class="headerlink" title="网络和防火墙"></a>网络和防火墙</h2><p><a href="https://docs.konghq.com/1.2.x/network/" target="_blank" rel="noopener">Network and Firewall</a></p>
+<p><br><br><br></p>
+<h3 id="Ports"><a href="#Ports" class="headerlink" title="Ports"></a>Ports</h3><p>Kong为不同目的使用多个连接：</p>
+<ul>
+<li>Proxy<ul>
+<li><code>8000</code> for proxying HTTP traffic</li>
+<li><code>8443</code> for proxying HTTPS traffic</li>
+</ul>
+</li>
+<li>Admin API<ul>
+<li><code>8001</code> Admin API with HTTP</li>
+<li><code>8444</code> Admin API with HTTPS</li>
+</ul>
+</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="Firewall"><a href="#Firewall" class="headerlink" title="Firewall"></a>Firewall</h3><p>以下是推荐的防火墙设置：</p>
+<ul>
+<li>Kong后面的上游服务将通过<code>proxy_listen</code>接口/端口值提供。根据你要授予上游服务的访问级别配置这些值；</li>
+<li>如果要将Admin API绑定到公众接口（通过<code>admin_listen</code>），请将其保护为仅允许受信任的客户端访问；</li>
+<li>你的代理需要为你配置的任何HTTP/HTTPS和TCP/TLS流监听器添加规则。</li>
+</ul>
+<p><br></p>
+<p><strong>透明代理(Transparent Proxying)</strong></p>
+<p><code>transparent</code> 监听选项可以应用于<code>proxy_listen</code>和<code>stream_listen</code>配置。</p>
+<p><br><br><br><br><br></p>
+<h2 id="保护Admin-API"><a href="#保护Admin-API" class="headerlink" title="保护Admin API"></a>保护Admin API</h2><p><a href="https://docs.konghq.com/1.2.x/secure-admin-api/" target="_blank" rel="noopener">Securing the Admin API</a></p>
+<p>Kong Admin API提供了RESTful接口来管理和配置Services, Routes, Plugins, Consumers, Credentials…由于此API允许完全控制Kong，因此保护它的安全非常重要。</p>
+<p><br><br><br></p>
+<h3 id="网络层访问限制"><a href="#网络层访问限制" class="headerlink" title="网络层访问限制"></a>网络层访问限制</h3><p>Network Layer Access Restrictions</p>
+<p><br></p>
+<h4 id="最小化监听"><a href="#最小化监听" class="headerlink" title="最小化监听"></a>最小化监听</h4><p>Minimal Listening Footprint</p>
+<p>默认情况下，Kong Admin将仅接受来自本地接口的请求。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">admin_listen</span> <span class="string">=</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8001,</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8444</span> <span class="string">ssl</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 千万别使用0.0.0.0:8001</span></span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="三层四层网络控制"><a href="#三层四层网络控制" class="headerlink" title="三层四层网络控制"></a>三层四层网络控制</h4><p>Layer 3/4 Network Controls</p>
+<p>如果Admin API必须在localhost之外公开，则网络安全最佳实践要求尽可能限制网络层访问。基于主机的防火墙很有用，或云厂商的防火墙。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># assume that Kong is listening on the address defined below, as defined as a</span></span><br><span class="line"><span class="comment"># /24 CIDR block, and only a select few hosts in this range should have access</span></span><br><span class="line"></span><br><span class="line">$ grep admin_listen /etc/kong/kong.conf</span><br><span class="line">admin_listen 10.10.10.3:8001</span><br><span class="line"></span><br><span class="line"><span class="comment"># explicitly allow TCP packets on port 8001 from the Kong node itself</span></span><br><span class="line"><span class="comment"># this is not necessary if Admin API requests are not sent from the node</span></span><br><span class="line">$ iptables -A INPUT -s 10.10.10.3 -m tcp -p tcp --dport 8001 -j ACCEPT</span><br><span class="line"></span><br><span class="line"><span class="comment"># explicitly allow TCP packets on port 8001 from the following addresses</span></span><br><span class="line">$ iptables -A INPUT -s 10.10.10.4 -m tcp -p tcp --dport 8001 -j ACCEPT</span><br><span class="line">$ iptables -A INPUT -s 10.10.10.5 -m tcp -p tcp --dport 8001 -j ACCEPT</span><br><span class="line"></span><br><span class="line"><span class="comment"># drop all TCP packets on port 8001 not in the above IP list</span></span><br><span class="line">$ iptables -A INPUT -m tcp -p tcp --dport 8001 -j DROP</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="API-Loopback"><a href="#API-Loopback" class="headerlink" title="API Loopback"></a>API Loopback</h3><p>Kong的路由设计允许它作为Admin API自身的代理。通过这种方式，Kong本身可用于为Admin API提供细粒度的访问控制。（如需要为其定义服务的URL）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># assume that Kong has defined admin_listen as 127.0.0.1:8001, and we want to</span></span><br><span class="line"><span class="comment"># reach the Admin API via the url `/admin-api`</span></span><br><span class="line"></span><br><span class="line">$ curl -X POST http://localhost:8001/services \</span><br><span class="line">  --data name=admin-api \</span><br><span class="line">  --data host=localhost \</span><br><span class="line">  --data port=8001</span><br><span class="line"></span><br><span class="line">$ curl -X POST http://localhost:8001/services/admin-api/routes \</span><br><span class="line">  --data paths[]=/admin-api</span><br><span class="line"></span><br><span class="line"><span class="comment"># we can now transparently reach the Admin API through the proxy server</span></span><br><span class="line">$ curl localhost:8000/admin-api/apis</span><br><span class="line">&#123;</span><br><span class="line">   <span class="string">"data"</span>:[</span><br><span class="line">      &#123;</span><br><span class="line">         <span class="string">"uris"</span>:[</span><br><span class="line">            <span class="string">"\/admin-api"</span></span><br><span class="line">         ],</span><br><span class="line">         <span class="string">"id"</span>:<span class="string">"653b21bd-4d81-4573-ba00-177cc0108dec"</span>,</span><br><span class="line">         <span class="string">"upstream_read_timeout"</span>:60000,</span><br><span class="line">         <span class="string">"preserve_host"</span>:<span class="literal">false</span>,</span><br><span class="line">         <span class="string">"created_at"</span>:1496351805000,</span><br><span class="line">         <span class="string">"upstream_connect_timeout"</span>:60000,</span><br><span class="line">         <span class="string">"upstream_url"</span>:<span class="string">"http:\/\/localhost:8001"</span>,</span><br><span class="line">         <span class="string">"strip_uri"</span>:<span class="literal">true</span>,</span><br><span class="line">         <span class="string">"https_only"</span>:<span class="literal">false</span>,</span><br><span class="line">         <span class="string">"name"</span>:<span class="string">"admin-api"</span>,</span><br><span class="line">         <span class="string">"http_if_terminated"</span>:<span class="literal">true</span>,</span><br><span class="line">         <span class="string">"upstream_send_timeout"</span>:60000,</span><br><span class="line">         <span class="string">"retries"</span>:5</span><br><span class="line">      &#125;</span><br><span class="line">   ],</span><br><span class="line">   <span class="string">"total"</span>:1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从这里，只需像往常一样对任何其它Kong API应用所需的特定于Kong的安全控件。</p>
+<p><br><br><br></p>
+<h3 id="自定Nginx配置"><a href="#自定Nginx配置" class="headerlink" title="自定Nginx配置"></a>自定Nginx配置</h3><p>Kong于Nginx紧密结合，作为HTTP daemon，因此可以集成到具有自定义Nginx配置的环境中。通过这种方式，具有复杂<code>security/access control</code>要求的用例可以使用Nginx/OpenResty的全部功能来构建<code>server/location</code>块以根据需要容纳Admin API。除了提供可以构建自定义、复杂安全性控件的OpenResty环境之外，这允许此类环境利用本机Nginx授权和身份认证机制、ACL模块等。</p>
+<p><br><br><br></p>
+<h3 id="基于角色的访问控制"><a href="#基于角色的访问控制" class="headerlink" title="基于角色的访问控制"></a>基于角色的访问控制</h3><p>Role Based Access Control</p>
+<blockquote>
+<p>Enterprise-Only This feature is only available with an Enterprise Subscription.</p>
+</blockquote>
+<p><br><br><br><br><br></p>
+<h2 id="插件开发"><a href="#插件开发" class="headerlink" title="插件开发"></a>插件开发</h2><p><a href="https://docs.konghq.com/1.2.x/plugin-development/" target="_blank" rel="noopener">Plugin Development Introduction</a></p>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="Admin-API"><a href="#Admin-API" class="headerlink" title="Admin API"></a>Admin API</h1><p><a href="https://docs.konghq.com/1.2.x/admin-api/" target="_blank" rel="noopener">Admin API</a></p>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="k8s-Ingress"><a href="#k8s-Ingress" class="headerlink" title="k8s Ingress"></a>k8s Ingress</h1><p><a href="https://konghq.com/solutions/kubernetes-ingress/" target="_blank" rel="noopener">Kong Kubernetes Ingress</a></p>
+<p>控制你的集群。拥有而不需管理k8s集群。Kong Ingress Controller在k8s集群中实现了认证(authentication)、转换(transformation)和其它功能，无需停机。</p>
+<p>弥合传统和云原生之间的差距。Kong将k8s集群于跨任何环境或平台运行的服务连接起来——从数据中心到多云、裸机到容器。</p>
+<p><br></p>
+<p><img src="/images/Kong/KongK8sIngress.png" alt></p>
+<p><br></p>
+<p><img src="/images/Kong/KongK8sIngress2.png" alt></p>
+<p><br></p>
+<p><img src="/images/Kong/KongK8sIngress3.png" alt></p>
+<p><br><br><br></p>
+<h2 id="Kong-on-K8s"><a href="#Kong-on-K8s" class="headerlink" title="Kong on K8s"></a>Kong on K8s</h2><p><a href="https://docs.konghq.com/install/kubernetes/" target="_blank" rel="noopener">Kong and Kong Enterprise on Kubernetes</a></p>
+<p><br><br><br></p>
+<h3 id="Announcing-the-Kubernetes-Ingress-Controller-for-Kong"><a href="#Announcing-the-Kubernetes-Ingress-Controller-for-Kong" class="headerlink" title="Announcing the Kubernetes Ingress Controller for Kong"></a>Announcing the Kubernetes Ingress Controller for Kong</h3><p><a href="https://konghq.com/blog/kubernetes-ingress-controller-for-kong/" target="_blank" rel="noopener">Announcing the Kubernetes Ingress Controller for Kong</a></p>
+<p>今天，我们很高兴地宣布 Kubernetes Ingress Controller for Kong。</p>
+<p>容器编排正在迅速变化，以满足软件基础架构的需求，这需要比以往更高的可靠性(reliability)、灵活性(flexibility)和效率(efficiency)。k8s正是这些工具的最前沿。</p>
+<p>但是，这些工作负载的关键是一个网络堆栈（可以支持大规模集群容器协调器的高度动态化部署）。</p>
+<p>Kong是一个高性能的开源API Gateway、 Traffic Control、MicroServices Management Layer，可支持这些工作负载所需的苛刻的网络要求。然而，Kong并没有强迫团队采用一刀切(one-size-fits-all)的解决方案。为了为深入的软件和企业生态系统提供流量，Kong提供了一个丰富的插件生态系统，扩展了Kong的认证、流量控制…</p>
+<p>将Kong部署到k8s是一个简单的过程，但将k8s与Kongd的服务集成是一个手动过程。这就是为什么我们很高兴宣布 <a href="https://github.com/Kong/kubernetes-ingress-controller" target="_blank" rel="noopener">Kong Ingress Controller for Kubernetes</a>。</p>
+<p>通过与<a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" target="_blank" rel="noopener">k8s Ingress Controller Spec</a>集成，Kong直接与k8s生命周期相关联。随着应用程序的部署和新服务的创建，Kong将自动进行实时配置。</p>
+<p><br></p>
+<p><img src="/images/Kong/kong-kubernetes-ingress-controller.png" alt></p>
+<p><br><br><br></p>
+<h4 id="配置Kong-Ingress-Controller"><a href="#配置Kong-Ingress-Controller" class="headerlink" title="配置Kong Ingress Controller"></a>配置Kong Ingress Controller</h4><p>可参考GitHub的相关文档设置Kong k8s Ingress Controller。只需安装必需的k8s清单，如Ingress Controller Deployment自身、前端服务、Kong访问k8s API paths需要的所有RBAC组件。</p>
+<p>这些清单适用于任何k8s集群。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/Kong/kubernetes-ingress-controller/master/deploy/single/all-in-one-postgres.yaml \</span><br><span class="line">| kubectl create -f -</span><br></pre></td></tr></table></figure>
+<p>安装Kong Ingress Controller之后，我们现在可以开始部署Services和Ingress Resource，以便Kong可以开始为我们的集群资源提供流量。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将测试服务部署到k8s集群</span></span><br><span class="line">curl https://raw.githubusercontent.com/Kong/kubernetes-ingress-controller/master/deploy/manifests/dummy-application.yaml \</span><br><span class="line">| kubectl create -f -</span><br></pre></td></tr></table></figure>
+<p>这部署了我们的测试应用，但我们仍需要一个Ingress Resource来为它提供流量。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用以下清单为测试应用创建一个Ingress</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"</span></span><br><span class="line"><span class="string">apiVersion: extensions/v1beta1</span></span><br><span class="line"><span class="string">kind: Ingress</span></span><br><span class="line"><span class="string">metadata:</span></span><br><span class="line"><span class="string">name: foo-bar</span></span><br><span class="line"><span class="string">spec:</span></span><br><span class="line"><span class="string">rules:</span></span><br><span class="line"><span class="string">- host: foo.bar</span></span><br><span class="line"><span class="string">http:</span></span><br><span class="line"><span class="string">paths:</span></span><br><span class="line"><span class="string">- path: /</span></span><br><span class="line"><span class="string">backend:</span></span><br><span class="line"><span class="string">serviceName: http-svc</span></span><br><span class="line"><span class="string">servicePort: 80</span></span><br><span class="line"><span class="string">"</span> | kubectl create -f -</span><br></pre></td></tr></table></figure>
+<p>通过部署我们的Kong Ingress Controller和我们的测试应用，我们现在可以开始为应用提供流量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># export PROXY_IP=$(minikube   service -n kong kong-proxy --url --format &quot;&#123;&#123; .IP &#125;&#125;&quot; | head -1)</span><br><span class="line"># export HTTP_PORT=$(minikube  service -n kong kong-proxy --url --format &quot;&#123;&#123; .Port &#125;&#125;&quot; | head -1)</span><br><span class="line"># curl -vvvv $PROXY_IP:$HTTP_PORT -H &quot;Host: foo.bar&quot;</span><br><span class="line">curl -vvvv kong-ip:kong-port -H &quot;Host: foo.bar&quot;</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="添加插件"><a href="#添加插件" class="headerlink" title="添加插件"></a>添加插件</h4><p>Kong Ingress Controller中的插件作为<a href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/" target="_blank" rel="noopener">k8s自定义资源(Custom Resource Definitions(CRDs))</a>来公开。它是k8s API Server上的第三方API对象，操作人员可以定义这些对象。</p>
+<p>让我们在Kong示例中添加速率限制插件(rate limiting plugin)，并将其绑定到我们的Ingress Resource。Plugin与Ingress Resource一对一映射，使我们能够将插件应用于上游服务的方式进行细致的控制。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"</span></span><br><span class="line"><span class="string">apiVersion: configuration.konghq.com/v1</span></span><br><span class="line"><span class="string">kind: KongPlugin</span></span><br><span class="line"><span class="string">metadata:</span></span><br><span class="line"><span class="string">name: add-ratelimiting-to-route</span></span><br><span class="line"><span class="string">config:</span></span><br><span class="line"><span class="string">hour: 100</span></span><br><span class="line"><span class="string">limit_by: ip</span></span><br><span class="line"><span class="string">second: 10</span></span><br><span class="line"><span class="string">"</span> | kubectl create -f -</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># kubectl patch</span></span><br><span class="line"><span class="comment"># 使用 strategic merge patch 更新一个资源的 field(s)</span></span><br><span class="line">kubectl patch ingress foo-bar \</span><br><span class="line">-p <span class="string">'&#123;"metadata":&#123;"annotations":&#123;"rate-limiting.plugin.konghq.com":"add-ratelimiting-to-route\n"&#125;&#125;&#125;'</span></span><br></pre></td></tr></table></figure>
+<p>现在应用了这个规则，我们再次访问我们的服务端点以获得以下响应：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">curl -vvvv <span class="variable">$PROXY_IP</span>:<span class="variable">$HTTP_PORT</span> -H <span class="string">"Host: foo.bar"</span></span><br><span class="line"></span><br><span class="line">&gt; GET / HTTP/1.1</span><br><span class="line"></span><br><span class="line">&gt; Host: foo.bar</span><br><span class="line"></span><br><span class="line">&gt; User-Agent: curl/7.54.0</span><br><span class="line"></span><br><span class="line">&gt; Accept: */*</span><br><span class="line"></span><br><span class="line">&gt;</span><br><span class="line"></span><br><span class="line">&lt; HTTP/1.1 200 OK</span><br><span class="line"></span><br><span class="line">&lt; Content-Type: text/html; charset=ISO-8859-1</span><br><span class="line"></span><br><span class="line">&lt; Transfer-Encoding: chunked</span><br><span class="line"></span><br><span class="line">&lt; Connection: keep-alive</span><br><span class="line"></span><br><span class="line">&lt; X-RateLimit-Limit-hour: 100</span><br><span class="line"></span><br><span class="line">&lt; X-RateLimit-Remaining-hour: 99</span><br><span class="line"></span><br><span class="line">&lt; X-RateLimit-Limit-second: 10</span><br><span class="line"></span><br><span class="line">&lt; X-RateLimit-Remaining-second: 9</span><br></pre></td></tr></table></figure>
+<p>我们立即看到了我们的rate limiting headers已经应用，并可用于此端点。如果我们部署另一个Service和Ingress，我们的rate limit plugin将不适用，除非我们创建一个具有自己配置的新的KongPlugin资源并将注释添加到我们的新的Ingress。</p>
+<p>现在我们有一个功能齐全的API Gateway Ingress Stack，完整的测试应用和速率限制插件。你已准备好使用Kong控制你的微服务！</p>
+<p>跟上GitHub Kong Ingress Controller，请求新功能或报告问题。</p>
+<p><br><br><br></p>
+<h3 id="K8s-Ingress-Controller-for-Kong"><a href="#K8s-Ingress-Controller-for-Kong" class="headerlink" title="K8s Ingress Controller for Kong"></a>K8s Ingress Controller for Kong</h3><p>GitHub: <a href="https://github.com/Kong/kubernetes-ingress-controller" target="_blank" rel="noopener">https://github.com/Kong/kubernetes-ingress-controller</a></p>
+<p>使用官方<a href="https://github.com/Kong/kubernetes-ingress-controller" target="_blank" rel="noopener">k8s Ingress Controller</a>安装Kong。</p>
 
       
     </div>
@@ -1285,7 +1803,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#入门"><span class="nav-number">1.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速开始"><span class="nav-number">1.2.</span> <span class="nav-text">快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Kong"><span class="nav-number">1.2.1.</span> <span class="nav-text">启动Kong</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证Kong"><span class="nav-number">1.2.2.</span> <span class="nav-text">验证Kong</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止和重载"><span class="nav-number">1.2.3.</span> <span class="nav-text">停止和重载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置服务"><span class="nav-number">1.3.</span> <span class="nav-text">配置服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加服务"><span class="nav-number">1.3.1.</span> <span class="nav-text">添加服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为服务添加路由"><span class="nav-number">1.3.2.</span> <span class="nav-text">为服务添加路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转发请求"><span class="nav-number">1.3.3.</span> <span class="nav-text">转发请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启用插件"><span class="nav-number">1.4.</span> <span class="nav-text">启用插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置插件"><span class="nav-number">1.4.1.</span> <span class="nav-text">配置插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证插件"><span class="nav-number">1.4.2.</span> <span class="nav-text">验证插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加消费者"><span class="nav-number">1.5.</span> <span class="nav-text">添加消费者</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建消费者"><span class="nav-number">1.5.1.</span> <span class="nav-text">创建消费者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为消费者提供key"><span class="nav-number">1.5.2.</span> <span class="nav-text">为消费者提供key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证消费者凭证"><span class="nav-number">1.5.3.</span> <span class="nav-text">验证消费者凭证</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS"><span class="nav-number">2.1.</span> <span class="nav-text">CentOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker"><span class="nav-number">2.2.</span> <span class="nav-text">Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#k8s"><span class="nav-number">2.3.</span> <span class="nav-text">k8s</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#无数据库和声明性配置"><span class="nav-number">3.</span> <span class="nav-text">无数据库和声明性配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#声明性配置"><span class="nav-number">3.1.</span> <span class="nav-text">声明性配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在无数据库模式配置Kong"><span class="nav-number">3.2.</span> <span class="nav-text">在无数据库模式配置Kong</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建声明性配置文件"><span class="nav-number">3.3.</span> <span class="nav-text">创建声明性配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声明性配置格式"><span class="nav-number">3.4.</span> <span class="nav-text">声明性配置格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查声明性配置文件"><span class="nav-number">3.5.</span> <span class="nav-text">检查声明性配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载声明性配置文件"><span class="nav-number">3.6.</span> <span class="nav-text">加载声明性配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在无数据库模式下使用Kong"><span class="nav-number">3.7.</span> <span class="nav-text">在无数据库模式下使用Kong</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内存缓存要求"><span class="nav-number">3.7.1.</span> <span class="nav-text">内存缓存要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只读Admin-API"><span class="nav-number">3.7.2.</span> <span class="nav-text">只读Admin API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件兼容性"><span class="nav-number">3.7.3.</span> <span class="nav-text">插件兼容性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流和服务网格"><span class="nav-number">4.</span> <span class="nav-text">流和服务网格</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#先决条件"><span class="nav-number">4.1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#术语和定义"><span class="nav-number">4.2.</span> <span class="nav-text">术语和定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤1：启动服务B"><span class="nav-number">4.3.</span> <span class="nav-text">步骤1：启动服务B</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤2：确保服务A可以连接到服务B"><span class="nav-number">4.4.</span> <span class="nav-text">步骤2：确保服务A可以连接到服务B</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤3：启动Kong控制面板"><span class="nav-number">4.5.</span> <span class="nav-text">步骤3：启动Kong控制面板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤4：启动Kong-A"><span class="nav-number">4.6.</span> <span class="nav-text">步骤4：启动Kong A</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤5：启动Kong-B"><span class="nav-number">4.7.</span> <span class="nav-text">步骤5：启动Kong B</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤6：创建Kong服务和路由"><span class="nav-number">4.8.</span> <span class="nav-text">步骤6：创建Kong服务和路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤7：配置代理规则"><span class="nav-number">4.9.</span> <span class="nav-text">步骤7：配置代理规则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">5.1.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置加载"><span class="nav-number">5.1.1.</span> <span class="nav-text">配置加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证配置"><span class="nav-number">5.1.2.</span> <span class="nav-text">验证配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量"><span class="nav-number">5.1.3.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注入Nginx指令"><span class="nav-number">5.1.4.</span> <span class="nav-text">注入Nginx指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注入单个Nginx指令"><span class="nav-number">5.1.4.1.</span> <span class="nav-text">注入单个Nginx指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注入Nginx指令文件"><span class="nav-number">5.1.4.2.</span> <span class="nav-text">注入Nginx指令文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义Nginx模板并嵌入Kong"><span class="nav-number">5.1.5.</span> <span class="nav-text">自定义Nginx模板并嵌入Kong</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义Nginx模板"><span class="nav-number">5.1.5.1.</span> <span class="nav-text">自定义Nginx模板</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在OpenResty中嵌入Kong"><span class="nav-number">5.1.6.</span> <span class="nav-text">在OpenResty中嵌入Kong</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同时提供来自Kong的Website和API"><span class="nav-number">5.1.7.</span> <span class="nav-text">同时提供来自Kong的Website和API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">5.1.8.</span> <span class="nav-text">属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GENERAL"><span class="nav-number">5.1.8.1.</span> <span class="nav-text">GENERAL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NGINX"><span class="nav-number">5.1.8.2.</span> <span class="nav-text">NGINX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Database"><span class="nav-number">5.1.8.3.</span> <span class="nav-text">Database</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Datastore-Cache"><span class="nav-number">5.1.8.4.</span> <span class="nav-text">Datastore Cache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS-Resolver"><span class="nav-number">5.1.8.5.</span> <span class="nav-text">DNS Resolver</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Development"><span class="nav-number">5.1.8.6.</span> <span class="nav-text">Development</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Additional"><span class="nav-number">5.1.8.7.</span> <span class="nav-text">Additional</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CLI"><span class="nav-number">5.2.</span> <span class="nav-text">CLI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy"><span class="nav-number">5.3.</span> <span class="nav-text">Proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#术语"><span class="nav-number">5.3.1.</span> <span class="nav-text">术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">5.3.2.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何配置服务"><span class="nav-number">5.3.3.</span> <span class="nav-text">如何配置服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由和匹配"><span class="nav-number">5.3.4.</span> <span class="nav-text">路由和匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求主机头"><span class="nav-number">5.3.4.1.</span> <span class="nav-text">请求主机头</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用通配符主机名"><span class="nav-number">5.3.4.1.1.</span> <span class="nav-text">使用通配符主机名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#preserve-host属性"><span class="nav-number">5.3.4.1.2.</span> <span class="nav-text">preserve_host属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求路径"><span class="nav-number">5.3.4.2.</span> <span class="nav-text">请求路径</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在路径中使用正则"><span class="nav-number">5.3.4.2.1.</span> <span class="nav-text">在路径中使用正则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#strip-path属性"><span class="nav-number">5.3.4.2.2.</span> <span class="nav-text">strip_path属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求方法"><span class="nav-number">5.3.4.3.</span> <span class="nav-text">请求方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配优先级"><span class="nav-number">5.3.5.</span> <span class="nav-text">匹配优先级</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#入门"><span class="nav-number">1.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速开始"><span class="nav-number">1.2.</span> <span class="nav-text">快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Kong"><span class="nav-number">1.2.1.</span> <span class="nav-text">启动Kong</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证Kong"><span class="nav-number">1.2.2.</span> <span class="nav-text">验证Kong</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止和重载"><span class="nav-number">1.2.3.</span> <span class="nav-text">停止和重载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置服务"><span class="nav-number">1.3.</span> <span class="nav-text">配置服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加服务"><span class="nav-number">1.3.1.</span> <span class="nav-text">添加服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为服务添加路由"><span class="nav-number">1.3.2.</span> <span class="nav-text">为服务添加路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转发请求"><span class="nav-number">1.3.3.</span> <span class="nav-text">转发请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启用插件"><span class="nav-number">1.4.</span> <span class="nav-text">启用插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置插件"><span class="nav-number">1.4.1.</span> <span class="nav-text">配置插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证插件"><span class="nav-number">1.4.2.</span> <span class="nav-text">验证插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加消费者"><span class="nav-number">1.5.</span> <span class="nav-text">添加消费者</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建消费者"><span class="nav-number">1.5.1.</span> <span class="nav-text">创建消费者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为消费者提供key"><span class="nav-number">1.5.2.</span> <span class="nav-text">为消费者提供key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证消费者凭证"><span class="nav-number">1.5.3.</span> <span class="nav-text">验证消费者凭证</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS"><span class="nav-number">2.1.</span> <span class="nav-text">CentOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker"><span class="nav-number">2.2.</span> <span class="nav-text">Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#k8s"><span class="nav-number">2.3.</span> <span class="nav-text">k8s</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#无数据库和声明性配置"><span class="nav-number">3.</span> <span class="nav-text">无数据库和声明性配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#声明性配置"><span class="nav-number">3.1.</span> <span class="nav-text">声明性配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在无数据库模式配置Kong"><span class="nav-number">3.2.</span> <span class="nav-text">在无数据库模式配置Kong</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建声明性配置文件"><span class="nav-number">3.3.</span> <span class="nav-text">创建声明性配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声明性配置格式"><span class="nav-number">3.4.</span> <span class="nav-text">声明性配置格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查声明性配置文件"><span class="nav-number">3.5.</span> <span class="nav-text">检查声明性配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载声明性配置文件"><span class="nav-number">3.6.</span> <span class="nav-text">加载声明性配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在无数据库模式下使用Kong"><span class="nav-number">3.7.</span> <span class="nav-text">在无数据库模式下使用Kong</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内存缓存要求"><span class="nav-number">3.7.1.</span> <span class="nav-text">内存缓存要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只读Admin-API"><span class="nav-number">3.7.2.</span> <span class="nav-text">只读Admin API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件兼容性"><span class="nav-number">3.7.3.</span> <span class="nav-text">插件兼容性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流和服务网格"><span class="nav-number">4.</span> <span class="nav-text">流和服务网格</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#先决条件"><span class="nav-number">4.1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#术语和定义"><span class="nav-number">4.2.</span> <span class="nav-text">术语和定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤1：启动服务B"><span class="nav-number">4.3.</span> <span class="nav-text">步骤1：启动服务B</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤2：确保服务A可以连接到服务B"><span class="nav-number">4.4.</span> <span class="nav-text">步骤2：确保服务A可以连接到服务B</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤3：启动Kong控制面板"><span class="nav-number">4.5.</span> <span class="nav-text">步骤3：启动Kong控制面板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤4：启动Kong-A"><span class="nav-number">4.6.</span> <span class="nav-text">步骤4：启动Kong A</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤5：启动Kong-B"><span class="nav-number">4.7.</span> <span class="nav-text">步骤5：启动Kong B</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤6：创建Kong服务和路由"><span class="nav-number">4.8.</span> <span class="nav-text">步骤6：创建Kong服务和路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤7：配置代理规则"><span class="nav-number">4.9.</span> <span class="nav-text">步骤7：配置代理规则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">5.1.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置加载"><span class="nav-number">5.1.1.</span> <span class="nav-text">配置加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证配置"><span class="nav-number">5.1.2.</span> <span class="nav-text">验证配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量"><span class="nav-number">5.1.3.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注入Nginx指令"><span class="nav-number">5.1.4.</span> <span class="nav-text">注入Nginx指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注入单个Nginx指令"><span class="nav-number">5.1.4.1.</span> <span class="nav-text">注入单个Nginx指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注入Nginx指令文件"><span class="nav-number">5.1.4.2.</span> <span class="nav-text">注入Nginx指令文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义Nginx模板并嵌入Kong"><span class="nav-number">5.1.5.</span> <span class="nav-text">自定义Nginx模板并嵌入Kong</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义Nginx模板"><span class="nav-number">5.1.5.1.</span> <span class="nav-text">自定义Nginx模板</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在OpenResty中嵌入Kong"><span class="nav-number">5.1.6.</span> <span class="nav-text">在OpenResty中嵌入Kong</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同时提供来自Kong的Website和API"><span class="nav-number">5.1.7.</span> <span class="nav-text">同时提供来自Kong的Website和API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">5.1.8.</span> <span class="nav-text">属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GENERAL"><span class="nav-number">5.1.8.1.</span> <span class="nav-text">GENERAL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NGINX"><span class="nav-number">5.1.8.2.</span> <span class="nav-text">NGINX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Database"><span class="nav-number">5.1.8.3.</span> <span class="nav-text">Database</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Datastore-Cache"><span class="nav-number">5.1.8.4.</span> <span class="nav-text">Datastore Cache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS-Resolver"><span class="nav-number">5.1.8.5.</span> <span class="nav-text">DNS Resolver</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Development"><span class="nav-number">5.1.8.6.</span> <span class="nav-text">Development</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Additional"><span class="nav-number">5.1.8.7.</span> <span class="nav-text">Additional</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CLI"><span class="nav-number">5.2.</span> <span class="nav-text">CLI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy"><span class="nav-number">5.3.</span> <span class="nav-text">Proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#术语"><span class="nav-number">5.3.1.</span> <span class="nav-text">术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">5.3.2.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何配置服务"><span class="nav-number">5.3.3.</span> <span class="nav-text">如何配置服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由和匹配"><span class="nav-number">5.3.4.</span> <span class="nav-text">路由和匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求主机头"><span class="nav-number">5.3.4.1.</span> <span class="nav-text">请求主机头</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用通配符主机名"><span class="nav-number">5.3.4.1.1.</span> <span class="nav-text">使用通配符主机名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#preserve-host属性"><span class="nav-number">5.3.4.1.2.</span> <span class="nav-text">preserve_host属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求路径"><span class="nav-number">5.3.4.2.</span> <span class="nav-text">请求路径</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在路径中使用正则"><span class="nav-number">5.3.4.2.1.</span> <span class="nav-text">在路径中使用正则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#strip-path属性"><span class="nav-number">5.3.4.2.2.</span> <span class="nav-text">strip_path属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求方法"><span class="nav-number">5.3.4.3.</span> <span class="nav-text">请求方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配优先级"><span class="nav-number">5.3.5.</span> <span class="nav-text">匹配优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理行为"><span class="nav-number">5.3.6.</span> <span class="nav-text">代理行为</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#负载均衡"><span class="nav-number">5.3.6.1.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插件执行"><span class="nav-number">5.3.6.2.</span> <span class="nav-text">插件执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#超时"><span class="nav-number">5.3.6.3.</span> <span class="nav-text">超时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#错误和重试"><span class="nav-number">5.3.6.4.</span> <span class="nav-text">错误和重试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应"><span class="nav-number">5.3.6.5.</span> <span class="nav-text">响应</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后备路由"><span class="nav-number">5.3.7.</span> <span class="nav-text">后备路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSL"><span class="nav-number">5.3.8.</span> <span class="nav-text">SSL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#限制客户端协议"><span class="nav-number">5.3.8.1.</span> <span class="nav-text">限制客户端协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebSocket"><span class="nav-number">5.3.9.</span> <span class="nav-text">WebSocket</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#WebSocket和TLS"><span class="nav-number">5.3.9.1.</span> <span class="nav-text">WebSocket和TLS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#认证"><span class="nav-number">5.4.</span> <span class="nav-text">认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用认证"><span class="nav-number">5.4.1.</span> <span class="nav-text">通用认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消费者"><span class="nav-number">5.4.2.</span> <span class="nav-text">消费者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名访问"><span class="nav-number">5.4.3.</span> <span class="nav-text">匿名访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多个认证"><span class="nav-number">5.4.4.</span> <span class="nav-text">多个认证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#负载均衡-1"><span class="nav-number">5.5.</span> <span class="nav-text">负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于DNS"><span class="nav-number">5.5.1.</span> <span class="nav-text">基于DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A记录"><span class="nav-number">5.5.1.1.</span> <span class="nav-text">A记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SRV记录"><span class="nav-number">5.5.1.2.</span> <span class="nav-text">SRV记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS优先级"><span class="nav-number">5.5.1.3.</span> <span class="nav-text">DNS优先级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS注意事项"><span class="nav-number">5.5.1.4.</span> <span class="nav-text">DNS注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ring-balancer"><span class="nav-number">5.5.2.</span> <span class="nav-text">Ring-balancer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Upstream"><span class="nav-number">5.5.2.1.</span> <span class="nav-text">Upstream</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Target"><span class="nav-number">5.5.2.2.</span> <span class="nav-text">Target</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#均衡算法"><span class="nav-number">5.5.2.3.</span> <span class="nav-text">均衡算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#均衡警告"><span class="nav-number">5.5.2.4.</span> <span class="nav-text">均衡警告</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蓝绿部署"><span class="nav-number">5.5.3.</span> <span class="nav-text">蓝绿部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#金丝雀发布"><span class="nav-number">5.5.4.</span> <span class="nav-text">金丝雀发布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝绿部署-AB测试-金丝雀发布"><span class="nav-number">5.6.</span> <span class="nav-text">蓝绿部署/AB测试/金丝雀发布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#蓝绿部署-1"><span class="nav-number">5.6.1.</span> <span class="nav-text">蓝绿部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-B测试"><span class="nav-number">5.6.2.</span> <span class="nav-text">A/B测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#金丝雀发布-1"><span class="nav-number">5.6.3.</span> <span class="nav-text">金丝雀发布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#健康检查和熔断器"><span class="nav-number">5.7.</span> <span class="nav-text">健康检查和熔断器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#健康与不健康"><span class="nav-number">5.7.1.</span> <span class="nav-text">健康与不健康</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#健康检查类型"><span class="nav-number">5.7.2.</span> <span class="nav-text">健康检查类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主动检查"><span class="nav-number">5.7.2.1.</span> <span class="nav-text">主动检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#被动检查-熔断器"><span class="nav-number">5.7.2.2.</span> <span class="nav-text">被动检查(熔断器)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利弊"><span class="nav-number">5.7.3.</span> <span class="nav-text">利弊</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启用和禁用健康检查"><span class="nav-number">5.7.4.</span> <span class="nav-text">启用和禁用健康检查</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启用主动检查"><span class="nav-number">5.7.4.1.</span> <span class="nav-text">启用主动检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启用被动检查"><span class="nav-number">5.7.4.2.</span> <span class="nav-text">启用被动检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#禁用健康检查"><span class="nav-number">5.7.4.3.</span> <span class="nav-text">禁用健康检查</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群"><span class="nav-number">5.8.</span> <span class="nav-text">集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集群能做些什么"><span class="nav-number">5.8.1.</span> <span class="nav-text">集群能做些什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单节点集群"><span class="nav-number">5.8.2.</span> <span class="nav-text">单节点集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多节点集群"><span class="nav-number">5.8.3.</span> <span class="nav-text">多节点集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于缓存"><span class="nav-number">5.8.4.</span> <span class="nav-text">关于缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置数据库缓存"><span class="nav-number">5.8.5.</span> <span class="nav-text">配置数据库缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过Admin-API与Cache进行交互"><span class="nav-number">5.8.6.</span> <span class="nav-text">通过Admin API与Cache进行交互</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志"><span class="nav-number">5.9.</span> <span class="nav-text">日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络和防火墙"><span class="nav-number">5.10.</span> <span class="nav-text">网络和防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ports"><span class="nav-number">5.10.1.</span> <span class="nav-text">Ports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Firewall"><span class="nav-number">5.10.2.</span> <span class="nav-text">Firewall</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保护Admin-API"><span class="nav-number">5.11.</span> <span class="nav-text">保护Admin API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络层访问限制"><span class="nav-number">5.11.1.</span> <span class="nav-text">网络层访问限制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最小化监听"><span class="nav-number">5.11.1.1.</span> <span class="nav-text">最小化监听</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三层四层网络控制"><span class="nav-number">5.11.1.2.</span> <span class="nav-text">三层四层网络控制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API-Loopback"><span class="nav-number">5.11.2.</span> <span class="nav-text">API Loopback</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定Nginx配置"><span class="nav-number">5.11.3.</span> <span class="nav-text">自定Nginx配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于角色的访问控制"><span class="nav-number">5.11.4.</span> <span class="nav-text">基于角色的访问控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件开发"><span class="nav-number">5.12.</span> <span class="nav-text">插件开发</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Admin-API"><span class="nav-number">6.</span> <span class="nav-text">Admin API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#k8s-Ingress"><span class="nav-number">7.</span> <span class="nav-text">k8s Ingress</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kong-on-K8s"><span class="nav-number">7.1.</span> <span class="nav-text">Kong on K8s</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Announcing-the-Kubernetes-Ingress-Controller-for-Kong"><span class="nav-number">7.1.1.</span> <span class="nav-text">Announcing the Kubernetes Ingress Controller for Kong</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置Kong-Ingress-Controller"><span class="nav-number">7.1.1.1.</span> <span class="nav-text">配置Kong Ingress Controller</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加插件"><span class="nav-number">7.1.1.2.</span> <span class="nav-text">添加插件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#K8s-Ingress-Controller-for-Kong"><span class="nav-number">7.1.2.</span> <span class="nav-text">K8s Ingress Controller for Kong</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1317,7 +1835,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 792.9k</span>
+  <span class="post-count"> 字数: 810.0k</span>
 </div>
 
 
