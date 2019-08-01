@@ -113,7 +113,13 @@
 <meta property="og:image" content="https://zhang21.github.io/images/OSTEP/incorporatingIO78.png">
 <meta property="og:image" content="https://zhang21.github.io/images/OSTEP/incorporatingIO79.png">
 <meta property="og:image" content="https://zhang21.github.io/images/OSTEP/mlfq81.png">
-<meta property="og:updated_time" content="2019-06-19T01:40:32.000Z">
+<meta property="og:image" content="https://zhang21.github.io/images/OSTEP/mlfq-82.png">
+<meta property="og:image" content="https://zhang21.github.io/images/OSTEP/mlfq-83.png">
+<meta property="og:image" content="https://zhang21.github.io/images/OSTEP/mlfq-84.png">
+<meta property="og:image" content="https://zhang21.github.io/images/OSTEP/mlfq-85.png">
+<meta property="og:image" content="https://zhang21.github.io/images/OSTEP/multi-10-1.png">
+<meta property="og:image" content="https://zhang21.github.io/images/OSTEP/multi-10-2.png">
+<meta property="og:updated_time" content="2019-07-15T09:21:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OSTEP">
 <meta name="twitter:description" content="参考:  OS Three Easy Pieces: https://book.douban.com/subject/19973015/ OSTEP: http://pages.cs.wisc.edu/~remzi/OSTEP/   环境:  ELRH7x86_64">
@@ -367,8 +373,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-19T09:40:32+08:00">
-                2019-06-19
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-15T17:21:03+08:00">
+                2019-07-15
               </time>
             
           </span>
@@ -434,7 +440,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  24,801
+                  28,309
                 </span>
               
 
@@ -1384,6 +1390,89 @@
 <p><img src="/images/OSTEP/mlfq81.png" alt></p>
 <p><br><br><br></p>
 <h3 id="如何改变优先级"><a href="#如何改变优先级" class="headerlink" title="如何改变优先级"></a>如何改变优先级</h3><p>How To Change Priority</p>
+<p>我们现在必须决定MLFQ如何在作业的生命周期内更改作业的优先级。要做到这一点，我们必须牢记我们的工作负载：<strong>short-running</strong>（可能经常放弃CPU）的交互式作业的混合，以及一些需要大量CPU时间的<strong>longer-running</strong>的<strong>CPU-bound</strong>作业，但响应时间不重要。这将是我们首次尝试优先级调整算法：</p>
+<ul>
+<li>Rule 3： When a job enters the system, it is placed at the highest priority (the topmost queue).</li>
+<li>Rule 4a： If a job uses up an entire time slice while running, its priority is reduced (i.e., it moves down one queue).</li>
+<li>Rule 4b： If a job gives up the CPU before the time slice is up, it stays at the same priority level.</li>
+</ul>
+<p><br></p>
+<h4 id="长作业栗子"><a href="#长作业栗子" class="headerlink" title="长作业栗子"></a>长作业栗子</h4><p>Example 1: A Single Long-Running Job</p>
+<p>让我们看一个简单的栗子。首先我们来看一下当系统中存在长时间运行的作业时会发生什么。</p>
+<p><img src="/images/OSTEP/mlfq-82.png" alt></p>
+<p>如图所示，作业以最高优先级(Q2)进入。在10ms的单个时间片后，调度程序将作业的优先级降低1，因此作业位于Q1上。在Q1运行一段时间后，作业最终降低到系统中最低优先级(Q0)，并保留。</p>
+<p><br><br><br></p>
+<h4 id="短作业栗子"><a href="#短作业栗子" class="headerlink" title="短作业栗子"></a>短作业栗子</h4><p>Example 2: Along Came A Short Job</p>
+<p>让我们看一个复杂的栗子，看看MLFQ如何尝试接近近似SJF。在这个栗子中，有两个作业： A（长时间运行的CPU密集型作业）和B（短时间运行的交互式作业）。假设A已运行一段时间，然后B到达。会发生什么？MLFQ是否会接近B的SJF？</p>
+<p>A（黑色）在最低优先级队列中运行；B（灰色）在<code>T=100</code>到达，因此被插入最高队列；因为它的运行时间很短(20ms)，所以B在到达底部队列之前完成，在两个时间片中；然后A恢复运行(低优先级)。</p>
+<p>从这个栗子中，你可了解该算法的主要目标：因为它不知道工作是短期还是长期，所以它首先假设它可能是一项短期作业，从而使工作成为高优先级。如果它确实是一个短期作业，它将快速完成；如果它不是，它将慢慢向下排队，因此很快证明自己是一个长期运行的批处理进程。以这种方式，MLFQ近似于SJF。</p>
+<p><img src="/images/OSTEP/mlfq-83.png" alt></p>
+<p><br><br><br></p>
+<h4 id="I-O的栗子"><a href="#I-O的栗子" class="headerlink" title="I/O的栗子"></a>I/O的栗子</h4><p>Example 3: What About I/O?</p>
+<p>让我们看一些I/O的栗子。如果交互式作业正在执行大量I/O，它将在时间片完成前放弃CPU。在这种情况下，我们不希望惩罚工作，因此只是将其保持在同一水平。</p>
+<p>图示显示了一个示例，其中交互式作业B在执行与长时间运行的批处理作业A的CPU的I/O竞争之前仅需要CPU 1ms。MLFQ方法将B保持在最高优先级，因此B不断释放CPU；如果B是一个交互式作业，MLFQ进一步实现快速运行交互式工作的目标。</p>
+<p><img src="/images/OSTEP/mlfq-84.png" alt></p>
+<p><br><br><br></p>
+<h3 id="优先级提升"><a href="#优先级提升" class="headerlink" title="优先级提升"></a>优先级提升</h3><p>The Priority Boost</p>
+<p>我们可以做些什么来保证CPU绑定的工作会取得一些进展。<br>这里的简单想法是定期提高系统中所有作业的优先级。有很多方法可以实现这一点，但我们做一些简单的事情：将它们全部放在最顶层的队列中。因此，一条新规则：</p>
+<ul>
+<li>Rule 5： After some time period S, move all the jobs in the system to the topmost queue.</li>
+</ul>
+<p>新规则同时解决了两个问题：保证进程不会挨饿(starve)，通过在最顶层队列中，作业将以循环方式与其它高优先级作业共享CPU，从而获得服务；其次，如果CPU绑定的作业已成为交互式，则调度程序在收到优先级提升后会对其进行正确处理。</p>
+<p><img src="/images/OSTEP/mlfq-85.png" alt></p>
+<p>来看个栗子，在这种情况下，我们只是在与两个短时间运行的交互式作业竞争CPU时显示长时间运行作业的行为。在左边没有优先级提升，因此一旦两个短作业到来，长作业就会挨饿。在右边，每50ms有一个优先级提升，因此我们至少保证长作业取得一些进展，得到提升到每50ms最高优先级，因此定期运行。</p>
+<p><br><br><br></p>
+<h3 id="更好的计算"><a href="#更好的计算" class="headerlink" title="更好的计算"></a>更好的计算</h3><p>Better Accounting</p>
+<p><br><br><br><br><br></p>
+<h2 id="彩票调度"><a href="#彩票调度" class="headerlink" title="彩票调度"></a>彩票调度</h2><p><a href="http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-sched-lottery.pdf" target="_blank" rel="noopener">Lottery Scheduling</a></p>
+<p>在本章中，我们将研究一种称为<strong>proportional-share</strong>调度器，有时也称为<strong>fair share</strong>调度器。比例共享基于一个简单的概念：调度程序可能会尝试保证每个作业获得一定比例的CPU时间，而不是优化周转时间或响应时间。</p>
+<p><strong>彩票调度(lottery scheduler)</strong>是共享比例调度一个很好的早期栗子。基本想法非常简单：经常抽奖，以确定下一步应该运行哪一个进程。应该更频繁地运行的进程应该有更多机会赢得彩票，不是吗？</p>
+<p><br></p>
+<blockquote>
+<p>如何按比例共享CPU？<br>如何设计调度程序以按比例的方式共享CPU？这样的关键机制是什么？它们的效果如何？</p>
+</blockquote>
+<p><br><br><br></p>
+<h3 id="票代表你的份额"><a href="#票代表你的份额" class="headerlink" title="票代表你的份额"></a>票代表你的份额</h3><p>Tickets Represent Your Share</p>
+<p>抽奖调度是一个非常基本的概念：<strong>tickets</strong>，用于表示进程应该接收的资源的份额。进程所拥有的票百分比代表其所涉系统资源的份额。</p>
+<p>来看个栗子。两个进程A（75票）和B（25票）。因此，我们想要的是A接收<code>75%</code>的CPU而B接收剩余的<code>25%</code>。</p>
+<p>彩票调度每隔一段时间持有彩票来概率地实现这一点。持有彩票很简单：调度程序必须知道有多少总票数。调度程序从这里面选择一张中奖票。</p>
+<p><br></p>
+<blockquote>
+<p>使用票代表份额<br>彩票调度设计中最强大的机制之一就是票。在这些示例中，票用于表示进程的CPU份额，但可更广泛地应用。例如，在最近关于虚拟机程序的虚拟内存管理的作业中，展示如何使用票来表示操作系统的内存份额。因此，如果你需要一种机制来代表一定比例的所有权，这个概念可能就是票。</p>
+</blockquote>
+<p><br><br><br></p>
+<h3 id="票机制"><a href="#票机制" class="headerlink" title="票机制"></a>票机制</h3><p>Ticket Mechanisms</p>
+<p>彩票调度还提供了许多以不同且有时有用的方式操作票的机制。一种方式就是<strong>票货币(ticket currency)</strong>的概念。货币允许拥有一组票的用户在他们自己的工作中以他们想要的任何货币分配票，然后系统自动将所述货币转换为正确的全球价值。</p>
+<p>例如，用户A和B每人都获得100张票。A正在运行两个作业A1和A2，并以A的货币向他们提供各500张票(共1000张)。用户B只运行一个作业并给它10张票(共10张)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">User A -&gt; 500 (A’s currency) to A1 -&gt; 50 (global currency)</span><br><span class="line">-&gt; 500 (A’s currency) to A2 -&gt; 50 (global currency)</span><br><span class="line">User B -&gt; 10 (B’s currency) to B1 -&gt; 100 (global currency)</span><br></pre></td></tr></table></figure>
+<p>其它拥有的机制是<strong>票务转移(ticket transfer)</strong>。通过转移，一个进程可暂时将其票交给另一个进程。</p>
+<p><br><br><br><br><br></p>
+<h2 id="多CPU调度"><a href="#多CPU调度" class="headerlink" title="多CPU调度"></a>多CPU调度</h2><p>Multi-CPU Scheduling</p>
+<p>本章将会介绍<strong>多处理器调度(multiprocessor scheduling)</strong>的基础知识。由于此主题相对较高级，因此在你详细研究并发主题后，最好先介绍它。 多核处理器(multicore processor)（多个CPU核心被打包到单个芯片上）。</p>
+<p>当然，随着多个CPU的到来，会出现很多困难。主要的一个典型是应用程序只使用一个CPU，添加更多CPU并不能使单个应用程序运行得更快。要解决此问题，你必须重新编写应用程序以<strong>并行(parallel)</strong>运行或使用<strong>线程(threads)</strong>。多线程应用程序可以在多个CPU之间传播工作，因此在获得更多CPU资源时运行速度更快。</p>
+<p>除了应用程序之外，操作系统出现的新问题是<strong>多处理器调度(multiprocessor scheduling)</strong>的问题。到目前为止，我们已经讨论了单处理器背后的一些原则。如何将这些想法扩展到多CPU上？我们必须克服哪些问题？</p>
+<p><br><br><br></p>
+<h3 id="多处理器架构"><a href="#多处理器架构" class="headerlink" title="多处理器架构"></a>多处理器架构</h3><p>Multiprocessor Architecture</p>
+<p>我们需要了解单CPU硬件和多CPU硬件之间的区别。这种差异主要围绕硬件缓存的使用，以及如何跨越多个处理器共享数据。这就涉及到了复杂的计算机架构问题。</p>
+<p>在单CPU的系统中，存在<strong>硬件高速缓存(hardware<br>caches )</strong>的层次结构，其通常帮助处理器更快地运行程序。高速缓存是小而快速的存储器，通常保存在系统主存储器中找到的数据的副本。相反，主存储器保存所有数据，但访问较大的存储器的速度较慢。通常将频繁访问的数据保存在高速缓存中，系统可以使大而慢的存储器看起来很快。</p>
+<p>例如，考虑一个发出显式加载指令以从内存中获取值的程序，以及一个单CPU的简单系统。CPU有一个小缓存（64KB）和一个大的主内存。程序第一次发出负载时，数据驻留在主存储器中，因此需要很长时间才能获取。与其数据可以被重用的处理器将加载的数据的副本放入CPU的高速缓存中。如果程序稍后再次获取该相同的数据项，则CPU首先在高速缓存中检查它。如果在那里找到它，数据的获取速度要快的多，因此程序会运行得更快。</p>
+<p>因此，高速缓存基于局部性的概念：<strong>时间局部性(temporal locality)</strong>和<strong>空间局部性(spatial locality)</strong>。时间局部性背后的想法是，当访问一条数据时，很可能在不就的将来再次访问它，想象变量设置指令本身在循环中反复访问。空间局部性的想法是，如果程序访问地址x处的数据项，则它也可以访问x附件的数据项。想想通过数组流式传输的程序，或者一个接一个地执行指令。由于这些类型的位置存在于许多程序中，因此硬件系统可以很好地擦侧哪些数据要放入缓存中，从而可以很好地工作。</p>
+<p><img src="/images/OSTEP/multi-10-1.png" alt></p>
+<p><img src="/images/OSTEP/multi-10-2.png" alt></p>
+<p><br></p>
+<p>事实证明，使用多个CPU进行缓存要复杂得多。想象一下，在CPU 1上运行的程序读取地址A的数据项（值D）；因为数据不在CPU 1的缓存中，系统从主存储器中取出数据，并获得值D。程序然后修改地址A的值，用新值D更新其缓存，将数据一直写入主存的速度很慢，因此系统稍后执行此操作。然后假设操作系统决定停止运行程序并将其移至CPU 2。然后程序重新读取地址A的值，CPU 2的缓存没有这样的数据，因此系统从主存中取值，并获得旧的值D而不是正确的值D。 这个一般性问题被称为<strong>缓存一致性(cache coherence)</strong>。</p>
+<p>基本解决方案有硬件提供：通过监视内存访问，硬件可以确保基本上发生正确的事情并保留单个共享内存的视图。在基于总线的系统上执行此操作的每一种方法是使用称为<strong>总线侦听(bus snooping)</strong>，每个缓存通过观察它们连接到主存储器的总线来关注内存更新。当CPU然后看到它在缓存中保存的数据项的更新时，它将注意到该更改并使其副本无效，或更新它。如上所述，会写缓存会使这更加复杂，但你可以想象基本方案可能如何工作。</p>
+<p><br><br><br></p>
+<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p>Don’t Forget Synchronization</p>
+<p>鉴于缓存完成所有这些工作以提供一致性，程序在访问共享数据时是否必须担心什么？<br>当跨CPU访问共享数据项或结构时，应该使用互斥来保证正确性。例如，假设我们在多个CPU上访问共享队列。没有锁，即使使用底层的一致性协议，同时在队列中添加或删除元素也不会按预期工作；一个需要锁定以原子方式将数据结构更新为新状态。</p>
+<p>为了使其更具体，想象一下这个代码序列，它用于从共享链表中删除一个元素。如下图所示，如果两个CPU上的线程同时进入此例程。</p>
+<p>Simple List Delete Code:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> __<span class="title">Node_t</span> &#123;</span></span><br><span class="line"> <span class="keyword">int</span> value;</span><br><span class="line"> <span class="class"><span class="keyword">struct</span> __<span class="title">Node_t</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125; Node_t;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">List_Pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> Node_t *tmp = head; <span class="comment">// remember old head ...</span></span><br><span class="line"> <span class="keyword">int</span> value = head-&gt;value; <span class="comment">// ... and its value</span></span><br><span class="line"> head = head-&gt;next; <span class="comment">// advance head to next pointer</span></span><br><span class="line"> <span class="built_in">free</span>(tmp); <span class="comment">// free old head</span></span><br><span class="line"> <span class="keyword">return</span> value; <span class="comment">// return value at head</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="缓存关联"><a href="#缓存关联" class="headerlink" title="缓存关联"></a>缓存关联</h3><p>Cache Affinity</p>
+<p>最后一个问题出现在构建多处理器缓存调度程序，称为<strong>缓存关联(cache affinity)</strong>。这个概念很简单：一个进程，当在特定的CPU上运行时，在CPU的高速缓存中建立一个相当大的状态。下一次进程运行时，在同一个CPU上运行它通常是有利的，因为如果它的某些状态已经存在于该CPU的高速缓存中，它将运行得更快。相反，如果每次在不同的CPU上运行进程，则进程的性能会更差，因为每次运行都必须重新加载状态。因此，多处理器调度程序在进行调度决策时应该考虑缓存关联，如果可能的话，可能更愿意将进程保留在同一CPU上。</p>
+<p><br><br><br></p>
+<h3 id="单队列调度"><a href="#单队列调度" class="headerlink" title="单队列调度"></a>单队列调度</h3><p> Single-Queue Scheduling</p>
 
       
     </div>
@@ -1519,7 +1608,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-count">83</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1530,7 +1619,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1541,7 +1630,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">133</span>
+                <span class="site-state-item-count">138</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1600,7 +1689,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统介绍"><span class="nav-number">1.</span> <span class="nav-text">操作系统介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟化CPU"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟化CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存"><span class="nav-number">1.2.</span> <span class="nav-text">虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发"><span class="nav-number">1.3.</span> <span class="nav-text">并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化"><span class="nav-number">1.4.</span> <span class="nav-text">持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计目标"><span class="nav-number">1.5.</span> <span class="nav-text">设计目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些历史"><span class="nav-number">1.6.</span> <span class="nav-text">一些历史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Early-Operating-Systems-Just-Libraries"><span class="nav-number">1.6.1.</span> <span class="nav-text">Early Operating Systems: Just Libraries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beyond-Libraries-Protection"><span class="nav-number">1.6.2.</span> <span class="nav-text">Beyond Libraries: Protection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Era-of-Multiprogramming"><span class="nav-number">1.6.3.</span> <span class="nav-text">The Era of Multiprogramming</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Modern-Era"><span class="nav-number">1.6.4.</span> <span class="nav-text">The Modern Era</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">1.6.5.</span> <span class="nav-text">摘要</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟化"><span class="nav-number">2.</span> <span class="nav-text">虚拟化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">2.1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个进程"><span class="nav-number">2.1.1.</span> <span class="nav-text">一个进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Process-API"><span class="nav-number">2.1.2.</span> <span class="nav-text">Process API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程创建"><span class="nav-number">2.1.3.</span> <span class="nav-text">进程创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程状态"><span class="nav-number">2.1.4.</span> <span class="nav-text">进程状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">2.1.5.</span> <span class="nav-text">数据结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程API"><span class="nav-number">2.2.</span> <span class="nav-text">进程API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fork系统调用"><span class="nav-number">2.2.1.</span> <span class="nav-text">fork系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wait系统调用"><span class="nav-number">2.2.2.</span> <span class="nav-text">wait系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exec系统调用"><span class="nav-number">2.2.3.</span> <span class="nav-text">exec系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Motivating-The-API"><span class="nav-number">2.2.4.</span> <span class="nav-text">Motivating The API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程控制和用户"><span class="nav-number">2.2.5.</span> <span class="nav-text">进程控制和用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有用的工具"><span class="nav-number">2.2.6.</span> <span class="nav-text">有用的工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要-1"><span class="nav-number">2.2.7.</span> <span class="nav-text">摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接执行"><span class="nav-number">2.3.</span> <span class="nav-text">直接执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本技术：有限的直接执行"><span class="nav-number">2.3.1.</span> <span class="nav-text">基本技术：有限的直接执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1：受限制的操作"><span class="nav-number">2.3.2.</span> <span class="nav-text">问题1：受限制的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题2：在进程间切换"><span class="nav-number">2.3.3.</span> <span class="nav-text">问题2：在进程间切换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#合作方法：等待系统调用"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">合作方法：等待系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非合作方法：操作系统取得控制权"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">非合作方法：操作系统取得控制权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保存和恢复上下文"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">保存和恢复上下文</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#担心并发？"><span class="nav-number">2.3.4.</span> <span class="nav-text">担心并发？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要-2"><span class="nav-number">2.3.5.</span> <span class="nav-text">摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调度"><span class="nav-number">2.4.</span> <span class="nav-text">调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工作负载假设"><span class="nav-number">2.4.1.</span> <span class="nav-text">工作负载假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度指标"><span class="nav-number">2.4.2.</span> <span class="nav-text">调度指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先进先出"><span class="nav-number">2.4.3.</span> <span class="nav-text">先进先出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最短作业优先"><span class="nav-number">2.4.4.</span> <span class="nav-text">最短作业优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最短完成时间优先"><span class="nav-number">2.4.5.</span> <span class="nav-text">最短完成时间优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应时间指标"><span class="nav-number">2.4.6.</span> <span class="nav-text">响应时间指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#轮询"><span class="nav-number">2.4.7.</span> <span class="nav-text">轮询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并I-O"><span class="nav-number">2.4.8.</span> <span class="nav-text">合并I/O</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要-3"><span class="nav-number">2.4.9.</span> <span class="nav-text">摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多级反馈队列"><span class="nav-number">2.5.</span> <span class="nav-text">多级反馈队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本规则"><span class="nav-number">2.5.1.</span> <span class="nav-text">基本规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何改变优先级"><span class="nav-number">2.5.2.</span> <span class="nav-text">如何改变优先级</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统介绍"><span class="nav-number">1.</span> <span class="nav-text">操作系统介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟化CPU"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟化CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存"><span class="nav-number">1.2.</span> <span class="nav-text">虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发"><span class="nav-number">1.3.</span> <span class="nav-text">并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化"><span class="nav-number">1.4.</span> <span class="nav-text">持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计目标"><span class="nav-number">1.5.</span> <span class="nav-text">设计目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些历史"><span class="nav-number">1.6.</span> <span class="nav-text">一些历史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Early-Operating-Systems-Just-Libraries"><span class="nav-number">1.6.1.</span> <span class="nav-text">Early Operating Systems: Just Libraries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beyond-Libraries-Protection"><span class="nav-number">1.6.2.</span> <span class="nav-text">Beyond Libraries: Protection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Era-of-Multiprogramming"><span class="nav-number">1.6.3.</span> <span class="nav-text">The Era of Multiprogramming</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Modern-Era"><span class="nav-number">1.6.4.</span> <span class="nav-text">The Modern Era</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">1.6.5.</span> <span class="nav-text">摘要</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟化"><span class="nav-number">2.</span> <span class="nav-text">虚拟化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">2.1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个进程"><span class="nav-number">2.1.1.</span> <span class="nav-text">一个进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Process-API"><span class="nav-number">2.1.2.</span> <span class="nav-text">Process API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程创建"><span class="nav-number">2.1.3.</span> <span class="nav-text">进程创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程状态"><span class="nav-number">2.1.4.</span> <span class="nav-text">进程状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">2.1.5.</span> <span class="nav-text">数据结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程API"><span class="nav-number">2.2.</span> <span class="nav-text">进程API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fork系统调用"><span class="nav-number">2.2.1.</span> <span class="nav-text">fork系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wait系统调用"><span class="nav-number">2.2.2.</span> <span class="nav-text">wait系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exec系统调用"><span class="nav-number">2.2.3.</span> <span class="nav-text">exec系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Motivating-The-API"><span class="nav-number">2.2.4.</span> <span class="nav-text">Motivating The API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程控制和用户"><span class="nav-number">2.2.5.</span> <span class="nav-text">进程控制和用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有用的工具"><span class="nav-number">2.2.6.</span> <span class="nav-text">有用的工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要-1"><span class="nav-number">2.2.7.</span> <span class="nav-text">摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接执行"><span class="nav-number">2.3.</span> <span class="nav-text">直接执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本技术：有限的直接执行"><span class="nav-number">2.3.1.</span> <span class="nav-text">基本技术：有限的直接执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1：受限制的操作"><span class="nav-number">2.3.2.</span> <span class="nav-text">问题1：受限制的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题2：在进程间切换"><span class="nav-number">2.3.3.</span> <span class="nav-text">问题2：在进程间切换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#合作方法：等待系统调用"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">合作方法：等待系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非合作方法：操作系统取得控制权"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">非合作方法：操作系统取得控制权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保存和恢复上下文"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">保存和恢复上下文</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#担心并发？"><span class="nav-number">2.3.4.</span> <span class="nav-text">担心并发？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要-2"><span class="nav-number">2.3.5.</span> <span class="nav-text">摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调度"><span class="nav-number">2.4.</span> <span class="nav-text">调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工作负载假设"><span class="nav-number">2.4.1.</span> <span class="nav-text">工作负载假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度指标"><span class="nav-number">2.4.2.</span> <span class="nav-text">调度指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先进先出"><span class="nav-number">2.4.3.</span> <span class="nav-text">先进先出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最短作业优先"><span class="nav-number">2.4.4.</span> <span class="nav-text">最短作业优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最短完成时间优先"><span class="nav-number">2.4.5.</span> <span class="nav-text">最短完成时间优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应时间指标"><span class="nav-number">2.4.6.</span> <span class="nav-text">响应时间指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#轮询"><span class="nav-number">2.4.7.</span> <span class="nav-text">轮询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并I-O"><span class="nav-number">2.4.8.</span> <span class="nav-text">合并I/O</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要-3"><span class="nav-number">2.4.9.</span> <span class="nav-text">摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多级反馈队列"><span class="nav-number">2.5.</span> <span class="nav-text">多级反馈队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本规则"><span class="nav-number">2.5.1.</span> <span class="nav-text">基本规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何改变优先级"><span class="nav-number">2.5.2.</span> <span class="nav-text">如何改变优先级</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#长作业栗子"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">长作业栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#短作业栗子"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">短作业栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#I-O的栗子"><span class="nav-number">2.5.2.3.</span> <span class="nav-text">I/O的栗子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优先级提升"><span class="nav-number">2.5.3.</span> <span class="nav-text">优先级提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更好的计算"><span class="nav-number">2.5.4.</span> <span class="nav-text">更好的计算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#彩票调度"><span class="nav-number">2.6.</span> <span class="nav-text">彩票调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#票代表你的份额"><span class="nav-number">2.6.1.</span> <span class="nav-text">票代表你的份额</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#票机制"><span class="nav-number">2.6.2.</span> <span class="nav-text">票机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多CPU调度"><span class="nav-number">2.7.</span> <span class="nav-text">多CPU调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多处理器架构"><span class="nav-number">2.7.1.</span> <span class="nav-text">多处理器架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步"><span class="nav-number">2.7.2.</span> <span class="nav-text">同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存关联"><span class="nav-number">2.7.3.</span> <span class="nav-text">缓存关联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单队列调度"><span class="nav-number">2.7.4.</span> <span class="nav-text">单队列调度</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1632,7 +1721,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 810.0k</span>
+  <span class="post-count"> 字数: 866.9k</span>
 </div>
 
 
