@@ -12,6 +12,13 @@
 
 
 
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
 
 
 
@@ -138,7 +145,7 @@
 
 
 
-  <title>风继续吹</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>风继续吹</title>
   
 
 
@@ -148,6 +155,10 @@
 
 
 
+  <!-- 爆炸效果 -->
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas>
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script type="text/javascript" src="/js/firework.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,6 +254,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-bullshift">
+          <a href="https://suulnnka.github.io/BullshitGenerator/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-external-link"></i> <br>
+            
+            狗屁不通生成器
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -294,6 +315,207 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2019/03/15/ZooKeeper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leslie Zhang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/leslie.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="风继续吹">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/15/ZooKeeper/" itemprop="url">ZooKeeper</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T16:57:20+08:00">
+                2019-03-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-18T11:24:29+08:00">
+                2019-03-18
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/15/ZooKeeper/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/15/ZooKeeper/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,200
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>参考:</p>
+<ul>
+<li>维基百科</li>
+<li>ZooKeeper: <a href="https://zookeeper.apache.org/" target="_blank" rel="noopener">https://zookeeper.apache.org/</a></li>
+<li>Docs: <a href="https://zookeeper.apache.org/doc/" target="_blank" rel="noopener">https://zookeeper.apache.org/doc/</a></li>
+</ul>
+<p>环境:</p>
+<ul>
+<li>RHEL7x86_64</li>
+<li>ZooKeeper v3.5</li>
+</ul>
+<p><br><br><br></p>
+<hr>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/15/ZooKeeper/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1710,7 +1932,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2019/02/10/谏逐客书/">
+    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2019/02/02/Netdata/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Leslie Zhang">
@@ -1729,7 +1951,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/10/谏逐客书/" itemprop="url">谏逐客书</a></h1>
+                <a class="post-title-link" href="/2019/02/02/Netdata/" itemprop="url">Netdata</a></h1>
         
 
         <div class="post-meta">
@@ -1741,8 +1963,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-10T21:45:14+08:00">
-                2019-02-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-02T16:09:49+08:00">
+                2019-02-02
               </time>
             
 
@@ -1757,8 +1979,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-08T17:38:42+08:00">
-                2019-03-08
+              <time title="更新于" itemprop="dateModified" datetime="2019-02-03T11:08:18+08:00">
+                2019-02-03
               </time>
             
           </span>
@@ -1776,8 +1998,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Literature/" itemprop="url" rel="index">
-                    <span itemprop="name">Literature</span>
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
                   </a>
                 </span>
 
@@ -1794,8 +2016,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/02/10/谏逐客书/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/10/谏逐客书/" itemprop="commentCount"></span>
+                <a href="/2019/02/02/Netdata/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/02/Netdata/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1819,7 +2041,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,588
+                  2,477
                 </span>
               
 
@@ -1847,14 +2069,19 @@
         
           <p>参考:</p>
 <ul>
-<li>维基百科</li>
-<li>百度百科</li>
+<li>GitHub: <a href="https://github.com/netdata/netdata" target="_blank" rel="noopener">https://github.com/netdata/netdata</a></li>
+<li>Netdata: <a href="https://my-netdata.io/" target="_blank" rel="noopener">https://my-netdata.io/</a></li>
+<li>Docs: <a href="https://docs.netdata.cloud/" target="_blank" rel="noopener">https://docs.netdata.cloud/</a></li>
+</ul>
+<p>环境:</p>
+<ul>
+<li>EL7x86_64</li>
+<li>Netdata v1.12</li>
 </ul>
 <p><br><br><br></p>
-<hr>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/10/谏逐客书/#more" rel="contents">
+            <a class="btn" href="/2019/02/02/Netdata/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1905,7 +2132,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2019/02/10/本朝百年无事札子/">
+    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2019/01/18/OpenLDAP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Leslie Zhang">
@@ -1924,7 +2151,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/10/本朝百年无事札子/" itemprop="url">本朝百年无事札子</a></h1>
+                <a class="post-title-link" href="/2019/01/18/OpenLDAP/" itemprop="url">OpenLDAP</a></h1>
         
 
         <div class="post-meta">
@@ -1936,8 +2163,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-10T21:45:12+08:00">
-                2019-02-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T01:18:29+08:00">
+                2019-01-18
               </time>
             
 
@@ -1952,8 +2179,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-08T17:24:36+08:00">
-                2019-03-08
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-18T16:40:31+08:00">
+                2019-01-18
               </time>
             
           </span>
@@ -1971,8 +2198,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Literature/" itemprop="url" rel="index">
-                    <span itemprop="name">Literature</span>
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
                   </a>
                 </span>
 
@@ -1989,8 +2216,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/02/10/本朝百年无事札子/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/10/本朝百年无事札子/" itemprop="commentCount"></span>
+                <a href="/2019/01/18/OpenLDAP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/01/18/OpenLDAP/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2014,7 +2241,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,475
+                  6,559
                 </span>
               
 
@@ -2042,209 +2269,21 @@
         
           <p>参考:</p>
 <ul>
-<li>维基百科</li>
-<li>百度百科</li>
+<li>LDAP维基百科: <a href="https://zh.wikipedia.org/wiki/LDAP" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/LDAP</a></li>
+<li>OpenLDAP维基百科: <a href="https://zh.wikipedia.org/wiki/OpenLDAP" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/OpenLDAP</a></li>
+<li><code>x.500</code>维基百科: <a href="https://zh.wikipedia.org/wiki/X.500" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/X.500</a></li>
+<li>OpenLDAP文档: <a href="http://www.openldap.org/doc/" target="_blank" rel="noopener">http://www.openldap.org/doc/</a></li>
 </ul>
-<p><br><br><br></p>
-<hr>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/10/本朝百年无事札子/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhang21.github.io/2019/02/10/六国论/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Leslie Zhang">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/leslie.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="风继续吹">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/10/六国论/" itemprop="url">六国论</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-10T21:25:13+08:00">
-                2019-02-10
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-08T17:29:44+08:00">
-                2019-03-08
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Literature/" itemprop="url" rel="index">
-                    <span itemprop="name">Literature</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/02/10/六国论/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/10/六国论/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,876
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>参考:</p>
+<p>环境:</p>
 <ul>
-<li>维基百科</li>
-<li>百度百科</li>
+<li>RHEL7.x86_64</li>
+<li>LDAP v2.4.44</li>
 </ul>
 <p><br><br><br></p>
 <hr>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/10/六国论/#more" rel="contents">
+            <a class="btn" href="/2019/01/18/OpenLDAP/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2286,7 +2325,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2333,7 +2372,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-count">69</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2344,7 +2383,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2355,7 +2394,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">148</span>
+                <span class="site-state-item-count">132</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2421,7 +2460,7 @@
         <div class="copyright">
   
   &copy;  2017 &mdash; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -2430,7 +2469,7 @@
 <!--字数统计-->
   <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> 字数: 931.2k</span>
+  <span class="post-count"> 字数: 960.7k</span>
 </div>
 
 
