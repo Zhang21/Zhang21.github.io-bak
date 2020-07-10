@@ -1,0 +1,2874 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content=",,,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="参考:  GitHub: https://github.com/SonarSource/sonarqube Website: https://www.sonarqube.org/ Docs: https://docs.sonarqube.org  环境:  RHEL7x86_64 SonarQube v7.6">
+<meta name="keywords" content="SonarQube,Static Analysis,Code Quality">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SonarQube">
+<meta property="og:url" content="https://zhang21.github.io/all/SonarQube.html">
+<meta property="og:site_name" content="风继续吹">
+<meta property="og:description" content="参考:  GitHub: https://github.com/SonarSource/sonarqube Website: https://www.sonarqube.org/ Docs: https://docs.sonarqube.org  环境:  RHEL7x86_64 SonarQube v7.6">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://zhang21.github.io/images/SonarQube/architecture-scanning.png">
+<meta property="og:image" content="https://zhang21.github.io/images/SonarQube/architecture-integrate.png">
+<meta property="og:image" content="https://zhang21.github.io/images/SonarQube/backgroundTaskProcessingInProgress.jpeg">
+<meta property="og:image" content="https://zhang21.github.io/images/SonarQube/backgroundTaskProcessingFailedIcon.jpeg">
+<meta property="og:image" content="https://zhang21.github.io/images/SonarQube/quality-gate-status.jpeg">
+<meta property="og:image" content="https://zhang21.github.io/images/SonarQube/exclusions.jpg">
+<meta property="og:image" content="https://zhang21.github.io/images/SonarQube/inclusions.jpg">
+<meta property="og:image" content="https://zhang21.github.io/images/SonarQube/secretKey.png">
+<meta property="og:updated_time" content="2019-03-05T08:42:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SonarQube">
+<meta name="twitter:description" content="参考:  GitHub: https://github.com/SonarSource/sonarqube Website: https://www.sonarqube.org/ Docs: https://docs.sonarqube.org  环境:  RHEL7x86_64 SonarQube v7.6">
+<meta name="twitter:image" content="https://zhang21.github.io/images/SonarQube/architecture-scanning.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang21.github.io/all/SonarQube.html">
+
+
+
+
+
+  <title>SonarQube | 风继续吹</title>
+  
+
+
+
+
+
+
+
+
+  <!-- 爆炸效果 -->
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas>
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script type="text/javascript" src="/js/firework.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风继续吹</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Yesterday, you said tomorrow!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-bullshift">
+          <a href="https://suulnnka.github.io/BullshitGenerator/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-external-link"></i> <br>
+            
+            狗屁不通生成器
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+	<h1 class="post-title" itemprop="name headline">SonarQube</h1>
+
+
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+        
+          <p>参考:</p>
+<ul>
+<li>GitHub: <a href="https://github.com/SonarSource/sonarqube" target="_blank" rel="noopener">https://github.com/SonarSource/sonarqube</a></li>
+<li>Website: <a href="https://www.sonarqube.org/" target="_blank" rel="noopener">https://www.sonarqube.org/</a></li>
+<li>Docs: <a href="https://docs.sonarqube.org" target="_blank" rel="noopener">https://docs.sonarqube.org</a></li>
+</ul>
+<p>环境:</p>
+<ul>
+<li>RHEL7x86_64</li>
+<li>SonarQube v7.6</li>
+</ul>
+<p><br><br><br></p>
+<hr>
+<a id="more"></a>
+<p><br><br><br></p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p><strong>SonarQube</strong> 是一个开源的代码质量管理系统。支持超过25中编程语言，不过有些是商业插件。</p>
+<p>SonarQube 是一种自动代码审查(code review)工具，用于检测代码中的<strong>错误(bugs)</strong>，<strong>漏洞(vulnerabilities)</strong>和<strong>代码异味(code smell)</strong>。它可以与您现有的工作流程集成，以便在项目分支和拉取请求之间进行连续的代码检查。</p>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="架构与集成"><a href="#架构与集成" class="headerlink" title="架构与集成"></a>架构与集成</h1><p>Architecture and Integration</p>
+<p><br></p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>SonarQube平台由4个组件组成:</p>
+<p><img src="/images/SonarQube/architecture-scanning.png" alt></p>
+<p><br></p>
+<ul>
+<li><strong>SonarQube Server</strong>启动三个主进程:<ul>
+<li><strong>Web Server</strong>，供开发人员，管理人员浏览质量快照并配置SonarQube实例</li>
+<li><strong>Search Server</strong>，基于ElasticSearch从UI返回搜索</li>
+<li><strong>Compute Engine Server</strong>，负责处理代码分析和上报并将其保存到SonarQube数据库中</li>
+</ul>
+</li>
+<li><strong>SonarQube Database</strong>用于存储<ul>
+<li>SonarQube实例的配置(安全，插件…的设置)</li>
+<li>项目，视图…的质量快照</li>
+</ul>
+</li>
+<li>Server上安装了多个插件，可能包括Language，SCM，Intergration，Authentication，Governance…</li>
+<li>在CI/CD Server上运行一个或多个 <strong>SonarScanner</strong> 来分析项目</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h2><p>Integration</p>
+<p>以下模式显示了SonarQube如何与其它ALM工具进行集成，以及在哪里使用SonarQube的各种组件。</p>
+<p><img src="/images/SonarQube/architecture-integrate.png" alt></p>
+<p><br></p>
+<ol>
+<li>开发者在他们的IDE中集成SonarLint运行本地分析</li>
+<li>开发者推送他们的代码到代码库</li>
+<li>CI Server触发自动构建，以及执行运行SonarQube分析所需的SonarScanner</li>
+<li>分析报告将发送到SonarQube Server进行处理</li>
+<li>SonarQube Server处理分析报告并将结果存储在SonarQuebe数据库中，并在UI中显示结果</li>
+<li>开发者通过SonarQube UI审核，评论，挑战他们的Issues以管理和减少他们的技术债务</li>
+<li>管理者从分析中接收报告，运维使用API自动配置并从SonarQube中提取数据，使用JMX监控SonarQube Server</li>
+</ol>
+<p><br><br><br><br><br></p>
+<h2 id="关于机器和位置"><a href="#关于机器和位置" class="headerlink" title="关于机器和位置"></a>关于机器和位置</h2><p>About Machines and Locations</p>
+<ul>
+<li>SonarQube平台不能够有多个SonarQube Server和SonarQube Database</li>
+<li>为获得最佳性能，每个组件(Server, Database, Scanner)应该安装在单独的机器上，并且此机器应该是专用的</li>
+<li>SonarScanner通过添加机器进行扩展</li>
+<li>所有机器必须时钟同步</li>
+<li>SonarQube Server和SonarQube Database必须位于同一网络下</li>
+<li>SonarScanner不需要与SonarQube Server位于同一网络下</li>
+<li>SonarScanner与SonarQube Database之间没有通信</li>
+</ul>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h1><p>Requirements</p>
+<p><br></p>
+<h2 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h2><p>Prerequisites and Overview</p>
+<p>运行SonarQube的唯一先决条件是安装Java(Oracle JRE 8/OpenJDK 8)。</p>
+<p><br></p>
+<h3 id="硬件要求"><a href="#硬件要求" class="headerlink" title="硬件要求"></a>硬件要求</h3><ul>
+<li>2Cores+</li>
+<li>2GB RAM+</li>
+<li>建议使用高性能I/O的磁盘</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="支持的平台"><a href="#支持的平台" class="headerlink" title="支持的平台"></a>支持的平台</h3><ul>
+<li>Java<ul>
+<li>Oracle JRE 8</li>
+<li>OpenJDK 8</li>
+</ul>
+</li>
+<li>Database<ul>
+<li>PostgreSQL v9.3-v9.6, v10. UTF-8 charset</li>
+<li>SQL Server v2014, v2016. </li>
+<li>Oracle v11, v12, vXE. UTF8-family charset, thin mode</li>
+<li>MySQL v5.6, v5.7. UTF8 charset, InnoDB storage, mysql-connector-java</li>
+</ul>
+</li>
+<li>Web Browser<ul>
+<li>IE 11</li>
+<li>Edge Latest</li>
+<li>FireFox Latest</li>
+<li>Chrome</li>
+<li>Safari</li>
+</ul>
+</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="平台说明"><a href="#平台说明" class="headerlink" title="平台说明"></a>平台说明</h3><p><br></p>
+<h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><p>如果在Linux上运行，请确保:</p>
+<ul>
+<li><code>vm.max_map_count</code> 大于或等于 262144</li>
+<li><code>fs.file-max</code> 大于或等于 65535</li>
+<li>运行SonarQube的用户可以打开至少65535个文件描述符</li>
+<li>运行SonarQube的用户可以打开至少2048个线程</li>
+</ul>
+<p>用以下命令查看和配置它们:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">sysctl vm.max_map_count</span><br><span class="line">sysctl fs.file-max</span><br><span class="line"><span class="built_in">ulimit</span> -n</span><br><span class="line"><span class="built_in">ulimit</span> -u</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置，但只是临时生效</span></span><br><span class="line"><span class="comment"># root</span></span><br><span class="line">sysctl -w vm.max_map_count=262144</span><br><span class="line">sysctl -w fs.file-max=65536</span><br><span class="line"><span class="built_in">ulimit</span> -n 65536</span><br><span class="line"><span class="built_in">ulimit</span> -u 2048</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 永久生效</span></span><br><span class="line"><span class="comment"># /etc/sysctl.d/99-sonarqube.conf 或 /etc/sysctl.conf</span></span><br><span class="line"><span class="comment"># user: sonarqube</span></span><br><span class="line">sonarqube   -   nofile   65536</span><br><span class="line">sonarqube   -   nproc    2048</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>如果使用<code>systemd</code>来启动SonarQube，你必须在<code>[Service]</code>的单元文件中指定这些限制:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">...</span><br><span class="line">LimitNOFILE=65536</span><br><span class="line">LimitNPROC=2048</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="seccomp-filter"><a href="#seccomp-filter" class="headerlink" title="seccomp filter"></a>seccomp filter</h4><p>默认情况下，ElasticSearch使用<strong>seccomp filter</strong>。在大多数发行版中，此功能在内核中激活。但在RHL6等发行版上，此功能已停用。如果你的发行版中没有此功能，请无法升级到激活了seccomp filter功能的版本，则必须通过更新<code>$SONARQUBEHOME/conf/sonar.properties_</code>中的<code>sonar.search.javaAdditionalOpts</code>配置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sonar.search.javaAdditionalOpts=-Dbootstrap.system_call_filter=false</span><br><span class="line"></span><br><span class="line"># 检查</span><br><span class="line">grep SECCOMP /boot/config-$(uname -r)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 如果内核有它，你将看到</span><br><span class="line">CONFIG_HAVE_ARCH_SECCOMP_FILTER=y</span><br><span class="line">CONFIG_SECCOMP_FILTER=y</span><br><span class="line">CONFIG_SECCOMP=y</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="配置和升级"><a href="#配置和升级" class="headerlink" title="配置和升级"></a>配置和升级</h1><p>Setup and Upgrade</p>
+<p><br></p>
+<h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><p>Get Started in Two Minutes Guide</p>
+<ul>
+<li>从ZIP文件安装</li>
+<li>使用Docker</li>
+</ul>
+<p><br></p>
+<h3 id="zip文件安装"><a href="#zip文件安装" class="headerlink" title="zip文件安装"></a>zip文件安装</h3><ol>
+<li>现在 SonarQube CE</li>
+<li>解压</li>
+<li>运行</li>
+<li>访问</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 具体位置取决于你的安装位置</span></span><br><span class="line">/opt/sonarqube/bin/[OS]/sonar.sh console</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># localhost:9000（admin/admin）</span></span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h3><p>在<a href="https://hub.docker.com/_/sonarqube/" target="_blank" rel="noopener">Docker Hub</a>上下载对应CE的镜像，上面有安装和配置的详细信息。</p>
+<p><br><br><br><br><br></p>
+<h2 id="安装Server"><a href="#安装Server" class="headerlink" title="安装Server"></a>安装Server</h2><p>支持多个数据库引擎，请务必遵守各个数据库引擎的要求。</p>
+<p>创建一个空的schema和一个<code>sonarqube</code>用户。授予此用户<code>create, update, delete</code>此<code>schema</code>对象的权限。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">SCHEMA</span> <span class="string">`sonar`</span> <span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8 ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'sonarqube'</span>@<span class="string">'localhost'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'sonarqube-PW123'</span>;</span><br><span class="line"><span class="keyword">GRANT</span> ALL <span class="keyword">ON</span> sonar.* <span class="keyword">TO</span> <span class="string">'sonarqube'</span>@<span class="string">'localhost'</span>;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="安装数据库"><a href="#安装数据库" class="headerlink" title="安装数据库"></a>安装数据库</h3><p><br></p>
+<h4 id="SQL-Server"><a href="#SQL-Server" class="headerlink" title="SQL Server"></a>SQL Server</h4><p>跳过，有需要的请看: <a href="https://docs.sonarqube.org/latest/setup/install-server/" target="_blank" rel="noopener">https://docs.sonarqube.org/latest/setup/install-server/</a></p>
+<p><br><br><br></p>
+<h4 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h4><p>跳过！</p>
+<p><br><br><br></p>
+<h4 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a>PostgreSQL</h4><p>如果你想使用<code>custom schema</code>而不是默认的<code>public schema</code>，则必须设置PostgreSQL的<code>search_path</code>属性:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> mySonarUser <span class="keyword">SET</span> search_path <span class="keyword">to</span> mySonarQubeSchema</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h4><blockquote>
+<p>注意:<br>Data Center Edition(Enterprise)不支持MySQL!<br>Data Center Edition: Designed for High Availability</p>
+</blockquote>
+<p>可在MySQL中使用两种众所周知的数据库引擎: <strong>MyISAM</strong>和<strong>InnoDB</strong>。MyISAM是最老的，并且正在逐渐被InnoDB替代。随着质量控制项目数量的增加，InnoDB显然更快，并且使用SonarQube可以更好地扩展。<br>如果你是SonarQube的早期使用者，你可能有一系列仍在使用MyISAM引擎的表。你应该将所有表的引擎更改为InnoDB。</p>
+<p>一旦所有SonarQube表都使用InnoDB引擎，首先要做的是使用<code>innodb_buffer_pool_size</code>参数为MySQL实例分配最大的RAM，并为<code>query_cache_size</code>参数提供至少<code>15Mb</code>。</p>
+<p>阅读这篇文档<a href="https://www.percona.com/blog/2007/11/01/innodb-performance-optimization-basics/" target="_blank" rel="noopener">InnoDB Performance Optimization</a>来优化InnoDB。</p>
+<p><br><br><br></p>
+<h3 id="安装Web-Server"><a href="#安装Web-Server" class="headerlink" title="安装Web Server"></a>安装Web Server</h3><p>首先，检查安装要求；<br>下载和解压压缩的发行版(不要解压到以数字开头的目录)；<br>下面变量<code>SONARQUBE-HOME</code>指的是解压的路径。</p>
+<p><br></p>
+<h4 id="设置数据库访问"><a href="#设置数据库访问" class="headerlink" title="设置数据库访问"></a>设置数据库访问</h4><p>编辑<code>$SONARQUBE-HOME/conf/sonar.properties</code>来配置数据库设置。模板可用于每个受支持的数据库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Example for MySQL</span><br><span class="line">sonar.jdbc.username=sonarqube</span><br><span class="line">sonar.jdbc.password=sonarqube-PW123</span><br><span class="line">sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance&amp;useSSL=false</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="添加JDBC驱动"><a href="#添加JDBC驱动" class="headerlink" title="添加JDBC驱动"></a>添加JDBC驱动</h4><p>已提供受支持数据库(Oracle除外)的驱动程序。不要更换提供的驱动程序，它们是唯一受支持的。</p>
+<p>对于Oracle，将JDBC驱动复制到<code>$SONARQUBE-HOME/extensions/jdbc-driver/oracle</code>。</p>
+<p><br><br><br></p>
+<h4 id="配置ElasticSearch存储路径"><a href="#配置ElasticSearch存储路径" class="headerlink" title="配置ElasticSearch存储路径"></a>配置ElasticSearch存储路径</h4><p>默认情况下，ES数据存储在<code>$SONARQUBE-HOME/data</code>中，但不建议用于生产环境。相反，你应该将数据存储在其它位置，最好是在具有高速I/O的专用卷。除了保持可接受的性能之外，还可简化SonarQube的升级。</p>
+<p>编辑<code>$SONARQUBE-HOME/conf/sonar.properties</code>来配置以下设置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 请记得添加读写权限</span><br><span class="line">sonar.path.data=/var/sonarqube/data</span><br><span class="line">sonar.path.temp=/var/sonarqube/temp</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="启动Web-Server"><a href="#启动Web-Server" class="headerlink" title="启动Web Server"></a>启动Web Server</h4><p>可在<code>$SONARQUBE-HOME/conf/sonar.properties</code>配置监听地址和端口等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sonar.web.host=192.0.0.1</span><br><span class="line">sonar.web.port=80</span><br><span class="line">sonar.web.context=/sonarqube</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动</span></span><br><span class="line">bin/sonar.sh start</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认admin/admin</span></span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="调整Web服务器"><a href="#调整Web服务器" class="headerlink" title="调整Web服务器"></a>调整Web服务器</h4><p>默认情况下，SonarQube配置为在任何具有简单Java JRE的计算机上运行。</p>
+<p>为了更好地性能，生产环境实例要做的第一件事是使用Java JDK并通过在<code>sonar.web.javaOpts=-server</code>中设置以下行来激活服务器模式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sonar.web.javaOpts=-server</span><br></pre></td></tr></table></figure>
+<p>要修改SonarQube使用的Java JVM只需编辑<code>$SONARQUBE-HOME/conf/wrapper.conf</code>并更新以下行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wrapper.java.command=/path/to/my/jdk/bin/java</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h4><p>docs: <a href="https://docs.sonarqube.org/latest/setup/install-server/" target="_blank" rel="noopener">https://docs.sonarqube.org/latest/setup/install-server/</a></p>
+<p><br><br><br><br><br></p>
+<h2 id="配置和操作Server"><a href="#配置和操作Server" class="headerlink" title="配置和操作Server"></a>配置和操作Server</h2><p>Configure &amp; Operate the Server</p>
+<p><br></p>
+<h3 id="以SystemD运行"><a href="#以SystemD运行" class="headerlink" title="以SystemD运行"></a>以SystemD运行</h3><p>Running SonarQube as a Service on Linux with SystemD</p>
+<p>假设如下信息:</p>
+<ul>
+<li>sonarqube用户</li>
+<li>sonarqube组</li>
+<li>java virtual machine安装在<code>/opt/java/</code></li>
+<li>sonarqube解压在<code>/opt/sonarqube/</code></li>
+</ul>
+<p><br></p>
+<p>创建<code>sonarqube</code>用户:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -M -s /sbin/nologin</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>创建service文件<code>/etc/systemd/system/sonarqube.service</code>，具体详情请安装自己的实际情况进行修改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=SonarQube service</span><br><span class="line">After=syslog.target network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=sonarqube</span><br><span class="line">Group=sonarqube</span><br><span class="line">PermissionsStartOnly=true</span><br><span class="line">ExecStart=/bin/nohup /opt/java/bin/java -Xms32m -Xmx32m -Djava.net.preferIPv4Stack=true -jar /opt/sonarqube/lib/sonar-application-7.6.jar</span><br><span class="line">StandardOutput=syslog</span><br><span class="line">LimitNOFILE=65536</span><br><span class="line">LimitNPROC=8192</span><br><span class="line">TimeoutStartSec=5</span><br><span class="line">Restart=always</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> sonarqube.service</span><br><span class="line">sudo systemctl start sonarqube.service</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="在代理服务器后保护Server"><a href="#在代理服务器后保护Server" class="headerlink" title="在代理服务器后保护Server"></a>在代理服务器后保护Server</h3><p>Securing the Server Behind a Proxy</p>
+<p><br></p>
+<h4 id="Server配置"><a href="#Server配置" class="headerlink" title="Server配置"></a>Server配置</h4><p>要通过HTTPS运行SonarQube Server，必须构建标准的反向代理服务器。<br>必须配置反向代理，在每个HTTP Request Header中设置<code>X_FORWARDED_PROTO: https</code>值。如果没有此属性，SonarQube Server启动的重定向将回退到HTTP。</p>
+<p><br><br><br></p>
+<h4 id="使用Apache代理"><a href="#使用Apache代理" class="headerlink" title="使用Apache代理"></a>使用Apache代理</h4><p>跳过！</p>
+<p><br><br><br></p>
+<h4 id="使用Nginx代理"><a href="#使用Nginx代理" class="headerlink" title="使用Nginx代理"></a>使用Nginx代理</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># the server directive is nginx&apos;s virtual host directive</span><br><span class="line">server &#123;</span><br><span class="line">  # port to listen on. Can also be set to an IP:PORT</span><br><span class="line">  listen 80;</span><br><span class="line"></span><br><span class="line">  # sets the domain[s] that this vhost server requests for</span><br><span class="line">  server_name www.somecompany.com;</span><br><span class="line"></span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http://sonarhost:sonarport;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h4 id="使用IIS"><a href="#使用IIS" class="headerlink" title="使用IIS"></a>使用IIS</h4><p>跳过！</p>
+<p><br><br><br><br><br></p>
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>在SonarQube中安装插件有两种选择:</p>
+<ul>
+<li><strong>Marketplace</strong>，从SonarQube UI自动地安装插件</li>
+<li><strong>手动安装</strong>， 如果SonarQube实例无法访问Internet，请使用此方法</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="安装C-C-插件"><a href="#安装C-C-插件" class="headerlink" title="安装C/C++插件"></a>安装C/C++插件</h2><p>由于SonarQube的C, C++是商业版才有的功能，所以我使用的CE版就不支持对这两个语言的静态检查。</p>
+<p>后来看到 <strong>SonarOpenCommunity</strong>: <a href="https://github.com/SonarOpenCommunity" target="_blank" rel="noopener">https://github.com/SonarOpenCommunity</a>，它里面有这个插件，先感谢开发者，然后再使用。</p>
+<p>sonar-cxx: <a href="https://github.com/SonarOpenCommunity/sonar-cxx" target="_blank" rel="noopener">https://github.com/SonarOpenCommunity/sonar-cxx</a>，查看相关说明进行安装和配置。</p>
+<p><br></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
+<li>明白哪个插件版本与当前使用的SonarQube版本监控</li>
+<li>下载jar插件，将其放置于<code>$ SONARQUBE_HOME/extensions/plugins</code>目录下<ul>
+<li><code>sonar-cxx-plugin-x.y.z.jar</code>: c++ plug-in</li>
+<li><code>sonar-c-plugin-x.y.z.jar</code>: c plug-in</li>
+</ul>
+</li>
+<li>重启SonarQube Server</li>
+<li>在UI上的Marketplace查看更新</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="安装PS-SQL插件"><a href="#安装PS-SQL插件" class="headerlink" title="安装PS/SQL插件"></a>安装PS/SQL插件</h2><p>由于SonarQube的PL, SQL是商业版才有的功能，所以我使用的CE版就不支持对这两个语言的静态检查。</p>
+<p>后来看到: sonar-plsql: <a href="https://github.com/felipebz/sonar-plsql" target="_blank" rel="noopener">https://github.com/felipebz/sonar-plsql</a> 社区开源项目，先感谢开发者，再使用。</p>
+<p>安装方法与上面的C/C++一样，下载当前版本支持的插件到对应目录，重启SonarQube Server。</p>
+<p><br><br><br><br><br></p>
+<h2 id="将Server安装为集群"><a href="#将Server安装为集群" class="headerlink" title="将Server安装为集群"></a>将Server安装为集群</h2><p>docs: <a href="https://docs.sonarqube.org/latest/setup/install-cluster/" target="_blank" rel="noopener">https://docs.sonarqube.org/latest/setup/install-cluster/</a></p>
+<p>先跳过！</p>
+<p><br><br><br><br><br></p>
+<h2 id="配置和操作集群"><a href="#配置和操作集群" class="headerlink" title="配置和操作集群"></a>配置和操作集群</h2><p>Configure &amp; Operate a Cluster</p>
+<p>docs: <a href="https://docs.sonarqube.org/latest/setup/operate-cluster/" target="_blank" rel="noopener">https://docs.sonarqube.org/latest/setup/operate-cluster/</a></p>
+<p>先跳过！</p>
+<p><br><br><br><br><br></p>
+<h2 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h2><p>Upgrade the Server</p>
+<p>自动处理<code>non-LTS</code>版本的升级。但是，如果在迁移路径中有LTS版本，则必须先迁移LTS，然后再迁移到目标版本。</p>
+<p>例如，<code>v5.1</code> -&gt; <code>v7.0</code>，迁移路径为 <code>v5.1</code> -&gt; <code>5.6.7 LTS</code> -&gt; <code>v6.7.x LTS</code> -&gt; <code>v7.0</code>。</p>
+<p><br></p>
+<h3 id="如何升级"><a href="#如何升级" class="headerlink" title="如何升级"></a>如何升级</h3><p>在开始之前，请备份SnarQube Database。升级问题虽然很少见，但备份确实必须的。</p>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="分析源代码"><a href="#分析源代码" class="headerlink" title="分析源代码"></a>分析源代码</h1><p>Analyzing Source Code</p>
+<p><br></p>
+<h2 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h2><p>一旦安装了SonarQube平台，你就可以安装分析器(analyzer)并开始创建项目了。为此，你必须安装和配置适合你需求的扫描器(scanner)。<br>Do you build with:</p>
+<ul>
+<li><strong>Gradle</strong> - <a href="https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Gradle" target="_blank" rel="noopener">SonarScanner for Gradle</a></li>
+<li><strong>MSBuild</strong> - <a href="https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+MSBuild" target="_blank" rel="noopener">SonarScanner for MSBuild</a></li>
+<li><strong>Maven</strong> - <a href="https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Maven" target="_blank" rel="noopener">use the SonarScanner for Maven</a></li>
+<li><strong>Jenkins</strong> - <a href="https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins" target="_blank" rel="noopener">SonarScanner for Jenkins</a></li>
+<li><strong>Azure DevOps</strong> - <a href="https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+VSTS-TFS" target="_blank" rel="noopener">SonarQube Extension for Azure DevOps</a></li>
+<li><strong>Ant</strong> - <a href="https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Ant" target="_blank" rel="noopener">SonarScanner for Ant</a></li>
+<li><strong>anything else (CLI)</strong> - <a href="https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner" target="_blank" rel="noopener">SonarScanner</a></li>
+</ul>
+<p><strong>注意</strong>，不建议在运行SonarQube Scanner Analysis的机器上运行反病毒扫描程序，这可能会导致不可预测的行为。</p>
+<p><br></p>
+<h3 id="分析产生了什么"><a href="#分析产生了什么" class="headerlink" title="分析产生了什么"></a>分析产生了什么</h3><p>What does analysis produce?</p>
+<p>SonarQube可以对20多种不同的语言进行分析。该分析的结果是 quality measures 和 issues。但是，分析的结果也会因语言而异:</p>
+<ul>
+<li>在所有语言中，<strong>blame</strong>数据将自动从支持的SCM提供程序导入(自动支持Git和SVN)。其它提供需要额外的插件</li>
+<li>在所有语言中，执行源代码的静态分析</li>
+<li>可对某些语言执行编译代码的静态分析</li>
+<li>可对某些语言执行代码的动态分析</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="是否会分析所有文件"><a href="#是否会分析所有文件" class="headerlink" title="是否会分析所有文件"></a>是否会分析所有文件</h3><p>Will all files be analyzed?</p>
+<p>默认情况下，在分析期间，只有语言分析器(language analyzer)可识别的文件才会加载到项目中。</p>
+<p><br><br><br></p>
+<h3 id="分析期间会发生什么"><a href="#分析期间会发生什么" class="headerlink" title="分析期间会发生什么"></a>分析期间会发生什么</h3><p>What happens during analysis?</p>
+<p>在分析期间，从Server请求数据，分析提供给分析的文件，并以报告的形式将结果返回到Server，然后在Server-Side异步分析。</p>
+<p>分析上报排队并按顺序处理，因此很可能在分析日志显示完成后的短暂时间内，更新的值在SonarQube项目中不可见。但是，你能够分辨出正在发生的事情，因为项目名称右侧的项目主页上会有一个图标。</p>
+<p><img src="/images/SonarQube/backgroundTaskProcessingInProgress.jpeg" alt></p>
+<p><img src="/images/SonarQube/backgroundTaskProcessingFailedIcon.jpeg" alt></p>
+<p><br><br><br><br><br></p>
+<h2 id="分析参数"><a href="#分析参数" class="headerlink" title="分析参数"></a>分析参数</h2><p>Analysis Parameters</p>
+<p>可以在多个位置设置用于配置项目分析的参数。这是参数的层次结构：</p>
+<ul>
+<li>在UI里定义的<strong>全局分析参数(Global)</strong>，<code>Administration &gt; Configuration &gt; General Settings</code></li>
+<li>在UI里定义的<strong>项目分析参数(Project)</strong>，<code>Project Level &gt; Administration &gt; General Settings</code></li>
+<li>在项目分析配置文件或分析器配置文件中定义的<strong>项目分析参数</strong></li>
+<li><strong>分析/命令行参数</strong>，再启动分析时定义，覆盖项目分析参数</li>
+</ul>
+<p>注意，只有通过UI设置的参数才会存储在数据库中。</p>
+<p><br></p>
+<h3 id="强制参数"><a href="#强制参数" class="headerlink" title="强制参数"></a>强制参数</h3><p>Mandatory Parameters</p>
+<p><br></p>
+<ul>
+<li><strong>Server</strong></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sonar.host.url</code></td>
+<td>the server URL</td>
+<td><code>http://localhost:9000</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br></p>
+<ul>
+<li><strong>Project Configuration</strong></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sonar.projectKey</code></td>
+<td>The project’s unique key. Allowed characters are: letters, numbers, - , _ , . and : , with at least one non-digit.</td>
+<td>For Maven projects, this is automatically set to <code>&lt;groupId&gt;:&lt;artifactId&gt;</code></td>
+</tr>
+<tr>
+<td><code>sonar.sources</code></td>
+<td>Comma-separated paths to directories containing source files.</td>
+<td>Read from build system for Maven, Gradle, MSBuild projects</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br><br><br></p>
+<h3 id="可选参数"><a href="#可选参数" class="headerlink" title="可选参数"></a>可选参数</h3><p>Optional Parameters</p>
+<ul>
+<li><strong>Project Identity</strong></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sonar.projectName</code></td>
+<td>显示在Web实例上的项目名称</td>
+<td>Maven项目的<code>&lt;name&gt;</code>，否则为项目密钥。如果DB中已有名称，则不会覆盖该名称</td>
+</tr>
+<tr>
+<td><code>sonar.projectVersion</code></td>
+<td>项目版本</td>
+<td>Maven项目的<code>&lt;version&gt;</code>，否则未提供</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br></p>
+<ul>
+<li><strong>Authentication</strong></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sonar.login</code></td>
+<td>具有项目执行分析权限的SonarQube用户的登录或身份验证Token</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td><code>sonar.password</code></td>
+<td>与<code>sonar.login</code>用户名一起使用的密码。如果正在使用身份验Token，则应将此项留空</td>
+<td>xxx</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br></p>
+<ul>
+<li><strong>Web Services</strong></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sonar.ws.timeout</code></td>
+<td>等待Web服务调用响应的最长时间（秒）。只有在等待服务器响应Web服务调用时在分析期间遇到超时时，才能从默认值修改此值。</td>
+<td>60</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br></p>
+<ul>
+<li><strong>Project Configuration</strong></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sonar.projectDescription</code></td>
+<td>项目描述。与Maven不兼容</td>
+<td><code>&lt;description</code>用于Maven项目</td>
+</tr>
+<tr>
+<td><code>sonar.links.homepage</code></td>
+<td>项目主页，与Maven不兼容</td>
+<td><code>&lt;url&gt;</code>用于Maven项目</td>
+</tr>
+<tr>
+<td><code>sonar.links.ci</code></td>
+<td>CI，与Maven不兼容</td>
+<td><code>&lt;ciManagement&gt;&lt;url&gt;</code>用于Maven项目</td>
+</tr>
+<tr>
+<td><code>sonar.links.issue</code></td>
+<td>Issue tracker，与Maven不兼容</td>
+<td><code>&lt;issueManagement&gt;&lt;url&gt;</code>用于Maven项目</td>
+</tr>
+<tr>
+<td><code>sonar.links.scm</code></td>
+<td>项目原仓库，与Maven不兼容</td>
+<td><code>&lt;scm&gt;&lt;url&gt;</code>用于Maven项目</td>
+</tr>
+<tr>
+<td><code>sonar.links.scm_dev</code></td>
+<td>开发者连接，与Maven不兼容</td>
+<td><code>&lt;scm&gt;&lt;developerConnection&gt;</code>用于Maven项目</td>
+</tr>
+<tr>
+<td><code>sonar.tests</code></td>
+<td>包含测试的目录的逗号分隔路径,与Maven不兼容</td>
+<td>Maven项目的默认测试位置</td>
+</tr>
+<tr>
+<td><code>sonar.sourceEncoding</code></td>
+<td>源文件编码</td>
+<td>系统编码</td>
+</tr>
+<tr>
+<td><code>sonar.externalIssuesReportPaths</code></td>
+<td>以逗号分隔的通用Issue上报路径列表</td>
+</tr>
+<tr>
+<td><code>sonar.projectDate</code></td>
+<td>为分析指定日期(yyyy-MM-dd)</td>
+<td>当前日志</td>
+</tr>
+<tr>
+<td><code>sonar.projectBaseDir</code></td>
+<td>当您需要在除启动它之外的目录中进行分析时，请使用此属性</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td><code>sonar.working.directory</code></td>
+<td>设置使用SonarScanner或SonarScanner for Ant（版本大于2.0）触发的分析的工作目录</td>
+<td><code>.sonar</code></td>
+</tr>
+<tr>
+<td><code>sonar.scm.provider</code></td>
+<td>此属性可用于明确告知SonarQube应使用哪个SCM插件来获取项目上的SCM数据</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td><code>sonar.scm.forceReloadAll</code></td>
+<td>默认情况下，仅检索已更改文件的blame信息。将此属性设置为true可加载所有文件的blame信息</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td><code>sonar.coverage.jacoco.xmlReportPaths</code></td>
+<td>导入以XML文件形式提供的JaCoCo代码覆盖率报告。此属性接受多个逗号分隔的条目。必须在分析之前生成JaCoCo XML报告</td>
+<td><code>target/site/jacoco/jacoco.xml</code> <br> <code>build/reports/jacoco/test/jacocoTestReport.xml</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br></p>
+<ul>
+<li><strong>Duplications</strong></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sonar.cpd.exclusions</code></td>
+<td>要从复制检测中排除的以逗号分隔的文件路径模式列表</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td><code>sonar.cpd.${language}.minimumtokens</code></td>
+<td>xxx</td>
+<td>100</td>
+</tr>
+<tr>
+<td><code>sonar.cpd.${language}.minimumLines</code></td>
+<td>如上</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br></p>
+<ul>
+<li><strong>Analysis Logging</strong></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sonar.log.level</code></td>
+<td>控制分析期间生成的日志级别</td>
+<td>INFO</td>
+</tr>
+<tr>
+<td><code>sonar.verbose</code></td>
+<td>向客户端和服务器端分析日志添加更多详细信息</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>sonar.showProfiling</code></td>
+<td>显示日志以查看分析仪花费时间的位置</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>sonar.scanner.dumpToFile</code></td>
+<td>将指向文件的完整属性列表输出到扫描程序API，作为调试分析的方法</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td><code>sonar.scanner.metadataFilePath</code></td>
+<td>设置扫描程序写入report-task.txt文件的位置，该文件包含ceTaskId等</td>
+<td><code>sonar.working.directory</code>的值</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br><br><br><br><br></p>
+<h2 id="后台任务"><a href="#后台任务" class="headerlink" title="后台任务"></a>后台任务</h2><p>Background Tasks</p>
+<p>一个后台任务可以是:</p>
+<ul>
+<li>导入一个分析报告</li>
+<li>the computation of a Portfolio</li>
+<li>导入或导出一个项目</li>
+</ul>
+<p><br></p>
+<h3 id="扫描程序完成分析后会发生什么"><a href="#扫描程序完成分析后会发生什么" class="headerlink" title="　扫描程序完成分析后会发生什么"></a>　扫描程序完成分析后会发生什么</h3><p>What happens after the scanner is done analyzing?</p>
+<p>在相关后台任务完成之前，分析尚未完成。即使SonarScanner的日志显示执行完成，在完成后台任务之前，分析结果在SonarQube项目中将不可见。在SonarScanner外出分析代码后，分析结果(Sources, Issues, Metrics) - 分析报告 - 将发送到SonarQube Server，一共计算引擎进行最终处理。分析报告按顺序排队和处理。</p>
+<p>在项目级别，当有待处理的分析报告等待消耗时，标题中的<strong>Pending（待处理）</strong>通知将在最近完成的分析的日期旁。</p>
+<p>全局管理员可在<code>Administration &gt; Projects &gt; Background Tasks</code>查看当前队列；项目管理员可在<code>Administration &gt; Background Tasks</code>查看相关任务。</p>
+<p><br><br><br></p>
+<h3 id="如何知道分析报告处理失败的时间"><a href="#如何知道分析报告处理失败的时间" class="headerlink" title="如何知道分析报告处理失败的时间"></a>如何知道分析报告处理失败的时间</h3><p>How do I know when analysis report processing fails?</p>
+<p>后台任务通常会成功，但有时候异常会导致处理失败。例如:</p>
+<ul>
+<li>处理大项目是内存不足(OOM)</li>
+<li>现有模块或项目的密钥与报告中的密钥冲突</li>
+<li>…</li>
+</ul>
+<p>当发生这种情况时，失败的状态会反映在项目主页上，但这需要有人注意到它。你还可以选择在后台任务失败时通过电子邮件接收通知(Notifications)——无论是逐个还是全局。</p>
+<p><br><br><br></p>
+<h3 id="如何诊断失败的后台任务"><a href="#如何诊断失败的后台任务" class="headerlink" title="如何诊断失败的后台任务"></a>如何诊断失败的后台任务</h3><p>How do I diagnose a failing background task?</p>
+<p>对于没法分析报告，都有一个下拉菜单，允许你访问<strong>扫描程序上下文(Scanner Context)</strong>，显示代码扫描是扫描程序的配置。<br>如果任务处理失败，则可使用其它选项<strong>显示错误详细信息(Show Error Details)</strong>，以获取处理后台任务失败的详情。</p>
+<p><br><br><br></p>
+<h3 id="如何取消待处理的分析报告"><a href="#如何取消待处理的分析报告" class="headerlink" title="如何取消待处理的分析报告"></a>如何取消待处理的分析报告</h3><p>How do I cancel a pending analysis report?</p>
+<p>管理员可通过单击取消处理待处理任务(pending task)，一旦报告开始处理，取消它就为时已晚。</p>
+<p><br><br><br><br><br></p>
+<h2 id="通用问题数据"><a href="#通用问题数据" class="headerlink" title="通用问题数据"></a>通用问题数据</h2><p>Generic Issue Data</p>
+<p>SonarQube支持通用导入格式，用于在代码中引发<em>external</em> issues。它旨在允许你从你喜欢的<em>linter</em>导入issues，即使它不存在插件。</p>
+<p>外部问题受到两个重要限制:</p>
+<ul>
+<li>它们无法在SonarQube内管理</li>
+<li>在SonarQube中无法管理引发这些问题的规则的激活</li>
+</ul>
+<p><br></p>
+<h3 id="Import"><a href="#Import" class="headerlink" title="Import"></a>Import</h3><p>分析参数<code>sonar.externalIssueReportPaths</code>接受以逗号分隔的报告路径列表。<br>每个报告必须在顶层(top-level)包含一个名为issues对象的问题对象数组。</p>
+<p><strong>Issue字段:</strong></p>
+<ul>
+<li><code>engineId</code> - string</li>
+<li><code>ruleId</code> - string</li>
+<li><code>primaryLocation</code> - Location object</li>
+<li><code>type</code> - string. One of BUG, VULNERABILITY, CODE_SMELL</li>
+<li><code>severity</code> - string. One of BLOCKER, CRITICAL, MAJOR, MINOR, INFO</li>
+<li><code>effortMinutes</code> - integer, optional. Defaults to 0</li>
+<li><code>secondaryLocations</code> - array of Location objects, optional</li>
+</ul>
+<p><br></p>
+<p><strong>Location字段:</strong></p>
+<ul>
+<li><code>message</code> - string</li>
+<li><code>filePath</code> - string</li>
+<li><code>textRange</code> - TextRange object, optional for secondary locations only</li>
+</ul>
+<p><br></p>
+<p><strong>TextRange字段:</strong></p>
+<ul>
+<li><code>startLine</code> - integer. 1-indexed</li>
+<li><code>endLine</code> - integer, optional. 1-indexed</li>
+<li><code>startColumn</code> - integer, optional. 0-indexed</li>
+<li><code>endColumn</code> - integer, optional. 0-indexed</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h3><p>以下是预期格式的栗子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;issues&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;engineId&quot;: &quot;test&quot;,</span><br><span class="line">      &quot;ruleId&quot;: &quot;rule1&quot;,</span><br><span class="line">      &quot;severity&quot;:&quot;BLOCKER&quot;,</span><br><span class="line">      &quot;type&quot;:&quot;CODE_SMELL&quot;,</span><br><span class="line">      &quot;primaryLocation&quot;: &#123;</span><br><span class="line">        &quot;message&quot;: &quot;fully-fleshed issue&quot;,</span><br><span class="line">        &quot;filePath&quot;: &quot;sources/A.java&quot;,</span><br><span class="line">        &quot;textRange&quot;: &#123;</span><br><span class="line">          &quot;startLine&quot;: 30,</span><br><span class="line">          &quot;endLine&quot;: 30,</span><br><span class="line">          &quot;startColumn&quot;: 9,</span><br><span class="line">          &quot;endColumn&quot;: 14</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;effortMinutes&quot;: 90,</span><br><span class="line">      &quot;secondaryLocations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;message&quot;: &quot;cross-file 2ndary location&quot;,</span><br><span class="line">          &quot;filePath&quot;: &quot;sources/B.java&quot;,</span><br><span class="line">          &quot;textRange&quot;: &#123;</span><br><span class="line">            &quot;startLine&quot;: 10,</span><br><span class="line">            &quot;endLine&quot;: 10,</span><br><span class="line">            &quot;startColumn&quot;: 6,</span><br><span class="line">            &quot;endColumn&quot;: 38</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;engineId&quot;: &quot;test&quot;,</span><br><span class="line">      &quot;ruleId&quot;: &quot;rule2&quot;,</span><br><span class="line">      &quot;severity&quot;: &quot;INFO&quot;,</span><br><span class="line">      &quot;type&quot;: &quot;BUG&quot;,</span><br><span class="line">      &quot;primaryLocation&quot;: &#123;</span><br><span class="line">        &quot;message&quot;: &quot;minimal issue raised at file level&quot;,</span><br><span class="line">        &quot;filePath&quot;: &quot;sources/Measure.java&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><br><br><br></p>
+<h2 id="通用测试数据"><a href="#通用测试数据" class="headerlink" title="通用测试数据"></a>通用测试数据</h2><p>Generic Test Data</p>
+<p>开箱即用，SonarQube支持用于测试覆盖和测试执行导入的通用格式。如果你的语言不插件不支持你的Coverage引擎的本机输出格式，只需将它们转换为这些格式即可。</p>
+<p><br></p>
+<h3 id="Generic-Coverage"><a href="#Generic-Coverage" class="headerlink" title="Generic Coverage"></a>Generic Coverage</h3><p>报告路径应该以逗号分隔的列表传递给: <code>sonar.coverageReportPaths</code></p>
+<p>支持的格式由<code>sonar-generic-coverage.xsd</code>进行描述:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:schema&gt;</span><br><span class="line">  &lt;xs:element name=&quot;coverage&quot;&gt;</span><br><span class="line">    &lt;xs:complexType&gt;</span><br><span class="line">      &lt;xs:sequence&gt;</span><br><span class="line">        &lt;xs:element name=&quot;file&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span><br><span class="line">          &lt;xs:complexType&gt;</span><br><span class="line">            &lt;xs:sequence&gt;</span><br><span class="line">              &lt;xs:element name=&quot;lineToCover&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span><br><span class="line">                &lt;xs:complexType&gt;</span><br><span class="line">                  &lt;xs:attribute name=&quot;lineNumber&quot; type=&quot;xs:positiveInteger&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">                  &lt;xs:attribute name=&quot;covered&quot; type=&quot;xs:boolean&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">                  &lt;xs:attribute name=&quot;branchesToCover&quot; type=&quot;xs:nonNegativeInteger&quot;/&gt;</span><br><span class="line">                  &lt;xs:attribute name=&quot;coveredBranches&quot; type=&quot;xs:nonNegativeInteger&quot;/&gt;</span><br><span class="line">                &lt;/xs:complexType&gt;</span><br><span class="line">              &lt;/xs:element&gt;</span><br><span class="line">            &lt;/xs:sequence&gt;</span><br><span class="line">          &lt;xs:attribute name=&quot;path&quot; type=&quot;xs:string&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">          &lt;/xs:complexType&gt;</span><br><span class="line">        &lt;/xs:element&gt;</span><br><span class="line">      &lt;/xs:sequence&gt;</span><br><span class="line">      &lt;xs:attribute name=&quot;version&quot; type=&quot;xs:positiveInteger&quot; use=&quot;required&quot;/&gt;</span><br><span class="line">    &lt;/xs:complexType&gt;</span><br><span class="line">  &lt;/xs:element&gt;</span><br><span class="line">&lt;/xs:schema&gt;</span><br></pre></td></tr></table></figure>
+<p>看起来像这样:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;coverage version=&quot;1&quot;&gt;</span><br><span class="line">  &lt;file path=&quot;xources/hello/NoConditions.xoo&quot;&gt;</span><br><span class="line">    &lt;lineToCover lineNumber=&quot;6&quot; covered=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;lineToCover lineNumber=&quot;7&quot; covered=&quot;false&quot;/&gt;</span><br><span class="line">  &lt;/file&gt;</span><br><span class="line">  &lt;file path=&quot;xources/hello/WithConditions.xoo&quot;&gt;</span><br><span class="line">    &lt;lineToCover lineNumber=&quot;3&quot; covered=&quot;true&quot; branchesToCover=&quot;2&quot; coveredBranches=&quot;1&quot;/&gt;</span><br><span class="line">  &lt;/file&gt;</span><br><span class="line">&lt;/coverage&gt;</span><br></pre></td></tr></table></figure>
+<p>根节点应该命名为<code>coverage</code>，其<code>version</code>属性应设置为1。</p>
+<p>为每个文件插入一个可由测试覆盖的文件元素。其<code>path</code>属性可以是绝对的，也可是相对的。它具有以下属性:</p>
+<ul>
+<li><code>lineNumber</code>(强制性)</li>
+<li><code>covered</code>(强制性) - 布尔值，指示测试是否实际命中改行</li>
+<li><code>branchesToCover</code>(可选) - 可覆盖的分支数量</li>
+<li><code>coveredBranches</code>(可选) - 实际有测试覆盖的分支数量</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="Generic-Execution"><a href="#Generic-Execution" class="headerlink" title="Generic Execution"></a>Generic Execution</h3><p>报告路径应以逗号分隔的列表传递给: <code>sonar.testExecutionReportPaths</code></p>
+<p>支持的格式如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;testExecutions version=&quot;1&quot;&gt;</span><br><span class="line">  &lt;file path=&quot;testx/ClassOneTest.xoo&quot;&gt;</span><br><span class="line">    &lt;testCase name=&quot;test1&quot; duration=&quot;5&quot;/&gt;</span><br><span class="line">    &lt;testCase name=&quot;test2&quot; duration=&quot;500&quot;&gt;</span><br><span class="line">      &lt;skipped message=&quot;short message&quot;&gt;other&lt;/skipped&gt;</span><br><span class="line">    &lt;/testCase&gt;</span><br><span class="line">    &lt;testCase name=&quot;test3&quot; duration=&quot;100&quot;&gt;</span><br><span class="line">      &lt;failure message=&quot;short&quot;&gt;stacktrace&lt;/failure&gt;</span><br><span class="line">    &lt;/testCase&gt;</span><br><span class="line">    &lt;testCase name=&quot;test4&quot; duration=&quot;500&quot;&gt;</span><br><span class="line">      &lt;error message=&quot;short&quot;&gt;stacktrace&lt;/error&gt;</span><br><span class="line">    &lt;/testCase&gt;</span><br><span class="line">  &lt;/file&gt;</span><br><span class="line">&lt;/testExecutions&gt;</span><br></pre></td></tr></table></figure>
+<p>根节点应该被命名为<code>testExecutions</code>，它的<code>version</code>属性应该被设置成1。<br>为每个测试文件插入一个文件元素，其<code>path</code>属性可以是绝对的，也可是相对于模块的根。</p>
+<p>注意，与覆盖率报告不同，报告中的文件必须是测试文件名，而不是测试所涵盖的源代码文件。</p>
+<p>在<code>file</code>元素内，通过单元测试为每个测试运行插入一个<code>testCase</code>。它具有以下属性/子项:</p>
+<ul>
+<li><code>testCase</code>（强制性）<ul>
+<li><code>name</code>（强制性）: 测试事例的名称</li>
+<li><code>duration</code>(强制性): long value，ms为单位</li>
+<li><code>failure|error|skipped</code>(可选): 如果测试不正确，请使用消息和长描述报告原因</li>
+<li><code>message</code>(强制): 描述原因的短消息</li>
+<li><code>stacktrace</code>（可选）: 包含有关失败、错误、跳过状态的详细信息</li>
+</ul>
+</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="PR分析"><a href="#PR分析" class="headerlink" title="PR分析"></a>PR分析</h2><p>Pull Request Analysis</p>
+<p>PR分析是作为Developer Edtion的一部分提供。它允许你:</p>
+<ul>
+<li>在SonarQube UI中查看你的PR分析结果并查看状态以显示存在未解决的问题</li>
+<li>在你的SCM提供商界面中使用SonarQube issue自动装饰你的PR</li>
+</ul>
+<p>从项目的<strong>branch and pull request</strong>的下拉菜单中可以在SonarQube中看到PR。启用PR装饰后，SonarQube会在PR上发布分析状态。</p>
+<p><br><br><br><br><br></p>
+<h2 id="SCM集成"><a href="#SCM集成" class="headerlink" title="SCM集成"></a>SCM集成</h2><p>在代码分期期间收集SCM数据可以解锁许多SonarQube功能:</p>
+<ul>
+<li>自动Issue分配</li>
+<li>代码查看器中查看代码注释</li>
+<li>SCM-driver的新代码检测，没有SCM数据，SonarQube使用分析日期确定新代码</li>
+</ul>
+<p>SCM集成需要你的SCM提供商，默认情况下支持SVN和Git。其它提供商，请参阅Marketplace。<br>如果需要，你可以通过管理设置将其在全局/项目级别将其关闭。</p>
+<p><br></p>
+<h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><p><br><br><br></p>
+<h3 id="SVN"><a href="#SVN" class="headerlink" title="SVN"></a>SVN</h3><p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="Branches"><a href="#Branches" class="headerlink" title="Branches"></a>Branches</h1><p>分支分析作为Developer Editon的一部分提供。分支分析允许你:</p>
+<ul>
+<li>分析 long-lived branches</li>
+<li>分析 short-lived branches</li>
+<li>在短期分支的状态受到影响时通知外部系统</li>
+</ul>
+<p><br></p>
+<p>由于分支功能是开发版(也就是付费版)功能，因此社区版只能对每个分支创建一个项目。</p>
+<p>例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">repo: zhang-repo</span><br><span class="line"></span><br><span class="line">branch:</span><br><span class="line">  - master</span><br><span class="line">  - test</span><br><span class="line">  - zhang</span><br><span class="line"></span><br><span class="line">projects:</span><br><span class="line">  - zhang-repo-master</span><br><span class="line">  - zhang-repo-test</span><br><span class="line">  - zhang-repo-zhang</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="用户指南"><a href="#用户指南" class="headerlink" title="用户指南"></a>用户指南</h1><p>User Guide</p>
+<p><br></p>
+<h2 id="修复漏水"><a href="#修复漏水" class="headerlink" title="修复漏水"></a>修复漏水</h2><p>Fixing the Water Leak</p>
+<p><br></p>
+<h3 id="什么是漏水"><a href="#什么是漏水" class="headerlink" title="什么是漏水"></a>什么是漏水</h3><p>What is the Water Leak</p>
+<p>想象一下，有一天你回到家发现厨房地板上有一滩水，水慢慢变大。<br>你想去拿拖把？还是找到漏水源头并修复它？选择很明显，你得修复它。</p>
+<p>那么为什么与代码质量(code quality)有什么不同呢？当你使用SonarQube分析应用程序并意识到它有很多技术债务(technical debt)，这种下意识的反应通常是开始修复-这样那样，要么整理一个补救计划。这就像每天拖地一次而却忽略了漏水源头一样。</p>
+<p><br></p>
+<p>通常在这种传统方法中，在发布版本之前，定期进行代码质量(code quality)审计结果是开发人员在发布之前应该采取的行动。这种方法可能在短期内有效，特别是在强有力的管理支持下，但在中长期内始终失败，因为:</p>
+<ul>
+<li>代码审查(code review)过程太迟，没有利益相关者热衷于解决问题，每个人都希望新版本发布</li>
+<li>开发者通常会推迟不了解项目上下文的外部团队提出的建议。顺便提一下，正在审查的代码已经过时了</li>
+<li>使用这种方法明显缺乏对代码质量的所有权。谁拥有质量审查权限？没有人</li>
+<li>在整个应用程序投入生产之前，需要检查整个应用程序，显然不可能对所有应用程序使用相同的标准。每个项目都会进行谈判，这将耗尽整个过程的可信度</li>
+</ul>
+<p><br></p>
+<p>相反，为什么不将你在家中使用的相同的简单逻辑应用于管理代码质量的方式？修复泄露(leak)意味着将重点放在<strong>新代码</strong>上，即自上次发布以来添加或更改的代码。然后事情就变得很容易了:</p>
+<ul>
+<li>Quality Gate可以每天运行，并且可通过它。发版时没有任何意外</li>
+<li>开发人员很难回避他们前一天介绍的问题。相反，他们通常很乐意在代码仍然新鲜时修复问题</li>
+<li>代码质量有明确的所有权</li>
+<li>做不做的标准在不同的应用程序中是一致的，并且在团队之间共享</li>
+<li>成本微不足道，因为它是开发过程中的一部分</li>
+</ul>
+<p>最为奖励，变化最大的代码具有最高的可维护性，并且未变更的代码具有最低的维护性，这很有意义。</p>
+<p><br><br><br></p>
+<h3 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h3><p>SonarQube提供两种主要工具来帮助你找到泄漏点:</p>
+<ul>
+<li>新代码指标(metrics)显示当前代码与你在其历史记录(<code>previous_version</code>)中选择的特定点之间的度量差异</li>
+<li>新代码主要基于SCM blame 数据监测，从新代码期(泄漏期)的第一次分析开始，需要时使用回退机制</li>
+<li>Quality Gates允许你设置测量代码的布尔阈值。将它们与差异指标一起使用，可确保你的代码质量随着时间的推移在正确的方向上行驶</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="项目页"><a href="#项目页" class="headerlink" title="项目页"></a>项目页</h2><p>Project Page</p>
+<p>项目主页(Project Homepage)是任何项目的切入点，它显示:</p>
+<ul>
+<li>the releasability status of the project</li>
+<li>the current state of its quality</li>
+<li>the quality of what has been produced since the beginning of its New Code Period</li>
+</ul>
+<p>项目页面回答了两个问题:</p>
+<ul>
+<li>can I release my project today?</li>
+<li>if not, what should I improve to make the project pass the Quality Gate?</li>
+</ul>
+<p><br></p>
+<h3 id="今天能发版吗"><a href="#今天能发版吗" class="headerlink" title="今天能发版吗"></a>今天能发版吗</h3><p>Can I release today?</p>
+<p>由于 Quality Gate 是你执行质量策略的最强大的工具，因此该页面以项目的当前质量门状态开始。如果项目通过，则会显示一个简单的绿色全清除。</p>
+<p>如果没有，可立即获得详细信息和drill-downs，以便快速识别出错的地方，每个错误条件的一个部分显示当前项目值是什么以及它应该是什么。像往常一样，你可以点击当前值来进行深入分析。</p>
+<p><br><br><br></p>
+<h3 id="应该优先解决什么"><a href="#应该优先解决什么" class="headerlink" title="应该优先解决什么"></a>应该优先解决什么</h3><p>What should I fix first?</p>
+<p>因为提高项目质量的最佳方法是在问题变得根深蒂固之前捕获并修复新问题，项目的第一个视图以新代码周期为中心，在项目主页右侧以黄色突出显示。项目空间页面显示关键指标的高级摘要，包括当前值和新代码周期值。</p>
+<p>在Quality Gate信息的下方，可以获得可靠性和安全域中的旧问题和新问题的数量。然后是可维护性域。单击页面上的任何图形将转到“详细信息”页面或“问题”页面中的详细视图。</p>
+<p>开发人员必须做的最重要的事情是确保屏幕黄色部分的新问题得到确认，审核和修复，并确保测试涵盖新代码以防止将来出现回归。无论过去引入了多少问题，或者总体上测试覆盖范围有多少，关注新增问题将确保情况不会降低您之前在生产中发布的版本。</p>
+<p>那么，您应该先找到哪些问题：错误，漏洞或代码异味？这取决于，因为答案取决于您的问题的性质。假设你有一个重复5次的代码块问题，在这个重复的代码块中，你有3个Bug和5个安全问题。最好的方法可能是首先修复重复，然后解决新集中位置的错误和漏洞，而不是修复它们5次。<br>这就是为什么您需要在开始解决之前检查新问题。</p>
+<p><br><br><br><br><br></p>
+<h2 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h2><p>Applications are available as part of the Enterprise Edition.</p>
+<p><br><br><br><br><br></p>
+<h2 id="Portfolios"><a href="#Portfolios" class="headerlink" title="Portfolios"></a>Portfolios</h2><p>Portfolios are available as part of the Enterprise Edition.</p>
+<p><br><br><br><br><br></p>
+<h2 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h2><p>在运行分析时，每当一段代码破坏编码规则时，SonarQube就会引发一个issue。编码规则(coding rules)是通过每种语言的相关质量配置文件定义的。</p>
+<p>每个问题有五种严重程度:</p>
+<ul>
+<li><strong>BLOCKER</strong> - 很有可能影响生产中应用程序行为的错误。必须立即修复</li>
+<li><strong>CRITICAL</strong> - 要么是在生产环境中影响应用程序行为可能性很小的bug，要么是代表安全漏洞的问题。必须立即检查代码</li>
+<li><strong>MAJOR</strong> - 可能严重影响开发人员生产力的质量缺陷</li>
+<li><strong>MINOR</strong> - 会轻微影响开发人员生产力产生的质量缺陷</li>
+<li><strong>INFO</strong> - 既不是错误，也不是质量缺陷，只是一个提示</li>
+</ul>
+<p><br></p>
+<h3 id="理解issue上下文"><a href="#理解issue上下文" class="headerlink" title="理解issue上下文"></a>理解issue上下文</h3><p>Understanding issue context</p>
+<p>有时，一旦指出问题，问题就不言而喻了。例如，你的团队已约定了变量命名规则，在某个变量名出线问题时，你不需要理解大量上下文来理解该问题。但在其它情况下，上下文可能对理解为什么会出现这个问题至关重要。这就是为什么SonarQube不仅支持显示问题消息的主要问题位置，还支持次要问题位置。</p>
+<p>但有时候，贡献位置地点并不足以理解问题。例如，当通过代码在某些路径上取消引用空指针时，您真正需要的是问题流。每个流程都是一组辅助位置，用于显示可能发生问题的代码的确切路径。</p>
+<p><br><br><br></p>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>Lifecycle of Code Smell, Bug, and Vulnerability Issues</p>
+<p><br></p>
+<h4 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h4><p>Status</p>
+<p>创建之后，Issue会在生命周期中流动，可能为以下五种状态之一:</p>
+<ul>
+<li><strong>打开(Open)</strong> - 由SonarQube在新问题上设定</li>
+<li><strong>确认(Confirmed)</strong> - 手动确认以指示问题有效</li>
+<li><strong>解决(Resolved)</strong> - 手动设置以指示下一个分析应该关闭改问题</li>
+<li><strong>重开(Reopened)</strong> - 当一个已解决的问题实际上没有得到纠正时，SonarQube会自动设置</li>
+<li><strong>关闭(Closed)</strong> - 有SonarQube自动设置自动创建的问题</li>
+</ul>
+<p><br><br><br></p>
+<h4 id="处理方式"><a href="#处理方式" class="headerlink" title="处理方式"></a>处理方式</h4><p>Resolutions</p>
+<p>已关闭的问题将有一下两种方式之一:</p>
+<ul>
+<li><strong>已修复(Fixed)</strong> - 当后续分析显示问题已更正或文件不再可用时自动设置</li>
+<li><strong>已移除(Removed)</strong> - 当相关规则不再可用时自动设置。改规则可能无法使用，因为它已从质量配置文件中删除，或者因为已卸载基础插件</li>
+</ul>
+<p>Resolved issues好友两个处理方式:</p>
+<ul>
+<li><strong>误判(False Positive)</strong> - 手动设置</li>
+<li><strong>不会修复(Won’t Fix)</strong> - 不会修复</li>
+</ul>
+<p><br><br><br></p>
+<h4 id="问题工作流程"><a href="#问题工作流程" class="headerlink" title="问题工作流程"></a>问题工作流程</h4><p>Issue Workflow</p>
+<p>在以下情况下，问题会自动关闭(Status: Closed):</p>
+<ul>
+<li>问题以正确修复（Resolution: Fixed）</li>
+<li>问题不再存在，因为相关编码规则已停用或不再可用(Resolution: Removed)</li>
+</ul>
+<p>在以下情况下，问题会自动重新打开(Status: Reopened):</p>
+<ul>
+<li>手动修改解决方式为已修复(但是不是误判)的问题，有后续分析显示仍然存在</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="安全热点问题的生命周期"><a href="#安全热点问题的生命周期" class="headerlink" title="安全热点问题的生命周期"></a>安全热点问题的生命周期</h3><p>Lifecycle of Security Hotspot Issues</p>
+<p>安全热点问题具有专用的生命周期。它们不被视为可操作，必须由具有相关权限的用户进行审核。</p>
+<p>创建之后，安全热点问题将流经专用的生命周期，可能是以下四种状态之一:</p>
+<ul>
+<li><strong>Open</strong> - 由SonarQube在新问题上自动设置</li>
+<li><strong>Resolved</strong>(Won’t Fix) - 当安全审核员接受开发人员针对手动漏洞所做的修复或安全审核员清楚打开的热点或手动漏洞时，SonarQube会自动设置</li>
+<li><strong>To Revied</strong> - 当开发人员请求安全审核员查看他对手动漏洞所做的修复时自动设置</li>
+<li><strong>Reopened</strong> - 当开发人员解除打开的手动漏洞或安全审计员手动重新打开问题以便对已解决的问题运行新审计时设置</li>
+</ul>
+<p>如果删除了包含安全热点的代码，则只会关闭安全热点问题。如果从项目的质量配置文件中删除了标识热点的规则，则安全热点也可能会被删除。</p>
+<p><br><br><br></p>
+<h3 id="理解哪些问题是新的"><a href="#理解哪些问题是新的" class="headerlink" title="理解哪些问题是新的"></a>理解哪些问题是新的</h3><p>Understanding which Issues are “New”</p>
+<p>为了确定问题的创建日期，在每次分析期间执行算法已确定问题是新的还是之前存在的。此算法依赖于报告问题的行的内容的哈希值(不包括空格)。对于多行问题，使用第一行的哈希值。对于每个文件(在检测到文件重命名后)，算法将从先前的分析中获取问题的基本列表，并尝试将这些问题与新分析报告的原始问题列表进行匹配。该算法尝试使用最强的证据进行首次匹配，然后再回到较弱的启发式算法。</p>
+<ul>
+<li>如果问题是在同一规则上，具有相同的行号和相同的行哈希 - 匹配</li>
+<li>检测到块在文件内移动，然后如果问题出在同一行(移动的)和同一条规则上- 匹配</li>
+<li>在相同的规则上，使用相同的消息并使用相同的行哈希 - 匹配</li>
+<li>在相同的规则上，使用相同的消息并使用相同的行号 - 匹配</li>
+<li>在相同的规则上，使用相同的行哈希 - 匹配</li>
+<li>是否有匹配CLOSED的问题 - 匹配和重新打开</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="了解问题回溯"><a href="#了解问题回溯" class="headerlink" title="了解问题回溯"></a>了解问题回溯</h3><p>Understanding Issue Backdating</p>
+<p>一旦问题被确定为新，下一个问题便是提供它的日期。例如，如果它已经在代码中存在了很长时间，但只能在最近的分析中找到，因为新的规则被添加到配置文件中？该问题是否应该在其行的最后一次更改日期或首次提出的分析日期之间给出？那就是它应该回溯吗？</p>
+<p>如果最后一次更改改行的日期可用，那么在某些情况下，该问题将被回溯:</p>
+<ul>
+<li>首先分析项目或分支</li>
+<li>当配置文件中的规则为新时</li>
+<li>当分析程序升级后</li>
+<li>当规则是外部的</li>
+</ul>
+<p>因此，回溯可能会使新提出的问题原理New Code Period。</p>
+<p><br><br><br></p>
+<h3 id="自动问题分配"><a href="#自动问题分配" class="headerlink" title="自动问题分配"></a>自动问题分配</h3><p>Automatic Issue Assignment</p>
+<ul>
+<li>For Bug, Vulnerability and Code Smell</li>
+<li>For Security Hotspot</li>
+<li>User Correlation</li>
+<li>Known Limitation</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="问题编辑"><a href="#问题编辑" class="headerlink" title="问题编辑"></a>问题编辑</h3><p>Issue edits</p>
+<p>SonarQube的问题工作流程可帮助你管理问题。你可对一个Issue做七件不同事情，这些行为可分为三类:</p>
+<ul>
+<li>Technical Review<ul>
+<li>Confirm</li>
+<li>False Positive</li>
+<li>Won’t Fix</li>
+<li>Severity change</li>
+<li>Resolve</li>
+</ul>
+</li>
+<li>Security Hotspots<ul>
+<li>Detect</li>
+<li>Clear</li>
+<li>Request Review</li>
+<li>Reject</li>
+</ul>
+</li>
+<li>Dispositioning</li>
+<li>General<ul>
+<li>Comments</li>
+<li>Tag</li>
+</ul>
+</li>
+<li>Bulk Change</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="清除已解决的问题"><a href="#清除已解决的问题" class="headerlink" title="清除已解决的问题"></a>清除已解决的问题</h3><p>Purging Closed Issues</p>
+<p>默认情况下，已关闭的问题将保留30天。当然，你也可以修改它。</p>
+<p><br><br><br><br><br></p>
+<h2 id="Rules"><a href="#Rules" class="headerlink" title="Rules"></a>Rules</h2><p>SonarSource Rules: <a href="https://rules.sonarsource.com/" target="_blank" rel="noopener">https://rules.sonarsource.com/</a></p>
+<p><br></p>
+<h3 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h3><p>在SonarQube中，分析程序提供在源代码上执行的规则来生成问题。有四种类型的规则:</p>
+<ul>
+<li>Code Smell (Maintainability domain)</li>
+<li>Bug (Reliability domain)</li>
+<li>Vulnerability (Security domain)</li>
+<li>Security Hotspot (Security domain)</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><p>默认情况下，点击带单栏<strong>Rules</strong>时，你将看到SonarQube实例上安装的分析程序带来的所有可用规则。你可根据以下条件缩小范围:</p>
+<ul>
+<li>Language</li>
+<li>Type</li>
+<li>Tag</li>
+<li>Repository</li>
+<li>Default Severity</li>
+<li>Status</li>
+<li>Available Since</li>
+<li>Template: 显示允许创建自定义规则的规则模板</li>
+<li>Quality Profile</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="规则细节"><a href="#规则细节" class="headerlink" title="规则细节"></a>规则细节</h3><p>要查看规则的详细信息，请点击它。除了基本规则数据之外，您还可以查看其中活动的配置文件（如果有）以及已经引发了多少未解决的问题。<br>只有拥有正确的权限时，才能使用以下两个操作:</p>
+<ul>
+<li>Add/Remove Tags</li>
+<li>Extend Description</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="规则模板和自定义规则"><a href="#规则模板和自定义规则" class="headerlink" title="规则模板和自定义规则"></a>规则模板和自定义规则</h3><p>Rule Templates and Custom Rules</p>
+<p>规则模板(Rule templates)由创建提供，允许用户在SonarQube中定义自己的规则。它位于<code>Rules -&gt; Template</code>。</p>
+<p>要从模板创建自定义规则，你必须填写一下信息:</p>
+<ul>
+<li>Name</li>
+<li>Key (auto-suggested)</li>
+<li>Description (Markdown format is supported)</li>
+<li>Default Severity</li>
+<li>Status</li>
+<li>The parameters specified by the template</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="扩展编码规则"><a href="#扩展编码规则" class="headerlink" title="扩展编码规则"></a>扩展编码规则</h3><p>Extending Coding Rules</p>
+<p>可以添加<a href="https://docs.sonarqube.org/display/DEV/Adding+Coding+Rules" target="_blank" rel="noopener">自定义编码规则</a>。</p>
+<p><br><br><br></p>
+<h3 id="规则类型和严重性"><a href="#规则类型和严重性" class="headerlink" title="规则类型和严重性"></a>规则类型和严重性</h3><p>Rule Types and Severities</p>
+<p>Type:</p>
+<ul>
+<li>Bug</li>
+<li>Vulnerability</li>
+<li>Code Smell</li>
+<li>Security Hotspot</li>
+</ul>
+<p>Severity:</p>
+<ul>
+<li>Blocker</li>
+<li>Critical</li>
+<li>Major</li>
+<li>Minor</li>
+<li>Info</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="安全相关的规则"><a href="#安全相关的规则" class="headerlink" title="安全相关的规则"></a>安全相关的规则</h2><p>Security-related Rules</p>
+<p>SonarQube质量类型有三种不同的规则:</p>
+<ul>
+<li>Reliability (bug)</li>
+<li>Vulnerability (security)</li>
+<li>Maintainability (code smell)</li>
+</ul>
+<p>但另外一种方式，只有两种类型:</p>
+<ul>
+<li>security rule</li>
+<li>其它</li>
+</ul>
+<p>两者之间的区别并不在它们捕获的内容，而在于她们来自何处以及强加于它们的标准。</p>
+<p><br></p>
+<h3 id="从安全相关的规则的期望是什么"><a href="#从安全相关的规则的期望是什么" class="headerlink" title="从安全相关的规则的期望是什么"></a>从安全相关的规则的期望是什么</h3><p>What to expect from security-related rules</p>
+<p>需要明确的是，SonarQube语言插件中实现的大多数规则的标准是非常严格: 没有误报。对于正常规则，你应该能够确信任何报告给你的问题确实是一个问题。</p>
+<p>但对于与安全相关的规则，情况略有不同。例如，许多安全指南讨论了应如何处理<em>敏感数据</em>。但是，由于规则中不可能确定哪些数据是敏感，哪些是不敏感。因此选择变为： 保持无误判标准并且不实施与安全相关的规则，或者实施与安全的规则不同的标准。</p>
+<p>这就是为什么与安全相关的规则很广泛。官方的想法是，该规则将标记任何可疑的内容，并将其留给安全审核人员来剔除误报并发送真正的问题进行补救。</p>
+<p>安全热点是一种特殊类型的问题，用于识别安全审核人员应审核的敏感区域，以确定它们是否真的是漏洞。有关热点和审计过程的详细信息，请参阅安全审核和报告。</p>
+<p><br><br><br></p>
+<h3 id="与安全相关的规则来自何方"><a href="#与安全相关的规则来自何方" class="headerlink" title="与安全相关的规则来自何方"></a>与安全相关的规则来自何方</h3><p>Where security-related rules come from</p>
+<p>绝大多数与安全相关的规则源于既定标准:</p>
+<ul>
+<li><strong>CWE(Common Weakness Enumeration)</strong>：是美国MITRE机构提出的一套语言标准，用于描述软件安全弱点的通用化描述语言。每个CWE条目都包含了CWE标识符/弱点类型名称、类型的描述、弱点的行为、弱点的利用方法、利用弱点的可能性、可能导致的后果、应对措施、代码示例、对应的CVE漏洞数量、参考信息等内容。</li>
+<li><strong>SANS Top 25</strong> - <a href="https://www.sans.org/top25-software-errors/" target="_blank" rel="noopener">CWE/SANS TOP 25 Most Dangerous Software Errors</a></li>
+<li><strong>OWASP Top 10</strong> - <a href="https://www.owasp.org/index.php/Top_10-2017_Top_10" target="_blank" rel="noopener">OWASP Top 10 Application Security Risks</a></li>
+</ul>
+<p>要查找与任何这些标准相关的规则，你可以按标签或文本搜索规则。</p>
+<p><br></p>
+<h4 id="CWE"><a href="#CWE" class="headerlink" title="CWE"></a>CWE</h4><p>CWE标准代表Common Weakness Enumeration:</p>
+<p>Common Weakness Enumeration (CWE™) 是一个常见软件弱点的正式列表或字典，可能出现在软件的体系结构、设计代码或实现中。可能导致可利用的安全漏洞。创建CWE是为了描述软件安全漏洞的通用语言，作为针对这些弱点的软件安全工具的衡量标准；并为弱点识别、缓解和预防工作提供共同的基线标准。<br>CWE是弱化的描述的层次结构。层次结构中的最低级别是弱点基础(Weakness Base)，它描述了细腻度的弱点。</p>
+<p>符合特定要求的工具可以认证为CWE兼容。这些要求是:</p>
+<ul>
+<li>您必须能够使用CWE标识符搜索与CWE相关的规则。要在SonarQube平台中执行此操作，只需将CWE标识符（例如CWE-595）放在规则页面上的搜索文本输入中并运行搜索</li>
+<li>规则必须与其相关的CWE项目准确链接。要查看SonarQube规则的CWE映射，请参阅规则说明底部的规则参见部分</li>
+<li>您必须能够从问题中识别相关的CWE。要在SonarQube平台中执行此操作，请参阅相关规则</li>
+<li>产品文档必须包含CWE和CWE兼容性的说明</li>
+<li>除了通过CWE id搜索规则外，您还可以通过 cwe rule tag 进行搜索</li>
+</ul>
+<p><br><br><br></p>
+<h4 id="SANS-TOP-25"><a href="#SANS-TOP-25" class="headerlink" title="SANS TOP 25"></a>SANS TOP 25</h4><p>SANS Top 25列表是由SANS组织编制的CWE中列出的25个最危险错误的集合。当前的SANS列表分为三类：</p>
+<ul>
+<li>Insecure Interaction Between Components</li>
+<li>Risky Resource Management</li>
+<li>Porous Defenses</li>
+</ul>
+<p>要查找与SANS Top 25相关的规则，您可以对类别或相关CWE项目执行文本搜索，或执行规则标记搜索。</p>
+<p><br><br><br></p>
+<h4 id="OWASP-Top-10"><a href="#OWASP-Top-10" class="headerlink" title="OWASP Top 10"></a>OWASP Top 10</h4><p>OWASP代表Open Web Application Security Project。它是:</p>
+<p><code>501(c)(3)</code>全球非营利慈善组织，致力于提高软件的安全性。我们的使命是使软件安全可见，以便全世界的个人和组织能够就真正的软件安全风险做出明智的决策。</p>
+<p>OWASP Top 10列出了各种各样的弱点，每个弱点都可以映射到许多单独的规则。<br>OWASP TOP 10在SonarQube中也对应相关的tag。</p>
+<p>要查找与OWASP Top 10相关的规则，您可以对类别执行文本搜索，或执行规则标记搜索。</p>
+<p><br><br><br><br><br></p>
+<h2 id="內建规则和标签"><a href="#內建规则和标签" class="headerlink" title="內建规则和标签"></a>內建规则和标签</h2><p>Built-in Rule Tags</p>
+<p>标签(tag) 是一种对问题(issue)和规则(rule)进行分类的方法。问题会继承引发它们的规则上的标记。有些标签适用于特定语言，但是更多的标签出现在各种语言中。用户可以为规则和问题添加标签。但大多数规则都有一些开箱即用的标签。<br>以下是一些非全面的、包含一些內建标签:</p>
+<ul>
+<li><code>brain-overload</code> - 一次有太多的东西要留在脑海里</li>
+<li><code>bad-practice</code> - 代码可能按设计工作，但它的设计方式被广泛认为是一个坏主意</li>
+<li><code>cert</code> - 设计CERT标准中的规则</li>
+<li><code>clumsy</code> - 用于完成可以更清晰和简洁地完成的事情的额外步骤</li>
+<li><code>confusing</code> - 将使维护者更长时间地理解，而不是代码实际所做的事情</li>
+<li><code>convention</code> - 编码约定，如格式化、命名、空格…</li>
+<li><code>cwe</code> - CWE安全规则</li>
+<li><code>design</code> - 代码设计存在一些问题</li>
+<li><code>lock-in</code> - 使用特定于环境的功能</li>
+<li><code>misra</code> - MISRA标准相关的规则</li>
+<li><code>owasp</code> - 与OWASP TOP 10安全标准相关的规则</li>
+<li><code>pitfall</code> - 没有什么不对，但未来可能出现问题;已经为下一个人设置了一个陷阱，他可能会陷入其中并搞砸了代码</li>
+<li><code>sans-top25</code> - 与SANS Top 25 Coding Errors安全相关</li>
+<li><code>suspicious</code> - 它不能保证这是一个bug，但它看起来很可疑。至少，代码应该重新检查并且可能为了清晰而重构</li>
+<li><code>unpredictable</code> - 代码可以在当前条件下正常工作，但如果条件发生变化可能会失败</li>
+<li><code>unused</code> - 未使用的代码</li>
+<li><code>user-experience</code> - 代码在技术上没有任何问题，但它可能会使您的部分或全部用户讨厌您</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="Quality-Gates"><a href="#Quality-Gates" class="headerlink" title="Quality Gates"></a>Quality Gates</h2><p><br></p>
+<h3 id="概述-3"><a href="#概述-3" class="headerlink" title="概述"></a>概述</h3><p>质量阈(Quality Gates)是你在组织中实施质量策略的最佳方式。它可以回答一个问题: 我今天可以将项目发上线吗？<br>为了回答这个问题，你可以根据测量项目的度量阈值定义一组布尔条件，例如:</p>
+<ul>
+<li>No new blocker issues</li>
+<li>Code coverage on new code greater than 80%</li>
+<li>…</li>
+</ul>
+<p>理想状况下，所有项目都将通过同一质量阈进行验证。但这并不总是实用的。例如，你可能会发现:</p>
+<ul>
+<li>技术实现因应用程序而异</li>
+<li>您希望确保对某些应用程序有更强的要求</li>
+<li>…</li>
+</ul>
+<p>这就是为什么你可以根据需要自定义质量阈，它就在顶部的菜单栏上。</p>
+<p><br><br><br></p>
+<h3 id="最佳质量阈配置"><a href="#最佳质量阈配置" class="headerlink" title="最佳质量阈配置"></a>最佳质量阈配置</h3><p>Use the Best Quality Gate Configuration</p>
+<p>质量阈默认激活并视为內建和只读的<code>Sonar war</code>方式，由SonarQube提供。它代表了我们对实施修复泄露。根据SonarQube的功能自动调整</p>
+<p>有三个指标允许你强制执行给定的可靠性，安全性和可维护性的评级。不仅仅是整体而且还有新代码。建议使用这些指标，并将其作为默认质量阈的一部分，以便开发人员在项目页面上查看质量阈时更清楚的反馈。</p>
+<p>不要忘记质量阈条件必须使用差值，检查绝对值是没有意义的(如: 代码行数大于1000)。</p>
+<p><br></p>
+<p><strong>推荐的质量阈(Recommended Quality Gate)</strong></p>
+<p>內建的<code>Sonar way</code>质量阈都推荐用于大多数项目。如果专注于保持新代码清洁，而不是花费大量时间来修复旧代码。它开箱即用，已被设置为默认配置文件。</p>
+<p><br><br><br></p>
+<h3 id="质量阈状态"><a href="#质量阈状态" class="headerlink" title="质量阈状态"></a>质量阈状态</h3><p>Quality Gate Status</p>
+<p><img src="/images/SonarQube/quality-gate-status.jpeg" alt></p>
+<p><br><br><br></p>
+<h3 id="当质量阈失败时获得通知"><a href="#当质量阈失败时获得通知" class="headerlink" title="当质量阈失败时获得通知"></a>当质量阈失败时获得通知</h3><p>Getting Notified When a Quality Gate Fails</p>
+<p>使用通知机制，在质量阈失败时通知用户。为此，请订阅<strong>New quality gate status</strong>通知。</p>
+<p><br><br><br></p>
+<h3 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h3><p>Security</p>
+<p>任何用户(甚至是匿名用户)都可以访问质量阈。<br>要就行更改(create, edit, delete)，必须授予用户管理质量阈的权限。<br>项目管理员可选择与他们项目相关的质量阈。</p>
+<p><br><br><br></p>
+<h3 id="定义质量阈"><a href="#定义质量阈" class="headerlink" title="定义质量阈"></a>定义质量阈</h3><p>Defining Quality Gates</p>
+<p>要管理质量阈，请转到菜单栏的<strong>Quality Gates</strong>。</p>
+<p>每个质量阈条件都是以下组合:</p>
+<ul>
+<li>测量(measure)</li>
+<li>比较符(comparison operator)</li>
+<li>错误值(error value)</li>
+</ul>
+<p>栗子，条件可能是:</p>
+<ul>
+<li>measure: <code>Blocker issue</code></li>
+<li>comparison operator: <code>&gt;</code></li>
+<li>error value: <code>0</code></li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h2><p>Metric Definitions</p>
+<p>项目有如下指标:</p>
+<ul>
+<li>复杂度(Complexity)</li>
+<li>重复(Duplications)</li>
+<li>问题(Issues)</li>
+<li>可维护性(Maintainability)</li>
+<li>质量阈(Quality Gates)</li>
+<li>可靠性(Reliability)</li>
+<li>安全性(Security)</li>
+<li>大小(Size)</li>
+<li>测试(Tests)</li>
+</ul>
+<p><br></p>
+<h3 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h3><p>应用的控制流是简单还是复杂。</p>
+<p><br></p>
+<h4 id="圈复杂度"><a href="#圈复杂度" class="headerlink" title="圈复杂度"></a>圈复杂度</h4><p>Cyclomatic Complexity</p>
+<p>可以计算出达到全面覆盖需要的最少测试用例。<br>它是基于通过代码的路径数计算的，每当函数的控制流分裂时，复杂度计数器就会增加1。每个函数的最小复杂度为1.此计算因语言而异，因为关键字和功能有所不同。</p>
+<p><br></p>
+<p><strong>特定语言的详细信息:</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Language</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ABAP</td>
+<td>这些关键字将使复杂度加一: <code>AND , CATCH , CONTINUE , DO , ELSEIF , IF , LOOP , LOOPAT , OR , PROVIDE , SELECT…ENDSELECT , TRY , WHEN , WHILE</code></td>
+</tr>
+<tr>
+<td>C/C++/Objective-C</td>
+<td>复杂度加一: `function definitions, while , do while , for , throw statements, switch , case , default , &amp;&amp; operator,</td>
+<td></td>
+<td>operator, ? ternary operator, catch , break , continue , goto`</td>
+</tr>
+<tr>
+<td>COBOL</td>
+<td>复杂度加一: <code>ALSO , ALTER , AND , DEPENDING , END_OF_PAGE , ENTRY , EOP , EXCEPTION , EXIT , GOBACK , CONTINUE , IF , INVALID , OR , OVERFLOW , SIZE , STOP , TIMES , UNTIL , USE , VARYING , WHEN , EXEC CICS HANDLE , EXEC CICS LINK , EXEC CICS XCTL , EXEC CICS RETURN</code></td>
+</tr>
+<tr>
+<td>Java</td>
+<td>复杂度加一: `if , for , while , case , catch , throw , &amp;&amp; ,</td>
+<td></td>
+<td>, ?`</td>
+</tr>
+<tr>
+<td>JS, PHP</td>
+<td>复杂度加一: `function, if, &amp;&amp;,</td>
+<td></td>
+<td>, loop, switch case, throw, catch, go to`</td>
+</tr>
+<tr>
+<td>PL/I</td>
+<td>复杂度加一: `PROC , PROCEDURE , GOTO , GO TO , DO , IF , WHEN ,</td>
+<td>, ! ,</td>
+<td>= , != , &amp; , &amp;=`</td>
+</tr>
+<tr>
+<td>PL/SQL</td>
+<td>复杂度加一: create procedure, create trigger, procedure definition, basic loop statement, when clause statement, continue statement,exit statement, for loop statement, forall statement, if statement, elsif clause, raise statement, return statement, while loop statement, and expression, or expression, when clause expression</td>
+</tr>
+<tr>
+<td>VB.NET</td>
+<td>复杂度加一: <code>method or constructor declaration,  AndAlso , Case , Continue , End , Error , Exit , If , Loop , On Error , GoTo , OrElse , Resume , Stop , Throw , Try</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br><br><br></p>
+<h4 id="认知复杂度"><a href="#认知复杂度" class="headerlink" title="认知复杂度"></a>认知复杂度</h4><p>Cognitive Complexity</p>
+<p>对应这个应用是否很难被理解，理解代码的控制流程有多难。</p>
+<p><br><br><br></p>
+<h3 id="重复"><a href="#重复" class="headerlink" title="重复"></a>重复</h3><p>有:</p>
+<ul>
+<li>重复的块(Duplicated blocks)</li>
+<li>重复的行(Duplicated lines)</li>
+<li>重读文件(Duplicated files)</li>
+<li>密度/重复行%(Duplicated lines %)</li>
+</ul>
+<p><br></p>
+<h4 id="重复的块"><a href="#重复的块" class="headerlink" title="重复的块"></a>重复的块</h4><p>重复的行的块数。</p>
+<p><br></p>
+<p><strong>特定语言的详细信息</strong></p>
+<p>非Java项目:</p>
+<ul>
+<li>There should be at least 100 successive and duplicated tokens.</li>
+<li>Those tokens should be spread at least on:<ul>
+<li>30 lines of code for COBOL</li>
+<li>20 lines of code for ABAP</li>
+<li>10 lines of code for other languages</li>
+</ul>
+</li>
+</ul>
+<p>Java项目:</p>
+<p>There should be at least 10 successive and duplicated statements whatever the number of tokens and lines.检测重复时忽略缩进和字符串文字的差异。</p>
+<p><br><br><br></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>有:</p>
+<ul>
+<li>新问题(New issues)</li>
+<li>新的严重问题(New xxx issues)</li>
+<li>所有问题(Issues)</li>
+<li>严重问题(xxx issues)</li>
+<li>误判问题(False positive issues)</li>
+<li>开启问题(Open issues)</li>
+<li>确认问题(Confirmed issues)</li>
+<li>重开问题(Reopened issues)</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="可维护性"><a href="#可维护性" class="headerlink" title="可维护性"></a>可维护性</h3><p>有:</p>
+<ul>
+<li>异味(Code Smells)</li>
+<li>新异味(New Code Smells)</li>
+<li>维护率(Maintainability Rating)</li>
+<li>技术债务(Technical Debt)</li>
+<li>新代码的技术债务(Technical Debt on New Code)</li>
+<li>技术债务率(Technical Debt Ratio)</li>
+<li>新代码的技术债务率(Technical Debt Ratio on New Code)</li>
+</ul>
+<p><br></p>
+<h4 id="维护率"><a href="#维护率" class="headerlink" title="维护率"></a>维护率</h4><p>使用<strong>SQALE评级</strong>。与您的技术债务比率值相关的项目评级。<br>默认的可维护性评级网格是:</p>
+<ul>
+<li>A=<code>0-0.05 (&lt;5%)</code></li>
+<li>B=<code>0.06-0.1 (6%-10%)</code></li>
+<li>C=<code>0.11-0.20(11%-20%)</code></li>
+<li>D=<code>0.21-0.5(21%-50%)</code></li>
+<li>E=<code>0.51-1(50%-100%)</code></li>
+</ul>
+<p><br><br><br></p>
+<h4 id="技术债务"><a href="#技术债务" class="headerlink" title="技术债务"></a>技术债务</h4><p>努力修复所有异味。以分钟(min)为度量单位存储在数据库中，单位值中的天假设为8小时(h)。</p>
+<p><br><br><br></p>
+<h4 id="技术债务率"><a href="#技术债务率" class="headerlink" title="技术债务率"></a>技术债务率</h4><p>开发成本与修复成本之间的比率。技术债务公式为: <code>Remediation cost / Development cost</code></p>
+<p>开发一行代码的成本价值为<code>0.06 day == 0.06 * 8 * 60 min</code></p>
+<p><br><br><br></p>
+<h3 id="质量阈"><a href="#质量阈" class="headerlink" title="质量阈"></a>质量阈</h3><p>有:</p>
+<ul>
+<li>质量阈状态(Quality Gate Status)</li>
+<li>质量阈详情(Quality Gate Details)</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="可靠性"><a href="#可靠性" class="headerlink" title="可靠性"></a>可靠性</h3><p>有:</p>
+<ul>
+<li>Bugs</li>
+<li>New Bugs</li>
+<li>可靠率(Reliability Rating)</li>
+<li>可靠性的修复工作(Reliability remediation effort)</li>
+<li>新代码可靠性的修复工作(Reliability remediation effort on new code)</li>
+</ul>
+<p><br></p>
+<h4 id="可靠率"><a href="#可靠率" class="headerlink" title="可靠率"></a>可靠率</h4><ul>
+<li>A = 0 Bugs</li>
+<li>B = at least 1 Minor Bug</li>
+<li>C = at least 1 Major Bug</li>
+<li>D = at least 1 Critical Bug</li>
+<li>E = at least 1 Blocker Bug</li>
+</ul>
+<p><br><br><br></p>
+<h4 id="修复工作"><a href="#修复工作" class="headerlink" title="修复工作"></a>修复工作</h4><p>努力解决所有Bugs。以分钟为单位度量值存储在数据库中。如果数值天，则假设一天为8小时。</p>
+<p><br><br><br></p>
+<h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3><p>有:</p>
+<ul>
+<li>漏洞(Vulnerabilities)</li>
+<li>新漏洞(New Vulnerabilities)</li>
+<li>安全级(Security Rating)</li>
+<li>安全修复工作(Security remediation effort )</li>
+<li>新代码的安全修复工作(Security remedation effort on new code)</li>
+</ul>
+<p><br></p>
+<h4 id="安全评级"><a href="#安全评级" class="headerlink" title="安全评级"></a>安全评级</h4><ul>
+<li>A = 0 Vulnerabilities</li>
+<li>B = at least 1 Minor Vulnerability</li>
+<li>C = at least 1 Major Vulnerability</li>
+<li>D = at least 1 Critical Vulnerability</li>
+<li>E = at least 1 Blocker Vulnerability</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="大小"><a href="#大小" class="headerlink" title="大小"></a>大小</h3><p>有:</p>
+<ul>
+<li>类(Classes)</li>
+<li>注释行(Comment lines)</li>
+<li>注释占比(Comments %) - <code>Comment lines / (Lines of code + Comment lines) * 100</code></li>
+<li>目录(Directories)</li>
+<li>文件(Files)</li>
+<li>行数(Lines)</li>
+<li>代码行数(Lines of code)</li>
+<li>每种语言的代码行数(Lines of code per language)</li>
+<li>函数(Functions)</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>有:</p>
+<ul>
+<li>条件覆盖(Condition coverage)</li>
+<li>新代码条件覆盖(Condition coverage on new code)</li>
+<li>条件覆盖命中(Condition coverage hits)</li>
+<li>逐行条件(Conditions by line)</li>
+<li>逐行条件覆盖(Covered conditions by line)</li>
+<li>覆盖(Coverage)</li>
+<li>新代码覆盖(Coverage on new code)</li>
+<li>行覆盖(Line coverage)</li>
+<li>新代码行覆盖(Line coverage on new code)</li>
+<li>行覆盖命中(Line coverage hits)</li>
+<li>要覆盖的行(Lines to cover)</li>
+<li>新代码要覆盖的行(Lines to cover on new code)</li>
+<li>跳过单元测试(Skipped unit tests)</li>
+<li>未覆盖条件(Uncovered conditions)</li>
+<li>新代码未覆盖条件(Uncovered conditions on new code)</li>
+<li>未覆盖行(Uncovered lines)</li>
+<li>新代码未覆盖行(Uncovered lines on new code)</li>
+<li>单元测试(Unit tests)</li>
+<li>单元测试持续时间(Unit tests duration)</li>
+<li>单元测试错误(Unit test errors)</li>
+<li>单元测试失败(Unit test failures)</li>
+<li>单元测试成功密度(Unit test success density %) - <code>Test success density = (Unit tests - (Unit test errors + Unit test failures)) / Unit tests * 100</code></li>
+</ul>
+<p><br></p>
+<h4 id="条件覆盖"><a href="#条件覆盖" class="headerlink" title="条件覆盖"></a>条件覆盖</h4><p>在包含一些布尔表达式的每行代码中，条件覆盖只是回答了以下问题: <em>每个布尔表达式是否都被评估为 <code>true</code> 和 <code>false</code>?</em>。这是在单元测试执行期间遵循的流控制结构中可能的条件密度。</p>
+<p><code>Condition coverage = (CT + CF) / (2*B)</code>, where:</p>
+<ul>
+<li>CT = conditions that have been evaluated to ‘true’ at least once(已经被评估为<code>true</code>至少一次的条件)</li>
+<li>CF = conditions that have been evaluated to ‘false’ at least once(已经被评估为<code>false</code>至少一次的条件)</li>
+<li>B = 条件总数(total number of conditions)</li>
+</ul>
+<p><br><br><br></p>
+<h4 id="覆盖"><a href="#覆盖" class="headerlink" title="覆盖"></a>覆盖</h4><p>它是行覆盖和条件覆盖的混合。它的目标是为以下问题提供更准确的答案: <em>单元测试覆盖了多少源代码?</em></p>
+<p><code>Coverage = (CT + CF + LC)/(2*B + EL)</code>, where:</p>
+<ul>
+<li>CT = 已经被评估为<code>true</code>至少一次的条件</li>
+<li>CF = 已经被评估为<code>false</code>至少一次的条件</li>
+<li>LC = 覆盖的行(covered lines)</li>
+<li>B = 条件总数</li>
+<li>EL = 可执行行的总数( total number of executable lines)</li>
+</ul>
+<p><br><br><br></p>
+<h4 id="行覆盖"><a href="#行覆盖" class="headerlink" title="行覆盖"></a>行覆盖</h4><p>在给定的代码行上，行覆盖简单地回答了以下问题: <em>在执行单元测试期间是否执行了这行代码?</em></p>
+<p>它是单元测试的覆盖率密度:</p>
+<p><code>Line coverage = LC / EL</code>, where:</p>
+<ul>
+<li>LC = 覆盖的行(covered lines)</li>
+<li>EL = 可执行行的总数(total number of executable lines)</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>Concepts</p>
+<p><br><br><br></p>
+<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><p>Architecture</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Analyzer</td>
+<td>用于分析源代码以计算快照的客户端程序</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>存储配置和快照</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>用于浏览快照数据和进行配置修改的Web界面</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br><br><br></p>
+<h3 id="质量"><a href="#质量" class="headerlink" title="质量"></a>质量</h3><p>Quality</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bug</td>
+<td>表示代码中出错的问题</td>
+</tr>
+<tr>
+<td>Code Smell</td>
+<td>代码中与可维护性相关的问题</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>花费</td>
+</tr>
+<tr>
+<td>Debt</td>
+<td>解决问题所需的时间</td>
+</tr>
+<tr>
+<td>Issue</td>
+<td>代码不符合规则时，快照上会记录一个问题。有: Bugs , Code Smells and Vulnerabilities</td>
+</tr>
+<tr>
+<td>Measure</td>
+<td>给定时间内给定文件或项目的度量值</td>
+</tr>
+<tr>
+<td>Metric</td>
+<td>一种测量方式。随着时间的推移，度量标准可能具有不同的值或度量</td>
+</tr>
+<tr>
+<td>New Code Period</td>
+<td>需要密切关注代码中引入新问题的时间段</td>
+</tr>
+<tr>
+<td>Quality Profile</td>
+<td>一组规则</td>
+</tr>
+<tr>
+<td>Rule</td>
+<td>应该遵循的编码标准或惯例</td>
+</tr>
+<tr>
+<td>Remediation Cost</td>
+<td>修复漏洞和可靠性问题所需的估计时间</td>
+</tr>
+<tr>
+<td>Snapshot</td>
+<td>在给定时间内针对给定项目的一组度量和问题</td>
+</tr>
+<tr>
+<td>Security Hotspot</td>
+<td>与安全相关的问题，突出显示使用安全敏感API的一段代码</td>
+</tr>
+<tr>
+<td>Technical Debt</td>
+<td>修复问题所需的估计时间</td>
+</tr>
+<tr>
+<td>Vulnerability</td>
+<td>与安全相关的问题，代表攻击者的后门</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br><br><br><br><br></p>
+<h2 id="活动"><a href="#活动" class="headerlink" title="活动"></a>活动</h2><p>Activity and History</p>
+<p>项目活动页面提供项目文件分析的完整列表，以及随着时间推移看到项目措施演变的能力。<br>活动页面上的图标可帮助你了解几种相互选择的度量方法的演变。</p>
+<p><br></p>
+<h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><p>Events</p>
+<p>有四种类型的事件:</p>
+<ul>
+<li>Quality Gate</li>
+<li>Profile</li>
+<li>Version</li>
+<li>Other</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="SonarLint"><a href="#SonarLint" class="headerlink" title="SonarLint"></a>SonarLint</h2><p>SonarLint Smart Notifications</p>
+<p>SonarLint Smart Notifications是作为Developer Edtion的一部分来提供。</p>
+<p>智能通知允许使用SonarLint中的连接模式的开发人员以一下情况下从SonarQube接收IDE内的通知:</p>
+<ul>
+<li>the Quality Gate status (failed / success) of a project /solution open in the IDE changes</li>
+<li>a SonarQube analysis raises new issues introduced by this developer in a project /solution open in the IDE</li>
+</ul>
+<p>SonarLint智能通知的激活和取消必须由每个开发人员直接在SonarLint(IDE端)进行单独完成。<br>可以在SonarQube上逐个服务器地在SonarLint端配置接收通知。</p>
+<p><br><br><br><br><br></p>
+<h2 id="Security-Reports"><a href="#Security-Reports" class="headerlink" title="Security Reports"></a>Security Reports</h2><p><br></p>
+<h3 id="安全报告显示了什么"><a href="#安全报告显示了什么" class="headerlink" title="安全报告显示了什么"></a>安全报告显示了什么</h3><p>What do the Security Reports show?</p>
+<p>安全报告旨在快速为您提供有关应用程序安全性的全景图，并详细说明OWASP, SANS, CWE标准的详细信息。安全报告由分析器提供，分析器依赖于质量配置文件中激活的规则来引发安全问题。</p>
+<p><br><br><br></p>
+<h3 id="热点和漏洞有什么区别"><a href="#热点和漏洞有什么区别" class="headerlink" title="热点和漏洞有什么区别"></a>热点和漏洞有什么区别</h3><p>What’s the difference between a Hotspot and a Vulnerability?</p>
+<p>漏洞是代码中可以攻击的点。安全热点是安全敏感的代码段，应由具有安全审计员帽的人仔细审查。<br>安全热点的主要目标是帮助集中手动审查应用程序源代码的安全审核员的工作。第二个目标是教育开发人员并提高他们的安全意识。</p>
+<p><br><br><br></p>
+<h3 id="为什么某些热点和漏洞非常相似"><a href="#为什么某些热点和漏洞非常相似" class="headerlink" title="为什么某些热点和漏洞非常相似"></a>为什么某些热点和漏洞非常相似</h3><p>Why are some Hotspot and Vulnerability rules very similar?</p>
+<p>它们是故意重叠的。热点规则应该包括漏洞规则的所有匹配，以及污点分析引擎无法检测漏洞的情况。</p>
+<p><br><br><br></p>
+<h3 id="为什么我看不到任何热点"><a href="#为什么我看不到任何热点" class="headerlink" title="为什么我看不到任何热点"></a>为什么我看不到任何热点</h3><p>Why are some Hotspot and Vulnerability rules very similar?</p>
+<p>有三个原因:</p>
+<ul>
+<li>可能真的没有它们，因为代码是在没有使用任何安全敏感API的情况下编写的</li>
+<li>热点规则可能可用，但尚未在你的质量配置文件中激活，因此自然不会引发任何问题</li>
+<li>你正在使用的语言分析器可能还没有提供热点规则，所以它不会引发任何热点</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="为什么我看不到任何漏洞"><a href="#为什么我看不到任何漏洞" class="headerlink" title="为什么我看不到任何漏洞"></a>为什么我看不到任何漏洞</h3><p>由于一些热点原因，你可能没有看到任何漏洞的，但你可能会看到项目主页中报告了一些漏洞，而安全报告中没有漏洞。这是因为语言分析器可能尚未提供安全报告中可见问题所需的安全标准的元数据。</p>
+<p><br><br><br></p>
+<h3 id="开发者是否应该关心热点"><a href="#开发者是否应该关心热点" class="headerlink" title="开发者是否应该关心热点"></a>开发者是否应该关心热点</h3><p>可能并不需要。热点并不是真正可行的，它们只是标记潜在的问题，所以在代码上没有立即做任何事情。这就是为什么在引发热点问题时没有收到通知。</p>
+<p><br><br><br></p>
+<h3 id="如果热点确实标记为漏洞怎么办"><a href="#如果热点确实标记为漏洞怎么办" class="headerlink" title="如果热点确实标记为漏洞怎么办"></a>如果热点确实标记为漏洞怎么办</h3><p>如果您查看引发热点的代码并意识到确实存在问题，请单击当前状态以注册您在代码中检测到漏洞。完成后，它将转换为漏洞，最后触摸该行的开发人员将收到新问题通知。</p>
+<p><br><br><br></p>
+<h3 id="热点变为漏洞后会发生什么"><a href="#热点变为漏洞后会发生什么" class="headerlink" title="热点变为漏洞后会发生什么"></a>热点变为漏洞后会发生什么</h3><p>一旦您检测到热点位置确实存在问题，它将被分配给相应的开发人员，他们将进行修复，然后必须通过UI请求审核。</p>
+<p><br><br><br></p>
+<h3 id="热点被标记为不会修复是什么意思"><a href="#热点被标记为不会修复是什么意思" class="headerlink" title="热点被标记为不会修复是什么意思"></a>热点被标记为不会修复是什么意思</h3><p>What does it mean for a Hotspot to be marked “Won’t Fix”?</p>
+<p>不会修复标记用于表示已经审查了热点，并且目前无法利用这段代码创建攻击。</p>
+<p><br><br><br><br><br></p>
+<h2 id="用户账户"><a href="#用户账户" class="headerlink" title="用户账户"></a>用户账户</h2><p>User Account</p>
+<p>SonarQube用户可拥有自己的空间，可查看与自己相关的内容。</p>
+<p><br><br><br><br><br></p>
+<h2 id="User-Token"><a href="#User-Token" class="headerlink" title="User Token"></a>User Token</h2><p>每个用户都可生成令牌，这些令牌可用于运行分析或调用Web服务，而无需用户的实际凭据。</p>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="项目管理"><a href="#项目管理" class="headerlink" title="项目管理"></a>项目管理</h1><p>Project Administration</p>
+<p><br></p>
+<h2 id="项目存在"><a href="#项目存在" class="headerlink" title="项目存在"></a>项目存在</h2><p>Project Existence</p>
+<p>通常，项目在第一次分析时创建，不会删除(除非手动删除)。你可以管你你有权限管理的项目。</p>
+<p><br></p>
+<ul>
+<li>在第一次分析之前配置项目</li>
+<li>配置还未分析的项目</li>
+<li>修改项目权限(Private/Public) - 默认情况下，任何新创建的项目都被视为Public。这意味着每个经过认证的用户都能够<strong>Browse</strong>和<strong>See Source Code</strong></li>
+<li>删除项目</li>
+<li>查找不再分析的项目</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="管理项目历史"><a href="#管理项目历史" class="headerlink" title="管理项目历史"></a>管理项目历史</h2><p>Managing Project History</p>
+<p>SonarQube最强大的功能之一是它不仅向你展示了你今天的项目健康状况，还展示了它随时间的变化情况。它通过有选择地保留以前分析的数据来做到这一点。它没有保留所有以前的分析——这会使数据库膨胀。同样，对于它确实存在的分析，SonarQube不会保留所有数据。一旦项目快照(snapshot)从最后分析(Last analysis)移动到项目历史的一部分，项目级别下面的数据就会被清除——再次放置数据库膨胀。</p>
+<p>通常这些都不是你需要考虑的事情。SonarQube只为你专门处理它们。但有时你可能需要从项目的历史记录中删除错误的快照或修改内存处理算法。</p>
+<p><br></p>
+<p>可查看数据库表大小:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># sonar</span><br><span class="line"><span class="keyword">USE</span> information_schema;</span><br><span class="line"></span><br><span class="line"><span class="keyword">DESCRIBE</span> <span class="keyword">TABLES</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> TABLE_SCHEMA, TABLE_NAME, TABLE_ROWS, DATA_LENGTH <span class="keyword">FROM</span> <span class="keyword">TABLES</span> <span class="keyword">WHERE</span> TABLE_SCHEMA = <span class="string">'sonar'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> DATA_LENGTH <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p>有时你可能需要手动删除项目快照，无论是因为使用了错误的质量配置文件，还是因为分析存在问题…请注意，永远不能删除最新的快照。</p>
+<p>对于每个快照，可以手动:</p>
+<ul>
+<li>Add, rename or remove a version</li>
+<li>Add, rename or remove an event</li>
+<li>Delete the snapshot</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="缩小关注点"><a href="#缩小关注点" class="headerlink" title="缩小关注点"></a>缩小关注点</h2><p>Narrowing the Focus</p>
+<p>如果SonarQube的结果不相关，那么没有人会想要使用它。这就是为什么精确配置每个项目要分析的内容是非常重要的一步。<br>SonarQube为你提供了几种选项，可以准确配置要分析的内容。你可以:</p>
+<ul>
+<li>完全忽略一些文件或目录</li>
+<li>从问题中排除文件或目录，但分析所有其它方面</li>
+<li>从重复性中排除文件或目录，但分析所有其它方面</li>
+<li>从覆盖率中排除文件或目录，但分析其它所有方面</li>
+</ul>
+<p>你可以在全局或项目级别配置它们。</p>
+<p><br></p>
+<h3 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h3><p>Ignore Files</p>
+<p>建议你从库中排除生成的代码，源代码等。有四种不同的方法可将分析范围缩小到与开发团队相关的源代码。</p>
+<ul>
+<li>源目录(Source Directories)</li>
+<li>文件后缀(File Suffixes)</li>
+<li>选择文件(Choosing Files)<ul>
+<li>源文件排除(Source File Exclusions)</li>
+<li>测试文件排除(Test File Exclusions)</li>
+<li>源文件包含(Source File Inclusions)</li>
+<li>测试文件包含(Test File Inclusions)</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/SonarQube/exclusions.jpg" alt></p>
+<p><img src="/images/SonarQube/inclusions.jpg" alt></p>
+<p><br><br><br></p>
+<h3 id="忽略问题"><a href="#忽略问题" class="headerlink" title="忽略问题"></a>忽略问题</h3><p>Ignore Issues</p>
+<p>可使用SonarQube忽略某些组件和某些编码规则的问题。<code>Administration &gt; General Settings &gt; Analysis Scope &gt; Issues</code>。</p>
+<p>请注意，以下属性只能通过Web界面设置，因为它们是多值的。</p>
+<ul>
+<li>Ignore Issues on Files</li>
+<li>Ignore Issues in Blocks</li>
+<li>Ignore Issues on Multiple Criteria</li>
+<li>Restrict Scope of Coding Rules</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="忽略重复"><a href="#忽略重复" class="headerlink" title="忽略重复"></a>忽略重复</h3><p>Ignore Duplications</p>
+<p>可在SonarQube中阻止检查某些文件的重复性。<code>Administration &gt; General Settings &gt; Analysis Scope &gt; Duplications</code>。</p>
+<p><br><br><br></p>
+<h3 id="忽略代码覆盖率"><a href="#忽略代码覆盖率" class="headerlink" title="忽略代码覆盖率"></a>忽略代码覆盖率</h3><p>Ignore Code Coverage</p>
+<p>可以通过单元测试防止某些文件考虑用于代码覆盖。<code>Administration &gt; General Settings &gt; Analysis Scope &gt; Code Coverage &gt; Coverage Exclusions</code>。</p>
+<p><br><br><br></p>
+<h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><p>Patterns</p>
+<p>SonarQube中可以使用以下通配符:</p>
+<ul>
+<li><code>*</code>    - 零个或多个字符(zero or more characters)</li>
+<li><code>**</code> - 零个或多个目录(zero or more directories)</li>
+<li><code>?</code> - 单个字符(a single character)</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="项目设置"><a href="#项目设置" class="headerlink" title="项目设置"></a>项目设置</h2><p>Project Settings</p>
+<p><br></p>
+<h3 id="Tags"><a href="#Tags" class="headerlink" title="Tags"></a>Tags</h3><p>项目标签(tags) 允许对项目进行分类和分组，以便在项目页面上更容易地选择。可以从项目主页管理项目标签。</p>
+<p><br><br><br></p>
+<h3 id="管理项"><a href="#管理项" class="headerlink" title="管理项"></a>管理项</h3><p>Administration Items:</p>
+<ul>
+<li>Adding a Project</li>
+<li>Analysis Report Processing</li>
+<li>Deleting a Project</li>
+<li>Setting the New Code Period</li>
+<li>Updating Project Key</li>
+<li>Default Issue Assignee</li>
+<li>Setting Quality Gate and Quality Profiles</li>
+<li>Setting Exclusions</li>
+<li>Customizing Links</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="Webhooks"><a href="#Webhooks" class="headerlink" title="Webhooks"></a>Webhooks</h2><p>网络调用(Webhooks) 在项目完成分析后通知外部服——An HTTP POST request including a JSON payload is sent to each URL。可在项目级别和全局指定URL。项目级别的配置不会取代全局的配置，两个级别的所有Webhooks都被调用。</p>
+<p>HTTP(s) 调用:</p>
+<ul>
+<li>无论后台任务的状态如何</li>
+<li>使用POST方法将JSON文档作为负载</li>
+<li>使用<code>UTF-8</code>编码的内容类型<code>application/json</code></li>
+</ul>
+<p><br></p>
+<h3 id="Delivery-and-Payload"><a href="#Delivery-and-Payload" class="headerlink" title="Delivery and Payload"></a>Delivery and Payload</h3><p>Webhook 管理控制台显示每个Webhook的最新交付的结果和时间戳，其中有效负载可通过列表图标获得。默认保留30天的记录。URL必须在10s响应，否则传递将标记为失败。</p>
+<p>发送带有project key的 HTTP header <code>X-SonarQube-Project</code>，以便快速识别所涉及的项目。</p>
+<p>Payload是一个JSON文档，包括:</p>
+<ul>
+<li>什么时候运行分析(<code>analysedAt</code>)</li>
+<li>分析的项目的标识(<code>project</code>)</li>
+<li>每个质量阈标准和状态(<code>qualityGate</code>)</li>
+<li>每个项目的质量阈状态(<code>qualityGate.status</code>)</li>
+<li>后台任务的状态和标识(<code>status</code>, <code>taskId</code>)</li>
+<li>用于定义的属性(<code>properties</code>)</li>
+</ul>
+<p>栗子:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"analysedAt"</span>: <span class="string">"2016-11-18T10:46:28+0100"</span>,</span><br><span class="line">    <span class="attr">"project"</span>: &#123;</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"org.sonarqube:example"</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"Example"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"properties"</span>: &#123;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"qualityGate"</span>: &#123;</span><br><span class="line">        <span class="attr">"conditions"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"errorThreshold"</span>: <span class="string">"1"</span>,</span><br><span class="line">                <span class="attr">"metric"</span>: <span class="string">"new_security_rating"</span>,</span><br><span class="line">                <span class="attr">"onLeakPeriod"</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="attr">"operator"</span>: <span class="string">"GREATER_THAN"</span>,</span><br><span class="line">                <span class="attr">"status"</span>: <span class="string">"OK"</span>,</span><br><span class="line">                <span class="attr">"value"</span>: <span class="string">"1"</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"errorThreshold"</span>: <span class="string">"1"</span>,</span><br><span class="line">                <span class="attr">"metric"</span>: <span class="string">"new_reliability_rating"</span>,</span><br><span class="line">                <span class="attr">"onLeakPeriod"</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="attr">"operator"</span>: <span class="string">"GREATER_THAN"</span>,</span><br><span class="line">                <span class="attr">"status"</span>: <span class="string">"OK"</span>,</span><br><span class="line">                <span class="attr">"value"</span>: <span class="string">"1"</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"errorThreshold"</span>: <span class="string">"1"</span>,</span><br><span class="line">                <span class="attr">"metric"</span>: <span class="string">"new_maintainability_rating"</span>,</span><br><span class="line">                <span class="attr">"onLeakPeriod"</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="attr">"operator"</span>: <span class="string">"GREATER_THAN"</span>,</span><br><span class="line">                <span class="attr">"status"</span>: <span class="string">"OK"</span>,</span><br><span class="line">                <span class="attr">"value"</span>: <span class="string">"1"</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"errorThreshold"</span>: <span class="string">"80"</span>,</span><br><span class="line">                <span class="attr">"metric"</span>: <span class="string">"new_coverage"</span>,</span><br><span class="line">                <span class="attr">"onLeakPeriod"</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="attr">"operator"</span>: <span class="string">"LESS_THAN"</span>,</span><br><span class="line">                <span class="attr">"status"</span>: <span class="string">"NO_VALUE"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"SonarQube way"</span>,</span><br><span class="line">        <span class="attr">"status"</span>: <span class="string">"OK"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"serverUrl"</span>: <span class="string">"http://localhost:9000"</span>,</span><br><span class="line">    <span class="attr">"status"</span>: <span class="string">"SUCCESS"</span>,</span><br><span class="line">    <span class="attr">"taskId"</span>: <span class="string">"AVh21JS2JepAEhwQ-b3u"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="附加参数"><a href="#附加参数" class="headerlink" title="附加参数"></a>附加参数</h3><p>Additional parameters</p>
+<p>通过在Webhook的URL中提供<code>user/passwd</code>来支持基本的身份认证机制。(如: <code>https://myLogin:myPassword@my_server/foo</code>)</p>
+<p>如果使用了<code>sonar.analysis.*</code>属性为SonarScanner提供其它属性，则这些属性将自动添加到有效负载的<code>properties</code>部分。</p>
+<p>栗子:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sonar-scanner -Dsonar.analysis.scmRevision=628f5175ada0d685fd7164baa7c6382c1f25cab4 -Dsonar.analysis.buildNumber=12345</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="实例管理"><a href="#实例管理" class="headerlink" title="实例管理"></a>实例管理</h1><p>Instance Administration</p>
+<p><br></p>
+<h2 id="质量配置"><a href="#质量配置" class="headerlink" title="质量配置"></a>质量配置</h2><p>Quality Profiles</p>
+<p><br></p>
+<h3 id="概述-4"><a href="#概述-4" class="headerlink" title="概述"></a>概述</h3><p>质量配置(Quality Profiles)服务是SonarQube的核心，因为它是您通过定义规则集来定义需求的地方。。</p>
+<p>理想情况下，对于任何给定的语言，所有项目都将使用相同的配置文件进行测量，但这并不总是实用的。<br>这就是为什么您可以根据需要定义尽可能多的质量配置文件，即使建议尽可能少的质量配置文件以确保公司项目的一致性。</p>
+<p>每个语言都带有预定义的內建配置文件(通常称为 Sonar way)，因此你可以使用SonarQube分析进行快速开始。这就是为什么只要安装新的语言插件，就可以使用至少一个配置文件。</p>
+<p>默认的Sonar way配置文件，它包含了通常适用于大多数项目的所有规则。但作为最佳实践，你应该创建一个新的配置文件(你可以通过复制Sonar way的内容来填充它)，并使用它。<br>因为默认的Sonar way是不可编辑的，因此你无法根据需要对其进行自定义。此外，这使你可将Sonar way视为一个基线，可在对其进行更改时跟踪自己的配置文件。此外Sonar way通常会随插件的每个新版本更新，已添加规则，有时还会调整规则严重性。任何继承自內建Sonar way的配置文件都将在事实上同时自动更新。</p>
+<p><br><br><br></p>
+<h3 id="我该怎么做"><a href="#我该怎么做" class="headerlink" title="我该怎么做"></a>我该怎么做</h3><p><br></p>
+<h4 id="将质量配置管理的权限移交给其他人"><a href="#将质量配置管理的权限移交给其他人" class="headerlink" title="　将质量配置管理的权限移交给其他人"></a>　将质量配置管理的权限移交给其他人</h4><p>Delegate the management of Quality Profiles to someone else?</p>
+<p>默认情况下，管理员才有此权限。但你可以授予用户/组权限来编辑配置文件。例如将Java配置文件权限分配给Java开发专家，将Python配置文件权限分配给Python专家…</p>
+<p><br><br><br></p>
+<h4 id="将规则从一个配置复制到另一个配置"><a href="#将规则从一个配置复制到另一个配置" class="headerlink" title="将规则从一个配置复制到另一个配置"></a>将规则从一个配置复制到另一个配置</h4><p>Copy the rules from one profile to another?</p>
+<p>许多时候，人们希望使用基于內建的配置文件的配置文件进行工作，而无实际需要使用內建配置文件。</p>
+<p><br><br><br></p>
+<h4 id="了解配置中有什么改变"><a href="#了解配置中有什么改变" class="headerlink" title="了解配置中有什么改变"></a>了解配置中有什么改变</h4><p>Know what’s changed in a profile?</p>
+<p>当SonarQube注意到使用与先前分析不同的配置文件执行分析时，会将质量配置文件事件添加到项目的事件日志中。</p>
+<p><br><br><br></p>
+<h4 id="将配置文件从一个实例复制到另一个实例"><a href="#将配置文件从一个实例复制到另一个实例" class="headerlink" title="将配置文件从一个实例复制到另一个实例"></a>将配置文件从一个实例复制到另一个实例</h4><p>Copy a profile from one SonarQube instance to another?</p>
+<p>使用实例上的备份(Back UP)功能将配置文件导出到XML文件。然后在另一个实例中选择恢复(Restore)。</p>
+<p><br><br><br></p>
+<h4 id="将一组核心规则和附加规则应用于项目"><a href="#将一组核心规则和附加规则应用于项目" class="headerlink" title="将一组核心规则和附加规则应用于项目"></a>将一组核心规则和附加规则应用于项目</h4><p>Apply a core set of rules plus additional rules to a project?</p>
+<p>使用继承，从root继承核心规则集。然后创建一个子配置文件(Sprout)，修改从Root继承，然后添加缺少的规则。</p>
+<p><br><br><br></p>
+<h4 id="确保我的非默认配置文件应用于项目"><a href="#确保我的非默认配置文件应用于项目" class="headerlink" title="确保我的非默认配置文件应用于项目"></a>确保我的非默认配置文件应用于项目</h4><p>Make sure my non-default profile is used on a project?</p>
+<p><br><br><br></p>
+<h4 id="确保我的个人配置中包含所有相关的新规则"><a href="#确保我的个人配置中包含所有相关的新规则" class="headerlink" title="确保我的个人配置中包含所有相关的新规则"></a>确保我的个人配置中包含所有相关的新规则</h4><p>Make sure I’ve got all the relevant new rules in my profile?</p>
+<p><br><br><br></p>
+<h4 id="比较两个规则"><a href="#比较两个规则" class="headerlink" title="比较两个规则"></a>比较两个规则</h4><p>Compare two profiles?</p>
+<p><br><br><br></p>
+<h4 id="确保我的配置中没有任何弃用的规则"><a href="#确保我的配置中没有任何弃用的规则" class="headerlink" title="确保我的配置中没有任何弃用的规则"></a>确保我的配置中没有任何弃用的规则</h4><p>Make sure I don’t have any deprecated rules in my profile?</p>
+<p><br><br><br></p>
+<h4 id="安全-1"><a href="#安全-1" class="headerlink" title="安全"></a>安全</h4><p>Security</p>
+<p>任何用户都可以访问质量配置服务，你可以给他们配置质量配置管理权限，让他们可以创建，删除质量配置。</p>
+<p><br><br><br><br><br></p>
+<h2 id="安全-2"><a href="#安全-2" class="headerlink" title="安全"></a>安全</h2><p><br></p>
+<h3 id="概述-5"><a href="#概述-5" class="headerlink" title="概述"></a>概述</h3><p>SonarQube具有许多全局安全功能:</p>
+<ul>
+<li>认证和授权机制</li>
+<li>强制身份认证</li>
+<li>委派认证</li>
+</ul>
+<p>除此之外，还可在group/user级别配置:</p>
+<ul>
+<li>查看一个已存在的项目</li>
+<li>访问项目的源代码</li>
+<li>管理一个项目</li>
+<li>管理质量配置，质量阈，实例…</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h3><p>Authentication</p>
+<p>第一个问题: 匿名用户是否可以浏览SonarQube实例？<br>当然不行！那就需要强制用户认证。</p>
+<p><br></p>
+<p><strong>认证机制(Authentication Mechanisms)</strong></p>
+<p>可通过多种方式来管理认证机制:</p>
+<ul>
+<li>通过SonarQube內建的user/group数据库</li>
+<li>通过外部程序(如LDAP)</li>
+<li>通过HTTP headers</li>
+</ul>
+<p><br></p>
+<p><strong>技术用户(Technical Users)</strong></p>
+<p>当你在SonarQube数据库中创建用户时，他将被视为本地用户，并且针对SonarQube自己的user/group数据库进行身份认证，而不是通过任何外部工具。<br>默认情况下，<code>admin</code>是本地账户。</p>
+<p>同样，所有非本地(non-local)账户将仅针对外部工具进行身份认证。</p>
+<p>管理员可以管理所有用户的<strong>Tokens</strong>——创建和删除。一旦创建，Token就是运行分析所需的唯一凭证，作为<code>sonar.login</code>属性的值来传递。</p>
+<p><br></p>
+<p><strong>默认管理员(Default Admin Credentials)</strong></p>
+<p>当安装SonarQube时，会自动创建具有管理系统权限的默认用户:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">user:</span> <span class="string">admin</span></span><br><span class="line"><span class="attr">passwd:</span> <span class="string">admin</span></span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="重置管理员密码"><a href="#重置管理员密码" class="headerlink" title="重置管理员密码"></a>重置管理员密码</h3><p>Reinstating Admin Access</p>
+<p>如果你修改了管理员密码，但又忘记了:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USE</span> sonar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">update</span> <span class="keyword">users</span> <span class="keyword">set</span> crypted_password = <span class="string">'$2a$12$uCkkXmhW5ThVK8mpBvnXOOJRLd64LJeHTeCkSuB3lfaR2N0AYBaSi'</span>, <span class="keyword">salt</span>=<span class="literal">null</span>, hash_method=<span class="string">'BCRYPT'</span> <span class="keyword">where</span> login = <span class="string">'admin'</span></span><br></pre></td></tr></table></figure>
+<p>如果您删除了管理员并随后锁定了具有全局管理权限的其他用户:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USE</span> sonar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> user_roles(user_id, <span class="keyword">role</span>) <span class="keyword">VALUES</span> ((<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> <span class="keyword">users</span> <span class="keyword">where</span> login=<span class="string">'mylogin'</span>), <span class="string">'admin'</span>);</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><p>Authorization</p>
+<p>对不同组、不同用于仅限权限分配，以访问不同的资源。</p>
+<ul>
+<li>user</li>
+<li>group</li>
+<li>Global Permissions<ul>
+<li>Administer System</li>
+<li>Administer Quality Profiles</li>
+<li>Administer Quality Gates</li>
+<li>Execute Analysis</li>
+<li>Create Projects</li>
+<li>Create Applications</li>
+<li>Create Portfolios</li>
+</ul>
+</li>
+<li>Project Permissions<ul>
+<li>Public and Private<ul>
+<li>Administer Issues</li>
+<li>Administer Security Hotspots</li>
+<li>Administer</li>
+<li>Execute Analysis</li>
+</ul>
+</li>
+<li>Private<ul>
+<li>Browse</li>
+<li>See Source Code</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br><br><br></p>
+<h3 id="默认权限的权限模板"><a href="#默认权限的权限模板" class="headerlink" title="默认权限的权限模板"></a>默认权限的权限模板</h3><p>Permission Templates for Default Permissions</p>
+<p>SonarQube附带默认权限模板，该模板在创建项目，项目组合或应用程序自动授予特定组的特定权限。管理员可以编辑此模板。</p>
+<p><br><br><br></p>
+<h3 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h3><p>Encryption</p>
+<p>加密主要用于从设置中删除明文密码。实现的解决方案是基于对称密钥算法，关键是密钥存储在磁盘上的安全文件中。此文件必须由运行SonarQube Server的系统账户拥有和读取。<br>该算法是AES 128位。</p>
+<ul>
+<li><strong>Generate the secret key</strong></li>
+<li><strong>Store the secret key on the SonarQube server</strong></li>
+<li><strong>Generate the encrypted values of your settings</strong></li>
+<li><strong>Use the encrypted values in your SonarQube server configuration</strong></li>
+</ul>
+<p>必须在SonarQube基础架构的所有部分之间共享唯一的密钥。在<code>Administration &gt; Configuration &gt; Encryption</code>生成密钥。<br>生成密钥之后，会显示如何使用此密钥。</p>
+<p><img src="/images/SonarQube/secretKey.png" alt></p>
+<p>之后便可以为你设置的值进行加密。同样在前面的加密下进行配置。<br>之后在SonarQube Server中使用加密后的值:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># conf/sonar.properties</span><br><span class="line"></span><br><span class="line">sonar.jdbc.password=&#123;aes&#125;CCGCFg4Xpm6r+PiJb1Swfg==  # Encrypted DB password</span><br><span class="line">...</span><br><span class="line">sonar.secretKeyPath=C:/path/to/my/secure/location/my_secret_key.txt</span><br></pre></td></tr></table></figure>
+<p><br><br><br><br><br></p>
+<h2 id="委托认证"><a href="#委托认证" class="headerlink" title="委托认证"></a>委托认证</h2><p>Delegating Authentication</p>
+<p>docs: <a href="https://docs.sonarqube.org/latest/instance-administration/delegated-auth/" target="_blank" rel="noopener">https://docs.sonarqube.org/latest/instance-administration/delegated-auth/</a></p>
+<p>SonarQube认证:</p>
+<ul>
+<li>自带用户数据库认证</li>
+<li>外部<ul>
+<li>HTTP header</li>
+<li>LDAP</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h3 id="HTTP-header认证"><a href="#HTTP-header认证" class="headerlink" title="HTTP header认证"></a>HTTP header认证</h3><p><br><br><br></p>
+<h3 id="LDAP认证"><a href="#LDAP认证" class="headerlink" title="LDAP认证"></a>LDAP认证</h3><p><br><br><br><br><br></p>
+<h2 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h2><p>Notifications</p>
+<p>可以通过邮件配置，向用户发送分析的信息的通知。</p>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="使用实践"><a href="#使用实践" class="headerlink" title="使用实践"></a>使用实践</h1><blockquote>
+<p><strong>注意:</strong><br>由于使用的是SonarQube CE(社区版)，因此不支持在IDE中上传分析数据，也不支持多分支(branch)分析。所以需要对这些方面做一些规范。</p>
+</blockquote>
+<p><br></p>
+<p>SonarQube的使用主要分为两个方面:</p>
+<ul>
+<li><strong>开发者 IDE</strong></li>
+<li><strong>CI SonarScanner</strong></li>
+</ul>
+<p><br></p>
+<h2 id="CI"><a href="#CI" class="headerlink" title="CI"></a>CI</h2><p>CI端 需先安装 <code>SonarQube Scanner</code> 应用程序，并配置相应的路径和token。</p>
+<p>由于社区版的缘故，我只对测试分支的CI进行SonarScanner分析，并将结果上传到SonarQube Server对应项目的路径。</p>
+<p>由于测试分支(stage)的代码都是由开发者现在本地IDE中检测过代码质量(Code Quality)之后才MR过来，所以这样更方便和实用些。</p>
+<p>CI SonarScanner分析上传之后，SonarQube会通知项目负责人此项目代码相关情况。由项目负责人去SonarQube Web UI上再去核查相关issues，核查无误之后，才能将测试分支的代码上线。<br>如果项目负责人检查出相关代码的某些问题，请于相关分支开发者交流，叮嘱他们现在本地IDE自测，通过之后在MR代码。</p>
+<p><br><br><br></p>
+<h2 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h2><p>只需在IDE中下载SonarLint插件，并配置上运维人员提供的地址和token就可以使用了。</p>
+<p>由于社区版的缘故，我这里让<strong>开发者自己的分支</strong>在IDE中调用远程SonarQube进行本地代码质量检查，并不需要将开发者的分支代码情况上传到SonarQube Server端。</p>
+<p>开发者自己检查和核对自己分支的代码质量，确认之后才将自己的代码MR到dev分支。<br>如果项目负责人检测到某位开发者的分支代码存在问题，则这个责任由分支开发者负责和处理。</p>
+<p><br><br><br></p>
+<h2 id="权限问题"><a href="#权限问题" class="headerlink" title="权限问题"></a>权限问题</h2><p>权限有一些地方需要注意:</p>
+<ul>
+<li>将项目设置为私有(默认: public)</li>
+<li>项目对应项目组(group)，对应项目成员(user)</li>
+<li>项目组中的CI, IDE用户具有不同的权限</li>
+<li>…</li>
+</ul>
+<p><br></p>
+<p>具体配置可以在使用的时候灵活修改！</p>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><p>可通过SonarQube API 进行许多操作。</p>
+<p><br></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如导出python的代码规则</span></span><br><span class="line">curl -X GET -v -u user:passwd  http://localhost:9000/api/rules/search?language=python &gt; python.json</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="Scanner"><a href="#Scanner" class="headerlink" title="Scanner"></a>Scanner</h1><ul>
+<li>docs: <a href="https://docs.sonarqube.org/display/SCAN" target="_blank" rel="noopener">https://docs.sonarqube.org/display/SCAN</a></li>
+</ul>
+<p>建议将SonarQube Scanner用作使用SonarQube分析项目的默认扫描程序。</p>
+<p><br></p>
+<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><p><br></p>
+<h3 id="OS"><a href="#OS" class="headerlink" title="OS"></a>OS</h3><p>平台:</p>
+<ul>
+<li>Linux</li>
+<li>Mac OS</li>
+<li>Windows</li>
+</ul>
+<p><br></p>
+<p>下载对应平台的Sonar Scanner应用程序，将它们解压之后加入系统路径(<code>$PATH</code>)。</p>
+<p><br><br><br><br><br></p>
+<h3 id="IDE-1"><a href="#IDE-1" class="headerlink" title="IDE"></a>IDE</h3><p>Sonar Scanner 支持的 IDE 有:</p>
+<ul>
+<li>MSBuild</li>
+<li>Maven</li>
+<li>Gradle</li>
+<li>Ant</li>
+<li>Jenkins</li>
+<li>JetBrains</li>
+</ul>
+<p><br></p>
+<p>在IDE中下载<strong>SonarLint</strong>插件，之后配置SonarQube Server地址和管理员给的Token便可以正常使用。<br>社区版的SonarQube 只能在IDE中检测，无法上传。</p>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image" src="/images/leslie.jpg" alt="Leslie Zhang">
+          
+            <p class="site-author-name" itemprop="name">Leslie Zhang</p>
+            <p class="site-description motion-element" itemprop="description">那一年我二十一岁，在我一生的黄金时代</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Zhang21" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:me@zhang21.cn" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/Zhang21_" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+<br>
+<!--����������������ⲿ����,auto=1��ʾ�Զ�����-->
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=411315632&auto=0&height=66"></iframe>
+
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构与集成"><span class="nav-number">2.</span> <span class="nav-text">架构与集成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集成"><span class="nav-number">2.2.</span> <span class="nav-text">集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于机器和位置"><span class="nav-number">2.3.</span> <span class="nav-text">关于机器和位置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#要求"><span class="nav-number">3.</span> <span class="nav-text">要求</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#先决条件"><span class="nav-number">3.1.</span> <span class="nav-text">先决条件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#硬件要求"><span class="nav-number">3.1.1.</span> <span class="nav-text">硬件要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持的平台"><span class="nav-number">3.1.2.</span> <span class="nav-text">支持的平台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平台说明"><span class="nav-number">3.1.3.</span> <span class="nav-text">平台说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">Linux</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#seccomp-filter"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">seccomp filter</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置和升级"><span class="nav-number">4.</span> <span class="nav-text">配置和升级</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#快速入门"><span class="nav-number">4.1.</span> <span class="nav-text">快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#zip文件安装"><span class="nav-number">4.1.1.</span> <span class="nav-text">zip文件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker安装"><span class="nav-number">4.1.2.</span> <span class="nav-text">Docker安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Server"><span class="nav-number">4.2.</span> <span class="nav-text">安装Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装数据库"><span class="nav-number">4.2.1.</span> <span class="nav-text">安装数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-Server"><span class="nav-number">4.2.1.1.</span> <span class="nav-text">SQL Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Oracle"><span class="nav-number">4.2.1.2.</span> <span class="nav-text">Oracle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PostgreSQL"><span class="nav-number">4.2.1.3.</span> <span class="nav-text">PostgreSQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL"><span class="nav-number">4.2.1.4.</span> <span class="nav-text">MySQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Web-Server"><span class="nav-number">4.2.2.</span> <span class="nav-text">安装Web Server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置数据库访问"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">设置数据库访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加JDBC驱动"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">添加JDBC驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置ElasticSearch存储路径"><span class="nav-number">4.2.2.3.</span> <span class="nav-text">配置ElasticSearch存储路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动Web-Server"><span class="nav-number">4.2.2.4.</span> <span class="nav-text">启动Web Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调整Web服务器"><span class="nav-number">4.2.2.5.</span> <span class="nav-text">调整Web服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FAQ"><span class="nav-number">4.2.2.6.</span> <span class="nav-text">FAQ</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置和操作Server"><span class="nav-number">4.3.</span> <span class="nav-text">配置和操作Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#以SystemD运行"><span class="nav-number">4.3.1.</span> <span class="nav-text">以SystemD运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在代理服务器后保护Server"><span class="nav-number">4.3.2.</span> <span class="nav-text">在代理服务器后保护Server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Server配置"><span class="nav-number">4.3.2.1.</span> <span class="nav-text">Server配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Apache代理"><span class="nav-number">4.3.2.2.</span> <span class="nav-text">使用Apache代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Nginx代理"><span class="nav-number">4.3.2.3.</span> <span class="nav-text">使用Nginx代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用IIS"><span class="nav-number">4.3.2.4.</span> <span class="nav-text">使用IIS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装插件"><span class="nav-number">4.4.</span> <span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装C-C-插件"><span class="nav-number">4.5.</span> <span class="nav-text">安装C/C++插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">4.5.1.</span> <span class="nav-text">安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装PS-SQL插件"><span class="nav-number">4.6.</span> <span class="nav-text">安装PS/SQL插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将Server安装为集群"><span class="nav-number">4.7.</span> <span class="nav-text">将Server安装为集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置和操作集群"><span class="nav-number">4.8.</span> <span class="nav-text">配置和操作集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级"><span class="nav-number">4.9.</span> <span class="nav-text">升级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何升级"><span class="nav-number">4.9.1.</span> <span class="nav-text">如何升级</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析源代码"><span class="nav-number">5.</span> <span class="nav-text">分析源代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述-1"><span class="nav-number">5.1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析产生了什么"><span class="nav-number">5.1.1.</span> <span class="nav-text">分析产生了什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#是否会分析所有文件"><span class="nav-number">5.1.2.</span> <span class="nav-text">是否会分析所有文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析期间会发生什么"><span class="nav-number">5.1.3.</span> <span class="nav-text">分析期间会发生什么</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析参数"><span class="nav-number">5.2.</span> <span class="nav-text">分析参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强制参数"><span class="nav-number">5.2.1.</span> <span class="nav-text">强制参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可选参数"><span class="nav-number">5.2.2.</span> <span class="nav-text">可选参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后台任务"><span class="nav-number">5.3.</span> <span class="nav-text">后台任务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#扫描程序完成分析后会发生什么"><span class="nav-number">5.3.1.</span> <span class="nav-text">　扫描程序完成分析后会发生什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何知道分析报告处理失败的时间"><span class="nav-number">5.3.2.</span> <span class="nav-text">如何知道分析报告处理失败的时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何诊断失败的后台任务"><span class="nav-number">5.3.3.</span> <span class="nav-text">如何诊断失败的后台任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何取消待处理的分析报告"><span class="nav-number">5.3.4.</span> <span class="nav-text">如何取消待处理的分析报告</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用问题数据"><span class="nav-number">5.4.</span> <span class="nav-text">通用问题数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Import"><span class="nav-number">5.4.1.</span> <span class="nav-text">Import</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栗子"><span class="nav-number">5.4.2.</span> <span class="nav-text">栗子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用测试数据"><span class="nav-number">5.5.</span> <span class="nav-text">通用测试数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Generic-Coverage"><span class="nav-number">5.5.1.</span> <span class="nav-text">Generic Coverage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generic-Execution"><span class="nav-number">5.5.2.</span> <span class="nav-text">Generic Execution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PR分析"><span class="nav-number">5.6.</span> <span class="nav-text">PR分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SCM集成"><span class="nav-number">5.7.</span> <span class="nav-text">SCM集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Git"><span class="nav-number">5.7.1.</span> <span class="nav-text">Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SVN"><span class="nav-number">5.7.2.</span> <span class="nav-text">SVN</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Branches"><span class="nav-number">6.</span> <span class="nav-text">Branches</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户指南"><span class="nav-number">7.</span> <span class="nav-text">用户指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修复漏水"><span class="nav-number">7.1.</span> <span class="nav-text">修复漏水</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是漏水"><span class="nav-number">7.1.1.</span> <span class="nav-text">什么是漏水</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么做"><span class="nav-number">7.1.2.</span> <span class="nav-text">怎么做</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目页"><span class="nav-number">7.2.</span> <span class="nav-text">项目页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#今天能发版吗"><span class="nav-number">7.2.1.</span> <span class="nav-text">今天能发版吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应该优先解决什么"><span class="nav-number">7.2.2.</span> <span class="nav-text">应该优先解决什么</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Application"><span class="nav-number">7.3.</span> <span class="nav-text">Application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Portfolios"><span class="nav-number">7.4.</span> <span class="nav-text">Portfolios</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Issues"><span class="nav-number">7.5.</span> <span class="nav-text">Issues</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#理解issue上下文"><span class="nav-number">7.5.1.</span> <span class="nav-text">理解issue上下文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生命周期"><span class="nav-number">7.5.2.</span> <span class="nav-text">生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#状态"><span class="nav-number">7.5.2.1.</span> <span class="nav-text">状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理方式"><span class="nav-number">7.5.2.2.</span> <span class="nav-text">处理方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题工作流程"><span class="nav-number">7.5.2.3.</span> <span class="nav-text">问题工作流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全热点问题的生命周期"><span class="nav-number">7.5.3.</span> <span class="nav-text">安全热点问题的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解哪些问题是新的"><span class="nav-number">7.5.4.</span> <span class="nav-text">理解哪些问题是新的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解问题回溯"><span class="nav-number">7.5.5.</span> <span class="nav-text">了解问题回溯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动问题分配"><span class="nav-number">7.5.6.</span> <span class="nav-text">自动问题分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题编辑"><span class="nav-number">7.5.7.</span> <span class="nav-text">问题编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清除已解决的问题"><span class="nav-number">7.5.8.</span> <span class="nav-text">清除已解决的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rules"><span class="nav-number">7.6.</span> <span class="nav-text">Rules</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-2"><span class="nav-number">7.6.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规则"><span class="nav-number">7.6.2.</span> <span class="nav-text">规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规则细节"><span class="nav-number">7.6.3.</span> <span class="nav-text">规则细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规则模板和自定义规则"><span class="nav-number">7.6.4.</span> <span class="nav-text">规则模板和自定义规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展编码规则"><span class="nav-number">7.6.5.</span> <span class="nav-text">扩展编码规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规则类型和严重性"><span class="nav-number">7.6.6.</span> <span class="nav-text">规则类型和严重性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全相关的规则"><span class="nav-number">7.7.</span> <span class="nav-text">安全相关的规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#从安全相关的规则的期望是什么"><span class="nav-number">7.7.1.</span> <span class="nav-text">从安全相关的规则的期望是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与安全相关的规则来自何方"><span class="nav-number">7.7.2.</span> <span class="nav-text">与安全相关的规则来自何方</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CWE"><span class="nav-number">7.7.2.1.</span> <span class="nav-text">CWE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SANS-TOP-25"><span class="nav-number">7.7.2.2.</span> <span class="nav-text">SANS TOP 25</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OWASP-Top-10"><span class="nav-number">7.7.2.3.</span> <span class="nav-text">OWASP Top 10</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#內建规则和标签"><span class="nav-number">7.8.</span> <span class="nav-text">內建规则和标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quality-Gates"><span class="nav-number">7.9.</span> <span class="nav-text">Quality Gates</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-3"><span class="nav-number">7.9.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最佳质量阈配置"><span class="nav-number">7.9.2.</span> <span class="nav-text">最佳质量阈配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#质量阈状态"><span class="nav-number">7.9.3.</span> <span class="nav-text">质量阈状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当质量阈失败时获得通知"><span class="nav-number">7.9.4.</span> <span class="nav-text">当质量阈失败时获得通知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全"><span class="nav-number">7.9.5.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义质量阈"><span class="nav-number">7.9.6.</span> <span class="nav-text">定义质量阈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指标"><span class="nav-number">7.10.</span> <span class="nav-text">指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂度"><span class="nav-number">7.10.1.</span> <span class="nav-text">复杂度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#圈复杂度"><span class="nav-number">7.10.1.1.</span> <span class="nav-text">圈复杂度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#认知复杂度"><span class="nav-number">7.10.1.2.</span> <span class="nav-text">认知复杂度</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重复"><span class="nav-number">7.10.2.</span> <span class="nav-text">重复</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重复的块"><span class="nav-number">7.10.2.1.</span> <span class="nav-text">重复的块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">7.10.3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可维护性"><span class="nav-number">7.10.4.</span> <span class="nav-text">可维护性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#维护率"><span class="nav-number">7.10.4.1.</span> <span class="nav-text">维护率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#技术债务"><span class="nav-number">7.10.4.2.</span> <span class="nav-text">技术债务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#技术债务率"><span class="nav-number">7.10.4.3.</span> <span class="nav-text">技术债务率</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#质量阈"><span class="nav-number">7.10.5.</span> <span class="nav-text">质量阈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可靠性"><span class="nav-number">7.10.6.</span> <span class="nav-text">可靠性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可靠率"><span class="nav-number">7.10.6.1.</span> <span class="nav-text">可靠率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修复工作"><span class="nav-number">7.10.6.2.</span> <span class="nav-text">修复工作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全性"><span class="nav-number">7.10.7.</span> <span class="nav-text">安全性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安全评级"><span class="nav-number">7.10.7.1.</span> <span class="nav-text">安全评级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大小"><span class="nav-number">7.10.8.</span> <span class="nav-text">大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">7.10.9.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#条件覆盖"><span class="nav-number">7.10.9.1.</span> <span class="nav-text">条件覆盖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#覆盖"><span class="nav-number">7.10.9.2.</span> <span class="nav-text">覆盖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行覆盖"><span class="nav-number">7.10.9.3.</span> <span class="nav-text">行覆盖</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">7.11.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#架构"><span class="nav-number">7.11.1.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#质量"><span class="nav-number">7.11.2.</span> <span class="nav-text">质量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#活动"><span class="nav-number">7.12.</span> <span class="nav-text">活动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件"><span class="nav-number">7.12.1.</span> <span class="nav-text">事件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SonarLint"><span class="nav-number">7.13.</span> <span class="nav-text">SonarLint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Security-Reports"><span class="nav-number">7.14.</span> <span class="nav-text">Security Reports</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安全报告显示了什么"><span class="nav-number">7.14.1.</span> <span class="nav-text">安全报告显示了什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#热点和漏洞有什么区别"><span class="nav-number">7.14.2.</span> <span class="nav-text">热点和漏洞有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么某些热点和漏洞非常相似"><span class="nav-number">7.14.3.</span> <span class="nav-text">为什么某些热点和漏洞非常相似</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么我看不到任何热点"><span class="nav-number">7.14.4.</span> <span class="nav-text">为什么我看不到任何热点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么我看不到任何漏洞"><span class="nav-number">7.14.5.</span> <span class="nav-text">为什么我看不到任何漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发者是否应该关心热点"><span class="nav-number">7.14.6.</span> <span class="nav-text">开发者是否应该关心热点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果热点确实标记为漏洞怎么办"><span class="nav-number">7.14.7.</span> <span class="nav-text">如果热点确实标记为漏洞怎么办</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#热点变为漏洞后会发生什么"><span class="nav-number">7.14.8.</span> <span class="nav-text">热点变为漏洞后会发生什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#热点被标记为不会修复是什么意思"><span class="nav-number">7.14.9.</span> <span class="nav-text">热点被标记为不会修复是什么意思</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户账户"><span class="nav-number">7.15.</span> <span class="nav-text">用户账户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User-Token"><span class="nav-number">7.16.</span> <span class="nav-text">User Token</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目管理"><span class="nav-number">8.</span> <span class="nav-text">项目管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目存在"><span class="nav-number">8.1.</span> <span class="nav-text">项目存在</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理项目历史"><span class="nav-number">8.2.</span> <span class="nav-text">管理项目历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缩小关注点"><span class="nav-number">8.3.</span> <span class="nav-text">缩小关注点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#忽略文件"><span class="nav-number">8.3.1.</span> <span class="nav-text">忽略文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#忽略问题"><span class="nav-number">8.3.2.</span> <span class="nav-text">忽略问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#忽略重复"><span class="nav-number">8.3.3.</span> <span class="nav-text">忽略重复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#忽略代码覆盖率"><span class="nav-number">8.3.4.</span> <span class="nav-text">忽略代码覆盖率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式"><span class="nav-number">8.3.5.</span> <span class="nav-text">模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目设置"><span class="nav-number">8.4.</span> <span class="nav-text">项目设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tags"><span class="nav-number">8.4.1.</span> <span class="nav-text">Tags</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理项"><span class="nav-number">8.4.2.</span> <span class="nav-text">管理项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Webhooks"><span class="nav-number">8.5.</span> <span class="nav-text">Webhooks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Delivery-and-Payload"><span class="nav-number">8.5.1.</span> <span class="nav-text">Delivery and Payload</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附加参数"><span class="nav-number">8.5.2.</span> <span class="nav-text">附加参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例管理"><span class="nav-number">9.</span> <span class="nav-text">实例管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#质量配置"><span class="nav-number">9.1.</span> <span class="nav-text">质量配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-4"><span class="nav-number">9.1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我该怎么做"><span class="nav-number">9.1.2.</span> <span class="nav-text">我该怎么做</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将质量配置管理的权限移交给其他人"><span class="nav-number">9.1.2.1.</span> <span class="nav-text">　将质量配置管理的权限移交给其他人</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将规则从一个配置复制到另一个配置"><span class="nav-number">9.1.2.2.</span> <span class="nav-text">将规则从一个配置复制到另一个配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#了解配置中有什么改变"><span class="nav-number">9.1.2.3.</span> <span class="nav-text">了解配置中有什么改变</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将配置文件从一个实例复制到另一个实例"><span class="nav-number">9.1.2.4.</span> <span class="nav-text">将配置文件从一个实例复制到另一个实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将一组核心规则和附加规则应用于项目"><span class="nav-number">9.1.2.5.</span> <span class="nav-text">将一组核心规则和附加规则应用于项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确保我的非默认配置文件应用于项目"><span class="nav-number">9.1.2.6.</span> <span class="nav-text">确保我的非默认配置文件应用于项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确保我的个人配置中包含所有相关的新规则"><span class="nav-number">9.1.2.7.</span> <span class="nav-text">确保我的个人配置中包含所有相关的新规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较两个规则"><span class="nav-number">9.1.2.8.</span> <span class="nav-text">比较两个规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确保我的配置中没有任何弃用的规则"><span class="nav-number">9.1.2.9.</span> <span class="nav-text">确保我的配置中没有任何弃用的规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全-1"><span class="nav-number">9.1.2.10.</span> <span class="nav-text">安全</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全-2"><span class="nav-number">9.2.</span> <span class="nav-text">安全</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-5"><span class="nav-number">9.2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#认证"><span class="nav-number">9.2.2.</span> <span class="nav-text">认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重置管理员密码"><span class="nav-number">9.2.3.</span> <span class="nav-text">重置管理员密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#授权"><span class="nav-number">9.2.4.</span> <span class="nav-text">授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认权限的权限模板"><span class="nav-number">9.2.5.</span> <span class="nav-text">默认权限的权限模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加密"><span class="nav-number">9.2.6.</span> <span class="nav-text">加密</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#委托认证"><span class="nav-number">9.3.</span> <span class="nav-text">委托认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-header认证"><span class="nav-number">9.3.1.</span> <span class="nav-text">HTTP header认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LDAP认证"><span class="nav-number">9.3.2.</span> <span class="nav-text">LDAP认证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通知"><span class="nav-number">9.4.</span> <span class="nav-text">通知</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用实践"><span class="nav-number">10.</span> <span class="nav-text">使用实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CI"><span class="nav-number">10.1.</span> <span class="nav-text">CI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDE"><span class="nav-number">10.2.</span> <span class="nav-text">IDE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权限问题"><span class="nav-number">10.3.</span> <span class="nav-text">权限问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#API"><span class="nav-number">11.</span> <span class="nav-text">API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Scanner"><span class="nav-number">12.</span> <span class="nav-text">Scanner</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-1"><span class="nav-number">12.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OS"><span class="nav-number">12.1.1.</span> <span class="nav-text">OS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDE-1"><span class="nav-number">12.1.2.</span> <span class="nav-text">IDE</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leslie Zhang</span>
+
+<!--字数统计-->
+  <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> 字数: 21.5k</span>
+</div>
+
+
+  
+</div>
+
+
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Zhang21.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://zhang21.github.io/all/SonarQube.html';
+          this.page.identifier = 'all/SonarQube.html';
+          this.page.title = 'SonarQube';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Zhang21.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

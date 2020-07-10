@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content=",,,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="参考:  wikipedia Flume: https://flume.apache.org/ Flume docs: https://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html  环境:  ELRH7x86_64 Flume v1.9.0">
+<meta name="keywords" content="Apache,DataAnalysis,Flume">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Flume">
+<meta property="og:url" content="https://zhang21.github.io/all/Flume.html">
+<meta property="og:site_name" content="风继续吹">
+<meta property="og:description" content="参考:  wikipedia Flume: https://flume.apache.org/ Flume docs: https://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html  环境:  ELRH7x86_64 Flume v1.9.0">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://zhang21.github.io/imags/Flume/flume-logo.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Flume/flume-architecture.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Flume/flume-multi-agent-flow.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Flume/flume-consolidation.png">
+<meta property="og:image" content="https://zhang21.github.io/images/Flume/flume-multiplexing-flow.png">
+<meta property="og:updated_time" content="2019-03-15T02:24:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flume">
+<meta name="twitter:description" content="参考:  wikipedia Flume: https://flume.apache.org/ Flume docs: https://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html  环境:  ELRH7x86_64 Flume v1.9.0">
+<meta name="twitter:image" content="https://zhang21.github.io/imags/Flume/flume-logo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang21.github.io/all/Flume.html">
+
+
+
+
+
+  <title>Flume | 风继续吹</title>
+  
+
+
+
+
+
+
+
+
+  <!-- 爆炸效果 -->
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas>
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script type="text/javascript" src="/js/firework.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">风继续吹</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Yesterday, you said tomorrow!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-bullshift">
+          <a href="https://suulnnka.github.io/BullshitGenerator/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-external-link"></i> <br>
+            
+            狗屁不通生成器
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+	<h1 class="post-title" itemprop="name headline">Flume</h1>
+
+
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+        
+          <p>参考:</p>
+<ul>
+<li>wikipedia</li>
+<li>Flume: <a href="https://flume.apache.org/" target="_blank" rel="noopener">https://flume.apache.org/</a></li>
+<li>Flume docs: <a href="https://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html" target="_blank" rel="noopener">https://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html</a></li>
+</ul>
+<p>环境:</p>
+<ul>
+<li>ELRH7x86_64</li>
+<li>Flume v1.9.0</li>
+</ul>
+<p><br><br><br></p>
+<hr>
+<a id="more"></a>
+<p><br><br><br></p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p><a href="https://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html#introduction" target="_blank" rel="noopener"></a></p>
+<p><strong>Apache Flume</strong> 是一种分布式，可靠且可用的软件，使用Java编写，用于高效收集(collecting)，聚合(aggregating)和移动(moving)大量日志数据。它具有基于流数据流(stream data flows)的简单灵活的架构。它具有可靠性机制和许多故障转移和恢复机制，具有强大的容错能力。它使用简单的可扩展数据模型，允许在线分析应用程序。</p>
+<p>Apache Flume的使用不仅限于日志数据聚合。由于数据源是可定制的，因此Flume可用于传输大量事件数据，包括但不限于网络流量数据，社交媒体生成的数据，电子邮件消息以及几乎任何可能的数据源。</p>
+<p><img src="/imags/Flume/flume-logo.png" alt></p>
+<p><br></p>
+<h2 id="系统要求"><a href="#系统要求" class="headerlink" title="系统要求"></a>系统要求</h2><ul>
+<li><strong>Java</strong>: Java 1.8+</li>
+<li><strong>Mem</strong>: sources, channels, sinks有足够的内存</li>
+<li><strong>Disk</strong>: channels, sinks有足够的磁盘空间</li>
+<li><strong>Directory Permissions</strong>: Agent使用的目录的读写权限</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p><br></p>
+<h3 id="数据流模型"><a href="#数据流模型" class="headerlink" title="数据流模型"></a>数据流模型</h3><p>Data flow model</p>
+<ul>
+<li><strong>源(Source)</strong></li>
+<li><strong>通道(Channel)</strong></li>
+<li><strong>接收器(Sink)</strong></li>
+<li><strong>事件(Event)</strong></li>
+</ul>
+<p><br></p>
+<p><strong>Flume event</strong> 被定义为具有字节(byte)有效负载可可选字符串属性集的数据流单元(unit of data flow)。<strong>Flume agent</strong>是一个(JVM)进程，它承载事件从外部源流向下一个目标的组件。</p>
+<p><img src="/images/Flume/flume-architecture.png" alt></p>
+<p><br></p>
+<p><strong>Flume源消费事件</strong>(source consumes events)通过<strong>外部源</strong>(external source)(如WebServer)传递给它。外部源通过<strong>目标Flume源</strong>(target Flume source)识别的格式向Flume发送事件。当Flume源接收事件时，它会将其存储到一个或多个<strong>通道</strong>(channels)中。通道是一个被动存储，可以保持事件直到它被<strong>Flume sink</strong>所消费。接收器从通道中移除事件，并将其放入外部存储库(如HDFS)或将其转发到流中的下一个Flume Agent(next hop)的Flume Source。给定Agent中的Source和Sink与Channel中暂存的Events异步运行。</p>
+<p><br><br><br></p>
+<h3 id="复杂流"><a href="#复杂流" class="headerlink" title="复杂流"></a>复杂流</h3><p>Complex flows</p>
+<p>Flume允许用户构建多跳(hop)流，其中事件在到达最终目的地之前经过多个代理。它还允许 fan-in 和 fan-out flows, 上下文路由(contextual routing), 故障跳跃的备份路由(故障转移)。</p>
+<p><br><br><br></p>
+<h3 id="可靠性"><a href="#可靠性" class="headerlink" title="可靠性"></a>可靠性</h3><p>Reliability</p>
+<p>事件在每个Agent的通道中进行，然后将事件传递到流中的下一个代理或终端存储库(如HDFS)。只有将事件存储在下一个代理的通道或终端存储库之后，才会从通道中删除这些事件。这就是Flume中的单跳消息传递语义如何提供流的端到端可靠性。</p>
+<p>Flume使用事务方法来保证事件的可靠传递。源和接收器分别在事务中封装由信道提供的事务中放置/提供的事件的存储(storage)/检索(retrieval)。这可确保事件集在流中从一个点到另一个点可靠地传递。在多跳流的情况下，来自前一跳的接收器和来自下一跳的源都运行其事务以确保数据安全地存储在下一跳的信道中。</p>
+<p><br><br><br></p>
+<h3 id="可恢复性"><a href="#可恢复性" class="headerlink" title="可恢复性"></a>可恢复性</h3><p>Recoverability</p>
+<p>事件在通道中进行，该通道管理从故障中恢复。Flume支持由本地文件系统支持的持久化(durable)文件通道。还有一个内存通道(memory channel)，它将事件存储到内存中的队列中，这更快，但是当代理进程死亡时仍然存留在内存通道中的任何事件都无法恢复。</p>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h1><p><a href="https://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html#setup" target="_blank" rel="noopener">Setup</a></p>
+<p><br></p>
+<h2 id="设置代理"><a href="#设置代理" class="headerlink" title="设置代理"></a>设置代理</h2><p>Setting up an agent</p>
+<p>Flume Agent配置文件存储在本地配置文件中。这是一个Java properties文件格式的文本文件。可以在同一个配置文件中指定一个或多个代理的配置。配置文件包括代理中的每个Source, Sink, Channel的属性，以及它们如何连接在一起以形成数据流。</p>
+<p><br></p>
+<h3 id="配置单个组件"><a href="#配置单个组件" class="headerlink" title="配置单个组件"></a>配置单个组件</h3><p>Configuring individual components</p>
+<p>流中的每个组件(source, sink, channel)都具有特定于类型和实例化的名称(name)，类型(type)，属性集(properties)。</p>
+<p><br><br><br></p>
+<h3 id="连接各个部分"><a href="#连接各个部分" class="headerlink" title="连接各个部分"></a>连接各个部分</h3><p>Wiring the pieces together</p>
+<p>Agent需要知道加载哪些组件，以及它们如何连接以构成流。这是通过列出代理中每个源，接收器和通道的名称，然后为每个接收器和源指定连接通道来完成的。</p>
+<p><br><br><br></p>
+<h3 id="启动代理"><a href="#启动代理" class="headerlink" title="启动代理"></a>启动代理</h3><p>Starting an agent</p>
+<p>下载Flume发型版，使用名为<code>flume-ng</code>的shell脚本启动代理程序。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 你需要在命令行上指定代理名称、配置目录、配置文件</span></span><br><span class="line">bin/flume-ng agent -n <span class="variable">$agent_name</span> -c conf -f conf/flume-conf.properties.template</span><br><span class="line"></span><br><span class="line"><span class="comment"># 现在，代理开始运行在给定属性文件中配置的源和接收器</span></span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="一个栗子"><a href="#一个栗子" class="headerlink" title="一个栗子"></a>一个栗子</h3><p>下面给出一个示例配置文件。此配置允许用户生成事件，并将其记录到console:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># example.conf: A single-node Flume configuration</span><br><span class="line"></span><br><span class="line"># Name the components on this agent</span><br><span class="line">a1.sources = r1</span><br><span class="line">a1.sinks = k1</span><br><span class="line">a1.channels = c1</span><br><span class="line"></span><br><span class="line"># Describe/configure the source</span><br><span class="line">a1.sources.r1.type = netcat</span><br><span class="line">a1.sources.r1.bind = localhost</span><br><span class="line">a1.sources.r1.port = 44444</span><br><span class="line"></span><br><span class="line"># Describe the sink</span><br><span class="line">a1.sinks.k1.type = logger</span><br><span class="line"></span><br><span class="line"># Use a channel which buffers events in memory</span><br><span class="line">a1.channels.c1.type = memory</span><br><span class="line">a1.channels.c1.capacity = 1000</span><br><span class="line">a1.channels.c1.transactionCapacity = 100</span><br><span class="line"></span><br><span class="line"># Bind the source and sink to the channel</span><br><span class="line">a1.sources.r1.channels = c1</span><br><span class="line">a1.sinks.k1.channel = c1</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 运行它</span></span><br><span class="line">bin/flume-ng agent --conf conf --conf-file example.conf --name a1 -Dflume.root.logger=INFO,console</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="在配置文件中使用环境变量"><a href="#在配置文件中使用环境变量" class="headerlink" title="在配置文件中使用环境变量"></a>在配置文件中使用环境变量</h3><p>Using environment variables in configuration files</p>
+<p>Flume能够替换配置中的环境变量:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a1.sources = r1</span><br><span class="line">a1.sources.r1.type = netcat</span><br><span class="line">a1.sources.r1.bind = 0.0.0.0</span><br><span class="line">a1.sources.r1.port = $&#123;NC_PORT&#125;</span><br><span class="line">a1.sources.r1.channels = c1</span><br></pre></td></tr></table></figure>
+<p><strong>注意: 环境变量目前只使用于Value，不适用于Key。</strong></p>
+<p><br><br><br></p>
+<h3 id="记录原始数据"><a href="#记录原始数据" class="headerlink" title="记录原始数据"></a>记录原始数据</h3><p>Logging raw data</p>
+<p>在许多生产环境中记录流经管道的原始数据流不是所希望的行为，因为这可能导致泄露敏感数据或安全相关配置到Flume日志文件。默认情况下，Flume不会记录此类信息。另一方法，如果数据管道出错，Flume也将尝试提供DEBUG信息。</p>
+<p>为了能够记录事件和配置相关的数据，除了 <code>log4j</code> 属性外，还必须设置一些Java系统属性。<br>要启用与配置相关的日志记录，请设置Java系统属性 <code>-Dorg.apache.flume.log.printconfig=true</code> 。这也可以在命令行上进行传递，也可以在 <code>flume-env.sh</code> 中的 <code>JAVA_OPTS</code> 变量中设置。</p>
+<p>要启用数据记录，请按照上述相同方式设置Java系统属性 <code>-Dorg.apache.flume.log.rawdata=true</code> 。对于大多数组件，还必须将 <code>log4j</code> 日志记录级别设置为DEBUG或TRACE，以使特定于事件的日志记录显示在Flume日志中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 启用配置日志记录和原始数据日志记录的示例，同时还将Log4j日志级别设置为DEBUG以用于控制台输出</span><br><span class="line">bin/flume-ng agent --conf conf --conf-file example.conf --name a1 -Dflume.root.logger=DEBUG,console -Dorg.apache.flume.log.printconfig=true -Dorg.apache.flume.log.rawdata=true</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="Zookeeeper基础配置"><a href="#Zookeeeper基础配置" class="headerlink" title="Zookeeeper基础配置"></a>Zookeeeper基础配置</h3><p>Zookeeper based Configuration</p>
+<p>Flume支持通过<strong>Zookeeper</strong>配置Agent的配置。这是一个实验性功能。配置文件需要在可配置前缀下的Zookeeper中上传。配置文件存储在Zookeeper Node Data中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Agent1和Agent2的Zookeeper Node Tree的示例</span><br><span class="line">- /flume</span><br><span class="line"> |- /a1 [Agent config file]</span><br><span class="line"> |- /a2 [Agent config file]</span><br></pre></td></tr></table></figure>
+<p>一旦上传了配置文件，使用以下选项启动Agent:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -z, Zookeeper connection string. Comma separated list of hostname:port</span></span><br><span class="line"><span class="comment"># -p, Base Path in Zookeeper to store Agent configurations</span></span><br><span class="line"></span><br><span class="line"> bin/flume-ng agent –conf conf -z zkhost:2181,zkhost1:2181 -p /flume –name a1 -Dflume.root.logger=INFO,console</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="安装第三方插件"><a href="#安装第三方插件" class="headerlink" title="安装第三方插件"></a>安装第三方插件</h3><p>Installing third-party plugins</p>
+<p>Flume拥有完整的基于插件的架构。虽然Flume附带了许多开箱即用的sources, channels, sinks, serializers…但许多实现斗鱼Flume分开运行。</p>
+<p>虽然通过将自己的jar包添加到 <code>flume-env.sh</code> 文件中的 <code>FLUME_CLASSPATH</code> 变量值，始终可以包含自定义Flume组件。但Flume现在支持一个名为 <code>plugins.d</code> 的特殊目录，该目录会自动获取以特定格式打包的插件。</p>
+<p><br></p>
+<p><strong>插件目录</strong><br>The plugins.d directory</p>
+<p><code>plugins.d</code> 目录位于 <code>$FLUME_HOME/plugins.d</code>。在启动时，<code>flume-ng</code> 启动脚本在 <code>plugins.d</code> 目录中查找符合以下格式的插件，并在启动java时将它们包含在正确的路径中。</p>
+<p><br></p>
+<p><strong>插件目录布局</strong><br>Directory layout for plugins</p>
+<p><code>plugins.d</code> 中的每个插件(子目录)最多可以有三个子目录:</p>
+<ol>
+<li><code>lib</code> - the plugin’s jar(s)</li>
+<li><code>libext</code> - the plugin’s dependency jar(s)</li>
+<li><code>native</code> - any required native libraries, such as <code>.so</code> files</li>
+</ol>
+<p>栗子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">plugins.d/</span><br><span class="line">plugins.d/custom-source-1/</span><br><span class="line">plugins.d/custom-source-1/lib/my-source.jar</span><br><span class="line">plugins.d/custom-source-1/libext/spring-core-2.5.6.jar</span><br><span class="line">plugins.d/custom-source-2/</span><br><span class="line">plugins.d/custom-source-2/lib/custom.jar</span><br><span class="line">plugins.d/custom-source-2/native/gettext.so</span><br></pre></td></tr></table></figure>
+<p><br><br><br><br><br></p>
+<h2 id="数据摄取"><a href="#数据摄取" class="headerlink" title="数据摄取"></a>数据摄取</h2><p>Data ingestion</p>
+<p>Flume支持许多从外部源摄取数据的机制。</p>
+<p><br></p>
+<h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3><p>可使用RPC机制将给定文件发送到Flume Source:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 栗子</span></span><br><span class="line"><span class="comment"># 将日志内容发送到监听该端口的Flume Source</span></span><br><span class="line">bin/flume-ng avro-client -H localhost -p 41414 -F /usr/logs/log.10</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+<h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><p>Executing commands</p>
+<p>有一个exec source执行给定的命令并消费输出。</p>
+<p><br><br><br></p>
+<h3 id="网路流"><a href="#网路流" class="headerlink" title="网路流"></a>网路流</h3><p>Network streams</p>
+<p>Flume支持以下机制从常用日志流(log stream)类型中读取数据。如:</p>
+<ul>
+<li>Avro</li>
+<li>Thrift</li>
+<li>Syslog</li>
+<li>Netcat</li>
+</ul>
+<p><br><br><br><br><br></p>
+<h2 id="多个代理流"><a href="#多个代理流" class="headerlink" title="多个代理流"></a>多个代理流</h2><p>Setting multi-agent flow</p>
+<p><img src="/images/Flume/flume-multi-agent-flow.png" alt></p>
+<p>为了跨多个代理/跳(multiple agents/hops)的数据流，先前代理的接收器和当前代理的源是同一类型，接收器指向源的hostname/ip和port。</p>
+<p><br><br><br><br><br></p>
+<h2 id="整合"><a href="#整合" class="headerlink" title="整合"></a>整合</h2><p>Consolidation</p>
+<p>日志收集中非常常见的情况是生成大量日志的客户端将数据发送到连接到存储子系统的少数消费者代理。例如，从数百个Web服务器收集的日志发送给写入HDFS集群的十几个代理。</p>
+<p>这可以通过在Flume中使用接收器配置多个第一层代理，所有这些代理都指向单个源。第二层代理商的源将接收的事件合并到单个通道中，该通道有接收器消费到最终的目的地。</p>
+<p><img src="/images/Flume/flume-consolidation.png" alt></p>
+<p><br><br><br><br><br></p>
+<h2 id="多路复用流"><a href="#多路复用流" class="headerlink" title="多路复用流"></a>多路复用流</h2><p>Multiplexing the flow</p>
+<p>Flume支持将事件流多路复用到一个或多个目的地。这是通过定义可以复制或选择性地将事件路由到一个或多个通道的流复用器来实现的。</p>
+<p><img src="/images/Flume/flume-multiplexing-flow.png" alt></p>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p><a href="https://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html#configuration" target="_blank" rel="noopener">Configuration</a></p>
+<p><br><br><br></p>
+<hr>
+<p><br><br><br></p>
+<h1 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h1><p><a href="https://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html#configuration-filters" target="_blank" rel="noopener">Configuration Filters</a></p>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image" src="/images/leslie.jpg" alt="Leslie Zhang">
+          
+            <p class="site-author-name" itemprop="name">Leslie Zhang</p>
+            <p class="site-description motion-element" itemprop="description">那一年我二十一岁，在我一生的黄金时代</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Zhang21" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:me@zhang21.cn" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/Zhang21_" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+<br>
+<!--����������������ⲿ����,auto=1��ʾ�Զ�����-->
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=411315632&auto=0&height=66"></iframe>
+
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统要求"><span class="nav-number">1.1.</span> <span class="nav-text">系统要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构"><span class="nav-number">1.2.</span> <span class="nav-text">架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据流模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">数据流模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂流"><span class="nav-number">1.2.2.</span> <span class="nav-text">复杂流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可靠性"><span class="nav-number">1.2.3.</span> <span class="nav-text">可靠性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可恢复性"><span class="nav-number">1.2.4.</span> <span class="nav-text">可恢复性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置"><span class="nav-number">2.</span> <span class="nav-text">设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置代理"><span class="nav-number">2.1.</span> <span class="nav-text">设置代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置单个组件"><span class="nav-number">2.1.1.</span> <span class="nav-text">配置单个组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接各个部分"><span class="nav-number">2.1.2.</span> <span class="nav-text">连接各个部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动代理"><span class="nav-number">2.1.3.</span> <span class="nav-text">启动代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个栗子"><span class="nav-number">2.1.4.</span> <span class="nav-text">一个栗子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在配置文件中使用环境变量"><span class="nav-number">2.1.5.</span> <span class="nav-text">在配置文件中使用环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#记录原始数据"><span class="nav-number">2.1.6.</span> <span class="nav-text">记录原始数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Zookeeeper基础配置"><span class="nav-number">2.1.7.</span> <span class="nav-text">Zookeeeper基础配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装第三方插件"><span class="nav-number">2.1.8.</span> <span class="nav-text">安装第三方插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据摄取"><span class="nav-number">2.2.</span> <span class="nav-text">数据摄取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RPC"><span class="nav-number">2.2.1.</span> <span class="nav-text">RPC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行命令"><span class="nav-number">2.2.2.</span> <span class="nav-text">执行命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网路流"><span class="nav-number">2.2.3.</span> <span class="nav-text">网路流</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多个代理流"><span class="nav-number">2.3.</span> <span class="nav-text">多个代理流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整合"><span class="nav-number">2.4.</span> <span class="nav-text">整合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多路复用流"><span class="nav-number">2.5.</span> <span class="nav-text">多路复用流</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#过滤"><span class="nav-number">4.</span> <span class="nav-text">过滤</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leslie Zhang</span>
+
+<!--字数统计-->
+  <div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> 字数: 21.5k</span>
+</div>
+
+
+  
+</div>
+
+
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Zhang21.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://zhang21.github.io/all/Flume.html';
+          this.page.identifier = 'all/Flume.html';
+          this.page.title = 'Flume';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Zhang21.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
