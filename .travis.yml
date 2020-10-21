@@ -18,11 +18,11 @@ install:
   - npm install
 
 script:
-  - hexo g
+  - travis_wait 60 hexo g
 
 deploy:
   provider: pages
-  skip_cleanup: true
+  cleanup: true
   token: $GH_TOKEN
   keep_history: true
   fqdn: zhang21.github.io
