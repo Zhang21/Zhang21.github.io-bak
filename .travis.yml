@@ -1,0 +1,32 @@
+language: node_js
+node_js:
+  - lts/*
+
+branches:
+  only:
+    - posts
+
+cache:
+  directories:
+    - node_modules
+
+before_install:
+  - export TZ='Asia/Shanghai'
+
+install:
+  - npm install hexo-cli -g
+  - npm install
+
+script:
+  - hexo g
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  token: $GH_TOKEN
+  keep_history: true
+  fqdn: zhang21.github.io
+  on:
+    branch: posts
+  local_dir: public
+  target_branch: master

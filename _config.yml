@@ -1,0 +1,115 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+
+# Site
+title: 风继续吹
+subtitle: Yesterday, you said tomorrow!
+description: 那一年我二十一岁，在我一生的黄金时代
+author: Leslie Zhang
+language: zh-Hans #简体中文zh-Hans，英语en,繁体中文zh-tw
+timezone: Asia/Shanghai
+
+
+# URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: https://zhang21.github.io
+root: /
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+
+# Writing
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link: true # Open external links in new tab
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace:
+  
+
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:    #主页显示多少篇文章
+  path: ''
+  per_page: 10
+  order_by: -date
+  
+archive_generator:  #归档页显示多少篇文章
+  per_page: 20
+  yearly: true
+  monthly: true
+  
+tag_generator:  #标签页显示多少篇文章
+  per_page: 10
+  
+
+# Category & Tag
+default_category: uncategorized
+category_map:
+tag_map:
+
+
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+
+
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 10
+pagination_dir: page
+
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: next
+
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+  type: git
+  repo: https://github.com/Zhang21/Zhang21.github.io.git
+  branch: master
+
+
+# Add Local Search
+# 添加百度/谷歌/本地 自定义站点内容搜索
+## Doc: http://theme-next.iissnan.com/third-party-services.html#algolia-search
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+ 
+
+# Mathjax
+mathjax:
+  enable: true
