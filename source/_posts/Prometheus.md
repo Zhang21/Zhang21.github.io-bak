@@ -4180,90 +4180,6 @@ YAML是标准的Prometheus配置格式，所有配置默认都应该适应YAML�
 <br>
 
 
-### 指标和标签命名
-
-METRIC AND LABEL NAMING: <https://prometheus.io/docs/practices/naming/>
-
-指标和标签的约定不需要使用Prometheus，但可以作为一个风格指南和最佳实践的集合。
-
-
-<br>
-
-
-#### 指标名称
-
-Metric names
-
-一个指标名称：
-
-- 必须符合有效字符的数据模型
-- 应该有一个应用程序(single-word)相关的指标所属前缀。如：
-  - `prometheus_notifications_total`
-  - `process_cpu_seconds_total`
-  - `http_request_duration_seconds`
-- 必须有一个单一的单位（如秒，毫秒等）
-- 应该使用基本单位（如seconds, bytes, meters，而不是milliseconds, megabytes, kilometers）
-- 应该有一个描述单位的后缀。如：
-  - `http_request_duration_seconds`
-  - `node_memory_usage_bytes`
-  - `http_requests_total`
-  - `process_cpu_seconds_total`
-  - `foobar_build_info`
-- should represent the same logical thing-being-measured across all label dimensions
-  - request duration
-  - bytes of data transfer
-  - instantaneous resource usage as a percentage
-
-作为一个经验，在给定指标的所有尺寸上，无论是`sum()`还是`avg()`都应该是有意义的。如果没有意义，则将数据分裂成多个指标。
-
-
-<br>
-<br>
-
-
-#### 标签
-
-Labels
-
-使用标签来区分被测量的事物的特点：
-
-- `api_http_requests_total`，不同的请求类型：`operation="create|update|delete"`
-- `api_request_duration_seconds`，不同的请求阶段：`stage="extract|transform|load"`
-
-不要将标签名对应到指标名，如果相应的标签聚合了，这会冗余并造成混乱。
-
-> 注意：
-> 请记住，标签键值对每一个独特的组合代表了一个新的时间序列，这可能会极大的提高存储的数据量。不要使用标签来存储高基数，如用户ID，邮件地址等。
-
-
-<br>
-<br>
-
-
-#### 基本单位
-
-Base units
-
-Prometheus没有硬编码任何单位。为了更好的兼容性，应该使用基本单位。以下是一些栗子：
-
-| Family | Base unit | Remark |
-|  -  |  -  |  -  |
-| Time | seconds |  -  |
-| Temperature | celsius | 摄氏度优于开尔文 |
-| Length | meters | - |
-| Bytes | bytes |  -  |
-| Bits | bytes | 为了避免混淆，通常使用bytes |
-| Percent | ratio | 0-1而不是0-100 |
-| Voltage | volts |  -  |
-| Electric current | amperes |  -  |
-| Energy | joules | - |
-| Mass | grams | 克优于千克 |
-
-
-<br>
-<br>
-
-
 ### 指标
 
 Metrics
@@ -4475,6 +4391,537 @@ Failed scrapes
 #### 抓取页面
 
 Landing page
+
+访问地址，如`http://expoter:port`作为一个简单的包含探针名称的HTML页面，并有指向`/metrics`页面的链接。
+
+
+<br>
+<br>
+
+
+#### 端口号
+
+Port numbers
+
+用户在一个机器上可能有多个探针和Prometheus组件，为了使得事情更简单每个需要有一个唯一的端口号。这个页面<https://github.com/prometheus/prometheus/wiki/Default-port-allocations>包含了Prometheus组件和探针目前使用的端口号。
+
+为自己的探针分配一个合理的，没有使用的端口号。
+
+
+<br>
+<br>
+
+
+### 宣布
+
+Announcing
+
+一旦你准备向世界宣布你的探针，请在[可用的探针列表](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exporters.md)提交一个PR。
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+# 最佳实践
+
+BEST PRACTICES
+
+
+<br>
+
+
+
+## 指标和标签命名
+
+METRIC AND LABEL NAMING: <https://prometheus.io/docs/practices/naming/>
+
+指标和标签的约定不需要使用Prometheus，但可以作为一个风格指南和最佳实践的集合。
+
+
+<br>
+
+
+### 指标名称
+
+Metric names
+
+一个指标名称：
+
+- 必须符合有效字符的数据模型
+- 应该有一个应用程序(single-word)相关的指标所属前缀。如：
+  - `prometheus_notifications_total`
+  - `process_cpu_seconds_total`
+  - `http_request_duration_seconds`
+- 必须有一个单一的单位（如秒，毫秒等）
+- 应该使用基本单位（如seconds, bytes, meters，而不是milliseconds, megabytes, kilometers）
+- 应该有一个描述单位的后缀。如：
+  - `http_request_duration_seconds`
+  - `node_memory_usage_bytes`
+  - `http_requests_total`
+  - `process_cpu_seconds_total`
+  - `foobar_build_info`
+- should represent the same logical thing-being-measured across all label dimensions
+  - request duration
+  - bytes of data transfer
+  - instantaneous resource usage as a percentage
+
+作为一个经验，在给定指标的所有尺寸上，无论是`sum()`还是`avg()`都应该是有意义的。如果没有意义，则将数据分裂成多个指标。
+
+
+<br>
+<br>
+
+
+### 标签
+
+Labels
+
+使用标签来区分被测量的事物的特点：
+
+- `api_http_requests_total`，不同的请求类型：`operation="create|update|delete"`
+- `api_request_duration_seconds`，不同的请求阶段：`stage="extract|transform|load"`
+
+不要将标签名对应到指标名，如果相应的标签聚合了，这会冗余并造成混乱。
+
+> 注意：
+> 请记住，标签键值对每一个独特的组合代表了一个新的时间序列，这可能会极大的提高存储的数据量。不要使用标签来存储高基数，如用户ID，邮件地址等。
+
+
+<br>
+<br>
+
+
+### 基本单位
+
+Base units
+
+Prometheus没有硬编码任何单位。为了更好的兼容性，应该使用基本单位。以下是一些栗子：
+
+| Family | Base unit | Remark |
+|  -  |  -  |  -  |
+| Time | seconds |  -  |
+| Temperature | celsius | 摄氏度优于开尔文 |
+| Length | meters | - |
+| Bytes | bytes |  -  |
+| Bits | bytes | 为了避免混淆，通常使用bytes |
+| Percent | ratio | 0-1而不是0-100 |
+| Voltage | volts |  -  |
+| Electric current | amperes |  -  |
+| Energy | joules | - |
+| Mass | grams | 克优于千克 |
+
+
+
+<br>
+<br>
+
+
+
+<br>
+<br>
+
+
+
+## 控制台和仪表盘
+
+CONSOLES AND DASHBOARDS: <https://prometheus.io/docs/practices/consoles/>
+
+可在仪表盘上显示尽可能多的数据，特别是像Prometheus这样的系统提供了集成你的应用程序的能力。
+
+我们发现以下原则非常有效：
+
+- 在一个控制台上不要超过五个图
+- 每个图上不要超过五个线
+- 当使用控制台提供的模板示例，请避免在右边表超过20-30项
+
+
+
+<br>
+<br>
+
+
+
+## 集成
+
+INSTRUMENTATION: <https://prometheus.io/docs/practices/instrumentation/>
+
+本章提供了集成你的代码的一套指导方案。
+
+
+<br>
+
+
+### 如何集成
+
+How to instrument
+
+简短的回答是集成一切。每个库、子系统和服务应该至少有几个指标来给你一个粗略的想法它是如何执行的。
+
+
+<br>
+
+
+#### 服务的三种类型
+
+The three types of services
+
+为了监控的目的，服务大致可以分为三类：在线服务(online-serving)，离线处理(offline-processing)，批处理作业(batch jobs)。它们之间有重叠，但每个服务往往很好地成为这些类别。
+
+<br>
+
+**在线服务系统**
+
+Online-serving systems
+
+一个在线服务系统期待立即响应。例如，大多数数据库和HTTP请求都属于这一类。这种系统的关键指标是执行的查询数，错误和延迟。
+
+<br>
+
+**离线处理**
+
+Offline processing
+
+对于离线处理，没有人正在等待响应。也可能有多个处理阶段。对于每一个阶段，跟踪进入的项目，有多少在处理，最后一次处理的事物，以及发送了多少事物。
+
+<br>
+
+**批处理作业**
+
+Batch jobs
+
+在离线处理和批处理作业之间有一些模糊线，离线处理也可在批处理作业中完成。批处理作业不连续运行，这使得它们难以区分。
+
+批处理作业的关键指标是它最后一次成功。这对于追踪各个阶段的花费时间，整体运行和最后一次作业完成很有用。对于那些超过几分钟时间运行的批处理作业，使用基于Pull监控的数据抓取很有用。对于运行很频繁地批处理作业，你应该考虑将其转换为守护程序(daemons)，作为离线处理作业来处理它们。
+
+
+<br>
+<br>
+
+
+#### 子系统
+
+Subsystems
+
+除了三种主要类型的服务，系统也应该监控子部分(sub-parts)。
+
+
+<br>
+
+
+**库**
+
+Libraries
+
+库应该提供无需用户额外配置的集成。
+
+如果一个库经常访问进程外的资源（如网络、磁盘、IPC...），追踪整个查询计数，错误和延迟。
+
+<br>
+
+**日志**
+
+Logging
+
+作为一般规则，对与日志代码的每一行，你应该有一个递增的计数器(counter)。如果你发现一个有趣的日志信息，你要能过够看到它如何发生，而且持续多久。
+
+<br>
+
+**失败**
+
+Failures
+
+故障应该与日志有相似的处理。每次出现故障，计数器(counter)都应增加。不像日志，取决于你的代码结构，错误也可以丢到一个更普遍的错误计数器。当报告故障，你通常应该有一些其它指标来表示尝试的总数。这使得故障率很容易计算。
+
+<br>
+
+**线程池**
+
+Threadpools
+
+对于任何形式的线程池，关键指标是排队请求数，在使用的线程数，总线程数，处理的任务数，以及它们耗时多久。
+
+<br>
+
+**缓存**
+
+Caches
+
+缓存的关键指标是总查询、点击、总延时、查询数、错误和任何在线服务缓存前的延迟。
+
+**收集器**
+
+Collectors
+
+当实现一个自定义指标收集器时，建议为收集花费的时间(s)导出为gauge，另一个是遇到的错误的数量。
+
+
+<br>
+<br>
+
+
+### 要提防的事
+
+Things to watch out for
+
+当做监控时，有些事需要注意，Prometheus-specific尤其如此。
+
+
+<br>
+
+
+#### 使用标签
+
+Use labels
+
+很少有监控系统有标签和表达式语言的来利用这些优点，所以需要一些时间来使用。当你有多个指标要添加/求平均值/求和，它们通常是带有标签的指标，而不是多个指标。
+
+例如，创建一个带有`code`标签的`http_responses_total`指标，而不是`http_responses_500_total`，`http_responses_403_total`两个指标。
+
+
+<br>
+<br>
+
+
+#### 不要滥用标签
+
+Do not overuse labels
+
+每个标签集(labelset)是具有RAM, CPU, disk, network开销的额外时间序列。通常情况下，开销可以忽略不计，但有很多机器和很多指标和很多标签的情况下，这可能会迅速增加。
+
+作为一般原则，尽量保持指标的基础低于10。绝大多数的指标没有任何标签。如果你有一个有100多个基数的指标，调查替代解决方案。
+
+为了让你对基数有一个更好的主意，让我们来看下`node_exporter`。节点探针公开每个挂载的文件系统的指标。如果你有10000台机器，有10000个`node_filesystem_avail`时间序列，这对于Prometheus处理很好。
+
+如果你不确定，就不用标签，并随着时间的推移添加更多标签。
+
+
+<br>
+<br>
+
+
+#### 四种类型比较
+
+Counter vs. gauge, summary vs. histogram
+
+对一个给定的指标用哪个四种主要的指标类型是很重要的。
+
+在Counter和Gauge之间选择，有一个简单的经验法则：如果值可减少，这是一个Gauge。Counter只能增加，如累积的量。Gauge可以设置，增加或减少。
+
+Summaries和Histograms是更复杂的指标类型。
+
+
+<br>
+<br>
+
+
+#### 时间戳
+
+Timestamps, not time since
+
+如果你想追踪从某事发生时的时间量，导出在它发生时的Unix时间戳，而不是从它发生的时间。
+
+导出了时间戳，可以使用`time() - my_timestamp_metric`表达式计算时间。
+
+
+<br>
+<br>
+
+
+#### 避免缺失指标
+
+Avoid missing metrics
+
+时间序列，直到某事发生不存在难以应付，因为通常的简单操作不足以正确处理它们。为了避免这种情况，你事先知道可能存在的任何时间序列输出为0(或NaN)。
+
+大多数Prometheus Client Libraries(go, java, python)会为没有标签的指标自动导出0。
+
+
+
+<br>
+<br>
+<br>
+
+
+
+## Hisgogram和Summary
+
+HISTOGRAMS AND SUMMARIES: <https://prometheus.io/docs/practices/histograms/>
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+## 告警
+
+ALERTING: <https://prometheus.io/docs/practices/alerting/>
+
+请先阅读[My Philosophy on Alerting](https://docs.google.com/document/d/199PqyG3UsyXlwieHaqbGiWVa8eMWi8zzAn0YfcApr8Q/edit)
+
+
+<br>
+
+
+### 告警什么
+
+What to alert on
+
+目标是告警越少越好，告警要有目的，别瞎告。告警应该很容易找到哪些部件的故障。
+
+
+
+<br>
+<br>
+<br>
+
+
+
+## 记录规则
+
+RECORDING RULES: <https://prometheus.io/docs/practices/rules/>
+
+记录规则的一致性命名方案，可以一目了然地理解规则的含义。本节可以正确聚合和建议命名规范。
+
+
+<br>
+
+
+### 命名和聚合
+
+Naming and aggregation
+
+记录规则(recording rules)应该是这样的一般形式：`level:metric:operations`。level表示聚合级别和规则输出的标签；metric是指标名称并在使用`rate()`这些方法时应该保持不变；operations是一个应用到指标的操作列表。
+
+保持指标名称不变，使得易于知道指标是什么和容易在代码库中找到它。
+
+如一些常见的: `sum`, `ratio`, `count`这些。
+
+
+<br>
+<br>
+
+
+### 示例
+
+```yaml
+- record: instance_path:requests:rate5m
+  expr: rate(requests_total{job="myjob"}[5m])
+
+- record: path:requests:rate5m
+  expr: sum without (instance)(instance_path:requests:rate5m{job="myjob"})
+
+- record: instance_path:request_failures:rate5m
+  expr: rate(request_failures_total{job="myjob"}[5m])
+
+- record: instance_path:request_failures_per_requests:ratio_rate5m
+  expr: |2
+      instance_path:request_failures:rate5m{job="myjob"}
+    /
+      instance_path:requests:rate5m{job="myjob"}
+
+- record: job:request_latency_seconds_count:avg_rate5m
+  expr: avg without (instance, path)(instance:request_latency_seconds_count:rate5m{job="myjob"})
+```
+
+
+
+<br>
+<br>
+<br>
+
+
+
+## Pushgateway
+
+WHEN TO USE THE PUSHGATEWAY: <https://prometheus.io/docs/practices/pushing/>
+
+Pushgateway是一个中间服务，允许你从无法抓取的作业处推送指标。更多详情，查看[push metrics](https://prometheus.io/docs/instrumenting/pushing/)
+
+
+<br>
+
+
+### 应该使用Pushgateway吗
+
+Should I be using the Pushgateway?
+
+我们只建议在某些有限的示例中使用Pushgateway。盲目地使用Pushgateway push来代替Prometheus pull有几个陷阱：
+
+- 通过Pushgateway监控多个实例，Pushgateway成为单一的失败点和潜在的瓶颈。
+- 你失去了Prometheus通过`up`自动检测实例健康。
+- Pushgateway永远不会忘记推送它，并公开它们给Prometheus，除非这些序列通过PushgatewayApi手动删除。
+
+如果原始实例重命名或删除，实例的指标将保留在Pushgateway中。这是因为PushGateway作为指标缓存的生命周期与推送指标的进程的生命周期分开。与Prometheus pull方式对比时，当一个实例消失时，实例的指标将自动消失。使用Pushgateway时，不不是这种情况，你必须手动删除任何陈旧的指标，或自动执行生命周期同步。
+
+通常，Pushgateway的唯一有效用例是用于捕获一个服务级别的批处理作业的结果(outcome)。一个服务级别的批处理作业是与特定机器或作业实例相关的。这样的作业的指标不应包含一个机器或实例标签，以将特定机器的生命周期与推送指标的实例分开。这降低了管理Pushgateway中的陈旧指标的负担。
+
+
+<br>
+<br>
+
+
+### 替代策略
+
+Alternative strategies
+
+如果入站防火墙和NAT阻止您从目标机器抓取指标，考虑将Prometheus Server移动到网络后面。我们通常建议在同一网络上运行Prometheus Server来作为监控实例。否则，考虑[PushProx](https://github.com/prometheus-community/PushProx)，它允许Prometheus跨过防火墙或NAT。
+
+
+
+<br>
+<br>
+<br>
+
+
+
+## 远程存储
+
+REMOTE WRITE TUNING: <https://prometheus.io/docs/practices/remote_write/>
+
+Prometheus实现了合理的默认远程写，但许多用户有不同的要求，并希望优化远程设置。
+
+
+
+
+
+
+
+
 
 
 

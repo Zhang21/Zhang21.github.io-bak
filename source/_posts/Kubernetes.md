@@ -4,8 +4,12 @@ date: 2018-06-26 11:38:33
 tags:
   - Kubernetes
   - k8s
+  - CNCF
 categories: DevOps
 ---
+
+
+
 
 参考：
 
@@ -16,10 +20,16 @@ categories: DevOps
 - etcd: <https://coreos.com/etcd/docs/latest/>
 - flannel: <https://coreos.com/flannel/docs/latest/>
 
+
 环境：
 
 - CentOS7x86_64
 - Kubernetes v1.11
+
+
+
+
+
 
 
 <br/>
@@ -34,7 +44,22 @@ categories: DevOps
 
 ![Kubernetes](/images/K8s/Kubernetes_logo.png)
 
+
 <br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11521,12 +11546,1570 @@ Kubernetes 垃圾收集器的角色是删除指定的对象，这些对象曾经
 
 
 
+<br>
+<br>
+
+
+
+## 安全
+
+Security: <https://kubernetes.io/docs/concepts/security/>
+
+
+<br>
+<br>
+
+
+### 云原生安全概述
+
+Overview of Cloud Native Security
+
+本概述定义了一个模型，用于在 Cloud Native 安全性上下文中考虑 Kubernetes 安全性。
+
+> **警告:** 此容器安全模型只提供建议，而不是经过验证的信息安全策略。
+
+
+<br>
+
+
+#### 云原生安全的4个C
+
+The 4C's of Cloud Native security
+
+你可以分层去考虑安全性，云原生安全的 4 个 C 分别是云（Cloud）、集群（Cluster）、容器（Container）和代码（Code）。
+
+云原生安全模型的每一层都是基于下一个最外层，代码层受益于强大的基础安全层（云、集群、容器）。你无法通过在代码层解决安全问题来为基础层中糟糕的安全标准提供保护。
+
+![](/images/K8s/4c.png)
+
+
+<br>
+<br>
+
+
+#### 云
+
+Cloud
+
+如果云层容易受到攻击（或者被配置成了易受攻击的方式），就不能保证在此基础之上构建的组件是安全的。 每个云提供商都会提出安全建议，以在其环境中安全地运行工作负载。
+
+各个云提供商(IaaS)的安全性。
+
+<br>
+
+**基础设施安全**
+
+关于在 Kubernetes 集群中保护你的基础设施的建议
+
+| k8s基础架构关注领域 | 建议 |
+| -  | - |
+| 通过网络访问 API 服务（控制平面） | 所有对 Kubernetes 控制平面的访问不允许在 Internet 上公开，同时应由网络访问控制列表控制，该列表包含管理集群所需的 IP 地址集 |
+| 通过网络访问 Node（节点 | 节点应配置为 仅能 从控制平面上通过指定端口来接受（通过网络访问控制列表）连接，以及接受 NodePort 和 LoadBalancer 类型的 Kubernetes 服务连接。如果可能的话，这些节点不应完全暴露在公共互联网上 |
+| Kubernetes 访问云提供商的 API | 每个云提供商都需要向 Kubernetes 控制平面和节点授予不同的权限集。为集群提供云提供商访问权限时，最好遵循对需要管理的资源的最小特权原则 |
+| 访问 etcd | 对 etcd（Kubernetes 的数据存储）的访问应仅限于控制平面。根据配置情况，你应该尝试通过 TLS 来使用 etcd |
+| etcd 加密 | 在所有可能的情况下，最好对所有驱动器进行静态数据加密，但是由于 etcd 拥有整个集群的状态（包括机密信息），因此其磁盘更应该进行静态数据加密 |
+
+
+<br>
+<br>
+
+
+#### 集群
+
+Cluster
+
+保护k8s有两个方面需要注意:
+
+- 保护可配置的集群组件
+- 保护在集群中运行的应用程序
+
+根据您的应用程序的受攻击面，您可能需要关注安全性的特定面。
+
+| 工作负载安全性关注领域 | 建议 |
+|  -  |  -  |
+| RBAC 授权(访问 Kubernetes API) | 	https://kubernetes.io/zh/docs/reference/access-authn-authz/rbac/ |
+| 认证方式 | https://kubernetes.io/zh/docs/reference/access-authn-authz/controlling-access/ |
+| 应用程序 Secret 管理 (并在 etcd 中对其进行静态数据加密) | https://kubernetes.io/zh/docs/concepts/configuration/secret/  <br> https://kubernetes.io/zh/docs/tasks/administer-cluster/encrypt-data/ |
+| Pod 安全策略 | https://kubernetes.io/zh/docs/tasks/configure-pod-container/quality-service-pod/ |
+| 网络策略 | https://kubernetes.io/zh/docs/concepts/services-networking/network-policies/ |
+| Ingress 的 TLS 支持 | https://kubernetes.io/zh/docs/concepts/services-networking/ingress/#tls |
+
+
+<br>
+<br>
+
+
+#### 容器
+
+Container
+
+一些建议:
+
+| 容器关注领域 | 建议 |
+|  -  |  -  |
+| 容器漏洞扫描和操作系统依赖安全性 | 作为镜像构建的一部分，您应该扫描您的容器里的已知漏洞 |
+| 镜像签名和执行 | 对容器镜像进行签名，以维护对容器内容的信任 |
+| 禁止特权用户 | 构建容器时，请查阅文档以了解如何在具有最低操作系统特权级别的容器内部创建用户，以实现容器的目标 |
+
+
+<br>
+<br>
+
+
+#### 代码
+
+Code
+
+应用程序代码是您最能够控制的主要攻击面之一，一些建议：
+
+| 代码关注领域 | 建议 |
+|  -  |  -  |
+| 仅通过 TLS 访问 | 如果您的代码需要通过 TCP 通信，请提前与客户端执行 TLS 握手。除少数情况外，请加密传输中的所有内容。更进一步，加密服务之间的网络流量是一个好主意。这可以通过被称为相互 LTS 或 mTLS 的过程来完成，该过程对两个证书持有服务之间的通信执行双向验证 |
+| 限制通信端口范围 | 此建议可能有点不言自明，但是在任何可能的情况下，你都只应公开服务上对于通信或度量收集绝对必要的端口 |
+| 第三方依赖性安全 | 最好定期扫描应用程序的第三方库以了解已知的安全漏洞。每种编程语言都有一个自动执行此检查的工具 |
+| 静态代码分析 | 大多数语言都提供给了一种方法，来分析代码段中是否存在潜在的不安全的编码实践 |
+| 动态探测攻击 | 您可以对服务运行一些自动化工具，来尝试一些众所周知的服务攻击。这些攻击包括 SQL 注入、CSRF 和 XSS。OWASP Zed Attack 代理工具是最受欢迎的动态分析工具之一 |
+
+
+
+<br>
+<br>
+
+
+
+### k8s api访问控制
+
+Controlling Access to the Kubernetes API
+
+用户使用 kubectl、客户端库或构造 REST 请求来访问 Kubernetes API。用户和 Kubernetes 服务账户都可以被鉴权访问 API。
+
+当请求到达 API 时，它会经历多个阶段，如下图所示：
+
+![](/images/K8s/access-control-overview.svg)
+
+
+<br>
+<br>
+
+
+#### 传输安全
+
+Transport security
+
+在典型的 Kubernetes 集群中，API 服务器在 443 端口上提供服务，受 TLS 保护。 API 服务器出示证书。如果你的集群使用私有证书颁发机构，你需要在客户端的 `~/.kube/config` 文件中提供该 CA 证书的副本， 以便你可以信任该连接并确认该连接没有被拦截。
+
+
+<br>
+<br>
+
+
+#### 认证
+
+Authentication
+
+建立 TLS 后， HTTP 请求将进入认证（Authentication）步骤。
+
+认证步骤的输入整个 HTTP 请求；但是，通常组件只检查头部或/和客户端证书。
+
+认证模块包含客户端证书、密码、普通令牌、引导令牌和 JSON Web 令牌（JWT，用于服务账户）。
+
+可以指定多个认证模块，在这种情况下，服务器依次尝试每个验证模块，直到其中一个成功。
+
+
+<br>
+<br>
+
+
+#### 授权
+
+Authorization
+
+请求必须包含请求者的用户名、请求的行为以及受该操作影响的对象。 如果现有策略声明用户有权完成请求的操作，那么该请求被鉴权通过。
+
+Kubernetes 鉴权要求使用公共 REST 属性与现有的组织范围或云提供商范围的访问控制系统进行交互。 使用 REST 格式很重要，因为这些控制系统可能会与 Kubernetes API 之外的 API 交互。
+
+Kubernetes 支持多种鉴权模块，例如 ABAC 模式、RBAC 模式和 Webhook 模式等。 管理员创建集群时，他们配置应在 API 服务器中使用的鉴权模块。
+
+
+<br>
+<br>
+
+
+#### 准入控制
+
+Admission control
+
+准入控制模块是可以修改或拒绝请求的软件模块。 除鉴权模块可用的属性外，准入控制模块还可以访问正在创建或修改的对象的内容。
+
+准入控制器对创建、修改、删除或（通过代理）连接对象的请求进行操作。 准入控制器不会对仅读取对象的请求起作用。 有多个准入控制器被配置时，服务器将依次调用它们。
+
+
+<br>
+<br>
+
+
+#### API 服务器端口和IP
+
+API server ports and IPs
+
+
+
+<br>
+<br>
+
+
+
+### Pod安全标准
+
+Pod Security Standards
+
+Pod 的安全性配置一般通过使用 安全性上下文（Security Context） 来保证。安全性上下文允许用户逐个 Pod 地定义特权级及访问控制。
+
+以前，对集群的安全性上下文的需求的实施及其基于策略的定义都通过使用 Pod 安全性策略来实现。Pod 安全性策略是一种集群层面的资源，控制 Pod 规约中 安全性敏感的部分。
+
+<br>
+
+安全上下文在运行时配置 Pod 和容器。安全上下文是在 Pod 清单中作为 Pod 和容器规约的一部分来定义的，所代表的是 传递给容器运行时的参数。
+
+安全策略则是控制面用来对安全上下文以及安全性上下文之外的参数实施某种设置的机制。 在 2020 年 2 月，目前实施这些安全性策略的原生解决方案是 Pod 安全性策略 - 一种对集群中 Pod 的安全性策略进行集中控制的机制。 Kubernetes 生态系统中还在开发一些其他的替代方案，例如 OPA Gatekeeper。
+
+
+<br>
+<br>
+
+
+#### 策略类型
+
+Policy Types
+
+策略可以是很严格的也可以是很宽松的：
+
+- **Privileged** - 不受限制的策略，提供最大可能范围的权限许可。这些策略 允许已知的特权提升。
+- **Baseline/Default** - 限制性最弱的策略，禁止已知的策略提升。 允许使用默认的（规定最少）Pod 配置。
+- **Restricted** - 限制性非常强的策略，遵循当前的保护 Pod 的最佳实践。
+
+
+<br>
+<br>
+
+
+#### Privileged
+
+Privileged 策略是有目的地开放且完全无限制的策略。此类策略通常针对由 特权较高、受信任的用户所管理的系统级或基础设施级负载。
+
+Baseline/Default 策略的目标是便于常见的容器化应用采用，同时禁止已知的特权提升。
+
+下面列举的控制应该被实施（禁止）：
+
+| 控制 Control | 策略 Policy |
+|  -  |  -  |
+| 宿主名字空间 | 必须禁止共享宿主名字空间 |
+| 特权容器 | 特权 Pod 禁用大多数安全性机制，必须被禁止 |
+| 权能 | 必须禁止添加默认集合之外的权能 |
+| HostPath 卷 | 必须禁止 HostPath 卷 |
+| 宿主端口 | 应禁止使用宿主端口，或者至少限定为已知列表 |
+| AppArmor | 在受支持的宿主上，默认应用 'runtime/default' AppArmor Profile。默认策略应禁止重载或者禁用该策略，或将重载限定未所允许的 profile 集合 |
+| SELinux | 应禁止设置定制的 SELinux 选项 |
+| /proc 挂载类型 | 求使用默认的 /proc 掩码以减小攻击面 |
+| Sysctls | Sysctls 可以禁用安全机制或影响宿主上所有容器，因此除了若干安全的子集之外，应该被禁止。 如果某 sysctl 是受容器或 Pod 的名字空间限制，且与节点上其他 Pod 或进程相隔离，可认为是安全的 |
+
+
+<br>
+<br>
+
+
+#### Restricted
+
+Restricted 策略旨在实施当前保护 Pod 的最佳实践，尽管这样作可能会牺牲一些兼容性。 该类策略主要针对运维人员和安全性很重要的应用的开发人员，以及不太被信任的用户。
+
+下面列举的控制需要被实施（禁止）：
+
+| 控制 Control | 策略 Policy |
+|  -  |  -  |
+| 卷类型 | 除了限制 HostPath 卷之外，此类策略还限制可以通过 PersistentVolumes 定义的非核心卷类型 |
+| 特权提升 | 禁止（通过 SetUID 或 SetGID 文件模式）获得特权提升 |
+| 以非 root 账号运行 | 必须要求容器以非 root 用户运行 |
+| 非 root 组 | 禁止容器使用 root 作为主要或辅助 GID 来运行 |
+| Seccomp | 必须要求使用 RuntimeDefault seccomp profile 或者允许使用特定的 profiles |
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+## 策略
+
+Policies
+
+
+<br>
+<br>
+
+
+### 限制范围
+
+Limit Ranges
+
+默认情况下， Kubernetes 集群上的容器运行使用的计算资源没有限制。 使用资源配额，集群管理员可以以命名空间为单位，限制其资源的使用与创建。
+
+一个 LimitRange（限制范围） 对象提供的限制能够做到：
+
+- 在一个命名空间中实施对每个 Pod 或 Container 最小和最大的资源使用量的限制。
+- 在一个命名空间中实施对每个 PersistentVolumeClaim 能申请的最小和最大的存储空间大小的限制。
+- 在一个命名空间中实施对一种资源的申请值和限制值的比值的控制。
+- 设置一个命名空间中对计算资源的默认申请/限制值，并且自动的在运行时注入到多个 Container 中。
+
+
+<br>
+<br>
+
+
+### 资源配额
+
+Resource Quotas
+
+当多个用户或团队共享具有固定节点数目的集群时，人们会担心有人使用超过其基于公平原则所分配到的资源量。
+
+资源配额是帮助管理员解决这一问题的工具。
+
+资源配额，通过 ResourceQuota 对象来定义，对每个命名空间的资源消耗总量提供限制。 它可以限制命名空间中某种类型的对象的总数目上限，也可以限制命令空间中的 Pod 可以使用的计算资源的总上限。
+
+资源配额的工作方式如下：
+
+- 不同的团队可以在不同的命名空间下工作，目前这是非约束性的，在未来的版本中可能会通过 ACL (Access Control List 访问控制列表) 来实现强制性约束。
+- 集群管理员可以为每个命名空间创建一个或多个 ResourceQuota 对象。
+- 当用户在命名空间下创建资源（如 Pod、Service 等）时，Kubernetes 的配额系统会 跟踪集群的资源使用情况，以确保使用的资源用量不超过 ResourceQuota 中定义的硬性资源限额。
+- 如果资源创建或者更新请求违反了配额约束，那么该请求会报错（HTTP 403 FORBIDDEN）， 并在消息中给出有可能违反的约束。
+- 如果命名空间下的计算资源 （如 cpu 和 memory）的配额被启用，则用户必须为 这些资源设定请求值（request）和约束值（limit），否则配额系统将拒绝 Pod 的创建。 提示: 可使用 LimitRanger 准入控制器来为没有设置计算资源需求的 Pod 设置默认值。
+
+
+<br>
+<br>
+
+
+### Pod安全策略
+
+Pod Security Policies
+
+FEATURE STATE: Kubernetes v1.20 beta
+
+Pod 安全策略使得对 Pod 创建和更新进行细粒度的权限控制成为可能。
+
+Pod 安全策略（Pod Security Policy） 是集群级别的资源，它能够控制 Pod 规约 中与安全性相关的各个方面。 PodSecurityPolicy 对象定义了一组 Pod 运行时必须遵循的条件及相关字段的默认值，只有 Pod 满足这些条件 才会被系统接受。
+
+
+<br>
+<br>
+
+
+### 进程 ID 约束与预留
+
+Process ID Limits And Reservations
+
+FEATURE STATE: Kubernetes v1.20 stable
+
+Kubernetes 允许你限制一个 Pod 中可以使用的 进程 ID（PID）数目。你也可以为每个 节点 预留一定数量的可分配的 PID，供操作系统和守护进程（而非 Pod）使用。
+
+进程 ID（PID）是节点上的一种基础资源。很容易就会在尚未超出其它资源约束的时候就 已经触及任务个数上限，进而导致宿主机器不稳定。
+
+集群管理员需要一定的机制来确保集群中运行的 Pod 不会导致 PID 资源枯竭，甚而 造成宿主机上的守护进程（例如 kubelet 或者 kube-proxy 乃至包括容器运行时本身）无法正常运行。 此外，确保 Pod 中 PID 的个数受限对于保证其不会影响到同一节点上其它负载也很重要。
+
+在某些 Linux 安装环境中，操作系统会将 PID 约束设置为一个较低的默认值，例如 32768。这时可以考虑提升 `/proc/sys/kernel/pid_max` 的设置值。
+
+
+<br>
+<br>
+
+
+#### 节点级别PID限制
+
+
+<br>
+<br>
+
+
+#### Pod级别PID限制
+
+
+<br>
+<br>
+
+
+#### 基于PID的驱逐
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+## 调度和驱逐
+
+Scheduling and Eviction
+
+
+<br>
+<br>
+
+
+### Kubernetes调度器
+
+Kubernetes Scheduler
+
+在 Kubernetes 中，调度 是指将 Pod 放置到合适的 Node 上，然后对应 Node 上的 Kubelet 才能够运行这些 pod。
+
+调度器通过 kubernetes 的监测（Watch）机制来发现集群中新创建且尚未被调度到 Node 上的 Pod。 调度器会将发现的每一个未调度的 Pod 调度到一个合适的 Node 上来运行。 调度器会依据下文的调度原则来做出调度选择。
+
+
+<br>
+<br>
+
+
+#### kube-scheduler
+
+kube-scheduler 是 Kubernetes 集群的默认调度器，并且是集群 控制面 的一部分。
+
+对每一个新创建的 Pod 或者是未被调度的 Pod，kube-scheduler 会选择一个最优的 Node 去运行这个 Pod。然而，Pod 内的每一个容器对资源都有不同的需求，而且 Pod 本身也有不同的资源需求。因此，Pod 在被调度到 Node 上之前， 根据这些特定的资源调度需求，需要对集群中的 Node 进行一次过滤。
+
+在一个集群中，满足一个 Pod 调度请求的所有 Node 称之为 可调度节点。 如果没有任何一个 Node 能满足 Pod 的资源请求，那么这个 Pod 将一直停留在 未调度状态直到调度器能够找到合适的 Node。
+
+调度器先在集群中找到一个 Pod 的所有可调度节点，然后根据一系列函数对这些可调度节点打分， 选出其中得分最高的 Node 来运行 Pod。之后，调度器将这个调度决定通知给 kube-apiserver，这个过程叫做 绑定。
+
+在做调度决定时需要考虑的因素包括：单独和整体的资源请求、硬件/软件/策略限制、 亲和以及反亲和要求、数据局域性、负载间的干扰等等。
+
+
+<br>
+<br>
+
+
+#### kube-scheduler调度流程
+
+kube-scheduler 给一个 pod 做调度选择包含两个步骤：
+
+1. 过滤(Filtering)
+2. 打分(Scoring)
+
+过滤阶段会将所有满足 Pod 调度需求的 Node 选出来。在过滤之后，得出一个 Node 列表，里面包含了所有可调度节点。通常情况下， 这个 Node 列表包含不止一个 Node。如果这个列表是空的，代表这个 Pod 不可调度。
+
+在打分阶段，调度器会为 Pod 从所有可调度节点中选取一个最合适的 Node。 根据当前启用的打分规则，调度器会给每一个可调度节点进行打分。
+
+最后，kube-scheduler 会将 Pod 调度到得分最高的 Node 上。 如果存在多个得分最高的 Node，kube-scheduler 会从中随机选取一个。
+
+<br>
+
+支持以下两种方式配置调度器的过滤和打分行为：
+
+- 调度策略 允许你配置过滤的 断言(Predicates) 和打分的 优先级(Priorities) 。
+- 调度配置 允许你配置实现不同调度阶段的插件， 包括：QueueSort, Filter, Score, Bind, Reserve, Permit 等等。 你也可以配置 kube-scheduler 运行不同的配置文件。
+
+
+<br>
+<br>
+
+
+### 污点和容忍度
+
+Taints and Tolerations
+
+节点亲和性是 Pod 的一种属性，它使 Pod 被吸引到一类特定的节点。 这可能出于一种偏好，也可能是硬性要求。 Taint（污点）则相反，它使节点能够排斥一类特定的 Pod。
+
+容忍度（Tolerations）是应用于 Pod 上的，允许（但并不要求）Pod 调度到带有与之匹配的污点的节点上。
+
+污点和容忍度（Toleration）相互配合，可以用来避免 Pod 被分配到不合适的节点上。 每个节点上都可以应用一个或多个污点，这表示对于那些不能容忍这些污点的 Pod，是不会被该节点接受的。
+
+
+<br>
+<br>
+
+
+#### 概念
+
+Concepts
+
+给节点增加一个污点。给节点node1增加一个污点，它的键名是key1，键值是value1，效果是NoSchedule。这表示只有拥有和这个污点相匹配的容忍度的Pod才能够被分配到node1这个节点。
+
+```bash
+kubectl taint nodes node1 key1=value1:NoSchedule
+
+
+# 移除污点
+kubectl taint nodes node1 key1=value1:NoSchedule-
+```
+
+<br>
+
+你可以在Pod spec中定义Pod的容忍度。
+
+```yaml
+od 拥有其中的任何一个容忍度都能够被分配到 node1 ：
+
+tolerations:
+- key: "key1"
+  operator: "Equal"
+  value: "value1"
+  effect: "NoSchedule"
+```
+
+或
+
+```yaml
+tolerations:
+- key: "key1"
+  operator: "Exists"
+  effect: "NoSchedule"
+```
+
+<br>
+
+一个容忍度和一个污点相匹配是指它们有一样的键名和效果，并且：
+
+- 如果 operator 是 Exists （此时容忍度不能指定 value）
+- 如果 operator 是 Equal ，则它们的 value 应该相等
+
+<br>
+
+上述例子中 effect 使用的值为 NoSchedule，您也可以使用另外一个值 PreferNoSchedule。这是优化或软版本的 NoSchedule —— 系统会 尽量 避免将 Pod 调度到存在其不能容忍污点的节点上， 但这不是强制的。effect 的值还可以设置为 NoExecute。
+
+您可以给一个节点添加多个污点，也可以给一个 Pod 添加多个容忍度设置。Kubernetes 处理多个污点和容忍度的过程就像一个过滤器：从一个节点的所有污点开始遍历， 过滤掉那些 Pod 中存在与之相匹配的容忍度的污点。余下未被过滤的污点的 effect 值决定了 Pod 是否会被分配到该节点。特别是以下情况：
+
+- 如果未被过滤的污点中存在至少一个 effect 值为 NoSchedule 的污点， 则 Kubernetes 不会将 Pod 分配到该节点。
+- 如果未被过滤的污点中不存在 effect 值为 NoSchedule 的污点， 但是存在 effect 值为 PreferNoSchedule 的污点， 则 Kubernetes 会 尝试 不将 Pod 分配到该节点。
+- 如果未被过滤的污点中存在至少一个 effect 值为 NoExecute 的污点， 则 Kubernetes 不会将 Pod 分配到该节点（如果 Pod 还未在节点上运行）， 或者将 Pod 从该节点驱逐（如果 Pod 已经在节点上运行）。
+
+<br>
+
+通常情况下，如果给一个节点添加了一个 effect 值为 NoExecute 的污点， 则任何不能忍受这个污点的 Pod 都会马上被驱逐， 任何可以忍受这个污点的 Pod 都不会被驱逐。 但是，如果 Pod 存在一个 effect 值为 NoExecute 的容忍度指定了可选属性 tolerationSeconds 的值，则表示在给节点添加了上述污点之后， Pod 还能继续在节点上运行的时间。
+
+```yaml
+tolerations:
+- key: "key1"
+  operator: "Equal"
+  value: "value1"
+  effect: "NoExecute"
+  tolerationSeconds: 3600
+```
+
+这表示如果这个 Pod 正在运行，同时一个匹配的污点被添加到其所在的节点， 那么 Pod 还将继续在节点上运行 3600 秒，然后被驱逐。 如果在此之前上述污点被删除了，则 Pod 不会被驱逐。
+
+
+<br>
+<br>
+
+
+#### 使用栗子
+
+Example Use Cases
+
+通过污点和容忍度，可以灵活地让 Pod 避开 某些节点或者将 Pod 从某些节点驱逐。下面是几个使用例子：
+
+- **专用节点**：如果您想将某些节点专门分配给特定的一组用户使用，您可以给这些节点添加一个污点，然后给这组用户的 Pod 添加一个相对应的 toleration。拥有上述容忍度的 Pod 就能够被分配到上述专用节点，同时也能够被分配到集群中的其它节点。如果您希望这些 Pod 只能被分配到上述专用节点，那么您还需要给这些专用节点另外添加一个和上述 污点类似的 label，同时 还要在上述准入控制器中给 Pod 增加节点亲和性要求上述 Pod 只能被分配到添加了对应标签的节点上。
+
+- **配备了特殊硬件的节点**：在部分节点配备了特殊硬件（比如 GPU）的集群中， 我们希望不需要这类硬件的 Pod 不要被分配到这些特殊节点，以便为后继需要这类硬件的 Pod 保留资源。
+
+- **基于污点的驱逐**： 这是在每个 Pod 中配置的在节点出现问题时的驱逐行为。
+
+
+<br>
+<br>
+
+
+#### 基于污点的驱逐
+
+Taint based Evictions
+
+FEATURE STATE: Kubernetes v1.18 stable
+
+污点的 effect 值 NoExecute会影响已经在节点上运行的 Pod：
+
+- 如果 Pod 不能忍受 effect 值为 NoExecute 的污点，那么 Pod 将马上被驱逐
+- 如果 Pod 能够忍受 effect 值为 NoExecute 的污点，但是在容忍度定义中没有指定 tolerationSeconds，则 Pod 还会一直在这个节点上运行。
+- 如果 Pod 能够忍受 effect 值为 NoExecute 的污点，而且指定了 tolerationSeconds， 则 Pod 还能在这个节点上继续运行这个指定的时间长度。
+
+<br>
+
+当某种条件为真时，节点控制器会自动给节点添加一个污点。当前内置的污点包括：
+
+```
+node.kubernetes.io/not-ready：节点未准备好。这相当于节点状态 Ready 的值为 "False"。
+node.kubernetes.io/unreachable：节点控制器访问不到节点. 这相当于节点状态 Ready 的值为 "Unknown"。
+node.kubernetes.io/out-of-disk：节点磁盘耗尽。
+node.kubernetes.io/memory-pressure：节点存在内存压力。
+node.kubernetes.io/disk-pressure：节点存在磁盘压力。
+node.kubernetes.io/network-unavailable：节点网络不可用。
+node.kubernetes.io/unschedulable: 节点不可调度。
+node.cloudprovider.kubernetes.io/uninitialized：如果 kubelet 启动时指定了一个 "外部" 云平台驱动， 它将给当前节点添加一个污点将其标志为不可用。在 cloud-controller-manager 的一个控制器初始化这个节点后，kubelet 将删除这个污点。
+```
+
+在节点被驱逐时，节点控制器或者 kubelet 会添加带有 NoExecute 效应的相关污点。 如果异常状态恢复正常，kubelet 或节点控制器能够移除相关的污点。
+
+为了保证由于节点问题引起的 Pod 驱逐 速率限制行为正常， 系统实际上会以限定速率的方式添加污点。在像主控节点与工作节点间通信中断等场景下， 这样做可以避免 Pod 被大量驱逐。
+
+<br>
+
+DaemonSet 中的 Pod 被创建时， 针对以下污点自动添加的 NoExecute 的容忍度将不会指定 tolerationSeconds：
+
+- `node.kubernetes.io/unreachable`
+- `node.kubernetes.io/not-ready`
+
+这保证了出现上述问题时 DaemonSet 中的 Pod 永远不会被驱逐。
+
+
+<br>
+<br>
+
+
+#### 基于节点状态添加污点
+
+Taint Nodes by Condition
+
+Node 生命周期控制器会自动创建与 Node 条件相对应的带有 NoSchedule 效应的污点。 同样，调度器不检查节点条件，而是检查节点污点。这确保了节点条件不会影响调度到节点上的内容。 用户可以通过添加适当的 Pod 容忍度来选择忽略某些 Node 的问题(表示为 Node 的调度条件)。
+
+DaemonSet 控制器自动为所有守护进程添加如下 NoSchedule 容忍度以防 DaemonSet 崩溃：
+
+- `node.kubernetes.io/memory-pressure`
+- `node.kubernetes.io/disk-pressure`
+- `node.kubernetes.io/out-of-disk` (只适合关键 Pod)
+- `node.kubernetes.io/unschedulable` (1.10 或更高版本)
+- `node.kubernetes.io/network-unavailable` (只适合主机网络配置)
+
+
+添加上述容忍度确保了向后兼容，您也可以选择自由向 DaemonSet 添加容忍度。
+
+
+
+<br>
+<br>
+
+
+
+### 将Pod分配给节点
+
+Assigning Pods to Nodes
+
+你可以约束一个 Pod 只能在特定的 节点 上运行，或者优先运行在特定的节点上。推荐的方法是使用标签选择符(label selectors)。通常这样的约束不是必须的，因为调度器将自动进行合理的放置。
+
+
+<br>
+<br>
+
+
+#### nodeSelector
+
+nodeSelector 是节点选择约束的最简单推荐形式。
+
+
+<br>
+<br>
+
+
+#### 内置的节点标签
+
+built-in node labels
+
+除了添加的标签外，节点还预先填充了一组标准标签。 这些标签有：
+
+```
+kubernetes.io/hostname
+failure-domain.beta.kubernetes.io/zone
+failure-domain.beta.kubernetes.io/region
+topology.kubernetes.io/zone
+topology.kubernetes.io/region
+beta.kubernetes.io/instance-type
+node.kubernetes.io/instance-type
+kubernetes.io/os
+kubernetes.io/arch
+```
+
+
+<br>
+<br>
+
+
+#### 节点隔离/限制
+
+Node isolation restriction
+
+向 Node 对象添加标签可以将 pod 定位到特定的节点或节点组。 这可以用来确保指定的 Pod 只能运行在具有一定隔离性，安全性或监管属性的节点上。 当为此目的使用标签时，强烈建议选择节点上的 kubelet 进程无法修改的标签键。 这可以防止受感染的节点使用其 kubelet 凭据在自己的 Node 对象上设置这些标签， 并影响调度器将工作负载调度到受感染的节点。
+
+
+<br>
+<br>
+
+
+#### 亲和性和反亲和性
+
+Affinity and anti-affinity
+
+nodeSelector 提供了一种非常简单的方法来将 Pod 约束到具有特定标签的节点上。 亲和性/反亲和性功能极大地扩展了你可以表达约束的类型。
+
+
+<br>
+<br>
+
+
+#### nodeName
+
+nodeName 是节点选择约束的最简单方法，但是由于其自身限制，通常不使用它。
+
+
+
+<br>
+<br>
+
+
+
+### 扩展资源的资源装箱
+
+Resource Bin Packing for Extended Resources
+
+FEATURE STATE: Kubernetes 1.16 alpha
+
+使用 `RequestedToCapacityRatioResourceAllocation` 优先级函数，可以将 kube-scheduler 配置为支持包含扩展资源在内的资源装箱操作。 优先级函数可用于根据自定义需求微调 kube-scheduler 。
+
+
+
+<br>
+<br>
+
+
+
+### Pod开销
+
+Pod Overhead
+
+FEATURE STATE: Kubernetes v1.18 beta
+
+在节点上运行 Pod 时，Pod 本身占用大量系统资源。这些资源是运行 Pod 内容器所需资源的附加资源。 POD 开销 是一个特性，用于计算 Pod 基础设施在容器请求和限制之上消耗的资源。
+
+在 Kubernetes 中，Pod 的开销是根据与 Pod 的 RuntimeClass 相关联的开销在 准入 时设置的。
+
+如果启用了 Pod Overhead，在调度 Pod 时，除了考虑容器资源请求的总和外，还要考虑 Pod 开销。 类似地，kubelet 将在确定 Pod cgroups 的大小和执行 Pod 驱逐排序时也会考虑 Pod 开销。
+
+
+
+<br>
+<br>
+
+
+
+### 驱逐策略
+
+Eviction Policy
+
+Kubelet 主动监测和防止 计算资源的全面短缺。在资源短缺时，kubelet 可以主动地结束一个或多个 Pod 以回收短缺的资源。 当 kubelet 结束一个 Pod 时，它将终止 Pod 中的所有容器，而 Pod 的 Phase 将变为 Failed。 如果被驱逐的 Pod 由 Deployment 管理，这个 Deployment 会创建另一个 Pod 给 Kubernetes 来调度。
+
+
+
+<br>
+<br>
+
+
+
+### 调度框架
+
+Scheduling Framework
+
+FEATURE STATE: Kubernetes 1.15 alpha
+
+调度框架是 Kubernetes Scheduler 的一种可插入架构，可以简化调度器的自定义。 它向现有的调度器增加了一组新的“插件” API。插件被编译到调度器程序中。 这些 API 允许大多数调度功能以插件的形式实现，同时使调度“核心”保持简单且可维护。
+
+
+
+<br>
+<br>
+
+
+
+### 调度器性能调优
+
+Scheduler Performance Tuning
+
+FEATURE STATE: Kubernetes 1.14 beta
+
+作为 kubernetes 集群的默认调度器， kube-scheduler 主要负责将 Pod 调度到集群的 Node 上。
+
+在一个集群中，满足一个 Pod 调度请求的所有 Node 称之为 可调度 Node。 调度器先在集群中找到一个 Pod 的可调度 Node，然后根据一系列函数对这些可调度 Node 打分， 之后选出其中得分最高的 Node 来运行 Pod。 最后，调度器将这个调度决定告知 kube-apiserver，这个过程叫做 绑定（Binding）。
+
+在大规模集群中，你可以调节调度器的表现来平衡调度的延迟（新 Pod 快速就位） 和精度（调度器很少做出糟糕的放置决策）。
+
+你可以通过设置 kube-scheduler 的 `percentageOfNodesToScore` 来配置这个调优设置。 这个 KubeSchedulerConfiguration 设置决定了调度集群中节点的阈值。
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+## 集群管理
+
+Cluster Administration
+
+并非所有发行版都是被积极维护的。 请选择使用最近 Kubernetes 版本测试过的发行版。
+
+
+<br>
+<br>
+
+
+### 证书
+
+Certificates
+
+当使用客户端证书进行认证时，用户可以使用现有部署脚本，或者通过 easyrsa、openssl 或 cfssl 手动生成证书。
+
+
+<br>
+<br>
+
+
+### 管理资源
+
+Managing Resources
+
+你已经部署了应用并通过服务暴露它。然后呢？ Kubernetes 提供了一些工具来帮助管理你的应用部署，包括扩缩容和更新。 我们将更深入讨论的特性包括 配置文件和 标签。
+
+<br>
+
+```bash
+# yaml这种使用---分隔多个资源
+
+# 一些命令
+kubectl apply -f xxx.yaml
+
+kubectl apply -f xxx/dir --recursive
+
+kubectl delete deployment,services -l app=xxx
+
+kubectl label pods -l app=nginx author=xxx
+
+kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
+
+kubectl scale deployment/my-nginx --replicas=1
+kubectl autoscale deployment/my-nginx --min=1 --max=3
+
+kubectl edit xxx
+```
+
+
+<br>
+<br>
+
+
+### 集群网络系统
+
+Cluster Networking
+
+集群网络系统是 Kubernetes 的核心部分，但是想要准确了解它的工作原理可是个不小的挑战。
+
+下面列出的是网络系统的的四个主要问题：
+
+- 高度耦合的容器间通信
+- Pod 间通信
+- Pod 和服务间通信
+- 外部和服务间通信
+
+
+<br>
+<br>
+
+
+#### Kubernetes网络模型
+
+The Kubernetes network model
+
+每一个 Pod 都有它自己的IP地址，这就意味着你不需要显式地在每个 Pod 之间创建链接， 你几乎不需要处理容器端口到主机端口之间的映射。
+
+Kubernetes 对所有网络设施的实施，都需要满足以下的基本要求（除非有设置一些特定的网络分段策略）：
+
+- 节点上的 Pod 可以不通过 NAT 和其他任何节点上的 Pod 通信
+- 节点上的代理（比如：系统守护进程、kubelet）可以和节点上的所有Pod通信
+- 那些运行在节点的主机网络(host network)里的 Pod 可以不通过 NAT 和所有节点上的 Pod 通信
+
+Kubernetes 的 IP 地址存在于 Pod 范围内 - 容器共享它们的网络命名空间 - 包括它们的 IP 地址和 MAC 地址。 这就意味着 Pod 内的容器都可以通过 localhost 到达各个端口。 这也意味着 Pod 内的容器都需要相互协调端口的使用，但是这和虚拟机中的进程似乎没有什么不同， 这也被称为一个 Pod 一个 IP模型。
+
+
+<br>
+<br>
+
+
+#### 如何实现k8s的网络模型
+
+How to implement the Kubernetes networking model
+
+有很多种方式可以实现这种网络模型。以下的网络技术是按照首字母排序，顺序本身并无其他意义。
+
+- ACI
+- Antrea
+- Apstra AOS
+- AWS VPC CNI
+- Azure CNI
+- Big Cloud Fabric
+- Calico
+- Cilium
+- CNI-Genie
+- cni-ipvlan-vpc-k8s
+- Coil
+- Contiv
+- Tungsten Fabric
+- DANM
+- Flannel
+- Jaguar
+- Weave Net
+- ...
+
+
+<br>
+<br>
+
+
+### k8s系统组件指标
+
+Metrics For Kubernetes System Components
+
+系统组件指标可以更好地了解系统内部发生的情况。指标对于构建仪表板和告警特别有用。Kubernetes 组件以 Prometheus 格式 生成度量值。
+
+k8s中的指标，在大多数情况下，可以在 HTTP 服务器的 `/metrics` 端点上访问度量值。
+
+组件: kube-controller-manager, kube-proxy, kube-apiserver, kube-scheduler, kubelet
+
+请注意，kubelet 还会在 `/metrics/cadvisor`， `/metrics/resource` 和 `/metrics/probes` 端点中公开度量值。这些度量值的生命周期各不相同。
+
+
+<br>
+<br>
+
+
+### 日志架构
+
+Logging Architecture
+
+针对容器化应用，最简单且最广泛采用的日志记录方式就是写入标准输出和标准错误流。
+
+但是，由容器引擎或运行时提供的原生功能通常不足以构成完整的日志记录方案。 例如，如果发生容器崩溃、Pod 被逐出或节点宕机等情况，你可能想访问应用日志。 在集群中，日志应该具有独立的存储和生命周期，与节点、Pod 或容器的生命周期相独立。 这个概念叫 集群级的日志 。
+
+集群级日志架构需要一个独立的后端用来存储、分析和查询日志。 Kubernetes 并不为日志数据提供原生的存储解决方案。 相反，有很多现成的日志方案可以集成到 Kubernetes 中。
+
+
+<br>
+<br>
+
+
+### 系统日志
+
+System Logs
+
+系统组件的日志记录集群中发生的事件，这对于调试非常有用。
+
+
+<br>
+<br>
+
+
+### 容器镜像的垃圾回收
+
+Garbage collection for container images
+
+垃圾回收是 kubelet 的一个有用功能，它将清理未使用的镜像和容器。 Kubelet 将每分钟对容器执行一次垃圾回收，每五分钟对镜像执行一次垃圾回收。
+
+不建议使用外部垃圾收集工具，因为这些工具可能会删除原本期望存在的容器进而破坏 kubelet 的行为。
+
+
+<br>
+<br>
+
+
+#### 容器回收
+
+Container Collection
+
+容器垃圾回收策略考虑三个用户定义变量。 MinAge 是容器可以被执行垃圾回收的最小生命周期。 MaxPerPodContainer 是每个 pod 内允许存在的死亡容器的最大数量。 MaxContainers 是全部死亡容器的最大数量。 可以分别独立地通过将 MinAge 设置为 0，以及将 MaxPerPodContainer 和 MaxContainers 设置为小于 0 来禁用这些变量。
+
+kubelet 将处理无法辨识的、已删除的以及超出前面提到的参数所设置范围的容器。 最老的容器通常会先被移除。
+
+不被 kubelet 管理的容器不受容器垃圾回收的约束。
+
+
+<br>
+<br>
+
+
+#### 镜像回收
+
+Image Collection
+
+Kubernetes 借助于 cadvisor 通过 imageManager 来管理所有镜像的生命周期。
+
+镜像垃圾回收策略只考虑两个因素：HighThresholdPercent 和 LowThresholdPercent。 磁盘使用率超过上限阈值（HighThresholdPercent）将触发垃圾回收。 垃圾回收将删除最近最少使用的镜像，直到磁盘使用率满足下限阈值（LowThresholdPercent）。
+
+
+<br>
+<br>
+
+
+### k8s中的代理
+
+Proxies in Kubernetes
+
+用户在使用 Kubernetes 的过程中可能遇到几种不同的代理：
+
+- kubectl proxy
+- apiserver proxy
+- kube proxy
+- apiserver之前的代理
+- 外部服务的云负载均衡器
+
+
+<br>
+<br>
+
+
+### api优先级和公平性
+
+API Priority and Fairness
+
+
+FEATURE STATE: Kubernetes v1.20 beta
+
+对于集群管理员来说，控制 Kubernetes API 服务器在过载情况下的行为是一项关键任务。 kube-apiserver 有一些控件（例如：命令行标志 `--max-requests-inflight` 和 `--max-mutating-requests-inflight`）, 可以限制将要接受的未处理的请求，从而防止过量请求入站，潜在导致 API 服务器崩溃。 但是这些标志不足以保证在高流量期间，最重要的请求仍能被服务器接受。
+
+API 优先级和公平性是一种替代方案，可提升上述最大并发限制。 APF 以更细粒度的方式对请求进行分类和隔离。 它还引入了空间有限的排队机制，因此在非常短暂的突发情况下，API 服务器不会拒绝任何请求。 通过使用公平排队技术从队列中分发请求，这样， 一个行为不佳的 控制器 就不会饿死其他控制器（即使优先级相同）。
+
+
+<br>
+<br>
+
+
+### 安装扩展
+
+Installing Addons
+
+Add-ons 扩展了 Kubernetes 的功能。
+
+
+
+<br>
+<br>
+<br>
+
+
+
+## 扩展k8s
+
+Extending Kubernetes
+
+Kubernetes 是高度可配置且可扩展的。因此，大多数情况下，你不需要 派生自己的 Kubernetes 副本或者向项目代码提交补丁。
+
+
+<br>
+<br>
+
+
+### 扩展k8s集群
+
+Extending your Kubernetes Cluster
+
+定制化的方法主要可分为 配置（Configuration） 和 扩展（Extensions） 两种。 前者主要涉及改变参数标志、本地配置文件或者 API 资源； 后者则需要额外运行一些程序或服务。 本文主要关注扩展。
+
+
+<br>
+<br>
+
+
+#### 配置
+
+Configuration
+
+包括kubelet, kube-apiserver, kube-controller-manager, kube-scheduler的配置文件和参数标志。
+
+
+<br>
+<br>
+
+
+#### 扩展
+
+Extensions
+
+扩展是一些扩充 Kubernetes 能力并与之深度集成的软件组件。 它们调整 Kubernetes 的工作方式使之支持新的类型和新的硬件种类。
+
+大多数集群管理员会使用一种托管的 Kubernetes 服务或者其某种发行版本。 因此，大多数 Kubernetes 用户不需要安装扩展， 至于需要自己编写新的扩展的情况就更少了。
+
+<br>
+<br>
+
+#### 扩展模式
+
+Extension Patterns
+
+kubernetes从设计上即支持通过编写客户端程序来将其操作自动化。 任何能够对 Kubernetes API 发出读写指令的程序都可以提供有用的自动化能力。 自动化组件可以运行在集群上，也可以运行在集群之外。
+
+编写客户端程序有一种特殊的 Controller（控制器）模式，能够与 Kubernetes 很好地 协同工作。控制器是 Kubernetes 的客户端。当 Kubernetes 充当客户端，调用某远程服务时，对应 的远程组件称作Webhook。 远程服务称作Webhook 后端。 与控制器模式相似，Webhook 也会在整个架构中引入新的失效点（Point of Failure）。
+
+在 Webhook 模式中，Kubernetes 向远程服务发起网络请求。 在可执行文件插件（Binary Plugin）模式中，Kubernetes 执行某个可执行文件（程序）。
+
+下图展示了这些扩展如何与k8s控制面板交互：
+
+[](/images/K8s/k8s_extending_1.png)
+
+
+<br>
+<br>
+
+#### 扩展点
+
+Extension Points
+
+下图显示k8s系统中的扩展点：
+
+[](/images/K8s/k8s_extending_2.png)
+
+1. 用户通常使用kubectl与k8s api交互。 kubectl 插件能够扩展 kubectl 程序的行为。
+2. API 服务器处理所有请求。API 服务器中的几种扩展点能够使用户对请求执行身份认证、 基于其内容阻止请求、编辑请求内容、处理删除操作等等。
+3. API 服务器向外提供不同类型的资源（resources）。
+4. Kubernetes 调度器负责决定 Pod 要放置到哪些节点上执行。
+5. Kubernetes 中的很多行为都是通过称为控制器（Controllers）的程序来实现的，这些程序也都是 API 服务器 的客户端。控制器常常与自定义资源结合使用。
+6. 组件 kubelet 运行在各个节点上，帮助 Pod 展现为虚拟的服务器并在集群网络中拥有自己的 IP。 网络插件使得 Kubernetes 能够采用 不同实现技术来连接 Pod 网络。
+7. 组件 kubelet 也会为容器增加或解除存储卷的挂载。
+
+<br>
+
+如果你无法确定从何处入手，下面的流程图可能对你有些帮助。 注意，某些方案可能需要同时采用几种类型的扩展。
+
+[](/images/K8s/k8s_extending_3.png)
+
+
+<br>
+<br>
+
+
+#### API扩展
+
+API Extensions
+
+- 用户定义的类型(User-Defined Types)
+如果你想要定义新的控制器、应用配置对象或者其他声明式 API，并且使用 Kubernetes 工具（如 kubectl）来管理它们，可以考虑向 Kubernetes 添加自定义资源。不要使用自定义资源来充当应用、用户或者监控数据的数据存储。
+
+- 结合使用新API与自动化组件(Combining New APIs with Automation)
+自定义资源 API 与控制回路的组合称作 Operator 模式。 Operator 模式用来管理特定的、通常是有状态的应用。 这些自定义 API 和控制回路也可用来控制其他资源，如存储或策略。
+
+- 更改内置资源(Changing Built-in Resources)
+当你通过添加自定义资源来扩展 Kubernetes 时，所添加的资源通常会被放在一个新的 API 组中。你不可以替换或更改现有的 API 组。
+
+- API访问扩展(API Access Extensions)
+当请求到达 Kubernetes API 服务器时，首先要经过身份认证，之后是鉴权操作， 再之后要经过若干类型的准入控制器的检查。Kubernetes 提供若干内置的身份认证方法。 它也可以运行在某中身份认证代理的后面，并且可以将来自鉴权头部的令牌发送到 某个远程服务（Webhook）来执行验证操作。
+
+- 身份认证(Authentication)
+身份认证负责将所有请求中 的头部或证书映射到发出该请求的客户端的用户名。
+
+- 鉴权(Authorization)
+鉴权操作负责确定特定的用户 是否可以读、写 API 资源或对其执行其他操作。 此操作仅在整个资源集合的层面进行。 换言之，它不会基于对象的特定字段作出不同的判决。 如果内置的鉴权选项无法满足你的需要，你可以使用 鉴权 Webhook来调用用户提供 的代码，执行定制的鉴权操作。
+
+- 动态准入控制(Dynamic Admission Control)
+请求的鉴权操作结束之后，如果请求的是写操作，还会经过 准入控制处理步骤。
+
+
+<br>
+<br>
+
+
+#### 基础设施扩展
+
+Infrastructure Extensions
+
+- 存储插件(Storage Plugins)
+- 设备插件(Device Plugins)
+- 网络插件(Network Plugins)
+- 调度器扩展(Scheduler Extensions)
+
+
+<br>
+<br>
+
+
+
+### 扩展k8s api
+
+Extending the Kubernetes API
+
+
+<br>
+
+
+#### 定制资源
+
+Custom Resources
+
+定制资源（Custom Resource） 是对 Kubernetes API 的扩展。
+
+资源（Resource） 是 Kubernetes API 中的一个端点， 其中存储的是某个类别的 API 对象 的一个集合。 例如内置的 pods 资源包含一组 Pod 对象。
+
+定制资源（Custom Resource） 是对 Kubernetes API 的扩展，不一定在默认的 Kubernetes 安装中就可用。定制资源所代表的是对特定 Kubernetes 安装的一种定制。 不过，很多 Kubernetes 核心功能现在都用定制资源来实现，这使得 Kubernetes 更加模块化。
+
+定制资源可以通过动态注册的方式在运行中的集群内或出现或消失，集群管理员可以独立于集群 更新定制资源。一旦某定制资源被安装，用户可以使用 kubectl 来创建和访问其中的对象。
+
+
+<br>
+<br>
+
+
+**定制控制器**
+
+Custom controllers
+
+就定制资源本身而言，它只能用来存取结构化的数据。 当你将定制资源与 定制控制器（Custom Controller） 相结合时，定制资源就能够 提供真正的 声明式 API（Declarative API）。
+
+使用声明式 API， 你可以 声明 或者设定你的资源的期望状态，并尝试让 Kubernetes 对象的当前状态 同步到其期望状态。控制器负责将结构化的数据解释为用户所期望状态的记录，并 持续地维护该状态。
+
+你可以在一个运行中的集群上部署和更新定制控制器，这类操作与集群的生命周期无关。 定制控制器可以用于任何类别的资源，不过它们与定制资源结合起来时最为有效。
+
+Operator 模式就是将定制资源 与定制控制器相结合的。你可以使用定制控制器来将特定于某应用的领域知识组织 起来，以编码的形式构造对 Kubernetes API 的扩展。
+
+
+<br>
+<br>
+
+
+**声明式APIs**
+
+Declarative APIs
+
+典型地，在声明式API中：
+
+- 你的API包含相对而言为数不多的、尺寸较小的对象
+- 对象定义了应用或者基础设施的配置信息
+- 对象更新操作频率较低
+- 通常需要人来读取或写入对象
+- 对象的主要操作是 CRUD 风格的
+- 需要跨对象的事务支持，API对象代表的是期望状态而非确切实际状态
+
+命令式API与声明式有所不同：
+
+- 客户端发出做这个操作的指令，之后在该操作结束时获得同步响应
+- 客户端发出做这个操作的指令，并获得一个操作ID，之后需要检查一个操作对象来判断请求是否成功完成
+- 将你的 API 类比为远程过程调用
+- 直接存储大量数据
+- 需要较高的访问带宽
+- 存储有应用来处理的最终用户数据
+- 在对象上执行的常规操作并非 CRUD 风格
+- API 不太容易用对象来建模
+- 你决定使用操作 ID 或者操作对象来表现悬决的操作
+
+
+<br>
+<br>
+
+
+**ConfigMap还是定制资源**
+
+configMap or a custom resource
+
+以下条件大多数都满足，应该使用CRD或聚合API：
+
+- 你希望使用 Kubernetes 客户端库和 CLI 来创建和更改新的资源
+- 你希望 kubectl 能够直接支持你的资源
+- 你希望构造新的自动化机制，监测新对象上的更新事件，并对其他对象执行 CRUD 操作，或者监测后者更新前者
+- 你希望编写自动化组件来处理对对象的更新
+- 你希望使用 Kubernetes API 对诸如spec等字段的约定
+- 你希望对象是对一组受控资源的抽象，或者对其他资源的归纳提炼
+
+
+<br>
+<br>
+
+
+**添加定制资源**
+
+Adding custom resources
+
+Kubernetes 提供了两种方式供你向集群中添加定制资源：
+
+- CRD，相对简单，创建CRD可以不必编程
+- API聚合，需要编程，但支持对 API 行为进行更多的控制
+
+Kubernetes 提供这两种选项以满足不同用户的需求，这样就既不会牺牲易用性也不会牺牲灵活性。
+
+
+<br>
+<br>
+
+
+**CRD**
+
+CustomResourceDefinition API 资源允许你定义定制资源。 定义 CRD 对象的操作会使用你所设定的名字和模式定义（Schema）创建一个新的定制资源， Kubernetes API 负责为你的定制资源提供存储和访问服务。 CRD 对象的名称必须是合法的 DNS 子域名。
+
+
+<br>
+<br>
+
+
+**API聚合**
+
+API server aggregation
+
+通常，Kubernetes API 中的每个都需要处理 REST 请求和管理对象持久性存储的代码。
+
+聚合层（Aggregation Layer） 使得你可以通过编写和部署你自己的独立的 API 服务器来为定制资源提供特殊的实现。 主 API 服务器将针对你要处理的定制资源的请求全部委托给你来处理，同时将这些资源 提供给其所有客户。
+
+
+<br>
+<br>
+
+
+**准备安装定制资源**
+
+在向集群添加定制资源之前，有些事情需要搞清楚。
+
+- 第三方代码和新的失效点的问题
+- 存储
+- 身份认证、鉴权授权和审计
+
+
+<br>
+<br>
+
+
+**访问定制资源**
+
+Kubernetes 客户端库可用来访问定制资源。 并非所有客户端库都支持定制资源。Go 和 Python 客户端库是支持的。
+
+当添加了新的定制资源后，可用以下方式访问它们：
+
+- kubectl
+- k8s动态库
+- 你所编写的REST客户端
+- k8s客户端工具所生成的客户端
+
+
+<br>
+<br>
+
+
+#### 通过聚合层扩展k8s api
+
+Extending the Kubernetes API with the aggregation layer
+
+使用聚合层，用户可以通过额外的 API 扩展 Kubernetes， 而不局限于 Kubernetes 核心 API 提供的功能。
+
+
+<br>
+<br>
+
+
+### Operator
+
+Operator 是 Kubernetes 的扩展软件，它利用 定制资源 管理应用及其组件。 Operator 遵循 Kubernetes 的理念，特别是在控制器方面。
+
+在 Kubernetes 上运行工作负载的人们都喜欢通过自动化来处理重复的任务。 Operator 模式会封装你编写的（Kubernetes 本身提供功能以外的）任务自动化代码。
+
+
+<br>
+<br>
+
+
+**k8s上的Operator**
+
+Kubernetes 为自动化而生。无需任何修改，你即可以从 Kubernetes 核心中获得许多内置的自动化功能。 你可以使用 Kubernetes 自动化部署和运行工作负载， 甚至 可以自动化 Kubernetes 自身。
+
+Kubernetes 控制器 使你无需修改 Kubernetes 自身的代码，即可以扩展集群的行为。 Operator 是 Kubernetes API 的客户端，充当 定制资源 的控制器。
+
+
+<br>
+<br>
+
+
+**示例**
+
+使用Operator可以自动化的事情包括：
+
+- 按需部署应用
+- 获取/还原应用状态的备份
+- 处理应用代码的升级以及相关改动
+- 发布一个 service，要求不支持 Kubernetes API 的应用也能发现它
+- 模拟整个或部分集群中的故障以测试其稳定性
+- 在没有内部成员选举程序的情况下，为分布式应用选择领导角色
+
+
+<br>
+<br>
+
+
+**部署Operator**
+
+部署 Operator 最常见的方法是将自定义资源及其关联的控制器添加到你的集群中。 跟运行容器化应用一样，控制器通常会运行在控制平面之外。
+
+<br>
+
+**使用Operator**
+
+部署 Operator 后，你可以对 Operator 所使用的资源执行添加、修改或删除操作。
+
+<br>
+
+**编写Operator**
+
+如果生态系统中没可以实现你目标的 Operator，你可以自己编写代码。
+
+
+<br>
+<br>
+
+
+
+### 计算、存储和网络扩展
+
+Compute, Storage, and Networking Extensions
+
+
+<br>
+
+
+**网络插件**
+
+Network Plugins
+
+k8s中的网络插件有几种类型：
+
+- CNI插件：遵守容器网络接口（Container Network Interface，CNI） 规范，其设计上偏重互操作性
+- kubenet插件：使用 bridge 和 host-local CNI 插件实现了基本的 cbr0
+
+
+<br>
+
+
+**设备插件**
+
+Device Plugins
+
+使用 Kubernetes 设备插件框架来实现适用于 GPU、NIC、FPGA、InfiniBand 以及类似的需要特定于供应商设置的资源的插件。
+
+Kubernetes 提供了一个 设备插件框架，你可以用它来将系统硬件资源发布到 Kubelet。
+
+
+
+<br>
+<br>
+
+
+
+### 服务目录
+
+Service Catalog
+
+
+服务目录是一种扩展 API，它能让 Kubernetes 集群中运行的应用易于使用外部托管的的软件服务，例如云供应商提供的数据仓库服务。
+
+服务目录可以检索、供应、和绑定由 服务代理人（Service Brokers） 提供的外部托管服务（Managed Services）， 而无需知道那些服务具体是怎样创建和托管的。
+
+
+<br>
+<br>
+
+
+#### 示例
+
+应用开发人员， 希望使用消息队列，作为其在 Kubernetes 集群中运行的应用程序的一部分。 但是，他们不想承受构造这种服务的开销，也不想自行管理。 幸运的是，有一家云服务提供商通过其服务代理以托管服务的形式提供消息队列服务。
+
+集群操作员可以设置服务目录并使用它与云服务提供商的服务代理通信，进而部署消息队列服务的实例 并使其对 Kubernetes 中的应用程序可用。 应用开发者于是可以不关心消息队列的实现细节，也不用对其进行管理。 他们的应用程序可以简单的将其作为服务使用。
+
+
+<br>
+<br>
+
+
+#### 架构
+
+服务目录使用Open Service Broker API 与服务代理进行通信，并作为 Kubernetes API 服务器的中介，以便协商启动部署和获取 应用程序使用托管服务时必须的凭据。
+
+服务目录实现为一个扩展 API 服务器和一个控制器，使用 Etcd 提供存储。
+
+![](/images/K8s/service-catalog-architecture.svg)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <br/>
 <br/>
 
 ---
 
 <br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

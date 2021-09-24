@@ -6185,7 +6185,31 @@ iptables-restore </etc/sysconfig/iptables
 - 帮助： `ctrl+b -> ?`
 - 命令模式： `ctrl+b -> :`
 
+<br>
 
+调整tmux窗口大小:
+
+```bash
+# tmux下
+# 修改窗口大小
+
+# 进入命令行模式
+ctrl + b, :
+
+# 上U, 下D, 左L, 右R
+
+# 当前窗口向左扩展10
+resize-pane -L 10
+
+# 当前窗口向右扩展10
+resize-pane -R 10
+
+# 当前窗口向上扩展10
+resize-pane -U 10
+
+# 当前窗口向下扩展10
+resize-pane -D 10
+```
 
 
 
