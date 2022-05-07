@@ -1,0 +1,74 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>python - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/python/</link>
+        <description>python - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 14 Oct 2019 16:19:21 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/python/" rel="self" type="application/rss+xml" /><item>
+    <title>Tornado</title>
+    <link>https://zhang21.cn/tornado/</link>
+    <pubDate>Mon, 14 Oct 2019 16:19:21 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/tornado/</guid>
+    <description><![CDATA[<p>环境:</p>
+<ul>
+<li>Tornado: v5.1</li>
+<li>Python: v3.6</li>
+</ul>
+<br>
+<p>参考:</p>
+<ul>
+<li>Docs: <a href="https://www.tornadoweb.org/en/branch5.1/">https://www.tornadoweb.org/en/branch5.1/</a></li>
+</ul>
+<br/>
+<br/>
+<hr>]]></description>
+</item><item>
+    <title>Django</title>
+    <link>https://zhang21.cn/django/</link>
+    <pubDate>Wed, 25 Sep 2019 10:59:21 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/django/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li>docs: <a href="https://docs.djangoproject.com/zh-hans/2.1/topics/">https://docs.djangoproject.com/zh-hans/2.1/topics/</a></li>
+</ul>
+<br>
+<p>版本:</p>
+<ul>
+<li>Django Version: v2.1</li>
+</ul>
+<br/>
+<br/>
+<hr>]]></description>
+</item><item>
+    <title>Python</title>
+    <link>https://zhang21.cn/python/</link>
+    <pubDate>Sun, 06 May 2018 16:11:16 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/python/</guid>
+    <description><![CDATA[<p>环境:</p>
+<ul>
+<li>rhel7</li>
+<li>Python3</li>
+</ul>
+<p>参考:</p>
+<ul>
+<li>Python教程: <a href="https://docs.python.org/3.5/tutorial/index.html">https://docs.python.org/3.5/tutorial/index.html</a></li>
+<li>Python术语: <a href="https://docs.python.org/3.5/glossary.html">https://docs.python.org/3.5/glossary.html</a></li>
+<li>Python语言参考: <a href="https://docs.python.org/3.5/reference/index.html">https://docs.python.org/3.5/reference/index.html</a></li>
+<li>Python HOWTOs: <a href="https://docs.python.org/3.5/howto/index.html">https://docs.python.org/3.5/howto/index.html</a></li>
+<li>Python标准库: <a href="https://docs.python.org/3.5/library/">https://docs.python.org/3.5/library/</a></li>
+<li>PyPI: <a href="https://pypi.org/">https://pypi.org/</a></li>
+<li>Awesome-Python
+<ul>
+<li><a href="https://github.com/vinta/awesome-python">https://github.com/vinta/awesome-python</a></li>
+<li><a href="https://github.com/jobbole/awesome-python-cn">https://github.com/jobbole/awesome-python-cn</a></li>
+</ul>
+</li>
+</ul>
+<br>
+<br/>
+<hr>]]></description>
+</item></channel>
+</rss>

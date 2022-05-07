@@ -1,0 +1,46 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>nginx - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/nginx/</link>
+        <description>nginx - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 03 Feb 2018 13:56:45 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/nginx/" rel="self" type="application/rss+xml" /><item>
+    <title>计算机集群</title>
+    <link>https://zhang21.cn/computercluster/</link>
+    <pubDate>Sat, 03 Feb 2018 13:56:45 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/computercluster/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li>《老男孩Linux运维》</li>
+<li>《服务器集群系统各概念》: <a href="https://segmentfault.com/a/1190000009923581">https://segmentfault.com/a/1190000009923581</a></li>
+<li>《WEB的负载均衡、集群、高可用解决方案》： <a href="https://zhuanlan.zhihu.com/p/23826048">https://zhuanlan.zhihu.com/p/23826048</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E8%AE%A1%E7%AE%97%E6%9C%BA%E9%9B%86%E7%BE%A4" target="_blank" rel="noopener noreffer">计算机集群维基百科</a></li>
+</ul>
+<br>]]></description>
+</item><item>
+    <title>Nginx</title>
+    <link>https://zhang21.cn/nginx/</link>
+    <pubDate>Fri, 01 Sep 2017 16:22:58 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/nginx/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://nginx.org/en/docs/" target="_blank" rel="noopener noreffer">Nginx官方文档</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/Nginx" target="_blank" rel="noopener noreffer">Nginx-Wikipedia</a></li>
+<li><a href="http://nginx.org/packages/" target="_blank" rel="noopener noreffer">Nginx-repo</a></li>
+</ul>
+<p>环境：</p>
+<ul>
+<li>CentOS7x86_64;</li>
+<li>Nginx1.12.1</li>
+</ul>
+<br/>
+<br/>
+<hr>
+<br/>
+<h1 id="nginx介绍">Nginx介绍</h1>
+<p>Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 <code>HTTP, HTTPS, SMTP, POP3, IMAP</code> 的协议连接。
+基于BSD-like协议发行，支持多种操作系统。</p>]]></description>
+</item></channel>
+</rss>

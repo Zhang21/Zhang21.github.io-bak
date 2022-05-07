@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>kernel - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/kernel/</link>
+        <description>kernel - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 09 Jan 2018 17:22:48 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/kernel/" rel="self" type="application/rss+xml" /><item>
+    <title>sysctl和ulimit和proc</title>
+    <link>https://zhang21.cn/sysctl-ulimit-proc/</link>
+    <pubDate>Tue, 09 Jan 2018 17:22:48 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/sysctl-ulimit-proc/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="http://man.linuxde.net/sysctl" target="_blank" rel="noopener noreffer">sysctl命令</a></li>
+<li><a href="http://man.linuxde.net/ulimit" target="_blank" rel="noopener noreffer">ulimit命令</a></li>
+<li><a href="http://www.jianshu.com/p/20a2dd80cbad" target="_blank" rel="noopener noreffer">ulimit、limits.conf、sysctl和proc文件系统</a></li>
+<li><a href="http://www.jianshu.com/p/9a8e383b5b49" target="_blank" rel="noopener noreffer">sysctl.conf学习和调优</a></li>
+</ul>]]></description>
+</item></channel>
+</rss>

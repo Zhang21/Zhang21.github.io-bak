@@ -1,0 +1,109 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>middleware - 分类 - 风继续吹</title>
+        <link>https://zhang21.cn/categories/middleware/</link>
+        <description>middleware - 分类 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 08 Mar 2022 15:19:26 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/middleware/" rel="self" type="application/rss+xml" /><item>
+    <title>kafka</title>
+    <link>https://zhang21.cn/kafka/</link>
+    <pubDate>Tue, 08 Mar 2022 15:19:26 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/kafka/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li>docs: <a href="https://kafka.apache.org/documentation">https://kafka.apache.org/documentation</a></li>
+</ul>
+<br/>
+<p>版本:</p>
+<ul>
+<li>kafka: v3.0</li>
+</ul>
+<br/>
+<br/>]]></description>
+</item><item>
+    <title>ZooKeeper</title>
+    <link>https://zhang21.cn/zookeeper/</link>
+    <pubDate>Fri, 15 Mar 2019 16:57:20 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/zookeeper/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li>维基百科</li>
+<li>ZooKeeper: <a href="https://zookeeper.apache.org/">https://zookeeper.apache.org/</a></li>
+<li>Docs: <a href="https://zookeeper.apache.org/doc/">https://zookeeper.apache.org/doc/</a></li>
+</ul>
+<p>环境:</p>
+<ul>
+<li>RHEL7x86_64</li>
+<li>ZooKeeper v3.5</li>
+</ul>
+<br/>
+<br/>
+<hr>]]></description>
+</item><item>
+    <title>Apollo</title>
+    <link>https://zhang21.cn/apollo/</link>
+    <pubDate>Wed, 09 Jan 2019 19:11:22 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/apollo/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li>Apollo官方文档: <a href="https://github.com/ctripcorp/apollo/wiki">https://github.com/ctripcorp/apollo/wiki</a></li>
+</ul>
+<br>
+<p>环境:</p>
+<ul>
+<li>Apollo v1.2</li>
+<li>Docker v1.18</li>
+<li>K8s v1.11</li>
+</ul>
+<br/>
+<br/>]]></description>
+</item><item>
+    <title>Elatic Stack</title>
+    <link>https://zhang21.cn/elastic/</link>
+    <pubDate>Sun, 15 Apr 2018 22:08:11 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/elastic/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li>Elastic指南: <a href="https://www.elastic.co/guide/index.html">https://www.elastic.co/guide/index.html</a></li>
+<li>Elasticsearch文档: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html</a></li>
+<li>Logstash文档: <a href="https://www.elastic.co/guide/en/logstash/current/index.html">https://www.elastic.co/guide/en/logstash/current/index.html</a></li>
+<li>Kibana文档: <a href="https://www.elastic.co/guide/en/kibana/current/index.html">https://www.elastic.co/guide/en/kibana/current/index.html</a></li>
+<li>Filebeat文档: <a href="https://www.elastic.co/guide/en/beats/filebeat/index.html">https://www.elastic.co/guide/en/beats/filebeat/index.html</a></li>
+<li>Metricbeat文档: <a href="https://www.elastic.co/guide/en/beats/metricbeat/current/index.html">https://www.elastic.co/guide/en/beats/metricbeat/current/index.html</a></li>
+<li>Lucence查询语法: <a href="https://wizardforcel.gitbooks.io/mastering-elasticsearch/content/chapter-1/114_README.html">https://wizardforcel.gitbooks.io/mastering-elasticsearch/content/chapter-1/114_README.html</a></li>
+</ul>
+<p>环境：</p>
+<ul>
+<li>CentOS7.x86_64</li>
+<li>Elastcisearch v6.2.3</li>
+<li>Kibana v6.2.3</li>
+<li>Logstash v6.2.3</li>
+<li>Beats v6.2.3</li>
+</ul>
+<br>
+<br/>]]></description>
+</item><item>
+    <title>Consul</title>
+    <link>https://zhang21.cn/consul/</link>
+    <pubDate>Thu, 05 Apr 2018 22:08:11 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/consul/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://www.consul.io/intro/index.html">https://www.consul.io/intro/index.html</a></li>
+<li><a href="https://www.consul.io/docs/">https://www.consul.io/docs/</a></li>
+<li>Consul Template: <a href="https://www.hashicorp.com/blog/introducing-consul-template">https://www.hashicorp.com/blog/introducing-consul-template</a></li>
+</ul>
+<p>环境：</p>
+<ul>
+<li>CentOS7x86_64</li>
+<li>Consul v1.2.0</li>
+</ul>
+<br>
+<br/>]]></description>
+</item></channel>
+</rss>

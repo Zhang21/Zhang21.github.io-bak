@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Redis - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="Redis" />
+<meta property="og:description" content="参考:
+
+《Redis官方文档》: http://www.redis.cn/documentation.html
+《Redis命令大全》: http://www.redis.cn/commands.html
+
+
+环境:
+
+CentOS7x86_64
+Redis 3.2
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/redis/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-02-05T17:20:28&#43;00:00" />
+<meta property="article:modified_time" content="2018-02-05T17:20:28&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="Redis"/>
+<meta name="twitter:description" content="参考:
+
+《Redis官方文档》: http://www.redis.cn/documentation.html
+《Redis命令大全》: http://www.redis.cn/commands.html
+
+
+环境:
+
+CentOS7x86_64
+Redis 3.2
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/redis/" /><link rel="prev" href="https://zhang21.cn/computercluster/" /><link rel="next" href="https://zhang21.cn/regularexpression/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Redis",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/redis\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "redis","wordcount":  9229 ,
+        "url": "https:\/\/zhang21.cn\/redis\/","datePublished": "2018-02-05T17:20:28+00:00","dateModified": "2018-02-05T17:20:28+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Redis</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/database/"><i class="far fa-folder fa-fw"></i>database</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2018-02-05">2018-02-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9229 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 19 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a>
+      <ul>
+        <li><a href="#redis是什么">Redis是什么</a></li>
+        <li><a href="#redis的优点">Redis的优点</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#配置">配置</a></li>
+    <li><a href="#数据类型">数据类型</a>
+      <ul>
+        <li><a href="#字符串strings">字符串(strings)</a></li>
+        <li><a href="#列表lists">列表(lists)</a></li>
+        <li><a href="#散列hash">散列(hash)</a></li>
+        <li><a href="#无序集合unorder-set">无序集合(unorder set)</a></li>
+        <li><a href="#有序集合order-set">有序集合(order set)</a></li>
+      </ul>
+    </li>
+    <li><a href="#命令">命令</a>
+      <ul>
+        <li><a href="#常用命令">常用命令</a></li>
+        <li><a href="#设置相关">设置相关</a></li>
+        <li><a href="#连接操作">连接操作</a></li>
+        <li><a href="#持久化">持久化</a></li>
+        <li><a href="#远程服务">远程服务</a></li>
+        <li><a href="#值value操作">值(value)操作</a></li>
+        <li><a href="#字符串string操作">字符串(string)操作</a></li>
+        <li><a href="#列表list操作">列表(list)操作</a></li>
+        <li><a href="#集合set操作">集合(set)操作</a></li>
+        <li><a href="#有序集合sorted-set操作">有序集合(sorted set)操作</a></li>
+        <li><a href="#hash操作">hash操作</a></li>
+      </ul>
+    </li>
+    <li><a href="#高级应用">高级应用</a>
+      <ul>
+        <li><a href="#安全性">安全性</a></li>
+        <li><a href="#主从复制">主从复制</a>
+          <ul>
+            <li><a href="#主从复制栗子">主从复制栗子</a></li>
+          </ul>
+        </li>
+        <li><a href="#高可用">高可用</a>
+          <ul>
+            <li><a href="#配置文件">配置文件</a></li>
+          </ul>
+        </li>
+        <li><a href="#事务处理">事务处理</a></li>
+        <li><a href="#持久化机制">持久化机制</a></li>
+        <li><a href="#虚拟内存">虚拟内存</a></li>
+        <li><a href="#批量删除">批量删除</a></li>
+        <li><a href="#bigkeys">bigkeys</a></li>
+      </ul>
+    </li>
+    <li><a href="#注意">注意</a></li>
+    <li><a href="#多数据库">多数据库</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考:</p>
+<ul>
+<li>《Redis官方文档》: <a href="http://www.redis.cn/documentation.html">http://www.redis.cn/documentation.html</a></li>
+<li>《Redis命令大全》: <a href="http://www.redis.cn/commands.html">http://www.redis.cn/commands.html</a></li>
+</ul>
+<br>
+<p>环境:</p>
+<ul>
+<li>CentOS7x86_64</li>
+<li>Redis 3.2</li>
+</ul>
+<br/>
+<hr>
+<br>
+<h1 id="简介">简介</h1>
+<br>
+<h2 id="redis是什么">Redis是什么</h2>
+<p>Redis是一个使用ANSI C编写的开源、支持网络、基于内存、可选持久性的、非关系型,键值对存储数据库。
+Redis是一个开源(BSD许可)的,内存中的数据结构存储系统,它可以用作数据库、缓存和消息中间件。</p>
+<p>毫无疑问,Redis开创了一种新的数据存储思路,使用Redis,我们不用在面对功能单调的数据库时,把精力放在如何把大象放进冰箱这样的问题上,而是利用Redis灵活多变的数据结构和数据操作,为不同的大象构建不同的冰箱。希望你喜欢这个比喻。</p>
+<p>Remote Dictionary Server(Redis)是由一个Salvatore Sanfilippo写的key-value储存系统。Redis提供了一些丰富的数据结构,包括lists,sets,ordered sets,hashes,当然还有和Memcached一样的string结构,所以常被称为是一款数据结构服务器(data structure server)。Redis当然还包括了对这些数据结构的丰富操作。</p>
+<p>你可以在这些类型上面运行原子操作,例如,追加字符串,增加哈希中的值,加入一个元素到列表,计算集合的交集、并集和差集,或者是从有序集合中获取最高排名的元素。</p>
+<br/>
+<br>
+<h2 id="redis的优点">Redis的优点</h2>
+<p>为了满足性能,Redis采用内存(in-memory)数据集(dataset)。根据你的使用场景,你可以通过每隔一段时间转储数据集到磁盘,或者追加每条命令到日志来持久化。持久化也可以被禁用,如果你只是需要一个功能丰富,网络化的内存缓存。</p>
+<ul>
+<li>性能极高,Redis能支持超过100K+每秒的读写频率</li>
+<li>丰富的数据类型,Redis支持二进制案例的Strings,Lists,Hashes,Sets及Ordered Sets数据类型操作</li>
+<li>原子,Redis的所有操作都是原子性的,同时Redis还支持对几个操作全并后的原子性执行</li>
+<li>丰富的特性,Redis还支持publish/sucscribe,通知,key过期等特性</li>
+<li>Redis还支持主从异步复制,非常快的非阻塞初次同步、网络断开时自动重连局部重同步</li>
+</ul>
+<br>
+<hr>
+<br/>
+<h1 id="安装">安装</h1>
+<p>直接通过<code>yum</code>安装:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">yum install -y redis
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<p>启动redis-server的两种方式:</p>
+<ul>
+<li>redis-server: standalone模式</li>
+<li>systemctl redis start: daemon模式
+<ul>
+<li>需要在配置文件中开启daemonize</li>
+</ul>
+</li>
+</ul>
+<p>启动redis-cli:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">redis-cli
+redis-cli -a passwd
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<hr>
+<br>
+<h1 id="配置">配置</h1>
+<p>redis配置文件(/etc/redis.conf)常用参数:</p>
+<p>参数 | 说明</p>
+<ul>
+<li>| -
+daemonize | 以守护进程启动,放置于后台
+bind | 监听地址,建议只对本地127.0.0.1开放
+protect-mode | redis的保护模式
+requirepass | 设置密码
+timeout | 超时
+tcp-keepalive | 在Linux上,指定值(秒)用于发送ACKs的时间,关闭连接需要双倍的时间,默认为0
+loglevle | 指定日志记录的级别。有四个级别:debug(记录很多信息,用于开发测试)、notice(常用于生产环境)、warning(严重的信息)、verbose(有用的信息)
+logfile | 日志文件,默认为stdout
+databases | 可用数据库,范围在0-(database-1)
+save | 保存数据到磁盘(.rdb)
+stop-writes-on-bgsave-error | 后台储存错误停止写
+rdbcompression | 储存到本地数据库时(持久化到rdb文件)是否压缩
+dbfilename | 本地持久化数据库文件名,默认dump.rdb
+dir | 数据库文件路径,是目录
+salveof | 设置从库
+masterauth | 设置主库认证的密码
+slave-read-only | 设置slave是否只读
+slave-serve-stale-data | 从库同主库失去连接或复制正在进行时,从库是否继续响应客户端请求
+repl-disable-tcp-nodelay | tcp-nodelay
+slave-priority | slave优先级,master不能工作后,从众多slave中选出优先值最小的slave提升为master,优先值为0表示不能为master
+appendonly | 是否开启AOF数据备份,redis会把所接收到的每一次写操作请求都追加到appendonly.aof文件,当此文件很大
+appendsync | AOF文件同步策略,后台会进行大量I/O
+no-appendfsync-on-rewrite | -
+auto-aof-rewrite-percentage | aof自动重写
+auto-aof-rewrite-min-size | 指定最小大小用于aof重写
+slowlog-log-slower-than | 慢日志,记录超过特定执行时间的命令,不包括I/o
+slowlog-max-len | 慢日志记录的长度,超过大小,最先进入队列的记录会被踢出
+hash-max-zipmap-entries | hash将以一种特殊的编码方式(大大减少内存使用)来储存,这是其中一个临界值
+hash-max-zipmap-value | 另一个临界值
+list-max-ziplist-entries | 多个list以特定的方式编码来节省空间
+activerehashing | Redis将在每100ms时使用1ms的CPU时间来对redis的hash表进行重新hash,可降低内存的使用
+hz | 不是所有任务都以相同的频率执行,但redis按照指定的“hz”值执行检查任务
+aof-rewrite-incremental-fsync | 当一个子节点重写AOF文件时,则文件每生产32m数据进行同步</li>
+</ul>
+<br>
+<p>官方文档对VM的使用建议:</p>
+<ul>
+<li>当KEY很小而VALUE很大时,使用VM的效果会比较好,因为这样节约内存比较大</li>
+<li>当key不小时,可以考虑使用一些非常方法将很大的key变成value,比如将key,value组合成一个新的value</li>
+</ul>
+<br>
+<hr>
+<br/>
+<h1 id="数据类型">数据类型</h1>
+<p>Redis不仅仅是简单的key-value存储器,同时也是一种data structure server。传统的key-value是指支持使用一个key字符串来索引value字符串的储存。而Redis中,value不仅仅支持字符串,还支持更多的复杂结构,包括列表、集合、哈希表等。Redis采用二进制安全,这就意味着你可以使用任何二进制序列作为重点。</p>
+<br>
+<h2 id="字符串strings">字符串(strings)</h2>
+<p>字符串 是一种最基本的Redis值类型。Redis字符串是二进制安全的,这意味着一个Redis字符串能包含任意类型的数据。</p>
+<p>只关心二进制化的字符串,不关心具体格式。只会严格的按照二进制的数据存取。不会妄图已某种特殊格式解析数据。</p>
+<br>
+<h2 id="列表lists">列表(lists)</h2>
+<p>Redis列表是简单的字符串列表,按照插入顺序序列,你可以添加一个或多个元素到列表的头部或者尾部。</p>
+<br>
+<h2 id="散列hash">散列(hash)</h2>
+<p>Redis Hashes是字符串字段和字符串值之间的映射,因此他们是展现对象的完美数据类型。如一个有姓、名、年龄等属性的用户。一个带有一些字段的hash仅仅需要一块很小的空间储存,因此你可以储存数以百万计的对象在一个小的Redis实例中。</p>
+<p>哈希主要用来表现对象,他们有能力储存很多对象,因此你可以将哈希用于许多其他的任务。</p>
+<br>
+<h2 id="无序集合unorder-set">无序集合(unorder set)</h2>
+<p>Redis集合(Set)是一个无序的字符串集合。可以用O(1)的时间复杂度(无论集合中有多少元素时间复杂度都是常量)完成添加、删除、测试元素是否存在。</p>
+<p>Redis集合拥有令人满意的不允许包含相同成员的属性。多次添加相同的元素,最终在集合里只会有一个元素。实际上就是添加元素时无序检测元素是否存在。</p>
+<p>一个Redis集合有趣的事情是它支持一些服务端的命令从现有的集合出发去进行集合运算,因此你可以在非常短的时间内进行合并(unions)、交集(intersections)、找出不同的元素(difference of sets)。</p>
+<br>
+<h2 id="有序集合order-set">有序集合(order set)</h2>
+<p>Redis有序集合与普通集合非常相似,也是一个没有重复项的字符串集合。不同之处是有序集合的每一个成员都关联了一个评分,这个评分被用来按照从最低分到最高分的方式排序集合中的成员。集合的成员是唯一的,但是评分可以是重复了。</p>
+<p>使用有序集合可以以非常快的速度(O(log(N)))添加,删除和更新元素。可以很快根据评分(score)或者次序(position)来获取一个范围的元素。访问有序集合的中间元素也是很快的,因此能够使用有序集合作为一个没有重复成员的智能列表。在有序集合中,你可以很快捷的访问一切你需要的东西。</p>
+<p>简而言之,使用有序的集合你可以做完许多对性能有极端要求的任务,而那些任务使用其他类型的数据库真的是很难完成。</p>
+<br>
+<hr>
+<br/>
+<h1 id="命令">命令</h1>
+<br>
+<h2 id="常用命令">常用命令</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">exists key    <span class="c1">#判断一个key是否存在</span>
+
+del key    <span class="c1">#删除某个或一系列key</span>
+
+<span class="nb">type</span> key    <span class="c1">#返回某个key元素的数据类型,key不存在返回空</span>
+
+keys key-pattern    <span class="c1">#返回匹配的key列表</span>
+
+randomkey    <span class="c1">#随机获取一个已经存在的key</span>
+
+rename oldname newname	<span class="c1">#改key的名字,如果存在将会覆盖</span>
+
+dbsize    <span class="c1">#返回当前数据库的key的总和</span>
+
+expire key <span class="nb">time</span>   <span class="c1">#设置某个key的过期时间(秒),到期后自动删除</span>
+
+ttl    <span class="c1">#查询key剩余存活时间</span>
+
+flushdb    <span class="c1">#清空当前数据库中的所有键</span>
+
+flushall    <span class="c1">#清空所有数据库中的键</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<h2 id="设置相关">设置相关</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">config get    <span class="c1">#用来读取Redis服务器的配置参数</span>
+
+config <span class="nb">set</span>    <span class="c1">#用于更改运行Redis服务器的配置参数</span>
+
+config resetstat    <span class="c1">#重置数据统计报告,通常返回OK</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<h2 id="连接操作">连接操作</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">quit	<span class="c1">#关闭连接</span>
+
+auth	<span class="c1">#密码认证</span>
+
+<span class="nb">help</span> <span class="nb">command</span>	<span class="c1">#帮助</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<h2 id="持久化">持久化</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">save		<span class="c1">#将数据同步保存到磁盘</span>
+
+
+bgsave		<span class="c1">#将数据异步保存到磁盘</span>
+
+
+lastsave	<span class="c1">#返回上次成功将数据保存到磁盘的Unix时戳</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br/>
+<h2 id="远程服务">远程服务</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">info		<span class="c1">#服务器信息统计,基本所有信息</span>
+
+monitor		<span class="c1">#实时转储收到的请求</span>
+
+slaveof		<span class="c1">#改变复制策略</span>
+
+shutdown		<span class="c1">#将数据同步保存到磁盘,然后关闭服务</span>
+
+server		<span class="c1">#Redis server的常规信息</span>
+
+clients		<span class="c1">#Client的连接选项</span>
+
+memory		<span class="c1">#存储占用相关信息</span>
+
+persistence		<span class="c1">#RDB and AOF 相关信息</span>
+
+stats		<span class="c1">#常规统计</span>
+
+replication		<span class="c1">#Master/slave请求信息</span>
+
+cpu		<span class="c1">#CPU占用信息统计</span>
+
+cluster		<span class="c1">#Redis 集群信息</span>
+
+keyspace		<span class="c1">#数据库信息统计</span>
+
+all			<span class="c1">#返回所有信息</span>
+
+default		<span class="c1">#返回常规设置信息</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br/>
+<h2 id="值value操作">值(value)操作</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">exists key		<span class="c1">#判断一个key是否存在</span>
+
+del key			<span class="c1">#删除一个key</span>
+
+<span class="nb">type</span> key		<span class="c1">#返回值的类型</span>
+
+keys pattern	<span class="c1">#返回满足给定模式的所有key</span>
+
+randomkey		<span class="c1">#随机返回key空间的一个</span>
+
+rename oldname newname	<span class="c1">#改key的名字,如果存在将会覆盖</span>
+
+dbsize			<span class="c1">#返回当前数据库中key的数目</span>
+
+expire			<span class="c1">#设定一个key的活动时间(s)</span>
+
+ttl				<span class="c1">#获得一个key的活动时间</span>
+
+<span class="k">select</span> index	<span class="c1">#按索引查询</span>
+
+move key dbindex	<span class="c1">#移动当前数据库中的key到dbindex数据库</span>
+
+flushdb			<span class="c1">#删除当前选择的数据库中的所有key</span>
+
+flushall		<span class="c1">#删除所有数据库中的所有key</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br/>
+<h2 id="字符串string操作">字符串(string)操作</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">set key value           #给数据库中名称为key的string赋值value
+
+get key                         #返回数据库中名为key的string的value
+
+getset key value                #给名称为key的string赋予上一次的value
+
+mget key1 key2 ... key N                #返回库中多个string的value
+
+setnx key value         #添加string 名称为key 值为value
+
+setex key time value            #向库中添加string 设定过期时间time
+
+mset key 1 value 1 ... key N value N            #批量设置多个string的值
+
+msetnx key 1 value 1 ... key N value N          #如果所有名称为 key N的string都不存在 则向库中添加string 名称为 key N赋值value N
+
+incr key                #名称为key的string加 1 操作
+
+incrby key integer              #名称为key的string增减integer
+
+decr key                #名称为key的string减1操作
+
+decrby key integer              #名称为key的string的值附加value
+
+append key value                #名称为key的值附加value
+
+substr key start end            #返回名称为key的string的value的子串
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br>
+<h2 id="列表list操作">列表(list)操作</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rpush key value                 #在名称为key的list尾部添加一个值为value的元素
+
+lpush key value                 #在名称为key的list首部添加一个值为value的元素
+
+llen key                #返回名称为key的list的长度
+
+lrange key start end            #返回名称为key的list中start至end之间的元素 下表从0开始
+
+ltrim key start end             #截取名称为key的list 保留start至end之间的元素
+
+lindex key index                #返回名称为key的list中index位置的元素
+
+lset key index value            #给名称为key的list中index位置的元素赋值value
+
+lrem key count value            #删除count个名称为key的list中值为value的元素
+
+brpop key1 key2 ... keyN               #rpop的block版本
+
+rpoplpush srckey dstkey                 #返回并删除名为srckey的list尾元素 并将该元素添加到名为dstkey的list的头部
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br/>
+<h2 id="集合set操作">集合(set)操作</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sadd key member                 #向名为key的set中添加元素member
+
+srem key member                 #删除名为key的set中元素的member
+
+spop key                #随机返回并删除名为key的set中的一个元素
+
+smove srckey dstkey member              #将member元素从名为srckey的集合移动到名为dstkey的集合
+
+scard key               #返回名为key的set的基数
+
+sismember key member            #测试member是否是名称为key的set的集合
+
+sinter key1 key2 ... key N              #求交集
+
+sinterstore dstkey key1 ... key N               #求交集并将交集保存到dstkey的集合
+
+sunion key1 ... key N           #求并集
+
+sunionstore dstkey key 1 ... key N              #求并集并将并集保存到dstkey的集合
+
+sdiff key1 ... key N            #求差集
+
+sdiffstore dstkey key 1 ... key N               #求差集并将差集保存到dstkey的集合
+
+smembers key            #返回名为key的set的所有元素
+
+srandmember key                 #随机返回名为key的set的一个元素
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br/>
+<h2 id="有序集合sorted-set操作">有序集合(sorted set)操作</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">zadd key score member           #向名为key的zset中添加元素member score用于排序 如果该元素已经存在 则根据
+score更新该元素的顺序
+
+zrem key member                 #删除名为key的zset中的元素member
+
+zincrby key increment member            #如果在名为key的zset中已经存在元素member 则该元素的score增加increment 否则向集合中添加该元素 其score的值为increment
+
+zrank key member                #返回名为key的zset 顺序
+
+zrevrank key member             #返回名为key的zset 倒序
+
+zrange key start end            #返回名为key的zset score顺序按index从start到end返回所有元素
+
+zrevrange key start end                 #返回名为key的zset score倒序按index从start到end返回所有元素
+
+zrangebyscore key min max               #返回名为key的zset中score大于等于min 小于等于max的所有元
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br/>
+<h2 id="hash操作">hash操作</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hset key field value            #向名为key的hash中添加元素filed----value
+
+hget key field          #返回名为key的hash中field对应的value
+
+hmset key field1 value1 ... field N value N             #向名为key的hash中添加元素field----value
+
+hmget key field1 ... field N            #返回名为key的hash中filed对应的value
+
+hincrby key field integer               #将名为key的hash中field的value增加integer
+
+hexists key field               #名为key的hash中是否存在键为field的域
+
+hdel key field          #删除名为key的hash中键为field的域
+
+hlen key                #返回名为key的hash中元素个数
+
+hkeys key               #返回名为key的hash中所有键
+
+hvals key               #返回名为key的hash中所有键对应的value
+
+hgetall key     #返回名为key的hash中所有的键 field 及其对应的value
+
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<hr>
+<br/>
+<h1 id="高级应用">高级应用</h1>
+<p>Redis高级应用包括<strong>安全性设置、主从复制、事务处理、持久化机制和虚拟内存的使用</strong>。</p>
+<br>
+<br/>
+<h2 id="安全性">安全性</h2>
+<p>由于redis速度相当快，一秒钟可以150K次密码尝试，所以需要设置一个密码强度很强大的密码。</p>
+<p>设置密码的两种方法：</p>
+<ul>
+<li><code>config set requirepass &quot;passwd&quot;</code>，通过命令设置密码</li>
+<li>直接在配置文件中<code>requirepass</code>属性后加上密码</li>
+</ul>
+<p>认证登录的两种方式：</p>
+<ul>
+<li><code>redis-cli -a passwd</code></li>
+<li><code>redi-cli</code> &ndash;&gt; <code>auth passwd</code></li>
+</ul>
+<br>
+<br>
+<h2 id="主从复制">主从复制</h2>
+<p>Redis的主从复制的配置和使用都比较简单。</p>
+<ul>
+<li>master server</li>
+<li>slave server</li>
+</ul>
+<p>Redis主从复制特点：</p>
+<ul>
+<li>一主多从</li>
+<li>当master宕机后，优先级值小的那台slave server自动转变为master</li>
+<li>主从复制不同阻塞master，在同步数据时master可以继续处理client的请求</li>
+<li>提高了系统的可伸缩性</li>
+</ul>
+<p>Redis主从复制过程：</p>
+<ul>
+<li>slave与master建立连接，发送sync同步命令</li>
+<li>master会启动一个后台进程，将数据库快照保存到文件中，同时master主进程会开始收集新的写命令并缓存</li>
+<li>后台完成保存后，就将此文件发送给slave</li>
+<li>slave将文件保存在磁盘上</li>
+</ul>
+<br>
+<h3 id="主从复制栗子">主从复制栗子</h3>
+<p>Redis主从配置，一主多从。
+注意：由于redis吃内存，可能会由于内存过小而无法正常启动redis，可查看<code>/var/log/message</code>。</p>
+<br>
+<p><strong>配置master</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">vim /etc/redis_master.conf
+
+
+daemon yes
+bind 127.0.0.1 ip1
+port 6379
+requirepass fuza_mima
+protect-mode yes
+datebases 100
+logfile /var/log/redis/redis_master.log
+dir /var/lib/redis_master
+
+
+mkdir /var/lib/redis_master
+chown redis:redis /var/lib/redis_master
+
+
+systemctl start redis
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>配置slave</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">vim /etc/redis_slave.conf
+
+
+daemon yes
+bind 127.0.0.1
+port 6379
+protect-mode yes
+logfile /var/log/redis/redis_slave.log
+dir /var/lib/redis_slave
+
+
+slaveof &lt;master-ip&gt; &lt;master-port&gt;
+masterauth &lt;master-passwd&gt;
+slave-read-only yes
+slave-priority 100
+
+#master挂掉后，从slave中选出优先级最小的作为master
+
+······
+#其他具体主从参数自己配置
+
+
+
+
+mkdir /var/lib/redis_slave
+chown redis:redis /var/lib/redis_slave
+
+
+
+systemctl start redis
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p><strong>测试master</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">redis-cli -a xxx
+
+set name zhang
+get zhang
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>测试slave</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">redis-cli
+auth(&#39;passwd&#39;)
+
+
+key *
+get zhang
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p><strong>注意</strong>：</p>
+<p>由于Redis只是主从，并不像MongoDB的集群功能。当Redis master挂掉以后，虽然优先级较小的slave成为了master，但从库是无法更新数据的。这点也可以从Redis从的配置文件中看出，连接到Redis主的IP：PORT，并通过主的密码来认证。</p>
+<br>
+<br/>
+<h2 id="高可用">高可用</h2>
+<p>Redis的主从模式，并不支持高可用。
+不过，Redis引进了哨兵模式(sentinel)，提供Redis实时监控和故障检测恢复的功能。
+Redis Sentinel 是 Redis 的官方高可用解决方案，是设计用来帮助管理 Redis 实例的系统。</p>
+<p>运行 Sentinel 强制使用配置文件，这个文件被系统用来保存当前状态，在重启时能重新加载。如果没有指定配置文件，或者配置文件的路径不可写，Sentinel 将拒绝启动。
+Sentinel 运行时默认监听 TCP 端口 26379，所以为了让 Sentinel 正常运行，你的服务器必须开放 26379 端口，以接受从其他 Sentinel 实例 IP 地址的连接。否则，Sentinel 间就没法通信，没法协调，也不会执行故障转移。</p>
+<p>Redis Sentinel 是一个分布式系统，这意味着，你通常想要在你的基础设施中运行多个 Sentinel 进程，这些进程使用 gossip 协议来判断一台主服务器是否下线(down)，使用 agreement 协议来获得授权以执行故障转移，并更新相关配置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">The redis-sentinel command is a symbolic link to the redis-server command which imply the --sentionel option.
+
+redis-server [ configuration_file ] [ options ] --sentinel
+redis-sentinel [ configuration_file ] [ options ]
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<p>Redis Sentinel用于完成如下4个任务：</p>
+<ul>
+<li>
+<p>监控(Monitoring)
+Sentinel 不断检查你的主从实例是否运转正常。</p>
+</li>
+<li>
+<p>通知(Notification)
+Sentinel 可以通过 API 来通知系统管理员，或者其他计算机程序，被监控的Redis实例出了问题。</p>
+</li>
+<li>
+<p>自动故障转移(Automatic failover)
+如果一台主服务器运行不正常，Sentinel 会开始一个故障转移过程，将从服务器提升为主服务器，配置其他的从服务器使用新的主服务器，使用 Redis 服务器的应用程序在连接时会收到新的服务器地址通知。</p>
+</li>
+<li>
+<p>配置提供者(Configuration provider)
+Sentinel 充当客户端服务发现的权威来源：客户端连接到 Sentinel 来询问某个服务的当前 Redis 主服务器的地址。当故障转移发生时，Sentinel 会报告新地址。</p>
+</li>
+</ul>
+<br>
+<h3 id="配置文件">配置文件</h3>
+<p>Redis Sentinel示例配置文件：</p>
+<p>只需要指定需要监控的主服务器，并给主服务器去一个名字；
+没有必要指定从服务器，因为它们会被自动发现；
+每一次故障转移时，将一台从服务器提升为主服务器都会重写配置文件；
+无论你指定多少个同意来检测实例是否正常工作，Sentinel 需要系统中已知的大多数 Sentinel 的投票才能开始故障转移，并且在故障转移之后获取一个新的配置纪元(configuration Epoch) 赋予新的配置；</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">#默认26379端口
+#sentinel  &lt;option_name&gt;  &lt;master_name&gt;  &lt;option_value&gt;
+
+
+#仲裁数为2
+sentinel  monitor  mymaster  127.0.0.1  6379  2
+
+#哨兵认为实例不可达的毫秒数
+sentinel  down-after-milliseconds  mymaster  60000
+
+#
+sentinel  failover-timeout  mymaster  180000
+
+#在一次故障转移之后，被配置为同时使用新主服务器的从服务器数量
+sentinel  parallel-syncs  mymaster  1
+
+# master 有密码就要使用,
+#sentinel auth-pass mymaster ****
+
+sentinel  monitor  resque  192.168.1.3  6380  4
+sentinel  down-after-milliseconds  resque  10000
+sentinel  failover-timeout  resque  180000
+sentinel  parallel-syncs  resque  5
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br/>
+<h2 id="事务处理">事务处理</h2>
+<p>Redis的事务处理比较简单。只能保证client发起的事务中的命令可以连续的执行，而且不会插入其他的client命令。</p>
+<p>当一个client在连接中发出multi命令时，这个连接就进入一个事务的上下文，该连接后续的命令不会执行，而是存放在一个队列中，当执行exec命令时，redis会顺序的执行队列中的所有命令。如果其中执行出现错误，执行正确的不会回滚，不同于关系型数据库的事务。</p>
+<br>
+<br>
+<h2 id="持久化机制">持久化机制</h2>
+<p>持久化就是把数据从内存保存到硬盘。</p>
+<p>Redis是一个支持持久化的内存数据库，Redis需要经常将内存中的数据同步到磁盘来保证持久化。</p>
+<p>Redis支持两种持久化方式：</p>
+<ol>
+<li>snapshotting(快照)
+<ul>
+<li>将数据存放到文件里，默认方式。默认写入dump.rdb二进制文件中</li>
+<li>可配置redis在n秒内超过m个key被修改就自动做快照</li>
+<li>save 500 10 &ndash;&gt; 500s内超过10个key被修改，则保存快照</li>
+</ul>
+</li>
+</ol>
+<p>由于快照方式在一定间隔时间做一次保存， 如果Redis意外down掉的话，就会丢失最后一次快照后的所有修改。
+AOF比快照方式有更好的持久化性，是由于使用aof时，redis会将每一个收到的写命令都通过write函数写入到文件中当redis启动时会通过重新执行文件中保存的写命令在内存中重新建立整个数据库的内容。</p>
+<ol start="2">
+<li>appendonly file(AOF)
+<ul>
+<li>aof方式redis会将每一次的函数都追加到文件中，当redis重启时会重新执行文件中保存的命令</li>
+</ul>
+</li>
+</ol>
+<br>
+<p>配置文件参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#启用aof持久化方式</span>
+appendonly yes
+
+<span class="c1">#每秒写入磁盘一次，在性能和持久化方面做了很好的折中</span>
+appendonly everysc
+
+
+<span class="c1">#将数据写入磁盘</span>
+save <span class="m">900</span> <span class="m">1</span>
+save <span class="m">300</span> <span class="m">10</span>
+save <span class="m">60</span> <span class="m">10000</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br/>
+<h2 id="虚拟内存">虚拟内存</h2>
+<p>Redis的虚拟内存是暂时把不经常访问的数据从内存交换到磁盘中，从而腾出内存空间用于其它的访问数据。
+对于redis这样的内存数据库，内存总是不够用的。</p>
+<p>在配置文件(/etc/redis.conf)中配置VM:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#开启vm功能</span>
+vm-enableyes
+
+
+<span class="c1">#交换出来的value保存的文件路径</span>
+vm-swap-file    /tmp/redis.swap
+
+<span class="c1">#redis使用的最大内存上线</span>
+vm-max-memory <span class="m">10000000</span>
+
+<span class="c1">#每个页面的大小32字节</span>
+vm-page-size <span class="m">32</span>
+
+<span class="c1">#最多使用多少个页面</span>
+vm-pages <span class="m">123217729</span>
+
+<span class="c1">#用于执行value对象换入的工作线程数量</span>
+vm-max-threads <span class="m">4</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="批量删除">批量删除</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">#删除库中所有Key
+SELECT 0
+FLUSHDB
+
+
+#删除所有库中Key
+FLUSHALL
+
+
+#默认为db0
+#批量删除keys
+redis-cli KEYS &#34;test&#34; | xargs redis-cli DEL
+
+#通配符
+redis-cli KEYS &#34;test*&#34; | xargs redis-cli DEL
+
+#指定数据库
+redis-cli -n 1 KEYS &#34;test*&#34; | xargs redis-cli -n 1 DEL
+
+#指定主机，密码
+redis-cli -h xxx -a xx KEYS &#34;test*&#34; | xargs redis-cli -h xxx -a xx DEL
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="bigkeys">bigkeys</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">#对redis中的key进行采样，寻找较大的Key
+redis-cli --bigkeys
+
+#之后对结果进行分析
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br/>
+<hr>
+<br>
+<h1 id="注意">注意</h1>
+<ul>
+<li>Redis监听地址<code>bind： x.x.x.x</code>，强烈建议只对本地<code>127.0.0.1</code>开放。不建议对外网开放，有安全隐患</li>
+<li>防火墙，最简单就是关闭防火墙，另一个就是开放redis的监听端口</li>
+<li>开启守护进程，让redis可以在后台运行而不必通过<code>redis-server</code>的方式来启动，将配置文件里的<code>deamonize no</code>改为<code>yes</code></li>
+<li>关闭redis的保护模式(protect-mode)，这里的保护模式是指是否允许其他IP的设备访问redis。如果开启的话就只能允许本机访问。如果是生产开发的实际运行环境，请一定开启保护模式</li>
+<li>设置redis数据库密码！不仅仅是redis，任何数据库都应该设置密码，否则对外网开放的数据库就成了活靶子。</li>
+</ul>
+<br>
+<br/>
+<hr>
+<br>
+<h1 id="多数据库">多数据库</h1>
+<ul>
+<li>Redis支持多个数据库</li>
+<li>类似于其它数据库，不同的数据存储在不同的数据库中</li>
+<li>Redis下，数据库是由一个整数索引标识，而不是数据库名称。默认情况下，客户端连接到<code>数据库0</code></li>
+<li>Redis不支持自定义数据库名称，所以需要开发者记录那些数据库存储了哪些数据</li>
+<li>Redis不支持为每个数据库设置不同的访问密码，因为密码是在配置文件中设置的。所以一个用户可对所有数据库进行访问</li>
+<li>Redis默认支持16个数据库，但可在配置文件中修改</li>
+<li>使用<code>SELECT</code>命令切换数据库</li>
+<li><code>FLUSHALL</code>命令或清除所有数据库，请注意</li>
+</ul>
+<br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cat /etc/redis.conf
+
+# Set the number of databases. The default database is DB 0, you can select
+# a different one on a per-connection basis using SELECT &lt;dbid&gt; where
+# dbid is a number between 0 and &#39;databases&#39;-1
+databases 16
+
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-02-05</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/redis/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/redis/" data-title="Redis" data-hashtags="redis"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/redis/" data-title="Redis"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/redis/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/redis/" data-title="Redis"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/redis/" data-title="Redis"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/redis/">redis</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/computercluster/" class="prev" rel="prev" title="计算机集群"><i class="fas fa-angle-left fa-fw"></i>计算机集群</a>
+            <a href="/regularexpression/" class="next" rel="next" title="正则表达式">正则表达式<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2017 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@13.0.0/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

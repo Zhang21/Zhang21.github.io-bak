@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>OpenVPN - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="OpenVPN" />
+<meta property="og:description" content="参考:
+
+OpenVPN: https://github.com/OpenVPN/openvpn
+easy-rsa: https://github.com/OpenVPN/easy-rsa
+
+
+环境:
+
+RHEL7
+OpenVPN v2.4.6
+easy-rsa v3.0.3
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/openvpn/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-01-16T08:46:34&#43;00:00" />
+<meta property="article:modified_time" content="2019-01-16T08:46:34&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="OpenVPN"/>
+<meta name="twitter:description" content="参考:
+
+OpenVPN: https://github.com/OpenVPN/openvpn
+easy-rsa: https://github.com/OpenVPN/easy-rsa
+
+
+环境:
+
+RHEL7
+OpenVPN v2.4.6
+easy-rsa v3.0.3
+
+
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/openvpn/" /><link rel="prev" href="https://zhang21.cn/apollo/" /><link rel="next" href="https://zhang21.cn/openldap/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "OpenVPN",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/openvpn\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "openvpn, vpn","wordcount":  2143 ,
+        "url": "https:\/\/zhang21.cn\/openvpn\/","datePublished": "2019-01-16T08:46:34+00:00","dateModified": "2019-01-16T08:46:34+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">OpenVPN</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/infrastructure/"><i class="far fa-folder fa-fw"></i>infrastructure</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-01-16">2019-01-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2143 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#安装和配置">安装和配置</a>
+      <ul>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#制作证书">制作证书</a>
+          <ul>
+            <li><a href="#编辑vars文件">编辑vars文件</a></li>
+            <li><a href="#创建证书和秘钥">创建证书和秘钥</a></li>
+          </ul>
+        </li>
+        <li><a href="#拷贝相应证书到openvpn目录下">拷贝相应证书到openvpn目录下</a></li>
+        <li><a href="#配置文件">配置文件</a>
+          <ul>
+            <li><a href="#s端配置文件">S端配置文件</a></li>
+            <li><a href="#c端配置文件">C端配置文件</a></li>
+            <li><a href="#另外几个配置">另外几个配置</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#启动">启动</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考:</p>
+<ul>
+<li>OpenVPN: <a href="https://github.com/OpenVPN/openvpn">https://github.com/OpenVPN/openvpn</a></li>
+<li>easy-rsa: <a href="https://github.com/OpenVPN/easy-rsa">https://github.com/OpenVPN/easy-rsa</a></li>
+</ul>
+<br/>
+<p>环境:</p>
+<ul>
+<li>RHEL7</li>
+<li>OpenVPN v2.4.6</li>
+<li>easy-rsa v3.0.3</li>
+</ul>
+<br/>
+<br/>
+<hr>
+<br/>
+<br/>
+<h1 id="概述">概述</h1>
+<p>通过在云端VPC， k8s集群内运行OpenVPN Server，让本地可以通过连接OpenVPN进行访问云资源，而不需要将云资源开放公网访问。</p>
+<p>我是将OpenVPN运行在k8s 集群了，对它提供ELB进行公网连接。在S端配置文件中推送对应的路由信息——如集群内节点CIDR， 服务CIDR, VPC CIDR&hellip;</p>
+<br/>
+<br/>
+<hr>
+<br/>
+<br/>
+<h1 id="安装和配置">安装和配置</h1>
+<br/>
+<h2 id="安装">安装</h2>
+<p>需要安装:</p>
+<ul>
+<li>EPEL</li>
+<li>openvpn</li>
+<li>easy-rsa: 用于制作CA证书，S端证书，C端证书</li>
+</ul>
+<p>安装了EPEL源之后就可以直接安装<code>openvpn</code>和<code>easy-rsa</code>，当然也可以从GitHub上拉取。</p>
+<br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install -y epel-release
+
+yum install -y openvpn easy-rsa
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<br/>
+<h2 id="制作证书">制作证书</h2>
+<br/>
+<h3 id="编辑vars文件">编辑vars文件</h3>
+<p>此处需注意，通过yum安装可能会没有<code>example.vars</code>这个栗子文件。没关系，请在<a href="https://github.com/OpenVPN/easy-rsa/tree/v3.0.6/easyrsa3" target="_blank" rel="noopener noreffer">easy-rsa GitHub</a>去下载一份过来。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /etc/openvpn/easy-rsa/server
+mkdir -p /etc/openvpn/easy-rsa/client
+
+
+#拷贝easy-rsa文件，用于制作证书
+cp -r /usr/share/easy-rsa/3.0.3/  /etc/openvpn/easy-rsa/server/
+cp -r /usr/share/easy-rsa/3.0.3/  /etc/openvpn/easy-rsa/client/
+
+
+#先制作CA和S端证书
+cd /etc/openvpn/easy-rsa/server/
+cp vars.example vars
+
+
+#修改几个配置
+vim vars
+
+#根据自己的情况进行修改
+set_var EASYRSA_REQ_COUNTRY “CN” #国家
+set_var EASYRSA_REQ_PROVINCE “Sichuan” #省份
+set_var EASYRSA_REQ_CITY “ChengDu” #城市
+set_var EASYRSA_REQ_ORG “TianFu” #非盈利组织，此处可填公司之类
+set_var EASYRSA_REQ_EMAIL “abc@xyz.com” #邮箱地址
+set_var EASYRSA_REQ_OU “My OpenVPN” #组织单元
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="创建证书和秘钥">创建证书和秘钥</h3>
+<ul>
+<li><strong>CA证书和S端证书</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /etc/openvpn/easy-rsa/server
+./easyrsa -h
+
+
+<span class="c1">#初始化，会读取vars文件</span>
+./easyrsa init-pki
+
+
+
+<span class="c1">#创建根证书</span>
+<span class="c1">#这里会要求输入PEM pass，这个请记住，后面签名需要此密码</span>
+./easyrsa build-ca
+<span class="c1">#这里生成CA证书</span>
+<span class="c1">#pki/ca.crt</span>
+
+
+
+<span class="c1">#创建S端证书</span>
+<span class="c1">#nopass选项表示不加密</span>
+./easyrsa gen-req server nopass
+<span class="c1">#这里生成两个文件</span>
+<span class="c1">#pki/reqs/server.req</span>
+<span class="c1">#pki/private/server.key</span>
+
+
+
+<span class="c1">#签约S端证书</span>
+<span class="c1">#第一个server表示S端，后面是取的名字</span>
+./easyrsa sign server server
+<span class="c1">#这里需要输入CA证书的PEM pass</span>
+<span class="c1">#之后会生成S端证书</span>
+<span class="c1">#pki/issued/server.crt</span>
+
+
+
+<span class="c1">#创建Diffie-Hellman</span>
+./easyrsa gen-dh
+<span class="c1">#生成dh.pem文件</span>
+<span class="c1">#pki/dh.pem</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<ul>
+<li><strong>C端证书</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /etc/openvpn/easy-rsa/client/
+<span class="c1">#./easyrsa -h</span>
+
+
+
+<span class="c1">#初始化</span>
+./easyrsa init-pki
+
+
+
+<span class="c1">#创建C端证书</span>
+./easyrsa gen-req client nopass
+<span class="c1">#这里生成两个文件</span>
+<span class="c1">#pki/reqs/client.req</span>
+<span class="c1">#pki/private/client.key</span>
+
+
+
+<span class="c1">#在CA端导入C端证书</span>
+<span class="nb">cd</span> /etc/openvpn/easy-rsa/server
+./easy-rsa import-req /etc/openvpn/easy-rsa/client/reqs/client.req client
+
+
+
+<span class="c1">#签约C端证书</span>
+<span class="c1">#第一个client表示C端，第二个为定义的名字</span>
+./easyrsa sign client client
+<span class="c1">#这里需要输入CA证书的PEM pass</span>
+<span class="c1">#之后会生成C端证书</span>
+<span class="c1">#/etc/openvpn/easy-rsa/server/pki/issued/client.crt</span>
+<span class="c1">#注意生成的位置，不要搞错了</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<ul>
+<li><strong>梳理上面生成的文件</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server/pki/ca.crt
+server/pki/dh.pem
+
+server/pki/reqs/server.req
+server/pki/reqs/client.req
+
+server/pki/private/ca.key
+server/pki/private/server.key
+
+server/pki/issued/server.crt
+server/pki/issued/client.crt
+
+#client/pki/reqs/client.req
+client/pki/private/client.key
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<br/>
+<h2 id="拷贝相应证书到openvpn目录下">拷贝相应证书到openvpn目录下</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#S端</span>
+<span class="nb">cd</span> /etc/openvpn/server
+
+cp /etc/openvpn/easy-rsa/server/pki/ca.crt .
+cp /etc/openvpn/easy-rsa/server/pki/private/server.key .
+cp /etc/openvpn/easy-rsa/server/pki/issued/server.crt .
+cp /etc/openvpn/easy-rsa/server/pki/dh.pem .
+
+
+
+<span class="c1">#C端</span>
+<span class="nb">cd</span> /etc/openvpn/client
+cp /etc/openvpn/easy-rsa/server/pki/ca.crt .
+cp /etc/openvpn/easy-rsa/client/pki/private/client.key .
+cp /etc/openvpn/easy-rsa/server/pki/issued/client.crt .
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<br/>
+<h2 id="配置文件">配置文件</h2>
+<p>在<a href="https://github.com/OpenVPN/openvpn/tree/master/sample" target="_blank" rel="noopener noreffer">openvpn GitHub</a>去下载对应配置文件，做相应的修改。</p>
+<br/>
+<h3 id="s端配置文件">S端配置文件</h3>
+<p>一下只是我的栗子，详细信息请参考自己的项目。具体的每个选项描述，栗子文件里面有解释。</p>
+<p><code>vim server.conf</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">port 1194
+proto udp
+dev tun
+
+ca /etc/openvpn/server/ca.crt
+cert /etc/openvpn/server/server.crt
+key /etc/openvpn/server/server.key
+dh /etc/openvpn/server/dh.pem
+
+#VPN CIDR
+server 10.8.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+
+#推送的S端的CIDR给C端路由
+push &#34;route 10.0.0.0 255.255.224.0&#34;
+
+#推送S端DNS
+push &#34;dhcp-option DNS 10.247.3.10&#34;
+push &#34;dhcp-option DNS 114.114.114.114&#34;
+
+client-to-client
+keepalive 20 120
+cipher AES-256-CBC
+persist-key
+persist-tun
+log         /dev/stdout
+log-append  /dev/stdout
+
+verb 3
+explicit-exit-notify 1
+
+
+#启用用户/密码进行登录需要添加的选项
+#栗子文件里面没有这些信息
+script-security 3
+auth-user-pass-verify /etc/openvpn/checkpsw.sh via-env
+#http://openvpn.se/files/other/checkpsw.sh
+#去下载这个脚本
+#client-cert-not-required
+#此选项只使用用户密码，不使用证书
+#注释它，使用证书和用户密码双重登录
+username-as-common-name
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="c端配置文件">C端配置文件</h3>
+<p><code>vim client.ovpn</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">client
+dev tun
+
+proto udp
+remote addr port
+
+resolv-retry infinite
+
+nobind
+
+persist-key
+persist-tun
+
+
+#此处我将CA证书和C端证书信息写入配置文件
+#当然，也可下载证书在指定，但这麻烦了
+&lt;ca&gt;
+-----BEGIN CERTIFICATE-----
+xxxxxxxxxxx
+-----END CERTIFICATE-----
+&lt;/ca&gt;
+
+&lt;cert&gt;
+-----BEGIN CERTIFICATE-----
+xxxxxxxxxxxxxxxxx
+-----END CERTIFICATE-----
+&lt;/cert&gt;
+
+&lt;key&gt;
+-----BEGIN PRIVATE KEY-----
+xxxxxxxxxxxxxxxx
+-----END PRIVATE KEY-----
+&lt;/key&gt;
+
+
+remote-cert-tls server
+cipher AES-256-CBC
+verb 3
+
+#用户认证
+script-security 3
+auth-user-pass
+#可将用户信息写入文件，用户密码各一行
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="另外几个配置">另外几个配置</h3>
+<p><code>vi checksw.sh</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="cp">#!/bin/sh
+</span><span class="cp"></span><span class="c1">###########################################################</span>
+<span class="c1"># checkpsw.sh (C) 2004 Mathias Sundman &lt;mathias@openvpn.se&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># This script will authenticate OpenVPN users against</span>
+<span class="c1"># a plain text file. The passfile should simply contain</span>
+<span class="c1"># one row per user with the username first followed by</span>
+<span class="c1"># one or more space(s) or tab(s) and then the password.</span>
+  
+<span class="nv">PASSFILE</span><span class="o">=</span><span class="s2">&#34;/etc/openvpn/psw-file&#34;</span>
+<span class="nv">LOG_FILE</span><span class="o">=</span><span class="s2">&#34;/etc/openvpn/openvpn-password.log&#34;</span>
+<span class="nv">TIME_STAMP</span><span class="o">=</span><span class="sb">`</span>date <span class="s2">&#34;+%Y-%m-%d %T&#34;</span><span class="sb">`</span>
+  
+<span class="c1">###########################################################</span>
+  
+<span class="k">if</span> <span class="o">[</span> ! -r <span class="s2">&#34;</span><span class="si">${</span><span class="nv">PASSFILE</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">TIME_STAMP</span><span class="si">}</span><span class="s2">: Could not open password file \&#34;</span><span class="si">${</span><span class="nv">PASSFILE</span><span class="si">}</span><span class="s2">\&#34; for reading.&#34;</span> &gt;&gt; <span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+  <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+  
+<span class="nv">CORRECT_PASSWORD</span><span class="o">=</span><span class="sb">`</span>awk <span class="s1">&#39;!/^;/&amp;&amp;!/^#/&amp;&amp;$1==&#34;&#39;</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s1">&#39;&#34;{print $2;exit}&#39;</span> <span class="si">${</span><span class="nv">PASSFILE</span><span class="si">}</span><span class="sb">`</span>
+  
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">CORRECT_PASSWORD</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">TIME_STAMP</span><span class="si">}</span><span class="s2">: User does not exist: username=\&#34;</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">\&#34;, password=\&#34;</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">\&#34;.&#34;</span> &gt;&gt; <span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+  <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+  
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">CORRECT_PASSWORD</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">TIME_STAMP</span><span class="si">}</span><span class="s2">: Successful authentication: username=\&#34;</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">\&#34;.&#34;</span> &gt;&gt; <span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+  <span class="nb">exit</span> <span class="m">0</span>
+<span class="k">fi</span>
+  
+<span class="nb">echo</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">TIME_STAMP</span><span class="si">}</span><span class="s2">: Incorrect password: username=\&#34;</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">\&#34;, password=\&#34;</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">\&#34;.&#34;</span> &gt;&gt; <span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+<span class="nb">exit</span> <span class="m">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<p><code>vi psw-file</code>: 这为可登录的用户密码</p>
+<p>直接往这个文件写入用户和密码即可，并不需要重启openvpn服务。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">user1    pass-user1
+
+#comment
+user2   pass-user2
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<p><code>vi start_openvpn.sh</code>: 启动脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>
+mkdir -p /dev/net
+
+<span class="k">if</span> <span class="o">[</span> ! -c /dev/net/tun <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    mknod /dev/net/tun c <span class="m">10</span> <span class="m">200</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> <span class="s1">&#39;net.ipv4.ip_forward=1&#39;</span> &gt;&gt; /etc/sysctl.conf <span class="o">&amp;&amp;</span> sysctl -p
+
+<span class="c1">#此处一定要记得写iptables，否则后面连上了VPN也无法正常访问</span>
+<span class="c1">#我也是找了好久才找到这个问题</span>
+<span class="c1">#这个网段为openvpn里面定义的网段</span>
+iptables -t nat -A POSTROUTING -s 10.8.0.0/24  -j MASQUERADE
+
+<span class="nb">cd</span> /etc/openvpn
+
+<span class="c1">#--daemon，放入后台</span>
+/sbin/openvpn --config /etc/openvpn/server/server.conf
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<p>由于我是运行在k8s集群容器内，所有还有几个文件:</p>
+<ul>
+<li><code>Dockerfile</code></li>
+<li><code>.dockerignore</code></li>
+<li><code>k8s.yaml</code>: 由于它需要创建和使用系统资源，所以请使用特权容器运行</li>
+</ul>
+<br/>
+<br/>
+<hr>
+<br/>
+<br/>
+<h1 id="启动">启动</h1>
+<ul>
+<li>启动S端</li>
+<li>客户端连接
+<ul>
+<li>Windows客户端</li>
+<li>Linux客户端</li>
+<li>Mac客户端</li>
+</ul>
+</li>
+</ul>
+<p>启动之后应该就能正常访问了，如果不能正常访问，请查看你推送的CIDR和DNS，还有ipv4转发和iptables等。</p>
+<br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">#S端
+#由于需要使用和创建系统资源，所以请用特权容器进行运行，不然会提示没有权限
+/sbin/openvpn --config /etc/openvpn/server/server.conf
+
+
+
+#C端
+
+#Windows下载Openvpn GUI，制定客户端配置文件进行连接，之后输入用户名和面膜
+
+#Linux下
+#/sbin/openvpn --config /etc/openvpn/client/client.ovpn
+
+#Mac下，下载对应Openvpn软件，指定配置文件进行连接
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-01-16</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/openvpn/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/openvpn/" data-title="OpenVPN" data-hashtags="openvpn,vpn"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/openvpn/" data-title="OpenVPN"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/openvpn/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/openvpn/" data-title="OpenVPN"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/openvpn/" data-title="OpenVPN"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/openvpn/">openvpn</a>,&nbsp;<a href="/tags/vpn/">vpn</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/apollo/" class="prev" rel="prev" title="Apollo"><i class="fas fa-angle-left fa-fw"></i>Apollo</a>
+            <a href="/openldap/" class="next" rel="next" title="OpenLDAP">OpenLDAP<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2017 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@13.0.0/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>MongoDB权威指南 - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="MongoDB权威指南" />
+<meta property="og:description" content="参考:
+
+MongoDB权威指南
+
+
+环境:
+
+centos7
+mongodb4.2&#43;
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/mongodb-definitive-guide/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-29T10:49:26&#43;00:00" />
+<meta property="article:modified_time" content="2022-04-29T10:49:26&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="MongoDB权威指南"/>
+<meta name="twitter:description" content="参考:
+
+MongoDB权威指南
+
+
+环境:
+
+centos7
+mongodb4.2&#43;
+
+
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/mongodb-definitive-guide/" /><link rel="prev" href="https://zhang21.cn/kafka/" /><link rel="next" href="https://zhang21.cn/terraform/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MongoDB权威指南",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/mongodb-definitive-guide\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "database, mongodb, nosql","wordcount":  1973 ,
+        "url": "https:\/\/zhang21.cn\/mongodb-definitive-guide\/","datePublished": "2022-04-29T10:49:26+00:00","dateModified": "2022-04-29T10:49:26+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">MongoDB权威指南</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/database/"><i class="far fa-folder fa-fw"></i>database</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-29">2022-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1973 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#入门指南">入门指南</a>
+      <ul>
+        <li><a href="#文档">文档</a></li>
+        <li><a href="#集合">集合</a></li>
+        <li><a href="#库">库</a></li>
+        <li><a href="#数据类型">数据类型</a></li>
+        <li><a href="#mongo-shell">mongo shell</a></li>
+      </ul>
+    </li>
+    <li><a href="#增删查改">增删查改</a></li>
+    <li><a href="#查询">查询</a>
+      <ul>
+        <li><a href="#find">find</a></li>
+        <li><a href="#查询条件">查询条件</a></li>
+        <li><a href="#特定类型的查询">特定类型的查询</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考:</p>
+<ul>
+<li><a href="https://book.douban.com/subject/35688800/" target="_blank" rel="noopener noreffer">MongoDB权威指南</a></li>
+</ul>
+<br/>
+<p>环境:</p>
+<ul>
+<li>centos7</li>
+<li>mongodb4.2+</li>
+</ul>
+<br/>
+<br/>
+<br/>
+<br/>
+<h1 id="简介">简介</h1>
+<p>MongoDB中没有预定义模式，文档键值的类型和大小不是固定的，因此按需添加或删除字段变得很容易。</p>
+<p>MongoDB的设计采用了横向扩展。面向文档的数据模型使跨多台服务器拆分数据更加容易。MongoDB会自动平衡跨集群的数据和负载，自动重新分配文档，并将读写操作路由到正确的机器上。</p>
+<p>MongoDB包含了索引、聚合、特殊的集合和索引类型、文件存储等功能。</p>
+<p>MongoDB在其WiredTiger存储引擎中使用了机会锁，以最大限度地提高并发和吞吐量。它会使用尽可能多的RAM作为缓存，并尝试为查询自动选择正确的索引。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="入门指南">入门指南</h1>
+<p>一些基本概念:</p>
+<ul>
+<li>文档是基本数据单元，可理解为行。</li>
+<li>集合，可理解为表。</li>
+<li>数据库</li>
+<li>每个文档都有一个特殊的键<code>_id</code>，其在所属的集合中是唯一的。</li>
+<li>mongo shell是一个功能强大的javascript解释器。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="文档">文档</h2>
+<p>文档是一组有序键值的集合，不能包含重复的键。</p>
+<br/>
+<br/>
+<h2 id="集合">集合</h2>
+<p>集合就是一组文档。集合具有<strong>动态模式</strong>的特性，这意味着一个集合中的文档可以具有任意数量的不同形状。但创建模式并将相关类型的文档放在一起非常合理。通过将单一类型的文档放入集合，可以更高效地对集合进行索引。</p>
+<p>使用子集合来组织数据在很多场景中是一个好方法。</p>
+<br/>
+<br/>
+<h2 id="库">库</h2>
+<p>数据库对集合进行分组。库名称长度限制为64字节。一个推荐的做法是将单个应用程序的所有数据都存储在一个库里。</p>
+<p>将库和集合名称连接起来，可以获得一个完全限定的集合名称，称位<strong>命名空间</strong>。命名空间长度限制为120字节，实际应该小于100字节。</p>
+<p>一些库名是保留的，有特殊含义：</p>
+<ul>
+<li><code>admin</code>: 身份认证和授权。</li>
+<li><code>local</code>: 特定于单个服务器的数据会存储在此数据库中。在副本集中，用于存储复制过程中所使用的数据，而local库不会被复制。</li>
+<li><code>config</code>: 分片集群使用它来存储分片的信息。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="数据类型">数据类型</h2>
+<p>MongoDB中文档可以被认为是类似于JSON的形式。</p>
+<p>常见的类型有以下几种:</p>
+<ul>
+<li>null: 空值或不存在的值</li>
+<li>布尔</li>
+<li>数值: 默认使用64为浮点数</li>
+<li>字符串: 任何utf8字符串</li>
+<li>日期: 将日期存储为64为整数，表示自Unix纪元以来的毫秒数。</li>
+<li>正则表达式: 与js的正则语法相同</li>
+<li>数组</li>
+<li>内嵌文档</li>
+<li>Object ID: 12字节的ID，是文档的唯一标识。<code>_id</code>默认为此类型。</li>
+<li>二进制数据: 如果要将非utf8字符串存入数据库，使用二进制数据是唯一的办法。</li>
+<li>代码: 任意js代码</li>
+</ul>
+<br/>
+<br/>
+<h2 id="mongo-shell">mongo shell</h2>
+<p>因为mongo shell就是一个js shell，所以可通过js的在线文档获得大量帮助。可以输入<code>help</code>命令进行访问。</p>
+<p>可以使用mongo shell执行js脚本。</p>
+<br/>
+<p>mongo shell辅助函数对应的js函数:</p>
+<table>
+<thead>
+<tr>
+<th>辅助函数</th>
+<th>等价函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>use db1</td>
+<td>db.getSisterDB(&ldquo;db1&rdquo;)</td>
+</tr>
+<tr>
+<td>show dbs</td>
+<td>db.getMongo().getDBs()</td>
+</tr>
+<tr>
+<td>show collections</td>
+<td>db.getCollectionNames()</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<p>如果你有一些需要频繁被加载的脚本，那么可将它们添加到<code>.mongorc.js</code>文件中。此文件会在启动mongo shell时自动执行。</p>
+<p>最常见的用途是移除哪些比较问现的mongo shell命令，调用下面这些命令会打印出错误消息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">no</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">print</span><span class="p">(</span><span class="s2">&#34;Not on my watch.&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// 禁止删除数据库
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">dropDatabase</span> <span class="o">=</span> <span class="nx">DB</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">dropDatabase</span> <span class="o">=</span> <span class="nx">no</span><span class="p">;</span>
+
+<span class="c1">// 禁止删除集合
+</span><span class="c1"></span><span class="nx">DBCollection</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">drop</span> <span class="o">=</span> <span class="nx">no</span><span class="p">;</span>
+
+<span class="c1">// 禁止删除单个索引
+</span><span class="c1"></span><span class="nx">DBCollection</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">dropIndex</span> <span class="o">=</span> <span class="nx">no</span><span class="p">;</span>
+<span class="c1">// 禁止删除多个索引
+</span><span class="c1"></span><span class="nx">DBCollection</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">dropIndexes</span> <span class="o">=</span> <span class="nx">no</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="增删查改">增删查改</h1>
+<p>数据库的CRUD操作。</p>
+<p>MongoDB会对插入的数据进行最基本的检查，检查文档的基本结构，如果不存在<code>_id</code>字段，则自动添加一个。其中一项最基本的结构检查是文档大小，所有文档都必须小于16MB。可使用<code>Object.bsonsize(doc)</code>来查看文档的bson大小。</p>
+<p>为了让你对16MB的数据量有一个概念，以<code>《战争与和平》</code>为例，整部著作也只有3.14MB。</p>
+<p>不建议使用<code>insert()</code>，应该使用<code>insertOne()</code>或<code>insertMany()</code>。</p>
+<p>不建议使用<code>remove()</code>，应该使用<code>deleteOne()</code>或<code>deleteMany()</code>。</p>
+<p>使用<code>updateOnt()</code>或<code>updateMany()</code>。</p>
+<p><code>replaceOne()</code>会用新文档完全替换匹配的文档，这对于大规模模式迁移的场景非常有用。</p>
+<p><code>upsert()</code>是一种特殊类型的更新。如果找不到与筛选条件相匹配的文档，则会以这个条件和更新文档为基础来创建一个新文档；如果找到了匹配的文档，则进行正常的更新。</p>
+<br/>
+<p>通常文档只会有一部分需要更新，可以使用原子的更新运算符更新文档中的特定字段。应该始终使用修饰符<code>$</code>来增加、修改或删除键。</p>
+<ul>
+<li><code>$inc</code></li>
+<li><code>$set</code>, <code>$unset</code></li>
+<li><code>$push</code>, <code>$pop</code></li>
+<li><code>$sort</code></li>
+<li><code>$slice</code></li>
+<li><code>$ne</code></li>
+<li>&hellip;</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="查询">查询</h1>
+<p>涵盖以下方面:</p>
+<ul>
+<li>使用<code>$</code>条件进行范围查询、数据集合查询、不等式查询和其它查询；</li>
+<li>查询会返回一个数据库游标，其只会在需要时才惰性地进行批量返回；</li>
+<li>有很多可以针对游标执行的元操作，包括跳过一定数量的结果、限定返回结果的数量，以及对结果进行排序。</li>
+</ul>
+<br/>
+<h2 id="find">find</h2>
+<p>传递给数据库的查询文档的值必须是常量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 空查询条件会匹配所有内容
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">c</span><span class="p">.</span><span class="nx">find</span><span class="p">()</span>
+
+<span class="c1">// age 27的所有文档
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="mi">27</span><span class="p">})</span>
+
+<span class="c1">// 返回指定的键
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;joe&#34;</span><span class="p">,</span> <span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="mi">27</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;username&#34;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&#34;email&#34;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&#34;_id&#34;</span><span class="o">:</span> <span class="mi">0</span><span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="查询条件">查询条件</h2>
+<p>更加复杂的条件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// $lt, $lte, $gt, $gte, $ne
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;aget&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;$gte&#34;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span> <span class="s2">&#34;$lte&#34;</span><span class="o">:</span> <span class="mi">30</span><span class="p">}})</span>
+
+<span class="nx">start</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="s2">&#34;01/01/2007&#34;</span><span class="p">)</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;registered&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;$lt&#34;</span><span class="o">:</span> <span class="nx">start</span><span class="p">}})</span>
+
+<span class="c1">// $in, $nin, $or, $not, $mod
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;user_id&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;$in&#34;</span><span class="o">:</span> <span class="p">[</span><span class="mi">123</span><span class="p">,</span> <span class="mi">456</span><span class="p">]}})</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;$or&#34;</span><span class="o">:</span> <span class="p">[{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;$in&#34;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;a&#34;</span><span class="p">,</span> <span class="s2">&#34;b&#34;</span><span class="p">]}},</span> <span class="p">{</span><span class="s2">&#34;winner&#34;</span><span class="o">:</span> <span class="kc">true</span><span class="p">}]})</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="特定类型的查询">特定类型的查询</h2></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-29</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/mongodb-definitive-guide/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/mongodb-definitive-guide/" data-title="MongoDB权威指南" data-hashtags="database,mongodb,nosql"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/mongodb-definitive-guide/" data-title="MongoDB权威指南"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/mongodb-definitive-guide/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/mongodb-definitive-guide/" data-title="MongoDB权威指南"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/mongodb-definitive-guide/" data-title="MongoDB权威指南"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/database/">database</a>,&nbsp;<a href="/tags/mongodb/">mongodb</a>,&nbsp;<a href="/tags/nosql/">nosql</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/kafka/" class="prev" rel="prev" title="kafka"><i class="fas fa-angle-left fa-fw"></i>kafka</a>
+            <a href="/terraform/" class="next" rel="next" title="Terraform">Terraform<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2017 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@13.0.0/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

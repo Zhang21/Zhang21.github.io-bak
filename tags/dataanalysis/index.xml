@@ -1,0 +1,28 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>DataAnalysis - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/dataanalysis/</link>
+        <description>DataAnalysis - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 15 Mar 2019 16:57:20 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/dataanalysis/" rel="self" type="application/rss+xml" /><item>
+    <title>ZooKeeper</title>
+    <link>https://zhang21.cn/zookeeper/</link>
+    <pubDate>Fri, 15 Mar 2019 16:57:20 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/zookeeper/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li>维基百科</li>
+<li>ZooKeeper: <a href="https://zookeeper.apache.org/">https://zookeeper.apache.org/</a></li>
+<li>Docs: <a href="https://zookeeper.apache.org/doc/">https://zookeeper.apache.org/doc/</a></li>
+</ul>
+<p>环境:</p>
+<ul>
+<li>RHEL7x86_64</li>
+<li>ZooKeeper v3.5</li>
+</ul>
+<br/>
+<br/>
+<hr>]]></description>
+</item></channel>
+</rss>

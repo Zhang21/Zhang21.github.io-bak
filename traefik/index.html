@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>traefik - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="traefik" />
+<meta property="og:description" content="参考:
+
+github: https://github.com/traefik/traefik
+doc: https://doc.traefik.io/traefik/
+
+版本:
+
+traefik: v2.6
+
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/traefik/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-03T14:29:26&#43;00:00" />
+<meta property="article:modified_time" content="2022-03-03T14:29:26&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="traefik"/>
+<meta name="twitter:description" content="参考:
+
+github: https://github.com/traefik/traefik
+doc: https://doc.traefik.io/traefik/
+
+版本:
+
+traefik: v2.6
+
+
+
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/traefik/" /><link rel="prev" href="https://zhang21.cn/etcd/" /><link rel="next" href="https://zhang21.cn/kafka/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "traefik",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/traefik\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "traefik, load-balancer, reverse-proxy","wordcount":  1276 ,
+        "url": "https:\/\/zhang21.cn\/traefik\/","datePublished": "2022-03-03T14:29:26+00:00","dateModified": "2022-03-03T14:29:26+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">traefik</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/cncf/"><i class="far fa-folder fa-fw"></i>cncf</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-03">2022-03-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1276 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#欢迎">欢迎</a></li>
+    <li><a href="#入门">入门</a>
+      <ul>
+        <li><a href="#概念">概念</a></li>
+        <li><a href="#快速开始">快速开始</a>
+          <ul>
+            <li><a href="#使用docker启动traefik">使用Docker启动traefik</a></li>
+            <li><a href="#检测新服务和创建路由">检测新服务和创建路由</a></li>
+          </ul>
+        </li>
+        <li><a href="#负载均衡">负载均衡</a></li>
+        <li><a href="#配置">配置</a>
+          <ul>
+            <li><a href="#动态配置">动态配置</a></li>
+            <li><a href="#静态配置">静态配置</a>
+              <ul>
+                <li><a href="#配置文件">配置文件</a></li>
+                <li><a href="#参数">参数</a></li>
+                <li><a href="#环境变量">环境变量</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </li>
+    <li><a href="#配置发现">配置发现</a>
+      <ul>
+        <li><a href="#概述">概述</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考:</p>
+<ul>
+<li>github: <a href="https://github.com/traefik/traefik">https://github.com/traefik/traefik</a></li>
+<li>doc: <a href="https://doc.traefik.io/traefik/">https://doc.traefik.io/traefik/</a></li>
+</ul>
+<p>版本:</p>
+<ul>
+<li>traefik: v2.6</li>
+</ul>
+<br/>
+<br/>
+<hr>
+<br/>
+<br/>
+<h1 id="欢迎">欢迎</h1>
+<img src="/images/Traefik/traefik-architecture.png" alt="traefik架构图"/>
+<br/>
+<p>请注意traefik的版本，v2和v1不兼容。</p>
+<p>traefik是一个开源的边缘路由器，使你的服务发布轻松而有趣。它代表你的系统接收请求，并发现哪些组件负责处理它们。它会自动发现你的服务的正确配置。当traefik检查你的基础架构时，它会找到信息并发现哪些服务提供请求。</p>
+<p>traefik原生地符合主要的集群技术，如k8s, docker, swarm, aws, mesos等。</p>
+<p>使用traefik，无需维护和同步单独的配置文件，一切都是实时和自动发生(无需重启和连接中断)。你将花费时间开发和部署新功能，而不是配置和维护其工作状态。</p>
+<br/>
+<br/>
+<hr>
+<br/>
+<br/>
+<h1 id="入门">入门</h1>
+<p>Getting Started</p>
+<br/>
+<br/>
+<h2 id="概念">概念</h2>
+<p>Concepts</p>
+<p>你需要知道的一切。</p>
+<br/>
+<p><strong>Edge Router</strong></p>
+<p>边缘路由器。traefik是一个边缘路由器，这意味着它是你平台的大门，并且它拦截和路由每一个传入请求，它知道所有逻辑和每条规则，来决定哪个服务处理哪个请求(基于path, host, headers等)。</p>
+<img src="/images/Traefik/traefik-concepts-1.png" alt="边缘路由器"/>
+<br/>
+<p><strong>Auto Service Discovery</strong></p>
+<p>自动服务发现。传统的边缘路由器(反向代理)需要一个配置文件，包含到服务的每个可能的路由，traefik从服务自身获取。</p>
+<p>部署服务，你附上信息告诉traefik服务可以处理的请求的特征。这意味着当部署服务时，traefik立刻检测到它并实时更新路由规则。反之亦然，当你移除服务，该路由相应地消失。</p>
+<p>你不再需要创建和同步包含路由规则的配置文件。</p>
+<img src="/images/Traefik/traefik-concepts-2.png" alt="自动服务发现"/>
+<br/>
+<br/>
+<h2 id="快速开始">快速开始</h2>
+<p>Quick Start</p>
+<p>使用Docker的一个简单示例。</p>
+<img src="/images/Traefik/quickstart-diagram.png" alt="示例"/>
+<br/>
+<h3 id="使用docker启动traefik">使用Docker启动traefik</h3>
+<p>Launch Traefik With the Docker Provider</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># docker-compose.yml</span><span class="w">
+</span><span class="w"></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">reverse-proxy</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># The official v2 Traefik docker image</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">traefik:v2.6</span><span class="w">
+</span><span class="w">    </span><span class="c"># Enables the web UI and tells Traefik to listen to docker</span><span class="w">
+</span><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span>--<span class="l">api.insecure=true --providers.docker</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="c"># The HTTP port</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;80:80&#34;</span><span class="w">
+</span><span class="w">      </span><span class="c"># The Web UI (enabled by --api.insecure=true)</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;8080:8080&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="c"># So that Traefik can listen to the Docker events</span><span class="w">
+</span><span class="w">      </span>- <span class="l">/var/run/docker.sock:/var/run/docker.sock</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>启动reverse-proxy服务: <code>docker-compose up -d reverse-proxy</code></p>
+<br/>
+<br/>
+<h3 id="检测新服务和创建路由">检测新服务和创建路由</h3>
+<p>Traefik Detects New Services and Creates the Route for You</p>
+<p>在上面的文件添加内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># ...</span><span class="w">
+</span><span class="w">  </span><span class="nt">whoami</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># A container that exposes an API to show its IP address</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">traefik/whoami</span><span class="w">
+</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>启动whoami服务: <code>docker-compose up -d whoami</code></p>
+<p>访问<code>localhost:8080/api/rawdata</code>，可看到traefik自动检测新容器并更新了自己的配置。</p>
+<p>当traefik检测新服务，它自动创建相关路由。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 执行</span>
+curl -H Host:whoami.docker.localhost http://127.0.0.1
+
+<span class="c1">#  输出结果</span>
+Hostname: a656c8ddca6c
+IP: 172.27.0.3
+...
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="负载均衡">负载均衡</h2>
+<p>More Instances? Traefik Load Balances Them</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 扩展whoami的副本数</span>
+docker-compose up -d --scale <span class="nv">whoami</span><span class="o">=</span><span class="m">2</span>
+
+<span class="c1"># 查看</span>
+curl -H Host:whoami.docker.localhost http://127.0.0.1
+
+<span class="c1"># 结果</span>
+Hostname: a656c8ddca6c
+IP: 172.27.0.3
+<span class="c1"># 或</span>
+Hostname: s458f154e1f1
+IP: 172.27.0.4
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="配置">配置</h2>
+<p>Configuration Introduction</p>
+<img src="/images/Traefik/static-dynamic-configuration.png" alt="配置原理">
+<br/>
+<p>traefik里的配置可以指向两种不同的事物：</p>
+<ul>
+<li>完整地动态路由配置(动态配置)</li>
+<li>启动配置(静态配置)</li>
+</ul>
+<p>静态配置中的元素设置和提供程序的连接，并定义traefik将监听的入口点(这些元素不会经常更改)。</p>
+<p>动态配置包含定义系统如何处理请求的一切事物。此配置可以更改，并可无缝热加载，而不会有任何请求中断或连接丢失。</p>
+<br/>
+<br/>
+<h3 id="动态配置">动态配置</h3>
+<p>The Dynamic Configuration</p>
+<p>traefik从提供商处获得动态配置，无论事协调程序、服务注册还是普通的旧配置文件。</p>
+<br/>
+<br/>
+<h3 id="静态配置">静态配置</h3>
+<p>The Static Configuration</p>
+<p>有三种不同的，互相排斥的(意味着你只能使用一种)，在traefik中定义静态配置的方法:</p>
+<ul>
+<li>配置文件</li>
+<li>命令行参数</li>
+<li>环境变量</li>
+</ul>
+<p>如果没有提供，则使用默认值。</p>
+<br/>
+<br/>
+<h4 id="配置文件">配置文件</h4>
+<p>Configuration File</p>
+<p>配置文件<code>traefik.yaml</code>(或<code>traefik.toml</code>)通常位于:</p>
+<ul>
+<li><code>/etc/traefik/</code></li>
+<li><code>$XDG_CONFIG_HOME</code></li>
+<li><code>$HOME/.config/</code></li>
+<li><code>.</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">traefik --configFile=/dir/path/myconfig.yaml
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="参数">参数</h4>
+<p>Arguments</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">treafik --help
+
+<span class="c1"># or</span>
+docker run traefik<span class="o">[</span>:version<span class="o">]</span> --help
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="环境变量">环境变量</h4>
+<p>Environment Variables</p>
+<br/>
+<br/>
+<h2 id="安装">安装</h2>
+<p>Install Traefik</p>
+<p>有多种方式安装:</p>
+<ul>
+<li>docker</li>
+<li>helm</li>
+<li>binary</li>
+<li>source</li>
+</ul>
+<br/>
+<br/>
+<h2 id="faq">FAQ</h2>
+<br/>
+<hr>
+<br/>
+<h1 id="配置发现">配置发现</h1>
+<p>Configuration Discovery</p>
+<br/>
+<h2 id="概述">概述</h2></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/traefik/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/traefik/" data-title="traefik" data-hashtags="traefik,load-balancer,reverse-proxy"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/traefik/" data-title="traefik"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/traefik/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/traefik/" data-title="traefik"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/traefik/" data-title="traefik"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/traefik/">traefik</a>,&nbsp;<a href="/tags/load-balancer/">load-balancer</a>,&nbsp;<a href="/tags/reverse-proxy/">reverse-proxy</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/etcd/" class="prev" rel="prev" title="etcd"><i class="fas fa-angle-left fa-fw"></i>etcd</a>
+            <a href="/kafka/" class="next" rel="next" title="kafka">kafka<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2017 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@13.0.0/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

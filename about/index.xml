@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Abouts on 风继续吹</title>
+    <link>https://zhang21.cn/about/</link>
+    <description>Recent content in Abouts on 风继续吹</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+    <webMaster>me@zhang21.cn (Zhang21)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 15 Jun 2021 16:11:42 +0800</lastBuildDate><atom:link href="https://zhang21.cn/about/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于我</title>
+      <link>https://zhang21.cn/about/about/</link>
+      <pubDate>Tue, 15 Jun 2021 16:11:42 +0800</pubDate>
+      <author>me@zhang21.cn (Zhang21)</author>
+      <guid>https://zhang21.cn/about/about/</guid>
+      <description>业余计算机从业人员，业余足球和游戏爱好者！</description>
+    </item>
+    
+  </channel>
+</rss>

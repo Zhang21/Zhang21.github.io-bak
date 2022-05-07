@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Tornado - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="Tornado" />
+<meta property="og:description" content="环境:
+
+Tornado: v5.1
+Python: v3.6
+
+
+参考:
+
+Docs: https://www.tornadoweb.org/en/branch5.1/
+
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/tornado/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-10-14T16:19:21&#43;00:00" />
+<meta property="article:modified_time" content="2019-10-14T16:19:21&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="Tornado"/>
+<meta name="twitter:description" content="环境:
+
+Tornado: v5.1
+Python: v3.6
+
+
+参考:
+
+Docs: https://www.tornadoweb.org/en/branch5.1/
+
+
+
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/tornado/" /><link rel="prev" href="https://zhang21.cn/htmlcss/" /><link rel="next" href="https://zhang21.cn/ansible/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Tornado",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/tornado\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "Python, Web, Tornado, DevOps","wordcount":  16032 ,
+        "url": "https:\/\/zhang21.cn\/tornado\/","datePublished": "2019-10-14T16:19:21+00:00","dateModified": "2019-10-14T16:19:21+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Tornado</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/backend/"><i class="far fa-folder fa-fw"></i>backend</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-10-14">2019-10-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 16032 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 32 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#用户指南">用户指南</a>
+      <ul>
+        <li><a href="#介绍">介绍</a></li>
+        <li><a href="#异步和非阻塞io">异步和非阻塞I/O</a>
+          <ul>
+            <li><a href="#阻塞">阻塞</a></li>
+            <li><a href="#异步">异步</a></li>
+            <li><a href="#栗子">栗子</a></li>
+            <li><a href="#原生与装饰的协程">原生与装饰的协程</a></li>
+            <li><a href="#如何工作">如何工作</a></li>
+            <li><a href="#如何调用协程">如何调用协程</a></li>
+            <li><a href="#协程模式">协程模式</a>
+              <ul>
+                <li><a href="#调用阻塞函数">调用阻塞函数</a></li>
+                <li><a href="#parallelism">Parallelism</a></li>
+                <li><a href="#interleaving">Interleaving</a></li>
+                <li><a href="#looping">Looping</a></li>
+                <li><a href="#在后台运行">在后台运行</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#queue">Queue</a></li>
+        <li><a href="#tornado-web程序结构">Tornado web程序结构</a>
+          <ul>
+            <li><a href="#application对象">Application对象</a></li>
+            <li><a href="#requesthandler子类">RequestHandler子类</a></li>
+            <li><a href="#处理请求输入">处理请求输入</a></li>
+            <li><a href="#重写requesthandler方法">重写RequestHandler方法</a></li>
+            <li><a href="#错误处理">错误处理</a></li>
+            <li><a href="#重定向">重定向</a></li>
+            <li><a href="#异步处理程序">异步处理程序</a></li>
+          </ul>
+        </li>
+        <li><a href="#模板和ui">模板和UI</a>
+          <ul>
+            <li><a href="#配置模板">配置模板</a></li>
+            <li><a href="#模板语法">模板语法</a></li>
+            <li><a href="#ui模块">UI模块</a></li>
+          </ul>
+        </li>
+        <li><a href="#认证和安全">认证和安全</a>
+          <ul>
+            <li><a href="#cookie和secure-cookies">Cookie和secure cookies</a></li>
+            <li><a href="#用户认证">用户认证</a></li>
+            <li><a href="#第三方认证">第三方认证</a></li>
+            <li><a href="#跨站请求伪造保护">跨站请求伪造保护</a></li>
+            <li><a href="#dns重新绑定">DNS重新绑定</a></li>
+          </ul>
+        </li>
+        <li><a href="#运行和部署">运行和部署</a>
+          <ul>
+            <li><a href="#进程和端口">进程和端口</a></li>
+            <li><a href="#运行在负载均衡器后">运行在负载均衡器后</a></li>
+            <li><a href="#静态文件和侵略性的文件缓存">静态文件和侵略性的文件缓存</a></li>
+            <li><a href="#debug模式和自动重载">Debug模式和自动重载</a></li>
+            <li><a href="#wsgi">WSGI</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>环境:</p>
+<ul>
+<li>Tornado: v5.1</li>
+<li>Python: v3.6</li>
+</ul>
+<br>
+<p>参考:</p>
+<ul>
+<li>Docs: <a href="https://www.tornadoweb.org/en/branch5.1/">https://www.tornadoweb.org/en/branch5.1/</a></li>
+</ul>
+<br/>
+<br/>
+<hr>
+<br/>
+<br/>
+<h1 id="用户指南">用户指南</h1>
+<br/>
+<h2 id="介绍">介绍</h2>
+<p>Tornado是一个Python Web框架和异步(asynchronous)网络库。通过使用非阻塞(non-blocking)网络I/O，Tornado可以扩展到上万个连接，因此非常适合长轮询(long polling)、WebSocket需要长期连接到的每个用户的应用程序。</p>
+<p>Tornado大致可以分为四个主要组件:</p>
+<ul>
+<li>Web框架：包含<code>RequestHandler</code>，它的子类用于创建web应用，并支持各种类。</li>
+<li>HTTP的Client和Server的实现：<code>HTTPServer</code>和<code>AsyncHTTPClient</code>。</li>
+<li>异步网络库(<code>IOLoop</code>和<code>IOStream</code>)，用于HTTP组件的构建块，并且还可实现其它协议。</li>
+<li>协程库(<code>tornado.gen</code>)，允许异步代码写的更直接而不用链式回调(chaining callbacks)的方式。</li>
+</ul>
+<p>Tornado web框架和HTTP server一起为WSGI提供了一个全栈(full-stack)式选择。为了充分利用Tornado的特性，你需要一起使用Tornado Web框架和HTTP Server。</p>
+<br/>
+<br/>
+<br/>
+<h2 id="异步和非阻塞io">异步和非阻塞I/O</h2>
+<p>实时(real-time) Web功能需要为每个用户提供一个长时间空闲(mostly-idle)的长连接。在传统的同步(synchronous) web server，这意味着为每个用户提供一个线程(thread)，这是非常昂贵的。
+要尽可能减少并发连接(concurrent connections)的开销，Tornado使用一个单线程事件循环。这意味着所有应用程序代码都应该是异步非阻塞的，因为在同一时间只有一个操作是活跃的。
+异步和非阻塞这两个术语是非常相关的，并经常交换使用，但它们不是完全相同的事情。</p>
+<br/>
+<h3 id="阻塞">阻塞</h3>
+<p>一个函数在等待某些事情的返回的时候会被阻塞(block)。函数阻塞的原因有很多，如：网络IO、磁盘IO、互斥锁&hellip;事实上，每个函数在运行和使用CPU的时候或多或少会被阻塞。</p>
+<p>一个函数可以在某些方面阻塞，在另外一些方面不阻塞。在Tornado下，我们通常讨论网络IO阻塞，尽管各种阻塞也被最小化。</p>
+<br/>
+<br/>
+<h3 id="异步">异步</h3>
+<p>异步(asynchronous)函数在完成之前返回，在应用中触发下一个动作之前通常会在后台执行一些工作（和正常的同步函数在返回之前就执行完所有的事情不同）。这里列举了几种风格的异步接口：</p>
+<ul>
+<li>回调参数</li>
+<li>返回一个占位符</li>
+<li>传送给一个队列</li>
+<li>回调注册表</li>
+</ul>
+<br/>
+<br/>
+<h3 id="栗子">栗子</h3>
+<p>一个同步(synchronous)函数的栗子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from tornado.httpclient import HTTPClient
+
+def synchronous_fetch(url):
+    http_client = HTTPClient()
+    response = http_client.fetch(url)
+    return response.body
+</code></pre></td></tr></table>
+</div>
+</div><p>一个异步(asynchronous)重写的函数:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">tornado.httpclient</span> <span class="kn">import</span> <span class="n">AsyncHTTPClient</span>
+
+<span class="n">async</span> <span class="k">def</span> <span class="nf">asynchronous_fetch</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">http_client</span> <span class="o">=</span> <span class="n">AsyncHTTPClient</span><span class="p">()</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">await</span> <span class="n">http_client</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">body</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>协程(coroutines)有点不可思议，但它们在内如是这样的:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">tornado.concurrent</span> <span class="kn">import</span> <span class="n">Future</span>
+
+<span class="k">def</span> <span class="nf">async_fetch_manual</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">http_client</span> <span class="o">=</span> <span class="n">AsyncHTTPClient</span><span class="p">()</span>
+    <span class="n">my_future</span> <span class="o">=</span> <span class="n">Future</span><span class="p">()</span>
+    <span class="n">fetch_future</span> <span class="o">=</span> <span class="n">http_client</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">on_fetch</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="n">my_future</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+    <span class="n">fetch_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="n">on_fetch</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">my_future</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<p>任何可用协程做的都可传递到回调(callback)对象周围，但协程提供了一个重要的简化让你以相同的方式组织你的代码。这对于错误处理(error handling)尤其重要，在协程预期的<code>tyr/except</code>块工作，这是难以实现的回调。</p>
+<br>
+<br>
+<br>
+<p>在Tornado中，协程(Coroutines)是推荐的编写异步代码的方式。协程使用Python的<code>await</code>或<code>yield</code>关键字来暂停(suspend)和恢复(resume)来代替回调链。</p>
+<p>协程几乎与同步(synchronous)代码一样简单，但不带线程(thread)的开销。它们使得并发(concurrency)更简单。</p>
+<p>栗子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">async</span> <span class="k">def</span> <span class="nf">fetch_coroutine</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">http_client</span> <span class="o">=</span> <span class="n">AsyncHTTPClient</span><span class="p">()</span>
+	<span class="n">response</span> <span class="o">=</span> <span class="n">await</span> <span class="n">http_client</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">body</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<h3 id="原生与装饰的协程">原生与装饰的协程</h3>
+<p>Native vs decorated coroutines</p>
+<p>Python 3.5介绍了<code>async</code>和<code>await</code>关键字。</p>
+<p>只要可能，原生协程是推荐的形式。仅需要与旧版本的Python兼容时使用装饰的协程。Tornado文档中一般会使用原生形式。</p>
+<p>这两种形式之间的转换一般是简单的:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Decorated</span>
+<span class="c1"># Normal function declaration</span>
+<span class="c1"># with decorator</span>
+
+<span class="nd">@gen.coroutine</span>
+<span class="k">def</span> <span class="nf">a</span><span class="p">():</span>
+    <span class="c1"># &#39;yield&#39; all async funcs</span>
+	<span class="n">b</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">c</span><span class="p">()</span>
+	<span class="c1"># &#39;return&#39; and &#39;yield&#39;</span>
+	<span class="c1"># cannot be mixed in</span>
+	<span class="c1"># Python 2, so raise a</span>
+	<span class="c1"># special execption</span>
+	<span class="k">raise</span> <span class="n">gen</span><span class="o">.</span><span class="n">Return</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+
+<span class="c1"># Native</span>
+<span class="c1"># &#39;async def&#39; keywords</span>
+<span class="n">async</span> <span class="k">def</span> <span class="nf">a</span><span class="p">():</span>
+    <span class="c1"># &#39;await&#39; all async funcs</span>
+	<span class="n">b</span> <span class="o">=</span> <span class="n">await</span> <span class="n">c</span><span class="p">()</span>
+	<span class="c1"># return normally</span>
+	<span class="k">return</span> <span class="n">b</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<p>两种协程形式的不同:</p>
+<ul>
+<li>原生协程通常更快</li>
+<li>原生协程可以使用<code>async for</code>和<code>async with</code>语句，这使得一些模式更简单</li>
+<li>除非<code>await</code>和<code>yield</code>它们，原生协程不会运行所有。装饰的协程一经调用就运行在后台(background)。请注意，这两种协程使用<code>await</code>或<code>yield</code>都很重要，以便任何异常都有地方可去</li>
+<li>装饰的协程有与<code>concurrent.futures</code>包额外的集成，允许直接yielded <code>executor.submit</code>的结果。对于原生协程，使用<code>IOLoop.run_in_executor</code>代替</li>
+<li>通过生成一个列表或字典，装饰的协程支持一些速记。在原生协程中使用<code>tornado.gen.multi</code></li>
+<li>装饰的协程可以支持与其它软件包的整合。要在原生协程中访问此功能，使用<code>tornado.gen.convert_yielded</code></li>
+<li>装饰的协程总是返回一个<code>Future</code>对象。原生协程返回一个awaitable对象</li>
+</ul>
+<br>
+<br>
+<h3 id="如何工作">如何工作</h3>
+<p>本节介绍装饰的协程的操作。原生协程在概念上相似，但多了几分复杂。因为与Python runtime额外集成。</p>
+<p>包含<code>yield</code>的函数是一个生成器(generator)。所有的生成器都是异步的，调用它们时返回一个生成器对象，而不是运行到完成。<code>@gen.coroutine</code>装饰器(decorator)通过<code>yield</code>表达式与生成器进行通信，通过协程调用返回一个<code>Future</code>。</p>
+<p>一个协程装饰器的内循环的简单栗子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python">
+<span class="c1"># Simplified inner loop of tornado.gen.Runner</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># send(x) makes the current yield return x</span>
+    <span class="c1"># It returns when the next yield is reached</span>
+    <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">next</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>装饰器从生成器接收一个<code>Future</code>，等待(不会阻塞)选择那些完成的<code>Future</code>，解包<code>Future</code>并将结果发送回生成器的<code>yield</code>表达式。大多数异步代码不直接接触<code>Future</code>类，除了由一个异步函数立即传递<code>Future</code>到<code>yield</code>表达式。</p>
+<br>
+<br>
+<h3 id="如何调用协程">如何调用协程</h3>
+<p>协程在正常方式下不抛出异常：它们抛出的任何异常都将在<code>awaitable</code>对象直到它被yielded。这意味着以正确的方式调用协程是重要的，或者可能有被你忽略的错误。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">async</span> <span class="k">def</span> <span class="nf">divide</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
+
+
+<span class="k">def</span> <span class="nf">bad_call</span><span class="p">():</span>
+    <span class="c1"># This should raise a ZeroDivisionError, but it won&#39;t because</span>
+    <span class="c1"># the coroutine is called incorrectly.</span>
+    <span class="n">divide</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在几乎所有情况下，调用协程的任何函数都必须是一个协程本身，并在调用中使用<code>await</code>和<code>yield</code>关键字。当你重写superclass中定义的方法时，查看文档看协程是否被允许。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">async</span> <span class="k">def</span> <span class="nf">good_call</span><span class="p">():</span>
+    <span class="c1"># await will unwrap the object returned by divide() and raise the exception.</span>
+    <span class="n">await</span> <span class="n">divide</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>有时，你可能想fire and forget协程，而无需等待其结果。在这种情况下，推荐使用<code>IOLoop.spawn_callback</code>，这使得<code>IOLoop</code>负责调用。如果失败，<code>IOLoop</code>将记录stack trace。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># The IOLoop will catch the exception and print a stack trace in the logs.</span>
+<span class="c1"># Note that this doesn&#39;t look like a normal call, since we pass the function object to be called by the IOLoop.</span>
+
+<span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span><span class="o">.</span><span class="n">spawn_callback</span><span class="p">(</span><span class="n">divide</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>函数使用<code>@gen.coroutin</code>在这种方式下建议使用<code>IOLoop.spawn_callback</code>，但它需要函数使用<code>async def</code>。</p>
+<p>最后，在程序的顶层，如果<code>IOLoop</code>尚未运行，就可以启动<code>IOLoop</code>，运行协程，然后用<code>IOLoop.run_sync</code>方法停止<code>IOLoop</code>。这经常用来启动一个面向批处理程序的<code>main()</code>函数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># run_sync() doesn&#39;t take arguments, so we must wrap the call in lambda.
+IOLoop.current().run_sync(lambda: divide(1, 0))
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<h3 id="协程模式">协程模式</h3>
+<p>Coroutine patterns</p>
+<h4 id="调用阻塞函数">调用阻塞函数</h4>
+<p>Calling blocking functions</p>
+<p>从协程调用阻塞函数最简单的方式是使用<code>IOLoop.run_in_executor</code>，它返回与协程兼容的<code>Future</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">async</span> <span class="k">def</span> <span class="nf">call_blocking</span><span class="p">():</span>
+    <span class="n">await</span> <span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">blocking_func</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="parallelism">Parallelism</h4>
+<p><code>multi</code>函数接收列表和字典，其值是<code>Futures</code>，并等待所有并行(parallel)的<code>Futures</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">tornado.gen</span> <span class="kn">import</span> <span class="n">multi</span>
+
+
+<span class="n">async</span> <span class="k">def</span> <span class="nf">paraller_fetch</span><span class="p">(</span><span class="n">url1</span><span class="p">,</span> <span class="n">url2</span><span class="p">):</span>
+    <span class="n">resp1</span><span class="p">,</span> <span class="n">resp2</span> <span class="o">=</span> <span class="n">await</span> <span class="n">multi</span><span class="p">([</span><span class="n">http_client</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">url1</span><span class="p">),</span> <span class="n">http_client</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">url2</span><span class="p">)])</span>
+
+<span class="n">async</span> <span class="k">def</span> <span class="nf">paraller_fetch_many</span><span class="p">(</span><span class="n">urls</span><span class="p">):</span>
+    <span class="n">responses</span> <span class="o">=</span> <span class="n">await</span> <span class="n">multi</span> <span class="p">(</span><span class="n">http_client</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">)</span>
+    <span class="c1"># responses is a list of HTTPResponses in the same order</span>
+
+<span class="n">async</span> <span class="k">def</span> <span class="nf">parallel_fetch_dict</span><span class="p">(</span><span class="n">urls</span><span class="p">):</span>
+    <span class="n">responses</span> <span class="o">=</span> <span class="n">await</span> <span class="n">multi</span><span class="p">({</span><span class="n">url</span><span class="p">:</span> <span class="n">http_client</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">})</span>
+    <span class="c1"># responses is a dict {url: HTTPResponse}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在装饰的协程，可<code>yield</code>列表或字典:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="nd">@gen.coroutine</span>
+<span class="k">def</span> <span class="nf">aprallel_fetch_decorated</span><span class="p">(</span><span class="n">url1</span><span class="p">,</span> <span class="n">url2</span><span class="p">):</span>
+    <span class="n">resp1</span><span class="p">,</span> <span class="n">resp2</span> <span class="o">=</span> <span class="k">yield</span> <span class="p">[</span><span class="n">http_client</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">url1</span><span class="p">),</span> <span class="n">http_client</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">url2</span><span class="p">)]</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="interleaving">Interleaving</h4>
+<p>有时保存<code>Future</code>是有用的而不立即yielding，因此你可以在等待之前启动其它操作。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">tornado.gen</span> <span class="kn">import</span> <span class="n">convert_yielded</span>
+
+<span class="n">async</span> <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># convert_yielded() starts the native coroutine in the background.</span>
+    <span class="c1"># This is equivalent to asyncio.ensure_future() (both work in Tornado).</span>
+    <span class="n">fetch_future</span> <span class="o">=</span> <span class="n">convert_yielded</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fetch_next_chunk</span><span class="p">())</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">chunk</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">fetch_future</span>
+        <span class="k">if</span> <span class="n">chunk</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="k">break</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+        <span class="n">fetch_future</span> <span class="o">=</span> <span class="n">convert_yielded</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fetch_next_chunk</span><span class="p">())</span>
+        <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这是一个比较容易做装饰的协程，因为它们在调用时立即启动:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="nd">@gen.coroutine</span>
+<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">fetch_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch_next_chunk</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">chunk</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="k">break</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+    <span class="n">fetch_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch_next_chunk</span><span class="p">()</span>
+    <span class="n">yiield</span> <span class="bp">self</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="looping">Looping</h4>
+<p>在原生协程，可使用<code>async for</code>。在不同版本的Python中，looping is tricky with coroutines，因为没有办法获得对<code>for</code>或<code>while</code>循环的每次迭代结果的yield。你需要从访问结果分隔循环条件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">motor</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">motor</span><span class="o">.</span><span class="n">MotorClient</span><span class="p">()</span><span class="o">.</span><span class="n">test</span>
+
+<span class="nd">@gen.coroutine</span>
+<span class="k">def</span> <span class="nf">loop_example</span><span class="p">(</span><span class="n">collection</span><span class="p">):</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">find</span><span class="p">()</span>
+    <span class="k">while</span> <span class="p">(</span><span class="k">yield</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetch_next</span><span class="p">):</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">netx_object</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="在后台运行">在后台运行</h4>
+<p>Running in the background</p>
+<p><code>PeriodicCallback</code>通常不与协程使用。相反，协程可以包含<code>While True:</code>循环并使用<code>tornado.gen.sleep</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">async</span> <span class="k">def</span> <span class="nf">minute_loop</span><span class="p">():</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">await</span> <span class="n">do_something</span><span class="p">()</span>
+        <span class="n">await</span> <span class="n">gen</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+
+<span class="c1"># Coroutines that loop forever are generally started with spawn_callback().</span>
+<span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span><span class="o">.</span><span class="n">spawn_callback</span><span class="p">(</span><span class="n">minute_loop</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>有时，一个更复杂的循环可能是可取的。例如，前一个循环每<code>60+N</code>秒运行，N是<code>do_something</code>的运行时间。要准确每60秒运行，使用上面的interleaving模式:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">async</span> <span class="k">def</span> <span class="nf">minute_loop2</span><span class="p">()</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">nxt</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>  <span class="c1"># Start the clock.</span>
+        <span class="n">await</span> <span class="n">do_something</span><span class="p">()</span>  <span class="c1"># Run while the clock is ticking.</span>
+        <span class="n">await</span> <span class="n">nxt</span>  <span class="c1"># Wait for the timer to run out.</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<br>
+<h2 id="queue">Queue</h2>
+<p>Queue example - a concurrent web spider</p>
+<p>Tornado的<code>tornado.queues</code>模块实现了协程异步 生产者(producer)/消费者(consumer)模式，类似于由Python标准库的<code>queue</code>模块为线程(thread)实现的模式。</p>
+<p>yields <code>Queue.get</code>协程暂停直到队列中有项。如果队列设置了最大大小集(yield <code>Queue.put</code>)协程暂停，直到有另一个项。</p>
+<p><code>Queue</code>维护未完成的任务计数，从0开始。<code>put</code>递增计数，<code>task_done</code>递减它。</p>
+<p>web-spider栗子，队列开始仅包含base_url。当worker获取它解析的链接和队列放出新的页面，然后调用<code>task_done</code>递减计数。最终，worker取出其url没有过的页面，也没有留在队列中工作。因此，worker调用<code>task_done</code>递减计数器归零。主协程，它等待<code>join</code>，取消暂停和完成。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span><span class="lnt">97
+</span><span class="lnt">98
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">datatime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">html.parser</span> <span class="kn">import</span> <span class="n">HTMLParser</span>
+<span class="kn">from</span> <span class="nn">ulllib.parse</span> <span class="kn">import</span> <span class="n">urljoin</span><span class="p">,</span> <span class="n">urldefrag</span>
+
+<span class="kn">from</span> <span class="nn">tornado</span> <span class="kn">import</span> <span class="n">gen</span><span class="p">,</span> <span class="n">httpclient</span><span class="p">,</span> <span class="n">ioloop</span><span class="p">,</span> <span class="n">queues</span>
+
+<span class="n">base_url</span> <span class="o">=</span> <span class="s1">&#39;http://www.tornadoweb.org/en/stable/&#39;</span>
+<span class="n">concurrency</span> <span class="o">=</span> <span class="mi">10</span>
+
+
+
+<span class="n">async</span> <span class="k">def</span> <span class="nf">get_links_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;Download the page at `url` and parse it for links.
+</span><span class="s2">    Returned links have had the fragment after `#` removed, and have been made bsolute so,
+</span><span class="s2">    e.g. the URL &#39;gen.html#tornado.gen.coroutine&#39; becomes
+</span><span class="s2">    &#39;http://www.tornadoweb.org/en/stable/gen.html&#39;.
+</span><span class="s2">    &#34;&#34;&#34;</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">await</span> <span class="n">httpclient</span><span class="o">.</span><span class="n">AsyncHTTPClient</span><span class="p">()</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;fetched </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">url</span><span class="p">)</span>
+
+    <span class="n">html</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;errors=&#39;</span><span class="n">ignore</span><span class="s1">&#39;)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">urljoin</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">remove_fragment</span><span class="p">(</span><span class="n">new_url</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">new_url</span> <span class="ow">in</span> <span class="n">get_links</span><span class="p">(</span><span class="n">html</span><span class="p">)]</span>
+
+<span class="k">def</span> <span class="nf">remove_fragment</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">pure_url</span><span class="p">,</span> <span class="n">frag</span> <span class="o">=</span> <span class="n">urldefrag</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pure_url</span>
+
+
+
+<span class="k">def</span> <span class="nf">get_links</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">URLSeeker</span><span class="p">(</span><span class="n">HTMLParser</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">HTMLParser</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">urls</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">sef</span> <span class="n">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+            <span class="n">href</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">href</span> <span class="ow">and</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">urls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">href</span><span class="p">)</span>
+
+    <span class="n">url_seeker</span> <span class="o">=</span> <span class="n">URLSeeker</span><span class="p">()</span>
+    <span class="n">url_seeker</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">url_seeker</span><span class="o">.</span><span class="n">urls</span>
+
+
+
+<span class="n">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">queues</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">fetching</span><span class="p">,</span> <span class="n">fetched</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(),</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">fetch_url</span><span class="p">(</span><span class="n">currrent_url</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">current_url</span> <span class="ow">in</span> <span class="n">fetching</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;fetching </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">current_url</span><span class="p">)</span>
+        <span class="n">fetching</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">current_url</span><span class="p">)</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="n">await</span> <span class="n">get_links_from_url</span><span class="p">(</span><span class="n">current_url</span><span class="p">)</span>
+        <span class="n">fetched</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">current_url</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">new_url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+            <span class="c1"># Only follow links beneath the base URL</span>
+            <span class="k">if</span> <span class="n">new_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">base_url</span><span class="p">):</span>
+                <span class="n">await</span> <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">new_url</span><span class="p">)</span>
+
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">worker</span><span class="p">():</span>
+        <span class="n">async</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">q</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">url</span> <span class="ow">in</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">await</span> <span class="n">fetch_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Exception: </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">url</span><span class="p">))</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">q</span><span class="o">.</span><span class="n">task_done</span><span class="p">()</span>
+
+    <span class="n">await</span> <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">base_url</span><span class="p">)</span>
+
+    <span class="c1"># Start workers, then wait for the work queue to be empty.</span>
+    <span class="n">workers</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">multi</span><span class="p">([</span><span class="n">worker</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">concurrency</span><span class="p">)])</span>
+    <span class="n">await</span> <span class="n">q</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">300</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">fetching</span> <span class="o">==</span> <span class="n">fetched</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Done in </span><span class="si">%d</span><span class="s1"> seconds, fetched </span><span class="si">%s</span><span class="s1"> URLs.&#39;</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">fetched</span><span class="p">)))</span>
+
+    <span class="c1"># Signal all the workers to exit.</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">concurrency</span><span class="p">):</span>
+        <span class="n">await</span> <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+    <span class="n">await</span> <span class="n">workers</span>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">io_loop</span> <span class="o">=</span> <span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span>
+    <span class="n">io_loop</span><span class="o">.</span><span class="n">run_sync</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<br>
+<h2 id="tornado-web程序结构">Tornado web程序结构</h2>
+<p>Structure of a Tornado web application</p>
+<p>一个Tornado web程序通常由一个或多个<code>RequestHandler</code>子类组成，<code>Application</code>对象是哪些路由进入的请求的处理程序(handler)，<code>main()</code>函数来启动server。</p>
+<p>一个最小化的hello world栗子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">tornado.ioloop</span>
+<span class="kn">import</span> <span class="nn">tornado.web</span>
+
+<span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;Hello, world&#34;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_app</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+        <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+    <span class="p">])</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">make_app</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8888</span><span class="p">)</span>
+    <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<h3 id="application对象">Application对象</h3>
+<p><code>Application</code>对象是负责全局配置，包括映射请求到处理程序(handler)的路由表。</p>
+<p>路由表是<code>URLSpec</code>对象的列表(或元组)，其中每一个包含(至少)一个正则表达式和一个处理类(handler class)。顺序匹配，第一匹配规则被使用。如果正则表达式中包含捕获组，这些组的路径参数将被传递给处理程序(handler)的HTTP方法。如果字典作为<code>URLSpec</code>的第三个参数传递，它提供将初始化参数传递给<code>RequestHandler.initialize</code>。最后，<code>URLSpec</code>可以有一个名称，这将允许它与<code>RequestHandler.reverse_url</code>使用。</p>
+<p>栗子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># / URL 映射到 MainHandler</span>
+<span class="c1"># /story/后跟数字 映射到 StoryHandler，数字(作为字符串)被传递给StoryHandler.get</span>
+
+<span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;a href=&#34;</span><span class="si">%s</span><span class="s1">&#34;&gt; link to story 1&lt;/a&gt;&#39;</span> <span class="o">%</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">reverse_url</span><span class="p">(</span><span class="s2">&#34;story&#34;</span><span class="p">,</span> <span class="s2">&#34;1&#34;</span><span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">StoryHandler</span><span class="p">(</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">db</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">story_id</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;this is story </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">story_id</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">([</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/story/([0-9]+)&#34;</span><span class="p">,</span> <span class="n">StoryHandler</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;story&#34;</span><span class="p">)</span>
+<span class="p">])</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>Application</code>构造器采用许多关键字参数，可用于定制应用程序的行为和启用可选功能。查看<code>Application.settings</code>获取完整列表。</p>
+<br>
+<br>
+<h3 id="requesthandler子类">RequestHandler子类</h3>
+<p>Subclassing RequestHandler</p>
+<p>大部分Tornado Web应用程序的工作是<code>RequestHandler</code>子类完成的。主入口点的处理程序子类(handler subclass)是正在处理的HTTP方法(<code>get()</code>, <code>post()</code>)的方法命名。例如，每个handler可以定义这些方法中的一种或多种，以处理不同的HTTP动作。如上所述，这些方法将于对应于匹配的路由规则的捕获组参数来调用。</p>
+<p>在处理程序内部，调用如<code>RequestHandler.render</code>或<code>RequestHandler.write</code>来产生响应(response)。<code>render()</code>通过名称加载一个模板，并与给定的参数来渲染它。<code>write()</code>被用于非基于模板(non-template-based)输出。它接受字符串，字节和字典(字典被编码为json)。</p>
+<p><code>ReqestHandler</code>中的许多方法都设计在子类中重写(overridden)，并在整个application中使用。这是常见的定义<code>BaseHandler</code>类，覆盖方法如<code>write_error</code>, <code>get_current_user</code>，并为你所有指定的handler继承<code>BaseHandler</code>而不是<code>RequestHandler</code>。</p>
+<br>
+<br>
+<h3 id="处理请求输入">处理请求输入</h3>
+<p>Handling request input</p>
+<p>request handler可以访问表示与<code>self.quest</code>获取当前请求的对象。查看<code>HTTPServerRequest</code>类来获取完整的列表。</p>
+<p>通过HTML表单中使用的格式请求的数据将为你解析，并在如<code>get_query_argument</code>和<code>get_body_argument</code>方法中可用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">MyFormHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;html&gt;&lt;body&gt;&lt;form action=&#34;/myform&#34; method=&#34;POST&#34;&gt;&#39;</span>
+                   <span class="s1">&#39;&lt;input type=&#34;text&#34; name=&#34;message&#34;&gt;&#39;</span>
+                   <span class="s1">&#39;&lt;input type=&#34;submit&#34; value=&#34;Submit&#34;&gt;&#39;</span>
+                   <span class="s1">&#39;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_header</span><span class="p">(</span><span class="s2">&#34;Conten-Type&#34;</span><span class="p">,</span> <span class="s2">&#34;text/plain&#34;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;You wrote&#34;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_body_argument</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>由于HTML表单的编码是模糊的，以元素中的一个参数是否为单一值(single value)或一个列表，<code>RequestHandler</code>有独特的方法，以允许application表明它是否期望一个列表。对于列表，使用<code>get_query_arguments</code>和<code>get_body_arguments</code>来代替它们的singular counterparts。</p>
+<p>通过表单上传的文件在<code>self.request.files</code>可用，它映射名称(html <code>input type=&quot;file&quot;</code>元素)到一个文件列表。每个文件是<code>{&quot;filename&quot;:..., &quot;content_type&quot;:..., &quot;body&quot;:...}</code>格式的字典。<code>files</code>对象仅表示文件是否以一种form wrapper上传(如<code>multipart/form-data</code> 内容类型)。如果不使用这种格式，原始上传数据在<code>self.request.body</code>可用。默认情况下上传的文件在内存中完全缓冲(fully buffered)。如果你要处理的文件太大，但想在内存中舒适保存，可参考<code>stream_request_body</code>类装饰器。</p>
+<p>由于HTML格式编码的怪癖，Tornado并不试图统一参数和其它输入类型的形式。特别是，我们不解析JSON请求主体。Applicaton希望使用JSON而不是form-encoding可以覆盖<code>prepare</code>来解析它们的请求:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;Content-Type&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;&#34;application/json&#34;&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">json_args</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">json_args</span> <span class="o">=</span> <span class="bp">None</span>
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<h3 id="重写requesthandler方法">重写RequestHandler方法</h3>
+<p>Overriding RequestHandler methods</p>
+<p>除了<code>get()</code>, <code>post()</code>&hellip;，在<code>RequestHandler</code>某些其它方法被设计成在必要时由子类重写。在每次请求，调用以下顺序进行:</p>
+<ol>
+<li>在每个请求上，一个新的<code>RequestHandler</code>对象被创建</li>
+<li><code>initialize()</code>被调用，从Application配置的初始化参数。初始化通常应该只保存传入成员变量的参数，不产生任何输出或调用(如<code>send_error</code>)</li>
+<li><code>prepare()</code>被调用。这是最有用的，由所有handler subclass共享的基类，作为prepare被无论哪个HTTP方法所调用。<code>prepare</code>可产生输出，如果它调用<code>finish</code>或<code>redirect</code>，这里处理停止</li>
+<li>当其中一个HTTP方法被调用时: <code>get()</code>, <code>post()</code>, <code>put()</code>。如果URL正则中包含捕获组(capturing group)，它们将被作为参数传递给该方法</li>
+<li>当请求完成后，调用<code>on_finish()</code>。对于大多数handler这个在<code>get()</code>返回后立即调用。在调用<code>finish()</code>之后使用<code>tornado.web.asynchronous</code>装饰器来装饰handler</li>
+</ol>
+<p>在<code>RequestHandler</code>文档中，所有的方法都设计来可重写。一些最常用的重写方法:</p>
+<ul>
+<li><code>writre_error</code>: 输出HTML错误页面</li>
+<li><code>on_connection_close</code>: 当客户端断开连接时调用。应用可选择检测此情况并停止进一步的处理。注意，不能保证一个关闭的连接能够被及时发现</li>
+<li><code>get_current_user</code></li>
+<li><code>get_user_locale</code>: 返回当前用户的Locale对象</li>
+<li><code>set_default_headers</code>: 用于在响应中设置其它header</li>
+</ul>
+<br>
+<br>
+<h3 id="错误处理">错误处理</h3>
+<p>Error Handling</p>
+<p>如果handler抛出一个异常，Tornado将调用<code>RequestHandler.write_error</code>来生成一个错误页。<code>tornado.web.HTTPError</code>可用来生成一个特定状态码。所有其它异常返回500状态。</p>
+<p>debug模式下的默认错误页面包含一个stack trace和对错误的一行说明。要生成自定义错误页，重写<code>RequestHandler.write_error</code>。可通过如<code>write</code>和<code>render</code>方法来产生输出。如果错误是由异常导致的，一个<code>exc_info</code>将作为一个关键字参数传递。</p>
+<p>也可通过调用<code>set_status</code>产生与常规处理方法<code>write_error</code>生成的错误页面，编写一个响应，并返回。特殊异常<code>tornado.web.Finish</code>可抛出终止处理而不调用<code>write_error</code>在简单返回不方便时。</p>
+<p>对于404错误，使用<code>default_handler_class</code>应用设置(Application setting)。此处理程序应重写<code>prepare</code>，而不是像<code>get()</code>方法更具体的方法，所以它与任何HTTP方法工作。如上所述应该产生错误页面: 要么抛出<code>HTTPError(404)</code>和重写<code>write_error</code>，或调用<code>self.set_status(404)</code>和直接在<code>prepare()</code>中产生响应。</p>
+<br>
+<br>
+<h3 id="重定向">重定向</h3>
+<p>Redirection</p>
+<p>Tornado中有两种主要的方式重定向请求: <code>RequestHandler.redirect</code>和<code>RedirectHandler</code>。</p>
+<p>可在<code>RequestHandler</code>方法中使用<code>self.redirect()</code>来重定向到别处。这有一个<code>permanent</code>的可选参数，可用它来表示永久的重定向。<code>permanent</code>的默认值为<code>False</code>，其产生一个<code>302 Found</code> HTTP响应码，适合像<code>POST</code>请求成功之后使用。如果<code>permanent</code>为<code>true</code>， 则使用<code>301 Moved Permanently</code> HTTP响应码，其用于重定向到一个规范友好的URL。</p>
+<p><code>RedirectHandler</code>让你直接在Application路由表中配置重定向，栗子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">app</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/app&#34;</span><span class="p">,</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RedirectHandler</span><span class="p">,</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&#34;http://xxx.com&#34;</span><span class="p">)),</span>
+<span class="p">])</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>RedirectHandler</code>同样支持正则表达式取代。栗子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">app</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/photos/(.*)&#34;</span><span class="p">,</span> <span class="n">MyPhotoHandler</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/pictures/(.*)&#34;</span><span class="p">,</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RedirectHandler</span><span class="p">,</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="sa">r</span><span class="s2">&#34;/photo/{0})),</span>
+<span class="p">])</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>不像<code>RequestHandler.redirect</code>，<code>RedirectHandler</code>默认使用永久重定向。这因为路由表在运行时不发生变化，被认定为时永久性的，而在处理中发现重定向可能改变其它逻辑的结果。要使用<code>RedirectHandler</code>发送一个临时的重定向，将<code>permanent=False</code>添加到<code>RedirectHandler</code>初始化参数。</p>
+<br>
+<br>
+<h3 id="异步处理程序">异步处理程序</h3>
+<p>Asynchronous handlers</p>
+<p>某些处理方法(如<code>prepare()</code>和HTTP的<code>get()</code>, <code>post()</code>&hellip;)可能会被重写为协程，使处理程序异步。</p>
+<p>Tornado同样支持使用<code>tornado.web.asynchronous</code>装饰器异步处理的回调风格，但这种风格已经过时，将在Tornado6中一处。新的应用应该使用协程来代替它。</p>
+<p>使用协程的一个简单处理程序的栗子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">http</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">httpclient</span><span class="o">.</span><span class="n">AsyncHTTPClient</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">await</span> <span class="n">http</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s2">&#34;http://friendfeed-api.com/v2/feed/bret&#34;</span><span class="p">)</span>
+        <span class="n">json</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">escape</span><span class="o">.</span><span class="n">json_decode</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;Fetched &#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&#34;entries&#34;</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&#34; entries &#34;</span>
+                   <span class="s2">&#34;from the FriendFeed API&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>更多高级的异步的栗子，查考文档。</p>
+<br>
+<br>
+<br>
+<h2 id="模板和ui">模板和UI</h2>
+<p>Templates and UI</p>
+<p>Tornado包含了一个简单、快速、灵活的模板语言。想想Django和Jinja2。</p>
+<p>Tornado还可与任何其它Python模板语言使用，虽然没有规定集成这些系统到<code>RequestHandler.render</code>里。简单地渲染模板为字符串，并将其传递到<code>RequestHandler.write</code>。</p>
+<br>
+<h3 id="配置模板">配置模板</h3>
+<p>Configuring templates</p>
+<p>默认情况下，Tornado在引用它的<code>.py</code>文件中的同一目录下查找模板文件。要把模板文件放在不同的目录中，使用<code>template_path</code>应用设置。如果你有不同的模板路径用于不同的处理程序，请重写<code>RequestHandler.get_template_path</code>。</p>
+<p>要从非文件系统位置载入模板，子类<code>tornado.template.BaseLoader</code>将在模板并传递一个实例作为<code>template_loader</code>应用设置。</p>
+<p>默认缓存编译的模板。要关闭这个缓存和重新加载模板，使用<code>compiled_template_cache=False</code>或<code>debug=True</code>应用设置。</p>
+<br>
+<br>
+<h3 id="模板语法">模板语法</h3>
+<p>Template syntax</p>
+<p>Tornado模板仅仅是HTML(或其它基于文本的格式)与Python控制序列和嵌入在标记内的表达式，想想Django模板和Jinja2。</p>
+<p>表达式可以是任意Python表达式，包括函数调用。模板代码在包括以下对象和函数的命名空间执行(请注意，以下列表适用于使用<code>RequestHandler.render</code>和<code>render_string</code>渲染模板。如果你直接使用在<code>RequestHandler</code>外的<code>tornado.template</code>模块，那么许多内容是不存在的。)</p>
+<ul>
+<li><code>escape</code>: <code>tornado.escape.xhtml_escape</code>的别名</li>
+<li><code>xhtml_escape</code>: <code>tornado.escape.xhtml_escape</code>的别名</li>
+<li><code>url_escape</code>: <code>tornado.escape.url_escape</code>的别名</li>
+<li><code>json_encode</code>: <code>tornado.escape.json_encode</code>的别名</li>
+<li><code>squeeze</code>: <code>tornado.escape.squeeze</code>的别名</li>
+<li><code>linkify</code>: <code>tornado.escape.linkify</code>的别名</li>
+<li><code>datetime</code>: Python的<code>datetime</code>模块</li>
+<li><code>handler</code>: 目前的<code>RequestHandler</code>对象</li>
+<li><code>request</code>: <code>handler.request</code>的别名</li>
+<li><code>current_user</code>: <code>handler.current_user</code>的别名</li>
+<li><code>locale</code>: <code>handler.locale</code>的别名</li>
+<li><code>_</code>: <code>handler.locale.translate</code>的别名</li>
+<li><code>static_url</code>: <code>handler.static_url</code>的别名</li>
+<li><code>xsrf_form_html</code>: <code>handler.xsrf_form_html</code>的别名</li>
+<li><code>reverse_url</code>: <code>Application.reverse_url</code>的别名</li>
+<li>所有条目从应用的<code>ui_methods</code>和<code>ui_modules</code></li>
+<li>任何关键字参数传递给<code>render</code>或<code>render_string</code></li>
+</ul>
+<p>当你在构建一个真正的应用时，你会想要使用Tornado模板的所用功能，尤其是模板继承。阅读<code>tornado.template</code>部分了解详细信息。</p>
+<p>引擎盖下，Tornado模板直接转换为Python。模板中的表达式是逐字复制到Python函数中。我们不设法防止模板语言的任何东西。最后，如果你写的模板表达式内随机的东西，当你执行模板可能会获得随机的Python错误。</p>
+<p>所有的模板输出默认被转义(escape)，使用<code>tornado.escape.xhtml_escape</code>函数。这个行为可通过全局地传递<code>autoescape=None</code>给应用或<code>tornado.template.Loader</code>构造器，对于模板文件指示<code>{% autoescape None%}</code>或通过<code>{% raw ... %}</code>代替<code>{{ ... }}</code>。此外，在每一个可选择转义函数名的地方，可用<code>None</code>代替。</p>
+<p>虽然Tornado的自动转义为避免XSS漏洞有帮助，但它并不是在所有情况下都有效。例如在JS或CSS表达式的某些地方，可能需要额外的转义。此外，必须小心地使用HTML双引号<code>&quot;</code>和<code>xhtml_escape</code>，可能包含不受信任的内容，或者必须为属性使用单独地转义函数。</p>
+<br>
+<br>
+<h3 id="ui模块">UI模块</h3>
+<p>UI modules</p>
+<p>Tornado支持UI模块，可以很容易地在你的应用中支持标准的、可重用的UI组件。UI模块都喜欢特殊的函数调用来渲染网页和组件，它们可以包装自己的CSS和JS。</p>
+<p>例如，如果要实现一个博客，你想拥有的博客条目同时出现在博客主页和每个博客页面上，你可以编写一个<code>Entry</code>模块在两个页面上渲染它们。首先，为你的UI模块创建一个Python模块:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-py" data-lang="py"><span class="c1"># uimodules.py</span>
+<span class="k">class</span> <span class="nc">Entry</span><span class="p">(</span><span class="n">tonado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">UIModule</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">,</span> <span class="n">show_commnets</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_string</span><span class="p">(</span><span class="s2">&#34;module-entry.html, entry=entry, show_comments=show_comments&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在应用中设置<code>ui_modules</code>告诉Tornado使用<code>uimodules.py</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">uimodules</span>
+
+<span class="k">class</span> <span class="nc">HomeHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">entries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&#34;SELECT * FROM entries ORDER BY date DESC&#34;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&#34;home.html&#34;</span><span class="p">,</span> <span class="n">entries</span><span class="o">=</span><span class="n">entries</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">EntryHander</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">ReqestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry_id</span><span class="p">):</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;SELECT * FROM entries WHERE id = </span><span class="si">%s</span><span class="s2">, entry_id&#34;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">entry</span><span class="p">:</span> <span class="k">raise</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&#34;entry.html&#34;</span><span class="p">,</span> <span class="n">entry</span><span class="o">=</span><span class="n">entry</span><span class="p">)</span>
+
+
+<span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&#34;ui_modules&#34;</span><span class="p">:</span> <span class="n">uimodules</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">application</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">HomeHandler</span><span class="p">),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/entry/([0-9])&#34;</span><span class="p">,</span> <span class="n">EntryHandler</span><span class="p">),</span>
+<span class="p">],</span> <span class="o">**</span><span class="n">settings</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在模板内，你可以使用<code>{% module %}</code>调用模块，例如在<code>home.html</code>中调用<code>Entry</code>模块:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{% for entry in entries%}
+{% module Entry(entry) %}
+{% end %}
+</code></pre></td></tr></table>
+</div>
+</div><p><code>entry.html</code>中:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{% module Entry(entry, show_comments=True) %}
+</code></pre></td></tr></table>
+</div>
+</div><p>模块可以通过重写<code>embedded_css</code>, <code>embedded_javascript</code>, <code>javascript_files</code>或<code>css_files</code>方法来包含自定义的CSS和JS函数:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Entry</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">UIModule</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">embedded_css</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&#34;.entry { margin-bottom: 1em; }&#34;</span>
+
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">,</span> <span class="n">show_comments</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_string</span><span class="p">(</span><span class="s2">&#34;module-entry&#34;</span><span class="p">,</span> <span class="n">show_comments</span><span class="o">=</span><span class="n">show_comments</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>模块CSS和JS将包含一次，不管一个页面中这个模块使用了多少次。CSS总是包含在页面的<code>&lt;head&gt;</code>，JS总是包含在<code>&lt;/body&gt;</code>标记之前在页面的页面结束标记。</p>
+<p>当不需要附加的Python代码，模板文件本身可以用作一个模块。例如，前面的栗子可以改写在<code>module-entry.html</code>模块:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{{ set_resources(embedded_css=&#34;.entry { margin-bottom: 1em; }&#34;) }}
+&lt;!-- more template html... --&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>经修订的模板模块将与下栗被调用:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{% module Template(&#34;module-entry.html&#34;, show_comments=True) %}
+</code></pre></td></tr></table>
+</div>
+</div><p>该<code>set_resources</code>功能尽在通过
+<code>{% module Template(...) %}</code>
+调用模板。不同于
+<code>{% include %}</code>，
+模板模块具有从它们的包含模板的独特命名空间——它们只能看到全局模板命名空间和自己的关键字参数。</p>
+<br>
+<br>
+<br>
+<h2 id="认证和安全">认证和安全</h2>
+<p>Authentication and security</p>
+<br>
+<h3 id="cookie和secure-cookies">Cookie和secure cookies</h3>
+<p>可以使用<code>set_cookie</code>方法在用户浏览器中设置cookie:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">ReqestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cookie</span><span class="p">(</span><span class="s2">&#34;mycookie&#34;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_cookie</span><span class="p">(</span><span class="s2">&#34;mycookie&#34;</span><span class="p">,</span> <span class="s2">&#34;myvalue&#34;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;Your cookie was not set yet!&#34;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;Your cookie was set!&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>cookie是不安全的，可以很容易地被客户修改。如果你需要设置cookie，请确定当前登录的用户，你需要签属(signed)你的cookie来防止伪造。Tornado支持使用<code>set_secure_cookie</code>和<code>get_secure_cookie</code>方法来签属(sign)cookie。要使用这些方法，你需要在创建应用时指定一个名为<code>cookie_secret</code>的密钥键。你可以在应用中设置关键字参数来传递给应用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">application</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+<span class="p">],</span> <span class="n">cookie_secret</span><span class="o">=</span><span class="s2">&#34;__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>签属的cookie含有时间戳和HMAC签名的cookie编码值。如果cookie是旧的，或者签名不匹配，<code>get_secure_cookie</code>将会返回<code>None</code>就像没有设置cookie那样。上面栗子的安全版本:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_secure_cookie</span><span class="p">(</span><span class="s2">&#34;mycookie&#34;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_secure_cookie</span><span class="p">(</span><span class="s2">&#34;mycookie&#34;</span><span class="p">,</span> <span class="s2">&#34;myvalue&#34;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;Your cookie was not set yet!&#34;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;Your cookie was set!&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Tornado的secure cookie保证完整性，但不保密。也就是说，cookie不能被修改，但可以被用户看到。<code>cookie_secret</code>是一个对称密钥并且必须保密——得到这个值的人都可以制作自己的签名的cookie。</p>
+<p>默认情况下，Tornado的cookie在30天后过期。可对<code>set_secure_cookie</code>使用<code>expires_days</code>参数和<code>max_age_days</code>来修改。</p>
+<p>Tornado同样支持多个签名密钥来启用签名轮询。<code>cookie_secret</code>必须与整数密钥版本作为关键字和相应的secret作为字典的值。将当前使用的签名密钥必须在应用中设置为<code>key_version</code>，但在字典的所有其它键都允许cookie签名认证，如果设置在cookie中的是正确的密钥版本。要更新cookie，可通过查询<code>get_secure_cookie_key_version</code>获取当前的签名密钥版本。</p>
+<br>
+<br>
+<h3 id="用户认证">用户认证</h3>
+<p>User authentication</p>
+<p>当前已认证的用户在每个request handler中可使用<code>self.current_user</code>，在每个模板中为<code>current_user</code>。默认情况下，<code>current_user</code>为<code>None</code>。</p>
+<p>要在应用中执行用户身份认证，需要在request handler中重写<code>get_current_user</code>以基于cookie的值确定当前用户。下面是一个让用户登录到应用，简单地指定一个昵称，然后将其保存到cookie中:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">BaseHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_current_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_secure_cookie</span><span class="p">(</span><span class="s2">&#34;user&#34;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">BaseHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_user</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="s2">&#34;/login&#34;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">escape</span><span class="o">.</span><span class="n">xhtml_escape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_user</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;Hello, &#34;</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">LoginHandler</span><span class="p">(</span><span class="n">BaseHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;html&gt;&lt;body&gt;&lt;form action=&#34;/login&#34; method=&#34;post&#34;&gt;&#39;</span>
+            <span class="s1">&#39;Name: &lt;input type=&#34;text&#34; name=&#34;name&#34;&gt;&#39;</span>
+            <span class="s1">&#39;&lt;input type=&#34;submit&#34; value=&#34;Sign in&#34;&gt;&#39;</span>
+            <span class="s1">&#39;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_secure_cookie</span><span class="p">(</span><span class="s2">&#34;user&#34;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s2">&#34;name&#34;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+
+<span class="n">application</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="n">LoginHandler</span><span class="p">),</span>
+<span class="p">],</span> <span class="n">cookie_secret</span><span class="o">=</span><span class="s2">&#34;__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>你可以要求用户在使用<code>tornado.web.authenticated</code> Python装饰器处登录。如果请求的方法带有此装饰器，并且用户没有登录，则他们将被重定向到<code>login_url</code>或其它设置。重写上面的栗子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">BaseHandler</span><span class="p">):</span>
+    <span class="nd">@tornado.web.authenticated</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">escaple</span><span class="o">.</span><span class="n">xhtml_escape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_user</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;Hello, &#34;</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&#34;cookie_secret&#34;</span><span class="p">:</span> <span class="s2">&#34;__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;login_url&#34;</span><span class="p">:</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">application</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="n">LoginHandler</span><span class="p">),</span>
+<span class="p">],</span> <span class="o">**</span><span class="n">settings</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果你使用<code>authenticate</code>装饰器装饰一个<code>post()</code>方法，并且用户没有登录，则Server会返回403响应。<code>@authenticated</code>装饰器简单来说就是<code>if not self.current_user: self.redirect()</code>的快捷键，并且可能不适用于非基于浏览器的登录方案。</p>
+<br>
+<br>
+<h3 id="第三方认证">第三方认证</h3>
+<p>Third party authentication</p>
+<p><code>tornado.auth</code>模块实现了许多受欢迎的网站上提供的认证(authentication)和授权(authorization)协议，包括Google, FaceBook, Twitter&hellip;</p>
+<p>下面是一个使用谷歌认证的示例，存储Google credential到cookie以便后续访问使用:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">GoogleOAuth2LoginHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">,</span> <span class="n">tornado</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">GoogleOAuth2Mixin</span><span class="p">):</span>
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_authenticated_user</span><span class="p">(</span>
+                <span class="n">redirect_uri</span><span class="o">=</span><span class="s2">&#34;http://your.site.com/auth/google&#34;</span><span class="p">,</span>
+                <span class="n">code</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">))</span>
+            <span class="c1"># Save the user with e.g. set_secure_cookie</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">authorize_redirect</span><span class="p">(</span>
+            <span class="n">redirect_uri</span><span class="o">=</span><span class="s1">&#39;http://your.site.com/auth/google&#39;</span><span class="p">,</span>
+            <span class="n">client_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">setting</span><span class="p">[</span><span class="s1">&#39;google_oauth&#39;</span><span class="p">][</span><span class="s1">&#39;key&#39;</span><span class="p">],</span>
+            <span class="n">scope</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;profile&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">],</span>
+            <span class="n">response_type</span><span class="o">=</span><span class="s1">&#39;code&#39;</span><span class="p">,</span>
+            <span class="n">extra_params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;approval_prompt&#39;</span><span class="p">:</span> <span class="s1">&#39;auto&#39;</span><span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>更多详细内容，请参考<code>tornado.auth</code>文档。</p>
+<br>
+<br>
+<h3 id="跨站请求伪造保护">跨站请求伪造保护</h3>
+<p>Cross-site request forgery protection</p>
+<p>跨站请求伪造(Cross-site request forgery, XSRF)，是Web应用的一个常见的问题。</p>
+<p>防止XSRF普遍接受的解决方案是每个用户的cookie使用不可预测的值，此值包含网站上每个表单提交的额外参数。如果表单提交的cookie和值不匹配，则请求可能是伪造的。</p>
+<p>Tornado内置了XSRF保护。要在你的站点中包含它，启用应用<code>scrf_cookies</code>设置:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&#34;cookie_secret&#34;</span><span class="p">:</span> <span class="s2">&#34;__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;login_url&#34;</span><span class="p">:</span> <span class="s2">&#34;/login&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;xsrf_cookies&#34;</span><span class="p">:</span> <span class="bp">True</span>
+<span class="p">}</span>
+<span class="n">application</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="n">LoginHandler</span><span class="p">),</span>
+<span class="p">],</span> <span class="o">**</span><span class="n">settings</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果设置了<code>xsrf_cookies</code>，Tornado Web Application将为所有用户设置<code>_xsrf</code> cookie，并拒绝没有包含正确的<code>_xsrf</code>值的所有<code>POST</code>, <code>PUT</code>, <code>DELETE</code>请求。如果你打开了此设置，你需要一切形式的<code>POST</code>提交中包含此字段。你可以使用特殊的UIModule <code>vsrf_form_html()</code>，在所有模板中可用:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;form action=&#34;/new_message&#34; method=&#34;post&#34;&gt;
+  {% module xsrf_form_html() %}
+  &lt;input type=&#34;text&#34; name=&#34;message&#34;/&gt;
+  &lt;input type=&#34;submit&#34; value=&#34;Post&#34;/&gt;
+&lt;/form&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>如果你提交AJAX <code>POST</code>请求，你还需要构造JS来包括每个请求的<code>_xsfr</code>值。所有包含<code>_xsrf</code>请求AJAX POST的JQuery函数:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">function getCookie(name) {
+    var r = document.cookie.match(&#34;\\b&#34; + name + &#34;=([^;]*)\\b&#34;);
+    return r ? r[1] : undefined;
+}
+
+jQuery.postJSON = function(url, args, callback) {
+    args._xsrf = getCookie(&#34;_xsrf&#34;);
+    $.ajax({url: url, data: $.param(args), dataType: &#34;text&#34;, type: &#34;POST&#34;,
+        success: function(response) {
+        callback(eval(&#34;(&#34; + response + &#34;)&#34;));
+    }});
+};
+</code></pre></td></tr></table>
+</div>
+</div><p>对于<code>PUT</code>和<code>DELETE</code>请求，XSRF token可能会通过HTTP <code>X-XSRFToken</code> Header进行传递。使用<code>xsrf_form_html</code>时，XSRF cookie被正常设置，但是在不使用任何形式的纯JS应用中，可能需要手动访问<code>self.xsrf_token</code>。</p>
+<p>如果你需要在每个handler中自定义XSRF行为，你可以重写<code>RequestHandler.check_xsrf_cookie()</code>。例如，如果你有一个不使用cookie的API，你可能希望通过使<code>check_xsrf_cookie</code>什么也不做来禁用XSRF保护。然而，如果你支持基于cookie和非基于cookie的认证，只要求当前请求使用cookie认证XSRF保护是重要的。</p>
+<br>
+<br>
+<h3 id="dns重新绑定">DNS重新绑定</h3>
+<p>DNS Rebinding</p>
+<p>DNS重新绑定是一种攻击，可以绕过同源策略，并允许外部站点访问内部网络的资源。使用TLS的应用不容易受到这种攻击。没有使用TLS的应用依赖网络层的访问控制，应警惕通过验证的HTTP Header的<code>Host</code>被DNS重新绑定。This means passing a restrictive hostname pattern to either a <code>HostMatches</code> router or the first argument of <code>Application.add_handlers</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># BAD: uses a default host pattern of r&#39;.*&#39;</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">([(</span><span class="s1">&#39;/foo&#39;</span><span class="p">,</span> <span class="n">FooHandler</span><span class="p">)])</span>
+
+<span class="c1"># GOOD: only matches localhost or its ip address.</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">()</span>
+<span class="n">app</span><span class="o">.</span><span class="n">add_handlers</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(localhost|127\.0\.0\.1)&#39;</span><span class="p">,</span>
+                 <span class="p">[(</span><span class="s1">&#39;/foo&#39;</span><span class="p">,</span> <span class="n">FooHandler</span><span class="p">)])</span>
+
+<span class="c1"># GOOD: same as previous example using tornado.routing.</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">([</span>
+    <span class="p">(</span><span class="n">HostMatches</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(localhost|127\.0\.0\.1)&#39;</span><span class="p">),</span>
+            <span class="p">[(</span><span class="s1">&#39;/foo&#39;</span><span class="p">,</span> <span class="n">FooHandler</span><span class="p">)]),</span>
+    <span class="p">])</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>此外，应用的<code>default_host</code>参数，和<code>DefaultHostMatches</code>路由器不能在应用中使用，这可能受到DNS重新绑定，因为它有一个通配符主模式类似的效果。</p>
+<br>
+<br>
+<br>
+<h2 id="运行和部署">运行和部署</h2>
+<p>Running and deploying</p>
+<p>自从Tornado提供了自己的HTTPServer，运行和部署它便和其它Python Web框架有点不同。不同于配置WSGI，你只需要写一个<code>main()</code>函数来启动Server:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">make_app</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8888</span><span class="p">)</span>
+    <span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>请注意，这可能需要增加每个进程可打开的文件数(open files)，可能修改<code>ulimit</code>限制。</p>
+<br>
+<br>
+<h3 id="进程和端口">进程和端口</h3>
+<p>Processes and ports</p>
+<p>由于Python的GIL(Global Interpreter Lock)，有必要运行多个Python进程，以充分利用多CPU机器。通常，最好为每个CPU运行一个进程。</p>
+<p>Tornado包含了一个内置的多进程模式，一次可启动多个进程。这需要稍微修改以下启动方式:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">make_app</span><span class="p">()</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">httpserver</span><span class="o">.</span><span class="n">HTTPServer</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="mi">8888</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># forks one process per cpu</span>
+    <span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这是启动多个进程，并让它们使用相同的端口最简单的方法，虽然它有一定的局限性。首先，每个子进程都会有自己的IOLoop，因此在fork前没有事物触及IOLoop示例是很重要的。第二，在这个模型中很难做到零停机更新(zero-downtime updates)。最后，由于所有的进程共享同一端口更难以单独监控。</p>
+<p>对于更复杂的部署，建议单独启动进程，并监听不同的端口。<code>supervisord</code>是一个好办法。当每个进程使用了不同的端口，通常需要一个外部的负载均衡器(如HAProxy, Nginx)以单独的访问地址提供给访问者。</p>
+<br>
+<br>
+<h3 id="运行在负载均衡器后">运行在负载均衡器后</h3>
+<p>Running behind a load balancer</p>
+<p>当运行在如Nginx这样的负载均衡器之后，建议传递<code>xheaders=True</code>给HTTPServer构造器。这将告诉Tornado使用<code>X-Real-IP</code>用户Header，来获取用户IP地址，而不是负载均衡器的IP地址。</p>
+<p>一个栗子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">user nginx;
+worker_processes 1;
+
+error_log /var/log/nginx/error.log;
+pid /var/run/nginx.pid;
+
+events {
+    worker_connections 1024;
+    use epoll;
+}
+
+http {
+    # Enumerate all the Tornado servers here
+    upstream frontends {
+        server 127.0.0.1:8000;
+        server 127.0.0.1:8001;
+        server 127.0.0.1:8002;
+        server 127.0.0.1:8003;
+    }
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+    access_log /var/log/nginx/access.log;
+
+    keepalive_timeout 65;
+    proxy_read_timeout 200;
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    gzip on;
+    gzip_min_length 1000;
+    gzip_proxied any;
+    gzip_types text/plain text/html text/css text/xml
+               application/x-javascript application/xml
+               application/atom+xml text/javascript;
+
+    # Only retry if there was a communication error, not a timeout
+    # on the Tornado server (to avoid propagating &#34;queries of death&#34;
+    # to all frontends)
+    proxy_next_upstream error;
+
+    server {
+        listen 80;
+
+        # Allow file uploads
+        client_max_body_size 50M;
+
+        location ^~ /static/ {
+            root /var/www;
+            if ($query_string) {
+                expires max;
+            }
+        }
+        location = /favicon.ico {
+            rewrite (.*) /static/favicon.ico;
+        }
+        location = /robots.txt {
+            rewrite (.*) /static/robots.txt;
+        }
+
+        location / {
+            proxy_pass_header Server;
+            proxy_set_header Host $http_host;
+            proxy_redirect off;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Scheme $scheme;
+            proxy_pass http://frontends;
+        }
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<h3 id="静态文件和侵略性的文件缓存">静态文件和侵略性的文件缓存</h3>
+<p>Static files and aggressive file caching</p>
+<p>你可以通过在应用中指定<code>static_path</code>来设置Tornaodo提供静态文件:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-py" data-lang="py"><span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&#34;static_path&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&#34;static&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;cookie_secret&#34;</span><span class="p">:</span> <span class="s2">&#34;__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;login_url&#34;</span><span class="p">:</span> <span class="s2">&#34;/login&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;xsrf_cookies&#34;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">application</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="n">LoginHandler</span><span class="p">),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/(apple-touch-icon\.png)&#34;</span><span class="p">,</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">StaticFileHandler</span><span class="p">,</span>
+     <span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;static_path&#39;</span><span class="p">])),</span>
+<span class="p">],</span> <span class="o">**</span><span class="n">settings</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>此设置会自动设置以<code>/static/</code>的所有请求到静态目录，如<code>http://localhost:8888/static/foo.png</code>将从指定的静态目录提供静态文件。同样还有<code>/robots.txt</code>和<code>/favicon.ico</code>，即便它们并未以<code>/static/</code>为前缀。</p>
+<p>在上面的设置，我们已明确的配置Tornado从<code>StaticFileHandler</code>提供<code>apple-touch-icon.png</code>。</p>
+<p>要提高性能，通常是浏览器缓存静态资源，因此浏览器将不会发送不必要的<code>If-Modified-Since</code>或<code>Etag</code>请求，这可能会阻止页面的渲染。Tornado支持这一开箱即用的静态内容版本。</p>
+<p>要使用此功能，在你的模板中使用<code>static_url</code>方法，而不是在你的HTML中直接输入静态文件:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>FriendFeed - {{ _(&#34;Home&#34;) }}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+   <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;{{ static_url(&#34;</span><span class="na">images</span><span class="err">/</span><span class="na">logo</span><span class="err">.</span><span class="na">png</span><span class="err">&#34;)</span> <span class="err">}}&#34;</span><span class="p">/&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+   <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+ <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>static_url()</code>函数会将相对路径转换为如<code>/static/images/logo.png?v=aae54</code>这样的URI。<code>v</code>参数是<code>logo.png</code>的哈希内容，它的存在使得Tornado Server发送cache header到用户浏览器，这将使浏览器无限期缓存内容。</p>
+<p>由于<code>v</code>参数使基于文件的内容，如果你更新文件并重启Server，它将发送一个新的<code>v</code>值，因此用户浏览器会自动获取新的文件。如果文件的内容没有改变，浏览器将继续使用本地缓存的副本而没有检查Server上的更新，显著提供渲染性能。</p>
+<p>在生产环境，你可能希望从像Nginx这样更优化的静态文件服务器提供静态文件。你可以配置几乎所有的Web Server识别由<code>static_url</code>使用的标签，并设置相应的cache header。</p>
+<p>栗子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /static/ {
+    root /var/friendfeed/static;
+    if ($query_string) {
+        expires max;
+    }
+ }
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<h3 id="debug模式和自动重载">Debug模式和自动重载</h3>
+<p>Debug mode and automatic reloading</p>
+<p>如果将<code>debug=True</code>传递给<code>Application</code>构造器，应用将运行在debug/development模式下。在此模式下，一些便于开发调试的功能将被启用:</p>
+<ul>
+<li><code>autoreload=True</code>：应用会监视更改的源文件并在发生变化时自动重载。这样减少了在开发过程中手动重启服务。然后，某些错误可能导致无法启动。</li>
+<li><code>compiled_template_cache=False</code>：模板不会被缓存。</li>
+<li><code>static_hash_cache=False</code>：静态文件哈希值(由<code>static_url</code>函数使用)将不会被缓存。</li>
+<li><code>serve_traceback=True</code>：当RequestHandler中的异常没有被捕获，将会生成一个包含stack trace的错误页面。</li>
+</ul>
+<p>自动重载模式不兼容<code>HTTPserver</code>的多进程模式。如果你正在使用自动重载模式，你不要给<code>HTTPServer.start</code>一个或多于一个参数(或调用<code>tornado.process.fork_processes</code>)。</p>
+<p>调式模式的自动重载功能是可用作为<code>tornado.autoreload</code>独立(standalone)模块。这两个可以组合使用，以提供对语法错误的额外稳健：在应用中设置<code>autoreload=True</code>来在运行时检测改变，并使用<code>python -m tornado.autoreload myserver.py</code>启动来在启动时捕获任意语法错误或其它错误。</p>
+<p>重载将失去任何Python解释器命令行参数(如<code>-u</code>)，因为它使用<code>sys.executable</code>和<code>sys.argv</code>来重新执行Python。此外，修改这些变量将导致重载行为不正确。</p>
+<br>
+<br>
+<h3 id="wsgi">WSGI</h3>
+<p>Tornado通常是为了独立运行，而不用WSGI容器。然而，在一些环境中（如Google App Engine），只允许WSGI，应用程序无法运行自己的Server。在这种情况下，Tornado支持操作的限制模式，不支持异步操作，但允许在只有WSGI环境的Tornado功能的子集。未在WSIG模式允许的功能包括协程、<code>@asynchronous</code>装饰器，<code>AsyncHTTPclient</code>、<code>auth</code>模块和WebSockets。</p>
+<p>你可以使用<code>tornado.wsgi.WSGIAdapter</code>将一个Tornado Application转换为WSGI application。</p>
+<p>栗子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">tornado.web</span>
+<span class="kn">import</span> <span class="nn">tornado.wsgi</span>
+
+<span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Hello, world&#39;</span><span class="p">)</span>
+
+<span class="n">tornado_app</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">application</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">wsgi</span><span class="o">.</span><span class="n">WSGIAdapter</span><span class="p">(</span><span class="n">tornado_app</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-10-14</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/tornado/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/tornado/" data-title="Tornado" data-hashtags="Python,Web,Tornado,DevOps"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/tornado/" data-title="Tornado"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/tornado/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/tornado/" data-title="Tornado"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/tornado/" data-title="Tornado"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python/">python</a>,&nbsp;<a href="/tags/web/">web</a>,&nbsp;<a href="/tags/tornado/">Tornado</a>,&nbsp;<a href="/tags/devops/">DevOps</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/htmlcss/" class="prev" rel="prev" title="HTML和CSS"><i class="fas fa-angle-left fa-fw"></i>HTML和CSS</a>
+            <a href="/ansible/" class="next" rel="next" title="Ansible">Ansible<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2017 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@13.0.0/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

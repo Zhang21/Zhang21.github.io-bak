@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>HTTP请求方法和状态码 - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="HTTP请求方法和状态码" />
+<meta property="og:description" content="常见HTTP请求方法
+HTTP协议的请求方法有：GET, POST, HEAD PUT DELETE, OPTIONS, TRACE, CONNECT" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/http-method-status/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2017-12-01T13:53:20&#43;00:00" />
+<meta property="article:modified_time" content="2017-12-01T13:53:20&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="HTTP请求方法和状态码"/>
+<meta name="twitter:description" content="常见HTTP请求方法
+HTTP协议的请求方法有：GET, POST, HEAD PUT DELETE, OPTIONS, TRACE, CONNECT"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/http-method-status/" /><link rel="prev" href="https://zhang21.cn/fhs/" /><link rel="next" href="https://zhang21.cn/mongodb/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "HTTP请求方法和状态码",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/http-method-status\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "http, 状态码","wordcount":  2043 ,
+        "url": "https:\/\/zhang21.cn\/http-method-status\/","datePublished": "2017-12-01T13:53:20+00:00","dateModified": "2017-12-01T13:53:20+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">HTTP请求方法和状态码</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/http/"><i class="far fa-folder fa-fw"></i>http</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2017-12-01">2017-12-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2043 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#常见http请求方法">常见HTTP请求方法</a></li>
+    <li><a href="#http-status-code">HTTP Status Code</a>
+      <ul>
+        <li><a href="#常见http状态码">常见HTTP状态码</a></li>
+        <li><a href="#1xx">1xx</a></li>
+        <li><a href="#3xx">3xx</a></li>
+        <li><a href="#4xx">4xx</a></li>
+        <li><a href="#5xx">5xx</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="常见http请求方法">常见HTTP请求方法</h1>
+<p>HTTP协议的请求方法有：<code>GET, POST, HEAD PUT DELETE, OPTIONS, TRACE, CONNECT</code></p>
+<p>Method | Description</p>
+<ul>
+<li>| -
+GET | 向Server请求文件
+POST | 向Server发送数据并让Server进行处理
+PUT | 向Server发送数据并存储在Server端
+HEAD | 检查一个对象是否存在
+DELETE | 从Server上删除一个文件
+CONNECT | 对通道提供支持
+TRACE | 跟踪到Server的路径
+OPTION | 查询Server的性能</li>
+</ul>
+<br>
+<br>
+<hr>
+<br>
+<h1 id="http-status-code">HTTP Status Code</h1>
+<p>当我们从Client向Server发送请求时，Server会向我们返回StatusCode。
+StatusCode会告诉我们Server的响应的状态，通过它，我们就可以知道当前请求是成功还是出现了问题。</p>
+<p>HTTP StatusCode放置在HTTP  Response报文中。</p>
+<p>StatusCode由三位数字组成，第一个数字定义了响应类型，有五种可能值：</p>
+<p>状态码 | 响应类别 | 描述</p>
+<ul>
+<li>| - | -
+1xx | 指示信息 | 服务器正在处理请求
+2xx | 成功 | 请求以正常处理完毕
+3xx | 重定向 | 需要进行额外操作以完成请求
+4xx | 客户端错误 | 客户端原因导致服务器无法处理请求
+5xx | 服务器错误 | 服务器原因导致处理请求出错</li>
+</ul>
+<br>
+<br/>
+<h2 id="常见http状态码">常见HTTP状态码</h2>
+<p>状态码 | 描述</p>
+<ul>
+<li>| -
+200-OK | 服务器成功返回网页，这是成功的HTTP请求返回的标准状态码
+301 - Moved Permanently | 永久跳转，所有请求的网页将永久跳转到被设定的新位置
+400 - Bad Request | 客户端请求有语法错误，不能被服务器理解
+403 - Forbidden | 禁止访问，这个请求时合法的，但是服务器端因为匹配了预先设置的规则而拒绝响应客户端的请求，此类问题一般为服务器权限配置不当所致
+404 - Not Found | 服务器找不到客户端请求的指定页面，可能是客户端请求了服务器不存在的资源所导致
+500 - Internal Server Error | 内部服务器错误，服务器遇到了意料不到的情况，不能完成客户的请求。这是一个较为笼统的报错，一般为服务器的设置或内部程序问题所致
+502 - Bad Gateway | 坏的网关，一般是代理服务器请求后端服务器时，后端服务不可用或没有完成响应网关服务器。一般为代理服务器下面的节点出了问题
+503 - Service Unavailable | 服务当前不可用，可能为服务器超载或停机维护所致，或者是代理服务器后面没有可以提供服务的节点
+504 - Gateway Timeout | 网关超时，一般是网关代理服务器请求后端服务时，后端服务没有在特定的时间内完成处理请求，一般为服务器过载所致，没有在指定的时间内返回数据给代理服务器</li>
+</ul>
+<br>
+<br/>
+<h2 id="1xx">1xx</h2>
+<p>1xx（临时响应），表示临时响应并需要请求者继续执行操作。</p>
+<p>状态码 | 描述</p>
+<ul>
+<li>| -
+100 - Continue |  请求者应当继续提出请求
+101 - Switching Protocols | 请求者要求服务器更换协议，服务器已确认并准备更换</li>
+</ul>
+<br/>
+## 2xx
+<p>2xx（成功），表示成功处理了请求。</p>
+<p>状态码 | 描述</p>
+<ul>
+<li>| -
+200 - OK | Server已成功处理了请求
+201 - Created | 请求成功并且Server创建了新的资源
+202 - Accepted | Server以接受请求，但尚未处理
+203 - Non-Authoritative Information | Server已成功处理了请求，但返回的信息可能来自另一个来源
+204 - No Content | Server成功处理了请求，但没有返回任何内容
+205 - Reset Content | 没有新的内容，但浏览器应该重置它所显示的内容
+206 - Partial Content | 服务器成功处理了部分GET请求</li>
+</ul>
+<br>
+<br/>
+<h2 id="3xx">3xx</h2>
+<p>3xx（重定向），表示要完成请求需要进一步操作。</p>
+<p>状态码 | 描述</p>
+<ul>
+<li>| -
+300 - Multiple Choices | 针对请求，Server可执行多种操作
+301 - Moved Permanently | 请求的网页已移动到新位置
+302 - Found | Server目前从不同位置的网页响应请求
+303 - See Other | 请求者对不同位置使用单独的GET请求来检索时
+304 - Not Modified | 自从上次请求后，请求的网页内容未修改过
+305 - Use Proxy | 请求者只能使用代理访问请求的网页
+307 - Temporary Redirect | Server从不同位置的网页响应请求，但请求者继续使用原有位置进行请求</li>
+</ul>
+<br>
+<br/>
+<h2 id="4xx">4xx</h2>
+<p>4xx（请求错误），表示请求可能出错，妨碍了Server的处理。</p>
+<p>状态码 | 描述</p>
+<ul>
+<li>| -
+400 - Bad Request | Server不理解请求的语法
+401 - Unauthorized | 请求要求身份认证
+403 - Forbidden | Server拒绝请求
+404 - Not Found | Server找不到请求的网页
+405 - Method Not Allowed | 请求方法不被允许
+406 - Not Acceptable | 无法使用请求的恩日工特性响应请求的网页
+407 - Proxy Authentication Required | 请求需要代理授权
+408 - Request Timeout | Server等候请求时超时
+409 - Conflict | Server在完成请求时发生冲突
+410 - Gone | 请求的资源以永久删除
+411 - Length Required | Server不接受不含有效内容长度Header的请求
+412 - Precondition Failed | Server为满足请求者在请求中设置的一个前提条件
+413 – Request Entity Too Large | 请求实体太大，Server无法处理
+414 - Request URI Too Long | 请求的URI过长，Server无法处理
+415 – 不支持的媒体类型 | 请求的格式不受支持
+416 – Requested Range Not Satisfiable | 页面无法提供请求的范围
+417 – 执行失败 | Server未满足期望请求Header的要求
+451 | 基于法律上的的原因，不能像请求者展示网页内容</li>
+</ul>
+<br>
+<br/>
+<h2 id="5xx">5xx</h2>
+<p>5xx（服务器错误），表示服务器在尝试处理请求时发生内部错误。这些错误可能是服务器本身的错误，而不是请求出错。</p>
+<p>状态码 | 描述</p>
+<ul>
+<li>| -
+500 - Internal Server Error | Server遇到错误，无法完成请求
+501 - Not Implemented | Server不具备完成请求的功能
+502 - Bad Gateway | Server作为网关或代理时，从upstream收到无效响应
+503 - Service Unavailable | Server暂时无法使用
+504 - Gateway Timeout | Server作为网关或代理时，没有及时从upstream收到请求
+505 - HTTP Version Not Supported | Server不支持请求中所用的HTTP版本</li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2017-12-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/http-method-status/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/http-method-status/" data-title="HTTP请求方法和状态码" data-hashtags="http,状态码"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/http-method-status/" data-title="HTTP请求方法和状态码"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/http-method-status/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/http-method-status/" data-title="HTTP请求方法和状态码"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/http-method-status/" data-title="HTTP请求方法和状态码"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/http/">http</a>,&nbsp;<a href="/tags/%E7%8A%B6%E6%80%81%E7%A0%81/">状态码</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/fhs/" class="prev" rel="prev" title="Filesystem Hierarchy Standard"><i class="fas fa-angle-left fa-fw"></i>Filesystem Hierarchy Standard</a>
+            <a href="/mongodb/" class="next" rel="next" title="MongoDB">MongoDB<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2017 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@13.0.0/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
