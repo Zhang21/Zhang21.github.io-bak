@@ -1209,7 +1209,7 @@ docker swarm init
 #注意防火墙，可能会阻碍加入
 
 docker swarm join --toker <toker> <ip:port>
-docker swarm join --token SWMTKN-1-3vrbnuneu0hyu41evxlhbn5fp04ad5jvg9v5rzvdaedg2bghkt-e24mjnni3hu7782t3gkz0ny39 172.16.129.150:2377
+docker swarm join --token token-xxxxxxxxxxxxxxxxxx 172.16.129.150:2377
 
 
 #查看swarm

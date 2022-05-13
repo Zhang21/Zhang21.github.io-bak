@@ -4,7 +4,18 @@
         <link>https://zhang21.cn/posts/</link>
         <description>所有文章 | 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 07 May 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 09 May 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Jenkins</title>
+    <link>https://zhang21.cn/jenkins/</link>
+    <pubDate>Mon, 09 May 2022 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/jenkins/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li><a href="https://www.jenkins.io/zh/doc/" target="_blank" rel="noopener noreffer">jenkins文档</a></li>
+</ul>
+<br/>]]></description>
+</item><item>
     <title>Hexo迁移到Hugo</title>
     <link>https://zhang21.cn/hexo-hugo/</link>
     <pubDate>Sat, 07 May 2022 00:00:00 &#43;0000</pubDate>
@@ -137,18 +148,5 @@
 <li><a href="http://www.ruanyifeng.com/blog/2015/02/make.html">http://www.ruanyifeng.com/blog/2015/02/make.html</a></li>
 </ul>
 <br>]]></description>
-</item><item>
-    <title>google-sre</title>
-    <link>https://zhang21.cn/google-sre/</link>
-    <pubDate>Tue, 13 Apr 2021 10:59:14 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/google-sre/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li>google sre book: <a href="https://sre.google/sre-book/">https://sre.google/sre-book/</a></li>
-</ul>
-<br>
-<br>
-<hr>]]></description>
 </item></channel>
 </rss>

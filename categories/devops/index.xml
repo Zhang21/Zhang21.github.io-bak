@@ -4,7 +4,18 @@
         <link>https://zhang21.cn/categories/devops/</link>
         <description>devops - 分类 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 05 May 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/devops/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 09 May 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/devops/" rel="self" type="application/rss+xml" /><item>
+    <title>Jenkins</title>
+    <link>https://zhang21.cn/jenkins/</link>
+    <pubDate>Mon, 09 May 2022 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/jenkins/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li><a href="https://www.jenkins.io/zh/doc/" target="_blank" rel="noopener noreffer">jenkins文档</a></li>
+</ul>
+<br/>]]></description>
+</item><item>
     <title>Terraform</title>
     <link>https://zhang21.cn/terraform/</link>
     <pubDate>Thu, 05 May 2022 00:00:00 &#43;0000</pubDate>

@@ -56,7 +56,7 @@ mongodb4.2&#43;
                             "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "database, mongodb, nosql","wordcount":  1973 ,
+                        }],"genre": "posts","keywords": "database, mongodb, nosql","wordcount":  8893 ,
         "url": "https:\/\/zhang21.cn\/mongodb-definitive-guide\/","datePublished": "2022-04-29T10:49:26+00:00","dateModified": "2022-04-29T10:49:26+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
@@ -133,8 +133,8 @@ mongodb4.2&#43;
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">MongoDB权威指南</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/database/"><i class="far fa-folder fa-fw"></i>database</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-29">2022-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1973 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-29">2022-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 8893 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 18 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -158,6 +158,28 @@ mongodb4.2&#43;
         <li><a href="#find">find</a></li>
         <li><a href="#查询条件">查询条件</a></li>
         <li><a href="#特定类型的查询">特定类型的查询</a></li>
+        <li><a href="#where查询">$where查询</a></li>
+        <li><a href="#游标">游标</a></li>
+      </ul>
+    </li>
+    <li><a href="#索引">索引</a>
+      <ul>
+        <li><a href="#索引简介">索引简介</a>
+          <ul>
+            <li><a href="#创建索引">创建索引</a></li>
+            <li><a href="#复合索引">复合索引</a></li>
+            <li><a href="#如何选择索引">如何选择索引</a></li>
+            <li><a href="#使用复合索引">使用复合索引</a></li>
+            <li><a href="#复合索引的最佳实践">复合索引的最佳实践</a>
+              <ul>
+                <li><a href="#选择键的方向">选择键的方向</a></li>
+                <li><a href="#使用覆盖查询">使用覆盖查询</a></li>
+                <li><a href="#隐式索引">隐式索引</a></li>
+              </ul>
+            </li>
+            <li><a href="#运算符如何使用索引">$运算符如何使用索引</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -385,7 +407,876 @@ mongodb4.2&#43;
 </div>
 </div><br/>
 <br/>
-<h2 id="特定类型的查询">特定类型的查询</h2></div><div class="post-footer" id="post-footer">
+<h2 id="特定类型的查询">特定类型的查询</h2>
+<p>null的行为有一些特别。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="c1">// 仅匹配值为null的文档
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">c</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;z&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;$eq&#34;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;$exists&#34;</span><span class="o">:</span> <span class="kc">true</span><span class="p">}})</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p><code>$regex</code>可在查询中为字符串的模式匹配提供正则表达式功能。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;$regex&#34;</span><span class="o">:</span> <span class="sr">/joey?/i</span><span class="p">}})</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>查询数组元素的方式与查询标量值相同。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="nx">db</span><span class="p">.</span><span class="nx">food</span><span class="p">.</span><span class="nx">insertOne</span><span class="p">({</span><span class="s2">&#34;fruit&#34;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;apple&#34;</span><span class="p">,</span> <span class="s2">&#34;banana&#34;</span><span class="p">,</span> <span class="s2">&#34;peach&#34;</span><span class="p">])</span>
+<span class="c1">// 查询其中一个内容也可以成功匹配到文档
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">food</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;fruit&#34;</span><span class="o">:</span> <span class="s2">&#34;banana&#34;</span><span class="p">})</span>
+
+<span class="c1">// 如果需要通过多个元素来匹配数组，使用 $all
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">food</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;fruit&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;$all&#34;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;apple&#34;</span><span class="p">,</span> <span class="s2">&#34;banana&#34;</span><span class="p">]}})</span>
+
+<span class="c1">// 可以使用数组下标来查询
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">food</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;fruit.2&#34;</span><span class="o">:</span> <span class="s2">&#34;peach&#34;</span><span class="p">})</span>
+
+<span class="c1">// $size 查询特定长度的数组
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">food</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;fruit&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;$size&#34;</span><span class="o">:</span> <span class="mi">3</span><span class="p">}})</span>
+
+<span class="c1">// $slice 返回数组中特定子集
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">blog</span><span class="p">.</span><span class="nx">posts</span><span class="p">.</span><span class="nx">findOne</span><span class="p">(</span><span class="nx">criteria</span><span class="p">,</span> <span class="p">{</span><span class="s2">&#34;comments&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;$slice&#34;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}})</span>
+
+<span class="c1">// 返回查询条件匹配的任意数组元素
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">blog</span><span class="p">.</span><span class="nx">posts</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;comments.name&#34;</span><span class="o">:</span> <span class="s2">&#34;Bob&#34;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;comments.$&#34;</span><span class="o">:</span> <span class="mi">1</span><span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>要正确指定一组条件而无须指定每个键，请使用<code>$elemMatch</code>。</p>
+<br/>
+<br/>
+<h2 id="where查询">$where查询</h2>
+<p><code>$where</code>字句允许在查询中执行任意的JavaScript代码。为了安全起见，应该严格限制或消除<code>$where</code>的使用。</p>
+<br/>
+<br/>
+<h2 id="游标">游标</h2>
+<p>数据库会使用游标返回<code>find</code>的执行结果。游标的客户端实现通常能够在很大程度上对查询的最终输出进行控制。</p>
+<br/>
+<p>最常用的查询选项是限制(limit)返回结果的数量、略过(skip)一定数量的结果以及排序(sort)。所有这些选项必须在查询被发送到数据库之前指定。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="nx">db</span><span class="p">.</span><span class="nx">c</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="nx">db</span><span class="p">.</span><span class="nx">c</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">skip</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1">// 1升序， -1降序
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">c</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">sort</span><span class="p">({</span><span class="s2">&#34;username&#34;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>略过大量的结果会导致性能问题。因为需要找到被略过的结果，然后再丢弃这些数据。</p>
+<br/>
+<p>游标包括两个部分：面向客户端的游标，和由客户端游标所表示的数据库游标。</p>
+<p>在服务器端，游标会占用内存和资源，一旦游标遍历完结果之后，或者客户端发送一条消息要求终止，数据库就可以释放它正在使用的资源。释放这些资源可以让数据库将其用于其他用途，这是非常有益的，因此要确保可以尽快释放游标。</p>
+<p>如果10分钟没有被使用的话，数据库游标也将自动销毁。</p>
+<p>有时可能需要一个游标维持很长时间。这种情况下，许多驱动程序实现了一个称为<code>immportal</code>的函数，或者类似的机制。它告诉数据库不要让游标超时。如果关闭了游标超时，则必须遍历完所有结果或主动将其销毁以确保游标被关闭。否则，它会一直占用数据库的资源，知道服务器重新启动。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="索引">索引</h1>
+<p>索引使你能够高效地执行查询。为集合选择正确的索引对性能至关重要。主要内容：</p>
+<ul>
+<li>什么是索引？为什么要使用索引？</li>
+<li>如何选择要创建索引的字段？</li>
+<li>如何强制使用索引？如何对索引的使用进行评估？</li>
+<li>创建及删除索引的管理细节。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="索引简介">索引简介</h2>
+<p>数据库索引类似于图书索引。有了索引便不需要浏览整本书，而是可以采取一种快捷方式，只查看一个有内容引用的有序列表。这使得MongoDB的查找速度提高了好几个数量级。</p>
+<p>不适用索引的查询称为<strong>集合扫描(全表扫描)</strong>，这意味着服务器端必须浏览整本书才能得到查询的结果。</p>
+<p>栗子，创建一个包含百万文档的集合:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="mi">1000000</span><span class="p">;</span> <span class="mi">1</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">insertOne</span><span class="p">(</span>
+    	<span class="p">{</span>
+        	<span class="s2">&#34;i&#34;</span><span class="o">:</span> <span class="nx">i</span><span class="p">,</span>
+            <span class="s2">&#34;username&#34;</span><span class="o">:</span> <span class="s2">&#34;user&#34;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">,</span>
+            <span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">120</span><span class="p">),</span>
+            <span class="s2">&#34;created&#34;</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>通过不使用索引和使用索引，研究这个集合中查询的性能差异。</p>
+<p>可以在查询中使用<code>explain</code>命令来产看MongoDB在执行查询时所需要做的事情。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;usename&#34;</span><span class="o">:</span> <span class="s2">&#34;user101&#34;</span><span class="p">}).</span><span class="nx">explain</span><span class="p">(</span><span class="s2">&#34;executionStats&#34;</span><span class="p">)</span>
+
+<span class="c1">// 省略部分结果
+</span><span class="c1"></span><span class="p">{</span>
+    <span class="p">...</span>
+    <span class="s2">&#34;executionStats&#34;</span> <span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&#34;executionSuccess&#34;</span> <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&#34;nReturned&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&#34;executionTimeMillis&#34;</span> <span class="o">:</span> <span class="mi">419</span><span class="p">,</span>
+            <span class="s2">&#34;totalKeysExamined&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&#34;totalDocsExamined&#34;</span> <span class="o">:</span> <span class="mi">1000000</span><span class="p">,</span>
+            <span class="s2">&#34;executionStages&#34;</span> <span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&#34;stage&#34;</span> <span class="o">:</span> <span class="s2">&#34;COLLSCAN&#34;</span><span class="p">,</span>
+                    <span class="s2">&#34;filter&#34;</span> <span class="o">:</span> <span class="p">{</span>
+                            <span class="s2">&#34;username&#34;</span> <span class="o">:</span> <span class="p">{</span>
+                                    <span class="s2">&#34;$eq&#34;</span> <span class="o">:</span> <span class="s2">&#34;user101&#34;</span>
+                            <span class="p">}</span>
+                    <span class="p">},</span>
+                    <span class="s2">&#34;nReturned&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&#34;executionTimeMillisEstimate&#34;</span> <span class="o">:</span> <span class="mi">375</span><span class="p">,</span>
+                    <span class="s2">&#34;works&#34;</span> <span class="o">:</span> <span class="mi">100002</span><span class="p">,</span>
+                    <span class="s2">&#34;advanced&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&#34;needTime&#34;</span> <span class="o">:</span> <span class="mi">1000000</span><span class="p">,</span>
+                    <span class="s2">&#34;needYield&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&#34;saveState&#34;</span> <span class="o">:</span> <span class="mi">7822</span><span class="p">,</span>
+                    <span class="s2">&#34;restoreState&#34;</span> <span class="o">:</span> <span class="mi">7822</span><span class="p">,</span>
+                    <span class="s2">&#34;isEOF&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&#34;invalidates&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&#34;direction&#34;</span> <span class="o">:</span> <span class="s2">&#34;forward&#34;</span><span class="p">,</span>
+                    <span class="s2">&#34;docsExamined&#34;</span> <span class="o">:</span> <span class="mi">1000000</span>
+            <span class="p">}</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>介绍下<code>executionStats</code>字段下的内嵌文档。</p>
+<p><code>totalDocsExamined</code>是MongoDB在试图查询时查看的文档总数，可以看到，集合中的每个文档都被扫描过了。也就是说，MongoDB必须查看每个文档中的每个字段。</p>
+<p><code>executionTimeMills</code>字段显示了执行查询所用的毫秒数。</p>
+<p><code>nTeturned</code>字段显示返回的结果数是1，因为只有一个用户名为user101的用户。注意，MongoDB必须在集合的每个文档中查找匹配项，因为它不知道用户名是唯一的。</p>
+<p>为了使MongoDB高效地响应查询，应用程序中的所有查询模式都应该有索引支持。</p>
+<br/>
+<br/>
+<h3 id="创建索引">创建索引</h3>
+<p>使用<code>createIndex</code>方法在<code>username</code>字段上创建索引:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">({</span><span class="s2">&#34;username&#34;</span><span class="o">:</span> <span class="mi">1</span><span class="p">})</span>
+
+<span class="c1">// 建索引过程会阻塞其它数据库操作，background可指定以后台方式创建索引
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">({</span><span class="s2">&#34;username&#34;</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;background&#34;</span><span class="o">:</span> <span class="kc">true</span><span class="p">})</span>
+
+<span class="c1">// 查看索引
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">getIndexes</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>索引的创建时间和集合大小有关。可以使用<code>db.currentOp()</code>查看索引创建进度。</p>
+<p>在此执行之前的查询：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;username&#34;</span><span class="o">:</span> <span class="s2">&#34;user101&#34;</span><span class="p">}).</span><span class="nx">explain</span><span class="p">(</span><span class="s2">&#34;executionStats&#34;</span><span class="p">)</span>
+
+<span class="p">{</span>
+		<span class="p">...</span>
+        <span class="s2">&#34;executionStats&#34;</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&#34;executionSuccess&#34;</span> <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="s2">&#34;nReturned&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&#34;executionTimeMillis&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&#34;totalKeysExamined&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&#34;totalDocsExamined&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&#34;executionStages&#34;</span> <span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&#34;stage&#34;</span> <span class="o">:</span> <span class="s2">&#34;FETCH&#34;</span><span class="p">,</span>
+                        <span class="s2">&#34;nReturned&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s2">&#34;executionTimeMillisEstimate&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">&#34;works&#34;</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                        <span class="s2">&#34;advanced&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s2">&#34;needTime&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">&#34;needYield&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">&#34;saveState&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">&#34;restoreState&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">&#34;isEOF&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s2">&#34;invalidates&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">&#34;docsExamined&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s2">&#34;alreadyHasObj&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">&#34;inputStage&#34;</span> <span class="o">:</span> <span class="p">{</span>
+                                <span class="s2">&#34;stage&#34;</span> <span class="o">:</span> <span class="s2">&#34;IXSCAN&#34;</span><span class="p">,</span>
+                                <span class="s2">&#34;nReturned&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                                <span class="s2">&#34;executionTimeMillisEstimate&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                                <span class="s2">&#34;works&#34;</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                                <span class="s2">&#34;advanced&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                                <span class="s2">&#34;needTime&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                                <span class="s2">&#34;needYield&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                                <span class="s2">&#34;saveState&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                                <span class="s2">&#34;restoreState&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                                <span class="s2">&#34;isEOF&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                                <span class="s2">&#34;invalidates&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                                <span class="s2">&#34;keyPattern&#34;</span> <span class="o">:</span> <span class="p">{</span>
+                                        <span class="s2">&#34;username&#34;</span> <span class="o">:</span> <span class="mi">1</span>
+                                <span class="p">},</span>
+                                <span class="s2">&#34;indexName&#34;</span> <span class="o">:</span> <span class="s2">&#34;username_1&#34;</span><span class="p">,</span>
+                                <span class="s2">&#34;isMultiKey&#34;</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                                <span class="s2">&#34;multiKeyPaths&#34;</span> <span class="o">:</span> <span class="p">{</span>
+                                        <span class="s2">&#34;username&#34;</span> <span class="o">:</span> <span class="p">[</span> <span class="p">]</span>
+                                <span class="p">},</span>
+                                <span class="s2">&#34;isUnique&#34;</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                                <span class="s2">&#34;isSparse&#34;</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                                <span class="s2">&#34;isPartial&#34;</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                                <span class="s2">&#34;indexVersion&#34;</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                                <span class="s2">&#34;direction&#34;</span> <span class="o">:</span> <span class="s2">&#34;forward&#34;</span><span class="p">,</span>
+                                <span class="s2">&#34;indexBounds&#34;</span> <span class="o">:</span> <span class="p">{</span>
+                                        <span class="s2">&#34;username&#34;</span> <span class="o">:</span> <span class="p">[</span>
+                                                <span class="s2">&#34;[\&#34;user101\&#34;, \&#34;user101\&#34;]&#34;</span>
+                                        <span class="p">]</span>
+                                <span class="p">},</span>
+                                <span class="s2">&#34;keysExamined&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                                <span class="s2">&#34;seeks&#34;</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                                <span class="s2">&#34;dupsTested&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                                <span class="s2">&#34;dupsDropped&#34;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                                <span class="s2">&#34;seenInvalidated&#34;</span> <span class="o">:</span> <span class="mi">0</span>
+                        <span class="p">}</span>
+                <span class="p">}</span>
+        <span class="p">},</span>
+    	<span class="p">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到，查询几乎是一瞬间完成的。而且查询任何用户名所花费的时间基本上是一致的。</p>
+<br/>
+<p>索引可以显著缩短查询时间。然而，使用索引是有代价的：修改索引字段的写操作（插入、更新和删除）会花费更长的时间。这是因为在更改数据时，除了更新字段，还必须更新索引。通常来说，这个代价是值得的。关键是要找出要索引的字段。</p>
+<p>要选择为哪些字段创建索引，可以查看常用的查询以及哪些需要快速执行的查询，并尝试从中找到一组通用的键。</p>
+<p>如果这是一个很少用到的查询或是由管理员执行的不太关心时间消耗的查询，那么就不应该在此上面创建索引。</p>
+<br/>
+<br/>
+<h3 id="复合索引">复合索引</h3>
+<p>对于很多查询模式来说，在两个或更多的键上创建索引是必要的。这称为<strong>复合索引</strong>(compound index)。如果查询中有多个排序方向或者查询条件中有多个键，那么这个索引会很有用。复合索引是创建在多个字段上的索引。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">({</span><span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&#34;username&#34;</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;background&#34;</span><span class="o">:</span> <span class="kc">true</span><span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的索引会是下面这个样子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[0, &#34;user100010&#34;] -&gt; 8623513776
+[0, &#34;user1002&#34;] -&gt; 8599246768
+...
+[0, &#34;user100414&#34;] -&gt; 8623564208
+[1, &#34;user100113&#34;] -&gt; 8623525680
+...
+[1, &#34;user100626&#34;] -&gt; 8623591344
+[2, &#34;user100191&#34;] -&gt; 8623535664
+...
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;$gte&#34;</span><span class="o">:</span> <span class="mi">21</span><span class="p">,</span> <span class="s2">&#34;$lte&#34;</span><span class="o">:</span> <span class="mi">30</span><span class="p">}})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这是范围查询，用于查找与多个值相匹配的文档（上例指21岁到30岁）。MongoDB会使用索引中的第一个键，即<code>age</code>，以返回匹配的文档。如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[21, &#34;user100154&#34;] -&gt; 8623530928
+...
+[22, &#34;user100017&#34;] -&gt; 8623513392
+...
+[30, &#34;user100098&#34;] -&gt; 8623532720
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>通常来说，如果MongoDB使用索引进行查询，那么它会按照索引顺序返回结果文档。</p>
+<p>在设计复合索引时，将排序键放在第一位通常是一个好策略。</p>
+<br/>
+<br/>
+<h3 id="如何选择索引">如何选择索引</h3>
+<p>MongoDB是如何选择索引来满足查询的？</p>
+<p>假设有5个索引。当有查询进来时，MongoDB会查看这个查询的<strong>形状</strong>。这个形状与要搜索的字段和一些附加信息（比如是否有排序）有关。基于这些信息，系统会识别出一组可能用于满足查询的候选索引。</p>
+<p>假设有一个查询进入，5个索引中的3个被标识为改查询的候选索引。然后，MongoDB会创建3个查询计划，分别为每个索引创建1个，并在3个并行线程中运行此查询，每个线程使用不同的索引。
+这样做的目的是看哪一个能够最快地返回结果。到达目标状态的第一个查询计划成为赢家。更重要的是，以后会选择它作为索引，用于具有相同形状的其他查询。
+每个计划会相互竞争一段时间（成为试用期），之后每一次的结果都会用来在总体上计算出一个获胜的计划。</p>
+<p>让多个查询计划相互竞争的真正价值在于，对于具有相同形状的后续查询，MongoDB会知道要选择哪个索引。服务器端维护了查询计划的缓存。一个获胜的计划存储在缓存中，以备在将来用于进行该形状的查询。随着时间的推移以及集合和索引的变化，查询计划可能会从缓存中被淘汰。而MongoDB会再次进行尝试，以找到最适合当前集合和索引集的查询计划。</p>
+<p>其他会导致计划从缓存中被淘汰的事件有：重建特定的索引、添加或删除索引，显式清楚计划缓存。重启mongod进程也会导致查询计划缓存丢失。</p>
+<br/>
+<br/>
+<h3 id="使用复合索引">使用复合索引</h3>
+<p>复合索引要比单键索引要复杂一些，但也更强大。设计复合索引时需要进行各种思考，目标是使读写操作尽可能高效。</p>
+<p>首先需要考虑的是索引的选择性。对于给定的查询模式，索引将在多大程度上减少扫描的记录数。</p>
+<br/>
+<p>示例，包含一百万条记录的学生数据集，内容就像下面这样:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+	&#34;_id&#34;: Object(&#34;585d817db4743f74e2da067c&#34;),
+    &#34;student_id&#34;: 0,
+    &#34;scores&#34;: [
+    {
+    	&#34;type&#34;: &#34;exam&#34;,
+        &#34;score&#34;: 38.05
+    },
+    {
+    	&#34;type&#34;: &#34;quiz&#34;,
+        &#34;score&#34;: 79.45
+    },
+    {
+    	&#34;type&#34;: &#34;homework&#34;,
+        &#34;score&#34; 74.50
+    }
+    ],
+    &#34;class_id:: 127
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>我们将从两个索引开始，看看MongoDB如何使用（或不使用）这些索引来满足查询。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">db.students.createIndex({&#34;class_id&#34;: 1})
+db.students.createIndex({&#34;student_id&#34;: 1, class_id: 1})
+</code></pre></td></tr></table>
+</div>
+</div><p>会围绕以下查询，因为这个查询可以说明在设计索引时必须考虑的几个问题。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">db.students.find({student_id: {$gt: 500000}, class_id: 54})
+.sort({student_id: 1})
+.explain(&#34;executionStats&#34;)
+</code></pre></td></tr></table>
+</div>
+</div><p>此查询对<code>student_id</code>大于500000的所有记录进行了请求，这会有一半的记录。我们还将搜索限制在了<code>class_id</code>为54的记录中。最后，根据<code>student_id</code>按升序进行排序。
+通过查看explain方法提供的执行统计信息，来说明MongoDB如何使用索引来完成这个查询。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="err">...</span>
+  <span class="nt">&#34;executionStats&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;executionSuccess&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&#34;nReturned&#34;</span><span class="p">:</span> <span class="mi">9903</span><span class="p">,</span>
+    <span class="nt">&#34;executionTimeMillis&#34;</span><span class="p">:</span> <span class="mi">4325</span><span class="p">,</span>
+    <span class="nt">&#34;totalKeysExamined&#34;</span><span class="p">:</span> <span class="mi">850477</span><span class="p">,</span>
+    <span class="nt">&#34;totalDocsExamined&#34;</span><span class="p">:</span> <span class="mi">9903</span><span class="p">,</span>
+    <span class="nt">&#34;executionStages&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="err">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在<code>executionStats</code>中，先看一下<code>totalKeysExamined</code>。这个字段描述的是，为了生成结果集，MongoDB在索引中遍历了多少个键。
+可以将<code>totalKeysExamined</code>与<code>nReturned</code>进行比较，以了解MongoDB必须遍历多少索引才能找到与查询匹配的文档。在本例中，为了定位9903个索引，一共检查了850477个索引键。这表示用于完成此查询的索引选择性比较低。</p>
+<p>explain输出的前面部分是获胜的查询计划（参见<code>winningPlan</code>字段）。查询计划描述了MongoDB用来满足查询的步骤。我们尤其对使用了哪个索引以及MongoDB必须在内存中进行排序感兴趣。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;winningPlan&#34;</span><span class="err">:</span> <span class="p">{</span>
+  <span class="nt">&#34;stage&#34;</span><span class="p">:</span> <span class="s2">&#34;FETCH&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;inputStage&#34;</span><span class="p">:</span> <span class="p">{</span>
+  	<span class="nt">&#34;stage&#34;</span><span class="p">:</span> <span class="s2">&#34;IXSCAN&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;keyPattern&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;student_id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&#34;class_id&#34;</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;indexName&#34;</span><span class="p">:</span> <span class="s2">&#34;student_id_1_class_id_1&#34;</span><span class="p">,</span>
+    <span class="err">...</span>
+  <span class="p">},</span>
+  <span class="err">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>expalin的输出查询计划显示为一颗包含各个阶段的树。一个阶段可以有一个或多个输入阶段，这取决于它有多少个子阶段。输入阶段向其父阶段提供文档或索引键。
+本例中有一个输入阶段，即索引扫描。该扫描阶段向其父阶段<code>FETCH</code>提供了哪些匹配查询的文档的记录ID。然后，<code>FETCH</code>阶段会获取文档本身，并将其分批返回给发出请求的客户端。</p>
+<br/>
+<p>失败的查询计划（本例只有一个）则会使用基于<code>class_id</code>的索引，但之后它必须进行内存排序。当在查询计划中看到<code>SORT</code>阶段时，意味着MongoDB将无法使用索引对数据库中的结果集进行排序，而必须执行内存排序。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;rejectedPlans&#34;: [
+  {
+    &#34;stage&#34;: &#34;SORT&#34;,
+    &#34;sortPattern&#34;: {
+      &#34;student_id&#34;: 1
+    },
+  }
+]
+</code></pre></td></tr></table>
+</div>
+</div><p>对于这个查询，获胜的索引是能够返回排序输出的索引。要获胜，只需要获取测试数量的已排序结果文档。而对于另一个计划，这个查询线程必须要返回整个结果集（将近10000个文档），因为需要将这些结果在内存中进行排序。</p>
+<br/>
+<p>上面运行的这个查询，同时包含了多值部分和等值部分。<code>class_id</code>再植行查询时更具选择性，它经结果集限制在了10000条以下，而不是多值部分所定位到的850000多条。</p>
+<p>换句话说，在当前情况下，如果可以使用基于<code>calss_id</code>的索引则会比较好。</p>
+<br/>
+<p>游标的<code>hint</code>方法能够通过索引的形状或名称来指定要使用的特定索引。</p>
+<p>如下所示，如果使用<code>hint</code>稍微更改以下查询，那么<code>explain</code>的输出结果会完全不同。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">db.students.find({student_id: {$gt: 500000}, class_id: 54})
+.sort({{student_id: 1}})
+.hint({class_id: 1})
+.explain(&#34;executionStats&#34;)
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;executionStats&#34;: [
+  &#34;nReturned&#34;: 9903,
+  &#34;executionTimeMillis&#34;: 272,
+  &#34;totalKeysExamined&#34;: 20076,
+  &#34;totalDocsExamined&#34;: 20076,
+  ...
+]
+</code></pre></td></tr></table>
+</div>
+</div><p>结果显示，为了得到略少于一万条的结果集，从扫描大约850000个索引键降低到了大约20000个。此外，执行时间仅为272毫秒，而不是之前使用另一个索引时那个查询的4.3秒。</p>
+<p>然而，我们真正希望看到的是<code>nReturned</code>与<code>totalKeysExamined</code>非常接近。此外，为了更有效地执行此查询，我们希望可以不使用<code>hint</code>。解决这两个问题的方法是设计一个更好的索引。</p>
+<p>对于这里所讨论的查询模式，更好的索引应该基于<code>class_id</code>和<code>student_id</code>，两个键的顺序不能变。以<code>class_id</code>作为前缀，在查询中使用等值过滤来限制索引需要考虑的键。这是查询中最具选择性的部分，从而有效限制了MongoDB完成此查询所需考虑的键的数量。</p>
+<p>创建如下索引：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">db.students.createIndex({class_id: 1, student_id: 1})
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>虽然不是所有数据集都这样，但通常在设计复合索引时，应将等值过滤字段排在多值过滤字段之前。</p>
+<p>有了新索引之后，重新执行查询时就不需要提示了。可从explain的输出结果中的<code>executionStats</code>字段看到，查询速度非常快（37毫秒），其中返回的结果数(<code>nReturned</code>)等于索引所扫描的键数(<code>totalKeysExamined</code>)。还可以看到，这个结果是因为<code>executionStages</code>所对应的获胜的查询计划包含了一个索引扫描，它使用了新创建的索引。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;executionStats&#34;: {
+  &#34;executionSucess&#34;: true,
+  &#34;nReturned&#34;: 9903,
+  &#34;executionTimeMills&#34;: 37,
+  &#34;totalKeysExamined&#34;: 9903,
+  &#34;totalDocsExamined&#34;: 9903,
+  ...
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>如果思考以下创建索引的原理，就能明白为什么会有这样的结果。<code>[class_id, student_id]</code>索引由如下一对对键组成。由于学生ID在其中是有序的，因此为了满足排序要求，MongoDB只需从<code>class_id</code>为54的第一对键开始全部进行遍历。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">...
+[53, 999617]
+[53, 999916]
+[54, 500001],
+[54, 500048]
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>在考虑复合索引的设计时，需要知道对于利用索引的通用查询模式，如何处理其<strong>等值过滤</strong>、<strong>多值过滤</strong>以及<strong>排序</strong>这些部分。对于所有复合索引都必须考虑这3个因素，而且如果在设计索引时可以正确地平衡这些关注点，那么你的查询就会从MongoDB中获得最佳的性能。</p>
+<br/>
+<p>为了消除这个例子中的特殊情况，我们改为按照最终成绩进行排序，更改后的查询如下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">db.statudents.find({student_id: {$gt: 500000}, class_id: 54})
+.sort({final_grade: 1})
+.explain(&#34;executionStats&#34;)
+</code></pre></td></tr></table>
+</div>
+</div><p>运行这个查询并查看explain输出，就会发现这里使用了内存排序。虽然查询速度仍然很快（136毫秒），但由于使用了内存排序，因此比在<code>student_id</code>上排序慢了一个数量级。可以看到，在进行内存排序时，获胜的查询计划包含一个<code>SORT</code>阶段。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">...
+&#34;executionStats&#34;: {
+  &#34;executionSuccess&#34;: true,
+  &#34;nReturned&#34;: 9903,
+  &#34;executionTimeMillis&#34;: 136,
+  &#34;totalKeysExamined&#34;: 9903,
+  &#34;totalDocsExamined&#34;: 9903,
+  &#34;executionStages&#34;: {
+    &#34;stage&#34;: &#34;SORT&#34;,
+    ...
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>如果可以的话，应该用更好的索引设计来避免内存排序。这样便能从数据集大小和系统负载两个方面更容易地进行扩展。</p>
+<p>但要做到这一点，必须做出权衡。这在设计复合索引时是很常见的情况。</p>
+<p>为了避免内存排序，需要检查比返回的文档数量更多的键，这对于复合索引来说往往是必需的。为了使用索引进行排序，MongoDB应该能够按顺序遍历索引键。这意味着需要在复合索引键中包含排序字段。</p>
+<p>新的复合索引中的键应该按照如下顺序排列：<code>[class_id, final_grade, student_id]</code>。注意，我们在等值过滤之后立即包含了排序部分，但这是在多值过滤之前。这个索引在缩小此查询所涉及的键的集合时具有非常多的选择性。之后，通过遍历与等值过滤匹配的那些索引，MongoDB可以识别出与多值过滤部分匹配的纪律。并且这些记录将正确地按照最终成绩升序排序。</p>
+<br/>
+<p>这个复合索引会迫使MongoDB检查比结果集中文档数量更多的键。不过，通过使用索引来确保对文档排序的方式节省了执行时间。</p>
+<p>创建新索引：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">db.students.find({student_id: {$gt: 500000}, class_id: 54})
+.sort({final_grade: 1})
+.explain(&#34;executionStats&#34;)
+</code></pre></td></tr></table>
+</div>
+</div><p>在explain的输出中查看<code>executionStats</code>，具体细节和硬件以及系统的其它因素有关，但可以看到获胜的计划中不再包含内存排序，而是使用刚刚创建的索引来满足查询，其中也包括了排序的部分。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;executionStats&#34;: {
+  &#34;executionSuccess&#34;: true,
+  &#34;nReturnd&#34;: 9903,
+  &#34;executionTimeMillis&#34;: 42,
+  &#34;totalKeysExamined&#34;: 9905,
+  &#34;totalDocsExamined&#34;: 9903,
+  &#34;executionStages&#34;: {
+    &#34;stage&#34;: &#34;FETCH&#34;,
+    ...
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="复合索引的最佳实践">复合索引的最佳实践</h3>
+<p>概括来说，在设计复合索引时：</p>
+<ul>
+<li>等值过滤的键应该在最前面</li>
+<li>用于排序的键应该在多值字段之前</li>
+<li>多值过滤的键应该在最后面</li>
+</ul>
+<p>在设计复合索引时应遵循这些准则，然后在实际的工作负载下进行测试，这样就可以确定索引所支持的查询模式都有哪些。</p>
+<br/>
+<br/>
+<h4 id="选择键的方向">选择键的方向</h4>
+<p>到目前为止，我们的所有索引都是升序的。</p>
+<p>注意，相互反转的索引是等价的，如<code>{&quot;age&quot; 1, &quot;username&quot;: -1}</code>使用的查询与<code>{&quot;age&quot;: -1, &quot;username&quot;: 1}</code>完全一样。</p>
+<p>只有基于多个查询条件进行排序时，索引方向才是重要的。如果只是基于一个键进行排序，那么MongoDB可以简单地从反方向读取索引。只有在基于多建排序时，方向才重要。</p>
+<br/>
+<br/>
+<h4 id="使用覆盖查询">使用覆盖查询</h4>
+<p>在上面的例子中，索引都是用来查找正确的文档，然后跟随指针去获取实际的文档。然而，如果查询只需要查询索引中包含的字段，那么就没哟u必要去获取实际的文档。</p>
+<p>当一个索引包含用户请求的所有字段时，这个索引就<strong>覆盖</strong>了本次查询。只要切实可行，就应该优先使用覆盖查询，而不是去获取实际的文档，这样可以使工作集大幅减少。</p>
+<p>为了确保查询只是用索引就可以完成，应该使用<strong>投射</strong>（只返回查询中指定的字段）来避免返回<code>_id</code>字段（除非它是索引的一部分）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">db.users.find({&#34;username&#34;: &#34;user1010&#34;}, {&#34;_id&#34;: 0, &#34;username&#34;: 1, &#34;email&#34;: 1})
+</code></pre></td></tr></table>
+</div>
+</div><p>如果对一个被覆盖的查询运行explain，那么结果中会有一个并不处于<code>FETCH</code>阶段之下的<code>IXSCAN</code>阶段，并且在<code>executionStats</code>中，<code>totalDocsExamined</code>的值是0。</p>
+<br/>
+<br/>
+<h4 id="隐式索引">隐式索引</h4>
+<p>复合索引具有双重功能，而且针对不同的查询可以充当不同的功索引。</p>
+<p>如果有一个在<code>{age: 1, username: 1}</code>上的索引，那么<code>age</code>字段的排序方式就和在<code>{age: 1}</code>上的索引相同。因此，这个复合索引就可以当作<code>{age: 1}</code>索引一样使用。</p>
+<p>这可以推广到所需的任意多个键：如果一个拥有N个键的索引，那么你同时免费得到了所有这些键的前缀所组成的索引。如果有一个类似<code>{a: 1, b: 1, c: 1, ..., z: 1}</code>的索引，那么实际上也等于有了<code>{a: 1}</code>, <code>{a: 1, b:1}</code>, <code>{a: 1, b: 1, c: 1}</code>等一系列索引。</p>
+<p>注意，这一点并不适用与这些键的任意子集。如<code>{b: 1}</code>, <code>{a: 1, c: 1}</code>作为索引的查询是不是被优化的。只有能够使用索引前缀的查询才能从中受益。</p>
+<br/>
+<br/>
+<h3 id="运算符如何使用索引">$运算符如何使用索引</h3></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
