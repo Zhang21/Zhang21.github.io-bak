@@ -4,9 +4,16 @@
         <link>https://zhang21.cn/</link>
         <description>个人博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 09 May 2022 00:00:00 &#43;0000</lastBuildDate>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 20 May 2022 10:37:34 &#43;0800</lastBuildDate>
             <atom:link href="https://zhang21.cn/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>RKE</title>
+    <link>https://zhang21.cn/rke/</link>
+    <pubDate>Fri, 20 May 2022 10:37:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/rke/</guid>
+    <description><![CDATA[参考: RKE文档 版本: rke1 介绍 Rancher Kubernetes Engine，简称 RKE，是一个经过 CNCF 认证的 Kubernetes 安装程序。 要求 RKE对操作系统、软件、端口、SSH和硬件等的要]]></description>
+</item><item>
     <title>Jenkins</title>
     <link>https://zhang21.cn/jenkins/</link>
     <pubDate>Mon, 09 May 2022 00:00:00 &#43;0000</pubDate>
@@ -136,18 +143,6 @@
 <p>版本:</p>
 <ul>
 <li>React: v17.0</li>
-</ul>
-<br>]]></description>
-</item><item>
-    <title>Makefile</title>
-    <link>https://zhang21.cn/makefile/</link>
-    <pubDate>Thu, 24 Jun 2021 11:49:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/makefile/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li><a href="https://seisman.github.io/how-to-write-makefile">https://seisman.github.io/how-to-write-makefile</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2015/02/make.html">http://www.ruanyifeng.com/blog/2015/02/make.html</a></li>
 </ul>
 <br>]]></description>
 </item></channel>

@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>rancher - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/rancher/</link>
+        <description>rancher - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 20 May 2022 10:37:34 &#43;0800</lastBuildDate><atom:link href="https://zhang21.cn/tags/rancher/" rel="self" type="application/rss+xml" /><item>
+    <title>RKE</title>
+    <link>https://zhang21.cn/rke/</link>
+    <pubDate>Fri, 20 May 2022 10:37:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhang21.cn/rke/</guid>
+    <description><![CDATA[参考: RKE文档 版本: rke1 介绍 Rancher Kubernetes Engine，简称 RKE，是一个经过 CNCF 认证的 Kubernetes 安装程序。 要求 RKE对操作系统、软件、端口、SSH和硬件等的要]]></description>
+</item></channel>
+</rss>
