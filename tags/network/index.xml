@@ -1,15 +1,1 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>network - 标签 - 风继续吹</title>
-        <link>https://zhang21.cn/tags/network/</link>
-        <description>network - 标签 - 风继续吹</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 25 Oct 2017 15:47:39 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/network/" rel="self" type="application/rss+xml" /><item>
-    <title>Wireshark</title>
-    <link>https://zhang21.cn/wireshark/</link>
-    <pubDate>Wed, 25 Oct 2017 15:47:39 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/wireshark/</guid>
-    <description><![CDATA[<br>]]></description>
-</item></channel>
-</rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>network - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/network/</link><description>network - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 25 Oct 2017 15:47:39 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/network/" rel="self" type="application/rss+xml"/><item><title>Wireshark</title><link>https://zhang21.cn/wireshark/</link><pubDate>Wed, 25 Oct 2017 15:47:39 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/wireshark/</guid><description>&lt;br></description></item></channel></rss>

@@ -1,28 +1,9 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>linux - 分类 - 风继续吹</title>
-        <link>https://zhang21.cn/categories/linux/</link>
-        <description>linux - 分类 - 风继续吹</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 24 Jun 2021 11:49:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/linux/" rel="self" type="application/rss+xml" /><item>
-    <title>Makefile</title>
-    <link>https://zhang21.cn/makefile/</link>
-    <pubDate>Thu, 24 Jun 2021 11:49:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/makefile/</guid>
-    <description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>linux - 分类 - 风继续吹</title><link>https://zhang21.cn/categories/linux/</link><description>linux - 分类 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 24 Jun 2021 11:49:00 +0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/linux/" rel="self" type="application/rss+xml"/><item><title>Makefile</title><link>https://zhang21.cn/makefile/</link><pubDate>Thu, 24 Jun 2021 11:49:00 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/makefile/</guid><description><![CDATA[<p>参考:</p>
 <ul>
 <li><a href="https://seisman.github.io/how-to-write-makefile">https://seisman.github.io/how-to-write-makefile</a></li>
 <li><a href="http://www.ruanyifeng.com/blog/2015/02/make.html">http://www.ruanyifeng.com/blog/2015/02/make.html</a></li>
 </ul>
-<br>]]></description>
-</item><item>
-    <title>GitLab</title>
-    <link>https://zhang21.cn/gitlab/</link>
-    <pubDate>Thu, 06 Dec 2018 13:11:22 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/gitlab/</guid>
-    <description><![CDATA[<p>参考:</p>
+<br>]]></description></item><item><title>GitLab</title><link>https://zhang21.cn/gitlab/</link><pubDate>Thu, 06 Dec 2018 13:11:22 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/gitlab/</guid><description><![CDATA[<p>参考:</p>
 <ul>
 <li>维基百科</li>
 <li>GitLab文档: <a href="https://docs.gitlab.com/">https://docs.gitlab.com/</a></li>
@@ -34,14 +15,7 @@
 <li>GitLab-Runner: <code>v11.6.0</code></li>
 </ul>
 <br/>
-<br/>]]></description>
-</item><item>
-    <title>性能分析</title>
-    <link>https://zhang21.cn/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</link>
-    <pubDate>Mon, 14 May 2018 15:11:16 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</guid>
-    <description><![CDATA[<p>环境：</p>
+<br/>]]></description></item><item><title>性能分析</title><link>https://zhang21.cn/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</link><pubDate>Mon, 14 May 2018 15:11:16 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</guid><description><![CDATA[<p>环境：</p>
 <ul>
 <li>CentOS7.x84_64</li>
 </ul>
@@ -55,14 +29,7 @@
 <li>高CPU分析: <a href="http://blog.51cto.com/yaocoder/1543352">http://blog.51cto.com/yaocoder/1543352</a></li>
 </ul>
 <br>
-<br/>]]></description>
-</item><item>
-    <title>Supervisor</title>
-    <link>https://zhang21.cn/supervisor/</link>
-    <pubDate>Sun, 08 Apr 2018 10:38:33 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/supervisor/</guid>
-    <description><![CDATA[<p>参考：</p>
+<br/>]]></description></item><item><title>Supervisor</title><link>https://zhang21.cn/supervisor/</link><pubDate>Sun, 08 Apr 2018 10:38:33 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/supervisor/</guid><description><![CDATA[<p>参考：</p>
 <ul>
 <li><a href="http://www.supervisord.org">http://www.supervisord.org</a></li>
 </ul>
@@ -72,63 +39,28 @@
 <li>CentOS7.x86_64</li>
 </ul>
 <br>
-<br/>]]></description>
-</item><item>
-    <title>正则表达式</title>
-    <link>https://zhang21.cn/regularexpression/</link>
-    <pubDate>Thu, 08 Feb 2018 11:33:16 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/regularexpression/</guid>
-    <description><![CDATA[<p>参考：</p>
+<br/>]]></description></item><item><title>正则表达式</title><link>https://zhang21.cn/regularexpression/</link><pubDate>Thu, 08 Feb 2018 11:33:16 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/regularexpression/</guid><description><![CDATA[<p>参考：</p>
 <ul>
 <li>《鸟哥的Linux私房菜》</li>
-<li><a href="https://zh.wikipedia.org/wiki/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F" target="_blank" rel="noopener noreffer">正则表达式维基百科</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F" target="_blank" rel="noopener noreffer ">正则表达式维基百科</a></li>
 </ul>
 <br>
-<br>]]></description>
-</item><item>
-    <title>sysctl和ulimit和proc</title>
-    <link>https://zhang21.cn/sysctl-ulimit-proc/</link>
-    <pubDate>Tue, 09 Jan 2018 17:22:48 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/sysctl-ulimit-proc/</guid>
-    <description><![CDATA[<p>参考：</p>
+<br>]]></description></item><item><title>sysctl和ulimit和proc</title><link>https://zhang21.cn/sysctl-ulimit-proc/</link><pubDate>Tue, 09 Jan 2018 17:22:48 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/sysctl-ulimit-proc/</guid><description><![CDATA[<p>参考：</p>
 <ul>
-<li><a href="http://man.linuxde.net/sysctl" target="_blank" rel="noopener noreffer">sysctl命令</a></li>
-<li><a href="http://man.linuxde.net/ulimit" target="_blank" rel="noopener noreffer">ulimit命令</a></li>
-<li><a href="http://www.jianshu.com/p/20a2dd80cbad" target="_blank" rel="noopener noreffer">ulimit、limits.conf、sysctl和proc文件系统</a></li>
-<li><a href="http://www.jianshu.com/p/9a8e383b5b49" target="_blank" rel="noopener noreffer">sysctl.conf学习和调优</a></li>
-</ul>]]></description>
-</item><item>
-    <title>开源许可协议</title>
-    <link>https://zhang21.cn/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE/</link>
-    <pubDate>Tue, 09 Jan 2018 11:50:27 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE/</guid>
-    <description><![CDATA[<p>当你为你的产品签发许可，你就是在出让自己的权利。不过，你仍拥有版权和专利（如果申请了专利）。许可的目的，是向使用你产品的人提供一定的权利。</p>
+<li><a href="http://man.linuxde.net/sysctl" target="_blank" rel="noopener noreffer ">sysctl命令</a></li>
+<li><a href="http://man.linuxde.net/ulimit" target="_blank" rel="noopener noreffer ">ulimit命令</a></li>
+<li><a href="http://www.jianshu.com/p/20a2dd80cbad" target="_blank" rel="noopener noreffer ">ulimit、limits.conf、sysctl和proc文件系统</a></li>
+<li><a href="http://www.jianshu.com/p/9a8e383b5b49" target="_blank" rel="noopener noreffer ">sysctl.conf学习和调优</a></li>
+</ul>]]></description></item><item><title>开源许可协议</title><link>https://zhang21.cn/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE/</link><pubDate>Tue, 09 Jan 2018 11:50:27 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE/</guid><description><![CDATA[<p>当你为你的产品签发许可，你就是在出让自己的权利。不过，你仍拥有版权和专利（如果申请了专利）。许可的目的，是向使用你产品的人提供一定的权利。</p>
 <p>不管产品是免费分发，还是出售，指定一份许可协议都非常有用。否则，对于免费，你相当于放弃了自己的所有权利，任何人都没有义务表明你的原始作者身份。对于出售，你将不得不花费比开发更多的精力用来处理授权问题。</p>
 <p>而开源许可协议是这些事情变得简单，开发者很容易向一个项目贡献自己的代码，它还可以保护你原始作者的身份，使你至少获得认可。开源许可协议还可以阻止其它人将某个产品据为己有。</p>
-<br>]]></description>
-</item><item>
-    <title>Yum源</title>
-    <link>https://zhang21.cn/yum/</link>
-    <pubDate>Tue, 09 Jan 2018 11:46:21 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/yum/</guid>
-    <description><![CDATA[<p>参考：</p>
+<br>]]></description></item><item><title>Yum源</title><link>https://zhang21.cn/yum/</link><pubDate>Tue, 09 Jan 2018 11:46:21 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/yum/</guid><description><![CDATA[<p>参考：</p>
 <ul>
-<li><a href="http://blog.csdn.net/leshami/article/details/78133716" target="_blank" rel="noopener noreffer">CentOS 7下配置本地yum源及yum客户端</a></li>
-<li><a href="http://blog.csdn.net/conling_/article/details/70399694" target="_blank" rel="noopener noreffer">Centos7 配置本地源+阿里yum源/epel-yum+修改优先级</a></li>
-<li><a href="http://blog.csdn.net/kingfox/article/details/51233153" target="_blank" rel="noopener noreffer">调整CentOS 7中yum仓库的优先级</a></li>
-<li><a href="https://segmentfault.com/a/1190000000375848" target="_blank" rel="noopener noreffer">国内开源站点</a></li>
-</ul>]]></description>
-</item><item>
-    <title>Filesystem Hierarchy Standard</title>
-    <link>https://zhang21.cn/fhs/</link>
-    <pubDate>Mon, 27 Nov 2017 16:42:33 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/fhs/</guid>
-    <description><![CDATA[<h1 id="fhs介绍">FHS介绍</h1>
+<li><a href="http://blog.csdn.net/leshami/article/details/78133716" target="_blank" rel="noopener noreffer ">CentOS 7下配置本地yum源及yum客户端</a></li>
+<li><a href="http://blog.csdn.net/conling_/article/details/70399694" target="_blank" rel="noopener noreffer ">Centos7 配置本地源+阿里yum源/epel-yum+修改优先级</a></li>
+<li><a href="http://blog.csdn.net/kingfox/article/details/51233153" target="_blank" rel="noopener noreffer ">调整CentOS 7中yum仓库的优先级</a></li>
+<li><a href="https://segmentfault.com/a/1190000000375848" target="_blank" rel="noopener noreffer ">国内开源站点</a></li>
+</ul>]]></description></item><item><title>Filesystem Hierarchy Standard</title><link>https://zhang21.cn/fhs/</link><pubDate>Mon, 27 Nov 2017 16:42:33 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/fhs/</guid><description><![CDATA[<h1 id="fhs介绍">FHS介绍</h1>
 <p>FHS(Filesystem Hierarchy Standard)，文件系统层次化标准：<a href="http://www.pathname.com/fhs">http://www.pathname.com/fhs</a></p>
 <br>
 <p>FHS主要目的是希望让用户了解安装文件通常放置的目录。所以希望软件开发商、系统制定者以及维护系统的用户，都能够遵循FHS的标准。</p>
@@ -144,21 +76,12 @@
 </li>
 </ul>
 <p>不变的(static)	  |	/usr <br> /opt		 			|	/etc <br> /boot
-可变的(variable) |	/var/mail <br> /var/spool/news	|	/var/run <br> /var/lock</p>]]></description>
-</item><item>
-    <title>Git</title>
-    <link>https://zhang21.cn/git/</link>
-    <pubDate>Tue, 07 Nov 2017 17:45:42 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/git/</guid>
-    <description><![CDATA[<p>参考：</p>
+可变的(variable) |	/var/mail <br> /var/spool/news	|	/var/run <br> /var/lock</p>]]></description></item><item><title>Git</title><link>https://zhang21.cn/git/</link><pubDate>Tue, 07 Nov 2017 17:45:42 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/git/</guid><description><![CDATA[<p>参考：</p>
 <ul>
-<li><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener noreffer">git-scm文档</a></li>
-<li><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener noreffer">廖雪峰Git教程</a></li>
-<li><a href="https://www.kancloud.cn/kancloud/progit/70239" target="_blank" rel="noopener noreffer">Git内部原理</a></li>
-<li><a href="http://blog.jobbole.com/26209/" target="_blank" rel="noopener noreffer">Git内部原理-伯乐在线</a></li>
+<li><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener noreffer ">git-scm文档</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener noreffer ">廖雪峰Git教程</a></li>
+<li><a href="https://www.kancloud.cn/kancloud/progit/70239" target="_blank" rel="noopener noreffer ">Git内部原理</a></li>
+<li><a href="http://blog.jobbole.com/26209/" target="_blank" rel="noopener noreffer ">Git内部原理-伯乐在线</a></li>
 </ul>
 <br>
-<br/>]]></description>
-</item></channel>
-</rss>
+<br/>]]></description></item></channel></rss>

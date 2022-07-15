@@ -1,21 +1,7 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>基础架构即代码 - 标签 - 风继续吹</title>
-        <link>https://zhang21.cn/tags/%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E5%8D%B3%E4%BB%A3%E7%A0%81/</link>
-        <description>基础架构即代码 - 标签 - 风继续吹</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 05 May 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E5%8D%B3%E4%BB%A3%E7%A0%81/" rel="self" type="application/rss+xml" /><item>
-    <title>Terraform</title>
-    <link>https://zhang21.cn/terraform/</link>
-    <pubDate>Thu, 05 May 2022 00:00:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/terraform/</guid>
-    <description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>基础架构即代码 - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E5%8D%B3%E4%BB%A3%E7%A0%81/</link><description>基础架构即代码 - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 05 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E5%8D%B3%E4%BB%A3%E7%A0%81/" rel="self" type="application/rss+xml"/><item><title>Terraform</title><link>https://zhang21.cn/terraform/</link><pubDate>Thu, 05 May 2022 00:00:00 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/terraform/</guid><description><![CDATA[<p>参考:</p>
 <ul>
-<li><a href="https://www.terraform.io/" target="_blank" rel="noopener noreffer">Terraform</a></li>
-<li><a href="https://www.redhat.com/zh/topics/automation/what-is-infrastructure-as-code-iac" target="_blank" rel="noopener noreffer">什么是基础架构即代码</a></li>
+<li><a href="https://www.terraform.io/" target="_blank" rel="noopener noreffer ">Terraform</a></li>
+<li><a href="https://www.redhat.com/zh/topics/automation/what-is-infrastructure-as-code-iac" target="_blank" rel="noopener noreffer ">什么是基础架构即代码</a></li>
 </ul>
 <br/>
-<br/>]]></description>
-</item></channel>
-</rss>
+<br/>]]></description></item></channel></rss>

@@ -1,16 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>诗歌 - 标签 - 风继续吹</title>
-        <link>https://zhang21.cn/tags/%E8%AF%97%E6%AD%8C/</link>
-        <description>诗歌 - 标签 - 风继续吹</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 06 Nov 2017 10:03:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/%E8%AF%97%E6%AD%8C/" rel="self" type="application/rss+xml" /><item>
-    <title>Love at First Sight</title>
-    <link>https://zhang21.cn/love-at-first-sight/</link>
-    <pubDate>Mon, 06 Nov 2017 10:03:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/love-at-first-sight/</guid>
-    <description><![CDATA[<p>——波兰诗人维斯拉瓦·辛波丝卡(Wislawa Szymborska)</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>诗歌 - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/%E8%AF%97%E6%AD%8C/</link><description>诗歌 - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 06 Nov 2017 10:03:00 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/%E8%AF%97%E6%AD%8C/" rel="self" type="application/rss+xml"/><item><title>Love at First Sight</title><link>https://zhang21.cn/love-at-first-sight/</link><pubDate>Mon, 06 Nov 2017 10:03:00 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/love-at-first-sight/</guid><description><![CDATA[<p>——波兰诗人维斯拉瓦·辛波丝卡(Wislawa Szymborska)</p>
 <br>
 <p>They&rsquo;re both convinced
 that a sudden passion joined them.</p>
@@ -19,14 +7,7 @@ but uncertainty is more beautiful still.</p>
 <p>Since they&rsquo;d never met before,
 they&rsquo;re sure that there&rsquo;d been nothing between them.</p>
 <p>But what&rsquo;s the word from the streets, staircases, hallways &ndash;
-perhaps they&rsquo;ve passed each other a million times?</p>]]></description>
-</item><item>
-    <title>I Like For You To Be Still</title>
-    <link>https://zhang21.cn/i-like-for-you-to-be-still/</link>
-    <pubDate>Fri, 01 Sep 2017 10:10:40 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/i-like-for-you-to-be-still/</guid>
-    <description><![CDATA[<p>《I Like For You To Be Still》</p>
+perhaps they&rsquo;ve passed each other a million times?</p>]]></description></item><item><title>I Like For You To Be Still</title><link>https://zhang21.cn/i-like-for-you-to-be-still/</link><pubDate>Fri, 01 Sep 2017 10:10:40 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/i-like-for-you-to-be-still/</guid><description><![CDATA[<p>《I Like For You To Be Still》</p>
 <p>出自<code>聂努达</code>诗集：《二十首情诗和一首绝望的歌》。</p>
 <br/>
 <p>I like for you to be still
@@ -40,6 +21,4 @@ You emerge from the things
 Filled with my soul
 You are like my soul
 A butterfly of dream
-And you are like the word: Melancholy</p>]]></description>
-</item></channel>
-</rss>
+And you are like the word: Melancholy</p>]]></description></item></channel></rss>

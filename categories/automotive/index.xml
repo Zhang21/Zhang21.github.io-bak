@@ -1,20 +1,6 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Automotive - 分类 - 风继续吹</title>
-        <link>https://zhang21.cn/categories/automotive/</link>
-        <description>Automotive - 分类 - 风继续吹</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 16 Jul 2019 10:59:21 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/automotive/" rel="self" type="application/rss+xml" /><item>
-    <title>Beyond The Apex</title>
-    <link>https://zhang21.cn/beyondtheapex/</link>
-    <pubDate>Tue, 16 Jul 2019 10:59:21 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/beyondtheapex/</guid>
-    <description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Automotive - 分类 - 风继续吹</title><link>https://zhang21.cn/categories/automotive/</link><description>Automotive - 分类 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 16 Jul 2019 10:59:21 +0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/automotive/" rel="self" type="application/rss+xml"/><item><title>Beyond The Apex</title><link>https://zhang21.cn/beyondtheapex/</link><pubDate>Tue, 16 Jul 2019 10:59:21 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/beyondtheapex/</guid><description><![CDATA[<p>参考:</p>
 <ul>
 <li>GT赛车 《Beyond The Apex》</li>
 </ul>
 <br/>
-<br/>]]></description>
-</item></channel>
-</rss>
+<br/>]]></description></item></channel></rss>

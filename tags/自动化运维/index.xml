@@ -1,16 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>自动化运维 - 标签 - 风继续吹</title>
-        <link>https://zhang21.cn/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/</link>
-        <description>自动化运维 - 标签 - 风继续吹</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 13 Feb 2019 05:22:15 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" rel="self" type="application/rss+xml" /><item>
-    <title>DevOps</title>
-    <link>https://zhang21.cn/devops/</link>
-    <pubDate>Wed, 13 Feb 2019 05:22:15 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/devops/</guid>
-    <description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>自动化运维 - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/</link><description>自动化运维 - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 13 Feb 2019 05:22:15 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" rel="self" type="application/rss+xml"/><item><title>DevOps</title><link>https://zhang21.cn/devops/</link><pubDate>Wed, 13 Feb 2019 05:22:15 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/devops/</guid><description><![CDATA[<p>参考:</p>
 <ul>
 <li>维基百科</li>
 <li>GitLab</li>
@@ -18,6 +6,4 @@
 </ul>
 <br/>
 <br/>
-<hr>]]></description>
-</item></channel>
-</rss>
+<hr>]]></description></item></channel></rss>

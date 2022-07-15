@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>OpenLDAP - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="OpenLDAP" />
-<meta property="og:description" content="参考:
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>OpenLDAP - 风继续吹</title><meta name=Description content="个人博客"><meta property="og:title" content="OpenLDAP"><meta property="og:description" content="参考:
 
 LDAP维基百科: https://zh.wikipedia.org/wiki/LDAP
 OpenLDAP维基百科: https://zh.wikipedia.org/wiki/OpenLDAP
@@ -20,17 +12,7 @@ LDAP v2.4.44
 
 
 
-" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhang21.cn/openldap/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-01-18T01:18:29&#43;00:00" />
-<meta property="article:modified_time" content="2019-01-18T01:18:29&#43;00:00" />
-
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
-
-<meta name="twitter:title" content="OpenLDAP"/>
-<meta name="twitter:description" content="参考:
+"><meta property="og:type" content="article"><meta property="og:url" content="https://zhang21.cn/openldap/"><meta property="og:image" content="https://zhang21.cn/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-01-18T01:18:29+00:00"><meta property="article:modified_time" content="2019-01-18T01:18:29+00:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://zhang21.cn/logo.png"><meta name=twitter:title content="OpenLDAP"><meta name=twitter:description content="参考:
 
 LDAP维基百科: https://zh.wikipedia.org/wiki/LDAP
 OpenLDAP维基百科: https://zh.wikipedia.org/wiki/OpenLDAP
@@ -44,279 +26,38 @@ LDAP v2.4.44
 
 
 
-"/>
-<meta name="application-name" content="风继续吹">
-<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/openldap/" /><link rel="prev" href="https://zhang21.cn/openvpn/" /><link rel="next" href="https://zhang21.cn/devops/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "OpenLDAP",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/zhang21.cn\/openldap\/"
-        },"image": [{
-                            "@type": "ImageObject",
-                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
-                            "width":  3200 ,
-                            "height":  2048 
-                        }],"genre": "posts","keywords": "LDAP, Permission, 权限管理","wordcount":  7915 ,
-        "url": "https:\/\/zhang21.cn\/openldap\/","datePublished": "2019-01-18T01:18:29+00:00","dateModified": "2019-01-18T01:18:29+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
-                "@type": "Person",
-                "name": "Zhang21"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">OpenLDAP</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/infrastructure/"><i class="far fa-folder fa-fw"></i>infrastructure</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-01-18">2019-01-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7915 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 16 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#概述">概述</a>
-      <ul>
-        <li><a href="#ldap">LDAP</a></li>
-        <li><a href="#openldap">OpenLDAP</a></li>
-        <li><a href="#why-openldap">Why OpenLDAP</a></li>
-      </ul>
-    </li>
-    <li><a href="#openldap目录服务">OpenLDAP目录服务</a>
-      <ul>
-        <li><a href="#目录服务是什么">目录服务是什么</a></li>
-        <li><a href="#ldap是什么">LDAP是什么</a></li>
-        <li><a href="#什么时候应该使用ldap">什么时候应该使用LDAP</a></li>
-        <li><a href="#ldap如何工作">LDAP如何工作</a></li>
-        <li><a href="#关于x500">关于<code>x.500</code></a></li>
-        <li><a href="#ldap与rdbms">LDAP与RDBMS</a></li>
-        <li><a href="#slapd">slapd</a></li>
-      </ul>
-    </li>
-    <li><a href="#快速入门">快速入门</a></li>
-    <li><a href="#配置选择">配置选择</a>
-      <ul>
-        <li><a href="#本地目录服务">本地目录服务</a></li>
-        <li><a href="#带推荐的本地目录服务">带推荐的本地目录服务</a></li>
-        <li><a href="#副本目录服务">副本目录服务</a></li>
-        <li><a href="#分布式目录服务">分布式目录服务</a></li>
-      </ul>
-    </li>
-    <li><a href="#安装">安装</a>
-      <ul>
-        <li><a href="#源码安装">源码安装</a></li>
-        <li><a href="#包安装">包安装</a></li>
-      </ul>
-    </li>
-    <li><a href="#配置">配置</a>
-      <ul>
-        <li><a href="#配置的布局">配置的布局</a></li>
-        <li><a href="#配置指令">配置指令</a>
-          <ul>
-            <li><a href="#cnconfig">cn=config</a></li>
-            <li><a href="#cnmodule">cn=module</a></li>
-            <li><a href="#cnschema">cn=schema</a></li>
-            <li><a href="#backend-specific-directives">Backend-specific Directives</a></li>
-            <li><a href="#database-specific-directives">Database-specific Directives</a></li>
-            <li><a href="#bdb-and-hdb-database-directives">BDB and HDB Database Directives</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li><a href="#slapd配置文件">slapd配置文件</a></li>
-    <li><a href="#运行slapd">运行slapd</a>
-      <ul>
-        <li><a href="#slapd方式">slapd方式</a></li>
-        <li><a href="#systemd方式">systemd方式</a></li>
-      </ul>
-    </li>
-    <li><a href="#访问控制">访问控制</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><p>参考:</p>
-<ul>
-<li>LDAP维基百科: <a href="https://zh.wikipedia.org/wiki/LDAP">https://zh.wikipedia.org/wiki/LDAP</a></li>
-<li>OpenLDAP维基百科: <a href="https://zh.wikipedia.org/wiki/OpenLDAP">https://zh.wikipedia.org/wiki/OpenLDAP</a></li>
-<li><code>x.500</code>维基百科: <a href="https://zh.wikipedia.org/wiki/X.500">https://zh.wikipedia.org/wiki/X.500</a></li>
-<li>OpenLDAP文档: <a href="http://www.openldap.org/doc/">http://www.openldap.org/doc/</a></li>
-</ul>
-<p>环境:</p>
-<ul>
-<li>RHEL7.x86_64</li>
-<li>LDAP v2.4.44</li>
-</ul>
-<br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="概述">概述</h1>
-<br/>
-<h2 id="ldap">LDAP</h2>
-<p><strong>LDAP</strong>(轻型目录访问协议, Lightweight Directory Access Protocol）是一个开放的、中立的、工业标准的应用协议，通过IP协议提供访问控制和维护分布式信息的目录信息。
+"><meta name=application-name content="风继续吹"><meta name=apple-mobile-web-app-title content="风继续吹"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://zhang21.cn/openldap/><link rel=prev href=https://zhang21.cn/openvpn/><link rel=next href=https://zhang21.cn/devops/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"OpenLDAP","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/zhang21.cn\/openldap\/"},"image":[{"@type":"ImageObject","url":"https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png","width":3200,"height":2048}],"genre":"posts","keywords":"LDAP, Permission, 权限管理","wordcount":7915,"url":"https:\/\/zhang21.cn\/openldap\/","datePublished":"2019-01-18T01:18:29+00:00","dateModified":"2019-01-18T01:18:29+00:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"Zhang21","logo":"https:\/\/zhang21.cn\/leslie.png"},"author":{"@type":"Person","name":"Zhang21"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=风继续吹><span class=header-title-pre><i class="far fa-kiss-wink-heart fa-fw"></i></span>风继续吹</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/about/>关于 </a><a class=menu-item href=https://github.com/zhang21 title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=风继续吹><span class=header-title-pre><i class="far fa-kiss-wink-heart fa-fw"></i></span>风继续吹</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/about/ title>关于</a><a class=menu-item href=https://github.com/zhang21 title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">OpenLDAP</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://zhang21.cn title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Zhang21</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/infrastructure/><i class="far fa-folder fa-fw" aria-hidden=true></i>infrastructure</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2019-01-18>2019-01-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;约 7915 字&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;预计阅读 16 分钟&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#概述>概述</a><ul><li><a href=#ldap>LDAP</a></li><li><a href=#openldap>OpenLDAP</a></li><li><a href=#why-openldap>Why OpenLDAP</a></li></ul></li><li><a href=#openldap目录服务>OpenLDAP目录服务</a><ul><li><a href=#目录服务是什么>目录服务是什么</a></li><li><a href=#ldap是什么>LDAP是什么</a></li><li><a href=#什么时候应该使用ldap>什么时候应该使用LDAP</a></li><li><a href=#ldap如何工作>LDAP如何工作</a></li><li><a href=#关于x500>关于<code>x.500</code></a></li><li><a href=#ldap与rdbms>LDAP与RDBMS</a></li><li><a href=#slapd>slapd</a></li></ul></li><li><a href=#快速入门>快速入门</a></li><li><a href=#配置选择>配置选择</a><ul><li><a href=#本地目录服务>本地目录服务</a></li><li><a href=#带推荐的本地目录服务>带推荐的本地目录服务</a></li><li><a href=#副本目录服务>副本目录服务</a></li><li><a href=#分布式目录服务>分布式目录服务</a></li></ul></li><li><a href=#安装>安装</a><ul><li><a href=#源码安装>源码安装</a></li><li><a href=#包安装>包安装</a></li></ul></li><li><a href=#配置>配置</a><ul><li><a href=#配置的布局>配置的布局</a></li><li><a href=#配置指令>配置指令</a><ul><li><a href=#cnconfig>cn=config</a></li><li><a href=#cnmodule>cn=module</a></li><li><a href=#cnschema>cn=schema</a></li><li><a href=#backend-specific-directives>Backend-specific Directives</a></li><li><a href=#database-specific-directives>Database-specific Directives</a></li><li><a href=#bdb-and-hdb-database-directives>BDB and HDB Database Directives</a></li></ul></li></ul></li><li><a href=#slapd配置文件>slapd配置文件</a></li><li><a href=#运行slapd>运行slapd</a><ul><li><a href=#slapd方式>slapd方式</a></li><li><a href=#systemd方式>systemd方式</a></li></ul></li><li><a href=#访问控制>访问控制</a></li></ul></nav></div></div><div class=content id=content><p>参考:</p><ul><li>LDAP维基百科: <a href=https://zh.wikipedia.org/wiki/LDAP>https://zh.wikipedia.org/wiki/LDAP</a></li><li>OpenLDAP维基百科: <a href=https://zh.wikipedia.org/wiki/OpenLDAP>https://zh.wikipedia.org/wiki/OpenLDAP</a></li><li><code>x.500</code>维基百科: <a href=https://zh.wikipedia.org/wiki/X.500>https://zh.wikipedia.org/wiki/X.500</a></li><li>OpenLDAP文档: <a href=http://www.openldap.org/doc/>http://www.openldap.org/doc/</a></li></ul><p>环境:</p><ul><li>RHEL7.x86_64</li><li>LDAP v2.4.44</li></ul><br><br><hr><br><br><h1 id=概述>概述</h1><br><h2 id=ldap>LDAP</h2><p><strong>LDAP</strong>(轻型目录访问协议, Lightweight Directory Access Protocol）是一个开放的、中立的、工业标准的应用协议，通过IP协议提供访问控制和维护分布式信息的目录信息。
 LDAP基于<code>X.500</code>标准的子集。因为这个关系，LDAP有时被称为<code>X.500-lite</code>。
-LDAP在TCP/IP之上定义了一个相对简单的升级和搜索目录的协议。</p>
-<p>LDAP目录与普通数据库的主要不同之处在于数据的组织方式，它是一种有层次的、树形结构。所有条目的属性的定义是对象类<code>object class</code>的组成部分，并组成在一起构成<code>schema</code>；那些在组织内代表个人的<code>schema</code>被命名为<code>white pages schema</code>。数据库内的每个条目都与若干对象类联系，而这些对象类决定了一个属性是否为可选和它保存哪些类型的信息。</p>
-<p>LDAP目录的<strong>条目</strong>（entry）由<strong>属性</strong>（attribute）的一个聚集组成，并由一个唯一性的名字引用，即<strong>专有名称</strong>（distinguished name，DN）。</p>
-<ul>
-<li><strong>DN</strong>: Distinguished Name</li>
-<li><strong>CN</strong>: Common Name</li>
-<li><strong>OU</strong>: Domain Component</li>
-</ul>
-<br>
-<p>LDAP组织数据方式:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">         dc=org
+LDAP在TCP/IP之上定义了一个相对简单的升级和搜索目录的协议。</p><p>LDAP目录与普通数据库的主要不同之处在于数据的组织方式，它是一种有层次的、树形结构。所有条目的属性的定义是对象类<code>object class</code>的组成部分，并组成在一起构成<code>schema</code>；那些在组织内代表个人的<code>schema</code>被命名为<code>white pages schema</code>。数据库内的每个条目都与若干对象类联系，而这些对象类决定了一个属性是否为可选和它保存哪些类型的信息。</p><p>LDAP目录的<strong>条目</strong>（entry）由<strong>属性</strong>（attribute）的一个聚集组成，并由一个唯一性的名字引用，即<strong>专有名称</strong>（distinguished name，DN）。</p><ul><li><strong>DN</strong>: Distinguished Name</li><li><strong>CN</strong>: Common Name</li><li><strong>OU</strong>: Domain Component</li></ul><br><p>LDAP组织数据方式:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>         dc=org
 
       |dc=wikipedia
        /          \
  ou=people     ou=groups
-</code></pre></td></tr></table>
-</div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/OpenLDAP/LDAP_Structure.png"
-        data-srcset="/images/OpenLDAP/LDAP_Structure.png, /images/OpenLDAP/LDAP_Structure.png 1.5x, /images/OpenLDAP/LDAP_Structure.png 2x"
-        data-sizes="auto"
-        alt="/images/OpenLDAP/LDAP_Structure.png"
-        title="/images/OpenLDAP/LDAP_Structure.png" /></p>
-<br>
-<p>LDAP主要的应用场景是查询多而修改极少，那就充分发挥LDAP的优势了。因为没有事务处理，那数据库的速度可是比不上。 还有LDAP能存储海量的数据，还可以轻松地在各个系统之间复制，可用性超高。</p>
-<p>目录是一个为查询、浏览和搜索而优化的专业分布式数据库，它呈树状结构组织数据，就好象Linux/Unix系统中的文件目录一样。目录数据库和关系数据库不同，它有优异的读性能，但写性能差，并且没有事务处理、回滚等复杂功能，不适于存储修改频繁的数据。所以目录天生是用来查询的，就好象它的名字一样。</p>
-<br/>
-<br/>
-<br/>
-<h2 id="openldap">OpenLDAP</h2>
-<p><strong>OpenLDAP</strong>是轻型目录访问协议（Lightweight Directory Access Protocol，LDAP）的<strong>自由和开源</strong>的实现，在其OpenLDAP许可证下发行，并已经被包含在众多流行的Linux发行版中。</p>
-<p>OpenLDAP主要包括下述4个部分：</p>
-<ul>
-<li><code>slapd</code>: 独立LDAP守护服务</li>
-<li><code>slurpd</code>: 独立的LDAP更新复制守护服务</li>
-<li>实现LDAP协议的库</li>
-<li>工具软件和示例客户端</li>
-</ul>
-<br/>
-<br/>
-<br/>
-<h2 id="why-openldap">Why OpenLDAP</h2>
-<p>账号是登录系统的唯一入口。要登录系统，首先系统要存在登录所使用的账号（/etc/passwd）及密码信息（/etc/shadow），然后经过系统查找顺序（/etc/nsswith.conf）及认证模块（/etc/pam.d/*）验证，得到授权后方可登录系统。如果多个用户登录系统，就需要在每个系统上创建用户名和密码；否则，就无法登录系统。</p>
-<p>对于账号管理人员而言，维护10 台、100 台机器的账号，或许勉强可以维护、管理。如果机器数量达到1000 以上时，对于账号的创建、回收、权限的分配、密码策略、账号安全审计等一系列操作，账号管理人员就心有余而力不足了。此时OpenLDAP 账号集中管理软件就应用而生，它可以实现账号集中维护、管理，只需要将被管理的机器加入到服务器端即可，此后所有与账号相关的策略均在服务端实现，从而解决了运维案例所产生的众多管理问题。</p>
-<p>关于账号的添加、删除、修改、权限的赋予等一系列操作只需要在服务端操作即可，无须在客户端机器进行单独操作。客户端账号及密码均通过OpenLDAP 服务器进行验证，从而实现账号集中认证管理，此时账号管理员只须维护OpenLDAP 服务器条目即可。</p>
-<br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="openldap目录服务">OpenLDAP目录服务</h1>
-<p>Introduction to OpenLDAP Directory Services</p>
-<p>本节介绍如何构建，配置和操作OpenLDAP软件以提供目录服务。这包括有关如何配置和运行standalone LDAP daemon——<code>slapd</code>的详细信息。它适用于系统管理员。本节提供目录服务的基本介绍，特别是<strong>slapd</strong>提供的目录服务。
-本简介提供足够的信息，以便您可以开始学习<strong>LDAP</strong>，<strong>X.500</strong>和<strong>目录服务</strong>。</p>
-<br/>
-<h2 id="目录服务是什么">目录服务是什么</h2>
-<p>目录是专门用于<strong>搜索</strong>(search)和<strong>浏览</strong>(browse)的专用数据库，另外还支持基本<strong>查找</strong>(lookup)和<strong>更新</strong>(update)功能。</p>
-<p>目录往往包含描述性的，基于属性的信息，并支持复杂的过滤功能。目录通常不支持在为处理大量复杂更新而设计的数据库管理系统中发现的复杂事务或回滚方案。如果允许，目录更新通常是简单的全有或全无更改。目录通常用于快速响应高容量查找或搜索操作。他们可能具有广泛复制信息的能力，以提高可用性和可靠性，同时缩短响应时间。复制目录信息时，只要及时解决不一致问题，副本之间的临时不一致就可以了。</p>
-<p>有许多不同的方法来提供目录服务。不同的方法允许将不同类型的信息存储在目录中，对如何引用，查询和更新信息。一些目录服务是本地的，向受限制的上下文提供服务；其它服务是全球性的，为更广泛的环境提供服务。全局服务通常是分布式的，这意味着它们包含的数据分布在许多机器上，所有机器都协作提供目录服务。通常，全局服务定义统一命名空间(namespace)，无论您在何处与数据本身相关，都可以提供相同的数据视图。</p>
-<br/>
-<br/>
-<br/>
-<h2 id="ldap是什么">LDAP是什么</h2>
-<p>LDAP(Lightweight Directory Access Protocol, 轻型目录访问协议)，顾名思义，它是一种用于访问目录服务的轻量级协议，特别是基于<code>X.500</code>的目录服务。LDAP通过TCP / IP或其他面向连接的传输服务运行。</p>
-<p>哪些种类的信息可以存储在目录中？DAP信息模型基于<strong>条目</strong>(entry)。条目是具有全局唯一<strong>可分辨名称</strong>（DN）的<strong>属性</strong>(attributes)集合。DN用于明确指代Entry，每个条目的属性都有一个<strong>类型</strong>(type)和一个或多个<strong>值</strong>(value)。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#这些类型通常是助记符字符串
+</code></pre></td></tr></table></div></div><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/OpenLDAP/LDAP_Structure.png data-srcset="/images/OpenLDAP/LDAP_Structure.png, /images/OpenLDAP/LDAP_Structure.png 1.5x, /images/OpenLDAP/LDAP_Structure.png 2x" data-sizes=auto alt=/images/OpenLDAP/LDAP_Structure.png title=/images/OpenLDAP/LDAP_Structure.png></p><br><p>LDAP主要的应用场景是查询多而修改极少，那就充分发挥LDAP的优势了。因为没有事务处理，那数据库的速度可是比不上。 还有LDAP能存储海量的数据，还可以轻松地在各个系统之间复制，可用性超高。</p><p>目录是一个为查询、浏览和搜索而优化的专业分布式数据库，它呈树状结构组织数据，就好象Linux/Unix系统中的文件目录一样。目录数据库和关系数据库不同，它有优异的读性能，但写性能差，并且没有事务处理、回滚等复杂功能，不适于存储修改频繁的数据。所以目录天生是用来查询的，就好象它的名字一样。</p><br><br><br><h2 id=openldap>OpenLDAP</h2><p><strong>OpenLDAP</strong>是轻型目录访问协议（Lightweight Directory Access Protocol，LDAP）的<strong>自由和开源</strong>的实现，在其OpenLDAP许可证下发行，并已经被包含在众多流行的Linux发行版中。</p><p>OpenLDAP主要包括下述4个部分：</p><ul><li><code>slapd</code>: 独立LDAP守护服务</li><li><code>slurpd</code>: 独立的LDAP更新复制守护服务</li><li>实现LDAP协议的库</li><li>工具软件和示例客户端</li></ul><br><br><br><h2 id=why-openldap>Why OpenLDAP</h2><p>账号是登录系统的唯一入口。要登录系统，首先系统要存在登录所使用的账号（/etc/passwd）及密码信息（/etc/shadow），然后经过系统查找顺序（/etc/nsswith.conf）及认证模块（/etc/pam.d/*）验证，得到授权后方可登录系统。如果多个用户登录系统，就需要在每个系统上创建用户名和密码；否则，就无法登录系统。</p><p>对于账号管理人员而言，维护10 台、100 台机器的账号，或许勉强可以维护、管理。如果机器数量达到1000 以上时，对于账号的创建、回收、权限的分配、密码策略、账号安全审计等一系列操作，账号管理人员就心有余而力不足了。此时OpenLDAP 账号集中管理软件就应用而生，它可以实现账号集中维护、管理，只需要将被管理的机器加入到服务器端即可，此后所有与账号相关的策略均在服务端实现，从而解决了运维案例所产生的众多管理问题。</p><p>关于账号的添加、删除、修改、权限的赋予等一系列操作只需要在服务端操作即可，无须在客户端机器进行单独操作。客户端账号及密码均通过OpenLDAP 服务器进行验证，从而实现账号集中认证管理，此时账号管理员只须维护OpenLDAP 服务器条目即可。</p><br><br><hr><br><br><h1 id=openldap目录服务>OpenLDAP目录服务</h1><p>Introduction to OpenLDAP Directory Services</p><p>本节介绍如何构建，配置和操作OpenLDAP软件以提供目录服务。这包括有关如何配置和运行standalone LDAP daemon——<code>slapd</code>的详细信息。它适用于系统管理员。本节提供目录服务的基本介绍，特别是<strong>slapd</strong>提供的目录服务。
+本简介提供足够的信息，以便您可以开始学习<strong>LDAP</strong>，<strong>X.500</strong>和<strong>目录服务</strong>。</p><br><h2 id=目录服务是什么>目录服务是什么</h2><p>目录是专门用于<strong>搜索</strong>(search)和<strong>浏览</strong>(browse)的专用数据库，另外还支持基本<strong>查找</strong>(lookup)和<strong>更新</strong>(update)功能。</p><p>目录往往包含描述性的，基于属性的信息，并支持复杂的过滤功能。目录通常不支持在为处理大量复杂更新而设计的数据库管理系统中发现的复杂事务或回滚方案。如果允许，目录更新通常是简单的全有或全无更改。目录通常用于快速响应高容量查找或搜索操作。他们可能具有广泛复制信息的能力，以提高可用性和可靠性，同时缩短响应时间。复制目录信息时，只要及时解决不一致问题，副本之间的临时不一致就可以了。</p><p>有许多不同的方法来提供目录服务。不同的方法允许将不同类型的信息存储在目录中，对如何引用，查询和更新信息。一些目录服务是本地的，向受限制的上下文提供服务；其它服务是全球性的，为更广泛的环境提供服务。全局服务通常是分布式的，这意味着它们包含的数据分布在许多机器上，所有机器都协作提供目录服务。通常，全局服务定义统一命名空间(namespace)，无论您在何处与数据本身相关，都可以提供相同的数据视图。</p><br><br><br><h2 id=ldap是什么>LDAP是什么</h2><p>LDAP(Lightweight Directory Access Protocol, 轻型目录访问协议)，顾名思义，它是一种用于访问目录服务的轻量级协议，特别是基于<code>X.500</code>的目录服务。LDAP通过TCP / IP或其他面向连接的传输服务运行。</p><p>哪些种类的信息可以存储在目录中？DAP信息模型基于<strong>条目</strong>(entry)。条目是具有全局唯一<strong>可分辨名称</strong>（DN）的<strong>属性</strong>(attributes)集合。DN用于明确指代Entry，每个条目的属性都有一个<strong>类型</strong>(type)和一个或多个<strong>值</strong>(value)。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>#这些类型通常是助记符字符串
 cn
 mail
 
@@ -324,352 +65,142 @@ mail
 #值的语法取决于属性类型
 cn: ldap-test
 mail: example@test.com
-</code></pre></td></tr></table>
-</div>
-</div><br>
-<p>信息是如何安排的？在LDAP中，目录条目以分层树状结构(tree-like structure)排列。
-传统上，这种结构反映了地理/组织边界。表示国家/地区的条目显示在树的顶部。下面是代表各州和国家组织的条目。再下面可能是表示组织单位，人员，打印机，文档或您可以想到的任何其他内容的条目。</p>
-<p>传统命名:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/OpenLDAP/intro_tree.png"
-        data-srcset="/images/OpenLDAP/intro_tree.png, /images/OpenLDAP/intro_tree.png 1.5x, /images/OpenLDAP/intro_tree.png 2x"
-        data-sizes="auto"
-        alt="/images/OpenLDAP/intro_tree.png"
-        title="/images/OpenLDAP/intro_tree.png" /></p>
-<br>
-<p>还可以基于因特网域名来安排树。这种命名方法正变得越来越流行，因为它允许使用DNS定位目录服务。</p>
-<p>基于域名命名:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/OpenLDAP/intro_dctree.png"
-        data-srcset="/images/OpenLDAP/intro_dctree.png, /images/OpenLDAP/intro_dctree.png 1.5x, /images/OpenLDAP/intro_dctree.png 2x"
-        data-sizes="auto"
-        alt="/images/OpenLDAP/intro_dctree.png"
-        title="/images/OpenLDAP/intro_dctree.png" /></p>
-<br>
-<p>此外，LDAP允许您通过使用名为<strong>对象类</strong>(objectClass)的特殊属性来控制条目中所需和允许的属性。它的值确定条目必须遵守的模式规则。</p>
-<br>
-<p>如何引用信息？条目由其可分辨名称(DN)引用，该名称通过获取条目本身的名称来构造(称为Relative Distinguished Name, RDN)，并连接其祖先条目的名称。</p>
-<br>
-<p>如何保护信息免受未经授权的访问？某些目录服务不提供保护，允许任何人查看信息。LDAP为客户端提供了一种机制，用于对目录服务器进行身份验证或证明其身份。LDAP还支持数据安全性（完整性和机密性）服务。</p>
-<br/>
-<br/>
-<br/>
-<h2 id="什么时候应该使用ldap">什么时候应该使用LDAP</h2>
-<p>通常，当您需要通过基于标准的方法集中管理、存储、访问数据时，应使用目录服务器。
-总是有新的方法来使用目录并应用LDAP原则来解决某些问题，因此这个问题没有简单的答案。</p>
-<p>一些常见的栗子：</p>
-<ul>
-<li>机器认证: Machine Authentication</li>
-<li>用户认证: User Authentication</li>
-<li>用户/系统组: User/System Groups</li>
-<li>地址簿: Address book</li>
-<li>组织代表: Organization Representation</li>
-<li>资产追踪: Asset Tracking</li>
-<li>电话信息存储: Telephony Information Store</li>
-<li>用户资源管理: User resource management</li>
-<li>电子邮件查找: E-mail address lookups</li>
-<li>应用配置存储: Application Configuration store</li>
-<li>PBX Configuration store</li>
-<li>&hellip;</li>
-</ul>
-<br/>
-<br/>
-<br/>
-<h2 id="ldap如何工作">LDAP如何工作</h2>
-<p>LDAP使用C-S模式。一个或多个LDAP服务器包含组成目录信息树（DIT，directory information tree）的数据。客户端连接到服务器并发出请求。服务端响应客户端的请求。无论客户端连接到哪个LDAP服务器，它都会看到相同的目录视图，这是全局目录服务的一个重要特性。</p>
-<br/>
-<br/>
-<br/>
-<h2 id="关于x500">关于<code>x.500</code></h2>
-<p><code>X.500</code>是计算机目录服务的标准系列。<code>X.500</code>协议包括:</p>
-<ul>
-<li>DAP (Directory Access Protocol)</li>
-<li>DSP (Directory System Protocol)</li>
-<li>DISP (Directory Information Shadowing Protocol)</li>
-<li>DOP (Directory Operational Bindings Management Protocol)</li>
-<li>LDAP (Lightweight Directory Access Protocol)</li>
-</ul>
-<br>
-<p>从技术上讲，LDAP是<code>X.500</code>目录服务的目录访问协议。DAP是一种重量级协议，可在完整的OSI协议栈上运行，并且需要大量的计算资源。LDAP旨在通过<code>TCP/IP</code>进行操作，并以更低的成本提供DAP的大部分功能。</p>
-<p>虽然LDAP仍然用于通过网关访问X.500目录服务，但现在更常见的是在X.500服务器中直接实现LDAP。</p>
-<p>可以将 standalone LDAP daemon(slapd) 视为轻量级X.500目录服务器。也就是说，它没有实现X.500的DAP，也不支持完整的X.500模型。</p>
-<br/>
-<br/>
-<br/>
-<h2 id="ldap与rdbms">LDAP与RDBMS</h2>
-<p>最常见的问题是——为什么OpenLDAP不使用 RDBMS(关系数据库管理系统) 而是使用像 LMDB 那样的嵌入式键/值存储？总的来说，期望商业级 RDBMS 实现的复杂算法可以使 OpenLDAP更 快或更好，并且同时允许与其他应用程序共享数据。</p>
-<p>简而言之，使用嵌入式数据库和自定义索引系统，OpenLDAP可以在不损失可靠性的情况下提供更高的性能和可扩展性。所以OpenLDAP使用 LMDB 并发/事务 数据库软件。</p>
-<br>
-<p>下面是一个详细而冗长的答案: &lt;&gt;</p>
-<p>很有可能认为在目录中使用RDBMS后端可以解决所有问题。但是，它是一头猪。这是因为数据模型非常不同。使用关系数据库表示目录数据将需要将数据拆分为多个表。
-现在最大的问题是从一个条目访问数据需要在不同的磁盘区域上进行搜索。在某些应用程序中，这可能没问题但在许多应用程序中性能会受到影响。</p>
-<br/>
-<br/>
-<br/>
-<h2 id="slapd">slapd</h2>
-<p>slapd是OpenLDAP的守护进程， 在许多不同平台上运行的LDAP目录服务器。</p>
-<p>slapd有一些有趣的功能和特性:</p>
-<ul>
-<li><strong>LDAPv3</strong>: slapd实现轻量级目录访问协议的第3版，slapd支持IPv4和IPv6以及Unix IPC上的LDAP。</li>
-<li><strong>Simple Authentication and Security Layer</strong>: slapd通过使用SASL支持强身份验证和数据安全性（完整性和机密性）服务</li>
-<li><strong>Transport Layer Security</strong>: slapd通过使用 TLS/SSL 持基于证书的身份验证和数据安全性（完整性和机密性）服务</li>
-<li><strong>Topology control</strong>: slapd可以配置为根据网络拓扑信息限制 socket 层的访问，基于 TCP wrapper</li>
-<li><strong>Access control</strong>: slapd提供了丰富而强大的访问控制功能，允许您控制对数据库中信息的访问</li>
-<li><strong>Internationalization</strong>: slapd支持Unicode 和 Language tag</li>
-<li><strong>Choice of database backends</strong>: slapd附带了各种不同的数据库后端，您可以从中选择</li>
-<li><strong>Multiple database instances</strong>: slapd可以配置为同时为多个数据库提供服务。这意味着单个slapd服务器可以使用相同或不同的数据库后端响应LDAP树的许多逻辑上不同部分的请求</li>
-<li><strong>Generic modules API</strong>: 如果您需要更多自定义，slapd可让您轻松编写自己的模块</li>
-<li><strong>Threads</strong>: slapd具有高性能的线程</li>
-<li><strong>Replication</strong>: slapd可以配置为维护目录信息的集群副本</li>
-<li><strong>Proxy Cache</strong>: slapd可以配置为缓存LDAP代理服务</li>
-<li><strong>Configuration</strong>: slapd可通过单个配置文件进行高度配置，允许您更改您想要更改的所有内容</li>
-</ul>
-<br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="快速入门">快速入门</h1>
-<p>A Quick-Start Guide</p>
-<blockquote>
-<p>注意：本快速入门指南不使用强身份验证，也不使用任何完整性或机密保护服务。这些服务在OpenLDAP的其它章节中进行了描述。</p>
-</blockquote>
-<p>以下包括OpenLDAP v2.4软件的快速入门指南。</p>
-<br>
-<ul>
-<li>获取软件</li>
-<li>打开发行包</li>
-<li>审阅文档</li>
-<li>运行<code>configure</code></li>
-<li>构建软件</li>
-<li>测试构建</li>
-<li>安装软件</li>
-<li>编辑配置文件</li>
-<li>导入配置数据库</li>
-<li>启动SLAPD</li>
-<li>添加初始化条目到目录</li>
-<li>查看是否正常运行</li>
-</ul>
-<br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="配置选择">配置选择</h1>
-<p>The Big Picture - Configuration Choices</p>
-<p>本节简要概述了各种LDAP目录配置。</p>
-<br/>
-<h2 id="本地目录服务">本地目录服务</h2>
-<p>Local Directory Service</p>
-<p>在此配置中，您运行 slapd 实例，该实例仅为您的本地域提供目录服务。它不以任何方式与其他目录服务器进行交互。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/OpenLDAp/config_local.png"
-        data-srcset="/images/OpenLDAp/config_local.png, /images/OpenLDAp/config_local.png 1.5x, /images/OpenLDAp/config_local.png 2x"
-        data-sizes="auto"
-        alt="/images/OpenLDAp/config_local.png"
-        title="/images/OpenLDAp/config_local.png" /></p>
-<br/>
-<br/>
-<br/>
-<h2 id="带推荐的本地目录服务">带推荐的本地目录服务</h2>
-<p>Local Directory Service with Referrals</p>
-<p>在此配置中，运行 slapd 实例，该实例为本地域提供目录服务，并将其配置为将引用返回到能够处理请求的其它服务器。</p>
-<p>如果要提供本地服务并参与全局目录，或者要将下级条目的责任委派给其他服务器，请使用此配置。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/OpenLDAP/config_ref.png"
-        data-srcset="/images/OpenLDAP/config_ref.png, /images/OpenLDAP/config_ref.png 1.5x, /images/OpenLDAP/config_ref.png 2x"
-        data-sizes="auto"
-        alt="/images/OpenLDAP/config_ref.png"
-        title="/images/OpenLDAP/config_ref.png" /></p>
-<br/>
-<br/>
-<br/>
-<h2 id="副本目录服务">副本目录服务</h2>
-<p>Replicated Directory Service</p>
-<p>slapd 包括对基于LDAP Sync 的复制的支持，称为syncrepl。可用于在多个目录服务器上维护目录信息的副本。在其最基本的配置中，master 是 syncrepl provider，slavee 是 syncrepl consumer。
-集群和提供了可靠性和可用性。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/OpenLDAP/config_repl.png"
-        data-srcset="/images/OpenLDAP/config_repl.png, /images/OpenLDAP/config_repl.png 1.5x, /images/OpenLDAP/config_repl.png 2x"
-        data-sizes="auto"
-        alt="/images/OpenLDAP/config_repl.png"
-        title="/images/OpenLDAP/config_repl.png" /></p>
-<br/>
-<br/>
-<br/>
-<h2 id="分布式目录服务">分布式目录服务</h2>
-<p>Distributed Local Directory Service</p>
-<p>在此配置中，本地服务被划分为较小的服务，每个服务都可以被复制，并与上级和下级引用粘合在一起。</p>
-<br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="安装">安装</h1>
-<p>Building and Installing OpenLDAP Software</p>
-<p>本章详细介绍了如何构建和安装OpenLDAP软件包。</p>
-<br/>
-<h2 id="源码安装">源码安装</h2>
-<p>官方文档中是使用源码进行构建和安装。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#提取软件</span>
-gunzip -c openldap-VERSION.tgz <span class="p">|</span> tar xf -
-<span class="nb">cd</span> openldap-VERSION
+</code></pre></td></tr></table></div></div><br><p>信息是如何安排的？在LDAP中，目录条目以分层树状结构(tree-like structure)排列。
+传统上，这种结构反映了地理/组织边界。表示国家/地区的条目显示在树的顶部。下面是代表各州和国家组织的条目。再下面可能是表示组织单位，人员，打印机，文档或您可以想到的任何其他内容的条目。</p><p>传统命名:</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/OpenLDAP/intro_tree.png data-srcset="/images/OpenLDAP/intro_tree.png, /images/OpenLDAP/intro_tree.png 1.5x, /images/OpenLDAP/intro_tree.png 2x" data-sizes=auto alt=/images/OpenLDAP/intro_tree.png title=/images/OpenLDAP/intro_tree.png></p><br><p>还可以基于因特网域名来安排树。这种命名方法正变得越来越流行，因为它允许使用DNS定位目录服务。</p><p>基于域名命名:</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/OpenLDAP/intro_dctree.png data-srcset="/images/OpenLDAP/intro_dctree.png, /images/OpenLDAP/intro_dctree.png 1.5x, /images/OpenLDAP/intro_dctree.png 2x" data-sizes=auto alt=/images/OpenLDAP/intro_dctree.png title=/images/OpenLDAP/intro_dctree.png></p><br><p>此外，LDAP允许您通过使用名为<strong>对象类</strong>(objectClass)的特殊属性来控制条目中所需和允许的属性。它的值确定条目必须遵守的模式规则。</p><br><p>如何引用信息？条目由其可分辨名称(DN)引用，该名称通过获取条目本身的名称来构造(称为Relative Distinguished Name, RDN)，并连接其祖先条目的名称。</p><br><p>如何保护信息免受未经授权的访问？某些目录服务不提供保护，允许任何人查看信息。LDAP为客户端提供了一种机制，用于对目录服务器进行身份验证或证明其身份。LDAP还支持数据安全性（完整性和机密性）服务。</p><br><br><br><h2 id=什么时候应该使用ldap>什么时候应该使用LDAP</h2><p>通常，当您需要通过基于标准的方法集中管理、存储、访问数据时，应使用目录服务器。
+总是有新的方法来使用目录并应用LDAP原则来解决某些问题，因此这个问题没有简单的答案。</p><p>一些常见的栗子：</p><ul><li>机器认证: Machine Authentication</li><li>用户认证: User Authentication</li><li>用户/系统组: User/System Groups</li><li>地址簿: Address book</li><li>组织代表: Organization Representation</li><li>资产追踪: Asset Tracking</li><li>电话信息存储: Telephony Information Store</li><li>用户资源管理: User resource management</li><li>电子邮件查找: E-mail address lookups</li><li>应用配置存储: Application Configuration store</li><li>PBX Configuration store</li><li>&mldr;</li></ul><br><br><br><h2 id=ldap如何工作>LDAP如何工作</h2><p>LDAP使用C-S模式。一个或多个LDAP服务器包含组成目录信息树（DIT，directory information tree）的数据。客户端连接到服务器并发出请求。服务端响应客户端的请求。无论客户端连接到哪个LDAP服务器，它都会看到相同的目录视图，这是全局目录服务的一个重要特性。</p><br><br><br><h2 id=关于x500>关于<code>x.500</code></h2><p><code>X.500</code>是计算机目录服务的标准系列。<code>X.500</code>协议包括:</p><ul><li>DAP (Directory Access Protocol)</li><li>DSP (Directory System Protocol)</li><li>DISP (Directory Information Shadowing Protocol)</li><li>DOP (Directory Operational Bindings Management Protocol)</li><li>LDAP (Lightweight Directory Access Protocol)</li></ul><br><p>从技术上讲，LDAP是<code>X.500</code>目录服务的目录访问协议。DAP是一种重量级协议，可在完整的OSI协议栈上运行，并且需要大量的计算资源。LDAP旨在通过<code>TCP/IP</code>进行操作，并以更低的成本提供DAP的大部分功能。</p><p>虽然LDAP仍然用于通过网关访问X.500目录服务，但现在更常见的是在X.500服务器中直接实现LDAP。</p><p>可以将 standalone LDAP daemon(slapd) 视为轻量级X.500目录服务器。也就是说，它没有实现X.500的DAP，也不支持完整的X.500模型。</p><br><br><br><h2 id=ldap与rdbms>LDAP与RDBMS</h2><p>最常见的问题是——为什么OpenLDAP不使用 RDBMS(关系数据库管理系统) 而是使用像 LMDB 那样的嵌入式键/值存储？总的来说，期望商业级 RDBMS 实现的复杂算法可以使 OpenLDAP更 快或更好，并且同时允许与其他应用程序共享数据。</p><p>简而言之，使用嵌入式数据库和自定义索引系统，OpenLDAP可以在不损失可靠性的情况下提供更高的性能和可扩展性。所以OpenLDAP使用 LMDB 并发/事务 数据库软件。</p><br><p>下面是一个详细而冗长的答案: &lt;></p><p>很有可能认为在目录中使用RDBMS后端可以解决所有问题。但是，它是一头猪。这是因为数据模型非常不同。使用关系数据库表示目录数据将需要将数据拆分为多个表。
+现在最大的问题是从一个条目访问数据需要在不同的磁盘区域上进行搜索。在某些应用程序中，这可能没问题但在许多应用程序中性能会受到影响。</p><br><br><br><h2 id=slapd>slapd</h2><p>slapd是OpenLDAP的守护进程， 在许多不同平台上运行的LDAP目录服务器。</p><p>slapd有一些有趣的功能和特性:</p><ul><li><strong>LDAPv3</strong>: slapd实现轻量级目录访问协议的第3版，slapd支持IPv4和IPv6以及Unix IPC上的LDAP。</li><li><strong>Simple Authentication and Security Layer</strong>: slapd通过使用SASL支持强身份验证和数据安全性（完整性和机密性）服务</li><li><strong>Transport Layer Security</strong>: slapd通过使用 TLS/SSL 持基于证书的身份验证和数据安全性（完整性和机密性）服务</li><li><strong>Topology control</strong>: slapd可以配置为根据网络拓扑信息限制 socket 层的访问，基于 TCP wrapper</li><li><strong>Access control</strong>: slapd提供了丰富而强大的访问控制功能，允许您控制对数据库中信息的访问</li><li><strong>Internationalization</strong>: slapd支持Unicode 和 Language tag</li><li><strong>Choice of database backends</strong>: slapd附带了各种不同的数据库后端，您可以从中选择</li><li><strong>Multiple database instances</strong>: slapd可以配置为同时为多个数据库提供服务。这意味着单个slapd服务器可以使用相同或不同的数据库后端响应LDAP树的许多逻辑上不同部分的请求</li><li><strong>Generic modules API</strong>: 如果您需要更多自定义，slapd可让您轻松编写自己的模块</li><li><strong>Threads</strong>: slapd具有高性能的线程</li><li><strong>Replication</strong>: slapd可以配置为维护目录信息的集群副本</li><li><strong>Proxy Cache</strong>: slapd可以配置为缓存LDAP代理服务</li><li><strong>Configuration</strong>: slapd可通过单个配置文件进行高度配置，允许您更改您想要更改的所有内容</li></ul><br><br><hr><br><br><h1 id=快速入门>快速入门</h1><p>A Quick-Start Guide</p><blockquote><p>注意：本快速入门指南不使用强身份验证，也不使用任何完整性或机密保护服务。这些服务在OpenLDAP的其它章节中进行了描述。</p></blockquote><p>以下包括OpenLDAP v2.4软件的快速入门指南。</p><br><ul><li>获取软件</li><li>打开发行包</li><li>审阅文档</li><li>运行<code>configure</code></li><li>构建软件</li><li>测试构建</li><li>安装软件</li><li>编辑配置文件</li><li>导入配置数据库</li><li>启动SLAPD</li><li>添加初始化条目到目录</li><li>查看是否正常运行</li></ul><br><br><hr><br><br><h1 id=配置选择>配置选择</h1><p>The Big Picture - Configuration Choices</p><p>本节简要概述了各种LDAP目录配置。</p><br><h2 id=本地目录服务>本地目录服务</h2><p>Local Directory Service</p><p>在此配置中，您运行 slapd 实例，该实例仅为您的本地域提供目录服务。它不以任何方式与其他目录服务器进行交互。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/OpenLDAp/config_local.png data-srcset="/images/OpenLDAp/config_local.png, /images/OpenLDAp/config_local.png 1.5x, /images/OpenLDAp/config_local.png 2x" data-sizes=auto alt=/images/OpenLDAp/config_local.png title=/images/OpenLDAp/config_local.png></p><br><br><br><h2 id=带推荐的本地目录服务>带推荐的本地目录服务</h2><p>Local Directory Service with Referrals</p><p>在此配置中，运行 slapd 实例，该实例为本地域提供目录服务，并将其配置为将引用返回到能够处理请求的其它服务器。</p><p>如果要提供本地服务并参与全局目录，或者要将下级条目的责任委派给其他服务器，请使用此配置。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/OpenLDAP/config_ref.png data-srcset="/images/OpenLDAP/config_ref.png, /images/OpenLDAP/config_ref.png 1.5x, /images/OpenLDAP/config_ref.png 2x" data-sizes=auto alt=/images/OpenLDAP/config_ref.png title=/images/OpenLDAP/config_ref.png></p><br><br><br><h2 id=副本目录服务>副本目录服务</h2><p>Replicated Directory Service</p><p>slapd 包括对基于LDAP Sync 的复制的支持，称为syncrepl。可用于在多个目录服务器上维护目录信息的副本。在其最基本的配置中，master 是 syncrepl provider，slavee 是 syncrepl consumer。
+集群和提供了可靠性和可用性。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/OpenLDAP/config_repl.png data-srcset="/images/OpenLDAP/config_repl.png, /images/OpenLDAP/config_repl.png 1.5x, /images/OpenLDAP/config_repl.png 2x" data-sizes=auto alt=/images/OpenLDAP/config_repl.png title=/images/OpenLDAP/config_repl.png></p><br><br><br><h2 id=分布式目录服务>分布式目录服务</h2><p>Distributed Local Directory Service</p><p>在此配置中，本地服务被划分为较小的服务，每个服务都可以被复制，并与上级和下级引用粘合在一起。</p><br><br><hr><br><br><h1 id=安装>安装</h1><p>Building and Installing OpenLDAP Software</p><p>本章详细介绍了如何构建和安装OpenLDAP软件包。</p><br><h2 id=源码安装>源码安装</h2><p>官方文档中是使用源码进行构建和安装。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh><span class=c1>#提取软件</span>
+gunzip -c openldap-VERSION.tgz <span class=p>|</span> tar xf -
+<span class=nb>cd</span> openldap-VERSION
 
 
 
-<span class="c1">#依赖软件</span>
-<span class="c1">#请参考REAME，安装它所需的依赖软件</span>
+<span class=c1>#依赖软件</span>
+<span class=c1>#请参考REAME，安装它所需的依赖软件</span>
 
-<span class="c1">#Transport Layer Security</span>
+<span class=c1>#Transport Layer Security</span>
 
-<span class="c1">#Simple Authentication and Security Layer</span>
+<span class=c1>#Simple Authentication and Security Layer</span>
 
-<span class="c1">#Kerberos Authentication Service</span>
+<span class=c1>#Kerberos Authentication Service</span>
 
-<span class="c1">#Database Software</span>
+<span class=c1>#Database Software</span>
 
-<span class="c1">#Threads</span>
+<span class=c1>#Threads</span>
 
-<span class="c1">#TCP Wrappers</span>
+<span class=c1>#TCP Wrappers</span>
 
 
 
-<span class="c1">#configure</span>
+<span class=c1>#configure</span>
 ./configure --help
 
-./configure --enable-wrappers <span class="se">\
-</span><span class="se"></span>                <span class="nv">CPPFLAGS</span><span class="o">=</span><span class="s2">&#34;-I/usr/local/include&#34;</span> <span class="se">\
-</span><span class="se"></span>                <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&#34;-L/usr/local/lib -Wl,-rpath,/usr/local/lib&#34;</span>
+./configure --enable-wrappers <span class=se>\
+</span><span class=se></span>                <span class=nv>CPPFLAGS</span><span class=o>=</span><span class=s2>&#34;-I/usr/local/include&#34;</span> <span class=se>\
+</span><span class=se></span>                <span class=nv>LDFLAGS</span><span class=o>=</span><span class=s2>&#34;-L/usr/local/lib -Wl,-rpath,/usr/local/lib&#34;</span>
 
 
 
-<span class="c1">#构建软件</span>
+<span class=c1>#构建软件</span>
 make depend
 make
 
 
 
-<span class="c1">#测试</span>
-make <span class="nb">test</span>
+<span class=c1>#测试</span>
+make <span class=nb>test</span>
 
 
 
-<span class="c1">#安装</span>
-<span class="c1">#如果未指定安装位置，默认安装到 /usr/local</span>
-<span class="c1">#通常，安装需要超级用户权限</span>
+<span class=c1>#安装</span>
+<span class=c1>#如果未指定安装位置，默认安装到 /usr/local</span>
+<span class=c1>#通常，安装需要超级用户权限</span>
 sudo make install
 
 
 
-<span class="c1">#配置文件</span>
+<span class=c1>#配置文件</span>
 /usr/local/etc/openldap
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<br/>
-<br/>
-<h2 id="包安装">包安装</h2>
-<p>因为在base源里面可直接搜索到<code>openldap</code>软件包，所以就是用软件包进行安装。</p>
-<br>
-<p>RPM包：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#查看
+</code></pre></td></tr></table></div></div><br><br><br><h2 id=包安装>包安装</h2><p>因为在base源里面可直接搜索到<code>openldap</code>软件包，所以就是用软件包进行安装。</p><br><p>RPM包：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>#查看
 yum search openldap
 
 openldap.x86_64 : LDAP support libraries
@@ -696,99 +227,44 @@ rpm -qa | grep openldap
 
 #配置文件
 /etc/openldap
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="配置">配置</h1>
-<p>Configuring slapd</p>
-<p>安装完毕后，你就可以配置并使用它。</p>
-<p>本章介绍 <code>slapd-config</code> 配置系统的一般格式。
-OpenLDAP v2.3及更高版本已转换为使用动态运行配置引擎<code>slapd-config</code>:</p>
-<ul>
-<li>完全启用LDAP</li>
-<li>使用标准LDAP操作进行管理</li>
-<li>将其配置数据存储在LDIF数据库中(openldap/slap.d/)</li>
-<li>允许所有slapd的配置选项在运行中进行更改，通常无需重新启动服务器即可使更改生效</li>
-</ul>
-<br>
-<blockquote>
-<p><strong>注意</strong>：
-虽然 <code>slapd-config</code> 统将其配置存储为（基于文本的）LDIF文件，但您不应直接编辑任何LDIF文件。配置更改应通过LDAP操作执行，如 <code>ldapadd</code>, <code>ldapdelete</code>, <code>ldapmodify</code></p>
-</blockquote>
-<br/>
-<br/>
-<h2 id="配置的布局">配置的布局</h2>
-<p>Configuration Layout</p>
-<p>slapd配置存储为具有预定义模式和DIT的特殊LDAP目录。有特定的<code>objectClasses</code>用于承载全局配置选项，模式定义，后端和数据库定义以及各种其它项。</p>
-<p>栗子配置树:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/OpenLDAP/config_dit.png"
-        data-srcset="/images/OpenLDAP/config_dit.png, /images/OpenLDAP/config_dit.png 1.5x, /images/OpenLDAP/config_dit.png 2x"
-        data-sizes="auto"
-        alt="/images/OpenLDAP/config_dit.png"
-        title="/images/OpenLDAP/config_dit.png" /></p>
-<br>
-<p><code>slapd-config</code> 配置树具有非常特定的结构。树的根名为 <code>cn=config</code> 并包含全局配置设置。其他设置包含在单独的子条目中：</p>
-<ul>
-<li>Dynamically loaded modules</li>
-<li>Schema definitions</li>
-<li>Backend-specific configuration</li>
-<li>Database-specific configuration</li>
-</ul>
-<br>
-<p>LDIF文件的常用规则适用于配置信息:</p>
-<ul>
-<li><code>#</code>表示注释</li>
-<li>如果一行以单个空格开头，则将其视为前一行的延续（即使前一行是注释），并删除单个前导空格。条目由空行分隔</li>
-</ul>
-<br>
-<p>配置LDIF的一般布局如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#globalconfigurationsettings
+</code></pre></td></tr></table></div></div><br><br><hr><br><br><h1 id=配置>配置</h1><p>Configuring slapd</p><p>安装完毕后，你就可以配置并使用它。</p><p>本章介绍 <code>slapd-config</code> 配置系统的一般格式。
+OpenLDAP v2.3及更高版本已转换为使用动态运行配置引擎<code>slapd-config</code>:</p><ul><li>完全启用LDAP</li><li>使用标准LDAP操作进行管理</li><li>将其配置数据存储在LDIF数据库中(openldap/slap.d/)</li><li>允许所有slapd的配置选项在运行中进行更改，通常无需重新启动服务器即可使更改生效</li></ul><br><blockquote><p><strong>注意</strong>：
+虽然 <code>slapd-config</code> 统将其配置存储为（基于文本的）LDIF文件，但您不应直接编辑任何LDIF文件。配置更改应通过LDAP操作执行，如 <code>ldapadd</code>, <code>ldapdelete</code>, <code>ldapmodify</code></p></blockquote><br><br><h2 id=配置的布局>配置的布局</h2><p>Configuration Layout</p><p>slapd配置存储为具有预定义模式和DIT的特殊LDAP目录。有特定的<code>objectClasses</code>用于承载全局配置选项，模式定义，后端和数据库定义以及各种其它项。</p><p>栗子配置树:</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/OpenLDAP/config_dit.png data-srcset="/images/OpenLDAP/config_dit.png, /images/OpenLDAP/config_dit.png 1.5x, /images/OpenLDAP/config_dit.png 2x" data-sizes=auto alt=/images/OpenLDAP/config_dit.png title=/images/OpenLDAP/config_dit.png></p><br><p><code>slapd-config</code> 配置树具有非常特定的结构。树的根名为 <code>cn=config</code> 并包含全局配置设置。其他设置包含在单独的子条目中：</p><ul><li>Dynamically loaded modules</li><li>Schema definitions</li><li>Backend-specific configuration</li><li>Database-specific configuration</li></ul><br><p>LDIF文件的常用规则适用于配置信息:</p><ul><li><code>#</code>表示注释</li><li>如果一行以单个空格开头，则将其视为前一行的延续（即使前一行是注释），并删除单个前导空格。条目由空行分隔</li></ul><br><p>配置LDIF的一般布局如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>#globalconfigurationsettings
 dn:cn=config
 objectClass:olcGlobal
 cn:config
@@ -823,64 +299,49 @@ olcDatabase:{X}&lt;typeA&gt;
 #subsequentdefinitionsandsettings
 ...
 
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<br/>
-<br/>
-<h2 id="配置指令">配置指令</h2>
-<p>Configuration Directives</p>
-<p>本节详细介绍了常用的配置指令</p>
-<br/>
-<h3 id="cnconfig">cn=config</h3>
-<p>本条目中包含的指令通常适用于整个服务器。其中大多数是系统或面向连接，而不是数据库相关。条目必须具有 <code>olcGlobal</code> 对象类(objectClass)</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#指定强制关闭空闲客户端连接之前等待的秒数
+</code></pre></td></tr></table></div></div><br><br><br><h2 id=配置指令>配置指令</h2><p>Configuration Directives</p><p>本节详细介绍了常用的配置指令</p><br><h3 id=cnconfig>cn=config</h3><p>本条目中包含的指令通常适用于整个服务器。其中大多数是系统或面向连接，而不是数据库相关。条目必须具有 <code>olcGlobal</code> 对象类(objectClass)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>#指定强制关闭空闲客户端连接之前等待的秒数
 #默认值为0，表示禁用此功能
 olcIdleTimeout: &lt;integer&gt;
 
@@ -922,39 +383,29 @@ cn: config
 olcIdleTimeout: 30
 olcLogLevel: Stats
 olcReferral: ldap://root.openldap.org
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<br/>
-<h3 id="cnmodule">cn=module</h3>
-<p>如果在配置slapd时启用了对动态加载模块的支持，则可以使用 <code>cn=module</code> 条目来指定要加载的模块集。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#指定要加载的可动态加载模块的名称
+</code></pre></td></tr></table></div></div><br><br><h3 id=cnmodule>cn=module</h3><p>如果在配置slapd时启用了对动态加载模块的支持，则可以使用 <code>cn=module</code> 条目来指定要加载的模块集。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>#指定要加载的可动态加载模块的名称
 olcModuleLoad: &lt;filename&gt;
 
 
@@ -976,43 +427,33 @@ cn: module{1}
 olcModulePath: /usr/local/lib:/usr/local/lib/slapd
 olcModuleLoad: accesslog.la
 olcModuleLoad: pcache.la
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<br/>
-<h3 id="cnschema">cn=schema</h3>
-<p>此条目包含在 slapd 中硬编码的所有模式定义。因此，此条目中的值由slapd生成，因此配置文件中不需要提供 schema value。仍必须定义该条目，以作为用户定义的模式添加到下面的基础。schema entry 必须具有 <code>olcSchemaConfig</code> 的对象类 (objectClass)。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#定义了一个属性类型
+</code></pre></td></tr></table></div></div><br><br><h3 id=cnschema>cn=schema</h3><p>此条目包含在 slapd 中硬编码的所有模式定义。因此，此条目中的值由slapd生成，因此配置文件中不需要提供 schema value。仍必须定义该条目，以作为用户定义的模式添加到下面的基础。schema entry 必须具有 <code>olcSchemaConfig</code> 的对象类 (objectClass)。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>#定义了一个属性类型
 olcAttributeTypes: &lt;RFC4512 Attribute Type Description&gt;
 
 
@@ -1038,43 +479,33 @@ olcAttributeTypes: ( 1.1.2 NAME &#39;testTwo&#39; EQUALITY caseIgnoreMatch
   SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.44 )
 olcObjectClasses: ( 1.1.3 NAME &#39;testObject&#39;
   MAY ( testAttr $ testTwo ) AUXILIARY )
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<br/>
-<h3 id="backend-specific-directives">Backend-specific Directives</h3>
-<p>后端指令适用于所有相同类型的数据库实例，并且可能会被数据库指令覆盖，具体取决于指令。后端条目必须具有 <code>olcBackendConfig</code> 的对象类 (objectClass)。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#命名特定于后端的配置条目
+</code></pre></td></tr></table></div></div><br><br><h3 id=backend-specific-directives>Backend-specific Directives</h3><p>后端指令适用于所有相同类型的数据库实例，并且可能会被数据库指令覆盖，具体取决于指令。后端条目必须具有 <code>olcBackendConfig</code> 的对象类 (objectClass)。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>#命名特定于后端的配置条目
 olcBackend: &lt;type&gt;
 
 #Database Backends
@@ -1100,80 +531,70 @@ sql	    SQL Programmable backend
 dn: olcBackend=bdb,cn=config
 objectClass: olcBackendConfig
 olcBackend: bdb
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<br/>
-<h3 id="database-specific-directives">Database-specific Directives</h3>
-<p>每种类型的数据库都支持本节中的指令。数据库条目必须含有 <code>olcDatabaseConfig</code> 对象类 (objectClass)。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#命名特定的数据库实例
+</code></pre></td></tr></table></div></div><br><br><h3 id=database-specific-directives>Database-specific Directives</h3><p>每种类型的数据库都支持本节中的指令。数据库条目必须含有 <code>olcDatabaseConfig</code> 对象类 (objectClass)。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>#命名特定的数据库实例
 #可以提供数字{&lt;index&gt;}以区分相同类型的多个数据库
 olcDatabase: [{&lt;index&gt;}]&lt;type&gt;
 
@@ -1236,87 +657,77 @@ dn: olcDatabase=config,cn=config
 objectClass: olcDatabaseConfig
 olcDatabase: config
 olcRootDN: cn=Manager,dc=example,dc=com
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<br/>
-<h3 id="bdb-and-hdb-database-directives">BDB and HDB Database Directives</h3>
-<p>此类别中的指令适用于BDB和HDB数据库。除了上面定义的通用数据库指令之外，它们还用在 olcDatabase 条目中。除了<code>olcDatabaseConfig</code> 对象类之外，BDB和HDB数据库条目还必须分别具有 <code>olcBdbConfig</code> 和 <code>olcHdbConfig</code> 对象类。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#指定包含数据库和相关索引的BDB文件所在的目录
+</code></pre></td></tr></table></div></div><br><br><h3 id=bdb-and-hdb-database-directives>BDB and HDB Database Directives</h3><p>此类别中的指令适用于BDB和HDB数据库。除了上面定义的通用数据库指令之外，它们还用在 olcDatabase 条目中。除了<code>olcDatabaseConfig</code> 对象类之外，BDB和HDB数据库条目还必须分别具有 <code>olcBdbConfig</code> 和 <code>olcHdbConfig</code> 对象类。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>#指定包含数据库和相关索引的BDB文件所在的目录
 olcDbDirectory: &lt;directory&gt;
 
 
@@ -1386,73 +797,18 @@ olcDbConfig: set_lg_dir /var/tmp/bdb-log
 olcDbConfig: set_flags DB_LOG_AUTOREMOVE
 olcDbIDLcacheSize: 3000
 olcDbIndex: objectClass eq
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="slapd配置文件">slapd配置文件</h1>
-<p>The slapd Configuration File</p>
-<p>本章介绍如何通过 <code>slapd.conf</code> 配置文件来配置 <code>slapd</code>。 <code>slapd.conf</code> 已被弃用，建议使用前面介绍的 <code>slapd-config</code>进行配置。</p>
-<br>
-<p>由于已经被弃用，所以此处我跳过。</p>
-<p>文档: <a href="http://www.openldap.org/doc/admin24/slapdconfig.html">http://www.openldap.org/doc/admin24/slapdconfig.html</a></p>
-<br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="运行slapd">运行slapd</h1>
-<p><code>slapd</code> 旨在作为独立服务运行。这允许服务器利用缓存，管理底层数据库的并发问题，并节省系统资源。</p>
-<p>由于我使用RPM包进行安装，所以可利用 <code>systemd</code> 进行OpenLDAP的管理。</p>
-<br>
-<p>ldap默认监听地址:</p>
-<table>
-<thead>
-<tr>
-<th>URL</th>
-<th>Protocol</th>
-<th>Transport</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>ldap:///</code></td>
-<td>LDAP</td>
-<td>TCP port 389</td>
-</tr>
-<tr>
-<td><code>ldaps:///</code></td>
-<td>LDAP over SSL</td>
-<td>TCP port 636</td>
-</tr>
-<tr>
-<td><code>ldapi:///</code></td>
-<td>LDAP</td>
-<td>IPC (Unix-domain socket)</td>
-</tr>
-</tbody>
-</table>
-<br/>
-<h2 id="slapd方式">slapd方式</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#查看帮助
+</code></pre></td></tr></table></div></div><br><br><hr><br><br><h1 id=slapd配置文件>slapd配置文件</h1><p>The slapd Configuration File</p><p>本章介绍如何通过 <code>slapd.conf</code> 配置文件来配置 <code>slapd</code>。 <code>slapd.conf</code> 已被弃用，建议使用前面介绍的 <code>slapd-config</code>进行配置。</p><br><p>由于已经被弃用，所以此处我跳过。</p><p>文档: <a href=http://www.openldap.org/doc/admin24/slapdconfig.html>http://www.openldap.org/doc/admin24/slapdconfig.html</a></p><br><br><hr><br><br><h1 id=运行slapd>运行slapd</h1><p><code>slapd</code> 旨在作为独立服务运行。这允许服务器利用缓存，管理底层数据库的并发问题，并节省系统资源。</p><p>由于我使用RPM包进行安装，所以可利用 <code>systemd</code> 进行OpenLDAP的管理。</p><br><p>ldap默认监听地址:</p><table><thead><tr><th>URL</th><th>Protocol</th><th>Transport</th></tr></thead><tbody><tr><td><code>ldap:///</code></td><td>LDAP</td><td>TCP port 389</td></tr><tr><td><code>ldaps:///</code></td><td>LDAP over SSL</td><td>TCP port 636</td></tr><tr><td><code>ldapi:///</code></td><td>LDAP</td><td>IPC (Unix-domain socket)</td></tr></tbody></table><br><h2 id=slapd方式>slapd方式</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>#查看帮助
 #man slapd
 slapd --help
 
@@ -1463,26 +819,17 @@ slapd --option
 
 #停止
 kill -INT `cat /usr/local/var/slapd.pid`
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<br/>
-<h2 id="systemd方式">systemd方式</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl status slapd
+</code></pre></td></tr></table></div></div><br><br><h2 id=systemd方式>systemd方式</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl status slapd
 
 
 systemctl start slapd
@@ -1492,54 +839,6 @@ systemctl start slapd
 
 
 systemctl stop slapd
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="访问控制">访问控制</h1></div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2019-01-18</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/openldap/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/openldap/" data-title="OpenLDAP" data-hashtags="LDAP,Permission,权限管理"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/openldap/" data-title="OpenLDAP"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/openldap/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/openldap/" data-title="OpenLDAP"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/openldap/" data-title="OpenLDAP"><i class="fab fa-weibo fa-fw"></i></a></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ldap/">LDAP</a>,&nbsp;<a href="/tags/permission/">Permission</a>,&nbsp;<a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">权限管理</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/openvpn/" class="prev" rel="prev" title="OpenVPN"><i class="fas fa-angle-left fa-fw"></i>OpenVPN</a>
-            <a href="/devops/" class="next" rel="next" title="DevOps">DevOps<i class="fas fa-angle-right fa-fw"></i></a></div>
-</div>
-<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2017 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@13.0.0/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
-</html>
+</code></pre></td></tr></table></div></div><br><br><hr><br><br><h1 id=访问控制>访问控制</h1></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2019-01-18</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/openldap/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://zhang21.cn/openldap/ data-title=OpenLDAP data-hashtags=LDAP,Permission,权限管理><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://zhang21.cn/openldap/ data-title=OpenLDAP><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Reddit" data-sharer=reddit data-url=https://zhang21.cn/openldap/><i class="fab fa-reddit fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://zhang21.cn/openldap/ data-title=OpenLDAP><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.0.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://zhang21.cn/openldap/ data-title=OpenLDAP><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/ldap/>LDAP</a>,&nbsp;<a href=/tags/permission/>Permission</a>,&nbsp;<a href=/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/>权限管理</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/openvpn/ class=prev rel=prev title=OpenVPN><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>OpenVPN</a>
+<a href=/devops/ class=next rel=next title=DevOps>DevOps<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=disqus_thread class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://disqus.com/?ref_noscript>Disqus</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://zhang21.cn target=_blank>Zhang21</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css><script type=text/javascript src=https://zhang21.disqus.com/embed.js defer></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:20},comment:{},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"RZ22ZCTIDN",algoliaIndex:"hugo-index",algoliaSearchKey:"11ec277ef4d730e232eda9651548da78",highlightTag:"em",maxResultLength:20,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"},twemoji:!0}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

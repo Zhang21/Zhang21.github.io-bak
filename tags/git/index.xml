@@ -1,16 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>git - 标签 - 风继续吹</title>
-        <link>https://zhang21.cn/tags/git/</link>
-        <description>git - 标签 - 风继续吹</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 06 Dec 2018 13:11:22 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/git/" rel="self" type="application/rss+xml" /><item>
-    <title>GitLab</title>
-    <link>https://zhang21.cn/gitlab/</link>
-    <pubDate>Thu, 06 Dec 2018 13:11:22 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/gitlab/</guid>
-    <description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>git - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/git/</link><description>git - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 06 Dec 2018 13:11:22 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/git/" rel="self" type="application/rss+xml"/><item><title>GitLab</title><link>https://zhang21.cn/gitlab/</link><pubDate>Thu, 06 Dec 2018 13:11:22 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/gitlab/</guid><description><![CDATA[<p>参考:</p>
 <ul>
 <li>维基百科</li>
 <li>GitLab文档: <a href="https://docs.gitlab.com/">https://docs.gitlab.com/</a></li>
@@ -22,21 +10,12 @@
 <li>GitLab-Runner: <code>v11.6.0</code></li>
 </ul>
 <br/>
-<br/>]]></description>
-</item><item>
-    <title>Git</title>
-    <link>https://zhang21.cn/git/</link>
-    <pubDate>Tue, 07 Nov 2017 17:45:42 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/git/</guid>
-    <description><![CDATA[<p>参考：</p>
+<br/>]]></description></item><item><title>Git</title><link>https://zhang21.cn/git/</link><pubDate>Tue, 07 Nov 2017 17:45:42 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/git/</guid><description><![CDATA[<p>参考：</p>
 <ul>
-<li><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener noreffer">git-scm文档</a></li>
-<li><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener noreffer">廖雪峰Git教程</a></li>
-<li><a href="https://www.kancloud.cn/kancloud/progit/70239" target="_blank" rel="noopener noreffer">Git内部原理</a></li>
-<li><a href="http://blog.jobbole.com/26209/" target="_blank" rel="noopener noreffer">Git内部原理-伯乐在线</a></li>
+<li><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener noreffer ">git-scm文档</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener noreffer ">廖雪峰Git教程</a></li>
+<li><a href="https://www.kancloud.cn/kancloud/progit/70239" target="_blank" rel="noopener noreffer ">Git内部原理</a></li>
+<li><a href="http://blog.jobbole.com/26209/" target="_blank" rel="noopener noreffer ">Git内部原理-伯乐在线</a></li>
 </ul>
 <br>
-<br/>]]></description>
-</item></channel>
-</rss>
+<br/>]]></description></item></channel></rss>

@@ -1,16 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>CI - 标签 - 风继续吹</title>
-        <link>https://zhang21.cn/tags/ci/</link>
-        <description>CI - 标签 - 风继续吹</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 06 Dec 2018 13:11:22 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/ci/" rel="self" type="application/rss+xml" /><item>
-    <title>GitLab</title>
-    <link>https://zhang21.cn/gitlab/</link>
-    <pubDate>Thu, 06 Dec 2018 13:11:22 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/gitlab/</guid>
-    <description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>CI - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/ci/</link><description>CI - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 06 Dec 2018 13:11:22 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/ci/" rel="self" type="application/rss+xml"/><item><title>GitLab</title><link>https://zhang21.cn/gitlab/</link><pubDate>Thu, 06 Dec 2018 13:11:22 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/gitlab/</guid><description><![CDATA[<p>参考:</p>
 <ul>
 <li>维基百科</li>
 <li>GitLab文档: <a href="https://docs.gitlab.com/">https://docs.gitlab.com/</a></li>
@@ -22,6 +10,4 @@
 <li>GitLab-Runner: <code>v11.6.0</code></li>
 </ul>
 <br/>
-<br/>]]></description>
-</item></channel>
-</rss>
+<br/>]]></description></item></channel></rss>

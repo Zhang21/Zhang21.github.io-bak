@@ -1,21 +1,7 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>数据 - 标签 - 风继续吹</title>
-        <link>https://zhang21.cn/tags/%E6%95%B0%E6%8D%AE/</link>
-        <description>数据 - 标签 - 风继续吹</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 10 Dec 2018 15:11:12 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/%E6%95%B0%E6%8D%AE/" rel="self" type="application/rss+xml" /><item>
-    <title>存储方案</title>
-    <link>https://zhang21.cn/storage/</link>
-    <pubDate>Mon, 10 Dec 2018 15:11:12 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/storage/</guid>
-    <description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>数据 - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/%E6%95%B0%E6%8D%AE/</link><description>数据 - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 10 Dec 2018 15:11:12 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/%E6%95%B0%E6%8D%AE/" rel="self" type="application/rss+xml"/><item><title>存储方案</title><link>https://zhang21.cn/storage/</link><pubDate>Mon, 10 Dec 2018 15:11:12 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/storage/</guid><description><![CDATA[<p>参考:</p>
 <ul>
 <li>维基百科</li>
 <li>Google</li>
 </ul>
 <br/>
-<br/>]]></description>
-</item></channel>
-</rss>
+<br/>]]></description></item></channel></rss>

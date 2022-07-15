@@ -1,16 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>frontend - 分类 - 风继续吹</title>
-        <link>https://zhang21.cn/categories/frontend/</link>
-        <description>frontend - 分类 - 风继续吹</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 06 Aug 2021 09:02:17 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/frontend/" rel="self" type="application/rss+xml" /><item>
-    <title>React</title>
-    <link>https://zhang21.cn/react/</link>
-    <pubDate>Fri, 06 Aug 2021 09:02:17 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/react/</guid>
-    <description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>frontend - 分类 - 风继续吹</title><link>https://zhang21.cn/categories/frontend/</link><description>frontend - 分类 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 06 Aug 2021 09:02:17 +0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/frontend/" rel="self" type="application/rss+xml"/><item><title>React</title><link>https://zhang21.cn/react/</link><pubDate>Fri, 06 Aug 2021 09:02:17 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/react/</guid><description><![CDATA[<p>参考:</p>
 <ul>
 <li>React docs: <a href="https://zh-hans.reactjs.org/docs/getting-started.html">https://zh-hans.reactjs.org/docs/getting-started.html</a></li>
 <li>React github: <a href="https://github.com/facebook/react/">https://github.com/facebook/react/</a></li>
@@ -20,28 +8,14 @@
 <ul>
 <li>React: v17.0</li>
 </ul>
-<br>]]></description>
-</item><item>
-    <title>HTML和CSS</title>
-    <link>https://zhang21.cn/htmlcss/</link>
-    <pubDate>Fri, 11 Oct 2019 11:59:21 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/htmlcss/</guid>
-    <description><![CDATA[<p>参考:</p>
+<br>]]></description></item><item><title>HTML和CSS</title><link>https://zhang21.cn/htmlcss/</link><pubDate>Fri, 11 Oct 2019 11:59:21 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/htmlcss/</guid><description><![CDATA[<p>参考:</p>
 <ul>
 <li>Head First HTML and CSS</li>
-<li><a href="https://www.w3school.com.cn/" target="_blank" rel="noopener noreffer">w3cSchool</a></li>
+<li><a href="https://www.w3school.com.cn/" target="_blank" rel="noopener noreffer ">w3cSchool</a></li>
 </ul>
 <br/>
 <br/>
-<hr>]]></description>
-</item><item>
-    <title>Bootstrap</title>
-    <link>https://zhang21.cn/bootstrap/</link>
-    <pubDate>Tue, 18 Sep 2018 11:11:12 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://zhang21.cn/bootstrap/</guid>
-    <description><![CDATA[<p>参考：</p>
+<hr>]]></description></item><item><title>Bootstrap</title><link>https://zhang21.cn/bootstrap/</link><pubDate>Tue, 18 Sep 2018 11:11:12 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/bootstrap/</guid><description><![CDATA[<p>参考：</p>
 <ul>
 <li>Bootstrap中文文档: <a href="https://v3.bootcss.com/">https://v3.bootcss.com/</a></li>
 </ul>
@@ -52,6 +26,4 @@
 </ul>
 <br/>
 <br/>
-<hr>]]></description>
-</item></channel>
-</rss>
+<hr>]]></description></item></channel></rss>

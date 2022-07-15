@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>etcd - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="etcd" />
-<meta property="og:description" content="参考:
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>etcd - 风继续吹</title><meta name=Description content="个人博客"><meta property="og:title" content="etcd"><meta property="og:description" content="参考:
 
 etcd文档
 
@@ -17,17 +9,7 @@ RHEL 7
 etcd v3.5
 
 
-" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhang21.cn/etcd/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-12-10T10:49:26&#43;00:00" />
-<meta property="article:modified_time" content="2021-12-10T10:49:26&#43;00:00" />
-
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
-
-<meta name="twitter:title" content="etcd"/>
-<meta name="twitter:description" content="参考:
+"><meta property="og:type" content="article"><meta property="og:url" content="https://zhang21.cn/etcd/"><meta property="og:image" content="https://zhang21.cn/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-12-10T10:49:26+00:00"><meta property="article:modified_time" content="2021-12-10T10:49:26+00:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://zhang21.cn/logo.png"><meta name=twitter:title content="etcd"><meta name=twitter:description content="参考:
 
 etcd文档
 
@@ -38,541 +20,134 @@ RHEL 7
 etcd v3.5
 
 
-"/>
-<meta name="application-name" content="风继续吹">
-<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/etcd/" /><link rel="prev" href="https://zhang21.cn/sre/" /><link rel="next" href="https://zhang21.cn/traefik/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "etcd",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/zhang21.cn\/etcd\/"
-        },"image": [{
-                            "@type": "ImageObject",
-                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
-                            "width":  3200 ,
-                            "height":  2048 
-                        }],"genre": "posts","keywords": "database, etcd","wordcount":  3640 ,
-        "url": "https:\/\/zhang21.cn\/etcd\/","datePublished": "2021-12-10T10:49:26+00:00","dateModified": "2021-12-10T10:49:26+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
-                "@type": "Person",
-                "name": "Zhang21"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+"><meta name=application-name content="风继续吹"><meta name=apple-mobile-web-app-title content="风继续吹"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://zhang21.cn/etcd/><link rel=prev href=https://zhang21.cn/sre/><link rel=next href=https://zhang21.cn/traefik/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"etcd","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/zhang21.cn\/etcd\/"},"image":[{"@type":"ImageObject","url":"https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png","width":3200,"height":2048}],"genre":"posts","keywords":"database, etcd","wordcount":3640,"url":"https:\/\/zhang21.cn\/etcd\/","datePublished":"2021-12-10T10:49:26+00:00","dateModified":"2021-12-10T10:49:26+00:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"Zhang21","logo":"https:\/\/zhang21.cn\/leslie.png"},"author":{"@type":"Person","name":"Zhang21"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=风继续吹><span class=header-title-pre><i class="far fa-kiss-wink-heart fa-fw"></i></span>风继续吹</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/about/>关于 </a><a class=menu-item href=https://github.com/zhang21 title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=风继续吹><span class=header-title-pre><i class="far fa-kiss-wink-heart fa-fw"></i></span>风继续吹</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/about/ title>关于</a><a class=menu-item href=https://github.com/zhang21 title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">etcd</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://zhang21.cn title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Zhang21</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/database/><i class="far fa-folder fa-fw" aria-hidden=true></i>database</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2021-12-10>2021-12-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;约 3640 字&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;预计阅读 8 分钟&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#快速开始>快速开始</a></li><li><a href=#术语表>术语表</a></li><li><a href=#教程>教程</a></li><li><a href=#faq>FAQ</a><ul><li><a href=#通用>通用</a></li><li><a href=#配置>配置</a></li><li><a href=#部署>部署</a></li><li><a href=#操作>操作</a></li><li><a href=#性能>性能</a></li></ul></li><li><a href=#操作指南>操作指南</a><ul><li><a href=#认证指南>认证指南</a></li></ul></li></ul></nav></div></div><div class=content id=content><p>参考:</p><ul><li><a href=https://etcd.io/docs target=_blank rel="noopener noreffer ">etcd文档</a></li></ul><br><p>环境:</p><ul><li>RHEL 7</li><li>etcd v3.5</li></ul><br><br><hr><br><br><h1 id=快速开始>快速开始</h1><p>快速安装和运行单节点的etcd集群。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash><span class=c1># 二进制安装</span>
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">etcd</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/database/"><i class="far fa-folder fa-fw"></i>database</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-10">2021-12-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3640 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#快速开始">快速开始</a></li>
-    <li><a href="#术语表">术语表</a></li>
-    <li><a href="#教程">教程</a></li>
-    <li><a href="#faq">FAQ</a>
-      <ul>
-        <li><a href="#通用">通用</a></li>
-        <li><a href="#配置">配置</a></li>
-        <li><a href="#部署">部署</a></li>
-        <li><a href="#操作">操作</a></li>
-        <li><a href="#性能">性能</a></li>
-      </ul>
-    </li>
-    <li><a href="#操作指南">操作指南</a>
-      <ul>
-        <li><a href="#认证指南">认证指南</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><p>参考:</p>
-<ul>
-<li><a href="https://etcd.io/docs" target="_blank" rel="noopener noreffer">etcd文档</a></li>
-</ul>
-<br/>
-<p>环境:</p>
-<ul>
-<li>RHEL 7</li>
-<li>etcd v3.5</li>
-</ul>
-<br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="快速开始">快速开始</h1>
-<p>快速安装和运行单节点的etcd集群。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 二进制安装</span>
-
-<span class="c1"># 启动</span>
+<span class=c1># 启动</span>
 etcd
 
-<span class="c1"># 设置一个key</span>
-etcdctl put greeting <span class="s2">&#34;Hello, etcd&#34;</span>
-<span class="c1"># 获取一个key</span>
+<span class=c1># 设置一个key</span>
+etcdctl put greeting <span class=s2>&#34;Hello, etcd&#34;</span>
+<span class=c1># 获取一个key</span>
 etcdctl get greeting
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="术语表">术语表</h1>
-<p><a href="https://etcd.io/docs/v3.5/learning/glossary/" target="_blank" rel="noopener noreffer">Glossary</a></p>
-<ul>
-<li>
-<p>Alarm
-每当集群需要操作员干预以保持可靠性时，etcd server都会发出警报。</p>
-</li>
-<li>
-<p>Authentication
-管理验证etcd资源的用户访问权限。</p>
-</li>
-<li>
-<p>Client
-etcd连接到etcd集群以发出服务请求。</p>
-</li>
-<li>
-<p>Cluster
-集群由一些成员组成。每个成员的节点都遵循raft一致性协议来复制日志。集群接受来自成员的提案，提交并应用到本地存储。</p>
-</li>
-<li>
-<p>Compaction
-压缩会丢弃给定修订之前的所有etcd事件历史记录核被取代的键。它用于回收etcd后端数据库中的存储空间。</p>
-</li>
-<li>
-<p>Election
-etcd集群在其成员之间举行选举，选择领导者作为raft一致性协议的一部分。</p>
-</li>
-<li>
-<p>Endpoint
-指向etcd服务或资源的URL。</p>
-</li>
-<li>
-<p>Key
-用户定义的标识符，用于在etcd中存储核检索用户定义的值。</p>
-</li>
-<li>
-<p>Key Range
-一组键。</p>
-</li>
-<li>
-<p>Keyspace
-etcd集群中所有键的集合。</p>
-</li>
-<li>
-<p>Lease
-一种短期的租赁合同，在到期时删除与其关联的键。类似于Redis Key TTL。</p>
-</li>
-<li>
-<p>Member
-参与etcd集群提供服务的逻辑etcd server。</p>
-</li>
-<li>
-<p>Peer
-对等体是同一个集群中的另一个成员。</p>
-</li>
-<li>
-<p>Proposal
-提议是需要通过raft协议的请求。</p>
-</li>
-<li>
-<p>Quorum
-协商一致修改集群状态所需的活跃的成员数。</p>
-</li>
-<li>
-<p>Revision
-校订是一个64位集群范围的计数器，从1开始，每次修改键空间都会递增。</p>
-</li>
-<li>
-<p>Role
-一组键的权限单位，可授予一组用户进行访问控制。</p>
-</li>
-<li>
-<p>Snapshot
-etcd集群状态的时间点备份。</p>
-</li>
-<li>
-<p>Store
-支持集群键空间的物理存储。</p>
-</li>
-<li>
-<p>Transaction
-原子执行的一组操作。事务中所有已修改的键共享相同的修订版本。</p>
-</li>
-<li>
-<p>Key Version
-自键创建以来的写入次数，从1开始。不存在或删除的键的版本为0。</p>
-</li>
-<li>
-<p>Watcher
-客户端打开一个观察者以观察给定键范围上的更新。</p>
-</li>
-</ul>
-<br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="教程">教程</h1>
-<p><a href="https://etcd.io/docs/v3.5/tutorials/" target="_blank" rel="noopener noreffer">Tutorials</a></p>
-<p>包含以下这些：</p>
-<ul>
-<li>访问etcd</li>
-<li>访问key，访问特定前缀的key</li>
-<li>删除key</li>
-<li>在一个事务中做多个写入</li>
-<li>观察key</li>
-<li>创建lease(租约)</li>
-<li>创建lock(分布式锁)</li>
-<li>在etcd集群中进行领导选举</li>
-<li>检查集群状态</li>
-<li>保存数据库</li>
-<li>添加和删除节点</li>
-</ul>
-<br/>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 写入</span>
-etcdctl --endpoints<span class="o">=</span>xxx put foo <span class="s2">&#34;Hello World&#34;</span>
+</code></pre></td></tr></table></div></div><br><br><hr><br><br><h1 id=术语表>术语表</h1><p><a href=https://etcd.io/docs/v3.5/learning/glossary/ target=_blank rel="noopener noreffer ">Glossary</a></p><ul><li><p>Alarm
+每当集群需要操作员干预以保持可靠性时，etcd server都会发出警报。</p></li><li><p>Authentication
+管理验证etcd资源的用户访问权限。</p></li><li><p>Client
+etcd连接到etcd集群以发出服务请求。</p></li><li><p>Cluster
+集群由一些成员组成。每个成员的节点都遵循raft一致性协议来复制日志。集群接受来自成员的提案，提交并应用到本地存储。</p></li><li><p>Compaction
+压缩会丢弃给定修订之前的所有etcd事件历史记录核被取代的键。它用于回收etcd后端数据库中的存储空间。</p></li><li><p>Election
+etcd集群在其成员之间举行选举，选择领导者作为raft一致性协议的一部分。</p></li><li><p>Endpoint
+指向etcd服务或资源的URL。</p></li><li><p>Key
+用户定义的标识符，用于在etcd中存储核检索用户定义的值。</p></li><li><p>Key Range
+一组键。</p></li><li><p>Keyspace
+etcd集群中所有键的集合。</p></li><li><p>Lease
+一种短期的租赁合同，在到期时删除与其关联的键。类似于Redis Key TTL。</p></li><li><p>Member
+参与etcd集群提供服务的逻辑etcd server。</p></li><li><p>Peer
+对等体是同一个集群中的另一个成员。</p></li><li><p>Proposal
+提议是需要通过raft协议的请求。</p></li><li><p>Quorum
+协商一致修改集群状态所需的活跃的成员数。</p></li><li><p>Revision
+校订是一个64位集群范围的计数器，从1开始，每次修改键空间都会递增。</p></li><li><p>Role
+一组键的权限单位，可授予一组用户进行访问控制。</p></li><li><p>Snapshot
+etcd集群状态的时间点备份。</p></li><li><p>Store
+支持集群键空间的物理存储。</p></li><li><p>Transaction
+原子执行的一组操作。事务中所有已修改的键共享相同的修订版本。</p></li><li><p>Key Version
+自键创建以来的写入次数，从1开始。不存在或删除的键的版本为0。</p></li><li><p>Watcher
+客户端打开一个观察者以观察给定键范围上的更新。</p></li></ul><br><br><hr><br><br><h1 id=教程>教程</h1><p><a href=https://etcd.io/docs/v3.5/tutorials/ target=_blank rel="noopener noreffer ">Tutorials</a></p><p>包含以下这些：</p><ul><li>访问etcd</li><li>访问key，访问特定前缀的key</li><li>删除key</li><li>在一个事务中做多个写入</li><li>观察key</li><li>创建lease(租约)</li><li>创建lock(分布式锁)</li><li>在etcd集群中进行领导选举</li><li>检查集群状态</li><li>保存数据库</li><li>添加和删除节点</li></ul><br><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash><span class=c1># 写入</span>
+etcdctl --endpoints<span class=o>=</span>xxx put foo <span class=s2>&#34;Hello World&#34;</span>
 
-<span class="c1"># 获取</span>
+<span class=c1># 获取</span>
 etcdctl get foo
-etcdctl --write-out<span class="o">=</span><span class="s2">&#34;json&#34;</span> get foo
+etcdctl --write-out<span class=o>=</span><span class=s2>&#34;json&#34;</span> get foo
 etcdctl get web --prefix
 
-<span class="c1"># 删除</span>
+<span class=c1># 删除</span>
 etcdctl delete key
 etcdctl delete keyaa --prefix
 
-<span class="c1"># 一个事务中多个写入</span>
+<span class=c1># 一个事务中多个写入</span>
 etcdctl txn --interactive
 
-<span class="c1"># 观察</span>
+<span class=c1># 观察</span>
 etcdctl watch key1
 
-<span class="c1"># 租约</span>
-etcdctl lease grant <span class="m">300</span>
-<span class="c1"># lease 2be7547fbc6a5afa granted with TTL(300s)</span>
-etcdctl put key1 value --lease<span class="o">=</span>2be7547fbc6a5afa
+<span class=c1># 租约</span>
+etcdctl lease grant <span class=m>300</span>
+<span class=c1># lease 2be7547fbc6a5afa granted with TTL(300s)</span>
+etcdctl put key1 value --lease<span class=o>=</span>2be7547fbc6a5afa
 etcdctl lease keep-alive 2be7547fbc6a5afa
 etcdctl lease revoke 2be7547fbc6a5afa
 
-<span class="c1"># 锁</span>
+<span class=c1># 锁</span>
 etcdctl lock mutex1
 
-<span class="c1"># 选举</span>
+<span class=c1># 选举</span>
 etcdctl elect one p1
 
-<span class="c1"># 集群状态</span>
-etcdctl --write-out<span class="o">=</span>table endpoint status
+<span class=c1># 集群状态</span>
+etcdctl --write-out<span class=o>=</span>table endpoint status
 etcdctl endpoint healty
 
-<span class="c1"># 保存数据库</span>
+<span class=c1># 保存数据库</span>
 etcdctl snapshot save my.db
-etcdctl --write-out<span class="o">=</span>table snapshot status my.db
+etcdctl --write-out<span class=o>=</span>table snapshot status my.db
 
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="faq">FAQ</h1>
-<p><a href="" rel="">Frequently asked questions</a><a href="https://etcd.io/docs/v3.5/faq/">https://etcd.io/docs/v3.5/faq/</a></p>
-<br/>
-<br/>
-<h2 id="通用">通用</h2>
-<p>etcd是什么？</p>
-<p>etcd是一个一致性、分布式的k-v存储。主要用作分布式系统的单独协调服务。旨在持有少量的数据就可以完成时候。</p>
-<br/>
-<p>etcd如何发音？</p>
-<p>发音为<code>/ˈɛtsiːdiː/</code>，意为distributed etc directory。</p>
-<br/>
-<p>客户端必须向etcd领导者发送请求吗？</p>
-<p>Raft是基于领导者的，领导者处理需要集群一致(consensus)的所有客户端请求。但是，客户端不需要知道哪个节点是领导者。任何发送到跟随者(follower)的需要一致的请求都会自动转发给领导者。任何集群成员都可以处理不需要一致的请求。</p>
-<br/>
-<br/>
-<h2 id="配置">配置</h2>
-<p>listen-client-urls, listen-peer-urls, advertise-client-urls, initial-advertise-per-urls之间的区别？</p>
-<p>listen-client-urls和listen-peer-urls指定etcd server绑定的本地地址，来接受传入的连接。要监听所有接口，指定<code>0.0.0.0</code>作为监听地址。</p>
-<p>advertise-client-urls和initial-advertise-peer-urls指定etcd 客户端或其它成员用于与etcd server联系的地址。彼此之间必须能访问到这个地址。不要使用如<code>localhost</code>或<code>0.0.0.0</code>地址，因为可能远程机器无法到达。</p>
-<br/>
-<p>为什么不改变 &ndash;listen-peer-urls 或 &ndash;initial-advertise-peer-urls 在 <code>etcdctl member list</code>更新中？</p>
-<p>成员的peer urls来自集群初始化引导的 &ndash;initial-advertise-peer-urls。可能会造成脑裂。使用 <code>etcdctl member update</code> 更新一个成员的peer urls。</p>
-<br/>
-<br/>
-<h2 id="部署">部署</h2>
-<p>系统要求。</p>
-<p>由于etcd写入数据到磁盘，它非常依赖磁盘性能，强烈推荐SSD。为了防止性能劣化或无意中重载键值存储，默认情况下，etcd可配置的存储大小为2GB。为了避免swapping或OOM，机器至少应具有尽可能多的RAM以覆盖配额。如果要配置超过2GB，8GB是一个建议的最大的值。</p>
-<br/>
-<p>为什么是奇数节点集群成员？</p>
-<p>etcd需要大多数节点，一个仲裁，以达成集群状态的更新。对于一个n成员的集群，仲裁是<code>(n/2)+1</code>。对于任何奇数集群，添加一个节点将始终增加仲裁所需的节点数量。虽然对奇数集群添加一个节点多了节点，似乎更好，但由于在相同节点不丢失仲裁，容错性更差了，因此可能有更多节点可能会失败。如果集群处于无法再容忍任何故障的状态，则在删除节点之前添加节点是危险的。因为如果新节点无法注册到集群（如地址配置错误），仲裁将永久丢失。</p>
-<br/>
-<p>最大集群数量？</p>
-<p>没有硬性规定。但是，etcd集群不应该超过7个节点。建议运行5个节点。一个5成员的etcd集群可以容忍2个成员故障，这在大多数场景下足够了。尽管较大的集群提供更好的容错能力，但由于必须在更多计算机上复制数据，因此写入性能可能会受到影响。</p>
-<br/>
-<p>容错是什么？</p>
-<p>只有可以建立成员仲裁，etcd集群就会运行。如果仲裁因暂时性网络故障而丢失，etcd在网络恢复并恢复仲裁后自动完全地恢复，Raft强制执行集群的一致性。对于断电，etcd将Raft日志保存早磁盘，etcd将日志重播到故障点并恢复集群参与。对于永久性硬件故障，通过运行时重载配置从集群中删除故障节点。</p>
-<p>建议奇数成员集群。</p>
-<table>
-<thead>
-<tr>
-<th>Cluster Size</th>
-<th>Majority</th>
-<th>Failure Tolerance</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>2</td>
-<td>2</td>
-<td>0</td>
-</tr>
-<tr>
-<td>3</td>
-<td>2</td>
-<td>1</td>
-</tr>
-<tr>
-<td>4</td>
-<td>3</td>
-<td>1</td>
-</tr>
-<tr>
-<td>5</td>
-<td>3</td>
-<td>2</td>
-</tr>
-</tbody>
-</table>
-<br/>
-<p>etcd是否可以跨地区或跨数据中心部署？</p>
-<p>跨地区部署etcd提高了容错，代价是一致性请求延迟可能更高。由于etcd依赖成员仲裁来达成一致，选举和心跳可能也会受到网络延迟的影响。</p>
-<br/>
-<br/>
-<h2 id="操作">操作</h2>
-<p>如何备份etcd集群？</p>
-<p>etcdctl提供了snapshot命令来创建备份。</p>
-<br/>
-<p>在移除一个不健康的成员之前应该添加一个成员吗？</p>
-<p>当替换一个etcd节点时，重要的是先移除节点，之后再添加替换节点。</p>
-<br/>
-<p>为什么etcd不接受我的成员资源变更？</p>
-<p>etcd设置了 strict-reconfig-check 以拒绝可能导致仲裁丢失的重载配置的请求。遗弃仲裁确实存在风险（尤其是当集群已经处于不健康状态时）。在添加新成员时，如果仲裁丢失，可能会尝试禁用仲裁，这可能导致全面的集群不一致性。对于许多应用，这可能让问题变得更糟。</p>
-<br/>
-<p>为什么etcd会因磁盘延迟高峰而失去领导者地位？</p>
-<p>磁盘延迟也是领导者活动的一部分。假设集群领导者需要一分钟将Raft日志更新同步到磁盘，但etcd集群有一秒钟的选举超时。即使领导者可以在选举间隔内处理网络消息，但它实际上不可用，因为它无法提交任何新提案，它在等待慢磁盘。如果集群由于磁盘延迟而频繁地丢失其领导者，请尝试调整磁盘设置或etcd时间参数。</p>
-<br/>
-<p>etcd警告&quot;request ignored(cluster ID mismatch)&ldquo;意味着什么？</p>
-<p>每个新的etcd集群都会根据初始集群配置和用户提供的唯一初始化令牌生成一个新的集群ID。通过唯一的集群ID，etcd可以防止可能破坏集群的跨集群交互。</p>
-<p>通常，此警告发生在拆除旧集群，然后重用新集群的某些对等地址之后。如果旧集群中任何etcd进程仍在运行，它将尝试联系新集群。新集群识别到集群ID不匹配，然后忽略改请求并发出此警告。通过确保不通集群中的对等地址不相交来清除此警告。</p>
-<br/>
-<p>&ldquo;mvcc: database space exceeded&quot;是什么意思，如何修复它？</p>
-<br/>
-<br/>
-<h2 id="性能">性能</h2>
-<p>etcd警告 &ldquo;apply entries took too long&quot;是什么意思？</p>
-<p>在大多数etcd成员统一提交请求后，每个etcd服务器都会将请求应用到其数据库，并将结果保存到磁盘。应用一个请求通常应小于50ms。如果平均持续时间超过100ms，etcd将警告条目应用时间多长（entries are taking too long to apply）。</p>
-<p>通常这个问题由慢磁盘导致。</p>
-<p>第二个最常见的原因是CPU饥饿。如果CPU使用率很高，则etcd可能没有足够的计算容量。</p>
-<p>访问太多keys的昂贵的用户请求也可能导致长延迟，这类似与数据库的全表扫描。</p>
-<br/>
-<p>etcd警告&quot;failed to send out heartbeat on time&quot;是什么意思？</p>
-<p>etcd使用基于领导者的一致协议进行一致性的数据复制和日志执行。集群成员选举一个领导者，其它成员都成为追随者。当选的领导者必须定期向其追随者发送心跳，以保持其领导者地位。如果选举间隔内未收到心跳检测，则追随者推断领导者失败并触发选举。如果领导者没有及时发送心跳，但它仍在运行，那么选举就是虚假的，很可能是由资源不足引起的。如果领导者跳过两个检测信号，etcd就会警告未能按时发送检测信号。</p>
-<p>此问题通常由慢磁盘导致的。在领导者发送附加了元数据(metadata)的检测信号之前，它可能需要将元数据保存到磁盘。</p>
-<p>第二个常见的原因是CPU饥饿。</p>
-<p>慢网络也可能导致这个问题。</p>
-<br/>
-<p>etcd警告&quot;snapshotting is taking more than x seconds to finish &hellip;&ldquo;是什么意思？</p>
-<p>etcd发送其完整键值存储的快照，来刷新慢追随者和备份。</p>
-<br/>
-<br/>
-<hr>
-<br/>
-<br/>
-<h1 id="操作指南">操作指南</h1>
-<p><a href="https://etcd.io/docs/v3.5/op-guide/" target="_blank" rel="noopener noreffer">operations guide</a></p>
-<br/>
-<h2 id="认证指南">认证指南</h2>
-<p>Authentication Guides</p></div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-12-10</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/etcd/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/etcd/" data-title="etcd" data-hashtags="database,etcd"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/etcd/" data-title="etcd"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/etcd/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/etcd/" data-title="etcd"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/etcd/" data-title="etcd"><i class="fab fa-weibo fa-fw"></i></a></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/database/">database</a>,&nbsp;<a href="/tags/etcd/">etcd</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/sre/" class="prev" rel="prev" title="SRE"><i class="fas fa-angle-left fa-fw"></i>SRE</a>
-            <a href="/traefik/" class="next" rel="next" title="traefik">traefik<i class="fas fa-angle-right fa-fw"></i></a></div>
-</div>
-<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2017 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@13.0.0/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
-</html>
+</code></pre></td></tr></table></div></div><br><br><hr><br><br><h1 id=faq>FAQ</h1><p><a href rel>Frequently asked questions</a><a href=https://etcd.io/docs/v3.5/faq/>https://etcd.io/docs/v3.5/faq/</a></p><br><br><h2 id=通用>通用</h2><p>etcd是什么？</p><p>etcd是一个一致性、分布式的k-v存储。主要用作分布式系统的单独协调服务。旨在持有少量的数据就可以完成时候。</p><br><p>etcd如何发音？</p><p>发音为<code>/ˈɛtsiːdiː/</code>，意为distributed etc directory。</p><br><p>客户端必须向etcd领导者发送请求吗？</p><p>Raft是基于领导者的，领导者处理需要集群一致(consensus)的所有客户端请求。但是，客户端不需要知道哪个节点是领导者。任何发送到跟随者(follower)的需要一致的请求都会自动转发给领导者。任何集群成员都可以处理不需要一致的请求。</p><br><br><h2 id=配置>配置</h2><p>listen-client-urls, listen-peer-urls, advertise-client-urls, initial-advertise-per-urls之间的区别？</p><p>listen-client-urls和listen-peer-urls指定etcd server绑定的本地地址，来接受传入的连接。要监听所有接口，指定<code>0.0.0.0</code>作为监听地址。</p><p>advertise-client-urls和initial-advertise-peer-urls指定etcd 客户端或其它成员用于与etcd server联系的地址。彼此之间必须能访问到这个地址。不要使用如<code>localhost</code>或<code>0.0.0.0</code>地址，因为可能远程机器无法到达。</p><br><p>为什么不改变 &ndash;listen-peer-urls 或 &ndash;initial-advertise-peer-urls 在 <code>etcdctl member list</code>更新中？</p><p>成员的peer urls来自集群初始化引导的 &ndash;initial-advertise-peer-urls。可能会造成脑裂。使用 <code>etcdctl member update</code> 更新一个成员的peer urls。</p><br><br><h2 id=部署>部署</h2><p>系统要求。</p><p>由于etcd写入数据到磁盘，它非常依赖磁盘性能，强烈推荐SSD。为了防止性能劣化或无意中重载键值存储，默认情况下，etcd可配置的存储大小为2GB。为了避免swapping或OOM，机器至少应具有尽可能多的RAM以覆盖配额。如果要配置超过2GB，8GB是一个建议的最大的值。</p><br><p>为什么是奇数节点集群成员？</p><p>etcd需要大多数节点，一个仲裁，以达成集群状态的更新。对于一个n成员的集群，仲裁是<code>(n/2)+1</code>。对于任何奇数集群，添加一个节点将始终增加仲裁所需的节点数量。虽然对奇数集群添加一个节点多了节点，似乎更好，但由于在相同节点不丢失仲裁，容错性更差了，因此可能有更多节点可能会失败。如果集群处于无法再容忍任何故障的状态，则在删除节点之前添加节点是危险的。因为如果新节点无法注册到集群（如地址配置错误），仲裁将永久丢失。</p><br><p>最大集群数量？</p><p>没有硬性规定。但是，etcd集群不应该超过7个节点。建议运行5个节点。一个5成员的etcd集群可以容忍2个成员故障，这在大多数场景下足够了。尽管较大的集群提供更好的容错能力，但由于必须在更多计算机上复制数据，因此写入性能可能会受到影响。</p><br><p>容错是什么？</p><p>只有可以建立成员仲裁，etcd集群就会运行。如果仲裁因暂时性网络故障而丢失，etcd在网络恢复并恢复仲裁后自动完全地恢复，Raft强制执行集群的一致性。对于断电，etcd将Raft日志保存早磁盘，etcd将日志重播到故障点并恢复集群参与。对于永久性硬件故障，通过运行时重载配置从集群中删除故障节点。</p><p>建议奇数成员集群。</p><table><thead><tr><th>Cluster Size</th><th>Majority</th><th>Failure Tolerance</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>0</td></tr><tr><td>2</td><td>2</td><td>0</td></tr><tr><td>3</td><td>2</td><td>1</td></tr><tr><td>4</td><td>3</td><td>1</td></tr><tr><td>5</td><td>3</td><td>2</td></tr></tbody></table><br><p>etcd是否可以跨地区或跨数据中心部署？</p><p>跨地区部署etcd提高了容错，代价是一致性请求延迟可能更高。由于etcd依赖成员仲裁来达成一致，选举和心跳可能也会受到网络延迟的影响。</p><br><br><h2 id=操作>操作</h2><p>如何备份etcd集群？</p><p>etcdctl提供了snapshot命令来创建备份。</p><br><p>在移除一个不健康的成员之前应该添加一个成员吗？</p><p>当替换一个etcd节点时，重要的是先移除节点，之后再添加替换节点。</p><br><p>为什么etcd不接受我的成员资源变更？</p><p>etcd设置了 strict-reconfig-check 以拒绝可能导致仲裁丢失的重载配置的请求。遗弃仲裁确实存在风险（尤其是当集群已经处于不健康状态时）。在添加新成员时，如果仲裁丢失，可能会尝试禁用仲裁，这可能导致全面的集群不一致性。对于许多应用，这可能让问题变得更糟。</p><br><p>为什么etcd会因磁盘延迟高峰而失去领导者地位？</p><p>磁盘延迟也是领导者活动的一部分。假设集群领导者需要一分钟将Raft日志更新同步到磁盘，但etcd集群有一秒钟的选举超时。即使领导者可以在选举间隔内处理网络消息，但它实际上不可用，因为它无法提交任何新提案，它在等待慢磁盘。如果集群由于磁盘延迟而频繁地丢失其领导者，请尝试调整磁盘设置或etcd时间参数。</p><br><p>etcd警告"request ignored(cluster ID mismatch)&ldquo;意味着什么？</p><p>每个新的etcd集群都会根据初始集群配置和用户提供的唯一初始化令牌生成一个新的集群ID。通过唯一的集群ID，etcd可以防止可能破坏集群的跨集群交互。</p><p>通常，此警告发生在拆除旧集群，然后重用新集群的某些对等地址之后。如果旧集群中任何etcd进程仍在运行，它将尝试联系新集群。新集群识别到集群ID不匹配，然后忽略改请求并发出此警告。通过确保不通集群中的对等地址不相交来清除此警告。</p><br><p>&ldquo;mvcc: database space exceeded"是什么意思，如何修复它？</p><br><br><h2 id=性能>性能</h2><p>etcd警告 &ldquo;apply entries took too long"是什么意思？</p><p>在大多数etcd成员统一提交请求后，每个etcd服务器都会将请求应用到其数据库，并将结果保存到磁盘。应用一个请求通常应小于50ms。如果平均持续时间超过100ms，etcd将警告条目应用时间多长（entries are taking too long to apply）。</p><p>通常这个问题由慢磁盘导致。</p><p>第二个最常见的原因是CPU饥饿。如果CPU使用率很高，则etcd可能没有足够的计算容量。</p><p>访问太多keys的昂贵的用户请求也可能导致长延迟，这类似与数据库的全表扫描。</p><br><p>etcd警告"failed to send out heartbeat on time"是什么意思？</p><p>etcd使用基于领导者的一致协议进行一致性的数据复制和日志执行。集群成员选举一个领导者，其它成员都成为追随者。当选的领导者必须定期向其追随者发送心跳，以保持其领导者地位。如果选举间隔内未收到心跳检测，则追随者推断领导者失败并触发选举。如果领导者没有及时发送心跳，但它仍在运行，那么选举就是虚假的，很可能是由资源不足引起的。如果领导者跳过两个检测信号，etcd就会警告未能按时发送检测信号。</p><p>此问题通常由慢磁盘导致的。在领导者发送附加了元数据(metadata)的检测信号之前，它可能需要将元数据保存到磁盘。</p><p>第二个常见的原因是CPU饥饿。</p><p>慢网络也可能导致这个问题。</p><br><p>etcd警告"snapshotting is taking more than x seconds to finish &mldr;&ldquo;是什么意思？</p><p>etcd发送其完整键值存储的快照，来刷新慢追随者和备份。</p><br><br><hr><br><br><h1 id=操作指南>操作指南</h1><p><a href=https://etcd.io/docs/v3.5/op-guide/ target=_blank rel="noopener noreffer ">operations guide</a></p><br><h2 id=认证指南>认证指南</h2><p>Authentication Guides</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2021-12-10</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/etcd/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://zhang21.cn/etcd/ data-title=etcd data-hashtags=database,etcd><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://zhang21.cn/etcd/ data-title=etcd><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Reddit" data-sharer=reddit data-url=https://zhang21.cn/etcd/><i class="fab fa-reddit fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://zhang21.cn/etcd/ data-title=etcd><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.0.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://zhang21.cn/etcd/ data-title=etcd><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/database/>database</a>,&nbsp;<a href=/tags/etcd/>etcd</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/sre/ class=prev rel=prev title=SRE><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>SRE</a>
+<a href=/traefik/ class=next rel=next title=traefik>traefik<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=disqus_thread class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://disqus.com/?ref_noscript>Disqus</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://zhang21.cn target=_blank>Zhang21</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css><script type=text/javascript src=https://zhang21.disqus.com/embed.js defer></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:20},comment:{},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"RZ22ZCTIDN",algoliaIndex:"hugo-index",algoliaSearchKey:"11ec277ef4d730e232eda9651548da78",highlightTag:"em",maxResultLength:20,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"},twemoji:!0}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
