@@ -1,4 +1,24 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>cncf - 分类 - 风继续吹</title><link>https://zhang21.cn/categories/cncf/</link><description>cncf - 分类 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 20 May 2022 10:37:34 +0800</lastBuildDate><atom:link href="https://zhang21.cn/categories/cncf/" rel="self" type="application/rss+xml"/><item><title>RKE</title><link>https://zhang21.cn/rke/</link><pubDate>Fri, 20 May 2022 10:37:34 +0800</pubDate><author>Zhang21</author><guid>https://zhang21.cn/rke/</guid><description>参考: RKE文档 版本: rke1 介绍 Rancher Kubernetes Engine，简称 RKE，是一个经过 CNCF 认证的 Kubernetes 安装程序。 要求 RKE对操作系统、软件、端口、SSH和硬件等的要</description></item><item><title>traefik</title><link>https://zhang21.cn/traefik/</link><pubDate>Thu, 03 Mar 2022 14:29:26 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/traefik/</guid><description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>cncf - 分类 - 风继续吹</title>
+        <link>https://zhang21.cn/categories/cncf/</link>
+        <description>cncf - 分类 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 20 May 2022 10:37:34 &#43;0800</lastBuildDate><atom:link href="https://zhang21.cn/categories/cncf/" rel="self" type="application/rss+xml" /><item>
+    <title>RKE</title>
+    <link>https://zhang21.cn/rke/</link>
+    <pubDate>Fri, 20 May 2022 10:37:34 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/rke/</guid>
+    <description><![CDATA[参考: RKE文档 版本: rke1 介绍 Rancher Kubernetes Engine，简称 RKE，是一个经过 CNCF 认证的 Kubernetes 安装程序。 要求 RKE对操作系统、软件、端口、SSH和硬件等的要]]></description>
+</item>
+<item>
+    <title>traefik</title>
+    <link>https://zhang21.cn/traefik/</link>
+    <pubDate>Thu, 03 Mar 2022 14:29:26 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/traefik/</guid>
+    <description><![CDATA[<p>参考:</p>
 <ul>
 <li>github: <a href="https://github.com/traefik/traefik">https://github.com/traefik/traefik</a></li>
 <li>doc: <a href="https://doc.traefik.io/traefik/">https://doc.traefik.io/traefik/</a></li>
@@ -9,7 +29,15 @@
 </ul>
 <br/>
 <br/>
-<hr>]]></description></item><item><title>Istio</title><link>https://zhang21.cn/istio/</link><pubDate>Thu, 18 Feb 2021 10:21:15 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/istio/</guid><description><![CDATA[<p>参考:</p>
+<hr>]]></description>
+</item>
+<item>
+    <title>Istio</title>
+    <link>https://zhang21.cn/istio/</link>
+    <pubDate>Thu, 18 Feb 2021 10:21:15 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/istio/</guid>
+    <description><![CDATA[<p>参考:</p>
 <ul>
 <li>Istio docs: <a href="https://istio.io/docs">https://istio.io/docs</a></li>
 <li>Istio中文文档: <a href="https://istio.io/zh/docs/">https://istio.io/zh/docs/</a></li>
@@ -24,7 +52,15 @@
 </ul>
 <br/>
 <br/>
-<hr>]]></description></item><item><title>Helm</title><link>https://zhang21.cn/helm/</link><pubDate>Mon, 21 Sep 2020 15:11:22 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/helm/</guid><description><![CDATA[<p>参考：</p>
+<hr>]]></description>
+</item>
+<item>
+    <title>Helm</title>
+    <link>https://zhang21.cn/helm/</link>
+    <pubDate>Mon, 21 Sep 2020 15:11:22 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/helm/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li>docs: <a href="https://docs.helm.sh/">https://docs.helm.sh/</a></li>
 <li>github: <a href="https://github.com/helm">https://github.com/helm</a></li>
@@ -35,7 +71,15 @@
 <li>helm v3.3</li>
 </ul>
 <br/>
-<br/>]]></description></item><item><title>Kubernetes</title><link>https://zhang21.cn/kubernetes/</link><pubDate>Tue, 26 Jun 2018 11:38:33 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/kubernetes/</guid><description><![CDATA[<p>参考：</p>
+<br/>]]></description>
+</item>
+<item>
+    <title>Kubernetes</title>
+    <link>https://zhang21.cn/kubernetes/</link>
+    <pubDate>Tue, 26 Jun 2018 11:38:33 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/kubernetes/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li>Kubernetes: <a href="https://zh.wikipedia.org/wiki/Kubernetes">https://zh.wikipedia.org/wiki/Kubernetes</a></li>
 <li>官方文档: <a href="https://kubernetes.io/docs/">https://kubernetes.io/docs/</a></li>
@@ -50,7 +94,15 @@
 <li>Kubernetes v1.11</li>
 </ul>
 <br/>
-<br/>]]></description></item><item><title>Docker</title><link>https://zhang21.cn/docker/</link><pubDate>Tue, 27 Mar 2018 08:38:33 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/docker/</guid><description><![CDATA[<p>参考：</p>
+<br/>]]></description>
+</item>
+<item>
+    <title>Docker</title>
+    <link>https://zhang21.cn/docker/</link>
+    <pubDate>Tue, 27 Mar 2018 08:38:33 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/docker/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li>Docker文档:  <a href="https://docs.docker.com/">https://docs.docker.com/</a></li>
 <li><a href="https://blog.csdn.net/sD7O95O/article/details/78623697">https://blog.csdn.net/sD7O95O/article/details/78623697</a></li>
@@ -62,4 +114,7 @@
 <li>Docker v18.03</li>
 </ul>
 <br>
-<br/>]]></description></item></channel></rss>
+<br/>]]></description>
+</item>
+</channel>
+</rss>

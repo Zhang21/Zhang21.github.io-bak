@@ -1,6 +1,21 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Operations - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/operations/</link><description>Operations - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 05 Mar 2018 22:34:49 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/operations/" rel="self" type="application/rss+xml"/><item><title>网站运维</title><link>https://zhang21.cn/%E7%BD%91%E7%AB%99%E8%BF%90%E7%BB%B4/</link><pubDate>Mon, 05 Mar 2018 22:34:49 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/%E7%BD%91%E7%AB%99%E8%BF%90%E7%BB%B4/</guid><description><![CDATA[<p>参考：</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Operations - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/operations/</link>
+        <description>Operations - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 05 Mar 2018 22:34:49 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/operations/" rel="self" type="application/rss+xml" /><item>
+    <title>网站运维</title>
+    <link>https://zhang21.cn/%E7%BD%91%E7%AB%99%E8%BF%90%E7%BB%B4/</link>
+    <pubDate>Mon, 05 Mar 2018 22:34:49 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/%E7%BD%91%E7%AB%99%E8%BF%90%E7%BB%B4/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li>《网站运维：保持数据实时的秘籍》(Web Operations: Keeping the Data on Time)</li>
 </ul>
 <br>
-<br/>]]></description></item></channel></rss>
+<br/>]]></description>
+</item>
+</channel>
+</rss>

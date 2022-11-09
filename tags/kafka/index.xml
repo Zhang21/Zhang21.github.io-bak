@@ -1,4 +1,16 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>kafka - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/kafka/</link><description>kafka - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 08 Mar 2022 15:19:26 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/kafka/" rel="self" type="application/rss+xml"/><item><title>kafka</title><link>https://zhang21.cn/kafka/</link><pubDate>Tue, 08 Mar 2022 15:19:26 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/kafka/</guid><description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>kafka - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/kafka/</link>
+        <description>kafka - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 08 Mar 2022 15:19:26 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/kafka/" rel="self" type="application/rss+xml" /><item>
+    <title>kafka</title>
+    <link>https://zhang21.cn/kafka/</link>
+    <pubDate>Tue, 08 Mar 2022 15:19:26 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/kafka/</guid>
+    <description><![CDATA[<p>参考:</p>
 <ul>
 <li>docs: <a href="https://kafka.apache.org/documentation">https://kafka.apache.org/documentation</a></li>
 </ul>
@@ -8,4 +20,7 @@
 <li>kafka: v3.0</li>
 </ul>
 <br/>
-<br/>]]></description></item></channel></rss>
+<br/>]]></description>
+</item>
+</channel>
+</rss>

@@ -1,7 +1,22 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>yum - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/yum/</link><description>yum - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 09 Jan 2018 11:46:21 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/yum/" rel="self" type="application/rss+xml"/><item><title>Yum源</title><link>https://zhang21.cn/yum/</link><pubDate>Tue, 09 Jan 2018 11:46:21 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/yum/</guid><description><![CDATA[<p>参考：</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>yum - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/yum/</link>
+        <description>yum - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 09 Jan 2018 11:46:21 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/yum/" rel="self" type="application/rss+xml" /><item>
+    <title>Yum源</title>
+    <link>https://zhang21.cn/yum/</link>
+    <pubDate>Tue, 09 Jan 2018 11:46:21 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/yum/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li><a href="http://blog.csdn.net/leshami/article/details/78133716" target="_blank" rel="noopener noreffer ">CentOS 7下配置本地yum源及yum客户端</a></li>
 <li><a href="http://blog.csdn.net/conling_/article/details/70399694" target="_blank" rel="noopener noreffer ">Centos7 配置本地源+阿里yum源/epel-yum+修改优先级</a></li>
 <li><a href="http://blog.csdn.net/kingfox/article/details/51233153" target="_blank" rel="noopener noreffer ">调整CentOS 7中yum仓库的优先级</a></li>
 <li><a href="https://segmentfault.com/a/1190000000375848" target="_blank" rel="noopener noreffer ">国内开源站点</a></li>
-</ul>]]></description></item></channel></rss>
+</ul>]]></description>
+</item>
+</channel>
+</rss>

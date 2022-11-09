@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>doris - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/doris/</link>
+        <description>doris - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 20 Sep 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/doris/" rel="self" type="application/rss+xml" /><item>
+    <title>Doris</title>
+    <link>https://zhang21.cn/doris/</link>
+    <pubDate>Tue, 20 Sep 2022 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/doris/</guid>
+    <description><![CDATA[参考: Doris文档 Dorish官方仓库 介绍 Apache Doris能够较好的满足报表分析、即席查询、统一数仓构建、数据湖联邦查询加速等使用场景，用户可]]></description>
+</item>
+</channel>
+</rss>

@@ -1,4 +1,16 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>文件系统 - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</link><description>文件系统 - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 27 Nov 2017 16:42:33 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="self" type="application/rss+xml"/><item><title>Filesystem Hierarchy Standard</title><link>https://zhang21.cn/fhs/</link><pubDate>Mon, 27 Nov 2017 16:42:33 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/fhs/</guid><description><![CDATA[<h1 id="fhs介绍">FHS介绍</h1>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>文件系统 - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</link>
+        <description>文件系统 - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 27 Nov 2017 16:42:33 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="self" type="application/rss+xml" /><item>
+    <title>Filesystem Hierarchy Standard</title>
+    <link>https://zhang21.cn/fhs/</link>
+    <pubDate>Mon, 27 Nov 2017 16:42:33 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/fhs/</guid>
+    <description><![CDATA[<h1 id="fhs介绍">FHS介绍</h1>
 <p>FHS(Filesystem Hierarchy Standard)，文件系统层次化标准：<a href="http://www.pathname.com/fhs">http://www.pathname.com/fhs</a></p>
 <br>
 <p>FHS主要目的是希望让用户了解安装文件通常放置的目录。所以希望软件开发商、系统制定者以及维护系统的用户，都能够遵循FHS的标准。</p>
@@ -14,4 +26,7 @@
 </li>
 </ul>
 <p>不变的(static)	  |	/usr <br> /opt		 			|	/etc <br> /boot
-可变的(variable) |	/var/mail <br> /var/spool/news	|	/var/run <br> /var/lock</p>]]></description></item></channel></rss>
+可变的(variable) |	/var/mail <br> /var/spool/news	|	/var/run <br> /var/lock</p>]]></description>
+</item>
+</channel>
+</rss>

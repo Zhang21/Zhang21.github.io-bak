@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>argo - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/argo/</link>
+        <description>argo - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 12 Aug 2022 14:33:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/argo/" rel="self" type="application/rss+xml" /><item>
+    <title>Argo-CD文档</title>
+    <link>https://zhang21.cn/argo-cd/</link>
+    <pubDate>Fri, 12 Aug 2022 14:33:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/argo-cd/</guid>
+    <description><![CDATA[参考: argo-cd官方文档 概述 argo-cd是什么 argo-cd是一个用于k8s的声明式、gitops持续交付(continuous del]]></description>
+</item>
+</channel>
+</rss>

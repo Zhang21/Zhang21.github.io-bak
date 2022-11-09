@@ -1,4 +1,16 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alert - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/alert/</link><description>Alert - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 11 Sep 2018 11:01:12 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/alert/" rel="self" type="application/rss+xml"/><item><title>Prometheus</title><link>https://zhang21.cn/prometheus/</link><pubDate>Tue, 11 Sep 2018 11:01:12 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/prometheus/</guid><description><![CDATA[<p>参考：</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Alert - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/alert/</link>
+        <description>Alert - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 11 Sep 2018 11:01:12 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/alert/" rel="self" type="application/rss+xml" /><item>
+    <title>Prometheus</title>
+    <link>https://zhang21.cn/prometheus/</link>
+    <pubDate>Tue, 11 Sep 2018 11:01:12 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/prometheus/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li>Prometheus文档： <a href="https://prometheus.io/docs">https://prometheus.io/docs</a></li>
 <li>GitHub: <a href="https://github.com/prometheus/">https://github.com/prometheus/</a></li>
@@ -9,4 +21,7 @@
 <li>CentOS7x86_64</li>
 <li>Prometheus v2.14</li>
 </ul>
-<br>]]></description></item></channel></rss>
+<br>]]></description>
+</item>
+</channel>
+</rss>

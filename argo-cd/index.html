@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Argo-CD文档 - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="Argo-CD文档" />
+<meta property="og:description" content="参考: argo-cd官方文档 概述 argo-cd是什么 argo-cd是一个用于k8s的声明式、gitops持续交付(continuous del" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/argo-cd/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-12T14:33:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-08-12T14:33:00&#43;00:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="Argo-CD文档"/>
+<meta name="twitter:description" content="参考: argo-cd官方文档 概述 argo-cd是什么 argo-cd是一个用于k8s的声明式、gitops持续交付(continuous del"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/argo-cd/" /><link rel="prev" href="https://zhang21.cn/rke/" /><link rel="next" href="https://zhang21.cn/doris/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Argo-CD文档",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/argo-cd\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "devops, cicd, gitops, argo","wordcount":  2755 ,
+        "url": "https:\/\/zhang21.cn\/argo-cd\/","datePublished": "2022-08-12T14:33:00+00:00","dateModified": "2022-08-12T14:33:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Argo-CD文档</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/devops/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>devops</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-12">2022-08-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2755 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a>
+      <ul>
+        <li><a href="#argo-cd是什么">argo-cd是什么</a></li>
+        <li><a href="#为什么是argo-cd">为什么是argo-cd</a></li>
+        <li><a href="#入门">入门</a></li>
+        <li><a href="#如何运作">如何运作</a></li>
+        <li><a href="#架构">架构</a></li>
+        <li><a href="#功能">功能</a></li>
+      </ul>
+    </li>
+    <li><a href="#基础知识">基础知识</a></li>
+    <li><a href="#核心概念">核心概念</a></li>
+    <li><a href="#入门-1">入门</a>
+      <ul>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#下载argo-cd命令行">下载argo-cd命令行</a></li>
+        <li><a href="#访问argo-cd的api地址">访问argo-cd的api地址</a></li>
+        <li><a href="#使用命令行登录">使用命令行登录</a></li>
+        <li><a href="#注册一个集群到部署">注册一个集群到部署</a></li>
+        <li><a href="#从git仓库创建一个应用">从git仓库创建一个应用</a>
+          <ul>
+            <li><a href="#从命令行创建应用">从命令行创建应用</a></li>
+            <li><a href="#从界面创建应用">从界面创建应用</a></li>
+          </ul>
+        </li>
+        <li><a href="#同步应用">同步应用</a>
+          <ul>
+            <li><a href="#通过命令行同步">通过命令行同步</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#运维手册">运维手册</a></li>
+    <li><a href="#用户指南">用户指南</a>
+      <ul>
+        <li><a href="#最佳实践">最佳实践</a>
+          <ul>
+            <li><a href="#分离配置和源代码仓库">分离配置和源代码仓库</a></li>
+            <li><a href="#leaving-room-for-imperativeness">Leaving Room For Imperativeness</a></li>
+            <li><a href="#确保git修订中的配置清单是真正不变的">确保git修订中的配置清单是真正不变的</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考:</p>
+<ul>
+<li><a href="https://argo-cd.readthedocs.io/en/stable/" target="_blank" rel="noopener noreffer ">argo-cd官方文档</a></li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="概述">概述</h1>
+<br/>
+<h2 id="argo-cd是什么">argo-cd是什么</h2>
+<p>argo-cd是一个用于k8s的声明式、gitops持续交付(continuous delivery)工具。</p>
+<p>argo-cd配置存在在k8s资源中，application和project是CRDs，cluster credentials存储为secret或configmap。不需要PVC/PV/VOLUME。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/ArgoCD/argocd-ui.gif"
+        data-srcset="/images/ArgoCD/argocd-ui.gif, /images/ArgoCD/argocd-ui.gif 1.5x, /images/ArgoCD/argocd-ui.gif 2x"
+        data-sizes="auto"
+        alt="/images/ArgoCD/argocd-ui.gif"
+        title="argo-cd" /></p>
+<br/>
+<br/>
+<h2 id="为什么是argo-cd">为什么是argo-cd</h2>
+<p>Why Argo CD</p>
+<p>应用程序定义、配置和环境应该是声明式和版本控制的。应用程序的部署和生命周期管理应该自动化、可审核和易于理解。</p>
+<br/>
+<br/>
+<h2 id="入门">入门</h2>
+<p>Getting Started</p>
+<p>快速开始:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="如何运作">如何运作</h2>
+<p>How it works</p>
+<p>argo-cd遵循gitops模式，使用git仓库作为定义期望的应用程序状态的真实来源。</p>
+<p>k8s manifests可通过以下方式指定:</p>
+<ul>
+<li>kustomize</li>
+<li>helm chart</li>
+<li>jsonnet</li>
+<li>k8s yaml</li>
+<li>任一自定义配置管理工具</li>
+</ul>
+<br/>
+<p>argo-cd在指定的目标环境中自动部署所需的应用程序状态。应用程序部署可以跟踪branch、tag或git commit固定到特定版本的清单。</p>
+<br/>
+<br/>
+<h2 id="架构">架构</h2>
+<p>Architecture</p>
+<p><a href="/images/ArgoCD/argocd_architecture.png" rel="">架构</a></p>
+<p>argocd被实现为一个k8s controller，它持续监视正在运行的应用程序并将当前的活动状态于所需的目标状态进行比较。实时状态偏离目标状态的已部署应用程序会被视为<code>OutOfSync</code>。argocd报告和可视化差异，同时提供自动或手动将实时状态同步到期望的目标状态。任何对git仓库中对期望状态所做的修改都可以自动应用并反映在指定的目标环境中。</p>
+<br/>
+<br/>
+<h2 id="功能">功能</h2>
+<p>Features</p>
+<ul>
+<li>将应用程序自动部署到指定的目标环境</li>
+<li>支持多种配置管理工具/模板工具</li>
+<li>能够管理和部署到多个集群</li>
+<li>SSO集成</li>
+<li>用于授权的多租户和RBAC策略</li>
+<li>git仓库中对任一应用程序配置的提交，回滚或滚动</li>
+<li>应用程序资源的健康状态分析</li>
+<li>自动配置漂移检测和可视化</li>
+<li>自动或手动同步应用到期望状态</li>
+<li>Web界面提供了应用程序活动的实时试图</li>
+<li>CLI用于自动化和CI集成</li>
+<li>Webhook集成</li>
+<li>Access Token</li>
+<li>支持复杂应用程序推出的钩子：PreSync, Sync, PostSync</li>
+<li>用于应用程序事件和API调用的审计跟踪</li>
+<li>Prometheus指标</li>
+<li>参数可覆盖helm参数</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="基础知识">基础知识</h1>
+<p>Basics</p>
+<p>在使用argo-cd之前，你应该了解以下基础知识:</p>
+<ul>
+<li>git</li>
+<li>docker</li>
+<li>k8s</li>
+<li>helm/kustomize</li>
+<li>ci</li>
+<li>cd</li>
+<li>gitops</li>
+<li>&hellip;</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="核心概念">核心概念</h1>
+<p>Core Concepts</p>
+<p>以下是argo-cd的一些概念：</p>
+<ul>
+<li>Application(应用): 由清单定义的一组k8s资源，CRD。</li>
+<li>Application source type(应用资源类型): 用于构建应用的工具。</li>
+<li>Target state(目标状态): 应用的期望状态，由git仓库中的文件来表示。</li>
+<li>Live state(实时状态): 应用的实时状态。</li>
+<li>Sync status(同步状态): 实时状态是否于目标状态相匹配。</li>
+<li>Sync(同步): 将应用转移到目标状态的过程。</li>
+<li>Sync operation status(同步操作状态): 同步是否成功。</li>
+<li>Refresh(刷新): 将git仓库中的最新代码与实时状态进行比较，弄清楚有什么不同。</li>
+<li>Health(健康状态): 应用的健康状态，是否正常运行？是否可以服务请求？</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="入门-1">入门</h1>
+<p>Getting Started</p>
+<br/>
+<h2 id="安装">安装</h2>
+<blockquote>
+<p><strong>注意</strong><br>
+由于默认安装的argocd服务都没有资源限制，因此建议添加上资源限制。</p>
+</blockquote>
+<br/>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+</code></pre></td></tr></table>
+</div>
+</div><p>argo-cd的几个服务:</p>
+<ul>
+<li>argcd-server: 中枢程序</li>
+<li>argocd-repo-server: git仓库的本地缓存</li>
+<li>argocd-applicationset-controller: 一个k8s控制器，用于比较原版本和目标版本</li>
+<li>argocd-dex-server: SSO服务</li>
+<li>argocd-redis: 一次性缓存</li>
+<li>argocd-notifications-controller： 发送通知</li>
+</ul>
+<br/>
+<br/>
+<h2 id="下载argo-cd命令行">下载argo-cd命令行</h2>
+<p>下载地址: <a href="https://github.com/argoproj/argo-cd/releases/latest">https://github.com/argoproj/argo-cd/releases/latest</a></p>
+<br/>
+<br/>
+<h2 id="访问argo-cd的api地址">访问argo-cd的api地址</h2>
+<p>默认安装时，argo-cd并未提供外部访问地址。因此，可根据需要创建外部访问地址:</p>
+<ul>
+<li>ingress</li>
+<li>nodePort</li>
+<li>port forwarding</li>
+</ul>
+<p>ingress如果未配置证书，会出现无线重定向问题。要么就配置上证书，要么就关闭argocd-server的安全选项，在启动参数添加<code>-insecure</code>。</p>
+<br/>
+<br/>
+<h2 id="使用命令行登录">使用命令行登录</h2>
+<p>默认<code>admin</code>用户的密码存在名为<code>argocd-initial-admin-secret</code>的密钥中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl -n argocd get secret argocd-initial-admin-secret -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.data.password}&#34;</span> <span class="p">|</span> base64 -d<span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c1"># 输入用户和密码进行登录</span>
+argocd login &lt;ARGOCD_SERVER&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>请注意，如果你修改了密码，请从此命名空间中删除<code>argocd-initial-admin-secret</code>这个密钥。</p>
+<br/>
+<br/>
+<h2 id="注册一个集群到部署">注册一个集群到部署</h2>
+<p>Register A Cluster To Deploy Apps To (Optional)</p>
+<p>此步骤将集群的凭证注册到argo-cd中，并且至于在部署到外部集群时才有必要。当部署到内部集群（也就是argo-cd正在运行的同一个集群），<code>https://kubernetes.default.svc</code>将作为应用程序的k8s api的地址。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 添加外部集群</span>
+
+kubectl config get-contexts -o name
+
+<span class="c1"># 安装一个serviceaccount(argocd-manager)到kube-system命名空间中</span>
+<span class="c1"># 并绑定此服务账号到ClusterRole管理员级别</span>
+argocd cluster add xxx
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="从git仓库创建一个应用">从git仓库创建一个应用</h2>
+<p>Create An Application From A Git Repository</p>
+<p>如从示例<a href="https://github.com/argoproj/argocd-example-apps.git">https://github.com/argoproj/argocd-example-apps.git</a>来演示argo-cd是如何工作的。</p>
+<br/>
+<p>如果从git私有仓库拉取，需要配置私钥和unknown host。</p>
+<br/>
+<h3 id="从命令行创建应用">从命令行创建应用</h3>
+<p>Creating Apps Via CLI</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">argocd app create guestbook --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace default
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<h3 id="从界面创建应用">从界面创建应用</h3>
+<p>登录argo-cd界面，创建应用，写入具体配置信息。</p>
+<br/>
+<br/>
+<h2 id="同步应用">同步应用</h2>
+<p>Sync (Deploy) The Application</p>
+<p>默认三分钟从仓库同步一次。</p>
+<br/>
+<h3 id="通过命令行同步">通过命令行同步</h3>
+<p>Syncing via CLI</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 查看应用状态</span>
+argocd app get guestbook
+
+<span class="c1"># 同步状态</span>
+argocd app sync guestbook
+</code></pre></td></tr></table>
+</div>
+</div><p>之后可通过界面查看相关信息。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="运维手册">运维手册</h1>
+<p>Operator Manual</p>
+<br/>
+<hr>
+<br/>
+<h1 id="用户指南">用户指南</h1>
+<p>User Guide</p>
+<br/>
+<h2 id="最佳实践">最佳实践</h2>
+<p>Best Practices</p>
+<br/>
+<h3 id="分离配置和源代码仓库">分离配置和源代码仓库</h3>
+<p>Separating Config Vs. Source Code Repositories</p>
+<p>由于以下原因，强烈建议使用单独的git仓库来保存你的配置(k8s yaml, helm chart等)，并将配置与源代码分开：</p>
+<ul>
+<li>提供了应用程序与应用程序配置的干净分离。有时候，你希望修改配置清单而不触发整个CI构建。</li>
+<li>更干净的审计日志。处于审计目的，仅保留配置的仓库将具有更干净的git历史记录。</li>
+<li>你的应用程序可能由多个git仓库的服务组成，但仅被部署为一个单元。将配置清单存储在单个组件的一个源代码仓库中可能没有意义。</li>
+<li>访问分离。开发人员不一定是可以/应该有意/无意地推向生产环境的人。通过单独的仓库，可以控制不同的权限。</li>
+<li>对于CI流水线来说也更细化和好控制。</li>
+</ul>
+<br/>
+<h3 id="leaving-room-for-imperativeness">Leaving Room For Imperativeness</h3>
+<p>由于某些不完善或自动化，可能希望离开房间(leave room)，并且不要在git仓库中定义所有内容。例如，如果想通过hpa来管理副本数量，那你肯定不希望在git中追踪<code>replica</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx-deployment</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># do not include replicas in the manifests if you want replicas to be controlled by HPA</span><span class="w">
+</span><span class="w">  </span><span class="c"># replicas: 1</span><span class="w">
+</span><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:1.7.9</span><span class="w">
+</span><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span><span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w"></span><span class="nn">...</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<h3 id="确保git修订中的配置清单是真正不变的">确保git修订中的配置清单是真正不变的</h3>
+<p>Ensuring Manifests At Git Revisions Are Truly Immutable</p>
+<p>当使用helm或kustomize等模板工具时，表明可以配置清单将其含义从一天更改为另一天。这通常是由上游helm仓库或kustomize base的更改引起的。</p>
+<p>如下面这个kustomization.yaml，默认指向远程仓库的HEAD revision。但这并不是一个稳定的目标，此仓库可能会突然发生变化。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">bases</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="l">github.com/argoproj/argo-cd//manifests/cluster-install</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>更好的版本是使用git tag或commit sha。如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">bases</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="l">github.com/argoproj/argo-cd//manifests/cluster-install?ref=v0.11.1</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-08-12</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/argo-cd/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/argo-cd/" data-title="Argo-CD文档" data-hashtags="devops,cicd,gitops,argo"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/argo-cd/" data-title="Argo-CD文档"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/argo-cd/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/argo-cd/" data-title="Argo-CD文档"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.0.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/argo-cd/" data-title="Argo-CD文档"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/devops/">DevOps</a>,&nbsp;<a href="/tags/cicd/">cicd</a>,&nbsp;<a href="/tags/gitops/">GitOps</a>,&nbsp;<a href="/tags/argo/">argo</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/rke/" class="prev" rel="prev" title="RKE"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>RKE</a>
+            <a href="/doris/" class="next" rel="next" title="Doris">Doris<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,4 +1,16 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>linux - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/linux/</link><description>linux - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 14 May 2018 15:11:16 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/linux/" rel="self" type="application/rss+xml"/><item><title>性能分析</title><link>https://zhang21.cn/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</link><pubDate>Mon, 14 May 2018 15:11:16 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</guid><description><![CDATA[<p>环境：</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>linux - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/linux/</link>
+        <description>linux - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 14 May 2018 15:11:16 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/linux/" rel="self" type="application/rss+xml" /><item>
+    <title>性能分析</title>
+    <link>https://zhang21.cn/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</link>
+    <pubDate>Mon, 14 May 2018 15:11:16 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</guid>
+    <description><![CDATA[<p>环境：</p>
 <ul>
 <li>CentOS7.x84_64</li>
 </ul>
@@ -12,13 +24,29 @@
 <li>高CPU分析: <a href="http://blog.51cto.com/yaocoder/1543352">http://blog.51cto.com/yaocoder/1543352</a></li>
 </ul>
 <br>
-<br/>]]></description></item><item><title>sysctl和ulimit和proc</title><link>https://zhang21.cn/sysctl-ulimit-proc/</link><pubDate>Tue, 09 Jan 2018 17:22:48 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/sysctl-ulimit-proc/</guid><description><![CDATA[<p>参考：</p>
+<br/>]]></description>
+</item>
+<item>
+    <title>sysctl和ulimit和proc</title>
+    <link>https://zhang21.cn/sysctl-ulimit-proc/</link>
+    <pubDate>Tue, 09 Jan 2018 17:22:48 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/sysctl-ulimit-proc/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li><a href="http://man.linuxde.net/sysctl" target="_blank" rel="noopener noreffer ">sysctl命令</a></li>
 <li><a href="http://man.linuxde.net/ulimit" target="_blank" rel="noopener noreffer ">ulimit命令</a></li>
 <li><a href="http://www.jianshu.com/p/20a2dd80cbad" target="_blank" rel="noopener noreffer ">ulimit、limits.conf、sysctl和proc文件系统</a></li>
 <li><a href="http://www.jianshu.com/p/9a8e383b5b49" target="_blank" rel="noopener noreffer ">sysctl.conf学习和调优</a></li>
-</ul>]]></description></item><item><title>Filesystem Hierarchy Standard</title><link>https://zhang21.cn/fhs/</link><pubDate>Mon, 27 Nov 2017 16:42:33 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/fhs/</guid><description><![CDATA[<h1 id="fhs介绍">FHS介绍</h1>
+</ul>]]></description>
+</item>
+<item>
+    <title>Filesystem Hierarchy Standard</title>
+    <link>https://zhang21.cn/fhs/</link>
+    <pubDate>Mon, 27 Nov 2017 16:42:33 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/fhs/</guid>
+    <description><![CDATA[<h1 id="fhs介绍">FHS介绍</h1>
 <p>FHS(Filesystem Hierarchy Standard)，文件系统层次化标准：<a href="http://www.pathname.com/fhs">http://www.pathname.com/fhs</a></p>
 <br>
 <p>FHS主要目的是希望让用户了解安装文件通常放置的目录。所以希望软件开发商、系统制定者以及维护系统的用户，都能够遵循FHS的标准。</p>
@@ -34,7 +62,15 @@
 </li>
 </ul>
 <p>不变的(static)	  |	/usr <br> /opt		 			|	/etc <br> /boot
-可变的(variable) |	/var/mail <br> /var/spool/news	|	/var/run <br> /var/lock</p>]]></description></item><item><title>Git</title><link>https://zhang21.cn/git/</link><pubDate>Tue, 07 Nov 2017 17:45:42 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/git/</guid><description><![CDATA[<p>参考：</p>
+可变的(variable) |	/var/mail <br> /var/spool/news	|	/var/run <br> /var/lock</p>]]></description>
+</item>
+<item>
+    <title>Git</title>
+    <link>https://zhang21.cn/git/</link>
+    <pubDate>Tue, 07 Nov 2017 17:45:42 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/git/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener noreffer ">git-scm文档</a></li>
 <li><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener noreffer ">廖雪峰Git教程</a></li>
@@ -42,7 +78,15 @@
 <li><a href="http://blog.jobbole.com/26209/" target="_blank" rel="noopener noreffer ">Git内部原理-伯乐在线</a></li>
 </ul>
 <br>
-<br/>]]></description></item><item><title>Shell</title><link>https://zhang21.cn/linuxshell/</link><pubDate>Tue, 24 Oct 2017 18:16:38 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/linuxshell/</guid><description><![CDATA[<p>参考：</p>
+<br/>]]></description>
+</item>
+<item>
+    <title>Shell</title>
+    <link>https://zhang21.cn/linuxshell/</link>
+    <pubDate>Tue, 24 Oct 2017 18:16:38 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/linuxshell/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li>Linux Shell脚本攻略</li>
 <li>鸟哥的Linux私房菜</li>
@@ -50,4 +94,7 @@
 </ul>
 <br>
 <br/>
-<hr>]]></description></item></channel></rss>
+<hr>]]></description>
+</item>
+</channel>
+</rss>

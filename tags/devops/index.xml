@@ -1,22 +1,66 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>DevOps - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/devops/</link><description>DevOps - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 24 Aug 2021 09:49:26 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/devops/" rel="self" type="application/rss+xml"/><item><title>SRE</title><link>https://zhang21.cn/sre/</link><pubDate>Tue, 24 Aug 2021 09:49:26 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/sre/</guid><description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>DevOps - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/devops/</link>
+        <description>DevOps - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 12 Aug 2022 14:33:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/devops/" rel="self" type="application/rss+xml" /><item>
+    <title>Argo-CD文档</title>
+    <link>https://zhang21.cn/argo-cd/</link>
+    <pubDate>Fri, 12 Aug 2022 14:33:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/argo-cd/</guid>
+    <description><![CDATA[参考: argo-cd官方文档 概述 argo-cd是什么 argo-cd是一个用于k8s的声明式、gitops持续交付(continuous del]]></description>
+</item>
+<item>
+    <title>SRE</title>
+    <link>https://zhang21.cn/sre/</link>
+    <pubDate>Tue, 24 Aug 2021 09:49:26 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/sre/</guid>
+    <description><![CDATA[<p>参考:</p>
 <ul>
 <li>School Of SRE: <a href="https://linkedin.github.io/school-of-sre/">https://linkedin.github.io/school-of-sre/</a></li>
 </ul>
 <br/>
 <br/>
-<hr>]]></description></item><item><title>google-sre</title><link>https://zhang21.cn/google-sre/</link><pubDate>Tue, 13 Apr 2021 10:59:14 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/google-sre/</guid><description><![CDATA[<p>参考:</p>
+<hr>]]></description>
+</item>
+<item>
+    <title>google-sre</title>
+    <link>https://zhang21.cn/google-sre/</link>
+    <pubDate>Tue, 13 Apr 2021 10:59:14 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/google-sre/</guid>
+    <description><![CDATA[<p>参考:</p>
 <ul>
 <li>google sre book: <a href="https://sre.google/sre-book/">https://sre.google/sre-book/</a></li>
 </ul>
 <br>
 <br>
-<hr>]]></description></item><item><title>Flagger</title><link>https://zhang21.cn/flagger/</link><pubDate>Thu, 14 Jan 2021 19:25:19 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/flagger/</guid><description><![CDATA[<p>参考:</p>
+<hr>]]></description>
+</item>
+<item>
+    <title>Flagger</title>
+    <link>https://zhang21.cn/flagger/</link>
+    <pubDate>Thu, 14 Jan 2021 19:25:19 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/flagger/</guid>
+    <description><![CDATA[<p>参考:</p>
 <ul>
 <li>Flagger github: <a href="https://github.com/fluxcd/flagger">https://github.com/fluxcd/flagger</a></li>
 <li>Flagger docs: <a href="https://docs.flagger.app/">https://docs.flagger.app/</a></li>
 </ul>
 <br>
-<hr>]]></description></item><item><title>Helm</title><link>https://zhang21.cn/helm/</link><pubDate>Mon, 21 Sep 2020 15:11:22 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/helm/</guid><description><![CDATA[<p>参考：</p>
+<hr>]]></description>
+</item>
+<item>
+    <title>Helm</title>
+    <link>https://zhang21.cn/helm/</link>
+    <pubDate>Mon, 21 Sep 2020 15:11:22 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/helm/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li>docs: <a href="https://docs.helm.sh/">https://docs.helm.sh/</a></li>
 <li>github: <a href="https://github.com/helm">https://github.com/helm</a></li>
@@ -27,7 +71,15 @@
 <li>helm v3.3</li>
 </ul>
 <br/>
-<br/>]]></description></item><item><title>Ansible</title><link>https://zhang21.cn/ansible/</link><pubDate>Thu, 26 Dec 2019 17:40:11 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/ansible/</guid><description><![CDATA[<p>参考:</p>
+<br/>]]></description>
+</item>
+<item>
+    <title>Ansible</title>
+    <link>https://zhang21.cn/ansible/</link>
+    <pubDate>Thu, 26 Dec 2019 17:40:11 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/ansible/</guid>
+    <description><![CDATA[<p>参考:</p>
 <ul>
 <li>Ansible docs: <a href="https://docs.ansible.com">https://docs.ansible.com</a></li>
 </ul>
@@ -39,7 +91,15 @@
 </ul>
 <br/>
 <br/>
-<hr>]]></description></item><item><title>Tornado</title><link>https://zhang21.cn/tornado/</link><pubDate>Mon, 14 Oct 2019 16:19:21 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/tornado/</guid><description><![CDATA[<p>环境:</p>
+<hr>]]></description>
+</item>
+<item>
+    <title>Tornado</title>
+    <link>https://zhang21.cn/tornado/</link>
+    <pubDate>Mon, 14 Oct 2019 16:19:21 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/tornado/</guid>
+    <description><![CDATA[<p>环境:</p>
 <ul>
 <li>Tornado: v5.1</li>
 <li>Python: v3.6</li>
@@ -51,7 +111,15 @@
 </ul>
 <br/>
 <br/>
-<hr>]]></description></item><item><title>DevOps</title><link>https://zhang21.cn/devops/</link><pubDate>Wed, 13 Feb 2019 05:22:15 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/devops/</guid><description><![CDATA[<p>参考:</p>
+<hr>]]></description>
+</item>
+<item>
+    <title>DevOps</title>
+    <link>https://zhang21.cn/devops/</link>
+    <pubDate>Wed, 13 Feb 2019 05:22:15 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/devops/</guid>
+    <description><![CDATA[<p>参考:</p>
 <ul>
 <li>维基百科</li>
 <li>GitLab</li>
@@ -59,7 +127,15 @@
 </ul>
 <br/>
 <br/>
-<hr>]]></description></item><item><title>Prometheus</title><link>https://zhang21.cn/prometheus/</link><pubDate>Tue, 11 Sep 2018 11:01:12 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/prometheus/</guid><description><![CDATA[<p>参考：</p>
+<hr>]]></description>
+</item>
+<item>
+    <title>Prometheus</title>
+    <link>https://zhang21.cn/prometheus/</link>
+    <pubDate>Tue, 11 Sep 2018 11:01:12 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/prometheus/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li>Prometheus文档： <a href="https://prometheus.io/docs">https://prometheus.io/docs</a></li>
 <li>GitHub: <a href="https://github.com/prometheus/">https://github.com/prometheus/</a></li>
@@ -70,4 +146,7 @@
 <li>CentOS7x86_64</li>
 <li>Prometheus v2.14</li>
 </ul>
-<br>]]></description></item></channel></rss>
+<br>]]></description>
+</item>
+</channel>
+</rss>

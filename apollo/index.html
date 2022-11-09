@@ -1,4 +1,11 @@
-<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Apollo - 风继续吹</title><meta name=Description content="个人博客"><meta property="og:title" content="Apollo"><meta property="og:description" content="参考:
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Apollo - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="Apollo" />
+<meta property="og:description" content="参考:
 
 Apollo官方文档: https://github.com/ctripcorp/apollo/wiki
 
@@ -10,7 +17,17 @@ Docker v1.18
 K8s v1.11
 
 
-"><meta property="og:type" content="article"><meta property="og:url" content="https://zhang21.cn/apollo/"><meta property="og:image" content="https://zhang21.cn/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-01-09T19:11:22+00:00"><meta property="article:modified_time" content="2019-01-09T19:11:22+00:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://zhang21.cn/logo.png"><meta name=twitter:title content="Apollo"><meta name=twitter:description content="参考:
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/apollo/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-01-09T19:11:22&#43;00:00" />
+<meta property="article:modified_time" content="2019-01-09T19:11:22&#43;00:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="Apollo"/>
+<meta name="twitter:description" content="参考:
 
 Apollo官方文档: https://github.com/ctripcorp/apollo/wiki
 
@@ -22,121 +39,355 @@ Docker v1.18
 K8s v1.11
 
 
-"><meta name=application-name content="风继续吹"><meta name=apple-mobile-web-app-title content="风继续吹"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://zhang21.cn/apollo/><link rel=prev href=https://zhang21.cn/storage/><link rel=next href=https://zhang21.cn/openvpn/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Apollo","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/zhang21.cn\/apollo\/"},"image":[{"@type":"ImageObject","url":"https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png","width":3200,"height":2048}],"genre":"posts","keywords":"apollo, 分布式, 配置中心","wordcount":3534,"url":"https:\/\/zhang21.cn\/apollo\/","datePublished":"2019-01-09T19:11:22+00:00","dateModified":"2019-01-09T19:11:22+00:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"Zhang21","logo":"https:\/\/zhang21.cn\/leslie.png"},"author":{"@type":"Person","name":"Zhang21"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=风继续吹><span class=header-title-pre><i class="far fa-kiss-wink-heart fa-fw"></i></span>风继续吹</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/about/>关于 </a><a class=menu-item href=https://github.com/zhang21 title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
-<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
-<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
-</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=风继续吹><span class=header-title-pre><i class="far fa-kiss-wink-heart fa-fw"></i></span>风继续吹</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
-<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
-<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/about/ title>关于</a><a class=menu-item href=https://github.com/zhang21 title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
-<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Apollo</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://zhang21.cn title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Zhang21</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/middleware/><i class="far fa-folder fa-fw" aria-hidden=true></i>middleware</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2019-01-09>2019-01-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;约 3534 字&nbsp;
-<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;预计阅读 8 分钟&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>目录</span>
-<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#概述>概述</a></li><li><a href=#注意事项>注意事项</a></li><li><a href=#栗子>栗子</a><ul><li><a href=#apollo-config>apollo-config</a></li><li><a href=#apollo-admin>apollo-admin</a></li><li><a href=#apollo-portal>apollo-portal</a></li></ul></li></ul></nav></div></div><div class=content id=content><p>参考:</p><ul><li>Apollo官方文档: <a href=https://github.com/ctripcorp/apollo/wiki>https://github.com/ctripcorp/apollo/wiki</a></li></ul><br><p>环境:</p><ul><li>Apollo v1.2</li><li>Docker v1.18</li><li>K8s v1.11</li></ul><br><br><hr><br><br><h1 id=概述>概述</h1><p>基本上按照官方文档都没什么问题，说几点我在配置过程中容易出错的地方。</p><p>总的来说就是一个<code>portal</code>，多个<code>config+admin</code>，而<code>Eruea</code>注册的<code>Meta Server</code>是和<code>config</code>在一起的，每个环境的<code>admin</code>注册到对应环境的<code>Meta Server(config)</code>。</p><p>我是将其放入k8s集群中运行，所以针对官方给出的<code>Dockerfile</code>和<code>k8s.yaml</code>文件做了对应的修改。</p><br><p>看一下我画的架构图和官方架构图:</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/Apollo/Apollo.png data-srcset="/images/Apollo/Apollo.png, /images/Apollo/Apollo.png 1.5x, /images/Apollo/Apollo.png 2x" data-sizes=auto alt=/images/Apollo/Apollo.png title=/images/Apollo/Apollo.png></p><br><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/Apollo/apollo-deployment.png data-srcset="/images/Apollo/apollo-deployment.png, /images/Apollo/apollo-deployment.png 1.5x, /images/Apollo/apollo-deployment.png 2x" data-sizes=auto alt=/images/Apollo/apollo-deployment.png title=/images/Apollo/apollo-deployment.png></p><br><p><strong>我自己画的一个Apollo项目架构图：</strong></p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/Apollo/apollo_arch.jpg data-srcset="/images/Apollo/apollo_arch.jpg, /images/Apollo/apollo_arch.jpg 1.5x, /images/Apollo/apollo_arch.jpg 2x" data-sizes=auto alt=/images/Apollo/apollo_arch.jpg title=/images/Apollo/apollo_arch.jpg></p><br><p><strong>多区域部署Apollo：</strong></p><p>由于Apollo各组件之间并没有使用认证，所以如果通过公网跨区域则一定注意使用安全访问控制策略，添加白名单。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/Apollo/apolloRegions.png data-srcset="/images/Apollo/apolloRegions.png, /images/Apollo/apolloRegions.png 1.5x, /images/Apollo/apolloRegions.png 2x" data-sizes=auto alt=/images/Apollo/apolloRegions.png title=/images/Apollo/apolloRegions.png></p><br><br><br><h1 id=注意事项>注意事项</h1><ul><li><strong>为不同环境创建不同数据库</strong></li></ul><p>官方已经给出了创建数据库的sql语句，一个<code>portadb</code>, 多个<code>configdb-project-env</code>。我们需要修改数据库名，为不同的环境建立不同的数据库，所以需要在使用官方sql的时候把数据库名修改为自定义的即可，这样创建的各个环境数据库的表结构都是一样的。</p><br><ul><li><strong>配置了一个环境变量，它也就是部署服务的集群内访问地址(不在同一VPC可能需要外部访问地址)</strong></li></ul><p>官方是写入了Dockerfile里面作为环境变量，我是将其写入k8s yaml中的环境变量。当然，也可以写入启动脚本中。
-以下配置，随便用哪一个。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml><span class=c>#Dockerfile中</span><span class=w>
-</span><span class=w></span><span class=l>ENV APOLLO_CONFIG_SERVICE_NAME=&#34;{service-name}.{namespace}.svc.cluster.local&#34;</span><span class=w>
-</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=c>#k8s yaml container中</span><span class=w>
-</span><span class=w>          </span><span class=nt>env</span><span class=p>:</span><span class=w>
-</span><span class=w>            </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>APOLLO_CONFIG_SERVICE_NAME</span><span class=w>
-</span><span class=w>              </span><span class=nt>value</span><span class=p>:</span><span class=w> </span>{<span class=l>service_name}.{namespace}.svc.cluster.local</span><span class=w>
-</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=c>#启动脚本</span><span class=w>
-</span><span class=w></span><span class=c>#scripts/startup-kubernetes.sh</span><span class=w>
-</span><span class=w></span><span class=c>#SERVER_URL=&#34;http://${APOLLO_ADMIN_SERVICE_NAME}:${SERVER_PORT}&#34;</span><span class=w>
-</span><span class=w></span><span class=l>SERVER_URL=&#34;http://{service_name}.{namespace}.svc.cluster.local:${SERVER_PORT}&#34;</span><span class=w>
-</span><span class=w>
-</span></code></pre></td></tr></table></div></div><br><ul><li><strong>将数据库和注册地址写入<code>config/application-github.properties</code>配置文件</strong></li></ul><p>官方是写入<code>Dockerfile</code>中作为环境变量，然后通过<code>entrypoint.sh</code>进行相应的替换。我直接将其写入此配置文件，并删除<code>entrypoint.sh</code>。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml><span class=l>spring.datasource.url = jdbc:mysql://{mysql-ip}:{mysql-port}/{mysql-db}?characterEncoding=utf8</span><span class=w>
-</span><span class=w></span><span class=l>spring.datasource.username = user</span><span class=w>
-</span><span class=w></span><span class=l>spring.datasource.password = passwd</span><span class=w>
-</span><span class=w></span><span class=l>eureka.service.url = http://{service-name}.{namespace}.svc.cluster.local:8080/eureka/</span><span class=w>
-</span><span class=w></span><span class=c># 如果环境跨VPC，还需要指定公网地址的 HomePageUrl</span><span class=w>
-</span><span class=w></span><span class=c># eureka.instance.homePageUrl = http://ELB:PORT</span><span class=w>
-</span><span class=w></span><span class=c># 或 在启动命名指定: -Dapollo.configService=http://config-service的公网IP:端口来跳过meta service的服务发现</span><span class=w>
-</span><span class=w></span><span class=c># 如果不指定的话，则默认使用获取的内部地址，这无法正常访问</span><span class=w>
-</span></code></pre></td></tr></table></div></div><br><ul><li><strong>portal服务的默认环境是DEV，请注意</strong></li></ul><p>如果配置的第一个环境并不是DEV，请记得先修改数据库中的这个值，不然portal读取config, admin会失败。
-<code>portaldb.serverconfig</code>的<code>apollo.portal.envs</code>这个key，多个环境使用<code>,</code>分割，后面可以在UI上配置。其它环境请修改为其它环境名。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sql data-lang=sql><span class=k>UPDATE</span><span class=w> </span><span class=n>serverconfig</span><span class=w> </span><span class=k>SET</span><span class=w> </span><span class=n>Value</span><span class=o>=</span><span class=s1>&#39;uat&#39;</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=k>Key</span><span class=o>=</span><span class=s1>&#39;apollo.portal.envs&#39;</span><span class=p>;</span><span class=w>
-</span><span class=w>
-</span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml><span class=l>config/apollo-env.properties</span><span class=w>
-</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=c>#dev.meta=http://DEV_META_SERVICE_NAME:8080</span><span class=w>
-</span><span class=w></span><span class=c>#fat.meta=http://TEST_ALPHA_META_SERVICE_NAME:8080</span><span class=w>
-</span><span class=w></span><span class=c>#uat.meta=http://TEST_BETA_META_SERVICE_NAME:8080</span><span class=w>
-</span><span class=w></span><span class=c>#pro.meta=http://PROD_META_SERVICE_NAME:8080</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=c>#某个环境的config</span><span class=w>
-</span><span class=w></span><span class=l>uat.meta=http://{service-name}.{namespace}.svc.cluster.local:8080</span><span class=w>
-</span><span class=w>
-</span></code></pre></td></tr></table></div></div><br><ul><li><strong>将日志输出到标准输出<code>/dev/stdout</code></strong></li></ul><p>由于我是运行在容器中，所以需要将日志输出到标准输出。
-这里很奇怪，直接在主机(centos7)上运行<code>./apollo-xxx.jar start</code>，日志正常输出到console；在openjdk容器里运行，<code>./apollo-portal.jar start</code>它放到后台运行，日志不输出到console，使用<code>java ${JAVA_OPTS} -jar ./"${SERVICE_NAME}.jar"</code>日志能够正常输出到console。
-所以这里修改<code>startup-kubernetes.sh</code>启动命令:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh><span class=c1># 原</span>
-<span class=c1># export JAVA_OPTS=&#34;$JAVA_OPTS -Dserver.port=$SERVER_PORT -Dlogging.file=$LOG_DIR/$SERVICE_NAME.log -Xloggc:$LOG_DIR/gc.log -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=5M -XX:HeapDumpPath=$LOG_DIR/HeapDumpOnOutOfMemoryError/&#34;</span>
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/apollo/" /><link rel="prev" href="https://zhang21.cn/storage/" /><link rel="next" href="https://zhang21.cn/openvpn/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Apollo",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/apollo\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "apollo, 分布式, 配置中心","wordcount":  3534 ,
+        "url": "https:\/\/zhang21.cn\/apollo\/","datePublished": "2019-01-09T19:11:22+00:00","dateModified": "2019-01-09T19:11:22+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-<span class=c1># 修改</span>
-<span class=nb>export</span> <span class=nv>JAVA_OPTS</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$JAVA_OPTS</span><span class=s2> -Dserver.port=</span><span class=nv>$SERVER_PORT</span><span class=s2> -Xloggc:</span><span class=nv>$LOG_DIR</span><span class=s2>/gc.log -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=5M -XX:HeapDumpPath=</span><span class=nv>$LOG_DIR</span><span class=s2>/HeapDumpOnOutOfMemoryError/&#34;</span>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Apollo</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/middleware/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>middleware</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2019-01-09">2019-01-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3534 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#注意事项">注意事项</a></li>
+    <li><a href="#栗子">栗子</a>
+      <ul>
+        <li><a href="#apollo-config">apollo-config</a></li>
+        <li><a href="#apollo-admin">apollo-admin</a></li>
+        <li><a href="#apollo-portal">apollo-portal</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考:</p>
+<ul>
+<li>Apollo官方文档: <a href="https://github.com/ctripcorp/apollo/wiki">https://github.com/ctripcorp/apollo/wiki</a></li>
+</ul>
+<br>
+<p>环境:</p>
+<ul>
+<li>Apollo v1.2</li>
+<li>Docker v1.18</li>
+<li>K8s v1.11</li>
+</ul>
+<br/>
+<br/>
+<hr>
+<br/>
+<br/>
+<h1 id="概述">概述</h1>
+<p>基本上按照官方文档都没什么问题，说几点我在配置过程中容易出错的地方。</p>
+<p>总的来说就是一个<code>portal</code>，多个<code>config+admin</code>，而<code>Eruea</code>注册的<code>Meta Server</code>是和<code>config</code>在一起的，每个环境的<code>admin</code>注册到对应环境的<code>Meta Server(config)</code>。</p>
+<p>我是将其放入k8s集群中运行，所以针对官方给出的<code>Dockerfile</code>和<code>k8s.yaml</code>文件做了对应的修改。</p>
+<br/>
+<p>看一下我画的架构图和官方架构图:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Apollo/Apollo.png"
+        data-srcset="/images/Apollo/Apollo.png, /images/Apollo/Apollo.png 1.5x, /images/Apollo/Apollo.png 2x"
+        data-sizes="auto"
+        alt="/images/Apollo/Apollo.png"
+        title="/images/Apollo/Apollo.png" /></p>
+<br>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Apollo/apollo-deployment.png"
+        data-srcset="/images/Apollo/apollo-deployment.png, /images/Apollo/apollo-deployment.png 1.5x, /images/Apollo/apollo-deployment.png 2x"
+        data-sizes="auto"
+        alt="/images/Apollo/apollo-deployment.png"
+        title="/images/Apollo/apollo-deployment.png" /></p>
+<br/>
+<p><strong>我自己画的一个Apollo项目架构图：</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Apollo/apollo_arch.jpg"
+        data-srcset="/images/Apollo/apollo_arch.jpg, /images/Apollo/apollo_arch.jpg 1.5x, /images/Apollo/apollo_arch.jpg 2x"
+        data-sizes="auto"
+        alt="/images/Apollo/apollo_arch.jpg"
+        title="/images/Apollo/apollo_arch.jpg" /></p>
+<br/>
+<p><strong>多区域部署Apollo：</strong></p>
+<p>由于Apollo各组件之间并没有使用认证，所以如果通过公网跨区域则一定注意使用安全访问控制策略，添加白名单。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Apollo/apolloRegions.png"
+        data-srcset="/images/Apollo/apolloRegions.png, /images/Apollo/apolloRegions.png 1.5x, /images/Apollo/apolloRegions.png 2x"
+        data-sizes="auto"
+        alt="/images/Apollo/apolloRegions.png"
+        title="/images/Apollo/apolloRegions.png" /></p>
+<br/>
+<br/>
+<br/>
+<h1 id="注意事项">注意事项</h1>
+<ul>
+<li><strong>为不同环境创建不同数据库</strong></li>
+</ul>
+<p>官方已经给出了创建数据库的sql语句，一个<code>portadb</code>, 多个<code>configdb-project-env</code>。我们需要修改数据库名，为不同的环境建立不同的数据库，所以需要在使用官方sql的时候把数据库名修改为自定义的即可，这样创建的各个环境数据库的表结构都是一样的。</p>
+<br/>
+<ul>
+<li><strong>配置了一个环境变量，它也就是部署服务的集群内访问地址(不在同一VPC可能需要外部访问地址)</strong></li>
+</ul>
+<p>官方是写入了Dockerfile里面作为环境变量，我是将其写入k8s yaml中的环境变量。当然，也可以写入启动脚本中。
+以下配置，随便用哪一个。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">#Dockerfile中</span><span class="w">
+</span><span class="w"></span><span class="l">ENV APOLLO_CONFIG_SERVICE_NAME=&#34;{service-name}.{namespace}.svc.cluster.local&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c">#k8s yaml container中</span><span class="w">
+</span><span class="w">          </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">APOLLO_CONFIG_SERVICE_NAME</span><span class="w">
+</span><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span>{<span class="l">service_name}.{namespace}.svc.cluster.local</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c">#启动脚本</span><span class="w">
+</span><span class="w"></span><span class="c">#scripts/startup-kubernetes.sh</span><span class="w">
+</span><span class="w"></span><span class="c">#SERVER_URL=&#34;http://${APOLLO_ADMIN_SERVICE_NAME}:${SERVER_PORT}&#34;</span><span class="w">
+</span><span class="w"></span><span class="l">SERVER_URL=&#34;http://{service_name}.{namespace}.svc.cluster.local:${SERVER_PORT}&#34;</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<ul>
+<li><strong>将数据库和注册地址写入<code>config/application-github.properties</code>配置文件</strong></li>
+</ul>
+<p>官方是写入<code>Dockerfile</code>中作为环境变量，然后通过<code>entrypoint.sh</code>进行相应的替换。我直接将其写入此配置文件，并删除<code>entrypoint.sh</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">spring.datasource.url = jdbc:mysql://{mysql-ip}:{mysql-port}/{mysql-db}?characterEncoding=utf8</span><span class="w">
+</span><span class="w"></span><span class="l">spring.datasource.username = user</span><span class="w">
+</span><span class="w"></span><span class="l">spring.datasource.password = passwd</span><span class="w">
+</span><span class="w"></span><span class="l">eureka.service.url = http://{service-name}.{namespace}.svc.cluster.local:8080/eureka/</span><span class="w">
+</span><span class="w"></span><span class="c"># 如果环境跨VPC，还需要指定公网地址的 HomePageUrl</span><span class="w">
+</span><span class="w"></span><span class="c"># eureka.instance.homePageUrl = http://ELB:PORT</span><span class="w">
+</span><span class="w"></span><span class="c"># 或 在启动命名指定: -Dapollo.configService=http://config-service的公网IP:端口来跳过meta service的服务发现</span><span class="w">
+</span><span class="w"></span><span class="c"># 如果不指定的话，则默认使用获取的内部地址，这无法正常访问</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<ul>
+<li><strong>portal服务的默认环境是DEV，请注意</strong></li>
+</ul>
+<p>如果配置的第一个环境并不是DEV，请记得先修改数据库中的这个值，不然portal读取config, admin会失败。
+<code>portaldb.serverconfig</code>的<code>apollo.portal.envs</code>这个key，多个环境使用<code>,</code>分割，后面可以在UI上配置。其它环境请修改为其它环境名。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">UPDATE</span><span class="w"> </span><span class="n">serverconfig</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Value</span><span class="o">=</span><span class="s1">&#39;uat&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">Key</span><span class="o">=</span><span class="s1">&#39;apollo.portal.envs&#39;</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">config/apollo-env.properties</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c">#dev.meta=http://DEV_META_SERVICE_NAME:8080</span><span class="w">
+</span><span class="w"></span><span class="c">#fat.meta=http://TEST_ALPHA_META_SERVICE_NAME:8080</span><span class="w">
+</span><span class="w"></span><span class="c">#uat.meta=http://TEST_BETA_META_SERVICE_NAME:8080</span><span class="w">
+</span><span class="w"></span><span class="c">#pro.meta=http://PROD_META_SERVICE_NAME:8080</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c">#某个环境的config</span><span class="w">
+</span><span class="w"></span><span class="l">uat.meta=http://{service-name}.{namespace}.svc.cluster.local:8080</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<ul>
+<li><strong>将日志输出到标准输出<code>/dev/stdout</code></strong></li>
+</ul>
+<p>由于我是运行在容器中，所以需要将日志输出到标准输出。
+这里很奇怪，直接在主机(centos7)上运行<code>./apollo-xxx.jar start</code>，日志正常输出到console；在openjdk容器里运行，<code>./apollo-portal.jar  start</code>它放到后台运行，日志不输出到console，使用<code>java ${JAVA_OPTS} -jar ./&quot;${SERVICE_NAME}.jar&quot;</code>日志能够正常输出到console。
+所以这里修改<code>startup-kubernetes.sh</code>启动命令:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 原</span>
+<span class="c1"># export JAVA_OPTS=&#34;$JAVA_OPTS -Dserver.port=$SERVER_PORT -Dlogging.file=$LOG_DIR/$SERVICE_NAME.log -Xloggc:$LOG_DIR/gc.log -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=5M -XX:HeapDumpPath=$LOG_DIR/HeapDumpOnOutOfMemoryError/&#34;</span>
+
+<span class="c1"># 修改</span>
+<span class="nb">export</span> <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$JAVA_OPTS</span><span class="s2"> -Dserver.port=</span><span class="nv">$SERVER_PORT</span><span class="s2"> -Xloggc:</span><span class="nv">$LOG_DIR</span><span class="s2">/gc.log -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=5M -XX:HeapDumpPath=</span><span class="nv">$LOG_DIR</span><span class="s2">/HeapDumpOnOutOfMemoryError/&#34;</span>
 
 
-<span class=c1># 原</span>
-<span class=c1># ./$SERVICE_NAME&#34;.jar&#34; start</span>
+<span class="c1"># 原</span>
+<span class="c1"># ./$SERVICE_NAME&#34;.jar&#34; start</span>
 
-<span class=c1># 修改</span>
-<span class=c1># 因为 xxx.jar start也是调用 java $opt_java -jar xxx.jar</span>
-java <span class=si>${</span><span class=nv>JAVA_OPT</span><span class=si>}</span> -jar ./<span class=s2>&#34;</span><span class=si>${</span><span class=nv>SERVICE_NAME</span><span class=si>}</span><span class=s2>.jar&#34;</span>
-</code></pre></td></tr></table></div></div><br><ul><li><strong>登录Web UI后可修改配置</strong></li></ul><p>如组织里面的部门名，管理员等等参数，在系统参数里面更新<code>Key</code>对应的<code>Value</code>。
-具体这个Key可参考文档 —— <a href=https://github.com/ctripcorp/apollo/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97#213-%E8%B0%83%E6%95%B4%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE target=_blank rel="noopener noreffer ">调整服务端配置</a></p><br><ul><li><strong>每个环境下有多个config/admin</strong></li></ul><p>请注意，每个环境只有一个数据库，也就是这几个服务都要连接同一个configdb，这点请注意。
-后面还需要修改ConfigDB.ServerConfig表，每个环境的都需要单独配置。这里的<code>eureka.service.url</code> - Eureka服务Url要来修改。</p><blockquote><p>ps: 官方文档
+<span class="c1"># 修改</span>
+<span class="c1"># 因为 xxx.jar start也是调用 java $opt_java -jar xxx.jar</span>
+java <span class="si">${</span><span class="nv">JAVA_OPT</span><span class="si">}</span> -jar ./<span class="s2">&#34;</span><span class="si">${</span><span class="nv">SERVICE_NAME</span><span class="si">}</span><span class="s2">.jar&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<ul>
+<li><strong>登录Web UI后可修改配置</strong></li>
+</ul>
+<p>如组织里面的部门名，管理员等等参数，在系统参数里面更新<code>Key</code>对应的<code>Value</code>。
+具体这个Key可参考文档 —— <a href="https://github.com/ctripcorp/apollo/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97#213-%E8%B0%83%E6%95%B4%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener noreffer ">调整服务端配置</a></p>
+<br/>
+<ul>
+<li><strong>每个环境下有多个config/admin</strong></li>
+</ul>
+<p>请注意，每个环境只有一个数据库，也就是这几个服务都要连接同一个configdb，这点请注意。
+后面还需要修改ConfigDB.ServerConfig表，每个环境的都需要单独配置。这里的<code>eureka.service.url</code>  - Eureka服务Url要来修改。</p>
+<blockquote>
+<p>ps: 官方文档
 不管是apollo-configservice还是apollo-adminservice都需要向eureka服务注册，所以需要配置eureka服务地址。 按照目前的实现，apollo-configservice本身就是一个eureka服务，所以只需要填入apollo-configservice的地址即可，如有多个，用逗号分隔（注意不要忘了/eureka/后缀）。
 需要注意的是每个环境只填入自己环境的eureka服务地址，比如FAT的apollo-configservice是1.1.1.1:8080和2.2.2.2:8080，UAT的apollo-configservice是3.3.3.3:8080和4.4.4.4:8080，PRO的apollo-configservice是5.5.5.5:8080和6.6.6.6:8080，那么：
 在FAT环境的ApolloConfigDB.ServerConfig表中设置eureka.service.url为：
@@ -144,21 +395,45 @@ http://1.1.1.1:8080/eureka/,http://2.2.2.2:8080/eureka/
 在UAT环境的ApolloConfigDB.ServerConfig表中设置eureka.service.url为：
 http://3.3.3.3:8080/eureka/,http://4.4.4.4:8080/eureka/
 在PRO环境的ApolloConfigDB.ServerConfig表中设置eureka.service.url为：
-http://5.5.5.5:8080/eureka/,http://6.6.6.6:8080/eureka/</p></blockquote><p>更过详情请查看官方文档！</p><br><p>假如UAT环境下有:</p><ul><li>config-cd, config-bj, config-gz</li><li>admin-cd, admin-bj, admin-gz</li></ul><p>他们需要向这三个Eureka(cd, bj, gz)注册。</p><p>之后查看config:8080地址，便可以看到这几个地址的信息；在Portal集群信息里面，也可看到有三个CONFIG，三个ADMIN。</p><br><br><hr><br><br><h1 id=栗子>栗子</h1><p>具体信息可以查看官方文档，然后根据官方文档给出的栗子做一些修改。</p><br><h2 id=apollo-config>apollo-config</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh>tree .
+http://5.5.5.5:8080/eureka/,http://6.6.6.6:8080/eureka/</p>
+</blockquote>
+<p>更过详情请查看官方文档！</p>
+<br>
+<p>假如UAT环境下有:</p>
+<ul>
+<li>config-cd, config-bj, config-gz</li>
+<li>admin-cd, admin-bj, admin-gz</li>
+</ul>
+<p>他们需要向这三个Eureka(cd, bj, gz)注册。</p>
+<p>之后查看config:8080地址，便可以看到这几个地址的信息；在Portal集群信息里面，也可看到有三个CONFIG，三个ADMIN。</p>
+<br/>
+<br/>
+<hr>
+<br/>
+<br/>
+<h1 id="栗子">栗子</h1>
+<p>具体信息可以查看官方文档，然后根据官方文档给出的栗子做一些修改。</p>
+<br>
+<h2 id="apollo-config">apollo-config</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">tree .
 
 .
 ├── apollo-configservice.conf
@@ -172,23 +447,31 @@ http://5.5.5.5:8080/eureka/,http://6.6.6.6:8080/eureka/</p></blockquote><p>更�
 └── scripts
     └── startup-kubernetes.sh
 
-</code></pre></td></tr></table></div></div><br><p><strong>Dockerfile</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>FROM openjdk:8-jre-alpine3.8
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<p><strong>Dockerfile</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">FROM openjdk:8-jre-alpine3.8
 
 RUN \
     echo &#34;http://mirrors.aliyun.com/alpine/v3.8/main&#34; &gt; /etc/apk/repositories &amp;&amp; \
@@ -204,17 +487,25 @@ COPY . /apollo-config-server/
 EXPOSE 8080
 
 CMD [&#34;/apollo-config-server/scripts/startup-kubernetes.sh&#34;]
-</code></pre></td></tr></table></div></div><br><p><strong>config/</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># app.properties不用修改
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<p><strong>config/</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># app.properties不用修改
 #  application-github.properties
 # DataSource
 spring.datasource.url = jdbc:mysql://host:port/configdbtest?characterEncoding=utf8
@@ -224,102 +515,170 @@ eureka.service.url = http://xxx.svc.cluster.local:8080/eureka/
 # 扩公网的话请修改 HomePageUrl
 # config-web-test service homepage ELB
 # eureka.instance.homePageUrl = http://ELB:PORT
-</code></pre></td></tr></table></div></div><br><p><strong>scripts/</strong></p><p><code>startup-kubernetes.sh</code> 这个文件，文件名你也可以随便修改。
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p><strong>scripts/</strong></p>
+<p><code>startup-kubernetes.sh</code> 这个文件，文件名你也可以随便修改。
 有些值既可以写在这里面，也可以配置成环境变量(Dockerfile， 或k8s yaml)
-这里把 <code>APOLLO_CONFIG_SERVICE_NAME</code> 配置成 k8s yaml 里的环境变量 <code>xxx.apollo-test.svc.cluster.local</code>(即k8s service)。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span><span class=lnt>25
-</span><span class=lnt>26
-</span><span class=lnt>27
-</span><span class=lnt>28
-</span><span class=lnt>29
-</span><span class=lnt>30
-</span><span class=lnt>31
-</span><span class=lnt>32
-</span><span class=lnt>33
-</span><span class=lnt>34
-</span><span class=lnt>35
-</span><span class=lnt>36
-</span><span class=lnt>37
-</span><span class=lnt>38
-</span><span class=lnt>39
-</span><span class=lnt>40
-</span><span class=lnt>41
-</span><span class=lnt>42
-</span><span class=lnt>43
-</span><span class=lnt>44
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash><span class=cp>#!/bin/bash
-</span><span class=cp></span><span class=nv>SERVICE_NAME</span><span class=o>=</span>apollo-configservice
-<span class=c1>## Adjust log dir if necessary</span>
-<span class=nv>LOG_DIR</span><span class=o>=</span>/opt/logs/apollo-config-server
-<span class=c1>## Adjust server port if necessary</span>
-<span class=nv>SERVER_PORT</span><span class=o>=</span><span class=m>8080</span>
+这里把 <code>APOLLO_CONFIG_SERVICE_NAME</code> 配置成 k8s yaml 里的环境变量 <code>xxx.apollo-test.svc.cluster.local</code>(即k8s service)。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="nv">SERVICE_NAME</span><span class="o">=</span>apollo-configservice
+<span class="c1">## Adjust log dir if necessary</span>
+<span class="nv">LOG_DIR</span><span class="o">=</span>/opt/logs/apollo-config-server
+<span class="c1">## Adjust server port if necessary</span>
+<span class="nv">SERVER_PORT</span><span class="o">=</span><span class="m">8080</span>
 
-<span class=nv>SERVER_URL</span><span class=o>=</span><span class=s2>&#34;http://</span><span class=si>${</span><span class=nv>APOLLO_CONFIG_SERVICE_NAME</span><span class=si>}</span><span class=s2>:</span><span class=si>${</span><span class=nv>SERVER_PORT</span><span class=si>}</span><span class=s2>&#34;</span>
+<span class="nv">SERVER_URL</span><span class="o">=</span><span class="s2">&#34;http://</span><span class="si">${</span><span class="nv">APOLLO_CONFIG_SERVICE_NAME</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">SERVER_PORT</span><span class="si">}</span><span class="s2">&#34;</span>
 
-<span class=c1>## Adjust memory settings if necessary</span>
-<span class=c1>#export JAVA_OPTS=&#34;-Xms6144m -Xmx6144m -Xss256k -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=384m -XX:NewSize=4096m -XX:MaxNewSize=4096m -XX:SurvivorRatio=8&#34;</span>
+<span class="c1">## Adjust memory settings if necessary</span>
+<span class="c1">#export JAVA_OPTS=&#34;-Xms6144m -Xmx6144m -Xss256k -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=384m -XX:NewSize=4096m -XX:MaxNewSize=4096m -XX:SurvivorRatio=8&#34;</span>
 
-<span class=c1>## Only uncomment the following when you are using server jvm</span>
-<span class=c1>#export JAVA_OPTS=&#34;$JAVA_OPTS -server -XX:-ReduceInitialCardMarks&#34;</span>
+<span class="c1">## Only uncomment the following when you are using server jvm</span>
+<span class="c1">#export JAVA_OPTS=&#34;$JAVA_OPTS -server -XX:-ReduceInitialCardMarks&#34;</span>
 
-<span class=c1>########### The following is the same for configservice, adminservice, portal ###########</span>
-<span class=nb>export</span> <span class=nv>JAVA_OPTS</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$JAVA_OPTS</span><span class=s2> -XX:+UseParNewGC -XX:ParallelGCThreads=4 -XX:MaxTenuringThreshold=9 -XX:+UseConcMarkSweepGC -XX:+DisableExplicitGC -XX:+UseCMSInitiatingOccupancyOnly -XX:+ScavengeBeforeFullGC -XX:+UseCMSCompactAtFullCollection -XX:+CMSParallelRemarkEnabled -XX:CMSFullGCsBeforeCompaction=9 -XX:CMSInitiatingOccupancyFraction=60 -XX:+CMSClassUnloadingEnabled -XX:SoftRefLRUPolicyMSPerMB=0 -XX:+CMSPermGenSweepingEnabled -XX:CMSInitiatingPermOccupancyFraction=70 -XX:+ExplicitGCInvokesConcurrent -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationConcurrentTime -XX:+PrintHeapAtGC -XX:+UseGCLogFileRotation -XX:+HeapDumpOnOutOfMemoryError -XX:-OmitStackTraceInFastThrow -Duser.timezone=Asia/Shanghai -Dclient.encoding.override=UTF-8 -Dfile.encoding=UTF-8 -Djava.security.egd=file:/dev/./urandom&#34;</span>
+<span class="c1">########### The following is the same for configservice, adminservice, portal ###########</span>
+<span class="nb">export</span> <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$JAVA_OPTS</span><span class="s2"> -XX:+UseParNewGC -XX:ParallelGCThreads=4 -XX:MaxTenuringThreshold=9 -XX:+UseConcMarkSweepGC -XX:+DisableExplicitGC -XX:+UseCMSInitiatingOccupancyOnly -XX:+ScavengeBeforeFullGC -XX:+UseCMSCompactAtFullCollection -XX:+CMSParallelRemarkEnabled -XX:CMSFullGCsBeforeCompaction=9 -XX:CMSInitiatingOccupancyFraction=60 -XX:+CMSClassUnloadingEnabled -XX:SoftRefLRUPolicyMSPerMB=0 -XX:+CMSPermGenSweepingEnabled -XX:CMSInitiatingPermOccupancyFraction=70 -XX:+ExplicitGCInvokesConcurrent -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationConcurrentTime -XX:+PrintHeapAtGC -XX:+UseGCLogFileRotation -XX:+HeapDumpOnOutOfMemoryError -XX:-OmitStackTraceInFastThrow -Duser.timezone=Asia/Shanghai -Dclient.encoding.override=UTF-8 -Dfile.encoding=UTF-8 -Djava.security.egd=file:/dev/./urandom&#34;</span>
 
-<span class=c1>#官方默认是这个: export JAVA_OPTS=&#34;$JAVA_OPTS -Dserver.port=$SERVER_PORT -Dlogging.file=$LOG_DIR/$SERVICE_NAME.log -Xloggc:$LOG_DIR/gc.log -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=5M -XX:HeapDumpPath=$LOG_DIR/HeapDumpOnOutOfMemoryError/&#34;</span>
+<span class="c1">#官方默认是这个: export JAVA_OPTS=&#34;$JAVA_OPTS -Dserver.port=$SERVER_PORT -Dlogging.file=$LOG_DIR/$SERVICE_NAME.log -Xloggc:$LOG_DIR/gc.log -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=5M -XX:HeapDumpPath=$LOG_DIR/HeapDumpOnOutOfMemoryError/&#34;</span>
 
-<span class=c1># 这里我修改，不将GC信息输出到console</span>
-<span class=nb>export</span> <span class=nv>JAVA_OPTS</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$JAVA_OPTS</span><span class=s2> -Dserver.port=</span><span class=nv>$SERVER_PORT</span><span class=s2> -Xloggc:</span><span class=nv>$LOG_DIR</span><span class=s2>/gc.log -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=5M -XX:HeapDumpPath=</span><span class=nv>$LOG_DIR</span><span class=s2>/HeapDumpOnOutOfMemoryError/&#34;</span>
-
-
-<span class=nb>printf</span> <span class=s2>&#34;</span><span class=k>$(</span>date<span class=k>)</span><span class=s2> ==== Starting ==== \n&#34;</span>
-
-<span class=nb>cd</span> <span class=sb>`</span>dirname <span class=nv>$0</span><span class=sb>`</span>/..
-chmod <span class=m>755</span> <span class=nv>$SERVICE_NAME</span><span class=s2>&#34;.jar&#34;</span>
-
-<span class=c1># 官方默认这样启动</span>
-<span class=c1># ./$SERVICE_NAME&#34;.jar&#34; start</span>
-<span class=c1># 这样启动在主机上可以输出日志到console，但openjdk容器里不行，所以修改如下</span>
-java <span class=si>${</span><span class=nv>JAVA_OPTS</span><span class=si>}</span> -jar ./<span class=nv>$SERVICE_NAME</span><span class=s2>&#34;.jar&#34;</span>
+<span class="c1"># 这里我修改，不将GC信息输出到console</span>
+<span class="nb">export</span> <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$JAVA_OPTS</span><span class="s2"> -Dserver.port=</span><span class="nv">$SERVER_PORT</span><span class="s2"> -Xloggc:</span><span class="nv">$LOG_DIR</span><span class="s2">/gc.log -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=5M -XX:HeapDumpPath=</span><span class="nv">$LOG_DIR</span><span class="s2">/HeapDumpOnOutOfMemoryError/&#34;</span>
 
 
-<span class=nv>rc</span><span class=o>=</span><span class=nv>$?</span><span class=p>;</span>
+<span class="nb">printf</span> <span class="s2">&#34;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2"> ==== Starting ==== \n&#34;</span>
 
-<span class=k>if</span> <span class=o>[[</span> <span class=nv>$rc</span> !<span class=o>=</span> <span class=m>0</span> <span class=o>]]</span><span class=p>;</span>
-<span class=k>then</span>
-    <span class=nb>echo</span> <span class=s2>&#34;</span><span class=k>$(</span>date<span class=k>)</span><span class=s2> Failed to start </span><span class=nv>$SERVICE_NAME</span><span class=s2>.jar, return code: </span><span class=nv>$rc</span><span class=s2>&#34;</span>
-    <span class=nb>exit</span> <span class=nv>$rc</span><span class=p>;</span>
-<span class=k>fi</span>
+<span class="nb">cd</span> <span class="sb">`</span>dirname <span class="nv">$0</span><span class="sb">`</span>/..
+chmod <span class="m">755</span> <span class="nv">$SERVICE_NAME</span><span class="s2">&#34;.jar&#34;</span>
+
+<span class="c1"># 官方默认这样启动</span>
+<span class="c1"># ./$SERVICE_NAME&#34;.jar&#34; start</span>
+<span class="c1"># 这样启动在主机上可以输出日志到console，但openjdk容器里不行，所以修改如下</span>
+java <span class="si">${</span><span class="nv">JAVA_OPTS</span><span class="si">}</span> -jar ./<span class="nv">$SERVICE_NAME</span><span class="s2">&#34;.jar&#34;</span>
+
+
+<span class="nv">rc</span><span class="o">=</span><span class="nv">$?</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$rc</span> !<span class="o">=</span> <span class="m">0</span> <span class="o">]]</span><span class="p">;</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2"> Failed to start </span><span class="nv">$SERVICE_NAME</span><span class="s2">.jar, return code: </span><span class="nv">$rc</span><span class="s2">&#34;</span>
+    <span class="nb">exit</span> <span class="nv">$rc</span><span class="p">;</span>
+<span class="k">fi</span>
 
 tail -f /dev/null
-</code></pre></td></tr></table></div></div><br><p><strong>apollo-configservice.conf</strong></p><p>这个也不需要做什么修改，看个人情况。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>MODE=service
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p><strong>apollo-configservice.conf</strong></p>
+<p>这个也不需要做什么修改，看个人情况。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">MODE=service
 PID_FOLDER=.
 LOG_FOLDER=/opt/logs/apollo-config-server
-</code></pre></td></tr></table></div></div><br><br><br><h2 id=apollo-admin>apollo-admin</h2><p>这个其实和 <code>apollo-config</code> 差不多配置，只是修改一些配置项。</p><br><br><br><h2 id=apollo-portal>apollo-portal</h2><p>这个也和上面差不多，只是修改一些配置项。</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2019-01-09</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/apollo/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://zhang21.cn/apollo/ data-title=Apollo data-hashtags=apollo,分布式,配置中心><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://zhang21.cn/apollo/ data-title=Apollo><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Reddit" data-sharer=reddit data-url=https://zhang21.cn/apollo/><i class="fab fa-reddit fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://zhang21.cn/apollo/ data-title=Apollo><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.0.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://zhang21.cn/apollo/ data-title=Apollo><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/apollo/>apollo</a>,&nbsp;<a href=/tags/%E5%88%86%E5%B8%83%E5%BC%8F/>分布式</a>,&nbsp;<a href=/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/>配置中心</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/storage/ class=prev rel=prev title=存储方案><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>存储方案</a>
-<a href=/openvpn/ class=next rel=next title=OpenVPN>OpenVPN<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=disqus_thread class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://disqus.com/?ref_noscript>Disqus</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://zhang21.cn target=_blank>Zhang21</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
-</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css><script type=text/javascript src=https://zhang21.disqus.com/embed.js defer></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:20},comment:{},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"RZ22ZCTIDN",algoliaIndex:"hugo-index",algoliaSearchKey:"11ec277ef4d730e232eda9651548da78",highlightTag:"em",maxResultLength:20,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"},twemoji:!0}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<br/>
+<h2 id="apollo-admin">apollo-admin</h2>
+<p>这个其实和 <code>apollo-config</code> 差不多配置，只是修改一些配置项。</p>
+<br/>
+<br/>
+<br/>
+<h2 id="apollo-portal">apollo-portal</h2>
+<p>这个也和上面差不多，只是修改一些配置项。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-01-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/apollo/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/apollo/" data-title="Apollo" data-hashtags="apollo,分布式,配置中心"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/apollo/" data-title="Apollo"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/apollo/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/apollo/" data-title="Apollo"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.0.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/apollo/" data-title="Apollo"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/apollo/">apollo</a>,&nbsp;<a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>,&nbsp;<a href="/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/">配置中心</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/storage/" class="prev" rel="prev" title="存储方案"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>存储方案</a>
+            <a href="/openvpn/" class="next" rel="next" title="OpenVPN">OpenVPN<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

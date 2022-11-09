@@ -1,4 +1,19 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>license - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/license/</link><description>license - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 09 Jan 2018 11:50:27 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/license/" rel="self" type="application/rss+xml"/><item><title>开源许可协议</title><link>https://zhang21.cn/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE/</link><pubDate>Tue, 09 Jan 2018 11:50:27 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE/</guid><description><![CDATA[<p>当你为你的产品签发许可，你就是在出让自己的权利。不过，你仍拥有版权和专利（如果申请了专利）。许可的目的，是向使用你产品的人提供一定的权利。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>license - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/license/</link>
+        <description>license - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 09 Jan 2018 11:50:27 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/license/" rel="self" type="application/rss+xml" /><item>
+    <title>开源许可协议</title>
+    <link>https://zhang21.cn/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE/</link>
+    <pubDate>Tue, 09 Jan 2018 11:50:27 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE/</guid>
+    <description><![CDATA[<p>当你为你的产品签发许可，你就是在出让自己的权利。不过，你仍拥有版权和专利（如果申请了专利）。许可的目的，是向使用你产品的人提供一定的权利。</p>
 <p>不管产品是免费分发，还是出售，指定一份许可协议都非常有用。否则，对于免费，你相当于放弃了自己的所有权利，任何人都没有义务表明你的原始作者身份。对于出售，你将不得不花费比开发更多的精力用来处理授权问题。</p>
 <p>而开源许可协议是这些事情变得简单，开发者很容易向一个项目贡献自己的代码，它还可以保护你原始作者的身份，使你至少获得认可。开源许可协议还可以阻止其它人将某个产品据为己有。</p>
-<br>]]></description></item></channel></rss>
+<br>]]></description>
+</item>
+</channel>
+</rss>

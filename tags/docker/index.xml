@@ -1,4 +1,16 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>docker - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/docker/</link><description>docker - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 27 Mar 2018 08:38:33 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/docker/" rel="self" type="application/rss+xml"/><item><title>Docker</title><link>https://zhang21.cn/docker/</link><pubDate>Tue, 27 Mar 2018 08:38:33 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/docker/</guid><description><![CDATA[<p>参考：</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>docker - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/docker/</link>
+        <description>docker - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 27 Mar 2018 08:38:33 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/docker/" rel="self" type="application/rss+xml" /><item>
+    <title>Docker</title>
+    <link>https://zhang21.cn/docker/</link>
+    <pubDate>Tue, 27 Mar 2018 08:38:33 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/docker/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li>Docker文档:  <a href="https://docs.docker.com/">https://docs.docker.com/</a></li>
 <li><a href="https://blog.csdn.net/sD7O95O/article/details/78623697">https://blog.csdn.net/sD7O95O/article/details/78623697</a></li>
@@ -10,4 +22,7 @@
 <li>Docker v18.03</li>
 </ul>
 <br>
-<br/>]]></description></item></channel></rss>
+<br/>]]></description>
+</item>
+</channel>
+</rss>

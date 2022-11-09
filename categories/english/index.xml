@@ -1,11 +1,34 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>english - 分类 - 风继续吹</title><link>https://zhang21.cn/categories/english/</link><description>english - 分类 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 14 Nov 2018 21:06:24 +0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/english/" rel="self" type="application/rss+xml"/><item><title>英语语法</title><link>https://zhang21.cn/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95/</link><pubDate>Wed, 14 Nov 2018 21:06:24 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95/</guid><description><![CDATA[<p>参考: 《新概念英语语法手册》</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>english - 分类 - 风继续吹</title>
+        <link>https://zhang21.cn/categories/english/</link>
+        <description>english - 分类 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 14 Nov 2018 21:06:24 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/english/" rel="self" type="application/rss+xml" /><item>
+    <title>英语语法</title>
+    <link>https://zhang21.cn/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95/</link>
+    <pubDate>Wed, 14 Nov 2018 21:06:24 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95/</guid>
+    <description><![CDATA[<p>参考: 《新概念英语语法手册》</p>
 <br/>
 <br/>
-<hr>]]></description></item><item><title>国际音标</title><link>https://zhang21.cn/internationalphoneticalphabet/</link><pubDate>Tue, 13 Nov 2018 11:25:44 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/internationalphoneticalphabet/</guid><description><![CDATA[<p>参考：</p>
+<hr>]]></description>
+</item>
+<item>
+    <title>国际音标</title>
+    <link>https://zhang21.cn/internationalphoneticalphabet/</link>
+    <pubDate>Tue, 13 Nov 2018 11:25:44 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/internationalphoneticalphabet/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li><a href="https://zh.wikipedia.org/wiki/%E8%8B%B1%E8%AA%9E%E5%9C%8B%E9%9A%9B%E9%9F%B3%E6%A8%99" target="_blank" rel="noopener noreffer ">国际音标维基</a></li>
 <li>巴士英语网: <a href="https://en-yinbiao.xiao84.com/yinbiaofayin/">https://en-yinbiao.xiao84.com/yinbiaofayin/</a></li>
 <li>知乎<code>@姜枣茶茶母</code>的回答: <a href="https://www.zhihu.com/question/19913374">https://www.zhihu.com/question/19913374</a></li>
 </ul>
 <br/>
-<br/>]]></description></item></channel></rss>
+<br/>]]></description>
+</item>
+</channel>
+</rss>

@@ -1,6 +1,21 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>make - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/make/</link><description>make - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 24 Jun 2021 11:49:00 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/make/" rel="self" type="application/rss+xml"/><item><title>Makefile</title><link>https://zhang21.cn/makefile/</link><pubDate>Thu, 24 Jun 2021 11:49:00 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/makefile/</guid><description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>make - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/make/</link>
+        <description>make - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 24 Jun 2021 11:49:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/make/" rel="self" type="application/rss+xml" /><item>
+    <title>Makefile</title>
+    <link>https://zhang21.cn/makefile/</link>
+    <pubDate>Thu, 24 Jun 2021 11:49:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/makefile/</guid>
+    <description><![CDATA[<p>参考:</p>
 <ul>
 <li><a href="https://seisman.github.io/how-to-write-makefile">https://seisman.github.io/how-to-write-makefile</a></li>
 <li><a href="http://www.ruanyifeng.com/blog/2015/02/make.html">http://www.ruanyifeng.com/blog/2015/02/make.html</a></li>
 </ul>
-<br>]]></description></item></channel></rss>
+<br>]]></description>
+</item>
+</channel>
+</rss>

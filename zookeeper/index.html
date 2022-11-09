@@ -1,4 +1,11 @@
-<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>ZooKeeper - 风继续吹</title><meta name=Description content="个人博客"><meta property="og:title" content="ZooKeeper"><meta property="og:description" content="参考:
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>ZooKeeper - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="ZooKeeper" />
+<meta property="og:description" content="参考:
 
 维基百科
 ZooKeeper: https://zookeeper.apache.org/
@@ -11,7 +18,17 @@ ZooKeeper v3.5
 
 
 
-"><meta property="og:type" content="article"><meta property="og:url" content="https://zhang21.cn/zookeeper/"><meta property="og:image" content="https://zhang21.cn/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-03-15T16:57:20+00:00"><meta property="article:modified_time" content="2019-03-15T16:57:20+00:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://zhang21.cn/logo.png"><meta name=twitter:title content="ZooKeeper"><meta name=twitter:description content="参考:
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/zookeeper/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-03-15T16:57:20&#43;00:00" />
+<meta property="article:modified_time" content="2019-03-15T16:57:20&#43;00:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="ZooKeeper"/>
+<meta name="twitter:description" content="参考:
 
 维基百科
 ZooKeeper: https://zookeeper.apache.org/
@@ -24,16 +41,336 @@ ZooKeeper v3.5
 
 
 
-"><meta name=application-name content="风继续吹"><meta name=apple-mobile-web-app-title content="风继续吹"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://zhang21.cn/zookeeper/><link rel=prev href=https://zhang21.cn/devops/><link rel=next href=https://zhang21.cn/beyondtheapex/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"ZooKeeper","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/zhang21.cn\/zookeeper\/"},"image":[{"@type":"ImageObject","url":"https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png","width":3200,"height":2048}],"genre":"posts","keywords":"Apache, ZooKeeper, DataAnalysis","wordcount":3236,"url":"https:\/\/zhang21.cn\/zookeeper\/","datePublished":"2019-03-15T16:57:20+00:00","dateModified":"2019-03-15T16:57:20+00:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"Zhang21","logo":"https:\/\/zhang21.cn\/leslie.png"},"author":{"@type":"Person","name":"Zhang21"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=风继续吹><span class=header-title-pre><i class="far fa-kiss-wink-heart fa-fw"></i></span>风继续吹</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/about/>关于 </a><a class=menu-item href=https://github.com/zhang21 title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
-<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
-<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
-</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=风继续吹><span class=header-title-pre><i class="far fa-kiss-wink-heart fa-fw"></i></span>风继续吹</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
-<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
-<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/about/ title>关于</a><a class=menu-item href=https://github.com/zhang21 title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
-<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">ZooKeeper</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://zhang21.cn title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Zhang21</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/middleware/><i class="far fa-folder fa-fw" aria-hidden=true></i>middleware</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2019-03-15>2019-03-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;约 3236 字&nbsp;
-<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;预计阅读 7 分钟&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>目录</span>
-<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#介绍>介绍</a><ul><li><a href=#概述>概述</a><ul><li><a href=#设计目标>设计目标</a></li><li><a href=#数据模型和分层命名空间>数据模型和分层命名空间</a></li><li><a href=#节点和短暂节点>节点和短暂节点</a></li><li><a href=#协调更新和监视>协调更新和监视</a></li><li><a href=#保证>保证</a></li><li><a href=#api>API</a></li><li><a href=#执行>执行</a></li><li><a href=#用户>用户</a></li><li><a href=#性能>性能</a></li></ul></li><li><a href=#入门>入门</a></li></ul></li></ul></nav></div></div><div class=content id=content><p>参考:</p><ul><li>维基百科</li><li>ZooKeeper: <a href=https://zookeeper.apache.org/>https://zookeeper.apache.org/</a></li><li>Docs: <a href=https://zookeeper.apache.org/doc/>https://zookeeper.apache.org/doc/</a></li></ul><p>环境:</p><ul><li>RHEL7x86_64</li><li>ZooKeeper v3.5</li></ul><br><br><hr><br><br><h1 id=介绍>介绍</h1><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/ZooKeeper/zookeeper_logo.jpg data-srcset="/images/ZooKeeper/zookeeper_logo.jpg, /images/ZooKeeper/zookeeper_logo.jpg 1.5x, /images/ZooKeeper/zookeeper_logo.jpg 2x" data-sizes=auto alt=/images/ZooKeeper/zookeeper_logo.jpg title=/images/ZooKeeper/zookeeper_logo.jpg></p><br><p>ZooKeeper: Because Coordinating Distributed Systems is a Zoo.</p><p><strong>Apache ZooKeeper</strong> 是Apache软件基金会的一个软件项目，它为大型分布式计算提供开源的分布式配置服务、同步服务和命名注册，实现高度可靠的分布式协调。ZooKeeper曾经是Hadoop的一个子项目，但现在是一个独立的顶级项目。</p><p>ZooKeeper 是一种集中式服务，用于维护<strong>配置信息</strong>(conf info)，<strong>命名</strong>(naming)，<strong>分布式同步</strong>(distributed synchronization)，<strong>组服务</strong>(group service)。所有这些类型的服务都以分布式应用程序的某种形式应用。每次实施它们都需要做很多工作来修复不可避免的错误和竞争条件。由于难以实现这些类型的服务，应用程序最初通常会吝啬它们，这使得它们在变化的情况下变得脆弱并且难以管理。即使正确完成，这些服务的不同实现也会在部署应用程序时导致管理复杂性。</p><p><strong>ZooKeeper的架构通过冗余服务实现高可用性</strong>。因此，如果第一次无应答，客户端就可以询问另一台ZooKeeper主机。ZooKeeper节点将它们的数据存储于一个分层的命名空间，非常类似于一个文件系统或一个前缀树结构。客户端可以在节点读写，从而以这种方式拥有一个共享的配置服务。更新是全序的。</p><br><h2 id=概述>概述</h2><p><a href=https://zookeeper.apache.org/doc/r3.5.4-beta/zookeeperOver.html target=_blank rel="noopener noreffer ">ZooKeeper: A Distributed Coordination Service for Distributed Applications</a></p><p>ZooKeeper 是一种用于分布式应用程序的分布式开源协调(coordination)服务。它被设计为易于编程，并使用在熟悉的文件系统目录树结构之后设计的数据模型。它在Java中运行，并具有Java和C的绑定。</p><p>众所周知，协调服务很难做到。他们特别容易出现竞赛条件(race conditions)和死锁(deadlock)。ZooKeeper背后的动机是减轻分布式应用程序从头开始实施协调服务的责任。</p><br><h3 id=设计目标>设计目标</h3><p>Design Goals</p><ul><li><strong>ZooKeeper is simple</strong></li></ul><p>ZooKeeper允许分布式进程通过 <strong>共享的层级命名空间</strong>(shared hierarchal namespace) 相互协调，该命名空间的组织方式与标准文件系统类似。命名空间由 <strong>数据寄存器</strong>(data registers) 组成——在ZooKeeper用语中被称为 <code>znodes</code>，这些与文件和目录类似。与专为存储而设计的典型文件系统不同，ZooKeeper数据保存在内存中，这意味着ZooKeeper可以实现高吞吐量(high throughput)和低延迟数(latency numbers)。</p><p>ZooKeeper的实现非常重视 <strong>高性能(high performance)</strong>， <strong>高可用(highly available)</strong>， <strong>严格有序的访问(strictly ordered access)</strong>。性能方面意味着它可以在大型分布式系统中使用。可靠性方面使其不会成为单点故障(a single point of failure)。严格的排序意味着可以在客户端实现复杂的同步原语。</p><br><ul><li><strong>ZooKeeper is replicated</strong></li></ul><p>与它协调的分布式进程一样，ZooKeeper本身也可以在称为 <strong>集合(ensemble)</strong> 的一组主机上进行 副本复制(replicated)。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/ZooKeeper/zkservice.jpg data-srcset="/images/ZooKeeper/zkservice.jpg, /images/ZooKeeper/zkservice.jpg 1.5x, /images/ZooKeeper/zkservice.jpg 2x" data-sizes=auto alt=/images/ZooKeeper/zkservice.jpg title=/images/ZooKeeper/zkservice.jpg></p><p>组成ZooKeeper服务的Server必须了解彼此。它们维护一个内存中的状态镜像，以及持久性存储的事务日志和快照。只要大多数Servers可用，ZooKeeper服务就可用。</p><p>Client连接到单个Server。Client维护TCP连接，通过该连接发送请求，获取响应，获取监视事件(watch events)，以及发送心跳(heart beats)。如果与Server的TCP连接中断，则Client将连接到其它Server。</p><br><ul><li><strong>ZooKeeper is ordered</strong></li></ul><p>ZooKeeper使用反映所有ZooKeeper事务顺序的数字标记每个更新。后续操作可以使用该顺序来实现更高级别的抽象，例如同步原语。</p><br><ul><li><strong>ZooKeeper is fast</strong></li></ul><p>它在读取 <code>read-doninant</code> 工作负载中特别快。ZooKeeper应用程序运行在成千上万的计算机上，并且在读取别写入更常见的情况下(比率<code>10:1</code>)表现最佳。</p><br><br><h3 id=数据模型和分层命名空间>数据模型和分层命名空间</h3><p>Data model and the hierarchical namespace</p><p>ZooKeeper提供的命名空间非常类似于标准文件系统。名称是由斜杠(<code>/</code>)分隔的路径元素序列。ZooKeeper命名空间中的每个节点都由路径标识。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/ZooKeeper/zknamespace.jpg data-srcset="/images/ZooKeeper/zknamespace.jpg, /images/ZooKeeper/zknamespace.jpg 1.5x, /images/ZooKeeper/zknamespace.jpg 2x" data-sizes=auto alt=/images/ZooKeeper/zknamespace.jpg title=/images/ZooKeeper/zknamespace.jpg></p><br><br><h3 id=节点和短暂节点>节点和短暂节点</h3><p>Nodes and ephemeral nodes</p><p>与标准文件系统不同，ZooKeeper命名空间中的每个节点都可包含与之关联的数据以及孩子。这就像拥有一个允许文件也是目录的文件系统。ZooKeeper旨在存储协调数据：状态信息，配置，位置信息等，因此存储在每个节点的数据通常很小。我们使用术语 <strong>znode</strong> 来表明我们正在谈论的ZooKeeper数据节点。</p><p>Znodes 维护一个 <strong>状态结构(stat structure)</strong>，其中包括数据更改、ACL更改、时间戳更改，以允许缓存验证和协调更新。每次znode的数据更改时，版本号都会增加。例如，每当Client检索数据时，它也接收数据的版本。</p><p>存储在每个znode命名空间中的数据以原子(atomically)方式进行读写。读取与znode关联的所有数据字节，写入替换所有的数据。每个节点都有一个ACL限制谁可以做什么。</p><p>ZooKeeper也有 <strong>短暂节点(ephemeral nodes)</strong> 的概念。只要创建的znode处于活动状态，就会存在这些znode，回话结束时，znode将被删除。当你想要实现 <code>[tbd]</code> 时，短暂节点很有用。</p><br><br><h3 id=协调更新和监视>协调更新和监视</h3><p>Conditional updates and watches</p><p>ZooKeeper支持监视(watch)的概念。Client可以在znode上设置监视。当znode更改时，将触发并删除监视。触发监视时，Client会受到一个数据包，指出znode已更改。如果Client与其中一个ZooKeeper Server之间的连接中断，则Client将收到本地通知。这可以用于 <code>[tbd]</code> 。</p><br><br><h3 id=保证>保证</h3><p>Guarantees</p><p>ZooKeeper非常快速和简单。但是，由于基于目标是构建更复杂的服务(如同步)的基础，因此它提供了一系列保证。这些是:</p><ul><li><strong>顺序一致性(Sequential Consistency)</strong>: Client的更新将按发送顺序来应用</li><li><strong>原子性(Atomicity)</strong>: 更新成功或失败，没有其它结果</li><li><strong>单系统镜像(Single System Image)</strong>: 无论连接到哪个Server，Client都将看到相同的服务视图</li><li><strong>可靠性(Reliability)</strong>: 一旦更新被应用，它将从该时间开始持续，知道Client覆盖此更新</li><li><strong>时宜性(Timeliness)</strong>: 系统的Client视图保证在特定的时间范围内是最新的</li></ul><br><br><h3 id=api>API</h3><p>ZooKeeper的设计目标之一是提供非常简单的编程接口。因此，它仅支持以下操作:</p><ul><li>create: creates a node at a location in the tree</li><li>delete: deletes a node</li><li>exists: tests if a node exists at a location</li><li>get data: reads the data from a node</li><li>set data: writes data to a node</li><li>get children: retrieves a list of children of a node</li><li>sync: waits for data to be propagated</li></ul><br><br><h3 id=执行>执行</h3><p>Implementation</p><p>ZooKeeper组件显示了ZooKeeper服务的高级组件。除了请求处理器，构成ZooKeeper服务的每个Server都复制自己每个组件的副本。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/ZooKeeper/zkcomponents.jpg data-srcset="/images/ZooKeeper/zkcomponents.jpg, /images/ZooKeeper/zkcomponents.jpg 1.5x, /images/ZooKeeper/zkcomponents.jpg 2x" data-sizes=auto alt=/images/ZooKeeper/zkcomponents.jpg title=/images/ZooKeeper/zkcomponents.jpg></p><ul><li>副本数据库是一个包含整个数据树的内存数据库。更新将记录到磁盘以获得可恢复性，并且在写入内存数据库之前会序列化的磁盘</li><li>每个ZooKeeper Server都为Client服务。Client只连接到一台Server以提交请求。读取请求由每个Server数据库的本地副本提供。更改服务状态的请求，写请求由 协定协议(agreement protocol) 处理</li><li>作为协定协议的一部分，来自Client的所有写入请求都被转发到称为 <strong>leader</strong> 的单个Server。其余的ZooKeeper Server，称为<strong>follower</strong>，接收来自<strong>leader</strong>的消息提议并同意消息传递。消息传递层负责替换失败的leader，并将follower与leader同步</li><li>ZooKeeper使用自定义的原子消息(atomic messaging)协议。由于消息传递层是原子的，因此ZooKeeper可以保证本地副本永远不会发散。当leader收到写入请求时，它会计算应用写入时系统的状态，并将其转换为捕获此新状态的事务。</li></ul><br><br><h3 id=用户>用户</h3><p>ZooKeeper的编程接口非常简单。但是，通过它，您可以实现更高阶的操作，例如同步原语，组成员身份，所有权等。</p><br><br><h3 id=性能>性能</h3><p>Performance</p><p>ZooKeeper旨在提供高性能。在读取数量超过写入的应用程序中，它的性能尤其高，因为写入涉及同步所有Server的状态。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/ZooKeeper/zkperfRW.jpg data-srcset="/images/ZooKeeper/zkperfRW.jpg, /images/ZooKeeper/zkperfRW.jpg 1.5x, /images/ZooKeeper/zkperfRW.jpg 2x" data-sizes=auto alt=/images/ZooKeeper/zkperfRW.jpg title=/images/ZooKeeper/zkperfRW.jpg></p><p>The events marked in the figure are the following:</p><ul><li>Failure and recovery of a follower</li><li>Failure and recovery of a different follower</li><li>Failure of the leader</li><li>Failure and recovery of two followers</li><li>Failure of another leader</li></ul><br><br><br><h2 id=入门>入门</h2><p><a href=https://zookeeper.apache.org/doc/r3.5.4-beta/zookeeperStarted.html target=_blank rel="noopener noreffer ">ZooKeeper Getting Started Guide</a></p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2019-03-15</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/zookeeper/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://zhang21.cn/zookeeper/ data-title=ZooKeeper data-hashtags=Apache,ZooKeeper,DataAnalysis><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://zhang21.cn/zookeeper/ data-title=ZooKeeper><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Reddit" data-sharer=reddit data-url=https://zhang21.cn/zookeeper/><i class="fab fa-reddit fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://zhang21.cn/zookeeper/ data-title=ZooKeeper><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.0.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://zhang21.cn/zookeeper/ data-title=ZooKeeper><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/apache/>Apache</a>,&nbsp;<a href=/tags/zookeeper/>ZooKeeper</a>,&nbsp;<a href=/tags/dataanalysis/>DataAnalysis</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/devops/ class=prev rel=prev title=DevOps><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>DevOps</a>
-<a href=/beyondtheapex/ class=next rel=next title="Beyond The Apex">Beyond The Apex<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=disqus_thread class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://disqus.com/?ref_noscript>Disqus</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://zhang21.cn target=_blank>Zhang21</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
-</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css><script type=text/javascript src=https://zhang21.disqus.com/embed.js defer></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:20},comment:{},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"RZ22ZCTIDN",algoliaIndex:"hugo-index",algoliaSearchKey:"11ec277ef4d730e232eda9651548da78",highlightTag:"em",maxResultLength:20,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"},twemoji:!0}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/zookeeper/" /><link rel="prev" href="https://zhang21.cn/devops/" /><link rel="next" href="https://zhang21.cn/beyondtheapex/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "ZooKeeper",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/zookeeper\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "Apache, ZooKeeper, DataAnalysis","wordcount":  3236 ,
+        "url": "https:\/\/zhang21.cn\/zookeeper\/","datePublished": "2019-03-15T16:57:20+00:00","dateModified": "2019-03-15T16:57:20+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">ZooKeeper</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/middleware/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>middleware</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2019-03-15">2019-03-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3236 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a>
+      <ul>
+        <li><a href="#概述">概述</a>
+          <ul>
+            <li><a href="#设计目标">设计目标</a></li>
+            <li><a href="#数据模型和分层命名空间">数据模型和分层命名空间</a></li>
+            <li><a href="#节点和短暂节点">节点和短暂节点</a></li>
+            <li><a href="#协调更新和监视">协调更新和监视</a></li>
+            <li><a href="#保证">保证</a></li>
+            <li><a href="#api">API</a></li>
+            <li><a href="#执行">执行</a></li>
+            <li><a href="#用户">用户</a></li>
+            <li><a href="#性能">性能</a></li>
+          </ul>
+        </li>
+        <li><a href="#入门">入门</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考:</p>
+<ul>
+<li>维基百科</li>
+<li>ZooKeeper: <a href="https://zookeeper.apache.org/">https://zookeeper.apache.org/</a></li>
+<li>Docs: <a href="https://zookeeper.apache.org/doc/">https://zookeeper.apache.org/doc/</a></li>
+</ul>
+<p>环境:</p>
+<ul>
+<li>RHEL7x86_64</li>
+<li>ZooKeeper v3.5</li>
+</ul>
+<br/>
+<br/>
+<hr>
+<br/>
+<br/>
+<h1 id="介绍">介绍</h1>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/ZooKeeper/zookeeper_logo.jpg"
+        data-srcset="/images/ZooKeeper/zookeeper_logo.jpg, /images/ZooKeeper/zookeeper_logo.jpg 1.5x, /images/ZooKeeper/zookeeper_logo.jpg 2x"
+        data-sizes="auto"
+        alt="/images/ZooKeeper/zookeeper_logo.jpg"
+        title="/images/ZooKeeper/zookeeper_logo.jpg" /></p>
+<br>
+<p>ZooKeeper: Because Coordinating Distributed Systems is a Zoo.</p>
+<p><strong>Apache ZooKeeper</strong> 是Apache软件基金会的一个软件项目，它为大型分布式计算提供开源的分布式配置服务、同步服务和命名注册，实现高度可靠的分布式协调。ZooKeeper曾经是Hadoop的一个子项目，但现在是一个独立的顶级项目。</p>
+<p>ZooKeeper 是一种集中式服务，用于维护<strong>配置信息</strong>(conf info)，<strong>命名</strong>(naming)，<strong>分布式同步</strong>(distributed synchronization)，<strong>组服务</strong>(group service)。所有这些类型的服务都以分布式应用程序的某种形式应用。每次实施它们都需要做很多工作来修复不可避免的错误和竞争条件。由于难以实现这些类型的服务，应用程序最初通常会吝啬它们，这使得它们在变化的情况下变得脆弱并且难以管理。即使正确完成，这些服务的不同实现也会在部署应用程序时导致管理复杂性。</p>
+<p><strong>ZooKeeper的架构通过冗余服务实现高可用性</strong>。因此，如果第一次无应答，客户端就可以询问另一台ZooKeeper主机。ZooKeeper节点将它们的数据存储于一个分层的命名空间，非常类似于一个文件系统或一个前缀树结构。客户端可以在节点读写，从而以这种方式拥有一个共享的配置服务。更新是全序的。</p>
+<br/>
+<h2 id="概述">概述</h2>
+<p><a href="https://zookeeper.apache.org/doc/r3.5.4-beta/zookeeperOver.html" target="_blank" rel="noopener noreffer ">ZooKeeper: A Distributed Coordination Service for Distributed Applications</a></p>
+<p>ZooKeeper 是一种用于分布式应用程序的分布式开源协调(coordination)服务。它被设计为易于编程，并使用在熟悉的文件系统目录树结构之后设计的数据模型。它在Java中运行，并具有Java和C的绑定。</p>
+<p>众所周知，协调服务很难做到。他们特别容易出现竞赛条件(race conditions)和死锁(deadlock)。ZooKeeper背后的动机是减轻分布式应用程序从头开始实施协调服务的责任。</p>
+<br/>
+<h3 id="设计目标">设计目标</h3>
+<p>Design Goals</p>
+<ul>
+<li><strong>ZooKeeper is simple</strong></li>
+</ul>
+<p>ZooKeeper允许分布式进程通过 <strong>共享的层级命名空间</strong>(shared hierarchal namespace) 相互协调，该命名空间的组织方式与标准文件系统类似。命名空间由 <strong>数据寄存器</strong>(data registers) 组成——在ZooKeeper用语中被称为 <code>znodes</code>，这些与文件和目录类似。与专为存储而设计的典型文件系统不同，ZooKeeper数据保存在内存中，这意味着ZooKeeper可以实现高吞吐量(high throughput)和低延迟数(latency numbers)。</p>
+<p>ZooKeeper的实现非常重视 <strong>高性能(high performance)</strong>， <strong>高可用(highly available)</strong>， <strong>严格有序的访问(strictly ordered access)</strong>。性能方面意味着它可以在大型分布式系统中使用。可靠性方面使其不会成为单点故障(a single point of failure)。严格的排序意味着可以在客户端实现复杂的同步原语。</p>
+<br>
+<ul>
+<li><strong>ZooKeeper is replicated</strong></li>
+</ul>
+<p>与它协调的分布式进程一样，ZooKeeper本身也可以在称为 <strong>集合(ensemble)</strong> 的一组主机上进行 副本复制(replicated)。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/ZooKeeper/zkservice.jpg"
+        data-srcset="/images/ZooKeeper/zkservice.jpg, /images/ZooKeeper/zkservice.jpg 1.5x, /images/ZooKeeper/zkservice.jpg 2x"
+        data-sizes="auto"
+        alt="/images/ZooKeeper/zkservice.jpg"
+        title="/images/ZooKeeper/zkservice.jpg" /></p>
+<p>组成ZooKeeper服务的Server必须了解彼此。它们维护一个内存中的状态镜像，以及持久性存储的事务日志和快照。只要大多数Servers可用，ZooKeeper服务就可用。</p>
+<p>Client连接到单个Server。Client维护TCP连接，通过该连接发送请求，获取响应，获取监视事件(watch events)，以及发送心跳(heart beats)。如果与Server的TCP连接中断，则Client将连接到其它Server。</p>
+<br>
+<ul>
+<li><strong>ZooKeeper is ordered</strong></li>
+</ul>
+<p>ZooKeeper使用反映所有ZooKeeper事务顺序的数字标记每个更新。后续操作可以使用该顺序来实现更高级别的抽象，例如同步原语。</p>
+<br>
+<ul>
+<li><strong>ZooKeeper is fast</strong></li>
+</ul>
+<p>它在读取 <code>read-doninant</code> 工作负载中特别快。ZooKeeper应用程序运行在成千上万的计算机上，并且在读取别写入更常见的情况下(比率<code>10:1</code>)表现最佳。</p>
+<br/>
+<br/>
+<h3 id="数据模型和分层命名空间">数据模型和分层命名空间</h3>
+<p>Data model and the hierarchical namespace</p>
+<p>ZooKeeper提供的命名空间非常类似于标准文件系统。名称是由斜杠(<code>/</code>)分隔的路径元素序列。ZooKeeper命名空间中的每个节点都由路径标识。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/ZooKeeper/zknamespace.jpg"
+        data-srcset="/images/ZooKeeper/zknamespace.jpg, /images/ZooKeeper/zknamespace.jpg 1.5x, /images/ZooKeeper/zknamespace.jpg 2x"
+        data-sizes="auto"
+        alt="/images/ZooKeeper/zknamespace.jpg"
+        title="/images/ZooKeeper/zknamespace.jpg" /></p>
+<br/>
+<br/>
+<h3 id="节点和短暂节点">节点和短暂节点</h3>
+<p>Nodes and ephemeral nodes</p>
+<p>与标准文件系统不同，ZooKeeper命名空间中的每个节点都可包含与之关联的数据以及孩子。这就像拥有一个允许文件也是目录的文件系统。ZooKeeper旨在存储协调数据：状态信息，配置，位置信息等，因此存储在每个节点的数据通常很小。我们使用术语 <strong>znode</strong> 来表明我们正在谈论的ZooKeeper数据节点。</p>
+<p>Znodes 维护一个 <strong>状态结构(stat structure)</strong>，其中包括数据更改、ACL更改、时间戳更改，以允许缓存验证和协调更新。每次znode的数据更改时，版本号都会增加。例如，每当Client检索数据时，它也接收数据的版本。</p>
+<p>存储在每个znode命名空间中的数据以原子(atomically)方式进行读写。读取与znode关联的所有数据字节，写入替换所有的数据。每个节点都有一个ACL限制谁可以做什么。</p>
+<p>ZooKeeper也有 <strong>短暂节点(ephemeral nodes)</strong> 的概念。只要创建的znode处于活动状态，就会存在这些znode，回话结束时，znode将被删除。当你想要实现 <code>[tbd]</code> 时，短暂节点很有用。</p>
+<br/>
+<br/>
+<h3 id="协调更新和监视">协调更新和监视</h3>
+<p>Conditional updates and watches</p>
+<p>ZooKeeper支持监视(watch)的概念。Client可以在znode上设置监视。当znode更改时，将触发并删除监视。触发监视时，Client会受到一个数据包，指出znode已更改。如果Client与其中一个ZooKeeper Server之间的连接中断，则Client将收到本地通知。这可以用于 <code>[tbd]</code> 。</p>
+<br/>
+<br/>
+<h3 id="保证">保证</h3>
+<p>Guarantees</p>
+<p>ZooKeeper非常快速和简单。但是，由于基于目标是构建更复杂的服务(如同步)的基础，因此它提供了一系列保证。这些是:</p>
+<ul>
+<li><strong>顺序一致性(Sequential Consistency)</strong>: Client的更新将按发送顺序来应用</li>
+<li><strong>原子性(Atomicity)</strong>: 更新成功或失败，没有其它结果</li>
+<li><strong>单系统镜像(Single System Image)</strong>: 无论连接到哪个Server，Client都将看到相同的服务视图</li>
+<li><strong>可靠性(Reliability)</strong>: 一旦更新被应用，它将从该时间开始持续，知道Client覆盖此更新</li>
+<li><strong>时宜性(Timeliness)</strong>: 系统的Client视图保证在特定的时间范围内是最新的</li>
+</ul>
+<br/>
+<br/>
+<h3 id="api">API</h3>
+<p>ZooKeeper的设计目标之一是提供非常简单的编程接口。因此，它仅支持以下操作:</p>
+<ul>
+<li>create: creates a node at a location in the tree</li>
+<li>delete: deletes a node</li>
+<li>exists: tests if a node exists at a location</li>
+<li>get data: reads the data from a node</li>
+<li>set data: writes data to a node</li>
+<li>get children: retrieves a list of children of a node</li>
+<li>sync: waits for data to be propagated</li>
+</ul>
+<br/>
+<br/>
+<h3 id="执行">执行</h3>
+<p>Implementation</p>
+<p>ZooKeeper组件显示了ZooKeeper服务的高级组件。除了请求处理器，构成ZooKeeper服务的每个Server都复制自己每个组件的副本。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/ZooKeeper/zkcomponents.jpg"
+        data-srcset="/images/ZooKeeper/zkcomponents.jpg, /images/ZooKeeper/zkcomponents.jpg 1.5x, /images/ZooKeeper/zkcomponents.jpg 2x"
+        data-sizes="auto"
+        alt="/images/ZooKeeper/zkcomponents.jpg"
+        title="/images/ZooKeeper/zkcomponents.jpg" /></p>
+<ul>
+<li>副本数据库是一个包含整个数据树的内存数据库。更新将记录到磁盘以获得可恢复性，并且在写入内存数据库之前会序列化的磁盘</li>
+<li>每个ZooKeeper Server都为Client服务。Client只连接到一台Server以提交请求。读取请求由每个Server数据库的本地副本提供。更改服务状态的请求，写请求由 协定协议(agreement protocol) 处理</li>
+<li>作为协定协议的一部分，来自Client的所有写入请求都被转发到称为 <strong>leader</strong> 的单个Server。其余的ZooKeeper Server，称为<strong>follower</strong>，接收来自<strong>leader</strong>的消息提议并同意消息传递。消息传递层负责替换失败的leader，并将follower与leader同步</li>
+<li>ZooKeeper使用自定义的原子消息(atomic messaging)协议。由于消息传递层是原子的，因此ZooKeeper可以保证本地副本永远不会发散。当leader收到写入请求时，它会计算应用写入时系统的状态，并将其转换为捕获此新状态的事务。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="用户">用户</h3>
+<p>ZooKeeper的编程接口非常简单。但是，通过它，您可以实现更高阶的操作，例如同步原语，组成员身份，所有权等。</p>
+<br/>
+<br/>
+<h3 id="性能">性能</h3>
+<p>Performance</p>
+<p>ZooKeeper旨在提供高性能。在读取数量超过写入的应用程序中，它的性能尤其高，因为写入涉及同步所有Server的状态。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/ZooKeeper/zkperfRW.jpg"
+        data-srcset="/images/ZooKeeper/zkperfRW.jpg, /images/ZooKeeper/zkperfRW.jpg 1.5x, /images/ZooKeeper/zkperfRW.jpg 2x"
+        data-sizes="auto"
+        alt="/images/ZooKeeper/zkperfRW.jpg"
+        title="/images/ZooKeeper/zkperfRW.jpg" /></p>
+<p>The events marked in the figure are the following:</p>
+<ul>
+<li>Failure and recovery of a follower</li>
+<li>Failure and recovery of a different follower</li>
+<li>Failure of the leader</li>
+<li>Failure and recovery of two followers</li>
+<li>Failure of another leader</li>
+</ul>
+<br/>
+<br/>
+<br/>
+<h2 id="入门">入门</h2>
+<p><a href="https://zookeeper.apache.org/doc/r3.5.4-beta/zookeeperStarted.html" target="_blank" rel="noopener noreffer ">ZooKeeper Getting Started Guide</a></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-03-15</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zookeeper/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/zookeeper/" data-title="ZooKeeper" data-hashtags="Apache,ZooKeeper,DataAnalysis"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/zookeeper/" data-title="ZooKeeper"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/zookeeper/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/zookeeper/" data-title="ZooKeeper"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.0.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/zookeeper/" data-title="ZooKeeper"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/apache/">Apache</a>,&nbsp;<a href="/tags/zookeeper/">ZooKeeper</a>,&nbsp;<a href="/tags/dataanalysis/">DataAnalysis</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/devops/" class="prev" rel="prev" title="DevOps"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>DevOps</a>
+            <a href="/beyondtheapex/" class="next" rel="next" title="Beyond The Apex">Beyond The Apex<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

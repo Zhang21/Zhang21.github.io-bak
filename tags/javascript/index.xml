@@ -1,4 +1,16 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/javascript/</link><description>JavaScript - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 16 Mar 2020 16:02:10 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/javascript/" rel="self" type="application/rss+xml"/><item><title>JavaScript</title><link>https://zhang21.cn/javascript/</link><pubDate>Mon, 16 Mar 2020 16:02:10 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/javascript/</guid><description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>JavaScript - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/javascript/</link>
+        <description>JavaScript - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 16 Mar 2020 16:02:10 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/javascript/" rel="self" type="application/rss+xml" /><item>
+    <title>JavaScript</title>
+    <link>https://zhang21.cn/javascript/</link>
+    <pubDate>Mon, 16 Mar 2020 16:02:10 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/javascript/</guid>
+    <description><![CDATA[<p>参考:</p>
 <ul>
 <li>wiki: <a href="https://zh.wikipedia.org/zh-cn/JavaScript">https://zh.wikipedia.org/zh-cn/JavaScript</a></li>
 <li>W3school: <a href="https://www.w3school.com.cn/js/index.asp">https://www.w3school.com.cn/js/index.asp</a></li>
@@ -11,4 +23,7 @@
 </ul>
 <br/>
 <br/>
-<hr>]]></description></item></channel></rss>
+<hr>]]></description>
+</item>
+</channel>
+</rss>

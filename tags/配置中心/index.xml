@@ -1,4 +1,16 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>配置中心 - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</link><description>配置中心 - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 09 Jan 2019 19:11:22 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/" rel="self" type="application/rss+xml"/><item><title>Apollo</title><link>https://zhang21.cn/apollo/</link><pubDate>Wed, 09 Jan 2019 19:11:22 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/apollo/</guid><description><![CDATA[<p>参考:</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>配置中心 - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</link>
+        <description>配置中心 - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 09 Jan 2019 19:11:22 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/" rel="self" type="application/rss+xml" /><item>
+    <title>Apollo</title>
+    <link>https://zhang21.cn/apollo/</link>
+    <pubDate>Wed, 09 Jan 2019 19:11:22 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/apollo/</guid>
+    <description><![CDATA[<p>参考:</p>
 <ul>
 <li>Apollo官方文档: <a href="https://github.com/ctripcorp/apollo/wiki">https://github.com/ctripcorp/apollo/wiki</a></li>
 </ul>
@@ -10,7 +22,15 @@
 <li>K8s v1.11</li>
 </ul>
 <br/>
-<br/>]]></description></item><item><title>Consul</title><link>https://zhang21.cn/consul/</link><pubDate>Thu, 05 Apr 2018 22:08:11 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/consul/</guid><description><![CDATA[<p>参考：</p>
+<br/>]]></description>
+</item>
+<item>
+    <title>Consul</title>
+    <link>https://zhang21.cn/consul/</link>
+    <pubDate>Thu, 05 Apr 2018 22:08:11 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/consul/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li><a href="https://www.consul.io/intro/index.html">https://www.consul.io/intro/index.html</a></li>
 <li><a href="https://www.consul.io/docs/">https://www.consul.io/docs/</a></li>
@@ -22,4 +42,7 @@
 <li>Consul v1.2.0</li>
 </ul>
 <br>
-<br/>]]></description></item></channel></rss>
+<br/>]]></description>
+</item>
+</channel>
+</rss>

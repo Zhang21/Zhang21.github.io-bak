@@ -1,168 +1,470 @@
-<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Terraform - 风继续吹</title><meta name=Description content="Terraform相关知识"><meta property="og:title" content="Terraform"><meta property="og:description" content="Terraform相关知识"><meta property="og:type" content="article"><meta property="og:url" content="https://zhang21.cn/terraform/"><meta property="og:image" content="https://zhang21.cn/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-05-05T00:00:00+00:00"><meta property="article:modified_time" content="2022-05-07T00:00:00+00:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://zhang21.cn/logo.png"><meta name=twitter:title content="Terraform"><meta name=twitter:description content="Terraform相关知识"><meta name=application-name content="风继续吹"><meta name=apple-mobile-web-app-title content="风继续吹"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://zhang21.cn/terraform/><link rel=prev href=https://zhang21.cn/mongodb-definitive-guide/><link rel=next href=https://zhang21.cn/hexo-hugo/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Terraform","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/zhang21.cn\/terraform\/"},"image":[{"@type":"ImageObject","url":"https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png","width":3200,"height":2048}],"genre":"posts","keywords":"terraform, iac, 基础架构即代码, 基础设施即代码","wordcount":1365,"url":"https:\/\/zhang21.cn\/terraform\/","datePublished":"2022-05-05T00:00:00+00:00","dateModified":"2022-05-07T00:00:00+00:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"Zhang21","logo":"https:\/\/zhang21.cn\/leslie.png"},"author":{"@type":"Person","name":"Zhang21"},"description":"Terraform相关知识"}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=风继续吹><span class=header-title-pre><i class="far fa-kiss-wink-heart fa-fw"></i></span>风继续吹</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/about/>关于 </a><a class=menu-item href=https://github.com/zhang21 title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
-<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
-<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
-</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=风继续吹><span class=header-title-pre><i class="far fa-kiss-wink-heart fa-fw"></i></span>风继续吹</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
-<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
-<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/about/ title>关于</a><a class=menu-item href=https://github.com/zhang21 title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
-<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Terraform</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://zhang21.cn title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Zhang21</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/devops/><i class="far fa-folder fa-fw" aria-hidden=true></i>devops</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-05-05>2022-05-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;约 1365 字&nbsp;
-<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;预计阅读 3 分钟&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>目录</span>
-<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#基础架构即代码>基础架构即代码</a></li><li><a href=#terraform介绍>Terraform介绍</a><ul><li><a href=#terraform是什么>Terraform是什么</a></li><li><a href=#用例>用例</a></li><li><a href=#快速开始>快速开始</a><ul><li><a href=#aws示例>AWS示例</a><ul><li><a href=#导入aws相关认证>导入aws相关认证</a></li><li><a href=#编写配置>编写配置</a></li><li><a href=#配置内容>配置内容</a></li><li><a href=#初始化目录>初始化目录</a></li><li><a href=#格式化和验证配置>格式化和验证配置</a></li><li><a href=#查看变更和创建基础设施>查看变更和创建基础设施</a></li><li><a href=#查看状态>查看状态</a></li><li><a href=#定义变量>定义变量</a></li><li><a href=#在输出中查询数据>在输出中查询数据</a></li></ul></li></ul></li></ul></li><li><a href=#terraform语言>Terraform语言</a></li></ul></nav></div></div><div class=content id=content><p>参考:</p><ul><li><a href=https://www.terraform.io/ target=_blank rel="noopener noreffer ">Terraform</a></li><li><a href=https://www.redhat.com/zh/topics/automation/what-is-infrastructure-as-code-iac target=_blank rel="noopener noreffer ">什么是基础架构即代码</a></li></ul><br><br><br><br><h1 id=基础架构即代码>基础架构即代码</h1><p>基础架构即代码(IaC, Infrastructure as Code)，是通过代码（而非手动流程）来管理和置备基础架构（网络、虚拟机、负载均衡器和连接拓扑）的方法。</p><p>利用IaC，我们可以创建包含基础架构规范的配置文件，从而便于编辑和分发配置。此外，它还可确保每次置备的环境都完全相同。</p><p>版本控制是IaC的一个重要组成部分，就像其他任何软件源代码文件一样，配置文件也应该在源代码控制之下。</p><br><hr><br><h1 id=terraform介绍>Terraform介绍</h1><br><h2 id=terraform是什么>Terraform是什么</h2><p>Terraform是一个基础设施即代码的工具，可让你安全有效地构建，更改和版本化基础设施。这包含了两个组件，低级别的如计算实例，存储和网络；高级别的DNS和SaaS功能。</p><p>Terraform通过其API在云平台或其它服务上创建和管理资源。供应商(provider)使得Terraform几乎可以使用任何平台和服务。可以在<a href=https://registry.terraform.io/ target=_blank rel="noopener noreffer ">Terrafrom Registry</a>上查询对应的供应商。如aws, gcp, azure, alicloud, tencentcloud等。</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/Terraform/assets.png data-srcset="/images/Terraform/assets.png, /images/Terraform/assets.png 1.5x, /images/Terraform/assets.png 2x" data-sizes=auto alt=/images/Terraform/assets.png title=/images/Terraform/assets.png></p><br><p>Terraform的工作流由三个阶段组成：</p><ul><li><strong>Write</strong>: 定义资源。</li><li><strong>Plan</strong>: 基于现有基础架构和配置，描述是创建、更新或摧毁基础架构。</li><li><strong>Apply</strong>: 执行操作。</li></ul><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/Terraform/write-plan-apply.png data-srcset="/images/Terraform/write-plan-apply.png, /images/Terraform/write-plan-apply.png 1.5x, /images/Terraform/write-plan-apply.png 2x" data-sizes=auto alt=/images/Terraform/write-plan-apply.png title=工作流></p><br><br><h2 id=用例>用例</h2><ul><li>多云部署</li><li>应用基础设施部署，扩展和监控工具</li><li>自助集群</li><li>政策合规性和管理</li><li>Paas应用配置</li><li>软件定义的网络</li><li>Kubernetes</li><li>并行环境</li><li>软件演示</li></ul><br><br><h2 id=快速开始>快速开始</h2><br><h3 id=aws示例>AWS示例</h3><br><h4 id=导入aws相关认证>导入aws相关认证</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>export AWS_ACCESS_KEY_ID=&#34;&lt;YOUR_AWS_ACCESS_KEY_ID&gt;&#34;
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Terraform - 风继续吹</title><meta name="Description" content="Terraform相关知识"><meta property="og:title" content="Terraform" />
+<meta property="og:description" content="Terraform相关知识" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/terraform/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-05T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-05-07T00:00:00&#43;00:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="Terraform"/>
+<meta name="twitter:description" content="Terraform相关知识"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/terraform/" /><link rel="prev" href="https://zhang21.cn/mongodb-definitive-guide/" /><link rel="next" href="https://zhang21.cn/hexo-hugo/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Terraform",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/terraform\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "terraform, iac, 基础架构即代码, 基础设施即代码","wordcount":  1365 ,
+        "url": "https:\/\/zhang21.cn\/terraform\/","datePublished": "2022-05-05T00:00:00+00:00","dateModified": "2022-05-07T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": "Terraform相关知识"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Terraform</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/devops/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>devops</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-05">2022-05-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1365 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基础架构即代码">基础架构即代码</a></li>
+    <li><a href="#terraform介绍">Terraform介绍</a>
+      <ul>
+        <li><a href="#terraform是什么">Terraform是什么</a></li>
+        <li><a href="#用例">用例</a></li>
+        <li><a href="#快速开始">快速开始</a>
+          <ul>
+            <li><a href="#aws示例">AWS示例</a>
+              <ul>
+                <li><a href="#导入aws相关认证">导入aws相关认证</a></li>
+                <li><a href="#编写配置">编写配置</a></li>
+                <li><a href="#配置内容">配置内容</a></li>
+                <li><a href="#初始化目录">初始化目录</a></li>
+                <li><a href="#格式化和验证配置">格式化和验证配置</a></li>
+                <li><a href="#查看变更和创建基础设施">查看变更和创建基础设施</a></li>
+                <li><a href="#查看状态">查看状态</a></li>
+                <li><a href="#定义变量">定义变量</a></li>
+                <li><a href="#在输出中查询数据">在输出中查询数据</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#terraform语言">Terraform语言</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考:</p>
+<ul>
+<li><a href="https://www.terraform.io/" target="_blank" rel="noopener noreffer ">Terraform</a></li>
+<li><a href="https://www.redhat.com/zh/topics/automation/what-is-infrastructure-as-code-iac" target="_blank" rel="noopener noreffer ">什么是基础架构即代码</a></li>
+</ul>
+<br/>
+<br/>
+<br/>
+<br/>
+<h1 id="基础架构即代码">基础架构即代码</h1>
+<p>基础架构即代码(IaC, Infrastructure as Code)，是通过代码（而非手动流程）来管理和置备基础架构（网络、虚拟机、负载均衡器和连接拓扑）的方法。</p>
+<p>利用IaC，我们可以创建包含基础架构规范的配置文件，从而便于编辑和分发配置。此外，它还可确保每次置备的环境都完全相同。</p>
+<p>版本控制是IaC的一个重要组成部分，就像其他任何软件源代码文件一样，配置文件也应该在源代码控制之下。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="terraform介绍">Terraform介绍</h1>
+<br/>
+<h2 id="terraform是什么">Terraform是什么</h2>
+<p>Terraform是一个基础设施即代码的工具，可让你安全有效地构建，更改和版本化基础设施。这包含了两个组件，低级别的如计算实例，存储和网络；高级别的DNS和SaaS功能。</p>
+<p>Terraform通过其API在云平台或其它服务上创建和管理资源。供应商(provider)使得Terraform几乎可以使用任何平台和服务。可以在<a href="https://registry.terraform.io/" target="_blank" rel="noopener noreffer ">Terrafrom Registry</a>上查询对应的供应商。如aws, gcp, azure, alicloud, tencentcloud等。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Terraform/assets.png"
+        data-srcset="/images/Terraform/assets.png, /images/Terraform/assets.png 1.5x, /images/Terraform/assets.png 2x"
+        data-sizes="auto"
+        alt="/images/Terraform/assets.png"
+        title="/images/Terraform/assets.png" /></p>
+<br/>
+<p>Terraform的工作流由三个阶段组成：</p>
+<ul>
+<li><strong>Write</strong>: 定义资源。</li>
+<li><strong>Plan</strong>: 基于现有基础架构和配置，描述是创建、更新或摧毁基础架构。</li>
+<li><strong>Apply</strong>: 执行操作。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Terraform/write-plan-apply.png"
+        data-srcset="/images/Terraform/write-plan-apply.png, /images/Terraform/write-plan-apply.png 1.5x, /images/Terraform/write-plan-apply.png 2x"
+        data-sizes="auto"
+        alt="/images/Terraform/write-plan-apply.png"
+        title="工作流" /></p>
+<br/>
+<br/>
+<h2 id="用例">用例</h2>
+<ul>
+<li>多云部署</li>
+<li>应用基础设施部署，扩展和监控工具</li>
+<li>自助集群</li>
+<li>政策合规性和管理</li>
+<li>Paas应用配置</li>
+<li>软件定义的网络</li>
+<li>Kubernetes</li>
+<li>并行环境</li>
+<li>软件演示</li>
+</ul>
+<br/>
+<br/>
+<h2 id="快速开始">快速开始</h2>
+<br/>
+<h3 id="aws示例">AWS示例</h3>
+<br/>
+<h4 id="导入aws相关认证">导入aws相关认证</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">export AWS_ACCESS_KEY_ID=&#34;&lt;YOUR_AWS_ACCESS_KEY_ID&gt;&#34;
 export AWS_SECRET_ACCESS_KEY=&#34;&lt;YOUR_AWS_SECRET_ACCESS_KEY&gt;&#34;
 export AWS_DEFAULT_REGION=&#34;&lt;YOUR_AWS_DEFAULT_REGION&gt;&#34;
-</code></pre></td></tr></table></div></div><br><h4 id=编写配置>编写配置</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>mkdir learn-terraform-aws-instance
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<h4 id="编写配置">编写配置</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mkdir learn-terraform-aws-instance
 
-<span class=nb>cd</span> learn-terraform-aws-instance
+<span class="nb">cd</span> learn-terraform-aws-instance
 
 touch main.tf
-</code></pre></td></tr></table></div></div><br><h4 id=配置内容>配置内容</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span><span class=lnt>25
-</span><span class=lnt>26
-</span><span class=lnt>27
-</span><span class=lnt>28
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-tf data-lang=tf><span class=c1># terraform块包含Terraform设置
-</span><span class=c1># 包含需要的provider
-</span><span class=c1></span><span class=nx>terraform</span> <span class=p>{</span>
-  <span class=nx>required_providers</span> <span class=p>{</span>
-    <span class=na>aws</span> = <span class=p>{</span>
-      <span class=na>source</span>  = <span class=s2>&#34;hashicorp/aws&#34;</span>
-      <span class=na>version</span> = <span class=s2>&#34;~&gt; 3.27&#34;</span>
-    <span class=p>}</span>
-  <span class=p>}</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<h4 id="配置内容">配置内容</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-tf" data-lang="tf"><span class="c1"># terraform块包含Terraform设置
+</span><span class="c1"># 包含需要的provider
+</span><span class="c1"></span><span class="nx">terraform</span> <span class="p">{</span>
+  <span class="nx">required_providers</span> <span class="p">{</span>
+    <span class="na">aws</span> = <span class="p">{</span>
+      <span class="na">source</span>  = <span class="s2">&#34;hashicorp/aws&#34;</span>
+      <span class="na">version</span> = <span class="s2">&#34;~&gt; 3.27&#34;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  <span class=na>required_version</span> = <span class=s2>&#34;&gt;= 0.14.9&#34;</span>
-<span class=p>}</span><span class=c1>
-</span><span class=c1>
-</span><span class=c1># provider块配置特定的provider
-</span><span class=c1></span><span class=kr>provider</span> <span class=s2>&#34;aws&#34;</span> <span class=p>{</span>
-  <span class=na>profile</span> = <span class=s2>&#34;default&#34;</span>
-  <span class=na>region</span>  = <span class=s2>&#34;us-west-2&#34;</span>
-<span class=p>}</span><span class=c1>
-</span><span class=c1>
-</span><span class=c1># resource块定义基础设施的组件
-</span><span class=c1></span><span class=kr>resource</span> <span class=s2>&#34;aws_instance&#34;</span> <span class=s2>&#34;app_server&#34;</span> <span class=p>{</span>
-  <span class=na>ami</span>           = <span class=s2>&#34;ami-830c94e3&#34;</span>
-  <span class=na>instance_type</span> = <span class=s2>&#34;t2.micro&#34;</span>
+  <span class="na">required_version</span> = <span class="s2">&#34;&gt;= 0.14.9&#34;</span>
+<span class="p">}</span><span class="c1">
+</span><span class="c1">
+</span><span class="c1"># provider块配置特定的provider
+</span><span class="c1"></span><span class="kr">provider</span> <span class="s2">&#34;aws&#34;</span> <span class="p">{</span>
+  <span class="na">profile</span> = <span class="s2">&#34;default&#34;</span>
+  <span class="na">region</span>  = <span class="s2">&#34;us-west-2&#34;</span>
+<span class="p">}</span><span class="c1">
+</span><span class="c1">
+</span><span class="c1"># resource块定义基础设施的组件
+</span><span class="c1"></span><span class="kr">resource</span> <span class="s2">&#34;aws_instance&#34;</span> <span class="s2">&#34;app_server&#34;</span> <span class="p">{</span>
+  <span class="na">ami</span>           = <span class="s2">&#34;ami-830c94e3&#34;</span>
+  <span class="na">instance_type</span> = <span class="s2">&#34;t2.micro&#34;</span>
 
-  <span class=na>tags</span> = <span class=p>{</span>
-    <span class=na>Name</span> = <span class=s2>&#34;ExampleAppServerInstance&#34;</span>
-  <span class=p>}</span>
-<span class=p>}</span>
-</code></pre></td></tr></table></div></div><br><h4 id=初始化目录>初始化目录</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>terraform init
-</code></pre></td></tr></table></div></div><br><h4 id=格式化和验证配置>格式化和验证配置</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>terraform fmt
+  <span class="na">tags</span> = <span class="p">{</span>
+    <span class="na">Name</span> = <span class="s2">&#34;ExampleAppServerInstance&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<h4 id="初始化目录">初始化目录</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">terraform init
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<h4 id="格式化和验证配置">格式化和验证配置</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">terraform fmt
 
 terraform validate
-</code></pre></td></tr></table></div></div><br><h4 id=查看变更和创建基础设施>查看变更和创建基础设施</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>terraform plan
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<h4 id="查看变更和创建基础设施">查看变更和创建基础设施</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">terraform plan
 
 terraform apply
-</code></pre></td></tr></table></div></div><br><br><h4 id=查看状态>查看状态</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>terraform show
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="查看状态">查看状态</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">terraform show
 
 terraform state list
-</code></pre></td></tr></table></div></div><br><h4 id=定义变量>定义变量</h4><p>创建<code>variables.tf</code>文件，定义变量。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-tf data-lang=tf><span class=kr>variable</span> <span class=s2>&#34;instance_name&#34;</span> <span class=p>{</span>
-  <span class=na>description</span> = <span class=s2>&#34;value of the name tag for ec2 instance&#34;</span>
-  <span class=na>type</span> = <span class=nx>string</span>
-  <span class=na>default</span> = <span class=s2>&#34;ExampleAppServerInstance&#34;</span>
-<span class=p>}</span>
-</code></pre></td></tr></table></div></div><p>使用变量</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span><span class=lnt>9
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-tf data-lang=tf><span class=kr>resource</span> <span class=s2>&#34;aws_instance&#34;</span> <span class=s2>&#34;app_server&#34;</span> <span class=p>{</span>
-  <span class=na>ami</span>           = <span class=s2>&#34;ami-08d70e59c07c61a3a&#34;</span>
-  <span class=na>instance_type</span> = <span class=s2>&#34;t2.micro&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<h4 id="定义变量">定义变量</h4>
+<p>创建<code>variables.tf</code>文件，定义变量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-tf" data-lang="tf"><span class="kr">variable</span> <span class="s2">&#34;instance_name&#34;</span> <span class="p">{</span>
+  <span class="na">description</span> = <span class="s2">&#34;value of the name tag for ec2 instance&#34;</span>
+  <span class="na">type</span> = <span class="nx">string</span>
+  <span class="na">default</span> = <span class="s2">&#34;ExampleAppServerInstance&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-tf" data-lang="tf"><span class="kr">resource</span> <span class="s2">&#34;aws_instance&#34;</span> <span class="s2">&#34;app_server&#34;</span> <span class="p">{</span>
+  <span class="na">ami</span>           = <span class="s2">&#34;ami-08d70e59c07c61a3a&#34;</span>
+  <span class="na">instance_type</span> = <span class="s2">&#34;t2.micro&#34;</span>
 
-  <span class=na>tags</span> = <span class=p>{</span>
-<span class=o>-</span>   <span class=na>Name</span> = <span class=s2>&#34;ExampleAppServerInstance&#34;</span>
-<span class=o>+</span>   <span class=na>Name</span> = <span class=nb>var</span><span class=p>.</span><span class=nx>instance_name</span>
-   <span class=p>}</span>
- <span class=p>}</span>
-</code></pre></td></tr></table></div></div><p>也可以在命令上上使用<code>-var "instance_name=YetAnotherName"</code>来设置变量。</p><br><h4 id=在输出中查询数据>在输出中查询数据</h4><p>编写<code>output.tf</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-tf data-lang=tf><span class=kr>output</span> <span class=s2>&#34;instance_id&#34;</span> <span class=p>{</span>
-  <span class=na>description</span> = <span class=s2>&#34;ID of the EC2 instance&#34;</span>
-  <span class=na>value</span>       = <span class=nx>aws_instance</span><span class=p>.</span><span class=nx>app_server</span><span class=p>.</span><span class=nx>id</span>
-<span class=p>}</span>
-<span class=kr>
-</span><span class=kr>output</span> <span class=s2>&#34;instance_public_ip&#34;</span> <span class=p>{</span>
-  <span class=na>description</span> = <span class=s2>&#34;Public IP address of the EC2 instance&#34;</span>
-  <span class=na>value</span>       = <span class=nx>aws_instance</span><span class=p>.</span><span class=nx>app_server</span><span class=p>.</span><span class=nx>public_ip</span>
-<span class=p>}</span>
+  <span class="na">tags</span> = <span class="p">{</span>
+<span class="o">-</span>   <span class="na">Name</span> = <span class="s2">&#34;ExampleAppServerInstance&#34;</span>
+<span class="o">+</span>   <span class="na">Name</span> = <span class="nb">var</span><span class="p">.</span><span class="nx">instance_name</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>也可以在命令上上使用<code>-var &quot;instance_name=YetAnotherName&quot;</code>来设置变量。</p>
+<br/>
+<h4 id="在输出中查询数据">在输出中查询数据</h4>
+<p>编写<code>output.tf</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-tf" data-lang="tf"><span class="kr">output</span> <span class="s2">&#34;instance_id&#34;</span> <span class="p">{</span>
+  <span class="na">description</span> = <span class="s2">&#34;ID of the EC2 instance&#34;</span>
+  <span class="na">value</span>       = <span class="nx">aws_instance</span><span class="p">.</span><span class="nx">app_server</span><span class="p">.</span><span class="nx">id</span>
+<span class="p">}</span>
+<span class="kr">
+</span><span class="kr">output</span> <span class="s2">&#34;instance_public_ip&#34;</span> <span class="p">{</span>
+  <span class="na">description</span> = <span class="s2">&#34;Public IP address of the EC2 instance&#34;</span>
+  <span class="na">value</span>       = <span class="nx">aws_instance</span><span class="p">.</span><span class="nx">app_server</span><span class="p">.</span><span class="nx">public_ip</span>
+<span class="p">}</span>
 
-</code></pre></td></tr></table></div></div><br><p>查看输出内容</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>terraform output
-<span class=nv>instance_id</span> <span class=o>=</span> <span class=s2>&#34;i-0bf954919ed765de1&#34;</span>
-<span class=nv>instance_public_ip</span> <span class=o>=</span> <span class=s2>&#34;54.186.202.254&#34;</span>
-</code></pre></td></tr></table></div></div><br><hr><br><h1 id=terraform语言>Terraform语言</h1><p>Terraform使用HCL(Hashicorp Configuration Language)。</p><p>Terraform语言的语法由一些基础元素组成:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>resource &#34;aws_vpc&#34; &#34;main&#34; {
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>查看输出内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">terraform output
+<span class="nv">instance_id</span> <span class="o">=</span> <span class="s2">&#34;i-0bf954919ed765de1&#34;</span>
+<span class="nv">instance_public_ip</span> <span class="o">=</span> <span class="s2">&#34;54.186.202.254&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="terraform语言">Terraform语言</h1>
+<p>Terraform使用HCL(Hashicorp Configuration Language)。</p>
+<p>Terraform语言的语法由一些基础元素组成:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">resource &#34;aws_vpc&#34; &#34;main&#34; {
   cidr_block = var.base_cidr_block
 }
 
@@ -170,102 +472,151 @@ terraform state list
   # Block body
   &lt;IDENTIFIER&gt;  = &lt;EXPRESSION&gt; # Agrument
 }
-</code></pre></td></tr></table></div></div><br><p>示例:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span><span class=lnt>25
-</span><span class=lnt>26
-</span><span class=lnt>27
-</span><span class=lnt>28
-</span><span class=lnt>29
-</span><span class=lnt>30
-</span><span class=lnt>31
-</span><span class=lnt>32
-</span><span class=lnt>33
-</span><span class=lnt>34
-</span><span class=lnt>35
-</span><span class=lnt>36
-</span><span class=lnt>37
-</span><span class=lnt>38
-</span><span class=lnt>39
-</span><span class=lnt>40
-</span><span class=lnt>41
-</span><span class=lnt>42
-</span><span class=lnt>43
-</span><span class=lnt>44
-</span><span class=lnt>45
-</span><span class=lnt>46
-</span><span class=lnt>47
-</span><span class=lnt>48
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-tf data-lang=tf><span class=nx>terraform</span> <span class=p>{</span>
-  <span class=nx>required_providers</span> <span class=p>{</span>
-    <span class=na>aws</span> = <span class=p>{</span>
-      <span class=na>source</span>  = <span class=s2>&#34;hashicorp/aws&#34;</span>
-      <span class=na>version</span> = <span class=s2>&#34;~&gt; 1.0.4&#34;</span>
-    <span class=p>}</span>
-  <span class=p>}</span>
-<span class=p>}</span>
-<span class=kr>
-</span><span class=kr>variable</span> <span class=s2>&#34;aws_region&#34;</span> <span class=p>{}</span>
-<span class=kr>
-</span><span class=kr>variable</span> <span class=s2>&#34;base_cidr_block&#34;</span> <span class=p>{</span>
-  <span class=na>description</span> = <span class=s2>&#34;A /16 CIDR range definition, such as 10.1.0.0/16, that the VPC will use&#34;</span>
-  <span class=na>default</span> = <span class=s2>&#34;10.1.0.0/16&#34;</span>
-<span class=p>}</span>
-<span class=kr>
-</span><span class=kr>variable</span> <span class=s2>&#34;availability_zones&#34;</span> <span class=p>{</span>
-  <span class=na>description</span> = <span class=s2>&#34;A list of availability zones in which to create subnets&#34;</span>
-  <span class=na>type</span> =<span class=nb> list</span><span class=p>(</span><span class=nx>string</span><span class=p>)</span>
-<span class=p>}</span>
-<span class=kr>
-</span><span class=kr>provider</span> <span class=s2>&#34;aws&#34;</span> <span class=p>{</span>
-  <span class=na>region</span> = <span class=nb>var</span><span class=p>.</span><span class=nx>aws_region</span>
-<span class=p>}</span>
-<span class=kr>
-</span><span class=kr>resource</span> <span class=s2>&#34;aws_vpc&#34;</span> <span class=s2>&#34;main&#34;</span> <span class=p>{</span><span class=c1>
-</span><span class=c1>  # Referencing the base_cidr_block variable allows the network address
-</span><span class=c1>  # to be changed without modifying the configuration.
-</span><span class=c1></span>  <span class=na>cidr_block</span> = <span class=nb>var</span><span class=p>.</span><span class=nx>base_cidr_block</span>
-<span class=p>}</span>
-<span class=kr>
-</span><span class=kr>resource</span> <span class=s2>&#34;aws_subnet&#34;</span> <span class=s2>&#34;az&#34;</span> <span class=p>{</span><span class=c1>
-</span><span class=c1>  # Create one subnet for each given availability zone.
-</span><span class=c1></span>  <span class=na>count</span> =<span class=nb> length</span><span class=p>(</span><span class=nb>var</span><span class=p>.</span><span class=nx>availability_zones</span><span class=p>)</span><span class=c1>
-</span><span class=c1>
-</span><span class=c1>  # For each subnet, use one of the specified availability zones.
-</span><span class=c1></span>  <span class=na>availability_zone</span> = <span class=nb>var</span><span class=p>.</span><span class=nx>availability_zones</span><span class=p>[</span><span class=nb>count</span><span class=p>.</span><span class=nx>index</span><span class=p>]</span><span class=c1>
-</span><span class=c1>
-</span><span class=c1>  # By referencing the aws_vpc.main object, Terraform knows that the subnet
-</span><span class=c1>  # must be created only after the VPC is created.
-</span><span class=c1></span>  <span class=na>vpc_id</span> = <span class=nx>aws_vpc</span><span class=p>.</span><span class=nx>main</span><span class=p>.</span><span class=nx>id</span><span class=c1>
-</span><span class=c1>
-</span><span class=c1>  # Built-in functions and operators can be used for simple transformations of
-</span><span class=c1>  # values, such as computing a subnet address. Here we create a /20 prefix for
-</span><span class=c1>  # each subnet, using consecutive addresses for each availability zone,
-</span><span class=c1>  # such as 10.1.16.0/20 .
-</span><span class=c1></span>  <span class=na>cidr_block</span> = <span class=nb>cidrsubnet</span><span class=p>(</span><span class=nx>aws_vpc</span><span class=p>.</span><span class=nx>main</span><span class=p>.</span><span class=nx>cidr_block</span><span class=p>,</span> <span class=m>4</span><span class=p>,</span> <span class=nb>count</span><span class=p>.</span><span class=nx>index</span><span class=o>+</span><span class=m>1</span><span class=p>)</span>
-<span class=p>}</span>
-</code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2022-05-07</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/terraform/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://zhang21.cn/terraform/ data-title=Terraform data-hashtags=terraform,iac,基础架构即代码,基础设施即代码><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://zhang21.cn/terraform/ data-title=Terraform><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Reddit" data-sharer=reddit data-url=https://zhang21.cn/terraform/><i class="fab fa-reddit fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://zhang21.cn/terraform/ data-title=Terraform><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.0.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://zhang21.cn/terraform/ data-title=Terraform><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/terraform/>terraform</a>,&nbsp;<a href=/tags/iac/>iac</a>,&nbsp;<a href=/tags/%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E5%8D%B3%E4%BB%A3%E7%A0%81/>基础架构即代码</a>,&nbsp;<a href=/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/>基础设施即代码</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/mongodb-definitive-guide/ class=prev rel=prev title=MongoDB权威指南><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>MongoDB权威指南</a>
-<a href=/hexo-hugo/ class=next rel=next title=Hexo迁移到Hugo>Hexo迁移到Hugo<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=disqus_thread class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://disqus.com/?ref_noscript>Disqus</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://zhang21.cn target=_blank>Zhang21</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
-</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css><script type=text/javascript src=https://zhang21.disqus.com/embed.js defer></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:20},comment:{},lightgallery:!0,math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"RZ22ZCTIDN",algoliaIndex:"hugo-index",algoliaSearchKey:"11ec277ef4d730e232eda9651548da78",highlightTag:"em",maxResultLength:20,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"},twemoji:!0}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>示例:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-tf" data-lang="tf"><span class="nx">terraform</span> <span class="p">{</span>
+  <span class="nx">required_providers</span> <span class="p">{</span>
+    <span class="na">aws</span> = <span class="p">{</span>
+      <span class="na">source</span>  = <span class="s2">&#34;hashicorp/aws&#34;</span>
+      <span class="na">version</span> = <span class="s2">&#34;~&gt; 1.0.4&#34;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">
+</span><span class="kr">variable</span> <span class="s2">&#34;aws_region&#34;</span> <span class="p">{}</span>
+<span class="kr">
+</span><span class="kr">variable</span> <span class="s2">&#34;base_cidr_block&#34;</span> <span class="p">{</span>
+  <span class="na">description</span> = <span class="s2">&#34;A /16 CIDR range definition, such as 10.1.0.0/16, that the VPC will use&#34;</span>
+  <span class="na">default</span> = <span class="s2">&#34;10.1.0.0/16&#34;</span>
+<span class="p">}</span>
+<span class="kr">
+</span><span class="kr">variable</span> <span class="s2">&#34;availability_zones&#34;</span> <span class="p">{</span>
+  <span class="na">description</span> = <span class="s2">&#34;A list of availability zones in which to create subnets&#34;</span>
+  <span class="na">type</span> =<span class="nb"> list</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kr">
+</span><span class="kr">provider</span> <span class="s2">&#34;aws&#34;</span> <span class="p">{</span>
+  <span class="na">region</span> = <span class="nb">var</span><span class="p">.</span><span class="nx">aws_region</span>
+<span class="p">}</span>
+<span class="kr">
+</span><span class="kr">resource</span> <span class="s2">&#34;aws_vpc&#34;</span> <span class="s2">&#34;main&#34;</span> <span class="p">{</span><span class="c1">
+</span><span class="c1">  # Referencing the base_cidr_block variable allows the network address
+</span><span class="c1">  # to be changed without modifying the configuration.
+</span><span class="c1"></span>  <span class="na">cidr_block</span> = <span class="nb">var</span><span class="p">.</span><span class="nx">base_cidr_block</span>
+<span class="p">}</span>
+<span class="kr">
+</span><span class="kr">resource</span> <span class="s2">&#34;aws_subnet&#34;</span> <span class="s2">&#34;az&#34;</span> <span class="p">{</span><span class="c1">
+</span><span class="c1">  # Create one subnet for each given availability zone.
+</span><span class="c1"></span>  <span class="na">count</span> =<span class="nb"> length</span><span class="p">(</span><span class="nb">var</span><span class="p">.</span><span class="nx">availability_zones</span><span class="p">)</span><span class="c1">
+</span><span class="c1">
+</span><span class="c1">  # For each subnet, use one of the specified availability zones.
+</span><span class="c1"></span>  <span class="na">availability_zone</span> = <span class="nb">var</span><span class="p">.</span><span class="nx">availability_zones</span><span class="p">[</span><span class="nb">count</span><span class="p">.</span><span class="nx">index</span><span class="p">]</span><span class="c1">
+</span><span class="c1">
+</span><span class="c1">  # By referencing the aws_vpc.main object, Terraform knows that the subnet
+</span><span class="c1">  # must be created only after the VPC is created.
+</span><span class="c1"></span>  <span class="na">vpc_id</span> = <span class="nx">aws_vpc</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">id</span><span class="c1">
+</span><span class="c1">
+</span><span class="c1">  # Built-in functions and operators can be used for simple transformations of
+</span><span class="c1">  # values, such as computing a subnet address. Here we create a /20 prefix for
+</span><span class="c1">  # each subnet, using consecutive addresses for each availability zone,
+</span><span class="c1">  # such as 10.1.16.0/20 .
+</span><span class="c1"></span>  <span class="na">cidr_block</span> = <span class="nb">cidrsubnet</span><span class="p">(</span><span class="nx">aws_vpc</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">cidr_block</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="nb">count</span><span class="p">.</span><span class="nx">index</span><span class="o">+</span><span class="m">1</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-05-07</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/terraform/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/terraform/" data-title="Terraform" data-hashtags="terraform,iac,基础架构即代码,基础设施即代码"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/terraform/" data-title="Terraform"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/terraform/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/terraform/" data-title="Terraform"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.0.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/terraform/" data-title="Terraform"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/terraform/">terraform</a>,&nbsp;<a href="/tags/iac/">iac</a>,&nbsp;<a href="/tags/%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E5%8D%B3%E4%BB%A3%E7%A0%81/">基础架构即代码</a>,&nbsp;<a href="/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/">基础设施即代码</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mongodb-definitive-guide/" class="prev" rel="prev" title="MongoDB权威指南"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>MongoDB权威指南</a>
+            <a href="/hexo-hugo/" class="next" rel="next" title="Hexo迁移到Hugo">Hexo迁移到Hugo<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

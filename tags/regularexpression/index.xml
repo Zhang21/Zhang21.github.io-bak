@@ -1,7 +1,22 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>RegularExpression - 标签 - 风继续吹</title><link>https://zhang21.cn/tags/regularexpression/</link><description>RegularExpression - 标签 - 风继续吹</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor><webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 08 Feb 2018 11:33:16 +0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/regularexpression/" rel="self" type="application/rss+xml"/><item><title>正则表达式</title><link>https://zhang21.cn/regularexpression/</link><pubDate>Thu, 08 Feb 2018 11:33:16 +0000</pubDate><author>Zhang21</author><guid>https://zhang21.cn/regularexpression/</guid><description><![CDATA[<p>参考：</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>RegularExpression - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/regularexpression/</link>
+        <description>RegularExpression - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 08 Feb 2018 11:33:16 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/regularexpression/" rel="self" type="application/rss+xml" /><item>
+    <title>正则表达式</title>
+    <link>https://zhang21.cn/regularexpression/</link>
+    <pubDate>Thu, 08 Feb 2018 11:33:16 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/regularexpression/</guid>
+    <description><![CDATA[<p>参考：</p>
 <ul>
 <li>《鸟哥的Linux私房菜》</li>
 <li><a href="https://zh.wikipedia.org/wiki/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F" target="_blank" rel="noopener noreffer ">正则表达式维基百科</a></li>
 </ul>
 <br>
-<br>]]></description></item></channel></rss>
+<br>]]></description>
+</item>
+</channel>
+</rss>
