@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>读书笔记 - 分类 - 风继续吹</title>
+        <link>https://zhang21.cn/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+        <description>读书笔记 - 分类 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 13 Feb 2023 11:36:55 &#43;0800</lastBuildDate><atom:link href="https://zhang21.cn/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml" /><item>
+    <title>韦小绿笔记</title>
+    <link>https://zhang21.cn/mw-vocabulary-builder/</link>
+    <pubDate>Mon, 13 Feb 2023 11:36:55 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/mw-vocabulary-builder/</guid>
+    <description><![CDATA[韦小绿 Merriam-Webster&rsquo;s Vocabulary Builder]]></description>
+</item>
+<item>
+    <title>英语在用笔记</title>
+    <link>https://zhang21.cn/english-in-use/</link>
+    <pubDate>Mon, 13 Feb 2023 11:32:52 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/english-in-use/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

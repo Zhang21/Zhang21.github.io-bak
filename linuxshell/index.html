@@ -51,7 +51,7 @@ k-vim: https://github.com/wklken/k-vim
                             "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "Shell, Bash, Linux, Vim","wordcount":  53373 ,
+                        }],"genre": "posts","keywords": "Shell, Bash, Linux, Vim","wordcount":  53526 ,
         "url": "https:\/\/zhang21.cn\/linuxshell\/","datePublished": "2017-10-24T18:16:38+00:00","dateModified": "2017-10-24T18:16:38+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
@@ -81,8 +81,7 @@ k-vim: https://github.com/wklken/k-vim
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                     <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a>
-            </div>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
@@ -126,7 +125,7 @@ k-vim: https://github.com/wklken/k-vim
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Shell</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>linux</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2017-10-24">2017-10-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 53373 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2017-10-24">2017-10-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 53526 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 107 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -240,12 +239,12 @@ k-vim: https://github.com/wklken/k-vim
     </li>
     <li><a href="#bash特殊符号">Bash特殊符号</a></li>
     <li><a href="#-注释符---comments">| 注释符  | #comments</a></li>
-    <li><a href="#shell-script">shell script</a>
+    <li><a href="#shell脚本">shell脚本</a>
       <ul>
-        <li><a href="#shell-script介绍">shell script介绍</a></li>
-        <li><a href="#编写一个shell-script">编写一个shell script</a></li>
-        <li><a href="#shell-script判断式">shell script判断式</a></li>
-        <li><a href="#shell-script的默认变量-01">shell script的默认变量: $0,$1&hellip;</a></li>
+        <li><a href="#介绍">介绍</a></li>
+        <li><a href="#编写一个shell脚本">编写一个shell脚本</a></li>
+        <li><a href="#shell脚本判断式">shell脚本判断式</a></li>
+        <li><a href="#shell脚本的默认变量">shell脚本的默认变量</a></li>
         <li><a href="#条件判断语句">条件判断语句</a>
           <ul>
             <li><a href="#ifthen语句">if&hellip;then语句</a></li>
@@ -253,14 +252,14 @@ k-vim: https://github.com/wklken/k-vim
             <li><a href="#function功能">function功能</a></li>
           </ul>
         </li>
-        <li><a href="#循环loop语句">循环(loop)语句</a>
+        <li><a href="#循环语句">循环语句</a>
           <ul>
             <li><a href="#while-do-done不定循环">while do done(不定循环)</a></li>
             <li><a href="#until-do-done不定循环">until do done(不定循环)</a></li>
             <li><a href="#for-do-done固定循环">for do done(固定循环)</a></li>
           </ul>
         </li>
-        <li><a href="#shell-script的追踪与调试debug">shell script的追踪与调试(debug)</a></li>
+        <li><a href="#shell脚本的追踪与调试">shell脚本的追踪与调试</a></li>
       </ul>
     </li>
     <li><a href="#小试牛刀">小试牛刀</a>
@@ -296,7 +295,7 @@ k-vim: https://github.com/wklken/k-vim
         <li><a href="#用tr进行转换">用<code>tr</code>进行转换</a></li>
         <li><a href="#校验和-与-核实文件完整性md5sum">校验和 与 核实文件完整性(<code>md5sum</code>)</a></li>
         <li><a href="#临时文件命名随机数">临时文件命名、随机数</a></li>
-        <li><a href="#分割文件和数据split">分割文件和数据(<code>split</code>)</a></li>
+        <li><a href="#split命令分割文件">split命令分割文件</a></li>
         <li><a href="#根据扩展名切分文件名">根据扩展名切分文件名</a></li>
         <li><a href="#批量重命名和移动">批量重命名和移动</a></li>
         <li><a href="#拼写检查与词典操作">拼写检查与词典操作</a></li>
@@ -328,11 +327,11 @@ k-vim: https://github.com/wklken/k-vim
       <ul>
         <li><a href="#简介-4">简介</a></li>
         <li><a href="#正则表达式">正则表达式</a></li>
-        <li><a href="#用grep在文件中搜索文本">用<code>grep</code>在文件中搜索文本</a></li>
-        <li><a href="#用cut按列切分文件">用<code>cut</code>按列切分文件</a></li>
+        <li><a href="#用grep在文件中搜索文本">用grep在文件中搜索文本</a></li>
+        <li><a href="#用cut按列切分文件">用cut按列切分文件</a></li>
         <li><a href="#统计特定文件词频">统计特定文件词频</a></li>
-        <li><a href="#sed入门"><code>sed</code>入门</a></li>
-        <li><a href="#awk入门"><code>awk</code>入门</a></li>
+        <li><a href="#sed入门">sed入门</a></li>
+        <li><a href="#awk入门">awk入门</a></li>
         <li><a href="#对文件中的行单词字符进行迭代">对文件中的行、单词、字符进行迭代</a></li>
         <li><a href="#按列合并文件paste">按列合并文件(<code>paste</code>)</a></li>
         <li><a href="#以逆序形式打印行">以逆序形式打印行</a></li>
@@ -2106,15 +2105,14 @@ PS2  | 第二行以后的提示字符  | $PS2
 <br>
 <hr>
 <br/>
-<h1 id="shell-script">shell script</h1>
-<p>shell script 有点像早期的批处理程序，即将一些命令汇整起来一次执行.但shell script拥有更强大的功能，可以进行类似程序(program)的编写，并且不需要经过编译(compile)就能执行。</p>
-<br>
+<h1 id="shell脚本">shell脚本</h1>
+<p>shell脚本有点像早期的批处理程序，即将一些命令汇整起来一次执行.但shell脚本拥有更强大的功能，可以进行类似程序(program)的编写，并且不需要经过编译(compile)就能执行。</p>
 <br/>
-<h2 id="shell-script介绍">shell script介绍</h2>
-<p>shell script是利用shell的功能写的一个程序(program)。这个程序是使用纯文本文件，将一些shell的语法与命令(含外部命令)写在里面，搭配正则表达式、命令管道与数据流重定向等功能，还提供了数组、循环、条件与逻辑判断等重要功能， 以达到我们所想要的处理目的。</p>
-<p>shell script用在系统管理上面是很好的一项工具，但用在处理大量数值运算上就不够好。因为shell script的速度较慢，且使用的cpu资源较多，造成主机资源的分配不良。</p>
+<h2 id="介绍">介绍</h2>
+<p>shell脚本是利用shell的功能写的一个程序(program)。这个程序是使用纯文本文件，将一些shell的语法与命令(含外部命令)写在里面，搭配正则表达式、命令管道与数据流重定向等功能，还提供了数组、循环、条件与逻辑判断等重要功能， 以达到我们所想要的处理目的。</p>
+<p>shell脚本用在系统管理上面是很好的一项工具，但用在处理大量数值运算上就不够好。因为shell脚本的速度较慢，且使用的cpu资源较多，造成主机资源的分配不良。</p>
 <br>
-<p>使用shell script的优势：</p>
+<p>使用shell脚本的优势：</p>
 <ul>
 <li>自动化管理的重要依据</li>
 <li>追踪与管理系统的重要工具</li>
@@ -2123,7 +2121,7 @@ PS2  | 第二行以后的提示字符  | $PS2
 <li>简单的数据处理</li>
 <li>跨平台支持与学习历程较短</li>
 </ul>
-<p>shell script注意事项：</p>
+<p>shell脚本注意事项：</p>
 <ul>
 <li>命令的执行是从上到下从左到右，分析与执行</li>
 <li>命令的执行中：命令、参数间的多个空白都会被忽略掉</li>
@@ -2132,7 +2130,7 @@ PS2  | 第二行以后的提示字符  | $PS2
 <li>一行内容太多，则可以使用<code>\[Enter]</code>来扩展到下一行</li>
 <li>任何加在#后面的内容都将被视为注释而被忽略</li>
 </ul>
-<p>shell script文件的执行方式：</p>
+<p>shell脚本文件的执行方式：</p>
 <ul>
 <li>直接命令执行
 <ul>
@@ -2146,28 +2144,40 @@ PS2  | 第二行以后的提示字符  | $PS2
 </ul>
 </li>
 </ul>
-<p>shell script执行方式的区别：</p>
+<p>shell脚本执行方式的区别：</p>
 <ul>
-<li>直接执行，script是在子进程的bash中执行的。当子进程完成后，子进程内的各项变量或操作将会结束而不会传回到父进程中。</li>
+<li>直接执行，脚本是在子进程的bash中执行的。当子进程完成后，子进程内的各项变量或操作将会结束而不会传回到父进程中。</li>
 <li>source来执行，在父进程中执行</li>
 </ul>
 <br/>
 <br>
-<h2 id="编写一个shell-script">编写一个shell script</h2>
-<p>一个良好的shell script应该纪录好如下信息：</p>
+<h2 id="编写一个shell脚本">编写一个shell脚本</h2>
+<p>编写一个良好的shell脚本的技巧：</p>
 <ul>
-<li>script的功能</li>
-<li>script的版本信息</li>
-<li>script的作者</li>
-<li>script的版权声明方式</li>
-<li>script的History（历史记录）</li>
-<li>script内较特殊的命令，使用绝对路径的方式来执行</li>
-<li>script执行时需要的环境变量预先声明与设置</li>
+<li>脚本的功能</li>
+<li>脚本的版本信息</li>
+<li>脚本的作者</li>
+<li>脚本的版权声明方式</li>
+<li>脚本的历史记录</li>
+<li>脚本内较特殊的命令，使用绝对路径的方式来执行</li>
+<li>脚本执行时需要的环境变量预先声明与设置</li>
 <li>在较为特殊的程序代码部分，建议务必要加上批注说明</li>
+<li>脚本的退出状态码</li>
+<li>对于一些字符串变量，使用括号引起来</li>
+<li><code>set -e</code>会让脚本出错就停止运行</li>
+<li><code>set -eu</code>会让脚本中有变量没有定义而退出</li>
+<li>可以给变量定义默认值，如<code>${FOO:-'default'}</code></li>
+<li>为脚本设置<code>-h</code>或<code>--help</code>来显示帮助信息，千万别把这两个参数作为功能</li>
+<li>使用<code>$()</code>而非反引号来获得命令行的输出，主要是易读</li>
+<li>一定要小心使用<code>rm -rf</code>这样的命令。比如<code>rm -rf $MYDIDR/*</code>，如果<code>$MYDIR</code>为空，结果是灾难性的</li>
+<li>考虑使用<code>find/while</code>而不是<code>for/find</code></li>
+<li>防御式编程，在正式执行命令前，把相关的东西都检查好</li>
+<li>学会使用<code>grep/awk/sed</code>这些命令</li>
+<li>检查命令是否存在，不建议用<code>which</code>，因为它没有设置状态码。建议使用<code>hash/type</code>。</li>
 </ul>
 <br>
 <br/>
-<h2 id="shell-script判断式">shell script判断式</h2>
+<h2 id="shell脚本判断式">shell脚本判断式</h2>
 <p>当我要检测系统上某些文件或相关属性时，使用<code>test</code>命令。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2179,71 +2189,200 @@ PS2  | 第二行以后的提示字符  | $PS2
 </div>
 </div><br/>
 <p><strong>文件类型判断</strong>：</p>
-<p>选项 | 说明</p>
-<ul>
-<li>| -
--e | 是否存在
--f | 是否存在文件
--d | 是否存在目录
--b | 是否存在block device
--c | 是否存在character device
--S | 是否存在Socket文件
--p | 是否存在pipe文件
--L | 是否存在链接文件</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-e</td>
+<td>是否存在</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>是否存在文件</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>是否存在目录</td>
+</tr>
+<tr>
+<td>-b</td>
+<td>是否存在block device</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>是否存在character device</td>
+</tr>
+<tr>
+<td>-S</td>
+<td>是否存在Socket文件</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>是否存在pipe文件</td>
+</tr>
+<tr>
+<td>-L</td>
+<td>是否存在链接文件</td>
+</tr>
+</tbody>
+</table>
 <br/>
 <p><strong>文件权限判断</strong>：</p>
-<p>选项 | 说明</p>
-<ul>
-<li>| -
--r | 是否可读
--w | 是否可写
--x | 是否可执行
--u | 是否具有SUID
--g | 是够具有SGID
--k | 是否具有Sticky bit
--s | 是否为非空白文件</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-r</td>
+<td>是否可读</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>是否可写</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>是否可执行</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>是否具有SUID</td>
+</tr>
+<tr>
+<td>-g</td>
+<td>是够具有SGID</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>是否具有Sticky bit</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>是否为非空白文件</td>
+</tr>
+</tbody>
+</table>
 <br/>
 <p><strong>文件之间的比较</strong>：</p>
-<p>选项 | 说明</p>
-<ul>
-<li>| -
--nt | newer than
--ot | old than
--ef | 是否为同一个文件</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-nt</td>
+<td>newer than</td>
+</tr>
+<tr>
+<td>-ot</td>
+<td>old than</td>
+</tr>
+<tr>
+<td>-ef</td>
+<td>是否为同一个文件</td>
+</tr>
+</tbody>
+</table>
 <br>
 <p><strong>整数之间的比较</strong>：</p>
-<p>选项 | 说明</p>
-<ul>
-<li>| -
--eq | equal
--ne | not equal
--gt | greater than
--lt | less than
--ge | greater or equal
--le | less or equal</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-eq</td>
+<td>equal</td>
+</tr>
+<tr>
+<td>-ne</td>
+<td>not equal</td>
+</tr>
+<tr>
+<td>-gt</td>
+<td>greater than</td>
+</tr>
+<tr>
+<td>-lt</td>
+<td>less than</td>
+</tr>
+<tr>
+<td>-ge</td>
+<td>greater or equal</td>
+</tr>
+<tr>
+<td>-le</td>
+<td>less or equal</td>
+</tr>
+</tbody>
+</table>
 <br/>
 <p><strong>字符串之间的比较</strong>：</p>
-<p>选项 | 说明</p>
-<ul>
-<li>| -
--z | 是否为空
--n | 非空
-str1 = str2 | 是否相等
-!= | 不等于</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-z</td>
+<td>是否为空</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>非空</td>
+</tr>
+<tr>
+<td>str1 = str2</td>
+<td>是否相等</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不等于</td>
+</tr>
+</tbody>
+</table>
 <br>
 <p><strong>多重条件判断</strong>：</p>
-<p>选项 | 说明</p>
-<ul>
-<li>| -
--a | and
--o | or
-! | 非</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a</td>
+<td>and</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>or</td>
+</tr>
+<tr>
+<td>!</td>
+<td>非</td>
+</tr>
+</tbody>
+</table>
 <br/>
 <p><strong>判断符号[]</strong>:</p>
 <p>如果需要在bash中使用中括号来作为shell的判断式时，必须要注意中括号的两端需要有空格符来分隔。</p>
@@ -2253,15 +2392,17 @@ str1 = str2 | 是否相等
 </ul>
 <br/>
 <br>
-<h2 id="shell-script的默认变量-01">shell script的默认变量: $0,$1&hellip;</h2>
+<h2 id="shell脚本的默认变量">shell脚本的默认变量</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">/root/test.sh opt1 opt2 opt3
-	$0	$1	$2	$3
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 示例</span>
+/root/test.sh opt1 opt2 opt3
+	<span class="nv">$0</span>	<span class="nv">$1</span>	<span class="nv">$2</span>	<span class="nv">$3</span>
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -2290,7 +2431,7 @@ str1 = str2 | 是否相等
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sh" data-lang="sh"><span class="k">if</span> <span class="o">[</span> confition <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-	xxx
+    xxx
 <span class="k">fi</span>
 </code></pre></td></tr></table>
 </div>
@@ -2405,8 +2546,8 @@ status<span class="o">)</span>
 </div>
 </div><br>
 <h3 id="function功能">function功能</h3>
-<p>什么是函数？函数可以在shell script 当中做出一个类似自定义执行命令的东西。最大的动能是，可以简化很多的程序代码。</p>
-<p>因为shell script的执行方式是由上而下、由左而右。因此在shell script当中，function的定义一定要在程序的最前面，这样才能够在执行时被找到可用的程序段。</p>
+<p>什么是函数？函数可以在shell脚本当中做出一个类似自定义执行命令的东西。最大的动能是，可以简化很多的程序代码。</p>
+<p>因为shell脚本的执行方式是由上而下、由左而右。因此在shell脚本当中，function的定义一定要在程序的最前面，这样才能够在执行时被找到可用的程序段。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -2455,7 +2596,7 @@ sh func.sh aaa bbb
 </div>
 </div><br>
 <br>
-<h2 id="循环loop语句">循环(loop)语句</h2>
+<h2 id="循环语句">循环语句</h2>
 <br>
 <h3 id="while-do-done不定循环">while do done(不定循环)</h3>
 <p><code>while</code>是当condition条件成立时，就进行循环，condition条件不成立就停止。</p>
@@ -2552,8 +2693,8 @@ sh func.sh aaa bbb
 </div>
 </div><br>
 <br/>
-<h2 id="shell-script的追踪与调试debug">shell script的追踪与调试(debug)</h2>
-<p>最好在shell script执行之前先行调试。</p>
+<h2 id="shell脚本的追踪与调试">shell脚本的追踪与调试</h2>
+<p>最好在shell脚本执行之前先行调试。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -3882,7 +4023,8 @@ uniq -s <span class="m">2</span> -w <span class="m">2</span> sorted.txt	<span cl
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<h2 id="分割文件和数据split">分割文件和数据(<code>split</code>)</h2>
+<h2 id="split命令分割文件">split命令分割文件</h2>
+<p>使用<code>split</code>命令来分割一个大文件。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -4655,67 +4797,198 @@ tree /home/zhang -H http://localhost -o tree.html	<span class="c1">#以html形�
 <p>正则表达式是一种用于文本匹配的形式小巧、具有高度针对性的编程语言。只依靠通配符技术，能够匹配的文本范围相当有限。</p>
 <br>
 <p><strong>正则表达式基本组成</strong></p>
-<p>正则表达式 | 描述</p>
-<ul>
-<li>| -
-^	| 行起始标记
-$	| 行尾标记
-.	| 匹配任意一个字符
-[]	| 匹配包含在[]中的任意一个字符
-[^]	| 匹配出[^]之外任意一个字符
-[-]	| 匹配[]中范围内的任意一个字符
-？	| 重复0或1次</li>
-</ul>
-<ul>
-<li>| 重复&gt;=1次</li>
-</ul>
-<ul>
-<li>| 重复&gt;=0次
-()	| 创建一个用于匹配的子串
-{n}	| 重复n次
-{n, }	| 重复&gt;=n次
-{n,m}	| 重复n到m次
-\	| 转义字符
-竖线l	| 匹配竖线l两边任意一项</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>正则表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^</td>
+<td>行起始标记</td>
+</tr>
+<tr>
+<td>$</td>
+<td>行尾标记</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配任意一个字符</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>匹配包含在[]中的任意一个字符</td>
+</tr>
+<tr>
+<td>[^]</td>
+<td>匹配出[^]之外任意一个字符</td>
+</tr>
+<tr>
+<td>[-]</td>
+<td>匹配[]中范围内的任意一个字符</td>
+</tr>
+<tr>
+<td>？</td>
+<td>重复0或1次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>重复&gt;=1次</td>
+</tr>
+<tr>
+<td>*</td>
+<td>重复&gt;=0次</td>
+</tr>
+<tr>
+<td>()</td>
+<td>创建一个用于匹配的子串</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>重复n次</td>
+</tr>
+<tr>
+<td>{n, }</td>
+<td>重复&gt;=n次</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>重复n到m次</td>
+</tr>
+<tr>
+<td>\</td>
+<td>转义字符</td>
+</tr>
+<tr>
+<td>竖线l</td>
+<td>匹配竖线l两边任意一项</td>
+</tr>
+</tbody>
+</table>
 <br>
 <p><strong>POSIX字符类</strong></p>
 <p>POSIX字符类(POSIX character class),是一个形如[:&hellip;:]的特殊元序列，它用于匹配特定的字符范围。<br></p>
-<p>正则表达式	| 描述</p>
-<ul>
-<li>| -
-[:alnum:]	| 字母与数字字符
-[:alpha:]	| 字母字符
-[:blank:]	| 空格与制表符
-[:digit:]	| 数字字符
-[:lower:]	| 小写字母
-[:upper:]	| 大写字母
-[:punct:]	| 标点符号
-[:space:]	| 所有空白字符</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>正则表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[:alnum:]</td>
+<td>字母与数字字符</td>
+</tr>
+<tr>
+<td>[:alpha:]</td>
+<td>字母字符</td>
+</tr>
+<tr>
+<td>[:blank:]</td>
+<td>空格与制表符</td>
+</tr>
+<tr>
+<td>[:digit:]</td>
+<td>数字字符</td>
+</tr>
+<tr>
+<td>[:lower:]</td>
+<td>小写字母</td>
+</tr>
+<tr>
+<td>[:upper:]</td>
+<td>大写字母</td>
+</tr>
+<tr>
+<td>[:punct:]</td>
+<td>标点符号</td>
+</tr>
+<tr>
+<td>[:space:]</td>
+<td>所有空白字符</td>
+</tr>
+</tbody>
+</table>
 <br>
 <p><strong>元字符</strong></p>
-<p>元字符(meta character)，是一种Perl风格的正则表达式，只有一部分文本处理工具支持它。<br/></p>
-<p>正则表达式	| 描述</p>
-<ul>
-<li>| -
-\A  | 字符串的开头
-\b	| 单词边界
-\B	| 非单词边界
-\d	| 单个数字字符
-\D	| 单个非数字字符
-\f  | 换页字符
-\n	| 换行符
-\r	| 回车
-\s	| 单个空白字符
-\S	| 单个非空白字符
-\t  | 跳进字符
-\v  | 垂直跳进字符
-\w	| 单个单词字符(数字，字母和_)
-\W	| 单个非单词字符
-\z  | 字符串的结尾
-\Z  | 匹配字符串的结尾，或结尾的换行符之前</li>
-</ul>
+<p>元字符(meta character)，是一种Perl风格的正则表达式，只有一部分文本处理工具支持它。</p>
+<table>
+<thead>
+<tr>
+<th>正则表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\A</td>
+<td>字符串的开头</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>单词边界</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>非单词边界</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>单个数字字符</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>单个非数字字符</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>换页字符</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行符</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>单个空白字符</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>单个非空白字符</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>跳进字符</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>垂直跳进字符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>单个单词字符(数字，字母和_)</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>单个非单词字符</td>
+</tr>
+<tr>
+<td>\z</td>
+<td>字符串的结尾</td>
+</tr>
+<tr>
+<td>\Z</td>
+<td>匹配字符串的结尾，或结尾的换行符之前</td>
+</tr>
+</tbody>
+</table>
 <br>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -4727,16 +5000,16 @@ $	| 行尾标记
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#匹配一个ipv4地址</span>
-<span class="o">[</span>0-9<span class="o">]{</span>1,3<span class="o">}</span><span class="se">\.</span><span class="o">[</span>0-9<span class="o">]{</span>1,3<span class="o">}</span><span class="se">\.</span><span class="o">[</span>0-9<span class="o">]{</span>1,3<span class="o">}</span><span class="se">\.</span><span class="o">[</span>0-9<span class="o">]{</span>1,3<span class="o">}</span>
+<pre class="chroma"><code class="language-re" data-lang="re"><span class="ow">#</span><span class="n">匹配一个ipv4地址</span>
+<span class="ow">[</span><span class="n">0</span><span class="ow">-</span><span class="n">9</span><span class="ow">]{</span><span class="n">1</span><span class="ow">,</span><span class="n">3</span><span class="ow">}</span><span class="err">\</span><span class="ow">.[</span><span class="n">0</span><span class="ow">-</span><span class="n">9</span><span class="ow">]{</span><span class="n">1</span><span class="ow">,</span><span class="n">3</span><span class="ow">}</span><span class="err">\</span><span class="ow">.[</span><span class="n">0</span><span class="ow">-</span><span class="n">9</span><span class="ow">]{</span><span class="n">1</span><span class="ow">,</span><span class="n">3</span><span class="ow">}</span><span class="err">\</span><span class="ow">.[</span><span class="n">0</span><span class="ow">-</span><span class="n">9</span><span class="ow">]{</span><span class="n">1</span><span class="ow">,</span><span class="n">3</span><span class="ow">}</span>
 
 
-<span class="c1">#匹配一个邮箱地址</span>
-<span class="o">[</span><span class="se">\w</span><span class="o">]</span>+@<span class="o">[</span><span class="se">\w</span><span class="o">]</span><span class="se">\.</span>com
+<span class="ow">#</span><span class="n">匹配一个邮箱地址</span>
+<span class="ow">[</span><span class="err">\</span><span class="n">w</span><span class="ow">]+</span><span class="o">@</span><span class="ow">[</span><span class="err">\</span><span class="n">w</span><span class="ow">]</span><span class="err">\</span><span class="ow">.</span><span class="n">com</span>
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<h2 id="用grep在文件中搜索文本">用<code>grep</code>在文件中搜索文本</h2>
+<h2 id="用grep在文件中搜索文本">用grep在文件中搜索文本</h2>
 <p><code>grep</code>命令是Unix中用于文本搜索的工具，它能够接受正则表达式和通配符。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -4789,8 +5062,8 @@ egerep <span class="s2">&#34;(a|b)&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<h2 id="用cut按列切分文件">用<code>cut</code>按列切分文件</h2>
-<p><code>cut</code>是一个将文本按列进行切分的小工具，它也可以指定每列定界符。在cut的术语中，每列都是一个字段。<br></p>
+<h2 id="用cut按列切分文件">用cut按列切分文件</h2>
+<p><code>cut</code>是一个将文本按列进行切分的小工具，它也可以指定每列定界符。在cut的术语中，每列都是一个字段。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -4828,7 +5101,7 @@ egrep -o <span class="s2">&#34;\b[:alpha:]+\b&#34;</span>	<span class="c1">#匹�
 </code></pre></td></tr></table>
 </div>
 </div><br/>
-<h2 id="sed入门"><code>sed</code>入门</h2>
+<h2 id="sed入门">sed入门</h2>
 <p><code>sed</code>是stream editor(流编辑器)的缩写，它是文本处理中非常重要的工具。能够完美地配合正则表达式使用。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -4929,7 +5202,7 @@ HELLO world
 </code></pre></td></tr></table>
 </div>
 </div><br/>
-<h2 id="awk入门"><code>awk</code>入门</h2>
+<h2 id="awk入门">awk入门</h2>
 <p><code>awk</code>被设计用于数据流，它可以对列和行进行操作。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -9224,7 +9497,7 @@ tmux attach -t alice_bob
                             <a class="link-to-markdown" href="/linuxshell/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/linuxshell/" data-title="Shell" data-hashtags="Shell,Bash,Linux,Vim"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/linuxshell/" data-title="Shell"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/linuxshell/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/linuxshell/" data-title="Shell"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.0.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/linuxshell/" data-title="Shell"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/linuxshell/" data-title="Shell" data-hashtags="Shell,Bash,Linux,Vim"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/linuxshell/" data-title="Shell"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/linuxshell/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/linuxshell/" data-title="Shell"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/linuxshell/" data-title="Shell"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -9244,7 +9517,7 @@ tmux attach -t alice_bob
             </noscript></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
